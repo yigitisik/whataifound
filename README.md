@@ -100,9 +100,9 @@ contrast threshold (muted text 5.4:1, white-on-pill 4.9:1 or better).
 A **theme switch** (sun / monitor / moon, top right) chooses light, system, or dark, persisted in
 `localStorage` and applied by a tiny inline `<head>` script so there is no flash on load. A manual
 choice beats the OS setting via a `:root[data-theme="..."]` override; "system" removes the
-attribute and defers to `prefers-color-scheme`. Switching radiates the new theme out from the
-click using the View Transitions API (a circular `clip-path` reveal), and falls back to an instant
-swap where that API is absent or `prefers-reduced-motion` is set.
+attribute and defers to `prefers-color-scheme`. Switching wipes the new theme in from the top of
+the viewport downward using the View Transitions API (an `inset()` `clip-path` reveal), and falls
+back to an instant swap where that API is absent or `prefers-reduced-motion` is set.
 
 The **Methodology** button opens `methodology.html`, a styled page that presents the verification
 and autonomy grades (with the same coloured pills) and the editorial rules, rather than surfacing

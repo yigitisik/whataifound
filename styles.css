@@ -82,7 +82,7 @@
   .theme-seg .th:hover{color:var(--ink)}
   .theme-seg .th[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
   .theme-seg .th svg{width:15px;height:15px;display:block}
-  /* Radiating theme reveal via the View Transitions API: the incoming theme clips open from the click. */
+  /* Theme reveal via the View Transitions API: the incoming theme wipes down from the top. */
   ::view-transition-old(root),::view-transition-new(root){animation:none;mix-blend-mode:normal}
   ::view-transition-old(root){z-index:1}
   ::view-transition-new(root){z-index:9999}

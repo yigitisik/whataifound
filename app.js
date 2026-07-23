@@ -10,7 +10,7 @@ const AUT_LABEL = {
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
 
-// Theme: light / dark / system. Radiating reveal from the click via View Transitions.
+// Theme: light / dark / system. Top-to-bottom wipe via View Transitions.
 (function(){
   const btns = [...document.querySelectorAll('.theme-seg .th')];
   if (!btns.length) return;
@@ -24,14 +24,14 @@ let ALL = [], first = true;
     try { localStorage.setItem('theme', mode); } catch(e){}
   };
   sync(current());
-  btns.forEach(b => b.addEventListener('click', ev => {
+  btns.forEach(b => b.addEventListener('click', () => {
     const mode = b.dataset.mode;
     if (!document.startViewTransition || REDUCE) { apply(mode); return; }
-    const x = ev.clientX || (innerWidth - 40), y = ev.clientY || 30;
-    const r = Math.hypot(Math.max(x, innerWidth - x), Math.max(y, innerHeight - y));
+    // The incoming theme is revealed as a horizontal edge sweeping down the viewport:
+    // inset() insets from the bottom by 100% (nothing visible) to 0 (fully revealed).
     document.startViewTransition(() => apply(mode)).ready.then(() => {
       document.documentElement.animate(
-        { clipPath: [`circle(0px at ${x}px ${y}px)`, `circle(${r}px at ${x}px ${y}px)`] },
+        { clipPath: ['inset(0 0 100% 0)', 'inset(0 0 0 0)'] },
         { duration: 500, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' });
     });
   }));
