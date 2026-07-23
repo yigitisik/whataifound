@@ -1,4 +1,4 @@
-# Provenance. https://whataifound.org
+# whataifound.org. https://whataifound.org
 
 User-agent: *
 Allow: /

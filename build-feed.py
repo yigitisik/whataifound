@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate feed.json (JSON Feed 1.1) and feed.xml (RSS 2.0) from data/entries.json.
 
-Provenance has no build step; this is a standalone generator you run whenever the
+whataifound.org has no build step; this is a standalone generator you run whenever the
 registry changes. It writes feed.json and feed.xml at the repo root, next to
 data/ and assets/, so Vercel serves them directly.
 
@@ -67,10 +67,10 @@ feed_url_xml = f"{SITE}/feed.xml"
 # ---- JSON Feed 1.1 (https://www.jsonfeed.org/version/1.1/) ----
 json_feed = {
     "version": "https://jsonfeed.org/version/1.1",
-    "title": "Provenance: What AI Has Actually Discovered",
+    "title": "whataifound.org: What AI Has Actually Discovered",
     "home_page_url": f"{SITE}/",
     "feed_url": feed_url_json,
-    "description": "New and updated entries in the Provenance registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
+    "description": "New and updated entries in the whataifound.org registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
     "language": "en",
     "icon": f"{SITE}/assets/brand/og.png",
     "favicon": f"{SITE}/assets/brand/favicon.svg",
@@ -113,14 +113,14 @@ rss = (
     '<?xml version="1.0" encoding="UTF-8"?>\n'
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
     "<channel>\n"
-    "<title>Provenance: What AI Has Actually Discovered</title>\n"
+    "<title>whataifound.org: What AI Has Actually Discovered</title>\n"
     f"<link>{SITE}/</link>\n"
     f'<atom:link href="{feed_url_xml}" rel="self" type="application/rss+xml" />\n'
-    "<description>New and updated entries in the Provenance registry of AI scientific "
+    "<description>New and updated entries in the whataifound.org registry of AI scientific "
     "and mathematical discoveries, graded on verification and autonomy.</description>\n"
     "<language>en</language>\n"
     f"<lastBuildDate>{format_datetime(now)}</lastBuildDate>\n"
-    f"<image><url>{SITE}/assets/brand/og.png</url><title>Provenance</title>"
+    f"<image><url>{SITE}/assets/brand/og.png</url><title>whataifound.org</title>"
     f"<link>{SITE}/</link></image>\n"
     + "\n".join(items_xml)
     + "\n</channel>\n</rss>\n"

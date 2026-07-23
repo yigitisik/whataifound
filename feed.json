@@ -1,9 +1,9 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
-  "title": "Provenance: What AI Has Actually Discovered",
+  "title": "whataifound.org: What AI Has Actually Discovered",
   "home_page_url": "https://whataifound.org/",
   "feed_url": "https://whataifound.org/feed.json",
-  "description": "New and updated entries in the Provenance registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
+  "description": "New and updated entries in the whataifound.org registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
   "language": "en",
   "icon": "https://whataifound.org/assets/brand/og.png",
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",

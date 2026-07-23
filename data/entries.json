@@ -14,7 +14,7 @@
     "novelty_check": "The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed.",
     "caveats": "Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript.",
     "independent_checks": [
-      {"who": "Provenance (symbolic recomputation, SymPy)", "url": "", "outcome": "confirmed, det J = −2 identically; all three points map to (−¼,0,0)"},
+      {"who": "whataifound.org (symbolic recomputation, SymPy)", "url": "", "outcome": "confirmed, det J = −2 identically; all three points map to (−¼,0,0)"},
       {"who": "Multiple mathematicians via public computer-algebra checks", "url": "https://news.ycombinator.com/item?id=48973869", "outcome": "confirmed"}
     ],
     "sources": [

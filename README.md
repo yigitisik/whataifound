@@ -1,4 +1,4 @@
-# Provenance
+# whataifound.org
 
 The record of what AI has actually discovered.
 
@@ -27,7 +27,7 @@ will show a fallback message. Opening `/app/index.html` from a plain server root
 ## Structure
 
 ```
-provenance/
+whataifound/
 ├── app/                # the deployable site (served at / by vercel.json)
 │   ├── index.html      # markup + SEO/social <head>; a tiny inline script sets the theme pre-paint
 │   ├── methodology.html# styled grading reference, linked from the Methodology button
@@ -252,20 +252,15 @@ Roughly in order of remaining value:
 
 See `SCHEMA.md` for full field definitions.
 
-## Domain candidates
+## Domain
 
-All returned NXDOMAIN as of 2026-07-20 (confirm at a registrar before buying; NXDOMAIN means no
-nameservers, which usually but not always means unregistered):
+The registry is **`whataifound.org`**, and the name of the project is the domain itself. A `.org`
+reads as neutral infrastructure, which is what a registry should look like.
 
-`provenance.science` · `chronicle.science` · `almanac.science` · `ledger.science` ·
-`record.science` · `canon.science` · `priorart.science` · `novel.science` · `noesis.science` ·
-`theregistry.science` · `newknown.org` · `machinefound.org` · `novelresult.org`
-
-Taken: `novum.science`, `firstproof.org`, `provenance.ai`, `newknown.com`, `firstfound.org`.
-
-Note that `.science` carries some spam baggage from its cheap-registration era, which can affect
-email deliverability. A `.org` is the safer choice if the registry is meant to read as neutral
-infrastructure.
+The domain string is not free-floating: it is the canonical URL in `app/index.html`,
+`app/methodology.html`, `robots.txt`, `sitemap.xml`, and `build-feed.py`, and it is the wordmark in
+`assets/brand/og.svg` and the header of both pages. Changing it means changing all of those and
+re-rendering `og.png`.
 
 ## Contact address
 
