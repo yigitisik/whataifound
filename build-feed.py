@@ -7,7 +7,7 @@ data/ and assets/, so Vercel serves them directly.
 
     python3 build-feed.py
 
-SITE below is the canonical domain and must match app/index.html, app/methodology.html,
+SITE below is the canonical domain and must match index.html, methodology.html,
 sitemap.xml, and robots.txt.
 """
 import json, os

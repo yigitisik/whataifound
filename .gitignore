@@ -42,3 +42,7 @@ app/sitemap.xml
 *.log
 tmp/
 .cache/
+
+# ---- Python ----
+__pycache__/
+*.pyc
