@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<!-- ============================================================
+     Primary SEO / discovery metadata
+     Canonical domain: https://whataifound.org
+     (Also referenced in: sitemap.xml, robots.txt, methodology.html)
+     ============================================================ -->
+<title>Provenance: What AI Has Actually Discovered | Registry of AI Scientific &amp; Math Discoveries</title>
+<meta name="description" content="Provenance is a curated, independently graded registry of real scientific and mathematical discoveries made by or with AI systems (Anthropic, OpenAI, DeepMind and others). Every AI discovery is graded on how it was verified, from formally machine-checked proofs to disputed claims, and on how much the AI actually did versus its human collaborators. Search AI breakthroughs across mathematics, physics, biology and computer science.">
+<meta name="keywords" content="AI discoveries, AI scientific discoveries, AI math discoveries, discoveries made by AI, has AI discovered anything new, AI theorems, AI proofs, verified AI research, AlphaEvolve, FunSearch, AlphaProof, autonomous AI research, AI mathematics registry">
+<meta name="author" content="Provenance (independent editorial project)">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/">
+
+<!-- Open Graph (Facebook, LinkedIn, Slack, Discord, iMessage) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Provenance">
+<meta property="og:title" content="Provenance: What AI Has Actually Discovered">
+<meta property="og:description" content="A curated registry of scientific and mathematical results discovered by or with AI, graded on how each was verified and how much the AI actually did.">
+<meta property="og:url" content="https://whataifound.org/">
+<!-- PNG, not SVG: WhatsApp, iMessage, Facebook, LinkedIn and X do not render SVG previews. -->
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Provenance: a curated registry of what AI has actually discovered.">
+<meta property="og:locale" content="en_US">
+
+<!-- Twitter / X card -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Provenance: What AI Has Actually Discovered">
+<meta name="twitter:description" content="A curated, verification-graded registry of scientific and mathematical results discovered by or with AI systems.">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="Provenance: a curated registry of what AI has actually discovered.">
+
+<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="assets/brand/favicon.svg" color="#0b0d10">
+
+<!-- Subscribable feeds: new and updated registry entries. -->
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="Provenance (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="Provenance (RSS)">
+
+<!-- Structured data: helps Google, ChatGPT, Perplexity and other AI search
+     engines understand what this site is and cite it accurately. -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "WebSite",
+      "@id": "https://whataifound.org/#website",
+      "url": "https://whataifound.org/",
+      "name": "Provenance",
+      "alternateName": "Provenance: What AI Has Actually Discovered",
+      "description": "A curated, independently graded registry of scientific and mathematical results discovered by or with AI systems. Every entry is graded on how it was verified and how much the AI actually did.",
+      "inLanguage": "en",
+      "potentialAction": {
+        "@type": "SearchAction",
+        "target": "https://whataifound.org/?q={search_term_string}",
+        "query-input": "required name=search_term_string"
+      }
+    },
+    {
+      "@type": "Dataset",
+      "@id": "https://whataifound.org/#dataset",
+      "name": "Provenance: Registry of AI Scientific and Mathematical Discoveries",
+      "description": "An open, curated registry of scientific and mathematical results discovered by or with AI systems. Each record is graded on a verification axis (formally verified, independently checked, peer reviewed, author verified, claimed, disputed, already known, refuted) and an autonomy axis (how much the AI did versus its human collaborators). Results that turned out to already exist in the literature are kept on the record.",
+      "url": "https://whataifound.org/",
+      "keywords": ["AI discoveries", "artificial intelligence", "mathematics", "scientific discovery", "machine-verified proofs", "AI autonomy", "research provenance"],
+      "isAccessibleForFree": true,
+      "creator": { "@type": "Organization", "name": "Provenance", "url": "https://whataifound.org/" },
+      "license": "https://whataifound.org/methodology.html",
+      "distribution": {
+        "@type": "DataDownload",
+        "encodingFormat": "application/json",
+        "contentUrl": "https://whataifound.org/data/entries.json"
+      }
+    },
+    {
+      "@type": "FAQPage",
+      "@id": "https://whataifound.org/#faq",
+      "mainEntity": [
+        {
+          "@type": "Question",
+          "name": "What has AI actually discovered in science and mathematics?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Provenance is a curated registry of scientific and mathematical results discovered by or with AI systems. Each entry records the claim, the AI model and lab involved, the human collaborators, and a grade for how it was verified and how much the AI actually did."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How does Provenance verify AI discoveries?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Every finding is graded on a verification scale from strongest to weakest: formally verified (machine-checked proof), independently checked, peer reviewed, author verified, claimed, disputed, already known, and refuted. When unsure, the lower grade wins. Nothing is ever deleted; entries are downgraded and annotated instead."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How much of an AI discovery was done by the AI versus humans?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Provenance grades an autonomy axis on the strictest defensible reading: autonomous, AI-led, collaborative, AI-assisted, search scaffold (e.g. FunSearch, AlphaEvolve), or retrieval. If a human posed the problem, suggested the approach, and checked the algebra, that is not counted as autonomous."
+          }
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#list">Skip to entries</a>
+<div class="spectrum" aria-hidden="true"></div>
+<nav class="sitenav" aria-label="Page sections">
+  <ol>
+    <li><a href="#top" data-target="top"><span class="sitenav-dot" aria-hidden="true"></span><span class="sitenav-label">Top</span></a></li>
+    <li><a href="#list" data-target="list"><span class="sitenav-dot" aria-hidden="true"></span><span class="sitenav-label">Registry</span></a></li>
+    <li data-optional="panel-visuals" hidden><a href="#panel-visuals" data-target="panel-visuals"><span class="sitenav-dot" aria-hidden="true"></span><span class="sitenav-label">Visuals</span></a></li>
+    <li><a href="#sources" data-target="sources"><span class="sitenav-dot" aria-hidden="true"></span><span class="sitenav-label">Sources</span></a></li>
+    <li><a href="#about" data-target="about"><span class="sitenav-dot" aria-hidden="true"></span><span class="sitenav-label">About</span></a></li>
+  </ol>
+</nav>
+<div class="wrap">
+
+<header id="top">
+  <div class="eyebrow intro i1">
+    <span class="brand">
+      <svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+        <path class="m1" d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+        <path class="m2" d="M12 7 L17 12 L12 17 L7 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+        <circle class="m3" cx="12" cy="12" r="1.7" fill="currentColor"/>
+      </svg>
+      Provenance</span>
+    <span class="eyebrow-right">
+      <span class="theme-seg" role="group" aria-label="Colour theme">
+        <button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg>
+        </button>
+        <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg>
+        </button>
+        <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg>
+        </button>
+      </span>
+      <span class="updated"><span class="pulse"></span>Updated <b id="updated">…</b></span>
+    </span>
+  </div>
+  <h1 class="intro i2">What AI has<br><span class="grad">actually discovered</span></h1>
+  <p class="lede intro i3">A curated registry of real discoveries in mathematics, physics, biology, and
+  computer science produced by or with AI systems (Anthropic, OpenAI, Deepmind, and others). We grade every
+  entry on <strong>how it was verified</strong> and <strong>how much the AI actually did</strong>,
+  so you can tell a machine-checked proof from a press release.</p>
+  <div class="actions intro i4">
+    <a class="btn primary" href="mailto:misik6@gatech.edu?subject=Provenance%20feedback"
+       title="Submit a finding, suggest a correction, or ask for updates">Feedback</a>
+    <a type="button" class="btn" id="btn-visuals" aria-expanded="false" aria-controls="panel-visuals">Visuals</a>
+    <a class="btn" href="methodology.html">Methodology</a>
+  </div>
+  <div class="stats" id="stats"></div>
+</header>
+
+<div id="panel-registry">
+  <div class="controls" role="search" aria-label="Search and filter findings">
+    <input id="q" type="search" placeholder="Search claims, labs, models, tags…" aria-label="Search entries">
+    <select id="field" aria-label="Filter by field"><option value="">All fields</option></select>
+    <select id="lab" aria-label="Filter by lab"><option value="">All labs</option></select>
+    <select id="ver" aria-label="Filter by verification"><option value="">All verification levels</option></select>
+    <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"></span>
+  </div>
+  <main id="list"></main>
+</div>
+
+<section id="panel-visuals" aria-label="Visuals" hidden>
+  <p class="panel-note">We show the whole registry at a glance here. These charts always reflect all findings, not the current filter.</p>
+  <div class="qv-grid" id="charts"></div>
+</section>
+
+<section class="labs-hub" id="sources" aria-label="Sources and hubs">
+  <h2 class="lbl">Announced at the source</h2>
+  <div class="labgrid">
+    <a class="labcard" href="https://www.anthropic.com/science" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/anthropic.svg" alt=""></span>
+      <span class="labcard-meta"><b>Anthropic</b><span>Science</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://openai.com/research/index/" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/openai.svg" alt=""></span>
+      <span class="labcard-meta"><b>OpenAI</b><span>Research</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://deepmind.google/science/" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/deepmind.svg" alt=""></span>
+      <span class="labcard-meta"><b>Google DeepMind</b><span>Science</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://www.amazon.science/" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/amazon.svg" alt=""></span>
+      <span class="labcard-meta"><b>Amazon</b><span>Science</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://ai.meta.com/research/" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/meta.svg" alt=""></span>
+      <span class="labcard-meta"><b>Meta</b><span>AI Research</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+  </div>
+  <p class="labs-note">Official research hubs, where these labs post the discoveries we track here.</p>
+
+  <h2 class="lbl subhead">Other common places to find info and discussions</h2>
+  <div class="labgrid">
+    <a class="labcard" href="https://github.com/google-deepmind" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/github.svg" alt=""></span>
+      <span class="labcard-meta"><b>GitHub (e.g: Deepmind)</b><span>Open-source code</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://news.ycombinator.com" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/hackernews.svg" alt=""></span>
+      <span class="labcard-meta"><b>Hacker News</b><span>Discussion</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+    <a class="labcard" href="https://math.stackexchange.com" target="_blank" rel="noopener">
+      <span class="labcard-logo"><img src="assets/external-logos/stackexchange.svg" alt=""></span>
+      <span class="labcard-meta"><b>Math Stack Exchange</b><span>Q&amp;A</span></span>
+      <span class="labcard-go" aria-hidden="true">↗</span>
+    </a>
+  </div>
+  <p class="labs-note">Community code, forums, and Q&amp;A where we watch results get scrutinised. External links, open in a new tab.</p>
+</section>
+
+<footer id="about">
+  <span class="lbl">Editorial policy</span>
+  <p>We enter lab announcements as <em>claimed</em> regardless of confidence. We never delete
+  anything; we downgrade and annotate entries instead, and keep the full history public. We write
+  a novelty check for every entry, including when it comes back clean.</p>
+  <span class="lbl">Disclaimer</span>
+  <p>We run Provenance as an independent editorial project. Verification and autonomy grades are
+  our editorial judgments, made in good faith from public information; they are provided "as is",
+  without warranty of any kind, and may change as new evidence emerges. Nothing here is
+  scientific, legal, or investment advice. This site is not affiliated with, sponsored by, or
+  endorsed by any laboratory or company mentioned. Logos and names are trademarks of their
+  respective owners and appear for identification only.</p>
+  <p>We maintain this as volunteer work. Corrections genuinely welcome.
+  <a href="mailto:misik6@gatech.edu">Get in touch</a>.</p>
+
+  <span class="lbl">Use the data</span>
+  <p>The full registry is a single open file under a
+  <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC BY 4.0</a>
+  license: reuse it anywhere with attribution.
+  <a href="/data/entries.json" download>Download data (JSON)</a> ·
+  <a href="/feed.xml">RSS feed</a> ·
+  <a href="/feed.json">JSON feed</a> ·
+  <a href="https://whataifound.org/LICENSE">License</a></p>
+
+  <span class="lbl">How to cite</span>
+  <p class="cite">
+    Provenance (2026). <em>Provenance: A Registry of AI Scientific and Mathematical Discoveries.</em>
+    Retrieved <span id="cite-date">2026</span> from https://whataifound.org/
+  </p>
+
+  <p class="colophon">© 2026 Isik &amp; Co.</p>
+</footer>
+
+</div>
+
+<script src="app.js"></script>
+
+<!-- Vercel Web Analytics: privacy-friendly, cookieless page and event tracking.
+     The /_vercel/insights/* endpoints are served automatically once Web Analytics
+     is enabled for the project in the Vercel dashboard. No-op on other hosts. -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<!-- Vercel Speed Insights: Core Web Vitals (LCP, CLS, INP) from real visits. -->
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

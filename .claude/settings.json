@@ -1,0 +1,9 @@
+{
+  "permissions": {
+    "allow": [
+      "Skill(dataviz)",
+      "Skill(dataviz:*)",
+      "Bash(node scripts/validate_palette.js \"#1a6b4a,#2d6ba3,#5a4a9e,#8a6d1f,#a8501f,#8f2f2f\" --mode light)"
+    ]
+  }
+}

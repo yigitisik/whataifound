@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Page not found | Provenance</title>
+<meta name="robots" content="noindex, follow">
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+<style>
+  @font-face{font-family:'Newsreader';src:url('/assets/fonts/news-400.woff2') format('woff2');font-weight:400;font-display:swap}
+  @font-face{font-family:'Newsreader';src:url('/assets/fonts/news-600.woff2') format('woff2');font-weight:600;font-display:swap}
+  :root{--bg:#faf9f6;--panel:#ffffff;--ink:#191917;--muted:#6a6760;--line:#e5e1d9;--line-strong:#d3cec3;
+    --accent:#12513a;--accent-soft:#e9f1ec;--serif:'Newsreader',Georgia,Palatino,serif;
+    --ease:cubic-bezier(.22,.7,.24,1)}
+  @media (prefers-color-scheme:dark){:root:not([data-theme]){--bg:#111310;--panel:#181a15;--ink:#ecebe0;
+    --muted:#9c998d;--line:#2a2d24;--line-strong:#3a3e32;--accent:#7ec6a3;--accent-soft:#1a251f}}
+  :root[data-theme="dark"]{--bg:#111310;--panel:#181a15;--ink:#ecebe0;--muted:#9c998d;--line:#2a2d24;
+    --line-strong:#3a3e32;--accent:#7ec6a3;--accent-soft:#1a251f}
+  *{box-sizing:border-box}
+  body{margin:0;min-height:100vh;background:var(--bg);color:var(--ink);
+    font-family:var(--serif);display:grid;place-items:center;padding:24px;
+    -webkit-font-smoothing:antialiased}
+  .card{max-width:520px;text-align:center}
+  .mark{color:var(--accent);opacity:.9;margin-bottom:22px}
+  .code{font-size:.68rem;text-transform:uppercase;letter-spacing:.18em;color:var(--muted);
+    font-weight:600;margin:0 0 10px}
+  h1{font-size:1.9rem;font-weight:600;letter-spacing:-.01em;margin:0 0 14px;line-height:1.25}
+  p{color:var(--muted);font-size:1.02rem;line-height:1.6;margin:0 auto 26px;max-width:42ch}
+  .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  a.btn{display:inline-block;text-decoration:none;font-size:.82rem;letter-spacing:.02em;
+    padding:11px 20px;border-radius:11px;border:1px solid var(--line-strong);color:var(--ink);
+    transition:border-color .16s var(--ease),background .16s,transform .16s}
+  a.btn:hover{transform:translateY(-1px);border-color:var(--accent)}
+  a.btn.primary{background:var(--accent);border-color:var(--accent);
+    color:var(--bg)}
+  a.btn.primary:hover{filter:brightness(1.06)}
+</style>
+</head>
+<body>
+  <div class="card">
+    <svg class="mark" viewBox="0 0 24 24" width="42" height="42" aria-hidden="true">
+      <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+      <path d="M12 7 L17 12 L12 17 L7 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
+      <circle cx="12" cy="12" r="1.7" fill="currentColor"/>
+    </svg>
+    <p class="code">Error 404</p>
+    <h1>This page is not on the record</h1>
+    <p>The link may be broken, or the page may have moved. Everything we track lives back on the
+    registry, where nothing gets deleted.</p>
+    <div class="actions">
+      <a class="btn primary" href="/">Back to the registry</a>
+      <a class="btn" href="/methodology">How we grade</a>
+    </div>
+  </div>
+</body>
+</html>

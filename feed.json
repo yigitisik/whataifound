@@ -1,0 +1,293 @@
+{
+  "version": "https://jsonfeed.org/version/1.1",
+  "title": "Provenance: What AI Has Actually Discovered",
+  "home_page_url": "https://whataifound.org/",
+  "feed_url": "https://whataifound.org/feed.json",
+  "description": "New and updated entries in the Provenance registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
+  "language": "en",
+  "icon": "https://whataifound.org/assets/brand/og.png",
+  "favicon": "https://whataifound.org/assets/brand/favicon.svg",
+  "items": [
+    {
+      "id": "https://whataifound.org/#e-2025-05-alphaevolve-minimum-overlap",
+      "url": "https://whataifound.org/#e-2025-05-alphaevolve-minimum-overlap",
+      "title": "Improved bound for the Erdős minimum-overlap problem",
+      "content_text": "AlphaEvolve nudged the best known bound for Erdős's minimum-overlap constant, the first improvement since 2016, and sharpened several autocorrelation inequalities.  As part of a sweep across open problems in mathematical analysis, AlphaEvolve improved the upper bound on the Erdős minimum-overlap constant from about 0.380927 to about 0.380924, the first movement since 2016, and improved constants in autocorrelation inequalities. The gains are numerically small but exceed long-standing records, and the constructions are explicit and checkable.  Lab: Google DeepMind. Model: AlphaEvolve (Gemini-based). Verification: Independently checked. Autonomy: Search scaffold.",
+      "date_published": "2025-05-14T00:00:00+00:00",
+      "date_modified": "2026-07-21T00:00:00+00:00",
+      "tags": [
+        "analysis",
+        "erdos",
+        "alphaevolve"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2022-02-16-tokamak-plasma-control",
+      "url": "https://whataifound.org/#e-2022-02-16-tokamak-plasma-control",
+      "title": "Deep reinforcement learning controls tokamak fusion plasma",
+      "content_text": "A reinforcement-learning controller learned to shape and stabilise the magnetic confinement of real fusion plasma inside the TCV tokamak, holding configurations that are hard to sustain by hand.  Working with EPFL's Swiss Plasma Center, DeepMind trained a deep reinforcement-learning agent to command the magnetic control coils of the TCV tokamak. Learning in a simulator against specified target shapes, the controller then ran on the real machine, holding elongated, snowflake and other configurations, including a 'droplet' state with two separate plasmas at once. It is one of the first times a single learned controller replaced the hand-engineered cascade normally required.  Lab: Google DeepMind. Model: DeepMind RL controller. Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2022-02-16T00:00:00+00:00",
+      "date_modified": "2026-07-21T00:00:00+00:00",
+      "tags": [
+        "physics",
+        "fusion",
+        "reinforcement-learning",
+        "control"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2021-07-15-alphafold2",
+      "url": "https://whataifound.org/#e-2021-07-15-alphafold2",
+      "title": "Accurate protein structure prediction across the known proteome (AlphaFold2)",
+      "content_text": "AlphaFold2 predicted three-dimensional structures for nearly all catalogued proteins from amino-acid sequence at accuracy rivalling experiment, work that earned the 2024 Nobel Prize in Chemistry.  AlphaFold2 pairs an attention-based neural network with evolutionary sequence information to predict how a protein folds from its amino-acid sequence. At the 2020 CASP14 blind assessment it reached accuracy competitive with experimental methods, and DeepMind and EMBL-EBI then released predicted structures for over 200 million proteins, nearly the entire catalogued proteome. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for the work, alongside David Baker for computational protein design.  Lab: Google DeepMind. Model: AlphaFold2. Verification: Independently checked. Autonomy: AI-led.",
+      "date_published": "2021-07-15T00:00:00+00:00",
+      "date_modified": "2026-07-21T00:00:00+00:00",
+      "tags": [
+        "protein-structure",
+        "biology",
+        "alphafold",
+        "nobel-prize"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2026-07-19-jacobian-conjecture",
+      "url": "https://whataifound.org/#e-2026-07-19-jacobian-conjecture",
+      "title": "Counterexample to the Jacobian conjecture in dimension three",
+      "content_text": "An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939.  The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.  Lab: Anthropic. Model: Claude Fable 5. Verification: Formally verified. Autonomy: Collaborative.",
+      "date_published": "2026-07-19T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "algebraic-geometry",
+        "counterexample",
+        "polynomial-maps"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2026-05-erdos-unit-distance",
+      "url": "https://whataifound.org/#e-2026-05-erdos-unit-distance",
+      "title": "Disproof of the Erdős unit-distance conjecture",
+      "content_text": "A reasoning model produced the core construction disproving a 1946 conjecture in discrete geometry, finding point configurations with more unit-distance pairs than the conjecture permitted.  The model found configurations showing the unit-distance count can grow at least as fast as n^1.014, exceeding the conjectured bound. Checked by external mathematicians including Fields Medalist Timothy Gowers, who called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'  Lab: OpenAI. Model: GPT-5 series reasoning model. Verification: Independently checked. Autonomy: AI-led.",
+      "date_published": "2026-05-20T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "discrete-geometry",
+        "combinatorics",
+        "erdos"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2026-01-alphaevolve-bruhat",
+      "url": "https://whataifound.org/#e-2026-01-alphaevolve-bruhat",
+      "title": "Structure in Bruhat intervals of permutation groups",
+      "content_text": "AlphaEvolve identified unexpected special structure in Bruhat intervals for particular permutation groups.  Part of a continuing series of AlphaEvolve results in combinatorics. The system evolves candidate programs under a human-specified evaluation function, so the search is automated but the problem framing is human.  Lab: Google DeepMind. Model: AlphaEvolve (Gemini-based). Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2026-01-15T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "alphaevolve"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2026-01-erdos-728",
+      "url": "https://whataifound.org/#e-2026-01-erdos-728",
+      "title": "Erdős problem #728 resolved and formalized in Lean",
+      "content_text": "GPT-5.2 produced a proof of a previously open Erdős problem; Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with machine-checked proof.  The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.  Lab: OpenAI / Harmonic. Model: GPT-5.2 Pro + Aristotle. Verification: Formally verified. Autonomy: Autonomous.",
+      "date_published": "2026-01-13T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "erdos",
+        "lean",
+        "formalization"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-11-gpt5-science-acceleration",
+      "url": "https://whataifound.org/#e-2025-11-gpt5-science-acceleration",
+      "title": "Early science acceleration experiments with GPT-5",
+      "content_text": "A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science.  A collection of case studies rather than a single result. Useful as a source of individual entries; each contained claim needs separate grading before it belongs in the registry on its own.  Lab: OpenAI. Model: GPT-5. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2025-11-20T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "meta",
+        "multi-domain"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-10-19-gpt5-erdos-retrieval",
+      "url": "https://whataifound.org/#e-2025-10-19-gpt5-erdos-retrieval",
+      "title": "GPT-5 \"solved 10 Erdős problems\": it located existing solutions",
+      "content_text": "An OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more; the problems were only 'open' in the sense that one database maintainer was unaware of the already-published solutions the model surfaced.  OpenAI VP Kevin Weil posted that 'GPT-5 found solutions to 10 (!) previously unsolved Erdős problems.' Thomas Bloom, who maintains erdosproblems.com, replied that listing a problem as open there only means he personally was unaware of a solution, and that GPT-5 had found existing papers containing the solutions rather than proving anything new. The post was deleted; Demis Hassabis called the episode 'embarrassing' and Yann LeCun mocked it.  Lab: OpenAI. Model: GPT-5. Verification: Already known. Autonomy: Retrieval.",
+      "date_published": "2025-10-19T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "erdos",
+        "already-known",
+        "cautionary",
+        "retrieval"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-08-gpt5-convex-bound",
+      "url": "https://whataifound.org/#e-2025-08-gpt5-convex-bound",
+      "title": "Improved step-size bound in smooth convex optimization",
+      "content_text": "GPT-5 Pro extended a guaranteed-convexity window for gradient descent from η ≤ 1/L to η ≤ 1.5/L, but the optimal 1.75/L bound had already been published months earlier.  Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.  Lab: OpenAI. Model: GPT-5 Pro. Verification: Already known. Autonomy: AI-assisted.",
+      "date_published": "2025-08-01T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "optimization",
+        "already-known",
+        "cautionary"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-05-alphaevolve-matmul",
+      "url": "https://whataifound.org/#e-2025-05-alphaevolve-matmul",
+      "title": "4×4 complex matrix multiplication in 48 scalar multiplications",
+      "content_text": "AlphaEvolve found a scheme multiplying 4×4 complex matrices with 48 scalar multiplications, improving on Strassen's 49 from 1969.  Strassen's 1969 algorithm had stood at 49 multiplications for 56 years in this setting. AlphaEvolve was not purpose-built for matrix multiplication; it is a general evolutionary coding agent. The scheme is exactly checkable.  Lab: Google DeepMind. Model: AlphaEvolve (Gemini-based). Verification: Independently checked. Autonomy: Search scaffold.",
+      "date_published": "2025-05-14T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "linear-algebra",
+        "alphaevolve"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-05-alphaevolve-kissing",
+      "url": "https://whataifound.org/#e-2025-05-alphaevolve-kissing",
+      "title": "Improved lower bound for the 11-dimensional kissing number",
+      "content_text": "AlphaEvolve improved the best known configuration for the kissing number problem in 11 dimensions.  Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.  Lab: Google DeepMind. Model: AlphaEvolve (Gemini-based). Verification: Independently checked. Autonomy: Search scaffold.",
+      "date_published": "2025-05-14T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "geometry",
+        "sphere-packing",
+        "alphaevolve"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-robin-macular",
+      "url": "https://whataifound.org/#e-2025-robin-macular",
+      "title": "Candidate treatment for dry age-related macular degeneration",
+      "content_text": "The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.  Presented as an end-to-end automated discovery loop with humans executing the physical experiments.  Lab: FutureHouse. Model: Robin (multi-agent). Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2025-05-01T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "drug-discovery",
+        "ophthalmology",
+        "needs-verification"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2025-02-ai-coscientist-amr",
+      "url": "https://whataifound.org/#e-2025-02-ai-coscientist-amr",
+      "title": "AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis",
+      "content_text": "A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab.  The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible.  Lab: Google. Model: AI Co-Scientist (Gemini 2.0 multi-agent). Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2025-02-19T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "hypothesis-generation",
+        "microbiology",
+        "multi-agent"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2024-07-25-alphaproof-imo",
+      "url": "https://whataifound.org/#e-2024-07-25-alphaproof-imo",
+      "title": "Silver-medal standard at the 2024 International Mathematical Olympiad",
+      "content_text": "AlphaProof and AlphaGeometry 2 together solved four of the six 2024 IMO problems for 28 of 42 points (one short of the gold threshold), with the algebra and number-theory solutions produced and checked in the Lean proof assistant.  AlphaProof, a reinforcement-learning system that works inside Lean, solved two algebra problems and one number-theory problem (including P6, the competition's hardest, which few human contestants solved), while AlphaGeometry 2 solved the geometry problem in seconds. The two combinatorics problems went unsolved. The Lean-based solutions are machine-checked by construction; the full performance was graded by mathematicians Timothy Gowers and Joseph Myers under competition-style marking.  Lab: Google DeepMind. Model: AlphaProof + AlphaGeometry 2. Verification: Independently checked. Autonomy: AI-led.",
+      "date_published": "2024-07-25T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "olympiad",
+        "lean",
+        "formalization",
+        "benchmark"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2023-12-funsearch-capset",
+      "url": "https://whataifound.org/#e-2023-12-funsearch-capset",
+      "title": "New lower bound constructions for the cap set problem",
+      "content_text": "FunSearch discovered larger cap sets than any previously known construction, the first time an LLM-based system produced a genuinely new discovery on an established open problem.  FunSearch pairs an LLM that proposes programs with an automated evaluator that rejects incorrect ones, sidestepping hallucination by construction. Applied to extremal combinatorics, it found new large cap sets in both finite-dimensional and asymptotic cases. Published in Nature. Historically the first entry in this registry's scope.  Lab: Google DeepMind. Model: FunSearch (PaLM 2 / Codey). Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2023-12-14T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "cap-set",
+        "funsearch",
+        "historic-first"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2023-12-funsearch-binpacking",
+      "url": "https://whataifound.org/#e-2023-12-funsearch-binpacking",
+      "title": "Improved heuristics for online bin packing",
+      "content_text": "FunSearch produced bin-packing heuristics outperforming standard baselines on benchmark distributions.  Discovered programs are human-readable, which allowed domain experts to inspect and deploy them. Practical rather than theoretical significance.  Lab: Google DeepMind. Model: FunSearch (PaLM 2 / Codey). Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2023-12-14T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "heuristics",
+        "funsearch"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2023-11-29-gnome",
+      "url": "https://whataifound.org/#e-2023-11-29-gnome",
+      "title": "Large-scale prediction of new stable crystalline materials (GNoME)",
+      "content_text": "GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials.  Graph Networks for Materials Exploration (GNoME) is a graph neural network trained in an active-learning loop against density-functional-theory calculations to predict formation energies and filter candidates by stability. DeepMind released the predicted structures as a public dataset. Published in Nature.  Lab: Google DeepMind. Model: GNoME (graph neural network). Verification: Disputed. Autonomy: Search scaffold.",
+      "date_published": "2023-11-29T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "materials",
+        "crystal-structure",
+        "graph-neural-network",
+        "contested"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2023-11-29-a-lab-synthesis",
+      "url": "https://whataifound.org/#e-2023-11-29-a-lab-synthesis",
+      "title": "Autonomous laboratory reports solid-state synthesis of new inorganic compounds",
+      "content_text": "Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention.  A-Lab coupled machine-learning synthesis-recipe prediction with robotic sample preparation, heating and X-ray characterisation, drawing targets from stability predictions including GNoME's. It reported making 41 of 58 targeted compounds autonomously. Published in Nature alongside GNoME.  Lab: Lawrence Berkeley National Laboratory. Model: A-Lab (ML planning + robotics). Verification: Disputed. Autonomy: AI-led.",
+      "date_published": "2023-11-29T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "materials",
+        "autonomous-lab",
+        "synthesis",
+        "contested"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2023-06-07-alphadev",
+      "url": "https://whataifound.org/#e-2023-06-07-alphadev",
+      "title": "Faster sorting routines discovered and merged into the LLVM C++ library",
+      "content_text": "AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.  AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.  Lab: Google DeepMind. Model: AlphaDev (AlphaZero-based). Verification: Independently checked. Autonomy: Search scaffold.",
+      "date_published": "2023-06-07T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "sorting",
+        "reinforcement-learning",
+        "deployed"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/#e-2022-10-05-alphatensor",
+      "url": "https://whataifound.org/#e-2022-10-05-alphatensor",
+      "title": "Faster matrix-multiplication algorithms found by reinforcement learning",
+      "content_text": "AlphaTensor discovered matrix-multiplication schemes using fewer scalar multiplications than any previously known, including a way to multiply 4×4 matrices over GF(2) in 47 multiplications versus the 49 of two-level Strassen.  AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.  Lab: Google DeepMind. Model: AlphaTensor (AlphaZero-based). Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2022-10-05T00:00:00+00:00",
+      "date_modified": "2026-07-20T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "linear-algebra",
+        "reinforcement-learning"
+      ]
+    }
+  ]
+}

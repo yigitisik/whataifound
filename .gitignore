@@ -1,0 +1,44 @@
+# ---- macOS ----
+.DS_Store
+.AppleDouble
+.LSOverride
+._*
+.Spotlight-V100
+.Trashes
+
+# ---- Editor / IDE ----
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# ---- Node (only present if tooling is added later; app itself has no build) ----
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+package-lock.json
+yarn.lock
+pnpm-lock.yaml
+
+# ---- Vercel ----
+.vercel/
+.vercel.json.local
+
+# ---- Environment / secrets ----
+.env
+.env.*
+!.env.example
+
+# ---- Stray local-preview symlinks (serve.py needs none; guard against old ones) ----
+app/assets
+app/data
+app/robots.txt
+app/sitemap.xml
+
+# ---- Logs / temp ----
+*.log
+tmp/
+.cache/
