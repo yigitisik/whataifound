@@ -150,6 +150,12 @@
   .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
     font-family:var(--serif);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--muted);padding-bottom:22px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+  .gh-icon{display:inline-grid;place-items:center;width:26px;height:26px;color:var(--muted);
+    transition:color .2s var(--ease)}
+  .gh-icon:hover,.gh-icon:focus-visible{color:var(--ink)}
+  .gh-icon svg{display:block}
+  .gh-link{display:inline-flex;align-items:center;gap:6px}
+  .gh-link svg{flex:none}
   .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:9px}
   .mark{overflow:visible;transition:transform .55s var(--ease)}
   .brand:hover .mark{transform:rotate(90deg)}
