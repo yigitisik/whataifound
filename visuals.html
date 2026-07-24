@@ -54,11 +54,21 @@
 <script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
-  .meth-title{font-size:clamp(1.9rem,6vw,2.8rem);margin:0 0 12px;letter-spacing:-.02em;font-weight:600;line-height:1.05}
+  /* Visuals leads with the charts: a compact header so the grid sits near the top,
+     not below a tall title block. These overrides are scoped to this page and do not
+     touch the shared header styles the registry and methodology pages rely on. */
+  header{padding:22px 40px 20px;margin:14px -24px 18px}
+  .meth-title{font-size:clamp(1.5rem,4vw,2rem);margin:6px 0 4px;letter-spacing:-.02em;font-weight:600;line-height:1.05}
   .back{font-family:var(--serif);font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
     color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
   .back:hover{color:var(--accent)}
-  .vis-note{color:var(--muted);margin:0 0 26px;max-width:70ch}
+  /* One short caption instead of a lede + a note; sits tight above the grid. */
+  .vis-lede{color:var(--muted);font-size:.98rem;line-height:1.5;max-width:74ch;margin:0 0 14px}
+  .vis-lede strong{color:var(--ink);font-weight:600}
+  @media(max-width:560px){
+    header{padding:18px 18px 16px;margin:8px 0 14px}
+    .vis-lede{font-size:.92rem}
+  }
 </style>
 </head>
 <body>
@@ -78,16 +88,12 @@
     <a class="back" href="index.html">← Back to the registry</a>
   </div>
   <h1 class="meth-title">Visuals</h1>
-  <p class="lede">The whole registry at a glance: <strong>how findings accumulate</strong>, <strong>how solid
-  they are</strong>, and <strong>how much the AI actually did</strong>. Every chart reflects all findings,
-  independent of any search or filter on the registry page.</p>
 </header>
 
 <main id="main">
-  <p class="vis-note">Hover or focus any point in the scatter for the entry behind it. The scatter places
-  each problem by how widely known it is against how long it stood open before the result, tinted by
-  autonomy; problems without both a posed year and a Wikipedia article are noted below the chart rather
-  than plotted.</p>
+  <p class="vis-lede">The whole registry at a glance — <strong>how findings accumulate</strong>,
+  <strong>how solid they are</strong>, and <strong>how much the AI did</strong>. Always all findings,
+  never the current filter. Hover any scatter point for the entry behind it.</p>
   <div class="qv-grid" id="charts"></div>
 </main>
 
