@@ -9,6 +9,20 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/#e-2026-07-22-dinitz-garg-goemans",
+      "url": "https://whataifound.org/#e-2026-07-22-dinitz-garg-goemans",
+      "title": "Counterexample to the Dinitz–Garg–Goemans conjecture",
+      "content_text": "An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s.  Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.  Lab: Independent. Model: GPT-5.6 Pro. Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-07-22T00:00:00+00:00",
+      "date_modified": "2026-07-24T00:00:00+00:00",
+      "tags": [
+        "combinatorial-optimization",
+        "network-flow",
+        "counterexample",
+        "unsplittable-flow"
+      ]
+    },
+    {
       "id": "https://whataifound.org/#e-2025-05-alphaevolve-minimum-overlap",
       "url": "https://whataifound.org/#e-2025-05-alphaevolve-minimum-overlap",
       "title": "Improved bound for the Erdős minimum-overlap problem",

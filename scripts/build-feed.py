@@ -5,10 +5,10 @@ whataifound.org has no build step; this is a standalone generator you run whenev
 registry changes. It writes feed.json and feed.xml at the repo root, next to
 data/ and assets/, so Vercel serves them directly.
 
-    python3 build-feed.py
+    python3 scripts/build-feed.py
 
 SITE below is the canonical domain and must match index.html, methodology.html,
-sitemap.xml, and robots.txt.
+visuals.html, sitemap.xml, and robots.txt.
 """
 import json, os
 from datetime import datetime, timezone
@@ -16,7 +16,8 @@ from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
 SITE = "https://whataifound.org"
-ROOT = os.path.dirname(os.path.abspath(__file__))
+# Repo root is the parent of scripts/ — data/ and the generated feeds live there.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 VER_LABEL = {
     "formal": "Formally verified", "independent": "Independently checked",

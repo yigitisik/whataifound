@@ -5,7 +5,7 @@ each result was verified and how much the AI did. Results that turned out to alr
 literature stay on the record.
 
 [Live site](https://whataifound.org) · [Methodology](https://whataifound.org/methodology) ·
-[Schema](SCHEMA.md) · [Contributing](CONTRIBUTING.md) · [RSS](https://whataifound.org/feed.xml) ·
+[Schema](docs/SCHEMA.md) · [Contributing](docs/CONTRIBUTING.md) · [RSS](https://whataifound.org/feed.xml) ·
 [JSON Feed](https://whataifound.org/feed.json)
 
 ## Quick start
@@ -15,30 +15,35 @@ Requires Python 3.
 ```bash
 git clone https://github.com/yigitisik/whataifound.git
 cd whataifound
-python3 serve.py          # http://localhost:8000
-python3 serve.py --lan    # phone testing on the same network
+python3 scripts/serve.py          # http://localhost:8000
+python3 scripts/serve.py --lan    # phone testing on the same network
 ```
 
-`serve.py` reproduces the clean URLs and 404 page Vercel serves in production. `vercel dev` (with
+`scripts/serve.py` reproduces the clean URLs and 404 page Vercel serves in production. `vercel dev` (with
 the CLI) also applies the production headers. `index.html` fetches `data/entries.json`, so it
 needs a server; a `file://` URL won't load.
 
 ## How it works
 
-The registry is one JSON file, `data/entries.json`. The site reads it client-side; `build-feed.py`
-generates the RSS and JSON feeds from it. No database, no server-side code. Adding a finding means
-adding one object to the file.
+The registry is one JSON file, `data/entries.json`. The site reads it client-side;
+`scripts/build-feed.py` generates the RSS and JSON feeds from it. No database, no server-side code.
+Adding a finding means adding one object to the file.
+
+An entry's `notability` (how many Wikipedia language editions cover the problem) is not typed by
+hand — it is measured from the live Wikipedia API by `scripts/build-notability.py`, which reads each
+entry's `wikipedia` article title, follows redirects, and writes back the count plus a
+`notability_meta` audit trail. Re-run it whenever articles change; `--check` reports drift for CI.
 
 Each entry has two grades:
 
 - `verification`: how solid the result is, from `formal` to `refuted`.
 - `autonomy`: how much the AI did, from `autonomous` to `retrieval`.
 
-Full definitions and editorial rules are in [SCHEMA.md](SCHEMA.md).
+Full definitions and editorial rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
 ## Contributing
 
-See [CONTRIBUTING.md](CONTRIBUTING.md). Fork, branch, open a PR; each PR gets a Vercel preview URL.
+See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). Fork, branch, open a PR; each PR gets a Vercel preview URL.
 Feeds regenerate on merge, so don't hand-edit `feed.xml` or `feed.json`.
 
 ## Structure
@@ -47,20 +52,24 @@ Feeds regenerate on merge, so don't hand-edit `feed.xml` or `feed.json`.
 whataifound/
 ├── index.html              # registry page: markup, SEO head, JSON-LD
 ├── methodology.html        # grading reference
+├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme, permalinks
-├── data/entries.json       # the registry
 ├── feed.xml / feed.json    # RSS 2.0 + JSON Feed 1.1, generated
-├── build-feed.py           # regenerates the feeds from data/entries.json
-├── serve.py                # local preview server
 ├── vercel.json             # clean URLs, cache + security headers
 ├── robots.txt / sitemap.xml
+├── data/entries.json       # the registry
 ├── assets/brand/           # favicon, og.png card, og.svg source
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
-├── SCHEMA.md               # field definitions + editorial rules
-└── CONTRIBUTING.md
+├── scripts/                # authoring toolchain (not deployed)
+│   ├── serve.py            #   local preview server
+│   ├── build-feed.py       #   regenerates the feeds from data/entries.json
+│   └── build-notability.py #   measures notability from the Wikipedia API
+└── docs/                   # repo docs (not deployed)
+    ├── SCHEMA.md           #   field definitions + editorial rules
+    └── CONTRIBUTING.md
 ```
 
 ## Front end
@@ -107,16 +116,17 @@ Static, no build command. Push to `main` deploys production; each PR gets a prev
   points to `sitemap.xml`.
 
 The domain `https://whataifound.org` is hard-coded in `index.html`, `methodology.html`,
-`robots.txt`, `sitemap.xml`, the `SITE` constant in `build-feed.py`, and the `og.svg` wordmark.
-Changing it means editing all six, re-running `build-feed.py`, and re-rendering `og.png`.
+`visuals.html`, `robots.txt`, `sitemap.xml`, the `SITE` constant in `scripts/build-feed.py`, and the
+`og.svg` wordmark. Changing it means editing all of those, re-running `scripts/build-feed.py`, and
+re-rendering `og.png`.
 
 ## Feeds and reuse
 
-`feed.xml` and `feed.json` are generated by `build-feed.py`, newest-added first, and linked via
-`<link rel="alternate">` on both pages.
+`feed.xml` and `feed.json` are generated by `scripts/build-feed.py`, newest-added first, and linked
+via `<link rel="alternate">` on all pages.
 
 ```bash
-python3 build-feed.py
+python3 scripts/build-feed.py
 ```
 
 Data and content are CC BY 4.0; code is MIT ([LICENSE](LICENSE)). The `Dataset` JSON-LD exposes

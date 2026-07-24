@@ -60,7 +60,7 @@
     -webkit-mask-size:34px 34px;mask-size:34px 34px;-webkit-mask-repeat:repeat;mask-repeat:repeat}
   main{scroll-margin-top:74px}
   .entry{scroll-margin-top:80px}
-  #top,#panel-visuals,#sources,#about{scroll-margin-top:16px}
+  #top,#sources,#about{scroll-margin-top:16px}
   ::selection{background:var(--accent);color:var(--bg)}
   a{color:var(--accent)}
   .wrap{max-width:1120px;margin:0 auto;padding-bottom:72px;
@@ -221,10 +221,6 @@
     letter-spacing:.04em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 
   /* ---------- Visuals disclosure panel ---------- */
-  #panel-visuals{margin:0 0 40px;padding-top:26px;border-top:1px solid var(--line-strong)}
-  #panel-visuals[hidden]{display:none}
-  .panel-note{font-size:.92rem;color:var(--muted);margin:0 0 16px;max-width:66ch;background:var(--bg)}
-
   /* ---------- Quick view charts ---------- */
   .qv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
     border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
@@ -248,6 +244,31 @@
   @keyframes growy{from{transform:scaleY(0)}to{transform:scaleY(1)}}
   .vbar-val{font-family:var(--serif);font-size:.68rem;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;font-weight:600}
   .vbar-x{font-family:var(--serif);font-size:.6rem;color:var(--muted)}
+  /* Scatter: years open vs notability, colored by autonomy. Spans both columns. */
+  .qv-wide{grid-column:1 / -1}
+  .sc-wrap{position:relative}
+  .sc{width:100%;height:auto;display:block;overflow:visible}
+  .sc-grid{stroke:var(--line);stroke-width:1}
+  .sc-tick{fill:var(--muted);font-family:var(--serif);font-size:10px;font-variant-numeric:lining-nums tabular-nums}
+  .sc-axis{fill:var(--muted);font-family:var(--serif);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
+  .sc-dot{stroke:var(--panel);stroke-width:1.5;opacity:.9;cursor:pointer;transition:opacity .15s}
+  .sc-dot:hover,.sc-dot:focus-visible{opacity:1;stroke:var(--ink);stroke-width:2;outline:none}
+  .sc-dot:focus-visible{stroke:var(--accent)}
+  /* Interactive tooltip: positioned by JS within .sc-wrap. */
+  .sc-tip{position:absolute;z-index:5;pointer-events:none;max-width:260px;
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;
+    box-shadow:var(--shadow);padding:9px 11px;display:flex;flex-direction:column;gap:3px}
+  .sc-tip[hidden]{display:none}
+  .sc-tip-t{font-family:var(--serif);font-size:.78rem;font-weight:600;line-height:1.3;color:var(--ink)}
+  .sc-tip-r{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.72rem;color:var(--ink)}
+  .sc-tip-r .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  .sc-tip-m{font-family:var(--serif);font-size:.7rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
+  .sc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px}
+  .sc-key{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.68rem;color:var(--muted)}
+  .sc-key .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  .qv-empty,.qv-foot{font-family:var(--serif);color:var(--muted);margin:8px 0 0}
+  .qv-empty{font-size:.8rem}
+  .qv-foot{font-size:.66rem;letter-spacing:.02em}
   @media(max-width:640px){.qv-grid{grid-template-columns:1fr}.hbar{grid-template-columns:100px 1fr 24px}}
   @media(prefers-reduced-motion:reduce){.hbar-fill,.vbar-fill{animation:none}}
 
