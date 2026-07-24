@@ -4,12 +4,13 @@
 The site is plain static files at the repo root, exactly as Vercel serves them, so
 this is a thin wrapper around SimpleHTTPRequestHandler that adds the two things
 Vercel does and Python doesn't: cleanUrls (/methodology -> methodology.html) and a
-styled 404. Run from the repo root:  python3 serve.py  (then open http://localhost:8000)
-Bind all interfaces for phone testing:  python3 serve.py --lan
+styled 404. Run from the repo root:  python3 scripts/serve.py  (then open http://localhost:8000)
+Bind all interfaces for phone testing:  python3 scripts/serve.py --lan
 """
 import http.server, socketserver, os, sys
 
-ROOT = os.path.dirname(os.path.abspath(__file__))
+# Serve the repo root (parent of scripts/), where the site's files live.
+ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 os.chdir(ROOT)
 
 

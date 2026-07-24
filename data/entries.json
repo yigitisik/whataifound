@@ -1,5 +1,54 @@
 [
   {
+    "id": "2026-07-22-dinitz-garg-goemans",
+    "title": "Counterexample to the Dinitz–Garg–Goemans conjecture",
+    "claim": "An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s.",
+    "field": "computer-science",
+    "date": "2026-07-22",
+    "lab": "Independent",
+    "model": "GPT-5.6 Pro",
+    "humans": [
+      "Dmitry Rybin"
+    ],
+    "year_posed": 1999,
+    "wikipedia": "Dinitz-Garg-Goemans conjecture",
+    "notability": 1,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Dinitz-Garg-Goemans conjecture",
+      "editions": 1,
+      "as_of": "2026-07-24"
+    },
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.",
+    "novelty_check": "The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example.",
+    "caveats": "Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified.",
+    "sources": [
+      {
+        "label": "Dmitry Rybin announcement (X)",
+        "url": "https://x.com/DmitryRybin1/status/2079907499545919968"
+      },
+      {
+        "label": "Coverage — officechai",
+        "url": "https://officechai.com/ai/mathematician-says-gpt-5-6-disproved-the-30-year-old-dinitz-garg-goemans-conjecture-with-4-simple-prompts/"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hensen Juang: infinite family generalizing the counterexample (X)",
+        "url": "https://x.com/basedjensen/status/2080020575968543230"
+      }
+    ],
+    "tags": [
+      "combinatorial-optimization",
+      "network-flow",
+      "counterexample",
+      "unsplittable-flow"
+    ],
+    "added": "2026-07-24"
+  },
+  {
     "id": "2026-07-19-jacobian-conjecture",
     "title": "Counterexample to the Jacobian conjecture in dimension three",
     "claim": "An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939.",
@@ -7,22 +56,54 @@
     "date": "2026-07-19",
     "lab": "Anthropic",
     "model": "Claude Fable 5",
-    "humans": ["Levent Alpöge"],
+    "humans": [
+      "Levent Alpöge"
+    ],
+    "year_posed": 1939,
+    "wikipedia": "Jacobian conjecture",
+    "notability": 15,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Jacobian conjecture",
+      "editions": 15,
+      "as_of": "2026-07-24"
+    },
     "verification": "formal",
     "autonomy": "collaborative",
     "detail": "The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.",
     "novelty_check": "The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed.",
     "caveats": "Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript.",
     "independent_checks": [
-      {"who": "whataifound.org (symbolic recomputation, SymPy)", "url": "", "outcome": "confirmed, det J = −2 identically; all three points map to (−¼,0,0)"},
-      {"who": "Multiple mathematicians via public computer-algebra checks", "url": "https://news.ycombinator.com/item?id=48973869", "outcome": "confirmed"}
+      {
+        "who": "whataifound.org (symbolic recomputation, SymPy)",
+        "url": "",
+        "outcome": "confirmed, det J = −2 identically; all three points map to (−¼,0,0)"
+      },
+      {
+        "who": "Multiple mathematicians via public computer-algebra checks",
+        "url": "https://news.ycombinator.com/item?id=48973869",
+        "outcome": "confirmed"
+      }
     ],
     "sources": [
-      {"label": "The Jacobian counterexample, explained", "url": "https://jacobianfun.org/jacobian-explained"},
-      {"label": "Alexis Gallagher: Jacobian Conjecture Disproved!", "url": "https://alexisgallagher.com/posts/2026/jacobianfun/"},
-      {"label": "Hacker News discussion", "url": "https://news.ycombinator.com/item?id=48973869"}
+      {
+        "label": "The Jacobian counterexample, explained",
+        "url": "https://jacobianfun.org/jacobian-explained"
+      },
+      {
+        "label": "Alexis Gallagher: Jacobian Conjecture Disproved!",
+        "url": "https://alexisgallagher.com/posts/2026/jacobianfun/"
+      },
+      {
+        "label": "Hacker News discussion",
+        "url": "https://news.ycombinator.com/item?id=48973869"
+      }
     ],
-    "tags": ["algebraic-geometry", "counterexample", "polynomial-maps"],
+    "tags": [
+      "algebraic-geometry",
+      "counterexample",
+      "polynomial-maps"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -33,17 +114,39 @@
     "date": "2026-05-20",
     "lab": "OpenAI",
     "model": "GPT-5 series reasoning model",
+    "year_posed": 1946,
+    "wikipedia": "Unit distance graph",
+    "notability": 10,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Unit distance graph",
+      "editions": 10,
+      "as_of": "2026-07-24"
+    },
     "verification": "independent",
     "autonomy": "ai-led",
     "detail": "The model found configurations showing the unit-distance count can grow at least as fast as n^1.014, exceeding the conjectured bound. Checked by external mathematicians including Fields Medalist Timothy Gowers, who called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
     "novelty_check": "The unit-distance problem dates to Erdős (1946). Prior bounds were well documented; the construction is new.",
     "caveats": "Human mathematicians shaped the problem framing and verified the construction. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.",
     "sources": [
-      {"label": "Quanta: The AI Revolution in Math Has Arrived", "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"},
-      {"label": "TechCrunch: OpenAI claims it solved an 80-year-old math problem, for real this time", "url": "https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/"},
-      {"label": "Tech Jacks: AI math reasoning milestones", "url": "https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/"}
+      {
+        "label": "Quanta: The AI Revolution in Math Has Arrived",
+        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"
+      },
+      {
+        "label": "TechCrunch: OpenAI claims it solved an 80-year-old math problem, for real this time",
+        "url": "https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/"
+      },
+      {
+        "label": "Tech Jacks: AI math reasoning milestones",
+        "url": "https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/"
+      }
     ],
-    "tags": ["discrete-geometry", "combinatorics", "erdos"],
+    "tags": [
+      "discrete-geometry",
+      "combinatorics",
+      "erdos"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -60,15 +163,37 @@
     "novelty_check": "Recorded as open in the Erdős problems database prior to resolution. Terence Tao's AI-contributions wiki tracked the resolution and did not find the result in existing literature.",
     "caveats": "Tao cautioned that the win 'says more about speed than difficulty': the problem was open but not considered deep. Lean formalization makes correctness essentially certain; significance is the contested part, not validity.",
     "independent_checks": [
-      {"who": "Lean kernel (machine-checked)", "url": "https://arxiv.org/abs/2601.07421", "outcome": "verified"},
-      {"who": "Terence Tao", "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems", "outcome": "accepted"}
+      {
+        "who": "Lean kernel (machine-checked)",
+        "url": "https://arxiv.org/abs/2601.07421",
+        "outcome": "verified"
+      },
+      {
+        "who": "Terence Tao",
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems",
+        "outcome": "accepted"
+      }
     ],
     "sources": [
-      {"label": "arXiv 2601.07421: Resolution of Erdős Problem #728", "url": "https://arxiv.org/abs/2601.07421"},
-      {"label": "Tao: AI contributions to Erdős problems", "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"},
-      {"label": "The Decoder: Tao on GPT-5.2 Pro", "url": "https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/"}
+      {
+        "label": "arXiv 2601.07421: Resolution of Erdős Problem #728",
+        "url": "https://arxiv.org/abs/2601.07421"
+      },
+      {
+        "label": "Tao: AI contributions to Erdős problems",
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"
+      },
+      {
+        "label": "The Decoder: Tao on GPT-5.2 Pro",
+        "url": "https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/"
+      }
     ],
-    "tags": ["number-theory", "erdos", "lean", "formalization"],
+    "tags": [
+      "number-theory",
+      "erdos",
+      "lean",
+      "formalization"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -85,9 +210,15 @@
     "novelty_check": "Documented as a new observation in the Quanta coverage; the specific structure was not previously catalogued.",
     "caveats": "Reported via lab and press coverage. Independent replication status unclear at time of entry.",
     "sources": [
-      {"label": "Quanta: The AI Revolution in Math Has Arrived", "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"}
+      {
+        "label": "Quanta: The AI Revolution in Math Has Arrived",
+        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"
+      }
     ],
-    "tags": ["combinatorics", "alphaevolve"],
+    "tags": [
+      "combinatorics",
+      "alphaevolve"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -98,21 +229,49 @@
     "date": "2025-05-14",
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
+    "year_posed": 1969,
+    "wikipedia": "Matrix multiplication algorithm",
+    "notability": 7,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Matrix multiplication algorithm",
+      "editions": 7,
+      "as_of": "2026-07-24"
+    },
     "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "Strassen's 1969 algorithm had stood at 49 multiplications for 56 years in this setting. AlphaEvolve was not purpose-built for matrix multiplication; it is a general evolutionary coding agent. The scheme is exactly checkable.",
     "novelty_check": "Strassen (1969) and subsequent literature exhaustively catalogued; 49 was the standing record for complex-valued 4×4. Confirmed new.",
     "caveats": "Applies to complex-valued matrices specifically. Practical speedup is limited; the significance is theoretical. Related follow-up work by others has explored rank-23 schemes for 3×3.",
     "sources": [
-      {"label": "DeepMind: AlphaEvolve", "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"},
-      {"label": "IEEE Spectrum", "url": "https://spectrum.ieee.org/deepmind-alphaevolve"},
-      {"label": "Wikipedia: AlphaEvolve", "url": "https://en.wikipedia.org/wiki/AlphaEvolve"}
+      {
+        "label": "DeepMind: AlphaEvolve",
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+      },
+      {
+        "label": "IEEE Spectrum",
+        "url": "https://spectrum.ieee.org/deepmind-alphaevolve"
+      },
+      {
+        "label": "Wikipedia: AlphaEvolve",
+        "url": "https://en.wikipedia.org/wiki/AlphaEvolve"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: AlphaEvolve announcement", "url": "https://news.ycombinator.com/item?id=43985489"},
-      {"label": "Hacker News: AlphaEvolve independently discovered a novel matrix-multiplication algorithm", "url": "https://news.ycombinator.com/item?id=45803805"}
+      {
+        "label": "Hacker News: AlphaEvolve announcement",
+        "url": "https://news.ycombinator.com/item?id=43985489"
+      },
+      {
+        "label": "Hacker News: AlphaEvolve independently discovered a novel matrix-multiplication algorithm",
+        "url": "https://news.ycombinator.com/item?id=45803805"
+      }
     ],
-    "tags": ["algorithms", "linear-algebra", "alphaevolve"],
+    "tags": [
+      "algorithms",
+      "linear-algebra",
+      "alphaevolve"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -123,19 +282,41 @@
     "date": "2025-05-14",
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
+    "year_posed": 1694,
+    "wikipedia": "Kissing number",
+    "notability": 12,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Kissing number",
+      "editions": 12,
+      "as_of": "2026-07-24"
+    },
     "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.",
     "novelty_check": "Kissing number bounds are well catalogued per dimension; the 11D improvement was checked against the standing record.",
     "caveats": "A lower-bound improvement via explicit construction, not a resolution of the problem. The 20% improvement rate means most of the 50+ problems saw no advance.",
     "sources": [
-      {"label": "DeepMind: AlphaEvolve", "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"},
-      {"label": "IEEE Spectrum: AlphaEvolve Tackles Kissing Problem", "url": "https://spectrum.ieee.org/deepmind-alphaevolve"}
+      {
+        "label": "DeepMind: AlphaEvolve",
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+      },
+      {
+        "label": "IEEE Spectrum: AlphaEvolve Tackles Kissing Problem",
+        "url": "https://spectrum.ieee.org/deepmind-alphaevolve"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: AlphaEvolve announcement", "url": "https://news.ycombinator.com/item?id=43985489"}
+      {
+        "label": "Hacker News: AlphaEvolve announcement",
+        "url": "https://news.ycombinator.com/item?id=43985489"
+      }
     ],
-    "tags": ["geometry", "sphere-packing", "alphaevolve"],
+    "tags": [
+      "geometry",
+      "sphere-packing",
+      "alphaevolve"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -146,20 +327,35 @@
     "date": "2025-08-01",
     "lab": "OpenAI",
     "model": "GPT-5 Pro",
-    "humans": ["Sébastien Bubeck"],
+    "humans": [
+      "Sébastien Bubeck"
+    ],
     "verification": "known",
     "autonomy": "ai-assisted",
     "detail": "Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.",
     "novelty_check": "Version 2 of the source paper, published 2 April 2025, had already established the optimal 1.75/L bound, strictly stronger than the model's 1.5/L. The model was working from an earlier version and its result was superseded before it was produced.",
     "caveats": "The proof itself is valid; the novelty claim is not. Analysts noted the argument largely recombined known techniques in different notation. Retained as a cautionary entry: this is the single most common failure mode in this space, and the reason every entry carries a novelty check.",
     "sources": [
-      {"label": "Analysis of the claim", "url": "https://hackmd.io/@niloydebbarma/HkGxVPwFgx"},
-      {"label": "What does GPT-5's 'new math' claim actually mean?", "url": "https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/"}
+      {
+        "label": "Analysis of the claim",
+        "url": "https://hackmd.io/@niloydebbarma/HkGxVPwFgx"
+      },
+      {
+        "label": "What does GPT-5's 'new math' claim actually mean?",
+        "url": "https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: claim that GPT-5-pro can prove new interesting mathematics", "url": "https://news.ycombinator.com/item?id=44965577"}
+      {
+        "label": "Hacker News: claim that GPT-5-pro can prove new interesting mathematics",
+        "url": "https://news.ycombinator.com/item?id=44965577"
+      }
     ],
-    "tags": ["optimization", "already-known", "cautionary"],
+    "tags": [
+      "optimization",
+      "already-known",
+      "cautionary"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -176,9 +372,15 @@
     "novelty_check": "Not applicable. This is a meta-report, not a single claim.",
     "caveats": "Lab-authored evaluation of its own model. Individual case studies vary widely in strength and several have not been independently checked.",
     "sources": [
-      {"label": "arXiv 2511.16072", "url": "https://arxiv.org/pdf/2511.16072"}
+      {
+        "label": "arXiv 2511.16072",
+        "url": "https://arxiv.org/pdf/2511.16072"
+      }
     ],
-    "tags": ["meta", "multi-domain"],
+    "tags": [
+      "meta",
+      "multi-domain"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -189,19 +391,42 @@
     "date": "2023-12-14",
     "lab": "Google DeepMind",
     "model": "FunSearch (PaLM 2 / Codey)",
+    "year_posed": 1970,
+    "wikipedia": "Cap set",
+    "notability": 2,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Cap set",
+      "editions": 2,
+      "as_of": "2026-07-24"
+    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "FunSearch pairs an LLM that proposes programs with an automated evaluator that rejects incorrect ones, sidestepping hallucination by construction. Applied to extremal combinatorics, it found new large cap sets in both finite-dimensional and asymptotic cases. Published in Nature. Historically the first entry in this registry's scope.",
     "novelty_check": "Cap set bounds are a well-tracked literature; the constructions were confirmed to exceed the standing record at publication.",
     "caveats": "The LLM proposes; a human-designed evaluator and search loop does the selecting. Calling this 'the AI discovered it' overstates the model's role, though the discovery is real.",
     "sources": [
-      {"label": "Nature: Mathematical discoveries from program search with LLMs", "url": "https://www.nature.com/articles/s41586-023-06924-6"},
-      {"label": "DeepMind: FunSearch", "url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/"}
+      {
+        "label": "Nature: Mathematical discoveries from program search with LLMs",
+        "url": "https://www.nature.com/articles/s41586-023-06924-6"
+      },
+      {
+        "label": "DeepMind: FunSearch",
+        "url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: FunSearch makes new discoveries in mathematical sciences", "url": "https://news.ycombinator.com/item?id=38643076"}
+      {
+        "label": "Hacker News: FunSearch makes new discoveries in mathematical sciences",
+        "url": "https://news.ycombinator.com/item?id=38643076"
+      }
     ],
-    "tags": ["combinatorics", "cap-set", "funsearch", "historic-first"],
+    "tags": [
+      "combinatorics",
+      "cap-set",
+      "funsearch",
+      "historic-first"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -212,18 +437,37 @@
     "date": "2023-12-14",
     "lab": "Google DeepMind",
     "model": "FunSearch (PaLM 2 / Codey)",
+    "year_posed": 1971,
+    "wikipedia": "Bin packing problem",
+    "notability": 12,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Bin packing problem",
+      "editions": 12,
+      "as_of": "2026-07-24"
+    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "Discovered programs are human-readable, which allowed domain experts to inspect and deploy them. Practical rather than theoretical significance.",
     "novelty_check": "Compared against best-fit and first-fit families and published heuristics; improvements are empirical on tested distributions.",
     "caveats": "An empirical improvement on benchmark distributions, not a proved worst-case bound.",
     "sources": [
-      {"label": "Nature: Mathematical discoveries from program search with LLMs", "url": "https://www.nature.com/articles/s41586-023-06924-6"}
+      {
+        "label": "Nature: Mathematical discoveries from program search with LLMs",
+        "url": "https://www.nature.com/articles/s41586-023-06924-6"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: FunSearch makes new discoveries in mathematical sciences", "url": "https://news.ycombinator.com/item?id=38643076"}
+      {
+        "label": "Hacker News: FunSearch makes new discoveries in mathematical sciences",
+        "url": "https://news.ycombinator.com/item?id=38643076"
+      }
     ],
-    "tags": ["algorithms", "heuristics", "funsearch"],
+    "tags": [
+      "algorithms",
+      "heuristics",
+      "funsearch"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -240,9 +484,16 @@
     "novelty_check": "The AMR mechanism proposed had reportedly been independently arrived at by a human group whose work was unpublished at the time, which complicates the novelty claim.",
     "caveats": "Hypothesis generation with human-run validation, not autonomous discovery. Independent replication outside the collaborating labs is limited. Graded conservatively.",
     "sources": [
-      {"label": "Turing Post: 12 AI Co-Scientists of 2026", "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"}
+      {
+        "label": "Turing Post: 12 AI Co-Scientists of 2026",
+        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"
+      }
     ],
-    "tags": ["hypothesis-generation", "microbiology", "multi-agent"],
+    "tags": [
+      "hypothesis-generation",
+      "microbiology",
+      "multi-agent"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -259,9 +510,16 @@
     "novelty_check": "Not independently audited by this registry at time of entry. Novelty check pending.",
     "caveats": "Lab-announced. No independent verification located. A candidate treatment is many years and several trial phases from being a treatment. Held at 'claimed' until outside confirmation.",
     "sources": [
-      {"label": "Turing Post: 12 AI Co-Scientists of 2026", "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"}
+      {
+        "label": "Turing Post: 12 AI Co-Scientists of 2026",
+        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"
+      }
     ],
-    "tags": ["drug-discovery", "ophthalmology", "needs-verification"],
+    "tags": [
+      "drug-discovery",
+      "ophthalmology",
+      "needs-verification"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -272,29 +530,72 @@
     "date": "2022-10-05",
     "lab": "Google DeepMind",
     "model": "AlphaTensor (AlphaZero-based)",
+    "year_posed": 1969,
+    "wikipedia": "Matrix multiplication algorithm",
+    "notability": 7,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Matrix multiplication algorithm",
+      "editions": 7,
+      "as_of": "2026-07-24"
+    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.",
     "novelty_check": "Fast matrix multiplication has an exhaustively catalogued literature going back to Strassen (1969) and Laderman (1976). AlphaTensor's schemes were checked against the standing per-size records; the 4×4 result over GF(2) was new at publication.",
     "caveats": "The 4×4 improvement is specific to characteristic-2 arithmetic and the practical speedup is limited. Within about a week, Kauers and Moosbauer used a classical computer search to improve the 5×5 GF(2) case from AlphaTensor's 96 multiplications to 95, showing conventional methods remained competitive. 'Discovered' here means an RL search over decompositions, not an autonomous mathematical insight.",
     "independent_checks": [
-      {"who": "Kauers & Moosbauer (computer-algebra search)", "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/", "outcome": "verified and shortly improved on the 5×5 case"}
+      {
+        "who": "Kauers & Moosbauer (computer-algebra search)",
+        "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/",
+        "outcome": "verified and shortly improved on the 5×5 case"
+      }
     ],
     "sources": [
-      {"label": "Nature: Discovering faster matrix multiplication algorithms with reinforcement learning", "url": "https://www.nature.com/articles/s41586-022-05172-4"},
-      {"label": "DeepMind: Discovering novel algorithms with AlphaTensor", "url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/"},
-      {"label": "Quanta: AI Reveals New Possibilities in Matrix Multiplication", "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/"}
+      {
+        "label": "Nature: Discovering faster matrix multiplication algorithms with reinforcement learning",
+        "url": "https://www.nature.com/articles/s41586-022-05172-4"
+      },
+      {
+        "label": "DeepMind: Discovering novel algorithms with AlphaTensor",
+        "url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/"
+      },
+      {
+        "label": "Quanta: AI Reveals New Possibilities in Matrix Multiplication",
+        "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: Discovering novel algorithms with AlphaTensor", "url": "https://news.ycombinator.com/item?id=33096667"},
-      {"label": "Hacker News: On AlphaTensor's new matrix multiplication algorithms", "url": "https://news.ycombinator.com/item?id=33117192"},
-      {"label": "Hacker News: human search beats AlphaTensor's 5×5 result days later", "url": "https://news.ycombinator.com/item?id=33180316"}
+      {
+        "label": "Hacker News: Discovering novel algorithms with AlphaTensor",
+        "url": "https://news.ycombinator.com/item?id=33096667"
+      },
+      {
+        "label": "Hacker News: On AlphaTensor's new matrix multiplication algorithms",
+        "url": "https://news.ycombinator.com/item?id=33117192"
+      },
+      {
+        "label": "Hacker News: human search beats AlphaTensor's 5×5 result days later",
+        "url": "https://news.ycombinator.com/item?id=33180316"
+      }
     ],
     "videos": [
-      {"label": "How AI Discovered a Faster Matrix Multiplication Algorithm", "channel": "Quanta Magazine", "youtube_id": "fDAPJ7rvcUw"},
-      {"label": "AlphaTensor by DeepMind explained", "channel": "Yannic Kilcher", "youtube_id": "3N3Bl5AA5QU"}
+      {
+        "label": "How AI Discovered a Faster Matrix Multiplication Algorithm",
+        "channel": "Quanta Magazine",
+        "youtube_id": "fDAPJ7rvcUw"
+      },
+      {
+        "label": "AlphaTensor by DeepMind explained",
+        "channel": "Yannic Kilcher",
+        "youtube_id": "3N3Bl5AA5QU"
+      }
     ],
-    "tags": ["algorithms", "linear-algebra", "reinforcement-learning"],
+    "tags": [
+      "algorithms",
+      "linear-algebra",
+      "reinforcement-learning"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -311,20 +612,45 @@
     "novelty_check": "The libc++ small-sort routines had been hand-optimised by compiler engineers for years. AlphaDev's shorter instruction sequences were reviewed against the standing implementations and confirmed to be improvements before being merged.",
     "caveats": "The gains are on very short fixed-length inputs; asymptotic sorting complexity is unchanged, and the headline percentage speedups apply only to those small cases. The 'independent' grade rests on LLVM maintainers reviewing and merging the code, not on a formal proof of optimality.",
     "independent_checks": [
-      {"who": "LLVM libc++ maintainers (code review and merge)", "url": "https://en.wikipedia.org/wiki/AlphaDev", "outcome": "reviewed and merged into the standard sort library"}
+      {
+        "who": "LLVM libc++ maintainers (code review and merge)",
+        "url": "https://en.wikipedia.org/wiki/AlphaDev",
+        "outcome": "reviewed and merged into the standard sort library"
+      }
     ],
     "sources": [
-      {"label": "Nature: Faster sorting algorithms discovered using deep reinforcement learning", "url": "https://www.nature.com/articles/s41586-023-06004-9"},
-      {"label": "DeepMind: AlphaDev discovers faster sorting algorithms", "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/"},
-      {"label": "Wikipedia: AlphaDev", "url": "https://en.wikipedia.org/wiki/AlphaDev"}
+      {
+        "label": "Nature: Faster sorting algorithms discovered using deep reinforcement learning",
+        "url": "https://www.nature.com/articles/s41586-023-06004-9"
+      },
+      {
+        "label": "DeepMind: AlphaDev discovers faster sorting algorithms",
+        "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/"
+      },
+      {
+        "label": "Wikipedia: AlphaDev",
+        "url": "https://en.wikipedia.org/wiki/AlphaDev"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: AlphaDev, faster sorting algorithms via deep RL", "url": "https://news.ycombinator.com/item?id=36228125"}
+      {
+        "label": "Hacker News: AlphaDev, faster sorting algorithms via deep RL",
+        "url": "https://news.ycombinator.com/item?id=36228125"
+      }
     ],
     "videos": [
-      {"label": "AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning", "channel": "AI for Good (ITU)", "youtube_id": "_wDCndqGiRE"}
+      {
+        "label": "AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning",
+        "channel": "AI for Good (ITU)",
+        "youtube_id": "_wDCndqGiRE"
+      }
     ],
-    "tags": ["algorithms", "sorting", "reinforcement-learning", "deployed"],
+    "tags": [
+      "algorithms",
+      "sorting",
+      "reinforcement-learning",
+      "deployed"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -341,17 +667,38 @@
     "novelty_check": "Stable-material prediction builds on the Materials Project and OQMD convex-hull databases. The dispute below is precisely about how much of GNoME's set is genuinely new relative to those existing catalogues.",
     "caveats": "Substantive objections were raised and remain unresolved. Cheetham and Seshadri, reviewing the release, found 'scant evidence for compounds that fulfil the trifecta of novelty, credibility and utility,' noting that many entries are minor substitutional variants, radioactive, or otherwise unlikely to be useful. Stability here means a DFT convex-hull prediction, not experimental synthesis; the headline counts are predicted, not made.",
     "independent_checks": [
-      {"who": "Cheetham & Seshadri (critical review)", "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/", "outcome": "disputed the novelty and utility of most predicted compounds"}
+      {
+        "who": "Cheetham & Seshadri (critical review)",
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/",
+        "outcome": "disputed the novelty and utility of most predicted compounds"
+      }
     ],
     "sources": [
-      {"label": "Nature: Scaling deep learning for materials discovery", "url": "https://www.nature.com/articles/s41586-023-06735-9"},
-      {"label": "DeepMind: Millions of new materials discovered with deep learning", "url": "https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/"},
-      {"label": "The Register: Boffins deem DeepMind's material discoveries shallow", "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"}
+      {
+        "label": "Nature: Scaling deep learning for materials discovery",
+        "url": "https://www.nature.com/articles/s41586-023-06735-9"
+      },
+      {
+        "label": "DeepMind: Millions of new materials discovered with deep learning",
+        "url": "https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/"
+      },
+      {
+        "label": "The Register: Boffins deem DeepMind's material discoveries shallow",
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"
+      }
     ],
     "discussion": [
-      {"label": "The Register: chemists dispute DeepMind's AI materials discoveries", "url": "https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/"}
+      {
+        "label": "The Register: chemists dispute DeepMind's AI materials discoveries",
+        "url": "https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/"
+      }
     ],
-    "tags": ["materials", "crystal-structure", "graph-neural-network", "contested"],
+    "tags": [
+      "materials",
+      "crystal-structure",
+      "graph-neural-network",
+      "contested"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -368,17 +715,39 @@
     "novelty_check": "Targets were drawn from computed stability databases. The contested question is whether the synthesised phases were correctly identified and genuinely new, rather than known phases or misindexed results.",
     "caveats": "A detailed critique led by Robert Palgrave argued that many of the 41 claimed compounds were misidentified from the X-ray data, in several cases likely known phases, mixtures, or amorphous products rather than the claimed novel crystals. It is the identification step, not the automation, that is disputed; the autonomy claim itself is not the weak point. A 2026 Author Correction from the team re-analysed the diffraction data and clarified that 'novel' was meant as new to their prediction platform rather than necessarily new to science.",
     "independent_checks": [
-      {"who": "Palgrave et al. (analysis of the reported diffraction data)", "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/", "outcome": "disputed the identification of most claimed new compounds"},
-      {"who": "Authors' correction (Nature, 2026)", "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12872444/", "outcome": "re-analysed diffraction data; clarified 'novel' meant new to the platform, not to science"}
+      {
+        "who": "Palgrave et al. (analysis of the reported diffraction data)",
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/",
+        "outcome": "disputed the identification of most claimed new compounds"
+      },
+      {
+        "who": "Authors' correction (Nature, 2026)",
+        "url": "https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12872444/",
+        "outcome": "re-analysed diffraction data; clarified 'novel' meant new to the platform, not to science"
+      }
     ],
     "sources": [
-      {"label": "Nature: An autonomous laboratory for the accelerated synthesis of inorganic materials", "url": "https://www.nature.com/articles/s41586-023-06734-w"},
-      {"label": "The Register: Boffins deem DeepMind's material discoveries shallow", "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"}
+      {
+        "label": "Nature: An autonomous laboratory for the accelerated synthesis of inorganic materials",
+        "url": "https://www.nature.com/articles/s41586-023-06734-w"
+      },
+      {
+        "label": "The Register: Boffins deem DeepMind's material discoveries shallow",
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"
+      }
     ],
     "discussion": [
-      {"label": "The Register: chemists dispute DeepMind's AI materials discoveries", "url": "https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/"}
+      {
+        "label": "The Register: chemists dispute DeepMind's AI materials discoveries",
+        "url": "https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/"
+      }
     ],
-    "tags": ["materials", "autonomous-lab", "synthesis", "contested"],
+    "tags": [
+      "materials",
+      "autonomous-lab",
+      "synthesis",
+      "contested"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -395,20 +764,45 @@
     "novelty_check": "These are competition problems with published official solutions, so the achievement is a capability milestone (solving hard, known-answer problems under near-competition conditions) rather than a new mathematical result. The registry records it as such.",
     "caveats": "Problems were hand-translated into formal Lean statements by people before AlphaProof attempted them, a real human contribution beyond posing the question, so autonomy is graded conservatively. AlphaProof also took far longer than the human time limit on some problems. This is benchmark performance on solved problems, not a discovery.",
     "independent_checks": [
-      {"who": "Timothy Gowers & Joseph Myers (competition-style grading)", "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/", "outcome": "28/42, silver-medal standard"}
+      {
+        "who": "Timothy Gowers & Joseph Myers (competition-style grading)",
+        "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/",
+        "outcome": "28/42, silver-medal standard"
+      }
     ],
     "sources": [
-      {"label": "DeepMind: AI achieves silver-medal standard solving IMO problems", "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/"},
-      {"label": "Nature: Olympiad-level formal mathematical reasoning with reinforcement learning", "url": "https://www.nature.com/articles/s41586-025-09833-y"},
-      {"label": "Unite.AI: How AlphaProof and AlphaGeometry 2 achieved silver-medal standard", "url": "https://www.unite.ai/ai-at-the-international-mathematical-olympiad-how-alphaproof-and-alphageometry-2-achieved-silver-medal-standard/"}
+      {
+        "label": "DeepMind: AI achieves silver-medal standard solving IMO problems",
+        "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/"
+      },
+      {
+        "label": "Nature: Olympiad-level formal mathematical reasoning with reinforcement learning",
+        "url": "https://www.nature.com/articles/s41586-025-09833-y"
+      },
+      {
+        "label": "Unite.AI: How AlphaProof and AlphaGeometry 2 achieved silver-medal standard",
+        "url": "https://www.unite.ai/ai-at-the-international-mathematical-olympiad-how-alphaproof-and-alphageometry-2-achieved-silver-medal-standard/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: AI solves IMO problems at silver-medal level", "url": "https://news.ycombinator.com/item?id=41069829"}
+      {
+        "label": "Hacker News: AI solves IMO problems at silver-medal level",
+        "url": "https://news.ycombinator.com/item?id=41069829"
+      }
     ],
     "videos": [
-      {"label": "AlphaProof and AlphaGeometry 2 achieve a silver-medal score at the IMO, explained", "channel": "Elvis Saravia (DAIR.AI)", "youtube_id": "5FMpqA2CELw"}
+      {
+        "label": "AlphaProof and AlphaGeometry 2 achieve a silver-medal score at the IMO, explained",
+        "channel": "Elvis Saravia (DAIR.AI)",
+        "youtube_id": "5FMpqA2CELw"
+      }
     ],
-    "tags": ["olympiad", "lean", "formalization", "benchmark"],
+    "tags": [
+      "olympiad",
+      "lean",
+      "formalization",
+      "benchmark"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -425,16 +819,35 @@
     "novelty_check": "By definition, that is the whole point of the episode. The solutions existed in the published literature; GPT-5's contribution was locating them, a genuinely useful literature-search result that was misdescribed as original problem-solving.",
     "caveats": "Retained as a cautionary entry and a direct companion to the GPT-5 convex-optimization case. The underlying literature search was real and valuable; only the 'solved previously unsolved problems' framing was false. This is distinct from the later, genuine GPT-5.2 + Aristotle resolution of Erdős #728.",
     "independent_checks": [
-      {"who": "Thomas Bloom (erdosproblems.com maintainer)", "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/", "outcome": "the problems were already solved in the literature; no new proofs"}
+      {
+        "who": "Thomas Bloom (erdosproblems.com maintainer)",
+        "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/",
+        "outcome": "the problems were already solved in the literature; no new proofs"
+      }
     ],
     "sources": [
-      {"label": "TechCrunch: OpenAI's 'embarrassing' math", "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/"},
-      {"label": "The Decoder: A GPT-5 math breakthrough that never happened", "url": "https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/"}
+      {
+        "label": "TechCrunch: OpenAI's 'embarrassing' math",
+        "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/"
+      },
+      {
+        "label": "The Decoder: A GPT-5 math breakthrough that never happened",
+        "url": "https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: OpenAI researcher announced a GPT-5 math breakthrough that never happened", "url": "https://news.ycombinator.com/item?id=45633482"}
+      {
+        "label": "Hacker News: OpenAI researcher announced a GPT-5 math breakthrough that never happened",
+        "url": "https://news.ycombinator.com/item?id=45633482"
+      }
     ],
-    "tags": ["number-theory", "erdos", "already-known", "cautionary", "retrieval"],
+    "tags": [
+      "number-theory",
+      "erdos",
+      "already-known",
+      "cautionary",
+      "retrieval"
+    ],
     "added": "2026-07-20"
   },
   {
@@ -445,22 +858,56 @@
     "date": "2021-07-15",
     "lab": "Google DeepMind",
     "model": "AlphaFold2",
-    "humans": ["John Jumper", "Demis Hassabis"],
+    "humans": [
+      "John Jumper",
+      "Demis Hassabis"
+    ],
+    "year_posed": 1972,
+    "wikipedia": "Protein structure prediction",
+    "notability": 19,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Protein structure prediction",
+      "editions": 19,
+      "as_of": "2026-07-24"
+    },
     "verification": "independent",
     "autonomy": "ai-led",
     "detail": "AlphaFold2 pairs an attention-based neural network with evolutionary sequence information to predict how a protein folds from its amino-acid sequence. At the 2020 CASP14 blind assessment it reached accuracy competitive with experimental methods, and DeepMind and EMBL-EBI then released predicted structures for over 200 million proteins, nearly the entire catalogued proteome. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for the work, alongside David Baker for computational protein design.",
     "novelty_check": "Protein-structure prediction had been an open grand challenge for roughly fifty years, benchmarked every two years by the CASP assessment. AlphaFold2's CASP14 result was a discontinuous jump over all prior methods and is uncontested.",
     "caveats": "AlphaFold predicts structures rather than determining them experimentally; outputs are computational hypotheses that can be wrong for disordered regions, alternative folds, point mutations, and many complexes. It predicts natural structures, not new biology on its own. The grade reflects the prediction step; the Nobel recognised the human-built method.",
     "independent_checks": [
-      {"who": "CASP14 blind assessment (independent assessors)", "url": "", "outcome": "accuracy competitive with experiment across most targets"},
-      {"who": "Royal Swedish Academy of Sciences (2024 Nobel in Chemistry)", "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/", "outcome": "awarded to Hassabis and Jumper for protein structure prediction"}
+      {
+        "who": "CASP14 blind assessment (independent assessors)",
+        "url": "",
+        "outcome": "accuracy competitive with experiment across most targets"
+      },
+      {
+        "who": "Royal Swedish Academy of Sciences (2024 Nobel in Chemistry)",
+        "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/",
+        "outcome": "awarded to Hassabis and Jumper for protein structure prediction"
+      }
     ],
     "sources": [
-      {"label": "Nature: Highly accurate protein structure prediction with AlphaFold", "url": "https://www.nature.com/articles/s41586-021-03819-2"},
-      {"label": "DeepMind: AlphaFold", "url": "https://deepmind.google/science/alphafold/"},
-      {"label": "Nobel Prize: Chemistry 2024 press release", "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/"}
+      {
+        "label": "Nature: Highly accurate protein structure prediction with AlphaFold",
+        "url": "https://www.nature.com/articles/s41586-021-03819-2"
+      },
+      {
+        "label": "DeepMind: AlphaFold",
+        "url": "https://deepmind.google/science/alphafold/"
+      },
+      {
+        "label": "Nobel Prize: Chemistry 2024 press release",
+        "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/"
+      }
     ],
-    "tags": ["protein-structure", "biology", "alphafold", "nobel-prize"],
+    "tags": [
+      "protein-structure",
+      "biology",
+      "alphafold",
+      "nobel-prize"
+    ],
     "added": "2026-07-21"
   },
   {
@@ -471,20 +918,45 @@
     "date": "2022-02-16",
     "lab": "Google DeepMind",
     "model": "DeepMind RL controller",
+    "wikipedia": "Tokamak",
+    "notability": 56,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Tokamak",
+      "editions": 56,
+      "as_of": "2026-07-24"
+    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "Working with EPFL's Swiss Plasma Center, DeepMind trained a deep reinforcement-learning agent to command the magnetic control coils of the TCV tokamak. Learning in a simulator against specified target shapes, the controller then ran on the real machine, holding elongated, snowflake and other configurations, including a 'droplet' state with two separate plasmas at once. It is one of the first times a single learned controller replaced the hand-engineered cascade normally required.",
     "novelty_check": "Magnetic plasma control is normally built from many separately engineered controllers. A single RL-learned controller running on a real tokamak was new; the Nature paper documents the comparison against conventional control.",
     "caveats": "Demonstrated on the TCV research tokamak, not a power-producing reactor, and the policy was trained in simulation before transfer to hardware. This is a control-engineering advance, not a solution to fusion energy. Independent groups have since extended RL plasma control to other machines.",
     "sources": [
-      {"label": "Nature: Magnetic control of tokamak plasmas through deep reinforcement learning", "url": "https://www.nature.com/articles/s41586-021-04301-9"},
-      {"label": "DeepMind: Accelerating fusion science through learned plasma control", "url": "https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/"},
-      {"label": "EPFL: EPFL and DeepMind use AI to control plasmas for fusion", "url": "https://actu.epfl.ch/news/epfl-and-deepmind-use-ai-to-control-plasmas-for-nu/"}
+      {
+        "label": "Nature: Magnetic control of tokamak plasmas through deep reinforcement learning",
+        "url": "https://www.nature.com/articles/s41586-021-04301-9"
+      },
+      {
+        "label": "DeepMind: Accelerating fusion science through learned plasma control",
+        "url": "https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/"
+      },
+      {
+        "label": "EPFL: EPFL and DeepMind use AI to control plasmas for fusion",
+        "url": "https://actu.epfl.ch/news/epfl-and-deepmind-use-ai-to-control-plasmas-for-nu/"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: controlling the fusion plasma in a tokamak with reinforcement learning", "url": "https://news.ycombinator.com/item?id=30379973"}
+      {
+        "label": "Hacker News: controlling the fusion plasma in a tokamak with reinforcement learning",
+        "url": "https://news.ycombinator.com/item?id=30379973"
+      }
     ],
-    "tags": ["physics", "fusion", "reinforcement-learning", "control"],
+    "tags": [
+      "physics",
+      "fusion",
+      "reinforcement-learning",
+      "control"
+    ],
     "added": "2026-07-21"
   },
   {
@@ -495,20 +967,37 @@
     "date": "2025-05-14",
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
+    "year_posed": 1955,
     "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "As part of a sweep across open problems in mathematical analysis, AlphaEvolve improved the upper bound on the Erdős minimum-overlap constant from about 0.380927 to about 0.380924, the first movement since 2016, and improved constants in autocorrelation inequalities. The gains are numerically small but exceed long-standing records, and the constructions are explicit and checkable.",
     "novelty_check": "The minimum-overlap constant and the autocorrelation inequalities have well-tracked records. AlphaEvolve's values were compared against the standing bounds and confirmed to improve them.",
     "caveats": "The improvements are marginal in magnitude, and both were improved again by other automated systems in 2026. As with the other AlphaEvolve results, a human-designed evaluator and search loop did the selecting.",
     "sources": [
-      {"label": "DeepMind: AlphaEvolve", "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"},
-      {"label": "AlphaEvolve paper (PDF)", "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf"},
-      {"label": "Wikipedia: Minimum overlap problem", "url": "https://en.wikipedia.org/wiki/Minimum_overlap_problem"}
+      {
+        "label": "DeepMind: AlphaEvolve",
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+      },
+      {
+        "label": "AlphaEvolve paper (PDF)",
+        "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf"
+      },
+      {
+        "label": "Wikipedia: Minimum overlap problem",
+        "url": "https://en.wikipedia.org/wiki/Minimum_overlap_problem"
+      }
     ],
     "discussion": [
-      {"label": "Hacker News: AlphaEvolve announcement", "url": "https://news.ycombinator.com/item?id=43985489"}
+      {
+        "label": "Hacker News: AlphaEvolve announcement",
+        "url": "https://news.ycombinator.com/item?id=43985489"
+      }
     ],
-    "tags": ["analysis", "erdos", "alphaevolve"],
+    "tags": [
+      "analysis",
+      "erdos",
+      "alphaevolve"
+    ],
     "added": "2026-07-21"
   }
 ]

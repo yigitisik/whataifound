@@ -80,6 +80,28 @@ function refRow(s){
     `<span class="ref-dom">${esc(dom)}</span><span class="ref-t">${esc(label)}</span><span class="ref-a">↗</span></a>`;
 }
 
+// Derived, never stored: how long the problem stood before this result.
+// Resolution year comes from the entry's own date.
+function yearsOpen(e){
+  if (e.year_posed == null) return null;
+  const resolved = +String(e.date).slice(0,4);
+  const n = resolved - e.year_posed;
+  return n >= 0 ? n : null;
+}
+function openMeta(e){
+  const n = yearsOpen(e);
+  if (n == null) return '';
+  const span = n === 0 ? 'same year' : `open ${n} yr${n===1?'':'s'}`;
+  return `<div><dt>Posed</dt><dd>${e.year_posed} · ${span}</dd></div>`;
+}
+// notability = # of Wikipedia language editions with an article (English included),
+// measured from the live API by build-notability.py. Absent means unrated.
+function notabilityMeta(e){
+  if (e.notability == null) return '';
+  const v = e.notability;
+  return `<div><dt>Notability</dt><dd>${v} Wikipedia edition${v===1?'':'s'}</dd></div>`;
+}
+
 function card(e){
   const f = (label, val) => val ? `<div class="field reveal"><b>${label}</b><p>${esc(val)}</p></div>` : '';
   const checks = (e.independent_checks||[]).map(c =>
@@ -96,6 +118,8 @@ function card(e){
       <dl class="rmeta">
         <div><dt>Model</dt><dd>${esc(e.model)}</dd></div>
         <div><dt>Field</dt><dd>${esc(e.field)}</dd></div>
+        ${openMeta(e)}
+        ${notabilityMeta(e)}
       </dl>
     </div>
     <div class="body">
@@ -124,38 +148,11 @@ function card(e){
   </article>`;
 }
 
-// Visuals: a disclosure button that reveals the charts panel in place.
-(function(){
-  const btn = document.getElementById('btn-visuals');
-  const panel = document.getElementById('panel-visuals');
-  if (!btn || !panel) return;
-  btn.addEventListener('click', () => {
-    const opening = panel.hidden;
-    panel.hidden = !opening;
-    btn.setAttribute('aria-expanded', opening ? 'true' : 'false');
-    if (opening) {
-      renderCharts();   // rebuild so the bars animate in
-      panel.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
-    }
-  });
-})();
-
-// Sitemap rail: scroll-spy dot nav. Highlights the section in view; the Visuals
-// entry only appears once that panel is actually open (it's a disclosure, not
-// always part of the page flow).
+// Sitemap rail: scroll-spy dot nav. Highlights the section in view.
 (function(){
   const nav = document.querySelector('.sitenav');
   if (!nav) return;
   const links = [...nav.querySelectorAll('a[data-target]')];
-  const visualsItem = nav.querySelector('[data-optional="panel-visuals"]');
-  const visualsPanel = document.getElementById('panel-visuals');
-
-  const syncVisualsItem = () => {
-    if (visualsItem) visualsItem.hidden = !visualsPanel || visualsPanel.hidden;
-  };
-  syncVisualsItem();
-  document.getElementById('btn-visuals')?.addEventListener('click', () =>
-    setTimeout(syncVisualsItem, 0));
 
   const setActive = id => links.forEach(a =>
     a.classList.toggle('active', a.dataset.target === id));
@@ -194,9 +191,6 @@ function card(e){
   addEventListener('scroll', onScroll, { passive: true });
   addEventListener('resize', onScroll);
   update();
-
-  // The Visuals section mounts/unmounts from layout; re-check when it toggles.
-  document.getElementById('btn-visuals')?.addEventListener('click', () => setTimeout(update, 0));
 
   links.forEach(a => a.addEventListener('click', ev => {
     ev.preventDefault();
@@ -246,10 +240,135 @@ function renderCharts(){
   const byGrade = GORDER.filter(g=>gm[g]).map(g=>[GSHORT[g]||g, gm[g], `var(${GVAR[g]})`]);
 
   el.innerHTML =
+    scatterCard()+
     `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
+  wireScatterTip();
+}
+
+// Autonomy is the axis this registry owns, so it's the color key of the scatter:
+// how famous a problem was (notability) vs how long it stood (years open),
+// with each point tinted by how much the AI actually did.
+const AUT_COLOR = {
+  'autonomous':'var(--formal)','ai-led':'var(--independent)','collaborative':'var(--peer)',
+  'ai-assisted':'var(--author)','search-scaffold':'var(--disputed)','retrieval':'var(--known)'
+};
+const AUT_ORDER = ['autonomous','ai-led','collaborative','ai-assisted','search-scaffold','retrieval'];
+
+function scatterCard(){
+  // x = notability (α, fame); y = years open before the result. Color = autonomy.
+  // Only entries with both fields can be placed; the rest are noted, not silently dropped.
+  const pts = ALL.map(e => ({e, x: e.notability, y: yearsOpen(e)}))
+                 .filter(p => p.x != null && p.y != null);
+  const missing = ALL.length - pts.length;
+  if (pts.length < 2){
+    return `<div class="qv-card qv-wide"><h3 class="qv-title">Years open vs. notability</h3>`+
+      `<p class="qv-empty">Not enough entries carry both a posed year and a notability score yet.</p></div>`;
+  }
+
+  const W = 520, H = 300, PADL = 44, PADR = 16, PADT = 14, PADB = 42;
+  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
+  // x = notability on a LOG scale: values span 1..56, so a linear axis would crush the
+  // 1..19 cluster into the left edge. All counts are >= 1 (no article => no point), so
+  // log is well-defined. y = years open, linear.
+  const yMax = Math.max(...ys, 10);
+  const xMax = Math.max(...xs, 10);
+  const lx = v => Math.log10(Math.max(v, 1));
+  const lxMax = lx(xMax);
+  const px = x => PADL + (lx(x) / lxMax) * (W - PADL - PADR);
+  const py = y => H - PADB - (y / yMax) * (H - PADT - PADB);
+
+  // x-ticks at 1-2-5-10-20-50 style stops up to the max; y-ticks in rounded steps.
+  const XSTOPS = [1,2,5,10,20,50,100,200];
+  const xticks = XSTOPS.filter(v => v <= xMax * 1.001);
+  if (xticks[xticks.length-1] < xMax) xticks.push(xMax);
+  const yStep = Math.max(1, Math.ceil(yMax / 5 / 10) * 10);
+  const yticks = []; for (let v = 0; v <= yMax; v += yStep) yticks.push(v);
+
+  const grid = [
+    ...xticks.map(v => `<line x1="${px(v).toFixed(1)}" y1="${PADT}" x2="${px(v).toFixed(1)}" y2="${H-PADB}" class="sc-grid"/>`+
+      `<text x="${px(v).toFixed(1)}" y="${H-PADB+16}" class="sc-tick" text-anchor="middle">${v}</text>`),
+    ...yticks.map(v => `<line x1="${PADL}" y1="${py(v).toFixed(1)}" x2="${W-PADR}" y2="${py(v).toFixed(1)}" class="sc-grid"/>`+
+      `<text x="${PADL-6}" y="${(py(v)+3.5).toFixed(1)}" class="sc-tick" text-anchor="end">${v}</text>`)
+  ].join('');
+
+  // Deterministic jitter so coincident points fan out without Math.random(); seeded by index.
+  const dots = pts.map((p,i) => {
+    const jx = ((i * 37) % 11 - 5) * 0.6, jy = ((i * 53) % 9 - 4) * 0.6;
+    const cx = (px(p.x)+jx).toFixed(1), cy = (py(p.y)+jy).toFixed(1);
+    const col = AUT_COLOR[p.e.autonomy] || 'var(--muted)';
+    const nt = `${p.x} Wikipedia edition${p.x===1?'':'s'}`;
+    // Data attributes drive the interactive HTML tooltip (richer than SVG <title>).
+    return `<circle cx="${cx}" cy="${cy}" r="6" fill="${col}" class="sc-dot" tabindex="0" role="img"`+
+      ` data-title="${esc(p.e.title)}"`+
+      ` data-aut="${esc(AUT_LABEL[p.e.autonomy]||p.e.autonomy)}"`+
+      ` data-autcol="${col}"`+
+      ` data-open="posed ${esc(String(p.e.year_posed))} · open ${p.y} yr${p.y===1?'':'s'}"`+
+      ` data-not="${esc(nt)}"`+
+      ` data-year="${esc(String(p.e.date).slice(0,4))}"`+
+      ` aria-label="${esc(`${p.e.title}. Open ${p.y} years, notability ${p.x}, ${AUT_LABEL[p.e.autonomy]||p.e.autonomy}.`)}">`+
+      `</circle>`;
+  }).join('');
+
+  const axisTitles =
+    `<text x="${(PADL+(W-PADR))/2}" y="${H-4}" class="sc-axis" text-anchor="middle">Notability α — Wikipedia editions (log)</text>`+
+    `<text x="13" y="${(PADT+(H-PADB))/2}" class="sc-axis" text-anchor="middle" transform="rotate(-90 13 ${(PADT+(H-PADB))/2})">Years open before result</text>`;
+
+  // Legend: only autonomy classes actually present, in canonical order.
+  const present = AUT_ORDER.filter(a => pts.some(p => p.e.autonomy === a));
+  const legend = `<div class="sc-legend">` + present.map(a =>
+    `<span class="sc-key"><i class="sw" style="background:${AUT_COLOR[a]}"></i>${esc(AUT_LABEL[a]||a)}</span>`).join('') + `</div>`;
+
+  const note = missing ? `<p class="qv-foot">${missing} entr${missing===1?'y':'ies'} not plotted (no posed year or notability yet).</p>` : '';
+  const label = `Scatter of years open versus notability, colored by autonomy. ${pts.length} entries plotted.`;
+
+  return `<div class="qv-card qv-wide"><h3 class="qv-title">Years open vs. notability</h3>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}" preserveAspectRatio="xMidYMid meet">`+
+    grid + axisTitles + dots + `</svg>`+
+    `<div class="sc-tip" hidden aria-hidden="true"></div>`+
+    `</div>` + legend + note + `</div>`;
+}
+
+// Interactive tooltip for the scatter: shows on hover/focus of a dot, positioned
+// inside the chart wrapper. Delegated + re-bindable so it survives chart re-renders.
+function wireScatterTip(){
+  const wrap = document.querySelector('.sc-wrap');
+  if (!wrap) return;
+  const tip = wrap.querySelector('.sc-tip');
+  if (!tip) return;
+
+  const show = dot => {
+    const d = dot.dataset;
+    tip.innerHTML =
+      `<span class="sc-tip-t">${esc(d.title)}</span>`+
+      `<span class="sc-tip-r"><i class="sw" style="background:${d.autcol}"></i>${esc(d.aut)}</span>`+
+      `<span class="sc-tip-m">${esc(d.open)}</span>`+
+      `<span class="sc-tip-m">Notability: ${esc(d.not)}</span>`+
+      `<span class="sc-tip-m">Result: ${esc(d.year)}</span>`;
+    tip.hidden = false;
+    tip.setAttribute('aria-hidden', 'false');
+    // Position: SVG scales to the wrapper, so map the dot's viewBox coords to px.
+    const svg = wrap.querySelector('.sc');
+    const wr = wrap.getBoundingClientRect(), dr = dot.getBoundingClientRect();
+    const cx = dr.left + dr.width/2 - wr.left, cy = dr.top - wr.top;
+    // Measure, then clamp within the wrapper so it never overflows the card.
+    const tw = tip.offsetWidth, th = tip.offsetHeight;
+    let left = cx - tw/2;
+    left = Math.max(4, Math.min(left, wr.width - tw - 4));
+    let top = cy - th - 12;
+    if (top < 2) top = dr.bottom - wr.top + 12; // flip below if no room above
+    tip.style.left = left + 'px';
+    tip.style.top = top + 'px';
+  };
+  const hide = () => { tip.hidden = true; tip.setAttribute('aria-hidden', 'true'); };
+
+  wrap.addEventListener('pointerover', e => { const d = e.target.closest('.sc-dot'); if (d) show(d); });
+  wrap.addEventListener('pointerout', e => { if (e.target.closest('.sc-dot')) hide(); });
+  wrap.addEventListener('focusin', e => { const d = e.target.closest('.sc-dot'); if (d) show(d); });
+  wrap.addEventListener('focusout', e => { if (e.target.closest('.sc-dot')) hide(); });
 }
 
 function render(){
@@ -286,10 +405,20 @@ function countUp(el, target){
 
 function boot(data){
   ALL = data.sort((a,b)=> b.date.localeCompare(a.date));
-  const lastAdded = ALL.map(e=>e.added).filter(Boolean).sort().pop() || ALL[0]?.date || '';
-  document.getElementById('updated').textContent = lastAdded;
+
+  // Charts render wherever a #charts container exists — the registry page and the
+  // standalone visuals page both mount it. Everything below is registry-only and is
+  // skipped (via the #list guard) when app.js runs on visuals.html.
+  renderCharts();
+
+  const updated = document.getElementById('updated');
+  if (updated) updated.textContent =
+    ALL.map(e=>e.added).filter(Boolean).sort().pop() || ALL[0]?.date || '';
   const citeDate = document.getElementById('cite-date');
   if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+
+  if (!document.getElementById('list')) return;  // visuals-only page: done here.
+
   const strong = ALL.filter(e=>['formal','independent','peer-reviewed'].includes(e.verification)).length;
   const auto = ALL.filter(e=>['autonomous','ai-led'].includes(e.autonomy)).length;
   const negative = ALL.filter(e=>['known','disputed','refuted'].includes(e.verification)).length;
@@ -297,10 +426,12 @@ function boot(data){
     [ALL.length,'Entries on record'], [strong,'Well verified'],
     [auto,'AI-led or autonomous'], [negative,'Negative or contested']
   ];
-  document.getElementById('stats').innerHTML =
-    stats.map(([n,l])=>`<div class="stat"><b data-target="${n}">0</b><span>${l}</span></div>`).join('');
-  document.querySelectorAll('#stats .stat b').forEach(el=> countUp(el, +el.dataset.target));
-  renderCharts();
+  const statsEl = document.getElementById('stats');
+  if (statsEl){
+    statsEl.innerHTML =
+      stats.map(([n,l])=>`<div class="stat"><b data-target="${n}">0</b><span>${l}</span></div>`).join('');
+    document.querySelectorAll('#stats .stat b').forEach(el=> countUp(el, +el.dataset.target));
+  }
 
   const fill = (id, vals, labels) => {
     const s = document.getElementById(id);

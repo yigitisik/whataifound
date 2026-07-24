@@ -12,11 +12,11 @@ Requires Python 3.
 ```bash
 git clone https://github.com/yigitisik/whataifound.git
 cd whataifound
-python3 serve.py          # http://localhost:8000
-python3 serve.py --lan    # for phone testing on the same network
+python3 scripts/serve.py          # http://localhost:8000
+python3 scripts/serve.py --lan    # for phone testing on the same network
 ```
 
-`serve.py` adds clean URLs and the 404 page that Vercel serves in production. Note that
+`scripts/serve.py` adds clean URLs and the 404 page that Vercel serves in production. Note that
 `index.html` fetches `data/entries.json`, so it needs a server; a `file://` URL won't load.
 
 ## Adding an entry
@@ -24,7 +24,7 @@ python3 serve.py --lan    # for phone testing on the same network
 Read [SCHEMA.md](SCHEMA.md) first for the field definitions and grade scales.
 
 1. Branch: `git checkout -b entry/short-name`
-2. Add one object to [data/entries.json](data/entries.json), matching the existing format. Set
+2. Add one object to [data/entries.json](../data/entries.json), matching the existing format. Set
    `id` to `YYYY-MM-DD-short-name`; never reuse an id.
 3. Run locally and check the entry renders, filters, and expands.
 4. Open a PR. Leave `feed.xml` and `feed.json` alone; they regenerate on merge.
@@ -49,11 +49,12 @@ citation.
 
 ## Code
 
-Static files at the root: [index.html](index.html), [methodology.html](methodology.html),
-[404.html](404.html), [styles.css](styles.css), [app.js](app.js). Constraints:
+Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
+[visuals.html](../visuals.html), [404.html](../404.html), [styles.css](../styles.css),
+[app.js](../app.js). Constraints:
 
 - No runtime external requests. A new external resource also needs its CSP directive in
-  [vercel.json](vercel.json) widened.
+  [vercel.json](../vercel.json) widened.
 - WCAG 2.1 AA: keep focus rings, heading order, chart labels, `prefers-reduced-motion`.
 - Works in both light and dark themes.
 - Layout holds at 320, 560, 720px.
