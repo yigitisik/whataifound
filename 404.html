@@ -5,8 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Page not found | whataifound.org</title>
 <meta name="robots" content="noindex, follow">
+<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
+     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
+     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
+     /favicon.ico is the path Google probes when no <link> is usable. -->
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
 <script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
 <style>
   @font-face{font-family:'Newsreader';src:url('/assets/fonts/news-400.woff2') format('woff2');font-weight:400;font-display:swap}
@@ -41,9 +48,17 @@
 <body>
   <div class="card">
     <svg class="mark" viewBox="0 0 24 24" width="42" height="42" aria-hidden="true">
-      <path d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-      <path d="M12 7 L17 12 L12 17 L7 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-      <circle cx="12" cy="12" r="1.7" fill="currentColor"/>
+      <defs>
+        <linearGradient id="mk-404" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0" stop-color="#5aa9e6"/>
+          <stop offset="0.5" stop-color="#7c6cf0"/>
+          <stop offset="1" stop-color="#d98a4a"/>
+        </linearGradient>
+      </defs>
+      <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="currentColor" fill-opacity="0.55"/>
+      <path d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-404)"/>
     </svg>
     <p class="code">Error 404</p>
     <h1>This page is not on the record</h1>

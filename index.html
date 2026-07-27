@@ -38,8 +38,15 @@
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
-<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="assets/brand/favicon.svg" color="#0b0d10">
+<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
+     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
+     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
+     /favicon.ico is the path Google probes when no <link> is usable. -->
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
 
 <!-- Subscribable feeds: new and updated registry entries. -->
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
@@ -52,10 +59,29 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "Organization",
+      "@id": "https://whataifound.org/#organization",
+      "name": "whataifound.org",
+      "url": "https://whataifound.org/",
+      "description": "An independent editorial project maintaining a graded registry of scientific and mathematical results discovered by or with AI systems.",
+      "logo": {
+        "@type": "ImageObject",
+        "@id": "https://whataifound.org/#logo",
+        "url": "https://whataifound.org/assets/brand/icon-512.png",
+        "contentUrl": "https://whataifound.org/assets/brand/icon-512.png",
+        "width": 512,
+        "height": 512,
+        "caption": "whataifound.org"
+      },
+      "image": { "@id": "https://whataifound.org/#logo" },
+      "sameAs": ["https://github.com/yigitisik/whataifound"]
+    },
+    {
       "@type": "WebSite",
       "@id": "https://whataifound.org/#website",
       "url": "https://whataifound.org/",
       "name": "whataifound.org",
+      "publisher": { "@id": "https://whataifound.org/#organization" },
       "alternateName": "whataifound.org: What AI Has Actually Discovered",
       "description": "A curated, independently graded registry of scientific and mathematical results discovered by or with AI systems. Every entry is graded on how it was verified and how much the AI actually did.",
       "inLanguage": "en",
@@ -73,7 +99,7 @@
       "url": "https://whataifound.org/",
       "keywords": ["AI discoveries", "artificial intelligence", "mathematics", "scientific discovery", "machine-verified proofs", "AI autonomy", "research provenance"],
       "isAccessibleForFree": true,
-      "creator": { "@type": "Organization", "name": "whataifound.org", "url": "https://whataifound.org/" },
+      "creator": { "@id": "https://whataifound.org/#organization" },
       "license": "https://whataifound.org/methodology.html",
       "distribution": {
         "@type": "DataDownload",
@@ -176,11 +202,19 @@
   <div class="eyebrow intro i1">
     <span class="brand">
       <svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
-        <path class="m1" d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        <path class="m2" d="M12 7 L17 12 L12 17 L7 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle class="m3" cx="12" cy="12" r="1.7" fill="currentColor"/>
+        <defs>
+          <linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5aa9e6"/>
+            <stop offset="0.5" stop-color="#7c6cf0"/>
+            <stop offset="1" stop-color="#d98a4a"/>
+          </linearGradient>
+        </defs>
+        <path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="currentColor" fill-opacity="0.55"/>
+        <path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
       </svg>
-      whataifound.org</span>
+      <span class="wm">what<span class="ai">ai</span>found.org</span></span>
     <span class="eyebrow-right">
       <a class="gh-icon" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source on GitHub">
         <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
