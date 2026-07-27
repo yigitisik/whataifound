@@ -30,7 +30,10 @@ import html
 import json
 import os
 import re
-from datetime import date, datetime, timezone
+# No datetime import on purpose: every date written by this script comes from
+# data/entries.json. The output is committed and CI rebuilds it, so anything derived
+# from the clock would make the build non-reproducible and fail the drift check on a
+# later day. See build_sitemap().
 from urllib.parse import quote, urlparse
 
 SITE = "https://whataifound.org"
@@ -601,12 +604,20 @@ def build_llms_txt(entries):
 
 
 # ------------------------------------------------------------------ sitemap
-def build_sitemap(entries, today):
-    urls = [(f"{SITE}/", today, "weekly", "1.0"),
-            (f"{SITE}/methodology", today, "monthly", "0.7"),
-            (f"{SITE}/visuals", today, "weekly", "0.7")]
+def build_sitemap(entries, updated):
+    """Build the sitemap with content-derived lastmod dates.
+
+    `lastmod` must come from the data, never from date.today(): the build output is
+    committed and CI re-runs it, so a clock-derived value makes the file differ on any
+    day other than the one it was built on, failing the drift check for a reason that
+    has nothing to do with the content. The registry pages change when an entry is
+    added, so the newest `added` date is the honest answer for all three.
+    """
+    urls = [(f"{SITE}/", updated, "weekly", "1.0"),
+            (f"{SITE}/methodology", updated, "monthly", "0.7"),
+            (f"{SITE}/visuals", updated, "weekly", "0.7")]
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
-        lastmod = (e.get("added") or e.get("date") or today)[:10]
+        lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
     body = "\n".join(
         f"  <url>\n    <loc>{u}</loc>\n    <lastmod>{m}</lastmod>\n"
@@ -783,8 +794,6 @@ def main():
     updated = (sorted(e["added"] for e in entries if e.get("added"))[-1]
                if any(e.get("added") for e in entries)
                else (entries[0].get("date", "") if entries else ""))
-    today = date.today().isoformat()
-
     build_index(entries, updated)
 
     out_dir = os.path.join(ROOT, "finding")
@@ -801,7 +810,7 @@ def main():
     with open(os.path.join(ROOT, "llms.txt"), "w") as f:
         f.write(build_llms_txt(entries))
     with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
-        f.write(build_sitemap(entries, today))
+        f.write(build_sitemap(entries, updated))
 
     print(f"Pre-rendered {len(entries)} entries into index.html")
     print(f"Wrote finding/ ({len(entries)} pages), llms.txt, sitemap.xml "
