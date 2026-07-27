@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+<title>Faster sorting routines discovered and merged into the LLVM C++ library — graded Independently checked | whataifound.org</title>
+<meta name="description" content="Faster sorting routines discovered and merged into the LLVM C++ library is graded independently checked on whataifound.org, with the AI&#x27;s role graded search scaffold. AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LL">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/finding/2023-06-07-alphadev">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Faster sorting routines discovered and merged into the LLVM C++ library">
+<meta property="og:description" content="Faster sorting routines discovered and merged into the LLVM C++ library is graded independently checked on whataifound.org, with the AI&#x27;s role graded search scaffold. AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LL">
+<meta property="og:url" content="https://whataifound.org/finding/2023-06-07-alphadev">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="article:published_time" content="2023-06-07">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Faster sorting routines discovered and merged into the LLVM C++ library">
+<meta name="twitter:description" content="Faster sorting routines discovered and merged into the LLVM C++ library is graded independently checked on whataifound.org, with the AI&#x27;s role graded search scaffold. AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LL">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://whataifound.org/finding/2023-06-07-alphadev#article",
+      "url": "https://whataifound.org/finding/2023-06-07-alphadev",
+      "headline": "Faster sorting routines discovered and merged into the LLVM C++ library",
+      "name": "Faster sorting routines discovered and merged into the LLVM C++ library",
+      "abstract": "AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.",
+      "description": "AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.",
+      "datePublished": "2023-06-07",
+      "dateModified": "2026-07-20",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#dataset"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "about": "Computer science",
+      "keywords": [
+        "algorithms",
+        "sorting",
+        "reinforcement-learning",
+        "deployed",
+        "Independently checked",
+        "Search scaffold"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creditText": "whataifound.org — verification: Independently checked; autonomy: Search scaffold.",
+      "articleBody": "AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.",
+      "contributor": [
+        {
+          "@type": "Organization",
+          "name": "Google DeepMind"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://www.nature.com/articles/s41586-023-06004-9",
+          "name": "Nature: Faster sorting algorithms discovered using deep reinforcement learning"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/",
+          "name": "DeepMind: AlphaDev discovers faster sorting algorithms"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://en.wikipedia.org/wiki/AlphaDev",
+          "name": "Wikipedia: AlphaDev"
+        }
+      ]
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "https://whataifound.org/finding/2023-06-07-alphadev#claimreview",
+      "url": "https://whataifound.org/finding/2023-06-07-alphadev",
+      "claimReviewed": "AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.",
+      "datePublished": "2026-07-20",
+      "author": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "itemReviewed": {
+        "@type": "Claim",
+        "name": "Faster sorting routines discovered and merged into the LLVM C++ library",
+        "author": {
+          "@type": "Organization",
+          "name": "Google DeepMind (AlphaDev (AlphaZero-based))"
+        },
+        "datePublished": "2023-06-07",
+        "appearance": [
+          {
+            "@type": "CreativeWork",
+            "url": "https://www.nature.com/articles/s41586-023-06004-9"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://en.wikipedia.org/wiki/AlphaDev"
+          }
+        ]
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1,
+        "alternateName": "Independently checked by third parties"
+      },
+      "reviewBody": "The libc++ small-sort routines had been hand-optimised by compiler engineers for years. AlphaDev's shorter instruction sequences were reviewed against the standing implementations and confirmed to be improvements before being merged."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Faster sorting routines discovered and merged into the LLVM C++ library",
+          "item": "https://whataifound.org/finding/2023-06-07-alphadev"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="finding-page">
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+</nav>
+
+<article class="finding">
+  <div class="finding-pills">
+    <span class="pill v v-independent">Independently checked</span>
+    <span class="pill a">Search scaffold</span>
+  </div>
+  <h1>Faster sorting routines discovered and merged into the LLVM C++ library</h1>
+  <p class="lede">Faster sorting routines discovered and merged into the LLVM C++ library is graded independently checked on whataifound.org, with the AI's role graded search scaffold.</p>
+  <p class="claim">AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.</p>
+
+  <dl class="finding-facts">
+      <div><dt>Verification</dt><dd>Independently checked</dd></div>
+      <div><dt>Autonomy</dt><dd>Search scaffold</dd></div>
+      <div><dt>Lab</dt><dd>Google DeepMind</dd></div>
+      <div><dt>Model</dt><dd>AlphaDev (AlphaZero-based)</dd></div>
+      <div><dt>Field</dt><dd>Computer science</dd></div>
+      <div><dt>Date</dt><dd>2023-06-07</dd></div>
+  </dl>
+
+  <h2 class="lbl">What was found</h2>
+  <p>AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>The libc++ small-sort routines had been hand-optimised by compiler engineers for years. AlphaDev's shorter instruction sequences were reviewed against the standing implementations and confirmed to be improvements before being merged.</p>
+  <h2 class="lbl">Caveats</h2>
+  <p>The gains are on very short fixed-length inputs; asymptotic sorting complexity is unchanged, and the headline percentage speedups apply only to those small cases. The 'independent' grade rests on LLVM maintainers reviewing and merging the code, not on a formal proof of optimality.</p>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>LLVM libc++ maintainers (code review and merge): <em>reviewed and merged into the standard sort library</em> · <a href="https://en.wikipedia.org/wiki/AlphaDev" target="_blank" rel="noopener">link ↗</a></p></div>
+  <h2 class="lbl">Sources</h2>
+  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06004-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Faster sorting algorithms discovered using deep reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaDev discovers faster sorting algorithms</span><span class="ref-a">↗</span></a><a class="ref" href="https://en.wikipedia.org/wiki/AlphaDev" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">AlphaDev</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl">Community discussion</h2>
+  <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=36228125" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaDev, faster sorting algorithms via deep RL</span><span class="ref-a">↗</span></a></div>
+
+  <h2 class="lbl">How this is graded</h2>
+  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
+  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
+  the AI did versus its human collaborators). This finding is <strong>independently checked</strong>
+  and <strong>search scaffold</strong>. Full definitions are in the
+  <a href="/methodology">methodology</a>.</p>
+
+  <h2 class="lbl">Cite this entry</h2>
+  <p class="cite">whataifound.org (2023). <em>Faster sorting routines discovered and merged into the LLVM C++ library.</em>
+  whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2023-06-07-alphadev</p>
+
+  <p class="finding-back"><a href="/#e-2023-06-07-alphadev">← All computer science findings in the registry</a></p>
+</article>
+
+</div>
+</body>
+</html>

@@ -77,8 +77,11 @@ json_feed = {
     "favicon": f"{SITE}/assets/brand/favicon.svg",
     "items": [
         {
-            "id": f"{SITE}/#e-{e['id']}",
-            "url": f"{SITE}/#e-{e['id']}",
+            # Point at the entry's own page (built by build-site.py) rather than a
+            # homepage fragment: a feed reader, and anything syndicating from it,
+            # then links somewhere that stands on its own.
+            "id": f"{SITE}/finding/{e['id']}",
+            "url": f"{SITE}/finding/{e['id']}",
             "title": e["title"],
             "content_text": summary(e),
             "date_published": dt(e.get("date", "")).isoformat(),
@@ -96,7 +99,7 @@ with open(os.path.join(ROOT, "feed.json"), "w") as f:
 # ---- RSS 2.0 ----
 items_xml = []
 for e in entries:
-    link = f"{SITE}/#e-{e['id']}"
+    link = f"{SITE}/finding/{e['id']}"
     pub = format_datetime(dt(e.get("added") or e.get("date", "")))
     cats = "".join(f"<category>{escape(t)}</category>" for t in e.get("tags", []))
     items_xml.append(

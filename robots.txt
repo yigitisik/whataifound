@@ -28,3 +28,7 @@ User-agent: CCBot
 Allow: /
 
 Sitemap: https://whataifound.org/sitemap.xml
+
+# Markdown map of the registry for LLM crawlers: grading scales, data files, and
+# every finding with its verification and autonomy grade.
+# https://whataifound.org/llms.txt
