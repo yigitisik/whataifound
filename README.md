@@ -25,9 +25,28 @@ needs a server; a `file://` URL won't load.
 
 ## How it works
 
-The registry is one JSON file, `data/entries.json`. The site reads it client-side;
-`scripts/build-feed.py` generates the RSS and JSON feeds from it. No database, no server-side code.
-Adding a finding means adding one object to the file.
+The registry is one JSON file, `data/entries.json`. Everything else is generated from it. No
+database, no server-side code. Adding a finding means adding one object to the file and rebuilding:
+
+```bash
+python3 scripts/build-site.py     # pre-renders index.html, writes finding/, llms.txt, sitemap.xml
+python3 scripts/build-feed.py     # regenerates feed.xml + feed.json
+python3 scripts/verify-parity.py  # checks the pre-rendered cards still match app.js (needs Node)
+```
+
+`build-site.py` writes the entries into `index.html` as static markup. This matters because the AI
+crawlers `robots.txt` invites — GPTBot, ClaudeBot, PerplexityBot, CCBot — largely do not execute
+JavaScript. Before pre-rendering, they fetched a registry of AI discoveries containing no AI
+discoveries: 2.3KB of chrome and an empty `<main>`. It is now ~37KB of entry text in the source.
+
+`app.js` still owns search and filtering; it adopts the server-rendered list on first paint (via
+`data-prerendered` on `#list`) instead of rewriting it. Its `card()` and the Python port in
+`build-site.py` must stay in step or the DOM visibly changes when a filter is first used —
+`verify-parity.py` runs the real `card()` under Node and diffs it against what was built, so CI
+catches drift.
+
+Do not hand-edit anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, or
+`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`. Edit `data/entries.json` and rebuild.
 
 An entry's `notability` (how many Wikipedia language editions cover the problem) is not typed by
 hand — it is measured from the live Wikipedia API by `scripts/build-notability.py`, which reads each
@@ -50,23 +69,27 @@ Feeds regenerate on merge, so don't hand-edit `feed.xml` or `feed.json`.
 
 ```
 whataifound/
-├── index.html              # registry page: markup, SEO head, JSON-LD
+├── index.html              # registry page: SEO head, JSON-LD, pre-rendered entries
 ├── methodology.html        # grading reference
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme, permalinks
+├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
+├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── feed.xml / feed.json    # RSS 2.0 + JSON Feed 1.1, generated
 ├── vercel.json             # clean URLs, cache + security headers
-├── robots.txt / sitemap.xml
+├── robots.txt / sitemap.xml  # sitemap.xml generated
 ├── data/entries.json       # the registry
 ├── assets/brand/           # favicon, og.png card, og.svg source
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
 ├── scripts/                # authoring toolchain (not deployed)
 │   ├── serve.py            #   local preview server
+│   ├── build-site.py       #   pre-renders index.html; writes finding/, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds from data/entries.json
-│   └── build-notability.py #   measures notability from the Wikipedia API
+│   ├── build-notability.py #   measures notability from the Wikipedia API
+│   └── verify-parity.py    #   asserts pre-rendered cards == app.js card()
 └── docs/                   # repo docs (not deployed)
     ├── SCHEMA.md           #   field definitions + editorial rules
     └── CONTRIBUTING.md
