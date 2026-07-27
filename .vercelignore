@@ -1,7 +1,11 @@
-# Authoring + local-preview toolchain. Neither runs on Vercel: the site is static,
-# and feed.xml/feed.json are generated locally and committed. Keeping these out of
-# the deployment keeps the CDN bundle to exactly what is served.
+# Authoring + local-preview toolchain. Nothing here runs on Vercel: the site is static
+# and every generated file (index.html's entries, finding/, llms.txt, sitemap.xml, the
+# feeds) is built locally and committed. Keeping these out keeps the CDN bundle to
+# exactly what is served.
 scripts/
+
+# CI runs on GitHub, not Vercel.
+.github/
 
 # Repo docs, not site content.
 README.md

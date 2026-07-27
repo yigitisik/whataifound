@@ -66,8 +66,11 @@ jobs:
       - name: Classify the change
         if: github.event_name == 'pull_request'
         run: |
+          # Two-dot, not three-dot: actions/checkout fetches shallowly, so the
+          # merge-base a three-dot diff needs does not exist and it silently
+          # returns nothing. Two-dot compares the fetched tip directly.
           git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
-          changed=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)
+          changed=$(git diff --name-only FETCH_HEAD HEAD)
           echo "Changed files:"; echo "$changed"
           if echo "$changed" | grep -qE '^(scripts/|\.github/|app\.js|vercel\.json)'; then
             echo "::warning::This PR touches build scripts, CI, app.js or vercel.json — review as a code change, not an entry."
