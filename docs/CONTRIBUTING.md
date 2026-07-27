@@ -80,6 +80,16 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
 so drift fails the build; the markup would otherwise visibly change the first time a visitor
 filters.
 
+### Brand assets
+
+Editing `assets/brand/favicon.svg` or `og.svg` means re-running `python3 scripts/build-icons.py`
+and committing the regenerated rasters. It is not part of `build.py`.
+
+The header mark is inlined in `index.html`, `methodology.html` and `visuals.html` (so it inherits
+`currentColor` and animates) and again, larger and static, in `404.html`. Change the shape and all
+four need the same edit, plus `assets/brand/` for the standalone files. Each inline copy needs its
+own gradient `id`; duplicates across a page collide.
+
 ## PRs
 
 Branch from `main`, push, open a PR. Vercel posts a preview URL. One entry or one code change per
