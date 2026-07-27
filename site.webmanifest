@@ -1,0 +1,22 @@
+{
+  "name": "whataifound.org: What AI Has Actually Discovered",
+  "short_name": "whataifound",
+  "description": "A curated, independently graded registry of scientific and mathematical results discovered by or with AI systems.",
+  "start_url": "/",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#0b0d10",
+  "theme_color": "#0b0d10",
+  "icons": [
+    {
+      "src": "/assets/brand/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    },
+    {
+      "src": "/assets/brand/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml"
+    }
+  ]
+}

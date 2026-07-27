@@ -114,7 +114,10 @@ whataifound/
 ├── feed.xml / feed.json    # RSS 2.0 + JSON Feed 1.1, generated
 ├── robots.txt              # allows AI crawlers; points at sitemap + llms.txt
 ├── vercel.json             # clean URLs, cache + security headers
-├── assets/brand/           # favicon, og.png card, og.svg source
+├── favicon.ico             # 48x48, generated; the path Google probes
+├── apple-touch-icon.png    # 180x180, generated; iOS home screen
+├── site.webmanifest        # PWA/Android icon declarations
+├── assets/brand/           # favicon.svg source, raster icons, og card
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
 ├── .github/workflows/      # CI: integrity, rebuild, drift
@@ -172,6 +175,17 @@ Static, no build command: the generated files are committed, so a deploy just se
   files, and every finding with its grades.
 - `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, others) and
   points at `sitemap.xml` and `llms.txt`.
+- Icons: `favicon.svg` is the single source. `scripts/build-icons.py` rasterises it into
+  `favicon.ico`, `apple-touch-icon.png`, `icon-48.png` (raster `rel="icon"` and the .ico payload)
+  and `icon-512.png` (manifest, PWA, and the `Organization` JSON-LD logo). Deliberately four files,
+  not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers every large use. Run it only when the SVG changes; it
+  needs Node with Playwright and is deliberately not part of `build.py`. The PNGs are not
+  redundant with the SVG: Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does
+  not list SVG, so an SVG-only site tends to show a generic globe in search results.
+
+  ```bash
+  PLAYWRIGHT_DIR=/path/to/node_modules/.. python3 scripts/build-icons.py
+  ```
 - Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG, because several platforms don't
   render SVG previews). Regenerate after editing `og.svg`:
 

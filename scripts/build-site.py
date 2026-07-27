@@ -464,7 +464,10 @@ def entry_page(e):
 <meta name="twitter:image" content="{SITE}/assets/brand/og.png">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
 

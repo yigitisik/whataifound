@@ -59,27 +59,6 @@
     mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 13v8M13 17h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
     -webkit-mask-size:34px 34px;mask-size:34px 34px;-webkit-mask-repeat:repeat;mask-repeat:repeat}
 
-  /* Shooting star: one hairline streak crossing the top-right every 30s. Pure CSS on a
-     spare pseudo-element, so there is no JS, no timer and no DOM node to manage. The
-     animation is mostly a long transparent pause; the visible part is the last ~4% of
-     the cycle, which is what keeps it a rare accent rather than decoration. position
-     is fixed, unlike the plotting paper: the star should read as sky behind the page,
-     so it must not scroll with the content. */
-  /* Sits above the content layer but at very low opacity, so it passes over the page
-     the way a reflection crosses glass rather than being hidden behind the opaque
-     cards. Peak opacity is kept low deliberately: at full strength a line crossing the
-     masthead reads as a rendering glitch. pointer-events:none keeps it inert. */
-  body::after{content:"";position:fixed;top:6vh;right:-16vw;z-index:1;pointer-events:none;
-    width:140px;height:1.5px;border-radius:2px;opacity:0;
-    transform:translate(0,0) rotate(17deg);transform-origin:right center;
-    background:linear-gradient(270deg,var(--independent),rgba(0,0,0,0));
-    animation:shoot 30s linear infinite}
-  @keyframes shoot{
-    0%,95.9%{opacity:0;transform:translate(0,0) rotate(17deg)}
-    96.3%{opacity:.42}
-    99%{opacity:.16}
-    100%{opacity:0;transform:translate(-132vw,40vh) rotate(17deg)}
-  }
   main{scroll-margin-top:74px}
   .entry{scroll-margin-top:80px}
   #top,#sources,#about{scroll-margin-top:16px}
@@ -179,15 +158,42 @@
   .gh-link{display:inline-flex;align-items:center;gap:6px}
   .gh-link svg{flex:none}
   .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:9px}
-  .mark{overflow:visible;transition:transform .55s var(--ease)}
-  .brand:hover .mark{transform:rotate(90deg)}
-  .mark .m1{stroke-dasharray:57;stroke-dashoffset:57;animation:draw 1s var(--ease) .15s forwards}
-  .mark .m2{stroke-dasharray:29;stroke-dashoffset:29;animation:draw .8s var(--ease) .55s forwards}
-  .mark .m3{opacity:0;transform-origin:center;transform-box:fill-box;
-    animation:dotIn .45s var(--ease) 1.15s forwards,breathe 4.5s ease-in-out 2s infinite}
+  /* The brand is a flex row, so the wordmark has to stay one flex item: left as bare
+     text nodes, the gradient span would split it into three items and the 9px gap
+     meant for the mark would open up inside the word too. */
+  .eyebrow .brand .wm{display:inline}
+  /* Sized in CSS rather than via the SVG's width/height so the two stay in one place.
+     The mark is centred on its own 24x24 box, but the wordmark beside it is all-caps
+     with no descenders, so box-centring lands the mark low against the letterforms.
+     translateY lifts it onto the cap-height axis; the value is the measured offset
+     between the two centres at this size. */
+  .brand .mark{overflow:visible;width:26px;height:26px;flex:none;
+    transform:translateY(-1.5px);transition:transform .55s var(--ease)}
+  .brand:hover .mark{transform:translateY(-1.5px) rotate(90deg)}
+  /* The mark assembles itself on load: the two chevrons draw from the shared left vertex
+     outward, then the crossbar that turns them into an A fades in, then the serif I.
+     Each chevron path is 26.6 units long (two 13.3 legs), so one dash of 27 hides it
+     exactly and animating the offset to zero reveals it. The bar and the I are fills,
+     not strokes, so they fade rather than draw. */
+  .mark .m1a{stroke-dasharray:27;stroke-dashoffset:27;animation:draw .8s var(--ease) .15s forwards}
+  .mark .m1b{stroke-dasharray:27;stroke-dashoffset:27;animation:draw .8s var(--ease) .35s forwards}
+  .mark .m2{opacity:0;animation:fadeIn .45s var(--ease) 1s forwards}
+  .mark .m3{opacity:0;animation:fadeIn .45s var(--ease) 1.25s forwards}
   @keyframes draw{to{stroke-dashoffset:0}}
-  @keyframes dotIn{to{opacity:1}}
-  @keyframes breathe{0%,100%{transform:scale(1)}50%{transform:scale(1.4)}}
+  @keyframes fadeIn{to{opacity:1}}
+  /* The "ai" in the wordmark carries the same blue-violet-amber ramp as the mark's I.
+     It fades in on the same beat as that I (1.25s), then drifts continuously, so the
+     lettering and the logo read as one system rather than two separate animations.
+     The gradient is wider than the text and slides, which is what makes it move:
+     background-clip:text paints it through the glyphs. */
+  .eyebrow .brand .ai{background:linear-gradient(100deg,#5aa9e6 0%,#7c6cf0 35%,#d98a4a 60%,#5aa9e6 100%);
+    background-size:300% 100%;-webkit-background-clip:text;background-clip:text;
+    color:transparent;-webkit-text-fill-color:transparent;
+    opacity:0;animation:fadeIn .45s var(--ease) 1.25s forwards,aiShift 9s ease-in-out 1.25s infinite}
+  @keyframes aiShift{0%{background-position:0% 0}50%{background-position:100% 0}100%{background-position:0% 0}}
+  /* Hovering the brand spins the mark; the ramp accelerates with it so the two moves
+     stay coupled. */
+  .eyebrow .brand:hover .ai{animation:fadeIn .45s var(--ease) 1.25s forwards,aiShift 2.2s ease-in-out infinite}
   .grad{background:linear-gradient(100deg,var(--ink) 0%,var(--formal) 30%,var(--independent) 55%,var(--peer) 80%,var(--ink) 100%);
     background-size:280% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;
     animation:gradShift 16s ease-in-out infinite}
@@ -543,5 +549,8 @@
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
     .stat:before{transform:scaleX(1)} .intro{opacity:1}
-    .mark .m1,.mark .m2{stroke-dashoffset:0} .mark .m3{opacity:1}
+    .mark .m1a,.mark .m1b{stroke-dashoffset:0} .mark .m2,.mark .m3{opacity:1}
+    /* The "ai" starts at opacity 0 and is revealed by its fade-in, so killing the
+       animation would erase it. Show it, still gradient-filled, just not drifting. */
+    .eyebrow .brand .ai{opacity:1;background-position:0 0}
   }

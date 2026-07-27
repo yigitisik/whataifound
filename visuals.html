@@ -28,8 +28,15 @@
 <meta name="twitter:description" content="The whataifound.org registry in charts: findings over time, grades, labs, topics, and notability versus years open.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 
-<link rel="icon" href="assets/brand/favicon.svg" type="image/svg+xml">
-<link rel="mask-icon" href="assets/brand/favicon.svg" color="#0b0d10">
+<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
+     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
+     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
+     /favicon.ico is the path Google probes when no <link> is usable. -->
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
 
 <!-- Subscribable feeds: new and updated registry entries. -->
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
@@ -92,11 +99,19 @@
   <div class="eyebrow">
     <span class="brand">
       <svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
-        <path class="m1" d="M12 2 L22 12 L12 22 L2 12 Z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
-        <path class="m2" d="M12 7 L17 12 L12 17 L7 12 Z" fill="none" stroke="currentColor" stroke-width="1.4" stroke-linejoin="round"/>
-        <circle class="m3" cx="12" cy="12" r="1.7" fill="currentColor"/>
+        <defs>
+          <linearGradient id="mk-v" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5aa9e6"/>
+            <stop offset="0.5" stop-color="#7c6cf0"/>
+            <stop offset="1" stop-color="#d98a4a"/>
+          </linearGradient>
+        </defs>
+        <path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="currentColor" stroke-opacity="0.55" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="currentColor" fill-opacity="0.55"/>
+        <path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-v)"/>
       </svg>
-      whataifound.org</span>
+      <span class="wm">what<span class="ai">ai</span>found.org</span></span>
     <h1 class="meth-title">Visuals</h1>
     <a class="back" href="index.html">← Back to the registry</a>
   </div>
