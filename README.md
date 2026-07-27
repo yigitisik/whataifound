@@ -16,11 +16,10 @@ Requires Python 3 (Node only for the parity check).
 git clone https://github.com/yigitisik/whataifound.git
 cd whataifound
 python3 scripts/build.py          # regenerate the site from data/entries.json
-python3 scripts/serve.py          # http://localhost:8000
+python3 scripts/serve.py          # http://localhost:8000  (--lan for phone testing)
 ```
 
-`serve.py` reproduces the clean URLs and 404 page Vercel serves in production; `--lan` exposes it
-for phone testing. `vercel dev` (with the CLI) also applies the production headers.
+`serve.py` reproduces the clean URLs and 404 page Vercel serves in production.
 
 ## How it works
 
@@ -44,8 +43,8 @@ rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
 The AI crawlers `robots.txt` invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not
 execute JavaScript. When the page fetched its entries client-side, those crawlers got a registry of
-AI discoveries containing no AI discoveries: 2.3KB of chrome and an empty `<main>`. The entries are
-now in the markup (~37KB of text), and each finding also has its own URL for citation.
+AI discoveries containing no AI discoveries: an empty `<main>`. The entries are now in the markup,
+and each finding also has its own URL for citation.
 
 `app.js` still owns search and filtering. It adopts the server-rendered list on first paint (via
 `data-prerendered` on `#list`) rather than rewriting it, so the DOM never churns on load.
@@ -66,10 +65,10 @@ and the CSP allows `'unsafe-inline'`, so they would be live.
 
 `check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
 inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
-because roughly a quarter of `index.html` (the `<head>`, JSON-LD, nav, footer, script tags) sits
-outside the `<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would
-survive a rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would
-otherwise overwrite tampering in a fully generated file and hide it.
+because part of `index.html` (the `<head>`, JSON-LD, nav, footer, script tags) sits outside the
+`<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would survive a
+rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would otherwise
+overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
@@ -87,9 +86,11 @@ Two things are deliberately *not* part of every build:
   from the live Wikipedia API, following redirects and writing a `notability_meta` audit trail. It
   hits the network and edits `data/entries.json`, so run it deliberately when adding an entry with a
   `wikipedia` title. `--check` reports drift.
-- **A new `field` value** needs a display name in `FIELD_LABEL` in `build-site.py`. This is the one edit
-  outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve fields
-  are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
+- **`build-icons.py`** regenerates the raster icons and the OG card. See [Brand assets](#brand-assets).
+
+A new `field` value needs a display name in `FIELD_LABEL` in `build-site.py`. This is the one edit
+outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve fields
+are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
 
 ## Contributing
 
@@ -104,7 +105,7 @@ whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
 ├── methodology.html        # grading reference
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
-├── 404.html                # styled not-found page
+├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme, permalinks
 ├── data/entries.json       # the registry, the only file you edit by hand
@@ -117,7 +118,7 @@ whataifound/
 ├── favicon.ico             # 48x48, generated; the path Google probes
 ├── apple-touch-icon.png    # 180x180, generated; iOS home screen
 ├── site.webmanifest        # PWA/Android icon declarations
-├── assets/brand/           # favicon.svg source, raster icons, og card
+├── assets/brand/           # brand sources + generated raster icons and og.png
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
 ├── .github/workflows/      # CI: integrity, rebuild, drift
@@ -126,6 +127,7 @@ whataifound/
 │   ├── build-site.py       #   pre-renders index.html; writes finding/, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds
 │   ├── build-notability.py #   measures notability from the Wikipedia API (run deliberately)
+│   ├── build-icons.py      #   rasterises the icons + og.png (run deliberately)
 │   ├── verify-parity.py    #   asserts pre-rendered cards == app.js card()
 │   ├── check-integrity.py  #   asserts no smuggled markup in deployed HTML
 │   └── serve.py            #   local preview server
@@ -133,6 +135,41 @@ whataifound/
     ├── SCHEMA.md           #   field definitions + editorial rules
     └── CONTRIBUTING.md     #   how to add an entry, and how to review one
 ```
+
+## Brand assets
+
+`assets/brand/` holds the sources and their generated rasters.
+
+| File | Role |
+|---|---|
+| `favicon.svg` | The mark on its rounded dark plate. Source for every raster icon |
+| `mark.svg` | The mark alone, no plate |
+| `mark-mono.svg` | Single-colour mark via `currentColor`, for stamps and dark/light inversion |
+| `lockup.svg` | Mark + wordmark |
+| `og.svg` → `og.png` | 1200×630 social card |
+| `icon-48.png`, `icon-512.png` | Generated. With `favicon.ico` and `apple-touch-icon.png` at the root |
+
+The mark is a diamond split into a dim upper and bright lower half, crossed by a bar, with a serif
+`I` in a blue→violet→amber gradient. That gradient is the brand's one accent: it also fills the
+`ai` in the wordmark, in the lockup, the OG card, and the site header. The header repeats the mark
+inline in `index.html`, `methodology.html` and `visuals.html` so it can inherit `currentColor` and
+animate; `404.html` carries a larger static copy.
+
+Regenerate the rasters after editing `favicon.svg` or `og.svg`:
+
+```bash
+python3 scripts/build-icons.py
+```
+
+It prefers Node with Playwright (`PLAYWRIGHT_DIR=/path/to/node_modules/..` if it lives elsewhere)
+and falls back to macOS Quick Look, which needs no install. Outputs are committed, so a normal
+`build.py` does not regenerate them.
+
+Four icon files, not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers the
+manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG.
+Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does not list SVG, so an
+SVG-only site tends to show a generic globe in search results. `og.png` is a PNG for the same class
+of reason: several platforms don't render SVG previews.
 
 ## Front end
 
@@ -175,45 +212,16 @@ Static, no build command: the generated files are committed, so a deploy just se
   files, and every finding with its grades.
 - `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, others) and
   points at `sitemap.xml` and `llms.txt`.
-- Icons: `favicon.svg` is the single source. `scripts/build-icons.py` rasterises it into
-  `favicon.ico`, `apple-touch-icon.png`, `icon-48.png` (raster `rel="icon"` and the .ico payload)
-  and `icon-512.png` (manifest, PWA, and the `Organization` JSON-LD logo). Deliberately four files,
-  not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers every large use. Run it only when the SVG changes; it
-  needs Node with Playwright and is deliberately not part of `build.py`. The PNGs are not
-  redundant with the SVG: Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does
-  not list SVG, so an SVG-only site tends to show a generic globe in search results.
-
-  ```bash
-  PLAYWRIGHT_DIR=/path/to/node_modules/.. python3 scripts/build-icons.py
-  ```
-- Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG, because several platforms don't
-  render SVG previews). Regenerate after editing `og.svg`:
-
-  ```bash
-  npm i @resvg/resvg-js
-  node -e "const{Resvg}=require('@resvg/resvg-js');const fs=require('fs');\
-  const r=new Resvg(fs.readFileSync('assets/brand/og.svg','utf8'),{fitTo:{mode:'width',value:1200},\
-  font:{fontFiles:['assets/fonts/news-600.woff2','assets/fonts/news-400.woff2'],loadSystemFonts:true,\
-  defaultFontFamily:'Newsreader'}});fs.writeFileSync('assets/brand/og.png',r.render().asPng())"
-  ```
 
 The domain `https://whataifound.org` is hard-coded in `index.html`, `methodology.html`,
 `visuals.html`, `robots.txt`, the `SITE` constant in `build-site.py`, `build-feed.py` and
-`build-notability.py`, and the `og.svg` wordmark. Changing it means editing all of those, re-running
-`build.py`, and re-rendering `og.png`.
+`build-notability.py`, and the `og.svg` wordmark. Changing it means editing all of those, then
+re-running `build.py` and `build-icons.py`.
 
 ## Licensing
 
 Data and content are CC BY 4.0; code is MIT ([LICENSE](LICENSE)). The `Dataset` JSON-LD exposes
 `data/entries.json` as a `DataDownload`.
-
-## Current state
-
-22 entries, July 2021 (AlphaFold2) to July 2026 (Dinitz–Garg–Goemans counterexample), across
-mathematics (10), computer science (6), biology (3), materials (2) and physics (1). Fifteen are
-well verified (`formal`, `independent` or `peer-reviewed`); four are negative or contested (two
-`known`, two `disputed`). Fourteen carry `discussion` threads; three carry YouTube `videos`
-verified against oEmbed.
 
 ## Roadmap
 
