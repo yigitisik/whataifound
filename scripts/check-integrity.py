@@ -8,8 +8,8 @@ Why this is separate from build.py
 build.py regenerates the site and CI fails on any diff, which catches a stale build.
 That is not the same as catching a *malicious* one. Two gaps it does not close:
 
-1. Roughly a quarter of index.html — the <head>, the JSON-LD block, the nav, the
-   footer, the script tags — sits outside the <!--…:START/END--> markers and is never
+1. Roughly a quarter of index.html (the <head>, the JSON-LD block, the nav, the
+   footer, the script tags) sits outside the <!--…:START/END--> markers and is never
    regenerated. A payload placed there survives every rebuild untouched, so `git diff`
    after a rebuild is clean and CI is satisfied.
 
@@ -69,7 +69,7 @@ def check_html(path, problems):
     for m in re.finditer(r"<script\b([^>]*)>(.*?)</script>", src, re.S | re.I):
         attrs, body = m.group(1), m.group(2)
         line = line_of(src, m.start())
-        # A ld+json block is data, not code — the browser never executes it. Confirm it
+        # A ld+json block is data, not code: the browser never executes it. Confirm it
         # really is JSON (so nothing is hiding in a mislabelled block) and move on.
         if re.search(r'type\s*=\s*["\']application/ld\+json["\']', attrs, re.I):
             try:
@@ -77,7 +77,7 @@ def check_html(path, problems):
             except ValueError as exc:
                 problems.append(f"{rel}:{line}: ld+json block is not valid JSON ({exc})")
             if re.search(r"</\s*script", body, re.I):
-                problems.append(f"{rel}:{line}: ld+json block contains '</script' — "
+                problems.append(f"{rel}:{line}: ld+json block contains '</script'. "
                                 "it would terminate the block and inject markup")
             continue
         ext = re.search(r'\bsrc\s*=\s*["\']([^"\']+)["\']', attrs, re.I)
@@ -130,13 +130,13 @@ def check_data(problems):
                 if not isinstance(url, str) or not url.startswith(("https://", "http://")):
                     problems.append(f"data/entries.json: {eid}: {field} URL {url!r} "
                                     "is not an http(s) link")
-        # Entry text is escaped at render time, so markup here is not an injection —
+        # Entry text is escaped at render time, so markup here is not an injection,
         # but it is a sign of a copy-paste that should be read before it is merged.
         for field in ("title", "claim", "detail", "novelty_check", "caveats"):
             v = e.get(field)
             if isinstance(v, str) and re.search(r"<\s*(script|iframe|img|svg|object|embed)\b", v, re.I):
                 problems.append(f"data/entries.json: {eid}: {field} contains raw markup "
-                                f"({v[:60]!r}) — review before merging")
+                                f"({v[:60]!r}). Review before merging")
 
 
 def main():

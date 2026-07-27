@@ -3,32 +3,32 @@
 > A curated, independently graded registry of scientific and mathematical results
 > discovered by or with AI systems. Every entry is graded on how it was verified and
 > how much the AI actually did, so a machine-checked proof is never confused with a
-> press release. Negative results — already known, disputed, refuted — stay on the
+> press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
 Maintained as an independent editorial project. 27 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## How entries are graded
 
-Verification, strongest to weakest — when unsure, the lower grade wins:
+Verification, strongest to weakest. When unsure, the lower grade wins:
 
-- **Formally verified** — machine-checked proof (e.g. Lean)
-- **Independently checked** — checked by third parties who were not the authors
-- **Peer reviewed** — published after peer review
-- **Author verified** — verified only by the people who produced it
-- **Claimed** — announced, not independently verified
-- **Disputed** — substantive public challenge to the result
-- **Already known** — correct, but the result already existed in the literature
-- **Refuted** — shown to be wrong
+- **Formally verified**: machine-checked proof (e.g. Lean)
+- **Independently checked**: checked by third parties who were not the authors
+- **Peer reviewed**: published after peer review
+- **Author verified**: verified only by the people who produced it
+- **Claimed**: announced, not independently verified
+- **Disputed**: substantive public challenge to the result
+- **Already known**: correct, but the result already existed in the literature
+- **Refuted**: shown to be wrong
 
 Autonomy, most to least AI-driven:
 
-- **Autonomous** — the AI did it without human problem-setting or steering
-- **AI-led** — the AI produced the core idea; humans framed or checked it
-- **Collaborative** — genuine back-and-forth between AI and human
-- **AI-assisted** — humans led; the AI helped with parts
-- **Search scaffold** — a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside
-- **Retrieval** — the AI located an existing result rather than producing a new one
+- **Autonomous**: the AI did it without human problem-setting or steering
+- **AI-led**: the AI produced the core idea; humans framed or checked it
+- **Collaborative**: genuine back-and-forth between AI and human
+- **AI-assisted**: humans led; the AI helped with parts
+- **Search scaffold**: a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside
+- **Retrieval**: the AI located an existing result rather than producing a new one
 
 ## Core pages
 

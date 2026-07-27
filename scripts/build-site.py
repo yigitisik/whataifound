@@ -5,7 +5,7 @@ Why this exists
 ---------------
 index.html used to ship an empty <main id="list"> that app.js filled in after fetching
 data/entries.json. Google renders JS eventually, but the AI crawlers robots.txt explicitly
-invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not — so every one of them
+invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not, so every one of them
 arrived at a registry of AI discoveries that contained no AI discoveries.
 
 This writes the entries into the markup that ships, so the content is there before a line
@@ -67,7 +67,7 @@ VER_RATING = {
     "refuted": (1, "Refuted"),
 }
 
-# Display names for the `field` values in use. A new field needs a line here — the
+# Display names for the `field` values in use. A new field needs a line here. The
 # build refuses to run otherwise, rather than printing a raw slug like "computer-science"
 # into a headline. This is the one edit outside data/entries.json that adding an entry
 # can require, and only when the entry opens a brand-new field.
@@ -117,7 +117,7 @@ def enc_uri_component(s):
 def esc(s):
     """The exact escape app.js's esc() performs: & < > " and nothing else.
 
-    Notably NOT html.escape(), which also encodes ' as &#x27; — that would make the
+    Notably NOT html.escape(), which also encodes ' as &#x27;, which would make the
     server-rendered markup differ from the client-rendered markup on any entry with
     an apostrophe, which is most of them.
     """
@@ -143,7 +143,7 @@ def json_ld(obj):
     since they can also confuse the parser inside a script element.
 
     The registry is a single hand-maintained file, so this is defence in depth rather
-    than a live hole — but the whole point of the pipeline is that adding an entry
+    than a live hole, but the whole point of the pipeline is that adding an entry
     means editing JSON and nothing else, and that has to stay true for any string.
     """
     return (json.dumps(obj, indent=2, ensure_ascii=False)
@@ -294,7 +294,7 @@ def card(e):
 def claim_review(e, url):
     """ClaimReview: the schema.org type for rating a claim's truthfulness.
 
-    This is the closest match in the vocabulary to what the registry actually does —
+    This is the closest match in the vocabulary to what the registry actually does:
     it lets a machine read the verification grade as a rating rather than as prose,
     which is how the site gets treated as an authority instead of another list.
     """
@@ -350,7 +350,7 @@ def entry_jsonld(e, url):
         "about": FIELD_LABEL.get(e.get("field"), e.get("field")),
         "keywords": (e.get("tags") or []) + [ver, aut],
         "license": "https://creativecommons.org/licenses/by/4.0/",
-        "creditText": f"whataifound.org — verification: {ver}; autonomy: {aut}.",
+        "creditText": f"whataifound.org. Verification: {ver}; autonomy: {aut}.",
     }
     if e.get("detail"):
         article["articleBody"] = e["detail"]
@@ -384,7 +384,7 @@ def entry_page(e):
 
     The point of these is citation surface: an answer engine picks 2–7 sources per
     answer, and a URL that answers exactly one question beats a homepage that
-    answers twenty-two. The lede paragraph is written to be quotable on its own —
+    answers twenty-two. The lede paragraph is written to be quotable on its own:
     it states the verdict before the detail, because the first sentence is what
     gets lifted into an answer.
     """
@@ -441,7 +441,7 @@ def entry_page(e):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 
-<title>{esc(e["title"])} — graded {esc(ver)} | whataifound.org</title>
+<title>{esc(e["title"])}: graded {esc(ver)} | whataifound.org</title>
 <meta name="description" content="{attr(meta_desc)}">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="{url}">
@@ -524,7 +524,7 @@ def build_llms_txt(entries):
     """A markdown map of the registry, at the root, for LLM crawlers.
 
     Answer engines ingest this far more reliably than they render a JS app. It states
-    what the registry is, what the grades mean, and links every entry — so a model
+    what the registry is, what the grades mean, and links every entry, so a model
     that never runs app.js can still cite an individual finding accurately.
     """
     by_field = {}
@@ -537,7 +537,7 @@ def build_llms_txt(entries):
         "> A curated, independently graded registry of scientific and mathematical results",
         "> discovered by or with AI systems. Every entry is graded on how it was verified and",
         "> how much the AI actually did, so a machine-checked proof is never confused with a",
-        "> press release. Negative results — already known, disputed, refuted — stay on the",
+        "> press release. Negative results (already known, disputed, refuted) stay on the",
         "> record rather than being deleted.",
         "",
         f"Maintained as an independent editorial project. {len(entries)} entries on record. "
@@ -545,7 +545,7 @@ def build_llms_txt(entries):
         "",
         "## How entries are graded",
         "",
-        "Verification, strongest to weakest — when unsure, the lower grade wins:",
+        "Verification, strongest to weakest. When unsure, the lower grade wins:",
         "",
     ]
     order = ["formal", "independent", "peer-reviewed", "author-verified",
@@ -560,7 +560,7 @@ def build_llms_txt(entries):
         "known": "correct, but the result already existed in the literature",
         "refuted": "shown to be wrong",
     }
-    lines += [f"- **{VER_LABEL[k]}** — {desc[k]}" for k in order]
+    lines += [f"- **{VER_LABEL[k]}**: {desc[k]}" for k in order]
     lines += ["", "Autonomy, most to least AI-driven:", ""]
     aut_desc = {
         "autonomous": "the AI did it without human problem-setting or steering",
@@ -570,7 +570,7 @@ def build_llms_txt(entries):
         "search-scaffold": "a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside",
         "retrieval": "the AI located an existing result rather than producing a new one",
     }
-    lines += [f"- **{AUT_LABEL[k]}** — {aut_desc[k]}"
+    lines += [f"- **{AUT_LABEL[k]}**: {aut_desc[k]}"
               for k in ["autonomous", "ai-led", "collaborative", "ai-assisted",
                         "search-scaffold", "retrieval"]]
     lines += [
@@ -667,7 +667,7 @@ def build_index(entries, updated):
 
     # The "how many are actually verified" FAQ answer quotes these tallies. It lives
     # inside the JSON-LD, where an HTML comment marker would become literal text an
-    # answer engine quotes back — so the sentence is rewritten in place by pattern
+    # answer engine quotes back, so the sentence is rewritten in place by pattern
     # instead, and stays plain prose. Numbers here are asserted as fact to LLMs; a
     # stale one is worse than no answer, so it is derived, not hand-maintained.
     scaffold = sum(1 for e in entries if e["autonomy"] == "search-scaffold")
@@ -703,7 +703,7 @@ def build_index(entries, updated):
 
 # ------------------------------------------------------------------ main
 # Only these schemes may appear in a link the site renders. Everything an entry cites
-# is a public web document, so this is not restrictive in practice — but `javascript:`
+# is a public web document, so this is not restrictive in practice, but `javascript:`
 # and `data:` URLs in a source link become executable hrefs on both the registry page
 # and the entry page, and the site's CSP allows 'unsafe-inline', so it would not stop
 # them. A contributor sends URLs; a reviewer skimming a large JSON diff can miss one.
@@ -715,7 +715,7 @@ def check_urls(e, where, problems):
     for field in ("sources", "discussion", "independent_checks"):
         for item in (e.get(field) or []):
             url = item.get("url")
-            # An independent check need not link anywhere — an in-house recomputation
+            # An independent check need not link anywhere: an in-house recomputation
             # or a blind assessment has no URL. card() already renders no link for a
             # missing or empty value, so absent and "" are both legitimate there.
             if field == "independent_checks" and not url:
@@ -738,12 +738,12 @@ def check_urls(e, where, problems):
 def validate(entries):
     """Reject data that would silently produce a broken, unsafe or unreachable page.
 
-    Adding a finding is meant to be "edit data/entries.json, rebuild" — so the build
+    Adding a finding is meant to be "edit data/entries.json, rebuild", so the build
     is the only place a typo can be caught. It fails loudly here rather than emitting
     a page with an empty <h1>, a colliding URL, or a grade nothing knows how to label.
 
     This is also the security boundary for contributed content. Entry text is escaped
-    at render time, but a URL is not text — it is a scheme the browser will act on —
+    at render time, but a URL is not text, it is a scheme the browser will act on,
     so the schemes are checked here instead.
     """
     problems = []
@@ -762,7 +762,7 @@ def validate(entries):
             problems.append(f"{where}: unknown autonomy '{e['autonomy']}' "
                             f"(expected one of: {', '.join(AUT_LABEL)})")
         if e.get("field") and e["field"] not in FIELD_LABEL:
-            problems.append(f"{where}: field '{e['field']}' has no display label — "
+            problems.append(f"{where}: field '{e['field']}' has no display label. "
                             f"add it to FIELD_LABEL in {os.path.basename(__file__)}")
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(e.get("date", ""))):
             problems.append(f"{where}: date '{e.get('date')}' is not YYYY-MM-DD")

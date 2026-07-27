@@ -25,8 +25,8 @@ else (site, search, company pages) is a rendering of it.
 |---|---|---|
 | `humans` | array | Named human collaborators |
 | `year_posed` | number | Year the problem/conjecture was first posed. Lets the site show how long it stood before the result. Omit when there is no single origin year (open-ended empirical work) |
-| `wikipedia` | string | Title (or URL) of the English Wikipedia article for the *problem itself* — not a person, tool, or broad parent field. Drives `notability`. Choose the most specific article that is genuinely about this problem; omit if none exists |
-| `notability` | number | How widely known the problem is: the count of Wikipedia language editions with an article, **English included**. Do not hand-set this — it is computed from `wikipedia` by `build-notability.py`, which follows redirects and records provenance in `notability_meta`. Absent means unrated; there is no `0` (an absent article means no `wikipedia` field, hence no `notability`) |
+| `wikipedia` | string | Title (or URL) of the English Wikipedia article for the *problem itself*, not a person, tool, or broad parent field. Drives `notability`. Choose the most specific article that is genuinely about this problem; omit if none exists |
+| `notability` | number | How widely known the problem is: the count of Wikipedia language editions with an article, **English included**. Do not hand-set this: it is computed from `wikipedia` by `build-notability.py`, which follows redirects and records provenance in `notability_meta`. Absent means unrated; there is no `0` (an absent article means no `wikipedia` field, hence no `notability`) |
 | `notability_meta` | object | `{source, article, editions, as_of}` written by `build-notability.py`. The audit trail for `notability`: which article was measured, how many editions, and on what date. Never hand-edit |
 | `detail` | string | 2–5 sentences of context. What was actually new |
 | `novelty_check` | string | What was searched, what turned up. **Write this even when clean** |
@@ -80,7 +80,7 @@ This column is the whole point. Most breathless claims collapse here.
    suggested the approach, and checked the algebra, that is not `autonomous`.
 6. **`notability` is measured, not guessed.** Set only `wikipedia` (the article title), then run
    `python3 scripts/build-notability.py` to fill `notability` and `notability_meta` from the live Wikipedia
-   API. The one judgment you make is *which article* — pick the one about the problem itself, not a
+   API. The one judgment you make is *which article*: pick the one about the problem itself, not a
    person, a tool, or a broad parent field (e.g. a specific sorting result should not point at the
    general "Sorting algorithm" article). No article → no `wikipedia` field → the entry stays unrated.
 
@@ -105,7 +105,7 @@ This column is the whole point. Most breathless claims collapse here.
 }
 ```
 
-Add the object to `data/entries.json`, then run `python3 scripts/build.py` — the site is
+Add the object to `data/entries.json`, then run `python3 scripts/build.py`. The site is
 pre-rendered, so an entry that isn't built isn't on the site. See
 [CONTRIBUTING.md](CONTRIBUTING.md).
 
@@ -119,13 +119,13 @@ deliberately strict:
   present and non-empty.
 - `verification` and `autonomy` must be one of the values above; `field` must have a `FIELD_LABEL`.
 - `date` must be `YYYY-MM-DD`.
-- `id` must be unique and URL-safe (lowercase letters, digits, `-`, `_`, `.`) — it becomes both a
+- `id` must be unique and URL-safe (lowercase letters, digits, `-`, `_`, `.`). It becomes both a
   filename and a URL path segment.
 - Every `url` in `sources`, `discussion` and `independent_checks` must start with `http://` or
   `https://`. `javascript:` and `data:` are rejected: these become `href`s on the page, and the
   site's CSP allows `'unsafe-inline'`, so they would be live links. An `independent_checks` entry
   may omit `url` entirely (an in-house recomputation or a blind assessment has none).
-- `youtube_id` must be a valid 11-character YouTube id — it is interpolated into an iframe `src`.
+- `youtube_id` must be a valid 11-character YouTube id: it is interpolated into an iframe `src`.
 
 Entry *text* (`title`, `claim`, `detail`, `novelty_check`, `caveats`) is escaped at render time, so
 markup in it is displayed rather than executed. It is still flagged for review by

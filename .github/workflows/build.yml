@@ -12,7 +12,7 @@ name: build
 #
 # Note on trust: `pull_request` runs the workflow file from the *base* branch for
 # fork PRs' permissions but uses the fork's file contents for the checkout. A PR that
-# edits this workflow is therefore reviewable in the diff — treat any change to
+# edits this workflow is therefore reviewable in the diff. Treat any change to
 # .github/ or scripts/ in a contributor PR as a code change, not an entry change.
 
 on:
@@ -73,5 +73,5 @@ jobs:
           changed=$(git diff --name-only FETCH_HEAD HEAD)
           echo "Changed files:"; echo "$changed"
           if echo "$changed" | grep -qE '^(scripts/|\.github/|app\.js|vercel\.json)'; then
-            echo "::warning::This PR touches build scripts, CI, app.js or vercel.json — review as a code change, not an entry."
+            echo "::warning::This PR touches build scripts, CI, app.js or vercel.json. Review as a code change, not an entry."
           fi

@@ -40,19 +40,19 @@ def main():
     failed = False
     for script, what, required in STEPS:
         if script == "verify-parity.py" and not shutil.which("node"):
-            print(f"— {what}: skipped (Node not installed)")
+            print(f"- {what}: skipped (Node not installed)")
             continue
         # flush: this process's stdout is block-buffered when piped, while the child
-        # writes straight to the terminal — without it every header appears after all
+        # writes straight to the terminal, and without it every header appears after all
         # the output it was meant to label.
-        print(f"— {what} ({script})", flush=True)
+        print(f"- {what} ({script})", flush=True)
         r = subprocess.run([sys.executable, os.path.join(HERE, script)])
         if r.returncode != 0:
             if required:
                 sys.exit(f"\nBuild failed in {script}. Nothing further was run.")
             failed = True
     if failed:
-        sys.exit("\nBuild produced output but a check failed — see above.")
+        sys.exit("\nBuild produced output but a check failed. See above.")
     print("\nBuild complete. Review `git status`, then commit.")
 
 

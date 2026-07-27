@@ -278,7 +278,7 @@ function renderInsights(){
 
   const cards = [
     [`${strong}`, `of ${n} well verified`,
-     `Formally verified, independently checked or peer reviewed — ${pct(strong)}% of the registry.`],
+     `Formally verified, independently checked or peer reviewed. ${pct(strong)}% of the registry.`],
     [`${scaffold}`, 'came from search scaffolds',
      'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.'],
     [`${negative}`, 'negative or contested',
@@ -302,7 +302,7 @@ const AUT_COLOR = {
 const AUT_ORDER = ['autonomous','ai-led','collaborative','ai-assisted','search-scaffold','retrieval'];
 
 // Chart labels for the `field` slugs. Unlisted fields fall back to the raw value, so a
-// new one still renders — it just reads as the slug until it is named here.
+// new one still renders; it just reads as the slug until it is named here.
 const FIELD_SHORT = {
   'mathematics':'Mathematics','computer-science':'Computer science','biology':'Biology',
   'materials':'Materials','physics':'Physics','chemistry':'Chemistry','medicine':'Medicine',
@@ -373,7 +373,7 @@ function scatterCard(){
   }).join('');
 
   const axisTitles =
-    `<text x="${(PADL+(W-PADR))/2}" y="${H-4}" class="sc-axis" text-anchor="middle">Notability α — Wikipedia editions (log)</text>`+
+    `<text x="${(PADL+(W-PADR))/2}" y="${H-4}" class="sc-axis" text-anchor="middle">Notability α, Wikipedia editions (log)</text>`+
     `<text x="13" y="${(PADT+(H-PADB))/2}" class="sc-axis" text-anchor="middle" transform="rotate(-90 13 ${(PADT+(H-PADB))/2})">Years open before result</text>`;
 
   // Legend: only autonomy classes actually present, in canonical order.
@@ -443,8 +443,8 @@ function render(){
   // build-site.py has already written these exact cards into index.html. Rewriting
   // identical markup on load would throw away the parsed DOM (and any <details> the
   // browser restored on a back-navigation) for no visual change, so the first paint
-  // is skipped and the server-rendered markup is adopted as-is. Every later call —
-  // any search or filter — renders normally.
+  // is skipped and the server-rendered markup is adopted as-is. Every later call
+  // (any search or filter) renders normally.
   if (list.hasAttribute('data-prerendered')) {
     list.removeAttribute('data-prerendered');
   } else {
@@ -475,7 +475,7 @@ function countUp(el, target){
 function boot(data){
   ALL = data.sort((a,b)=> b.date.localeCompare(a.date));
 
-  // Charts render wherever a #charts container exists — the registry page and the
+  // Charts render wherever a #charts container exists: the registry page and the
   // standalone visuals page both mount it. Everything below is registry-only and is
   // skipped (via the #list guard) when app.js runs on visuals.html.
   renderCharts();

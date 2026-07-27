@@ -8,7 +8,7 @@ the API for that page's language links, follows redirects to the canonical artic
 writes back:
 
     "notability": <editions>,                 # language editions incl. English
-    "notability_meta": {                       # audit trail — never hand-edited
+    "notability_meta": {                       # audit trail, never hand-edited
         "source": "wikipedia-langlinks",
         "article": "<resolved title>",
         "editions": <editions>,
@@ -16,7 +16,7 @@ writes back:
     }
 
 Entries with no `wikipedia` field are left unrated (both keys removed if present). Because
-the count is measured, not guessed, anyone can re-run this and get the same answer — that
+the count is measured, not guessed, anyone can re-run this and get the same answer, which
 reproducibility is the point. Run it whenever entries or their articles change:
 
     python3 scripts/build-notability.py                 # update data/entries.json in place
@@ -29,7 +29,7 @@ this falls back to `certifi` and then to the system `curl` before giving up.
 import json, os, sys, ssl, subprocess, urllib.parse, urllib.request
 from datetime import datetime, timezone
 
-# Repo root is the parent of scripts/ — data/entries.json lives there.
+# Repo root is the parent of scripts/; data/entries.json lives there.
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 ENTRIES = os.path.join(ROOT, "data", "entries.json")
 API = "https://en.wikipedia.org/w/api.php"
@@ -62,7 +62,7 @@ def article_title(field):
 
 def _fetch(url):
     """GET a URL, returning the body as text. Tries urllib (default context, then
-    certifi), then curl — so a missing CA bundle doesn't stop the build."""
+    certifi), then curl, so a missing CA bundle doesn't stop the build."""
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=20) as r:
@@ -150,7 +150,7 @@ def main():
     for eid, old, new, art in drift:
         print(f"  drift  {eid}: {old} -> {new}  ({art!r})")
     for eid, art in missing:
-        print(f"  MISSING article for {eid}: {art!r} — remove `wikipedia` or fix the title")
+        print(f"  MISSING article for {eid}: {art!r}. Remove `wikipedia` or fix the title")
 
     if check_only:
         if drift or missing:

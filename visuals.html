@@ -54,13 +54,10 @@
 <script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
-  /* Visuals leads with the charts: a compact header so the grid sits near the top,
-     not below a tall title block. These overrides are scoped to this page and do not
-     touch the shared header styles the registry and methodology pages rely on. */
-  /* The masthead is a wayfinding strip here, not a title block: brand and back-link on
-     one row with the page name, so the insight strip and charts start near the top. */
-  /* The masthead is a wayfinding strip here, not a title block: brand and back-link on
-     one row with the page name, so the insight strip and charts start near the top. */
+  /* Visuals leads with the charts, so these page-scoped overrides make the masthead a
+     wayfinding strip rather than a title block: brand, page name and back-link on one
+     row, putting the insight strip and grid near the top. The shared header styles the
+     registry and methodology pages rely on are left untouched. */
   header{padding:14px 28px 13px;margin:10px -24px 0}
   header .eyebrow{padding-bottom:0;margin-bottom:0;border-bottom:none;gap:10px 16px}
   .meth-title{font-size:1.02rem;margin:0;letter-spacing:.01em;font-weight:600;line-height:1.2;
@@ -69,15 +66,15 @@
     color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
   .back:hover{color:var(--accent)}
   /* The caption is the one piece of running prose on the page, sitting between two
-     dense panels. It gets its own band of space — more above than below, so it reads as
-     an introduction to the cards rather than a label squeezed between them — and a
+     dense panels. It gets its own band of space, more above than below, so it reads as
+     an introduction to the cards rather than a label squeezed between them, and a
      measure short enough to break at a sensible clause instead of mid-phrase. */
   .vis-lede{color:var(--muted);font-size:.95rem;line-height:1.62;max-width:82ch;
     margin:22px 2px 18px;text-wrap:pretty}
   /* Keep each bolded clause whole: the line should break between the three phrases,
      never inside one ("how much the AI / actually did"). */
   .vis-lede strong{color:var(--ink);font-weight:600;white-space:nowrap}
-  /* The caveat is secondary to the sentence it follows — set it apart on its own line
+  /* The caveat is secondary to the sentence it follows: set it apart on its own line
      so the lede reads as one clean statement rather than three clauses run together. */
   .vis-note{display:block;margin-top:5px;font-size:.83rem;opacity:.82}
   @media(max-width:560px){
@@ -108,7 +105,7 @@
 <main id="main">
   <p class="vis-lede">The whole registry at a glance: <strong>how findings accumulate</strong>,
   <strong>how solid they are</strong>, and <strong>how much the AI actually did</strong>.
-  <span class="vis-note">Always every finding — never the current filter.</span></p>
+  <span class="vis-note">Always every finding, never the current filter.</span></p>
   <!-- Derived in renderInsights() from the same data as the charts, so the headline
        figures cannot drift from the registry. -->
   <div class="insights" id="insights"></div>
