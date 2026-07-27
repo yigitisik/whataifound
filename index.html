@@ -108,6 +108,46 @@
             "@type": "Answer",
             "text": "whataifound.org grades an autonomy axis on the strictest defensible reading: autonomous, AI-led, collaborative, AI-assisted, search scaffold (e.g. FunSearch, AlphaEvolve), or retrieval. If a human posed the problem, suggested the approach, and checked the algebra, that is not counted as autonomous."
           }
+        },
+        {
+          "@type": "Question",
+          "name": "Has AI ever proved a new theorem?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and one case is machine-checked. In January 2026 GPT-5.2 produced a proof of the previously open Erdős problem #728, and Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with a machine-checked proof. Correctness there is essentially certain; significance is the contested part, as Terence Tao noted the problem was open but not considered deep. Separately, in May 2026 an OpenAI reasoning model produced the core construction disproving the 1946 Erdős unit-distance conjecture, checked independently by mathematicians including Timothy Gowers. whataifound.org grades the first as formally verified and autonomous, and the second as independently checked and AI-led."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Did AI really discover 2 million new materials?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "That claim is disputed. Google DeepMind's GNoME predicted about 2.2 million new inorganic crystal structures in November 2023, roughly 380,000 flagged as thermodynamically stable. Reviewing the release, Cheetham and Seshadri found 'scant evidence for compounds that fulfil the trifecta of novelty, credibility and utility', noting many predictions are minor variations on known compounds rather than genuinely new materials. The objections remain unresolved. The companion A-Lab result, an autonomous laboratory reporting solid-state synthesis of new inorganic compounds, is also graded disputed after independent reanalysis challenged the claimed syntheses. whataifound.org grades both as disputed and keeps them on the record rather than deleting them."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Did GPT-5 solve 10 open Erdős problems?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "No. In October 2025 an OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more. The problems were only 'open' in the sense that one database maintainer was unaware of the existing solutions; the solutions were already in the published literature and GPT-5 located them. That is a genuinely useful literature-search result, but it was misdescribed as original discovery, and the claim was retracted. whataifound.org grades it as already known on the verification axis and retrieval on the autonomy axis, and keeps it as a cautionary entry."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "Is AlphaFold an AI discovery?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Yes, and it is the strongest-verified entry of its kind. AlphaFold2 predicted three-dimensional structures for nearly all catalogued proteins from amino-acid sequence at accuracy rivalling experiment, solving a roughly fifty-year grand challenge and earning the 2024 Nobel Prize in Chemistry. whataifound.org grades it independently checked and AI-led. The important caveat is that AlphaFold predicts structures rather than determining them experimentally: its outputs are computational hypotheses that can be wrong for disordered regions, alternative folds, point mutations and many complexes."
+          }
+        },
+        {
+          "@type": "Question",
+          "name": "How many AI discoveries are actually verified?",
+          "acceptedAnswer": {
+            "@type": "Answer",
+            "text": "Of the 22 results currently on the whataifound.org register, 15 are well verified (formally verified, independently checked or peer reviewed) and 4 are negative or contested (already known, disputed or refuted). Only 7 are graded AI-led or autonomous; 10 came from human-built search scaffolds such as FunSearch and AlphaEvolve, where an LLM sits inside a harness a human designed. The register is deliberately small because each entry has to survive a novelty check, and results that turned out to already exist in the literature stay on the record."
+          }
         }
       ]
     }
@@ -156,7 +196,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg>
         </button>
       </span>
-      <span class="updated"><span class="pulse"></span>Updated <b id="updated">…</b></span>
+      <span class="updated"><span class="pulse"></span>Updated <b id="updated"><!--UPDATED:START-->2026-07-24<!--UPDATED:END--></b></span>
     </span>
   </div>
   <h1 class="intro i2">What AI has<br><span class="grad">actually discovered</span></h1>
@@ -170,18 +210,753 @@
     <a class="btn" href="visuals.html">Visuals</a>
     <a class="btn" href="methodology.html">Methodology</a>
   </div>
-  <div class="stats" id="stats"></div>
+  <div class="stats" id="stats"><!--STATS:START--><div class="stat"><b data-target="22">22</b><span>Entries on record</span></div><div class="stat"><b data-target="15">15</b><span>Well verified</span></div><div class="stat"><b data-target="7">7</b><span>AI-led or autonomous</span></div><div class="stat"><b data-target="4">4</b><span>Negative or contested</span></div><!--STATS:END--></div>
 </header>
 
 <div id="panel-registry">
   <div class="controls" role="search" aria-label="Search and filter findings">
     <input id="q" type="search" placeholder="Search claims, labs, models, tags…" aria-label="Search entries">
-    <select id="field" aria-label="Filter by field"><option value="">All fields</option></select>
-    <select id="lab" aria-label="Filter by lab"><option value="">All labs</option></select>
-    <select id="ver" aria-label="Filter by verification"><option value="">All verification levels</option></select>
-    <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"></span>
+    <select id="field" aria-label="Filter by field"><option value="">All fields</option><!--FIELDOPTS:START--><option value="biology">biology</option><option value="computer-science">computer-science</option><option value="materials">materials</option><option value="mathematics">mathematics</option><option value="physics">physics</option><!--FIELDOPTS:END--></select>
+    <select id="lab" aria-label="Filter by lab"><option value="">All labs</option><!--LABOPTS:START--><option value="Anthropic">Anthropic</option><option value="FutureHouse">FutureHouse</option><option value="Google">Google</option><option value="Google DeepMind">Google DeepMind</option><option value="Independent">Independent</option><option value="Lawrence Berkeley National Laboratory">Lawrence Berkeley National Laboratory</option><option value="OpenAI">OpenAI</option><option value="OpenAI / Harmonic">OpenAI / Harmonic</option><!--LABOPTS:END--></select>
+    <select id="ver" aria-label="Filter by verification"><option value="">All verification levels</option><!--VEROPTS:START--><option value="author-verified">Author verified</option><option value="claimed">Claimed</option><option value="disputed">Disputed</option><option value="formal">Formally verified</option><option value="independent">Independently checked</option><option value="known">Already known</option><option value="peer-reviewed">Peer reviewed</option><!--VEROPTS:END--></select>
+    <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"><!--COUNT:START-->22 / 22 entries<!--COUNT:END--></span>
   </div>
-  <main id="list"></main>
+  <!-- Entries are pre-rendered by scripts/build-site.py so they exist before any
+       JavaScript runs: AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot) do not
+       execute JS, and this content is the whole point of the site. app.js takes over
+       for search and filtering and skips its first paint while data-prerendered is
+       set. Do not hand-edit between the markers; edit data/entries.json and rebuild. -->
+  <main id="list" data-prerendered><!--ENTRIES:START-->
+<article class="entry" id="e-2026-07-22-dinitz-garg-goemans" data-ver="author-verified">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#7c7a72" aria-hidden="true">IN</span><span class="lab-name">Independent</span></div>
+      <div class="rdate">2026-07-22</div>
+      <div class="rpills">
+        <span class="pill v v-author-verified">Author verified</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5.6 Pro</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        <div><dt>Posed</dt><dd>1999 · open 27 yrs</dd></div>
+        <div><dt>Notability</dt><dd>1 Wikipedia edition</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Counterexample to the Dinitz–Garg–Goemans conjecture<a class="permalink" href="#e-2026-07-22-dinitz-garg-goemans" data-permalink="e-2026-07-22-dinitz-garg-goemans" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s.</p>
+      <p class="detail">Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.</p>
+      <p class="withppl"><span>With</span><b>Dmitry Rybin</b></p>
+      <div class="tags"><span class="tag-chip">combinatorial-optimization</span><span class="tag-chip">network-flow</span><span class="tag-chip">counterexample</span><span class="tag-chip">unsplittable-flow</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://x.com/DmitryRybin1/status/2079907499545919968" target="_blank" rel="noopener"><span class="ref-dom">x.com</span><span class="ref-t">Dmitry Rybin announcement (X)</span><span class="ref-a">↗</span></a><a class="ref" href="https://officechai.com/ai/mathematician-says-gpt-5-6-disproved-the-30-year-old-dinitz-garg-goemans-conjecture-with-4-simple-prompts/" target="_blank" rel="noopener"><span class="ref-dom">officechai.com</span><span class="ref-t">Coverage — officechai</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://x.com/basedjensen/status/2080020575968543230" target="_blank" rel="noopener"><span class="ref-dom">x.com</span><span class="ref-t">Hensen Juang: infinite family generalizing the counterexample (X)</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-07-19-jacobian-conjecture" data-ver="formal">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/anthropic.svg" alt=""></span><span class="lab-name">Anthropic</span></div>
+      <div class="rdate">2026-07-19</div>
+      <div class="rpills">
+        <span class="pill v v-formal">Formally verified</span>
+        <span class="pill a">Collaborative</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>Claude Fable 5</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1939 · open 87 yrs</dd></div>
+        <div><dt>Notability</dt><dd>15 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Counterexample to the Jacobian conjecture in dimension three<a class="permalink" href="#e-2026-07-19-jacobian-conjecture" data-permalink="e-2026-07-19-jacobian-conjecture" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939.</p>
+      <p class="detail">The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.</p>
+      <p class="withppl"><span>With</span><b>Levent Alpöge</b></p>
+      <div class="tags"><span class="tag-chip">algebraic-geometry</span><span class="tag-chip">counterexample</span><span class="tag-chip">polynomial-maps</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>whataifound.org (symbolic recomputation, SymPy): <em>confirmed, det J = −2 identically; all three points map to (−¼,0,0)</em></p><p>Multiple mathematicians via public computer-algebra checks: <em>confirmed</em> · <a href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://jacobianfun.org/jacobian-explained" target="_blank" rel="noopener"><span class="ref-dom">jacobianfun.org</span><span class="ref-t">The Jacobian counterexample, explained</span><span class="ref-a">↗</span></a><a class="ref" href="https://alexisgallagher.com/posts/2026/jacobianfun/" target="_blank" rel="noopener"><span class="ref-dom">alexisgallagher.com</span><span class="ref-t">Alexis Gallagher: Jacobian Conjecture Disproved!</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Hacker News discussion</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-05-erdos-unit-distance" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI</span></div>
+      <div class="rdate">2026-05-20</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5 series reasoning model</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1946 · open 80 yrs</dd></div>
+        <div><dt>Notability</dt><dd>10 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Disproof of the Erdős unit-distance conjecture<a class="permalink" href="#e-2026-05-erdos-unit-distance" data-permalink="e-2026-05-erdos-unit-distance" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A reasoning model produced the core construction disproving a 1946 conjecture in discrete geometry, finding point configurations with more unit-distance pairs than the conjecture permitted.</p>
+      <p class="detail">The model found configurations showing the unit-distance count can grow at least as fast as n^1.014, exceeding the conjectured bound. Checked by external mathematicians including Fields Medalist Timothy Gowers, who called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'</p>
+      
+      <div class="tags"><span class="tag-chip">discrete-geometry</span><span class="tag-chip">combinatorics</span><span class="tag-chip">erdos</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The unit-distance problem dates to Erdős (1946). Prior bounds were well documented; the construction is new.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Human mathematicians shaped the problem framing and verified the construction. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/" target="_blank" rel="noopener"><span class="ref-dom">Quanta</span><span class="ref-t">The AI Revolution in Math Has Arrived</span><span class="ref-a">↗</span></a><a class="ref" href="https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">OpenAI claims it solved an 80-year-old math problem, for real this time</span><span class="ref-a">↗</span></a><a class="ref" href="https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/" target="_blank" rel="noopener"><span class="ref-dom">Tech Jacks</span><span class="ref-t">AI math reasoning milestones</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-01-alphaevolve-bruhat" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2026-01-15</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaEvolve (Gemini-based)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Structure in Bruhat intervals of permutation groups<a class="permalink" href="#e-2026-01-alphaevolve-bruhat" data-permalink="e-2026-01-alphaevolve-bruhat" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaEvolve identified unexpected special structure in Bruhat intervals for particular permutation groups.</p>
+      <p class="detail">Part of a continuing series of AlphaEvolve results in combinatorics. The system evolves candidate programs under a human-specified evaluation function, so the search is automated but the problem framing is human.</p>
+      
+      <div class="tags"><span class="tag-chip">combinatorics</span><span class="tag-chip">alphaevolve</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Documented as a new observation in the Quanta coverage; the specific structure was not previously catalogued.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Reported via lab and press coverage. Independent replication status unclear at time of entry.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/" target="_blank" rel="noopener"><span class="ref-dom">Quanta</span><span class="ref-t">The AI Revolution in Math Has Arrived</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-01-erdos-728" data-ver="formal">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI / Harmonic</span></div>
+      <div class="rdate">2026-01-13</div>
+      <div class="rpills">
+        <span class="pill v v-formal">Formally verified</span>
+        <span class="pill a">Autonomous</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5.2 Pro + Aristotle</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Erdős problem #728 resolved and formalized in Lean<a class="permalink" href="#e-2026-01-erdos-728" data-permalink="e-2026-01-erdos-728" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">GPT-5.2 produced a proof of a previously open Erdős problem; Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with machine-checked proof.</p>
+      <p class="detail">The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.</p>
+      
+      <div class="tags"><span class="tag-chip">number-theory</span><span class="tag-chip">erdos</span><span class="tag-chip">lean</span><span class="tag-chip">formalization</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Recorded as open in the Erdős problems database prior to resolution. Terence Tao's AI-contributions wiki tracked the resolution and did not find the result in existing literature.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Tao cautioned that the win 'says more about speed than difficulty': the problem was open but not considered deep. Lean formalization makes correctness essentially certain; significance is the contested part, not validity.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Lean kernel (machine-checked): <em>verified</em> · <a href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener">link ↗</a></p><p>Terence Tao: <em>accepted</em> · <a href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">arXiv 2601.07421: Resolution of Erdős Problem #728</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Tao: AI contributions to Erdős problems</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">Tao on GPT-5.2 Pro</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-11-gpt5-science-acceleration" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI</span></div>
+      <div class="rdate">2025-11-20</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">AI-assisted</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Early science acceleration experiments with GPT-5<a class="permalink" href="#e-2025-11-gpt5-science-acceleration" data-permalink="e-2025-11-gpt5-science-acceleration" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science.</p>
+      <p class="detail">A collection of case studies rather than a single result. Useful as a source of individual entries; each contained claim needs separate grading before it belongs in the registry on its own.</p>
+      
+      <div class="tags"><span class="tag-chip">meta</span><span class="tag-chip">multi-domain</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Not applicable. This is a meta-report, not a single claim.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Lab-authored evaluation of its own model. Individual case studies vary widely in strength and several have not been independently checked.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/pdf/2511.16072" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">arXiv 2511.16072</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-10-19-gpt5-erdos-retrieval" data-ver="known">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI</span></div>
+      <div class="rdate">2025-10-19</div>
+      <div class="rpills">
+        <span class="pill v v-known">Already known</span>
+        <span class="pill a">Retrieval</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions<a class="permalink" href="#e-2025-10-19-gpt5-erdos-retrieval" data-permalink="e-2025-10-19-gpt5-erdos-retrieval" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more; the problems were only 'open' in the sense that one database maintainer was unaware of the already-published solutions the model surfaced.</p>
+      <p class="detail">OpenAI VP Kevin Weil posted that 'GPT-5 found solutions to 10 (!) previously unsolved Erdős problems.' Thomas Bloom, who maintains erdosproblems.com, replied that listing a problem as open there only means he personally was unaware of a solution, and that GPT-5 had found existing papers containing the solutions rather than proving anything new. The post was deleted; Demis Hassabis called the episode 'embarrassing' and Yann LeCun mocked it.</p>
+      
+      <div class="tags"><span class="tag-chip">number-theory</span><span class="tag-chip">erdos</span><span class="tag-chip">already-known</span><span class="tag-chip">cautionary</span><span class="tag-chip">retrieval</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>By definition, that is the whole point of the episode. The solutions existed in the published literature; GPT-5's contribution was locating them, a genuinely useful literature-search result that was misdescribed as original problem-solving.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Retained as a cautionary entry and a direct companion to the GPT-5 convex-optimization case. The underlying literature search was real and valuable; only the 'solved previously unsolved problems' framing was false. This is distinct from the later, genuine GPT-5.2 + Aristotle resolution of Erdős #728.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Thomas Bloom (erdosproblems.com maintainer): <em>the problems were already solved in the literature; no new proofs</em> · <a href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">OpenAI's 'embarrassing' math</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">A GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=45633482" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">OpenAI researcher announced a GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-08-gpt5-convex-bound" data-ver="known">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI</span></div>
+      <div class="rdate">2025-08-01</div>
+      <div class="rpills">
+        <span class="pill v v-known">Already known</span>
+        <span class="pill a">AI-assisted</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5 Pro</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Improved step-size bound in smooth convex optimization<a class="permalink" href="#e-2025-08-gpt5-convex-bound" data-permalink="e-2025-08-gpt5-convex-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">GPT-5 Pro extended a guaranteed-convexity window for gradient descent from η ≤ 1/L to η ≤ 1.5/L, but the optimal 1.75/L bound had already been published months earlier.</p>
+      <p class="detail">Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.</p>
+      <p class="withppl"><span>With</span><b>Sébastien Bubeck</b></p>
+      <div class="tags"><span class="tag-chip">optimization</span><span class="tag-chip">already-known</span><span class="tag-chip">cautionary</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Version 2 of the source paper, published 2 April 2025, had already established the optimal 1.75/L bound, strictly stronger than the model's 1.5/L. The model was working from an earlier version and its result was superseded before it was produced.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The proof itself is valid; the novelty claim is not. Analysts noted the argument largely recombined known techniques in different notation. Retained as a cautionary entry: this is the single most common failure mode in this space, and the reason every entry carries a novelty check.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://hackmd.io/@niloydebbarma/HkGxVPwFgx" target="_blank" rel="noopener"><span class="ref-dom">HackMD</span><span class="ref-t">Analysis of the claim</span><span class="ref-a">↗</span></a><a class="ref" href="https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/" target="_blank" rel="noopener"><span class="ref-dom">AllThings.how</span><span class="ref-t">What does GPT-5's 'new math' claim actually mean?</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=44965577" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">claim that GPT-5-pro can prove new interesting mathematics</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-05-alphaevolve-matmul" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2025-05-14</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaEvolve (Gemini-based)</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        <div><dt>Posed</dt><dd>1969 · open 56 yrs</dd></div>
+        <div><dt>Notability</dt><dd>7 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>4×4 complex matrix multiplication in 48 scalar multiplications<a class="permalink" href="#e-2025-05-alphaevolve-matmul" data-permalink="e-2025-05-alphaevolve-matmul" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaEvolve found a scheme multiplying 4×4 complex matrices with 48 scalar multiplications, improving on Strassen's 49 from 1969.</p>
+      <p class="detail">Strassen's 1969 algorithm had stood at 49 multiplications for 56 years in this setting. AlphaEvolve was not purpose-built for matrix multiplication; it is a general evolutionary coding agent. The scheme is exactly checkable.</p>
+      
+      <div class="tags"><span class="tag-chip">algorithms</span><span class="tag-chip">linear-algebra</span><span class="tag-chip">alphaevolve</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Strassen (1969) and subsequent literature exhaustively catalogued; 49 was the standing record for complex-valued 4×4. Confirmed new.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Applies to complex-valued matrices specifically. Practical speedup is limited; the significance is theoretical. Related follow-up work by others has explored rank-23 schemes for 3×3.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a><a class="ref" href="https://spectrum.ieee.org/deepmind-alphaevolve" target="_blank" rel="noopener"><span class="ref-dom">IEEE Spectrum</span><span class="ref-t">IEEE Spectrum</span><span class="ref-a">↗</span></a><a class="ref" href="https://en.wikipedia.org/wiki/AlphaEvolve" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=43985489" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve announcement</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=45803805" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve independently discovered a novel matrix-multiplication algorithm</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-05-alphaevolve-kissing" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2025-05-14</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaEvolve (Gemini-based)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1694 · open 331 yrs</dd></div>
+        <div><dt>Notability</dt><dd>12 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Improved lower bound for the 11-dimensional kissing number<a class="permalink" href="#e-2025-05-alphaevolve-kissing" data-permalink="e-2025-05-alphaevolve-kissing" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaEvolve improved the best known configuration for the kissing number problem in 11 dimensions.</p>
+      <p class="detail">Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.</p>
+      
+      <div class="tags"><span class="tag-chip">geometry</span><span class="tag-chip">sphere-packing</span><span class="tag-chip">alphaevolve</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Kissing number bounds are well catalogued per dimension; the 11D improvement was checked against the standing record.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>A lower-bound improvement via explicit construction, not a resolution of the problem. The 20% improvement rate means most of the 50+ problems saw no advance.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a><a class="ref" href="https://spectrum.ieee.org/deepmind-alphaevolve" target="_blank" rel="noopener"><span class="ref-dom">IEEE Spectrum</span><span class="ref-t">AlphaEvolve Tackles Kissing Problem</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=43985489" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve announcement</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-05-alphaevolve-minimum-overlap" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2025-05-14</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaEvolve (Gemini-based)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1955 · open 70 yrs</dd></div>
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Improved bound for the Erdős minimum-overlap problem<a class="permalink" href="#e-2025-05-alphaevolve-minimum-overlap" data-permalink="e-2025-05-alphaevolve-minimum-overlap" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaEvolve nudged the best known bound for Erdős's minimum-overlap constant, the first improvement since 2016, and sharpened several autocorrelation inequalities.</p>
+      <p class="detail">As part of a sweep across open problems in mathematical analysis, AlphaEvolve improved the upper bound on the Erdős minimum-overlap constant from about 0.380927 to about 0.380924, the first movement since 2016, and improved constants in autocorrelation inequalities. The gains are numerically small but exceed long-standing records, and the constructions are explicit and checkable.</p>
+      
+      <div class="tags"><span class="tag-chip">analysis</span><span class="tag-chip">erdos</span><span class="tag-chip">alphaevolve</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The minimum-overlap constant and the autocorrelation inequalities have well-tracked records. AlphaEvolve's values were compared against the standing bounds and confirmed to improve them.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The improvements are marginal in magnitude, and both were improved again by other automated systems in 2026. As with the other AlphaEvolve results, a human-designed evaluator and search loop did the selecting.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a><a class="ref" href="https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve paper (PDF)</span><span class="ref-a">↗</span></a><a class="ref" href="https://en.wikipedia.org/wiki/Minimum_overlap_problem" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">Minimum overlap problem</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=43985489" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve announcement</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-robin-macular" data-ver="claimed">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#7a5cd0" aria-hidden="true">F</span><span class="lab-name">FutureHouse</span></div>
+      <div class="rdate">2025-05-01</div>
+      <div class="rpills">
+        <span class="pill v v-claimed">Claimed</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>Robin (multi-agent)</dd></div>
+        <div><dt>Field</dt><dd>biology</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Candidate treatment for dry age-related macular degeneration<a class="permalink" href="#e-2025-robin-macular" data-permalink="e-2025-robin-macular" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.</p>
+      <p class="detail">Presented as an end-to-end automated discovery loop with humans executing the physical experiments.</p>
+      
+      <div class="tags"><span class="tag-chip">drug-discovery</span><span class="tag-chip">ophthalmology</span><span class="tag-chip">needs-verification</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Not independently audited by this registry at time of entry. Novelty check pending.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Lab-announced. No independent verification located. A candidate treatment is many years and several trial phases from being a treatment. Held at 'claimed' until outside confirmation.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.turingpost.com/p/ai-co-scientists-in-2026" target="_blank" rel="noopener"><span class="ref-dom">Turing Post</span><span class="ref-t">12 AI Co-Scientists of 2026</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-02-ai-coscientist-amr" data-ver="author-verified">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/google.svg" alt=""></span><span class="lab-name">Google</span></div>
+      <div class="rdate">2025-02-19</div>
+      <div class="rpills">
+        <span class="pill v v-author-verified">Author verified</span>
+        <span class="pill a">AI-assisted</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AI Co-Scientist (Gemini 2.0 multi-agent)</dd></div>
+        <div><dt>Field</dt><dd>biology</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis<a class="permalink" href="#e-2025-02-ai-coscientist-amr" data-permalink="e-2025-02-ai-coscientist-amr" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab.</p>
+      <p class="detail">The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible.</p>
+      
+      <div class="tags"><span class="tag-chip">hypothesis-generation</span><span class="tag-chip">microbiology</span><span class="tag-chip">multi-agent</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The AMR mechanism proposed had reportedly been independently arrived at by a human group whose work was unpublished at the time, which complicates the novelty claim.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Hypothesis generation with human-run validation, not autonomous discovery. Independent replication outside the collaborating labs is limited. Graded conservatively.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.turingpost.com/p/ai-co-scientists-in-2026" target="_blank" rel="noopener"><span class="ref-dom">Turing Post</span><span class="ref-t">12 AI Co-Scientists of 2026</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2024-07-25-alphaproof-imo" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2024-07-25</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaProof + AlphaGeometry 2</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Silver-medal standard at the 2024 International Mathematical Olympiad<a class="permalink" href="#e-2024-07-25-alphaproof-imo" data-permalink="e-2024-07-25-alphaproof-imo" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaProof and AlphaGeometry 2 together solved four of the six 2024 IMO problems for 28 of 42 points (one short of the gold threshold), with the algebra and number-theory solutions produced and checked in the Lean proof assistant.</p>
+      <p class="detail">AlphaProof, a reinforcement-learning system that works inside Lean, solved two algebra problems and one number-theory problem (including P6, the competition's hardest, which few human contestants solved), while AlphaGeometry 2 solved the geometry problem in seconds. The two combinatorics problems went unsolved. The Lean-based solutions are machine-checked by construction; the full performance was graded by mathematicians Timothy Gowers and Joseph Myers under competition-style marking.</p>
+      
+      <div class="tags"><span class="tag-chip">olympiad</span><span class="tag-chip">lean</span><span class="tag-chip">formalization</span><span class="tag-chip">benchmark</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>These are competition problems with published official solutions, so the achievement is a capability milestone (solving hard, known-answer problems under near-competition conditions) rather than a new mathematical result. The registry records it as such.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Problems were hand-translated into formal Lean statements by people before AlphaProof attempted them, a real human contribution beyond posing the question, so autonomy is graded conservatively. AlphaProof also took far longer than the human time limit on some problems. This is benchmark performance on solved problems, not a discovery.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Timothy Gowers &amp; Joseph Myers (competition-style grading): <em>28/42, silver-medal standard</em> · <a href="https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AI achieves silver-medal standard solving IMO problems</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.nature.com/articles/s41586-025-09833-y" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Olympiad-level formal mathematical reasoning with reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.unite.ai/ai-at-the-international-mathematical-olympiad-how-alphaproof-and-alphageometry-2-achieved-silver-medal-standard/" target="_blank" rel="noopener"><span class="ref-dom">Unite.AI</span><span class="ref-t">How AlphaProof and AlphaGeometry 2 achieved silver-medal standard</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=41069829" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AI solves IMO problems at silver-medal level</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Video explainers</b>
+          <div class="vid" data-yt="5FMpqA2CELw">
+            <button class="vid-play" type="button" aria-label="Play video: AlphaProof and AlphaGeometry 2 achieve a silver-medal score at the IMO, explained">&#9654;</button>
+            <span class="vid-meta"><span class="vid-t">AlphaProof and AlphaGeometry 2 achieve a silver-medal score at the IMO, explained</span><span class="vid-ch">Elvis Saravia (DAIR.AI)</span></span>
+            <a class="vid-ext" href="https://www.youtube.com/watch?v=5FMpqA2CELw" target="_blank" rel="noopener">YouTube ↗</a>
+          </div>
+          <p class="vid-note">Nothing loads from YouTube until you press play.</p>
+        </div>
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2023-12-funsearch-capset" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2023-12-14</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>FunSearch (PaLM 2 / Codey)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1970 · open 53 yrs</dd></div>
+        <div><dt>Notability</dt><dd>2 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>New lower bound constructions for the cap set problem<a class="permalink" href="#e-2023-12-funsearch-capset" data-permalink="e-2023-12-funsearch-capset" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">FunSearch discovered larger cap sets than any previously known construction, the first time an LLM-based system produced a genuinely new discovery on an established open problem.</p>
+      <p class="detail">FunSearch pairs an LLM that proposes programs with an automated evaluator that rejects incorrect ones, sidestepping hallucination by construction. Applied to extremal combinatorics, it found new large cap sets in both finite-dimensional and asymptotic cases. Published in Nature. Historically the first entry in this registry's scope.</p>
+      
+      <div class="tags"><span class="tag-chip">combinatorics</span><span class="tag-chip">cap-set</span><span class="tag-chip">funsearch</span><span class="tag-chip">historic-first</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Cap set bounds are a well-tracked literature; the constructions were confirmed to exceed the standing record at publication.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The LLM proposes; a human-designed evaluator and search loop does the selecting. Calling this 'the AI discovered it' overstates the model's role, though the discovery is real.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06924-6" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Mathematical discoveries from program search with LLMs</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">FunSearch</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=38643076" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">FunSearch makes new discoveries in mathematical sciences</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2023-12-funsearch-binpacking" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2023-12-14</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>FunSearch (PaLM 2 / Codey)</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        <div><dt>Posed</dt><dd>1971 · open 52 yrs</dd></div>
+        <div><dt>Notability</dt><dd>12 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Improved heuristics for online bin packing<a class="permalink" href="#e-2023-12-funsearch-binpacking" data-permalink="e-2023-12-funsearch-binpacking" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">FunSearch produced bin-packing heuristics outperforming standard baselines on benchmark distributions.</p>
+      <p class="detail">Discovered programs are human-readable, which allowed domain experts to inspect and deploy them. Practical rather than theoretical significance.</p>
+      
+      <div class="tags"><span class="tag-chip">algorithms</span><span class="tag-chip">heuristics</span><span class="tag-chip">funsearch</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Compared against best-fit and first-fit families and published heuristics; improvements are empirical on tested distributions.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>An empirical improvement on benchmark distributions, not a proved worst-case bound.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06924-6" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Mathematical discoveries from program search with LLMs</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=38643076" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">FunSearch makes new discoveries in mathematical sciences</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2023-11-29-gnome" data-ver="disputed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2023-11-29</div>
+      <div class="rpills">
+        <span class="pill v v-disputed">Disputed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GNoME (graph neural network)</dd></div>
+        <div><dt>Field</dt><dd>materials</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Large-scale prediction of new stable crystalline materials (GNoME)<a class="permalink" href="#e-2023-11-29-gnome" data-permalink="e-2023-11-29-gnome" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials.</p>
+      <p class="detail">Graph Networks for Materials Exploration (GNoME) is a graph neural network trained in an active-learning loop against density-functional-theory calculations to predict formation energies and filter candidates by stability. DeepMind released the predicted structures as a public dataset. Published in Nature.</p>
+      
+      <div class="tags"><span class="tag-chip">materials</span><span class="tag-chip">crystal-structure</span><span class="tag-chip">graph-neural-network</span><span class="tag-chip">contested</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Stable-material prediction builds on the Materials Project and OQMD convex-hull databases. The dispute below is precisely about how much of GNoME's set is genuinely new relative to those existing catalogues.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Substantive objections were raised and remain unresolved. Cheetham and Seshadri, reviewing the release, found 'scant evidence for compounds that fulfil the trifecta of novelty, credibility and utility,' noting that many entries are minor substitutional variants, radioactive, or otherwise unlikely to be useful. Stability here means a DFT convex-hull prediction, not experimental synthesis; the headline counts are predicted, not made.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Cheetham &amp; Seshadri (critical review): <em>disputed the novelty and utility of most predicted compounds</em> · <a href="https://www.theregister.com/2024/04/11/google_deepmind_material_study/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06735-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Scaling deep learning for materials discovery</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Millions of new materials discovered with deep learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.theregister.com/2024/04/11/google_deepmind_material_study/" target="_blank" rel="noopener"><span class="ref-dom">The Register</span><span class="ref-t">Boffins deem DeepMind's material discoveries shallow</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/" target="_blank" rel="noopener"><span class="ref-dom">The Register</span><span class="ref-t">chemists dispute DeepMind's AI materials discoveries</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2023-11-29-a-lab-synthesis" data-ver="disputed">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#1d4e89" aria-hidden="true">LB</span><span class="lab-name">Lawrence Berkeley National Laboratory</span></div>
+      <div class="rdate">2023-11-29</div>
+      <div class="rpills">
+        <span class="pill v v-disputed">Disputed</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>A-Lab (ML planning + robotics)</dd></div>
+        <div><dt>Field</dt><dd>materials</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Autonomous laboratory reports solid-state synthesis of new inorganic compounds<a class="permalink" href="#e-2023-11-29-a-lab-synthesis" data-permalink="e-2023-11-29-a-lab-synthesis" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention.</p>
+      <p class="detail">A-Lab coupled machine-learning synthesis-recipe prediction with robotic sample preparation, heating and X-ray characterisation, drawing targets from stability predictions including GNoME's. It reported making 41 of 58 targeted compounds autonomously. Published in Nature alongside GNoME.</p>
+      
+      <div class="tags"><span class="tag-chip">materials</span><span class="tag-chip">autonomous-lab</span><span class="tag-chip">synthesis</span><span class="tag-chip">contested</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Targets were drawn from computed stability databases. The contested question is whether the synthesised phases were correctly identified and genuinely new, rather than known phases or misindexed results.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>A detailed critique led by Robert Palgrave argued that many of the 41 claimed compounds were misidentified from the X-ray data, in several cases likely known phases, mixtures, or amorphous products rather than the claimed novel crystals. It is the identification step, not the automation, that is disputed; the autonomy claim itself is not the weak point. A 2026 Author Correction from the team re-analysed the diffraction data and clarified that 'novel' was meant as new to their prediction platform rather than necessarily new to science.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Palgrave et al. (analysis of the reported diffraction data): <em>disputed the identification of most claimed new compounds</em> · <a href="https://www.theregister.com/2024/04/11/google_deepmind_material_study/" target="_blank" rel="noopener">link ↗</a></p><p>Authors' correction (Nature, 2026): <em>re-analysed diffraction data; clarified 'novel' meant new to the platform, not to science</em> · <a href="https://www.ncbi.nlm.nih.gov/pmc/articles/PMC12872444/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06734-w" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">An autonomous laboratory for the accelerated synthesis of inorganic materials</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.theregister.com/2024/04/11/google_deepmind_material_study/" target="_blank" rel="noopener"><span class="ref-dom">The Register</span><span class="ref-t">Boffins deem DeepMind's material discoveries shallow</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://www.theregister.com/2024/01/31/ai_chemistry_research_disputed/" target="_blank" rel="noopener"><span class="ref-dom">The Register</span><span class="ref-t">chemists dispute DeepMind's AI materials discoveries</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2023-06-07-alphadev" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2023-06-07</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaDev (AlphaZero-based)</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Faster sorting routines discovered and merged into the LLVM C++ library<a class="permalink" href="#e-2023-06-07-alphadev" data-permalink="e-2023-06-07-alphadev" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.</p>
+      <p class="detail">AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.</p>
+      
+      <div class="tags"><span class="tag-chip">algorithms</span><span class="tag-chip">sorting</span><span class="tag-chip">reinforcement-learning</span><span class="tag-chip">deployed</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The libc++ small-sort routines had been hand-optimised by compiler engineers for years. AlphaDev's shorter instruction sequences were reviewed against the standing implementations and confirmed to be improvements before being merged.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The gains are on very short fixed-length inputs; asymptotic sorting complexity is unchanged, and the headline percentage speedups apply only to those small cases. The 'independent' grade rests on LLVM maintainers reviewing and merging the code, not on a formal proof of optimality.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>LLVM libc++ maintainers (code review and merge): <em>reviewed and merged into the standard sort library</em> · <a href="https://en.wikipedia.org/wiki/AlphaDev" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06004-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Faster sorting algorithms discovered using deep reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaDev discovers faster sorting algorithms</span><span class="ref-a">↗</span></a><a class="ref" href="https://en.wikipedia.org/wiki/AlphaDev" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">AlphaDev</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=36228125" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaDev, faster sorting algorithms via deep RL</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Video explainers</b>
+          <div class="vid" data-yt="_wDCndqGiRE">
+            <button class="vid-play" type="button" aria-label="Play video: AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning">&#9654;</button>
+            <span class="vid-meta"><span class="vid-t">AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning</span><span class="vid-ch">AI for Good (ITU)</span></span>
+            <a class="vid-ext" href="https://www.youtube.com/watch?v=_wDCndqGiRE" target="_blank" rel="noopener">YouTube ↗</a>
+          </div>
+          <p class="vid-note">Nothing loads from YouTube until you press play.</p>
+        </div>
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2022-10-05-alphatensor" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2022-10-05</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaTensor (AlphaZero-based)</dd></div>
+        <div><dt>Field</dt><dd>computer-science</dd></div>
+        <div><dt>Posed</dt><dd>1969 · open 53 yrs</dd></div>
+        <div><dt>Notability</dt><dd>7 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Faster matrix-multiplication algorithms found by reinforcement learning<a class="permalink" href="#e-2022-10-05-alphatensor" data-permalink="e-2022-10-05-alphatensor" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaTensor discovered matrix-multiplication schemes using fewer scalar multiplications than any previously known, including a way to multiply 4×4 matrices over GF(2) in 47 multiplications versus the 49 of two-level Strassen.</p>
+      <p class="detail">AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.</p>
+      
+      <div class="tags"><span class="tag-chip">algorithms</span><span class="tag-chip">linear-algebra</span><span class="tag-chip">reinforcement-learning</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Fast matrix multiplication has an exhaustively catalogued literature going back to Strassen (1969) and Laderman (1976). AlphaTensor's schemes were checked against the standing per-size records; the 4×4 result over GF(2) was new at publication.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The 4×4 improvement is specific to characteristic-2 arithmetic and the practical speedup is limited. Within about a week, Kauers and Moosbauer used a classical computer search to improve the 5×5 GF(2) case from AlphaTensor's 96 multiplications to 95, showing conventional methods remained competitive. 'Discovered' here means an RL search over decompositions, not an autonomous mathematical insight.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Kauers &amp; Moosbauer (computer-algebra search): <em>verified and shortly improved on the 5×5 case</em> · <a href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-022-05172-4" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Discovering faster matrix multiplication algorithms with reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Discovering novel algorithms with AlphaTensor</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener"><span class="ref-dom">Quanta</span><span class="ref-t">AI Reveals New Possibilities in Matrix Multiplication</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=33096667" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Discovering novel algorithms with AlphaTensor</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=33117192" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">On AlphaTensor's new matrix multiplication algorithms</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=33180316" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">human search beats AlphaTensor's 5×5 result days later</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Video explainers</b>
+          <div class="vid" data-yt="fDAPJ7rvcUw">
+            <button class="vid-play" type="button" aria-label="Play video: How AI Discovered a Faster Matrix Multiplication Algorithm">&#9654;</button>
+            <span class="vid-meta"><span class="vid-t">How AI Discovered a Faster Matrix Multiplication Algorithm</span><span class="vid-ch">Quanta Magazine</span></span>
+            <a class="vid-ext" href="https://www.youtube.com/watch?v=fDAPJ7rvcUw" target="_blank" rel="noopener">YouTube ↗</a>
+          </div><div class="vid" data-yt="3N3Bl5AA5QU">
+            <button class="vid-play" type="button" aria-label="Play video: AlphaTensor by DeepMind explained">&#9654;</button>
+            <span class="vid-meta"><span class="vid-t">AlphaTensor by DeepMind explained</span><span class="vid-ch">Yannic Kilcher</span></span>
+            <a class="vid-ext" href="https://www.youtube.com/watch?v=3N3Bl5AA5QU" target="_blank" rel="noopener">YouTube ↗</a>
+          </div>
+          <p class="vid-note">Nothing loads from YouTube until you press play.</p>
+        </div>
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2022-02-16-tokamak-plasma-control" data-ver="peer-reviewed">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2022-02-16</div>
+      <div class="rpills">
+        <span class="pill v v-peer-reviewed">Peer reviewed</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>DeepMind RL controller</dd></div>
+        <div><dt>Field</dt><dd>physics</dd></div>
+        
+        <div><dt>Notability</dt><dd>56 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Deep reinforcement learning controls tokamak fusion plasma<a class="permalink" href="#e-2022-02-16-tokamak-plasma-control" data-permalink="e-2022-02-16-tokamak-plasma-control" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A reinforcement-learning controller learned to shape and stabilise the magnetic confinement of real fusion plasma inside the TCV tokamak, holding configurations that are hard to sustain by hand.</p>
+      <p class="detail">Working with EPFL's Swiss Plasma Center, DeepMind trained a deep reinforcement-learning agent to command the magnetic control coils of the TCV tokamak. Learning in a simulator against specified target shapes, the controller then ran on the real machine, holding elongated, snowflake and other configurations, including a 'droplet' state with two separate plasmas at once. It is one of the first times a single learned controller replaced the hand-engineered cascade normally required.</p>
+      
+      <div class="tags"><span class="tag-chip">physics</span><span class="tag-chip">fusion</span><span class="tag-chip">reinforcement-learning</span><span class="tag-chip">control</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Magnetic plasma control is normally built from many separately engineered controllers. A single RL-learned controller running on a real tokamak was new; the Nature paper documents the comparison against conventional control.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Demonstrated on the TCV research tokamak, not a power-producing reactor, and the policy was trained in simulation before transfer to hardware. This is a control-engineering advance, not a solution to fusion energy. Independent groups have since extended RL plasma control to other machines.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-021-04301-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Magnetic control of tokamak plasmas through deep reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Accelerating fusion science through learned plasma control</span><span class="ref-a">↗</span></a><a class="ref" href="https://actu.epfl.ch/news/epfl-and-deepmind-use-ai-to-control-plasmas-for-nu/" target="_blank" rel="noopener"><span class="ref-dom">EPFL</span><span class="ref-t">EPFL and DeepMind use AI to control plasmas for fusion</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=30379973" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">controlling the fusion plasma in a tokamak with reinforcement learning</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2021-07-15-alphafold2" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2021-07-15</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaFold2</dd></div>
+        <div><dt>Field</dt><dd>biology</dd></div>
+        <div><dt>Posed</dt><dd>1972 · open 49 yrs</dd></div>
+        <div><dt>Notability</dt><dd>19 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Accurate protein structure prediction across the known proteome (AlphaFold2)<a class="permalink" href="#e-2021-07-15-alphafold2" data-permalink="e-2021-07-15-alphafold2" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">AlphaFold2 predicted three-dimensional structures for nearly all catalogued proteins from amino-acid sequence at accuracy rivalling experiment, work that earned the 2024 Nobel Prize in Chemistry.</p>
+      <p class="detail">AlphaFold2 pairs an attention-based neural network with evolutionary sequence information to predict how a protein folds from its amino-acid sequence. At the 2020 CASP14 blind assessment it reached accuracy competitive with experimental methods, and DeepMind and EMBL-EBI then released predicted structures for over 200 million proteins, nearly the entire catalogued proteome. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for the work, alongside David Baker for computational protein design.</p>
+      <p class="withppl"><span>With</span><b>John Jumper, Demis Hassabis</b></p>
+      <div class="tags"><span class="tag-chip">protein-structure</span><span class="tag-chip">biology</span><span class="tag-chip">alphafold</span><span class="tag-chip">nobel-prize</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Protein-structure prediction had been an open grand challenge for roughly fifty years, benchmarked every two years by the CASP assessment. AlphaFold2's CASP14 result was a discontinuous jump over all prior methods and is uncontested.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>AlphaFold predicts structures rather than determining them experimentally; outputs are computational hypotheses that can be wrong for disordered regions, alternative folds, point mutations, and many complexes. It predicts natural structures, not new biology on its own. The grade reflects the prediction step; the Nobel recognised the human-built method.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>CASP14 blind assessment (independent assessors): <em>accuracy competitive with experiment across most targets</em></p><p>Royal Swedish Academy of Sciences (2024 Nobel in Chemistry): <em>awarded to Hassabis and Jumper for protein structure prediction</em> · <a href="https://www.nobelprize.org/prizes/chemistry/2024/press-release/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-021-03819-2" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Highly accurate protein structure prediction with AlphaFold</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/science/alphafold/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaFold</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.nobelprize.org/prizes/chemistry/2024/press-release/" target="_blank" rel="noopener"><span class="ref-dom">Nobel Prize</span><span class="ref-t">Chemistry 2024 press release</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<!--ENTRIES:END--></main>
 </div>
 
 <section class="labs-hub" id="sources" aria-label="Sources and hubs">

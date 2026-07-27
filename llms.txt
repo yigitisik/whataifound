@@ -1,0 +1,81 @@
+# whataifound.org
+
+> A curated, independently graded registry of scientific and mathematical results
+> discovered by or with AI systems. Every entry is graded on how it was verified and
+> how much the AI actually did, so a machine-checked proof is never confused with a
+> press release. Negative results — already known, disputed, refuted — stay on the
+> record rather than being deleted.
+
+Maintained as an independent editorial project. 22 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+
+## How entries are graded
+
+Verification, strongest to weakest — when unsure, the lower grade wins:
+
+- **Formally verified** — machine-checked proof (e.g. Lean)
+- **Independently checked** — checked by third parties who were not the authors
+- **Peer reviewed** — published after peer review
+- **Author verified** — verified only by the people who produced it
+- **Claimed** — announced, not independently verified
+- **Disputed** — substantive public challenge to the result
+- **Already known** — correct, but the result already existed in the literature
+- **Refuted** — shown to be wrong
+
+Autonomy, most to least AI-driven:
+
+- **Autonomous** — the AI did it without human problem-setting or steering
+- **AI-led** — the AI produced the core idea; humans framed or checked it
+- **Collaborative** — genuine back-and-forth between AI and human
+- **AI-assisted** — humans led; the AI helped with parts
+- **Search scaffold** — a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside
+- **Retrieval** — the AI located an existing result rather than producing a new one
+
+## Core pages
+
+- [Registry](https://whataifound.org/): all entries, searchable and filterable
+- [Methodology](https://whataifound.org/methodology): full definitions of both grading scales and the editorial rules
+- [Visuals](https://whataifound.org/visuals): the registry as charts
+
+## Data
+
+- [entries.json](https://whataifound.org/data/entries.json): the complete registry, one JSON file, CC BY 4.0
+- [RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json): new and updated entries
+
+## Findings
+
+### Biology
+
+- [Candidate treatment for dry age-related macular degeneration](https://whataifound.org/finding/2025-robin-macular): The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD. (FutureHouse, Robin (multi-agent), 2025-05-01; verification: Claimed; autonomy: AI-led)
+- [AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis](https://whataifound.org/finding/2025-02-ai-coscientist-amr): A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab. (Google, AI Co-Scientist (Gemini 2.0 multi-agent), 2025-02-19; verification: Author verified; autonomy: AI-assisted)
+- [Accurate protein structure prediction across the known proteome (AlphaFold2)](https://whataifound.org/finding/2021-07-15-alphafold2): AlphaFold2 predicted three-dimensional structures for nearly all catalogued proteins from amino-acid sequence at accuracy rivalling experiment, work that earned the 2024 Nobel Prize in Chemistry. (Google DeepMind, AlphaFold2, 2021-07-15; verification: Independently checked; autonomy: AI-led)
+
+### Computer science
+
+- [Counterexample to the Dinitz–Garg–Goemans conjecture](https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans): An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s. (Independent, GPT-5.6 Pro, 2026-07-22; verification: Author verified; autonomy: AI-led)
+- [Early science acceleration experiments with GPT-5](https://whataifound.org/finding/2025-11-gpt5-science-acceleration): A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science. (OpenAI, GPT-5, 2025-11-20; verification: Peer reviewed; autonomy: AI-assisted)
+- [4×4 complex matrix multiplication in 48 scalar multiplications](https://whataifound.org/finding/2025-05-alphaevolve-matmul): AlphaEvolve found a scheme multiplying 4×4 complex matrices with 48 scalar multiplications, improving on Strassen's 49 from 1969. (Google DeepMind, AlphaEvolve (Gemini-based), 2025-05-14; verification: Independently checked; autonomy: Search scaffold)
+- [Improved heuristics for online bin packing](https://whataifound.org/finding/2023-12-funsearch-binpacking): FunSearch produced bin-packing heuristics outperforming standard baselines on benchmark distributions. (Google DeepMind, FunSearch (PaLM 2 / Codey), 2023-12-14; verification: Peer reviewed; autonomy: Search scaffold)
+- [Faster sorting routines discovered and merged into the LLVM C++ library](https://whataifound.org/finding/2023-06-07-alphadev): AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade. (Google DeepMind, AlphaDev (AlphaZero-based), 2023-06-07; verification: Independently checked; autonomy: Search scaffold)
+- [Faster matrix-multiplication algorithms found by reinforcement learning](https://whataifound.org/finding/2022-10-05-alphatensor): AlphaTensor discovered matrix-multiplication schemes using fewer scalar multiplications than any previously known, including a way to multiply 4×4 matrices over GF(2) in 47 multiplications versus the 49 of two-level Strassen. (Google DeepMind, AlphaTensor (AlphaZero-based), 2022-10-05; verification: Peer reviewed; autonomy: Search scaffold)
+
+### Materials science
+
+- [Large-scale prediction of new stable crystalline materials (GNoME)](https://whataifound.org/finding/2023-11-29-gnome): GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials. (Google DeepMind, GNoME (graph neural network), 2023-11-29; verification: Disputed; autonomy: Search scaffold)
+- [Autonomous laboratory reports solid-state synthesis of new inorganic compounds](https://whataifound.org/finding/2023-11-29-a-lab-synthesis): Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention. (Lawrence Berkeley National Laboratory, A-Lab (ML planning + robotics), 2023-11-29; verification: Disputed; autonomy: AI-led)
+
+### Mathematics
+
+- [Counterexample to the Jacobian conjecture in dimension three](https://whataifound.org/finding/2026-07-19-jacobian-conjecture): An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939. (Anthropic, Claude Fable 5, 2026-07-19; verification: Formally verified; autonomy: Collaborative)
+- [Disproof of the Erdős unit-distance conjecture](https://whataifound.org/finding/2026-05-erdos-unit-distance): A reasoning model produced the core construction disproving a 1946 conjecture in discrete geometry, finding point configurations with more unit-distance pairs than the conjecture permitted. (OpenAI, GPT-5 series reasoning model, 2026-05-20; verification: Independently checked; autonomy: AI-led)
+- [Structure in Bruhat intervals of permutation groups](https://whataifound.org/finding/2026-01-alphaevolve-bruhat): AlphaEvolve identified unexpected special structure in Bruhat intervals for particular permutation groups. (Google DeepMind, AlphaEvolve (Gemini-based), 2026-01-15; verification: Peer reviewed; autonomy: Search scaffold)
+- [Erdős problem #728 resolved and formalized in Lean](https://whataifound.org/finding/2026-01-erdos-728): GPT-5.2 produced a proof of a previously open Erdős problem; Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with machine-checked proof. (OpenAI / Harmonic, GPT-5.2 Pro + Aristotle, 2026-01-13; verification: Formally verified; autonomy: Autonomous)
+- [GPT-5 "solved 10 Erdős problems": it located existing solutions](https://whataifound.org/finding/2025-10-19-gpt5-erdos-retrieval): An OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more; the problems were only 'open' in the sense that one database maintainer was unaware of the already-published solutions the model surfaced. (OpenAI, GPT-5, 2025-10-19; verification: Already known; autonomy: Retrieval)
+- [Improved step-size bound in smooth convex optimization](https://whataifound.org/finding/2025-08-gpt5-convex-bound): GPT-5 Pro extended a guaranteed-convexity window for gradient descent from η ≤ 1/L to η ≤ 1.5/L, but the optimal 1.75/L bound had already been published months earlier. (OpenAI, GPT-5 Pro, 2025-08-01; verification: Already known; autonomy: AI-assisted)
+- [Improved lower bound for the 11-dimensional kissing number](https://whataifound.org/finding/2025-05-alphaevolve-kissing): AlphaEvolve improved the best known configuration for the kissing number problem in 11 dimensions. (Google DeepMind, AlphaEvolve (Gemini-based), 2025-05-14; verification: Independently checked; autonomy: Search scaffold)
+- [Improved bound for the Erdős minimum-overlap problem](https://whataifound.org/finding/2025-05-alphaevolve-minimum-overlap): AlphaEvolve nudged the best known bound for Erdős's minimum-overlap constant, the first improvement since 2016, and sharpened several autocorrelation inequalities. (Google DeepMind, AlphaEvolve (Gemini-based), 2025-05-14; verification: Independently checked; autonomy: Search scaffold)
+- [Silver-medal standard at the 2024 International Mathematical Olympiad](https://whataifound.org/finding/2024-07-25-alphaproof-imo): AlphaProof and AlphaGeometry 2 together solved four of the six 2024 IMO problems for 28 of 42 points (one short of the gold threshold), with the algebra and number-theory solutions produced and checked in the Lean proof assistant. (Google DeepMind, AlphaProof + AlphaGeometry 2, 2024-07-25; verification: Independently checked; autonomy: AI-led)
+- [New lower bound constructions for the cap set problem](https://whataifound.org/finding/2023-12-funsearch-capset): FunSearch discovered larger cap sets than any previously known construction, the first time an LLM-based system produced a genuinely new discovery on an established open problem. (Google DeepMind, FunSearch (PaLM 2 / Codey), 2023-12-14; verification: Peer reviewed; autonomy: Search scaffold)
+
+### Physics
+
+- [Deep reinforcement learning controls tokamak fusion plasma](https://whataifound.org/finding/2022-02-16-tokamak-plasma-control): A reinforcement-learning controller learned to shape and stabilise the magnetic confinement of real fusion plasma inside the TCV tokamak, holding configurations that are hard to sustain by hand. (Google DeepMind, DeepMind RL controller, 2022-02-16; verification: Peer reviewed; autonomy: Search scaffold)

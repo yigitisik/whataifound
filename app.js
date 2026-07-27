@@ -380,7 +380,16 @@ function render(){
     (!fv || e.field===fv) && (!lv || e.lab===lv) && (!vv || e.verification===vv) &&
     (!q || JSON.stringify(e).toLowerCase().includes(q)));
   const list = document.getElementById('list');
-  list.innerHTML = out.length ? out.map(card).join('') : '<p class="empty">No entries match your filters.</p>';
+  // build-site.py has already written these exact cards into index.html. Rewriting
+  // identical markup on load would throw away the parsed DOM (and any <details> the
+  // browser restored on a back-navigation) for no visual change, so the first paint
+  // is skipped and the server-rendered markup is adopted as-is. Every later call —
+  // any search or filter — renders normally.
+  if (list.hasAttribute('data-prerendered')) {
+    list.removeAttribute('data-prerendered');
+  } else {
+    list.innerHTML = out.length ? out.map(card).join('') : '<p class="empty">No entries match your filters.</p>';
+  }
   document.getElementById('count').textContent =
     `${out.length} / ${ALL.length} ${out.length===1?'entry':'entries'}`;
   // Stagger only on the first paint so filtering stays instant.
@@ -428,13 +437,23 @@ function boot(data){
   ];
   const statsEl = document.getElementById('stats');
   if (statsEl){
-    statsEl.innerHTML =
-      stats.map(([n,l])=>`<div class="stat"><b data-target="${n}">0</b><span>${l}</span></div>`).join('');
-    document.querySelectorAll('#stats .stat b').forEach(el=> countUp(el, +el.dataset.target));
+    // build-site.py writes these already filled in, so a crawler reads the real
+    // figures. Rewriting them to 0 to run the count-up would be a visible flicker
+    // backwards, so the animation only runs when the markup wasn't pre-rendered.
+    const prerendered = !!statsEl.querySelector('.stat');
+    if (!prerendered){
+      statsEl.innerHTML =
+        stats.map(([n,l])=>`<div class="stat"><b data-target="${n}">0</b><span>${l}</span></div>`).join('');
+      document.querySelectorAll('#stats .stat b').forEach(el=> countUp(el, +el.dataset.target));
+    }
   }
 
   const fill = (id, vals, labels) => {
     const s = document.getElementById(id);
+    // build-site.py pre-renders these options so a crawler sees the facets and a
+    // no-JS visitor doesn't get empty dropdowns. Appending on top of that would list
+    // every option twice, so drop all but the leading "All …" placeholder first.
+    while (s.options.length > 1) s.remove(1);
     [...new Set(vals)].sort().forEach(v => s.insertAdjacentHTML('beforeend',
       `<option value="${esc(v)}">${esc(labels?labels[v]||v:v)}</option>`));
   };
@@ -491,6 +510,10 @@ function boot(data){
 }
 
 fetch('data/entries.json').then(r=>r.json()).then(boot).catch(()=>{
-  document.getElementById('list').innerHTML =
+  // Only replace the list if it is genuinely empty. On the built site the entries are
+  // already in the markup, so a failed fetch costs search and filtering but must not
+  // blank out content the visitor can otherwise read.
+  const list = document.getElementById('list');
+  if (list && !list.querySelector('.entry')) list.innerHTML =
     '<p class="empty">Run a local server to load entries:<br><code>python3 -m http.server</code></p>';
 });
