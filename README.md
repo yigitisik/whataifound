@@ -10,100 +10,137 @@ literature stay on the record.
 
 ## Quick start
 
-Requires Python 3.
+Requires Python 3 (Node only for the parity check).
 
 ```bash
 git clone https://github.com/yigitisik/whataifound.git
 cd whataifound
+python3 scripts/build.py          # regenerate the site from data/entries.json
 python3 scripts/serve.py          # http://localhost:8000
-python3 scripts/serve.py --lan    # phone testing on the same network
 ```
 
-`scripts/serve.py` reproduces the clean URLs and 404 page Vercel serves in production. `vercel dev` (with
-the CLI) also applies the production headers. `index.html` fetches `data/entries.json`, so it
-needs a server; a `file://` URL won't load.
+`serve.py` reproduces the clean URLs and 404 page Vercel serves in production; `--lan` exposes it
+for phone testing. `vercel dev` (with the CLI) also applies the production headers.
 
 ## How it works
 
-The registry is one JSON file, `data/entries.json`. Everything else is generated from it. No
-database, no server-side code. Adding a finding means adding one object to the file and rebuilding:
+`data/entries.json` is the registry and the single source of truth. Everything else is generated
+from it. No database, no server-side code, no framework.
 
-```bash
-python3 scripts/build-site.py     # pre-renders index.html, writes finding/, llms.txt, sitemap.xml
-python3 scripts/build-feed.py     # regenerates feed.xml + feed.json
-python3 scripts/verify-parity.py  # checks the pre-rendered cards still match app.js (needs Node)
+**Adding, correcting or removing a finding is: edit that file, run `build.py`, commit.** No HTML is
+ever edited by hand.
+
+```
+data/entries.json ──► build.py ──► index.html (entries, stats, filters, FAQ tallies)
+                                   finding/<id>.html   one page per entry
+                                   llms.txt  sitemap.xml  feed.xml  feed.json
 ```
 
-`build-site.py` writes the entries into `index.html` as static markup. This matters because the AI
-crawlers `robots.txt` invites — GPTBot, ClaudeBot, PerplexityBot, CCBot — largely do not execute
-JavaScript. Before pre-rendering, they fetched a registry of AI discoveries containing no AI
-discoveries: 2.3KB of chrome and an empty `<main>`. It is now ~37KB of entry text in the source.
+Each entry carries two grades — `verification` (how solid the result is, `formal` to `refuted`) and
+`autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
+rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
-`app.js` still owns search and filtering; it adopts the server-rendered list on first paint (via
-`data-prerendered` on `#list`) instead of rewriting it. Its `card()` and the Python port in
-`build-site.py` must stay in step or the DOM visibly changes when a filter is first used —
-`verify-parity.py` runs the real `card()` under Node and diffs it against what was built, so CI
-catches drift.
+### Why the site is pre-rendered
 
-Do not hand-edit anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, or
-`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`. Edit `data/entries.json` and rebuild.
+The AI crawlers `robots.txt` invites — GPTBot, ClaudeBot, PerplexityBot, CCBot — largely do not
+execute JavaScript. When the page fetched its entries client-side, those crawlers got a registry of
+AI discoveries containing no AI discoveries: 2.3KB of chrome and an empty `<main>`. The entries are
+now in the markup (~37KB of text), and each finding also has its own URL for citation.
 
-An entry's `notability` (how many Wikipedia language editions cover the problem) is not typed by
-hand — it is measured from the live Wikipedia API by `scripts/build-notability.py`, which reads each
-entry's `wikipedia` article title, follows redirects, and writes back the count plus a
-`notability_meta` audit trail. Re-run it whenever articles change; `--check` reports drift for CI.
+`app.js` still owns search and filtering. It adopts the server-rendered list on first paint (via
+`data-prerendered` on `#list`) rather than rewriting it, so the DOM never churns on load.
 
-Each entry has two grades:
+### What `build.py` runs
 
-- `verification`: how solid the result is, from `formal` to `refuted`.
-- `autonomy`: how much the AI did, from `autonomous` to `retrieval`.
+| Step | Does |
+|---|---|
+| `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `llms.txt`, `sitemap.xml` |
+| `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
+| `verify-parity.py` | Runs `app.js`'s real `card()` under Node and diffs it against the pre-rendered markup |
+| `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
-Full definitions and editorial rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
+Validation stops the build rather than emitting a broken page: a missing required field, an unknown
+grade, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, or a non-`http(s)`
+URL. `javascript:` and `data:` links are rejected outright — entry URLs become `href`s on the page,
+and the CSP allows `'unsafe-inline'`, so they would be live.
+
+`check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
+inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
+because roughly a quarter of `index.html` — the `<head>`, JSON-LD, nav, footer, script tags — sits
+outside the `<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would
+survive a rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would
+otherwise overwrite tampering in a fully generated file and hide it.
+
+`card()` exists twice — in `app.js` and ported to `build-site.py`. They must stay in step or the
+markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
+
+CI runs all of the above on every PR, plus a rebuild-and-diff that catches a forgotten build.
+
+### Generated files — never hand-edit
+
+`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, and anything between
+`<!--…:START-->` / `<!--…:END-->` markers in `index.html`. Edit `data/entries.json` and rebuild.
+
+Two things are deliberately *not* part of every build:
+
+- **`build-notability.py`** measures `notability` (Wikipedia language editions covering the problem)
+  from the live Wikipedia API, following redirects and writing a `notability_meta` audit trail. It
+  hits the network and edits `data/entries.json`, so run it deliberately when adding an entry with a
+  `wikipedia` title. `--check` reports drift.
+- **A new `field` value** needs a display name in `FIELD_LABEL` in `build-site.py` — the one edit
+  outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve fields
+  are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
 
 ## Contributing
 
-See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). Fork, branch, open a PR; each PR gets a Vercel preview URL.
-Feeds regenerate on merge, so don't hand-edit `feed.xml` or `feed.json`.
+See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). Fork, branch, run `python3 scripts/build.py`,
+commit the regenerated files alongside your entry, open a PR. Each PR gets a Vercel preview URL and
+the CI checks above.
 
 ## Structure
 
 ```
 whataifound/
-├── index.html              # registry page: SEO head, JSON-LD, pre-rendered entries
+├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
 ├── methodology.html        # grading reference
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme, permalinks
+├── data/entries.json       # the registry — the only file you edit by hand
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
+├── sitemap.xml             # generated
 ├── feed.xml / feed.json    # RSS 2.0 + JSON Feed 1.1, generated
+├── robots.txt              # allows AI crawlers; points at sitemap + llms.txt
 ├── vercel.json             # clean URLs, cache + security headers
-├── robots.txt / sitemap.xml  # sitemap.xml generated
-├── data/entries.json       # the registry
 ├── assets/brand/           # favicon, og.png card, og.svg source
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
+├── .github/workflows/      # CI: integrity, rebuild, drift
 ├── scripts/                # authoring toolchain (not deployed)
-│   ├── serve.py            #   local preview server
+│   ├── build.py            #   ← run this; validates + regenerates everything
 │   ├── build-site.py       #   pre-renders index.html; writes finding/, llms.txt, sitemap.xml
-│   ├── build-feed.py       #   regenerates the feeds from data/entries.json
-│   ├── build-notability.py #   measures notability from the Wikipedia API
-│   └── verify-parity.py    #   asserts pre-rendered cards == app.js card()
-└── docs/                   # repo docs (not deployed)
+│   ├── build-feed.py       #   regenerates the feeds
+│   ├── build-notability.py #   measures notability from the Wikipedia API (run deliberately)
+│   ├── verify-parity.py    #   asserts pre-rendered cards == app.js card()
+│   ├── check-integrity.py  #   asserts no smuggled markup in deployed HTML
+│   └── serve.py            #   local preview server
+└── docs/
     ├── SCHEMA.md           #   field definitions + editorial rules
-    └── CONTRIBUTING.md
+    └── CONTRIBUTING.md     #   how to add an entry, and how to review one
 ```
 
 ## Front end
 
-No build step, no runtime external requests. One inline script (a theme initialiser that runs
-before first paint); everything else is static `styles.css` and `app.js`.
+No bundler, no runtime external requests. Three inline scripts in `index.html` (a theme initialiser
+that runs before first paint, plus the two Vercel analytics shims); everything else is static
+`styles.css` and `app.js`.
 
 - Type: self-hosted Newsreader, 4 weights, no CDN.
-- Theme: dark by default; Light / System / Dark toggle stored in `localStorage`. Switches via the
-  View Transitions API, with an instant fallback under `prefers-reduced-motion`.
-- Charts: four bar charts built from the entries in plain HTML/CSS/SVG, no library.
+- Theme: dark by default; Light / System / Dark stored in `localStorage`. Switches via the View
+  Transitions API, with an instant fallback under `prefers-reduced-motion`.
+- Charts: built from the entries in plain HTML/CSS/SVG, no library.
 - Responsive from 320px; breakpoints at 560 and 720. `pointer: coarse` enlarges tap targets and
   forces 16px inputs to stop iOS zoom-on-focus.
 - WCAG 2.1 AA: skip link, `role="search"`, live result count, `role="img"` chart labels, focus
@@ -111,22 +148,32 @@ before first paint); everything else is static `styles.css` and `app.js`.
 
 ## Deployment (Vercel)
 
-Static, no build command. Push to `main` deploys production; each PR gets a preview.
+Static, no build command — the generated files are committed, so a deploy just serves them. Push to
+`main` deploys production; each PR gets a preview.
 
-- Caching: fonts immutable for a year; `data/entries.json` `must-revalidate`; feeds 30 min.
-- Security headers on every response (CSP, `X-Content-Type-Options`, `X-Frame-Options`,
-  `Referrer-Policy`, `Strict-Transport-Security`, `Permissions-Policy`). A new external resource
-  needs its CSP directive in `vercel.json` widened, or it's blocked.
-- Enable Web Analytics and Speed Insights on the project; the snippets are already in both pages
-  and no-op until then.
+- Caching: fonts immutable for a year; `data/entries.json` and `finding/` `must-revalidate`; feeds
+  and `llms.txt` 30 min.
+- Security headers on every response: CSP (including `script-src-attr 'none'` and `object-src
+  'none'`), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+  `Strict-Transport-Security`, `Permissions-Policy`. A new external resource needs its CSP directive
+  in `vercel.json` widened, or it is blocked.
+- Enable Web Analytics and Speed Insights on the project; the snippets are already in place and
+  no-op until then.
 
 ## Discovery
 
-- Canonical URLs on both pages (clean-URL form).
-- JSON-LD: `WebSite` + `SearchAction`, a `Dataset` node for `data/entries.json`, `FAQPage` on home,
-  `TechArticle` on methodology.
-- Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG). Regenerate after editing
-  `og.svg`:
+- Canonical URLs on every page, clean-URL form.
+- JSON-LD: `WebSite` + `SearchAction`, `Dataset` for `data/entries.json`, and an eight-question
+  `FAQPage` on the home page (its tallies are regenerated, so they cannot go stale);
+  `TechArticle` on methodology; `ScholarlyArticle` + `ClaimReview` + `BreadcrumbList` on every
+  finding page. `ClaimReview` maps the verification grade to a 1–5 rating, so an answer engine
+  reads the verdict rather than parsing prose.
+- `llms.txt` gives LLM crawlers a markdown map: what the registry is, both grading scales, the data
+  files, and every finding with its grades.
+- `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, others) and
+  points at `sitemap.xml` and `llms.txt`.
+- Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG — several platforms don't
+  render SVG previews). Regenerate after editing `og.svg`:
 
   ```bash
   npm i @resvg/resvg-js
@@ -135,39 +182,36 @@ Static, no build command. Push to `main` deploys production; each PR gets a prev
   font:{fontFiles:['assets/fonts/news-600.woff2','assets/fonts/news-400.woff2'],loadSystemFonts:true,\
   defaultFontFamily:'Newsreader'}});fs.writeFileSync('assets/brand/og.png',r.render().asPng())"
   ```
-- `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, others) and
-  points to `sitemap.xml`.
 
 The domain `https://whataifound.org` is hard-coded in `index.html`, `methodology.html`,
-`visuals.html`, `robots.txt`, `sitemap.xml`, the `SITE` constant in `scripts/build-feed.py`, and the
-`og.svg` wordmark. Changing it means editing all of those, re-running `scripts/build-feed.py`, and
-re-rendering `og.png`.
+`visuals.html`, `robots.txt`, the `SITE` constant in `build-site.py`, `build-feed.py` and
+`build-notability.py`, and the `og.svg` wordmark. Changing it means editing all of those, re-running
+`build.py`, and re-rendering `og.png`.
 
-## Feeds and reuse
-
-`feed.xml` and `feed.json` are generated by `scripts/build-feed.py`, newest-added first, and linked
-via `<link rel="alternate">` on all pages.
-
-```bash
-python3 scripts/build-feed.py
-```
+## Licensing
 
 Data and content are CC BY 4.0; code is MIT ([LICENSE](LICENSE)). The `Dataset` JSON-LD exposes
 `data/entries.json` as a `DataDownload`.
 
 ## Current state
 
-21 entries, July 2021 (AlphaFold2) to July 2026 (Jacobian conjecture counterexample). Four are
-negative results (two `known`, two `disputed`). Thirteen carry `discussion` threads; three carry
-YouTube `videos` verified against oEmbed. The 2026 entries carry neither, since no verifiable
-thread exists yet.
+22 entries, July 2021 (AlphaFold2) to July 2026 (Dinitz–Garg–Goemans counterexample), across
+mathematics (10), computer science (6), biology (3), materials (2) and physics (1). Fifteen are
+well verified (`formal`, `independent` or `peer-reviewed`); four are negative or contested (two
+`known`, two `disputed`). Fourteen carry `discussion` threads; three carry YouTube `videos`
+verified against oEmbed.
 
 ## Roadmap
 
 1. Company pages (`/lab/anthropic`, etc.): a scoreboard of verified contributions per lab.
-2. Automated feed generation on merge, so contributors never touch the feeds.
-3. Static site generator (Astro/Eleventy) past ~40 entries, with per-entry markdown for readable
-   git history.
-4. Per-finding OG images on dedicated entry pages.
-5. A structured mechanism to challenge an entry's novelty with prior-work citations.
-6. Backfill: AlphaFold-adjacent results, remaining Erdős contributions, First Proof.
+2. A `/disputed` destination — the negative and contested entries are the registry's sharpest
+   differentiator and are currently reachable only through a filter.
+3. Per-finding OG images, rather than the one shared card.
+4. A structured mechanism to challenge an entry's novelty with prior-work citations.
+5. Backfill: AlphaFold-adjacent results, remaining Erdős contributions, First Proof.
+6. `status_history` per entry, recording how a grade changed over time. No other tracker has the
+   longitudinal view, and the deltas are the interesting part — A-Lab was disputed within months;
+   the IMO result held.
+
+Not planned: a static site generator. `scripts/build.py` already covers what one would do here, and
+`data/entries.json` stays the single source of truth.

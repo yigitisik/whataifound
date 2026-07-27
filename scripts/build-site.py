@@ -64,9 +64,16 @@ VER_RATING = {
     "refuted": (1, "Refuted"),
 }
 
+# Display names for the `field` values in use. A new field needs a line here — the
+# build refuses to run otherwise, rather than printing a raw slug like "computer-science"
+# into a headline. This is the one edit outside data/entries.json that adding an entry
+# can require, and only when the entry opens a brand-new field.
 FIELD_LABEL = {
     "mathematics": "Mathematics", "computer-science": "Computer science",
     "biology": "Biology", "materials": "Materials science", "physics": "Physics",
+    "chemistry": "Chemistry", "medicine": "Medicine", "neuroscience": "Neuroscience",
+    "astronomy": "Astronomy", "engineering": "Engineering",
+    "climate": "Climate science", "economics": "Economics",
 }
 
 LAB_LOGO = {
@@ -94,6 +101,16 @@ DOMAIN_NAME = {
 }
 
 
+def enc_uri_component(s):
+    """JavaScript's encodeURIComponent, which urllib.parse.quote is not.
+
+    quote() percent-encodes ! ' ( ) *; encodeURIComponent leaves them alone. app.js
+    uses encodeURIComponent on youtube_id, so quote() would emit different bytes and
+    fail verify-parity on any id containing those characters.
+    """
+    return quote(str(s), safe="!'()*-._~")
+
+
 def esc(s):
     """The exact escape app.js's esc() performs: & < > " and nothing else.
 
@@ -110,6 +127,24 @@ def esc(s):
 def attr(s):
     """Escape for an HTML attribute in a hand-written template (not a card() port)."""
     return html.escape(str(s or ""), quote=True)
+
+
+def json_ld(obj):
+    """Serialise a JSON-LD graph for embedding in a <script> block.
+
+    Inside <script>, the HTML parser looks for the literal "</script" before the JSON
+    parser ever sees the text, so an entry whose title or claim contained "</script>"
+    would terminate the block early and inject the remainder as markup. The escape is
+    on the JSON string level (\\u003c is the same character to a JSON reader), so the
+    structured data is unchanged for consumers. <!-- and --> get the same treatment,
+    since they can also confuse the parser inside a script element.
+
+    The registry is a single hand-maintained file, so this is defence in depth rather
+    than a live hole — but the whole point of the pipeline is that adding an entry
+    means editing JSON and nothing else, and that has to stay true for any string.
+    """
+    return (json.dumps(obj, indent=2, ensure_ascii=False)
+            .replace("<", "\\u003c").replace(">", "\\u003e").replace("&", "\\u0026"))
 
 
 # ------------------------------------------------------------ card() port
@@ -207,7 +242,7 @@ def card(e):
             f'            <button class="vid-play" type="button" aria-label="Play video: {esc(v["label"])}">&#9654;</button>\n'
             f'            <span class="vid-meta"><span class="vid-t">{esc(v["label"])}</span>'
             f'<span class="vid-ch">{esc(v["channel"])}</span></span>\n'
-            f'            <a class="vid-ext" href="https://www.youtube.com/watch?v={quote(str(v["youtube_id"]), safe="")}" '
+            f'            <a class="vid-ext" href="https://www.youtube.com/watch?v={enc_uri_component(v["youtube_id"])}" '
             f'target="_blank" rel="noopener">YouTube ↗</a>\n'
             f'          </div>'
             for v in e["videos"])
@@ -359,7 +394,7 @@ def entry_page(e):
                f"role graded {aut.lower()}.")
     meta_desc = f"{verdict} {e['claim']}"[:300]
 
-    ld = json.dumps(entry_jsonld(e, url), indent=2, ensure_ascii=False)
+    ld = json_ld(entry_jsonld(e, url))
 
     facts = [("Verification", ver), ("Autonomy", aut), ("Lab", e.get("lab")),
              ("Model", e.get("model")),
@@ -656,9 +691,90 @@ def build_index(entries, updated):
 
 
 # ------------------------------------------------------------------ main
+# Only these schemes may appear in a link the site renders. Everything an entry cites
+# is a public web document, so this is not restrictive in practice — but `javascript:`
+# and `data:` URLs in a source link become executable hrefs on both the registry page
+# and the entry page, and the site's CSP allows 'unsafe-inline', so it would not stop
+# them. A contributor sends URLs; a reviewer skimming a large JSON diff can miss one.
+SAFE_SCHEMES = ("https://", "http://")
+
+
+def check_urls(e, where, problems):
+    """Every URL an entry contributes to the page must be an ordinary web link."""
+    for field in ("sources", "discussion", "independent_checks"):
+        for item in (e.get(field) or []):
+            url = item.get("url")
+            # An independent check need not link anywhere — an in-house recomputation
+            # or a blind assessment has no URL. card() already renders no link for a
+            # missing or empty value, so absent and "" are both legitimate there.
+            if field == "independent_checks" and not url:
+                continue
+            if not isinstance(url, str) or not url.startswith(SAFE_SCHEMES):
+                problems.append(
+                    f"{where}: {field} URL {url!r} is not an http(s) link. "
+                    "javascript:, data: and other schemes are rejected because they "
+                    "become executable links on the page.")
+    for v in (e.get("videos") or []):
+        # Interpolated into a youtube-nocookie iframe src and a watch?v= link.
+        if not re.fullmatch(r"[A-Za-z0-9_-]{11}", str(v.get("youtube_id", ""))):
+            problems.append(f"{where}: youtube_id {v.get('youtube_id')!r} is not a valid "
+                            "11-character YouTube id")
+    # Used as a Wikipedia article title by build-notability.py, not as a URL.
+    if e.get("wikipedia") is not None and not isinstance(e["wikipedia"], str):
+        problems.append(f"{where}: wikipedia must be an article title string")
+
+
+def validate(entries):
+    """Reject data that would silently produce a broken, unsafe or unreachable page.
+
+    Adding a finding is meant to be "edit data/entries.json, rebuild" — so the build
+    is the only place a typo can be caught. It fails loudly here rather than emitting
+    a page with an empty <h1>, a colliding URL, or a grade nothing knows how to label.
+
+    This is also the security boundary for contributed content. Entry text is escaped
+    at render time, but a URL is not text — it is a scheme the browser will act on —
+    so the schemes are checked here instead.
+    """
+    problems = []
+    seen = {}
+    for n, e in enumerate(entries):
+        where = e.get("id") or f"entry #{n} (no id)"
+        check_urls(e, where, problems)
+        for field in ("id", "title", "claim", "date", "field", "lab",
+                      "model", "verification", "autonomy"):
+            if not e.get(field):
+                problems.append(f"{where}: missing required field '{field}'")
+        if e.get("verification") and e["verification"] not in VER_LABEL:
+            problems.append(f"{where}: unknown verification '{e['verification']}' "
+                            f"(expected one of: {', '.join(VER_LABEL)})")
+        if e.get("autonomy") and e["autonomy"] not in AUT_LABEL:
+            problems.append(f"{where}: unknown autonomy '{e['autonomy']}' "
+                            f"(expected one of: {', '.join(AUT_LABEL)})")
+        if e.get("field") and e["field"] not in FIELD_LABEL:
+            problems.append(f"{where}: field '{e['field']}' has no display label — "
+                            f"add it to FIELD_LABEL in {os.path.basename(__file__)}")
+        if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(e.get("date", ""))):
+            problems.append(f"{where}: date '{e.get('date')}' is not YYYY-MM-DD")
+        eid = e.get("id")
+        if eid:
+            # The id becomes a filename and a URL path segment.
+            if not re.fullmatch(r"[a-z0-9][a-z0-9._-]*", str(eid)):
+                problems.append(f"{where}: id is not URL/filename safe "
+                                "(use lowercase letters, digits, '-', '_', '.')")
+            if eid in seen:
+                problems.append(f"{where}: duplicate id (also at entry #{seen[eid]})")
+            seen[eid] = n
+    if problems:
+        raise SystemExit("data/entries.json has "
+                         f"{len(problems)} problem(s):\n  - "
+                         + "\n  - ".join(problems))
+
+
 def main():
     with open(os.path.join(ROOT, "data", "entries.json")) as f:
         entries = json.load(f)
+
+    validate(entries)
 
     # Same order the site shows: newest discovery first. app.js sorts identically,
     # so the pre-rendered DOM and the hydrated DOM agree.

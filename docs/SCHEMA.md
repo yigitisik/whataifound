@@ -10,13 +10,13 @@ else (site, search, company pages) is a rendering of it.
 | `id` | string | Stable slug, never reused. `YYYY-MM-DD-short-name` |
 | `title` | string | Plain, factual. No hype verbs ("stuns", "shatters") |
 | `claim` | string | One sentence a smart non-expert can read |
-| `field` | string | `mathematics` \| `computer-science` \| `biology` \| `chemistry` \| `physics` \| `materials` |
+| `field` | string | `mathematics` \| `computer-science` \| `biology` \| `chemistry` \| `physics` \| `materials` \| `medicine` \| `neuroscience` \| `astronomy` \| `engineering` \| `climate` \| `economics`. A new value needs a display name in `FIELD_LABEL` in `scripts/build-site.py` |
 | `date` | string | ISO date the result became public |
 | `lab` | string | Organization credited. `Independent` if none |
 | `model` | string | Model + version. `Unknown` if not disclosed |
 | `verification` | enum | See below |
 | `autonomy` | enum | See below |
-| `sources` | array | `{label, url}`. At least one primary source |
+| `sources` | array | `{label, url}`. At least one primary source. `url` must be `http(s)` |
 | `added` | string | ISO date this entry was added to the registry |
 
 ## Optional fields
@@ -104,3 +104,29 @@ This column is the whole point. Most breathless claims collapse here.
   "added": "2026-07-20"
 }
 ```
+
+Add the object to `data/entries.json`, then run `python3 scripts/build.py` — the site is
+pre-rendered, so an entry that isn't built isn't on the site. See
+[CONTRIBUTING.md](CONTRIBUTING.md).
+
+## What the build enforces
+
+`scripts/build-site.py` validates before writing anything and stops on the first pass with a
+message naming the entry and the problem. It is the only place a typo gets caught, so it is
+deliberately strict:
+
+- `id`, `title`, `claim`, `date`, `field`, `lab`, `model`, `verification`, `autonomy` must all be
+  present and non-empty.
+- `verification` and `autonomy` must be one of the values above; `field` must have a `FIELD_LABEL`.
+- `date` must be `YYYY-MM-DD`.
+- `id` must be unique and URL-safe (lowercase letters, digits, `-`, `_`, `.`) — it becomes both a
+  filename and a URL path segment.
+- Every `url` in `sources`, `discussion` and `independent_checks` must start with `http://` or
+  `https://`. `javascript:` and `data:` are rejected: these become `href`s on the page, and the
+  site's CSP allows `'unsafe-inline'`, so they would be live links. An `independent_checks` entry
+  may omit `url` entirely (an in-house recomputation or a blind assessment has none).
+- `youtube_id` must be a valid 11-character YouTube id — it is interpolated into an iframe `src`.
+
+Entry *text* (`title`, `claim`, `detail`, `novelty_check`, `caveats`) is escaped at render time, so
+markup in it is displayed rather than executed. It is still flagged for review by
+`check-integrity.py`, since it usually means a bad copy-paste.
