@@ -9,6 +9,76 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-07-20-gaussian-moments",
+      "url": "https://whataifound.org/finding/2026-07-20-gaussian-moments",
+      "title": "Counterexamples to the Gaussian moments conjecture",
+      "content_text": "Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved.  Derksen, van den Essen and Zhao proposed the Gaussian moments conjecture and showed that the Jacobian conjecture would follow from it. Long reports that a cubic counterexample in four variables was produced by GPT-5.6 Sol Pro with no human intervention after the initial prompt, which simply noted that the Jacobian conjecture had just been disproved and asked whether a small counterexample to GMC might therefore exist; Claude Fable 5 then found a quartic counterexample in three variables and supplied independent algebraic checks. Together these show GMC(n) is false for every n ≥ 3.  Lab: Independent. Model: GPT-5.6 Sol Pro + Claude Fable 5. Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-07-20T00:00:00+00:00",
+      "date_modified": "2026-07-27T00:00:00+00:00",
+      "tags": [
+        "algebra",
+        "polynomial-maps",
+        "counterexample",
+        "jacobian-conjecture"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-14-zeroth-order-oracle-bound",
+      "url": "https://whataifound.org/finding/2026-07-14-zeroth-order-oracle-bound",
+      "title": "Near-quadratic lower bound for derivative-free convex optimization",
+      "content_text": "A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal.  In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.  Lab: Independent. Model: GPT-5.6 Sol Pro. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-14T00:00:00+00:00",
+      "date_modified": "2026-07-27T00:00:00+00:00",
+      "tags": [
+        "optimization",
+        "complexity-theory",
+        "lower-bounds",
+        "lean"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-05-21-alphaproof-nexus",
+      "url": "https://whataifound.org/finding/2026-05-21-alphaproof-nexus",
+      "title": "Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs",
+      "content_text": "An agent pairing language models with the Lean proof assistant resolved 9 of 353 open Erdős problems and 44 of 492 open OEIS conjectures, with every proof mechanically verified.  The system proposes proofs with a language model and checks every step in Lean, so a hallucinated argument cannot pass. Beyond the Erdős and OEIS totals it settled a 15-year-old question on log-concavity of pure O-sequences in codimension 3 and type 2, and proved an exact O(1/t) convergence rate for anchored gradient descent-ascent via a parameter choice not previously identified. Two of the Erdős problems had been open for 56 years. All formal proofs were released in a public repository.  Lab: Google DeepMind. Model: AlphaProof Nexus (LLM + Lean). Verification: Formally verified. Autonomy: Search scaffold.",
+      "date_published": "2026-05-21T00:00:00+00:00",
+      "date_modified": "2026-07-27T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "automated-theorem-proving",
+        "erdos-problems",
+        "combinatorics"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2025-11-03-alphaevolve-at-scale",
+      "url": "https://whataifound.org/finding/2025-11-03-alphaevolve-at-scale",
+      "title": "AlphaEvolve across 67 problems: 20 improvements, 8 regressions",
+      "content_text": "A systematic study with Terence Tao of an evolutionary coding agent on 67 open problems in analysis, combinatorics and geometry, reporting where it beat the literature and where it did not.  Rather than a single headline result, this is the systematic version: 67 problems attempted, with outcomes recorded either way. Tao reports roughly 20 cases of a new result, most others matching known bounds, and 8 where the tool did worse than the literature. Genuine advances include new three-dimensional constructions for finite-field Nikodym sets — which then prompted a human-refined hybrid construction beating both algebraic and random baselines — and an improved upper bound for Sidon sets, from 1.96365 to about 1.9526. On the well-known conjectures of Sidorenko, Sendov and Crouzeix it found no counterexample, which Tao notes may simply reflect that they are true.  Lab: Google DeepMind. Model: AlphaEvolve (Gemini-based). Verification: Independently checked. Autonomy: Search scaffold.",
+      "date_published": "2025-11-03T00:00:00+00:00",
+      "date_modified": "2026-07-27T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "geometry",
+        "analysis",
+        "evolutionary-search"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2025-09-11-gauss-strong-pnt",
+      "url": "https://whataifound.org/finding/2025-09-11-gauss-strong-pnt",
+      "title": "Strong prime number theorem formalized in Lean by an autoformalization agent",
+      "content_text": "An agent completed a Lean formalization of the strong prime number theorem in about three weeks, finishing a project two expert mathematicians had left blocked after 18 months.  Tao and Kontorovich began a Lean formalization of the strong prime number theorem — the version with an explicit error term — in January 2024, and by July 2025 had announced intermediate progress blocked on core difficulties in complex analysis. Math, Inc. reports that Gauss produced over 25,000 lines of Lean and roughly 1,100 theorems and definitions in about three weeks, completing the project. The repository README states that most statements and proofs were produced by the agent, with humans supplying the high-level blueprint, reviewing key lemmas, and adapting prior work.  Lab: Math, Inc.. Model: Gauss (autoformalization agent). Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2025-09-11T00:00:00+00:00",
+      "date_modified": "2026-07-27T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "formalization",
+        "number-theory",
+        "prime-number-theorem"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans",
       "url": "https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans",
       "title": "Counterexample to the Dinitz–Garg–Goemans conjecture",
