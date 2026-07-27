@@ -1,0 +1,74 @@
+name: build
+
+# The generated files (index.html's entry block, finding/, llms.txt, sitemap.xml,
+# feed.*) are committed, so a PR carries tens of thousands of lines of machine-written
+# HTML that no reviewer reads closely. Two things are checked here, in this order:
+#
+#   1. Integrity of what was actually committed, BEFORE any rebuild. A rebuild would
+#      overwrite tampering in the fully generated files and hide it, so this has to
+#      look at the PR's own bytes first.
+#   2. That rebuilding from data/entries.json reproduces those bytes, which catches a
+#      forgotten rebuild and any hand-edit inside the marker regions.
+#
+# Note on trust: `pull_request` runs the workflow file from the *base* branch for
+# fork PRs' permissions but uses the fork's file contents for the checkout. A PR that
+# edits this workflow is therefore reviewable in the diff — treat any change to
+# .github/ or scripts/ in a contributor PR as a code change, not an entry change.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      # verify-parity.py runs app.js's real card() to diff it against the
+      # pre-rendered markup, so Node is required for the full check.
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      # Runs first and on the committed bytes: a payload in a fully generated file
+      # would be erased by the rebuild below and never show up in a diff.
+      - name: Check committed files for smuggled markup
+        run: python3 scripts/check-integrity.py
+
+      - name: Rebuild from data/entries.json
+        run: python3 scripts/build.py
+
+      - name: Fail if the committed site is out of date
+        run: |
+          # feed.xml's lastBuildDate is a timestamp that changes on every run; it
+          # carries no registry content, so it is excluded from the drift check.
+          git checkout -- feed.xml
+          if ! git diff --quiet; then
+            echo "::error::Generated files differ from data/entries.json."
+            echo "Run 'python3 scripts/build.py' and commit the result."
+            echo
+            git diff --stat
+            git diff
+            exit 1
+          fi
+          echo "Committed site matches data/entries.json."
+
+      # A PR that changes anything outside data/entries.json is a code change and
+      # needs reading as one. This does not fail the build; it labels the diff so the
+      # distinction is visible in the checks rather than inferred from the file list.
+      - name: Classify the change
+        if: github.event_name == 'pull_request'
+        run: |
+          git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
+          changed=$(git diff --name-only "origin/${{ github.base_ref }}"...HEAD)
+          echo "Changed files:"; echo "$changed"
+          if echo "$changed" | grep -qE '^(scripts/|\.github/|app\.js|vercel\.json)'; then
+            echo "::warning::This PR touches build scripts, CI, app.js or vercel.json — review as a code change, not an entry."
+          fi
