@@ -16,7 +16,7 @@ from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
 SITE = "https://whataifound.org"
-# Repo root is the parent of scripts/ — data/ and the generated feeds live there.
+# Repo root is the parent of scripts/; data/ and the generated feeds live there.
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 VER_LABEL = {

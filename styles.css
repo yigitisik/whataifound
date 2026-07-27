@@ -58,6 +58,28 @@
     -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 13v8M13 17h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
     mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 13v8M13 17h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
     -webkit-mask-size:34px 34px;mask-size:34px 34px;-webkit-mask-repeat:repeat;mask-repeat:repeat}
+
+  /* Shooting star: one hairline streak crossing the top-right every 30s. Pure CSS on a
+     spare pseudo-element, so there is no JS, no timer and no DOM node to manage. The
+     animation is mostly a long transparent pause; the visible part is the last ~4% of
+     the cycle, which is what keeps it a rare accent rather than decoration. position
+     is fixed, unlike the plotting paper: the star should read as sky behind the page,
+     so it must not scroll with the content. */
+  /* Sits above the content layer but at very low opacity, so it passes over the page
+     the way a reflection crosses glass rather than being hidden behind the opaque
+     cards. Peak opacity is kept low deliberately: at full strength a line crossing the
+     masthead reads as a rendering glitch. pointer-events:none keeps it inert. */
+  body::after{content:"";position:fixed;top:6vh;right:-16vw;z-index:1;pointer-events:none;
+    width:140px;height:1.5px;border-radius:2px;opacity:0;
+    transform:translate(0,0) rotate(17deg);transform-origin:right center;
+    background:linear-gradient(270deg,var(--independent),rgba(0,0,0,0));
+    animation:shoot 30s linear infinite}
+  @keyframes shoot{
+    0%,95.9%{opacity:0;transform:translate(0,0) rotate(17deg)}
+    96.3%{opacity:.42}
+    99%{opacity:.16}
+    100%{opacity:0;transform:translate(-132vw,40vh) rotate(17deg)}
+  }
   main{scroll-margin-top:74px}
   .entry{scroll-margin-top:80px}
   #top,#sources,#about{scroll-margin-top:16px}
@@ -239,7 +261,7 @@
   @media(max-width:460px){
     /* Two across, not stacked: four full-width cards would push the charts off the
        first screen, which is the opposite of the point. The supporting note is dropped
-       here — the number and its label carry the meaning on their own. */
+       here; the number and its label carry the meaning on their own. */
     .insights{gap:8px}
     .ins{padding:10px 12px 9px;display:flex;flex-direction:column}
     .ins b{font-size:1.3rem} .ins-l{font-size:.58rem;margin-top:4px} .ins-n{display:none}

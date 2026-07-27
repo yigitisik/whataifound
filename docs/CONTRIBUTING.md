@@ -17,7 +17,7 @@ python3 scripts/serve.py          # http://localhost:8000  (--lan for phone test
 ```
 
 `serve.py` reproduces the clean URLs and 404 page Vercel serves in production. The entries are
-pre-rendered into `index.html`, so the page has content without a server — but search, filtering
+pre-rendered into `index.html`, so the page has content without a server, but search, filtering
 and the charts read `data/entries.json` over fetch, so use the server rather than a `file://` URL.
 
 ## Adding an entry
@@ -27,7 +27,7 @@ Read [SCHEMA.md](SCHEMA.md) first for field definitions and grade scales.
 1. Branch: `git checkout -b entry/short-name`
 2. Add one object to [data/entries.json](../data/entries.json), matching the existing format. Set
    `id` to `YYYY-MM-DD-short-name`; never reuse an id.
-3. Run `python3 scripts/build.py`. **Required** — the site is pre-rendered, so an entry that isn't
+3. Run `python3 scripts/build.py`. **Required**: the site is pre-rendered, so an entry that isn't
    built isn't on the site. The build validates first and stops with a specific message on a bad
    grade, date, id, or URL.
 4. Check locally that the entry renders, filters, and expands, and that `/finding/<id>` looks right.
@@ -68,7 +68,7 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
 
 - No runtime external requests. A new external resource also needs its CSP directive in
   [vercel.json](../vercel.json) widened.
-- No inline event handlers (`onclick=` and friends) — CSP sets `script-src-attr 'none'`, and
+- No inline event handlers (`onclick=` and friends). CSP sets `script-src-attr 'none'`, and
   `check-integrity.py` rejects them. Attach listeners in `app.js`.
 - WCAG 2.1 AA: keep focus rings, heading order, chart labels, `prefers-reduced-motion`.
 - Works in both light and dark themes.
@@ -77,7 +77,7 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
 `card()` exists twice: in [app.js](../app.js) and ported to
 [scripts/build-site.py](../scripts/build-site.py). **Change one, change the other, in the same PR.**
 `verify-parity.py` runs the real `card()` under Node and diffs it against the pre-rendered markup,
-so drift fails the build — the markup would otherwise visibly change the first time a visitor
+so drift fails the build; the markup would otherwise visibly change the first time a visitor
 filters.
 
 ## PRs
@@ -123,7 +123,7 @@ The registry's only asset is that its grades can be trusted. Automation covers t
   the shape a promotional edit takes. Requires new evidence, cited.
 - **Treat the diff's scope as a signal.** An entry PR should touch `data/entries.json` plus
   generated files and nothing else. CI warns when one also touches `scripts/`, `.github/`, `app.js`
-  or `vercel.json` — read those as code changes, and never merge them on the strength of the entry.
+  or `vercel.json`. Read those as code changes, and never merge them on the strength of the entry.
 - **Watch for conflicts of interest.** Contributors submitting their own result are welcome and
   common, but it goes in at the grade the evidence supports, and saying so in the PR is expected.
 

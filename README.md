@@ -36,13 +36,13 @@ data/entries.json ──► build.py ──► index.html (entries, stats, filte
                                    llms.txt  sitemap.xml  feed.xml  feed.json
 ```
 
-Each entry carries two grades — `verification` (how solid the result is, `formal` to `refuted`) and
+Each entry carries two grades: `verification` (how solid the result is, `formal` to `refuted`) and
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
 rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
 ### Why the site is pre-rendered
 
-The AI crawlers `robots.txt` invites — GPTBot, ClaudeBot, PerplexityBot, CCBot — largely do not
+The AI crawlers `robots.txt` invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not
 execute JavaScript. When the page fetched its entries client-side, those crawlers got a registry of
 AI discoveries containing no AI discoveries: 2.3KB of chrome and an empty `<main>`. The entries are
 now in the markup (~37KB of text), and each finding also has its own URL for citation.
@@ -61,22 +61,22 @@ now in the markup (~37KB of text), and each finding also has its own URL for cit
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
 grade, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, or a non-`http(s)`
-URL. `javascript:` and `data:` links are rejected outright — entry URLs become `href`s on the page,
+URL. `javascript:` and `data:` links are rejected outright: entry URLs become `href`s on the page,
 and the CSP allows `'unsafe-inline'`, so they would be live.
 
 `check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
 inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
-because roughly a quarter of `index.html` — the `<head>`, JSON-LD, nav, footer, script tags — sits
+because roughly a quarter of `index.html` (the `<head>`, JSON-LD, nav, footer, script tags) sits
 outside the `<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would
 survive a rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would
 otherwise overwrite tampering in a fully generated file and hide it.
 
-`card()` exists twice — in `app.js` and ported to `build-site.py`. They must stay in step or the
+`card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
 
 CI runs all of the above on every PR, plus a rebuild-and-diff that catches a forgotten build.
 
-### Generated files — never hand-edit
+### Generated files: never hand-edit
 
 `finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, and anything between
 `<!--…:START-->` / `<!--…:END-->` markers in `index.html`. Edit `data/entries.json` and rebuild.
@@ -87,7 +87,7 @@ Two things are deliberately *not* part of every build:
   from the live Wikipedia API, following redirects and writing a `notability_meta` audit trail. It
   hits the network and edits `data/entries.json`, so run it deliberately when adding an entry with a
   `wikipedia` title. `--check` reports drift.
-- **A new `field` value** needs a display name in `FIELD_LABEL` in `build-site.py` — the one edit
+- **A new `field` value** needs a display name in `FIELD_LABEL` in `build-site.py`. This is the one edit
   outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve fields
   are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
 
@@ -107,7 +107,7 @@ whataifound/
 ├── 404.html                # styled not-found page
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme, permalinks
-├── data/entries.json       # the registry — the only file you edit by hand
+├── data/entries.json       # the registry, the only file you edit by hand
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── sitemap.xml             # generated
@@ -148,7 +148,7 @@ that runs before first paint, plus the two Vercel analytics shims); everything e
 
 ## Deployment (Vercel)
 
-Static, no build command — the generated files are committed, so a deploy just serves them. Push to
+Static, no build command: the generated files are committed, so a deploy just serves them. Push to
 `main` deploys production; each PR gets a preview.
 
 - Caching: fonts immutable for a year; `data/entries.json` and `finding/` `must-revalidate`; feeds
@@ -172,7 +172,7 @@ Static, no build command — the generated files are committed, so a deploy just
   files, and every finding with its grades.
 - `robots.txt` allows AI crawlers (GPTBot, ClaudeBot, PerplexityBot, Google-Extended, others) and
   points at `sitemap.xml` and `llms.txt`.
-- Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG — several platforms don't
+- Open Graph / Twitter cards use `assets/brand/og.png` (PNG, not SVG, because several platforms don't
   render SVG previews). Regenerate after editing `og.svg`:
 
   ```bash
@@ -204,13 +204,13 @@ verified against oEmbed.
 ## Roadmap
 
 1. Company pages (`/lab/anthropic`, etc.): a scoreboard of verified contributions per lab.
-2. A `/disputed` destination — the negative and contested entries are the registry's sharpest
+2. A `/disputed` destination. The negative and contested entries are the registry's sharpest
    differentiator and are currently reachable only through a filter.
 3. Per-finding OG images, rather than the one shared card.
 4. A structured mechanism to challenge an entry's novelty with prior-work citations.
 5. Backfill: AlphaFold-adjacent results, remaining Erdős contributions, First Proof.
 6. `status_history` per entry, recording how a grade changed over time. No other tracker has the
-   longitudinal view, and the deltas are the interesting part — A-Lab was disputed within months;
+   longitudinal view, and the deltas are the interesting part: A-Lab was disputed within months;
    the IMO result held.
 
 Not planned: a static site generator. `scripts/build.py` already covers what one would do here, and
