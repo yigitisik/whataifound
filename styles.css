@@ -220,14 +220,38 @@
   .count{margin-left:auto;align-self:center;font-family:var(--serif);font-size:.72rem;color:var(--muted);
     letter-spacing:.04em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
 
-  /* ---------- Visuals disclosure panel ---------- */
+  /* ---------- Insight strip ----------
+     The conclusions, stated above the charts. A chart shows a distribution; these say
+     what it means, so the opening view carries the takeaway even before anything is read. */
+  .insights{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:10px;margin:0 0 12px}
+  .ins{background:var(--panel);border:1px solid var(--line);border-radius:13px;
+    padding:13px 15px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden;
+    transition:transform .18s var(--ease),border-color .18s,box-shadow .18s}
+  .ins:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow-card)}
+  .ins:before{content:"";position:absolute;top:0;left:0;width:28px;height:2px;background:var(--accent)}
+  .ins b{display:block;font-family:var(--serif);font-size:1.55rem;font-weight:600;line-height:1;
+    letter-spacing:-.02em;color:var(--ink);font-variant-numeric:lining-nums tabular-nums}
+  .ins-l{display:block;margin-top:5px;font-family:var(--serif);font-size:.63rem;color:var(--muted);
+    text-transform:uppercase;letter-spacing:.11em;line-height:1.35}
+  .ins-n{display:block;margin-top:7px;font-family:var(--serif);font-size:.72rem;color:var(--muted);
+    line-height:1.45}
+  @media(max-width:860px){.insights{grid-template-columns:repeat(2,minmax(0,1fr))}}
+  @media(max-width:460px){
+    /* Two across, not stacked: four full-width cards would push the charts off the
+       first screen, which is the opposite of the point. The supporting note is dropped
+       here — the number and its label carry the meaning on their own. */
+    .insights{gap:8px}
+    .ins{padding:10px 12px 9px;display:flex;flex-direction:column}
+    .ins b{font-size:1.3rem} .ins-l{font-size:.58rem;margin-top:4px} .ins-n{display:none}
+  }
+
   /* ---------- Quick view charts ---------- */
   .qv-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;background:var(--line);
     border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
-  .qv-card{background:var(--panel);padding:18px 20px}
+  .qv-card{background:var(--panel);padding:14px 16px 13px}
   .qv-title{font-family:var(--serif);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;
-    color:var(--muted);margin:0 0 15px}
-  .hbars{display:flex;flex-direction:column;gap:9px}
+    color:var(--muted);margin:0 0 11px}
+  .hbars{display:flex;flex-direction:column;gap:7px}
   .hbar{display:grid;grid-template-columns:122px 1fr 26px;align-items:center;gap:10px}
   .hbar-label{font-family:var(--serif);font-size:.7rem;color:var(--ink);white-space:nowrap;overflow:hidden;
     text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
@@ -237,7 +261,10 @@
     transform-origin:left;animation:growx .7s var(--ease) both}
   @keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   .hbar-val{font-family:var(--serif);font-size:.72rem;color:var(--muted);text-align:right;font-variant-numeric:lining-nums tabular-nums}
-  .vbars{display:flex;align-items:flex-end;gap:8px;height:136px}
+  /* margin-top:auto pins the bars to the bottom of the card, so this card's baseline
+     lines up with the bar charts beside it instead of floating with dead space below. */
+  .vbars{display:flex;align-items:flex-end;gap:8px;height:112px;margin-top:auto}
+  .qv-card:has(.vbars){display:flex;flex-direction:column}
   .vbar{flex:1;display:flex;flex-direction:column;align-items:center;justify-content:flex-end;gap:5px;height:100%}
   .vbar-fill{width:100%;max-width:34px;background:var(--accent);border-radius:4px 4px 0 0;
     transform-origin:bottom;animation:growy .7s var(--ease) both}
