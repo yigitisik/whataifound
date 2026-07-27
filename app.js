@@ -216,7 +216,7 @@ function renderCharts(){
   const vbars = `<div class="vbars" role="img" aria-label="${esc(vLabel)}">` + byYear.map(([y,c])=>
     `<div class="vbar" title="${y}: ${c} finding${c===1?'':'s'}">`+
     `<span class="vbar-val">${c}</span>`+
-    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*92),2)}px"></span>`+
+    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
     `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
 
   const hbars = (rows, name) => {
@@ -229,8 +229,12 @@ function renderCharts(){
       `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
   };
 
-  const byLab = sortDesc(tally(e=>e.lab));
-  const byField = sortDesc(tally(e=>e.field));
+  // Long organisation names get ellipsised to nothing useful in a 122px label column
+  // ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
+  // actually use. The full name stays in the row's title attribute and aria-label.
+  const LAB_SHORT = {'Lawrence Berkeley National Laboratory':'Berkeley Lab'};
+  const byLab = sortDesc(tally(e=>e.lab)).map(([l,c]) => [LAB_SHORT[l]||l, c]);
+  const byField = sortDesc(tally(e=>e.field)).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
   const GORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
   const GVAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
     claimed:'--claimed',disputed:'--disputed',known:'--known',refuted:'--refuted'};
@@ -239,13 +243,53 @@ function renderCharts(){
   const gm = tally(e=>e.verification);
   const byGrade = GORDER.filter(g=>gm[g]).map(g=>[GSHORT[g]||g, gm[g], `var(${GVAR[g]})`]);
 
+  // Order matters: the four small charts read at a glance and fit the opening view
+  // together, so they come first. The scatter is the largest element and plots only
+  // the subset of entries carrying both a posed year and a notability score, so it
+  // sits last rather than pushing everything else below the fold.
   el.innerHTML =
-    scatterCard()+
     `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
-    `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
+    `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`+
+    scatterCard();
+  renderInsights();
   wireScatterTip();
+}
+
+// Headline figures above the charts. The charts show distributions; these state the
+// handful of conclusions worth taking away, each one derived rather than written down
+// so it cannot drift from the registry.
+function renderInsights(){
+  const el = document.getElementById('insights');
+  if (!el) return;
+  const n = ALL.length;
+  const count = fn => ALL.filter(fn).length;
+  const pct = k => Math.round(k / n * 100);
+
+  const strong = count(e => ['formal','independent','peer-reviewed'].includes(e.verification));
+  const negative = count(e => ['known','disputed','refuted'].includes(e.verification));
+  const scaffold = count(e => e.autonomy === 'search-scaffold');
+  const spans = ALL.map(yearsOpen).filter(v => v != null).sort((a,b)=>a-b);
+  const median = spans.length
+    ? (spans.length % 2 ? spans[(spans.length-1)/2]
+       : Math.round((spans[spans.length/2-1] + spans[spans.length/2]) / 2))
+    : null;
+
+  const cards = [
+    [`${strong}`, `of ${n} well verified`,
+     `Formally verified, independently checked or peer reviewed — ${pct(strong)}% of the registry.`],
+    [`${scaffold}`, 'came from search scaffolds',
+     'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.'],
+    [`${negative}`, 'negative or contested',
+     'Already known, disputed or refuted. Kept on the record rather than deleted.'],
+  ];
+  if (median != null) cards.push([`${median}yr`, 'median problem age',
+    `Half the problems with a known posed year had stood longer than this before the result.`]);
+
+  el.innerHTML = cards.map(([big, label, note]) =>
+    `<div class="ins"><b>${esc(big)}</b><span class="ins-l">${esc(label)}</span>`+
+    `<span class="ins-n">${esc(note)}</span></div>`).join('');
 }
 
 // Autonomy is the axis this registry owns, so it's the color key of the scatter:
@@ -256,6 +300,15 @@ const AUT_COLOR = {
   'ai-assisted':'var(--author)','search-scaffold':'var(--disputed)','retrieval':'var(--known)'
 };
 const AUT_ORDER = ['autonomous','ai-led','collaborative','ai-assisted','search-scaffold','retrieval'];
+
+// Chart labels for the `field` slugs. Unlisted fields fall back to the raw value, so a
+// new one still renders — it just reads as the slug until it is named here.
+const FIELD_SHORT = {
+  'mathematics':'Mathematics','computer-science':'Computer science','biology':'Biology',
+  'materials':'Materials','physics':'Physics','chemistry':'Chemistry','medicine':'Medicine',
+  'neuroscience':'Neuroscience','astronomy':'Astronomy','engineering':'Engineering',
+  'climate':'Climate','economics':'Economics'
+};
 
 function scatterCard(){
   // x = notability (α, fame); y = years open before the result. Color = autonomy.
@@ -268,7 +321,10 @@ function scatterCard(){
       `<p class="qv-empty">Not enough entries carry both a posed year and a notability score yet.</p></div>`;
   }
 
-  const W = 520, H = 300, PADL = 44, PADR = 16, PADT = 14, PADB = 42;
+  // A wide, short viewBox: the SVG scales to the full grid width, so a squarer box
+  // renders very tall for a chart this sparse. 900x260 keeps the plot readable while
+  // holding the card to roughly a third of its former height.
+  const W = 900, H = 260, PADL = 40, PADR = 14, PADT = 12, PADB = 34;
   const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
   // x = notability on a LOG scale: values span 1..56, so a linear axis would crush the
   // 1..19 cluster into the left edge. All counts are >= 1 (no article => no point), so
@@ -284,7 +340,11 @@ function scatterCard(){
   const XSTOPS = [1,2,5,10,20,50,100,200];
   const xticks = XSTOPS.filter(v => v <= xMax * 1.001);
   if (xticks[xticks.length-1] < xMax) xticks.push(xMax);
-  const yStep = Math.max(1, Math.ceil(yMax / 5 / 10) * 10);
+  // Aim for ~4 gridlines at a round step, rather than a fixed count: with one entry at
+  // 331 years and the rest under 90, a 5-step axis spent most of the plot on empty
+  // space above the cluster. Round steps keep the labels readable at any data range.
+  const NICE = [5,10,20,25,50,100,200,250,500];
+  const yStep = NICE.find(s => yMax / s <= 4.2) || Math.ceil(yMax / 4 / 100) * 100;
   const yticks = []; for (let v = 0; v <= yMax; v += yStep) yticks.push(v);
 
   const grid = [
