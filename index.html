@@ -146,7 +146,7 @@
           "name": "How many AI discoveries are actually verified?",
           "acceptedAnswer": {
             "@type": "Answer",
-            "text": "Of the 22 results currently on the whataifound.org register, 15 are well verified (formally verified, independently checked or peer reviewed) and 4 are negative or contested (already known, disputed or refuted). Only 7 are graded AI-led or autonomous; 10 came from human-built search scaffolds such as FunSearch and AlphaEvolve, where an LLM sits inside a harness a human designed. The register is deliberately small because each entry has to survive a novelty check, and results that turned out to already exist in the literature stay on the record."
+            "text": "Of the 27 results currently on the whataifound.org register, 18 are well verified (formally verified, independently checked or peer reviewed) and 4 are negative or contested (already known, disputed or refuted). Only 9 are graded AI-led or autonomous; 12 came from human-built search scaffolds such as FunSearch and AlphaEvolve, where an LLM sits inside a harness a human designed. The register is deliberately small because each entry has to survive a novelty check, and results that turned out to already exist in the literature stay on the record."
           }
         }
       ]
@@ -196,7 +196,7 @@
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg>
         </button>
       </span>
-      <span class="updated"><span class="pulse"></span>Updated <b id="updated"><!--UPDATED:START-->2026-07-24<!--UPDATED:END--></b></span>
+      <span class="updated"><span class="pulse"></span>Updated <b id="updated"><!--UPDATED:START-->2026-07-27<!--UPDATED:END--></b></span>
     </span>
   </div>
   <h1 class="intro i2">What AI has<br><span class="grad">actually discovered</span></h1>
@@ -210,16 +210,16 @@
     <a class="btn" href="visuals.html">Visuals</a>
     <a class="btn" href="methodology.html">Methodology</a>
   </div>
-  <div class="stats" id="stats"><!--STATS:START--><div class="stat"><b data-target="22">22</b><span>Entries on record</span></div><div class="stat"><b data-target="15">15</b><span>Well verified</span></div><div class="stat"><b data-target="7">7</b><span>AI-led or autonomous</span></div><div class="stat"><b data-target="4">4</b><span>Negative or contested</span></div><!--STATS:END--></div>
+  <div class="stats" id="stats"><!--STATS:START--><div class="stat"><b data-target="27">27</b><span>Entries on record</span></div><div class="stat"><b data-target="18">18</b><span>Well verified</span></div><div class="stat"><b data-target="9">9</b><span>AI-led or autonomous</span></div><div class="stat"><b data-target="4">4</b><span>Negative or contested</span></div><!--STATS:END--></div>
 </header>
 
 <div id="panel-registry">
   <div class="controls" role="search" aria-label="Search and filter findings">
     <input id="q" type="search" placeholder="Search claims, labs, models, tags…" aria-label="Search entries">
     <select id="field" aria-label="Filter by field"><option value="">All fields</option><!--FIELDOPTS:START--><option value="biology">biology</option><option value="computer-science">computer-science</option><option value="materials">materials</option><option value="mathematics">mathematics</option><option value="physics">physics</option><!--FIELDOPTS:END--></select>
-    <select id="lab" aria-label="Filter by lab"><option value="">All labs</option><!--LABOPTS:START--><option value="Anthropic">Anthropic</option><option value="FutureHouse">FutureHouse</option><option value="Google">Google</option><option value="Google DeepMind">Google DeepMind</option><option value="Independent">Independent</option><option value="Lawrence Berkeley National Laboratory">Lawrence Berkeley National Laboratory</option><option value="OpenAI">OpenAI</option><option value="OpenAI / Harmonic">OpenAI / Harmonic</option><!--LABOPTS:END--></select>
+    <select id="lab" aria-label="Filter by lab"><option value="">All labs</option><!--LABOPTS:START--><option value="Anthropic">Anthropic</option><option value="FutureHouse">FutureHouse</option><option value="Google">Google</option><option value="Google DeepMind">Google DeepMind</option><option value="Independent">Independent</option><option value="Lawrence Berkeley National Laboratory">Lawrence Berkeley National Laboratory</option><option value="Math, Inc.">Math, Inc.</option><option value="OpenAI">OpenAI</option><option value="OpenAI / Harmonic">OpenAI / Harmonic</option><!--LABOPTS:END--></select>
     <select id="ver" aria-label="Filter by verification"><option value="">All verification levels</option><!--VEROPTS:START--><option value="author-verified">Author verified</option><option value="claimed">Claimed</option><option value="disputed">Disputed</option><option value="formal">Formally verified</option><option value="independent">Independently checked</option><option value="known">Already known</option><option value="peer-reviewed">Peer reviewed</option><!--VEROPTS:END--></select>
-    <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"><!--COUNT:START-->22 / 22 entries<!--COUNT:END--></span>
+    <span class="count" id="count" role="status" aria-live="polite" aria-atomic="true"><!--COUNT:START-->27 / 27 entries<!--COUNT:END--></span>
   </div>
   <!-- Entries are pre-rendered by scripts/build-site.py so they exist before any
        JavaScript runs: AI crawlers (GPTBot, ClaudeBot, PerplexityBot, CCBot) do not
@@ -259,6 +259,38 @@
       </details>
     </div>
   </article>
+<article class="entry" id="e-2026-07-20-gaussian-moments" data-ver="author-verified">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#7c7a72" aria-hidden="true">IN</span><span class="lab-name">Independent</span></div>
+      <div class="rdate">2026-07-20</div>
+      <div class="rpills">
+        <span class="pill v v-author-verified">Author verified</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5.6 Sol Pro + Claude Fable 5</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>2017 · open 9 yrs</dd></div>
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Counterexamples to the Gaussian moments conjecture<a class="permalink" href="#e-2026-07-20-gaussian-moments" data-permalink="e-2026-07-20-gaussian-moments" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved.</p>
+      <p class="detail">Derksen, van den Essen and Zhao proposed the Gaussian moments conjecture and showed that the Jacobian conjecture would follow from it. Long reports that a cubic counterexample in four variables was produced by GPT-5.6 Sol Pro with no human intervention after the initial prompt, which simply noted that the Jacobian conjecture had just been disproved and asked whether a small counterexample to GMC might therefore exist; Claude Fable 5 then found a quartic counterexample in three variables and supplied independent algebraic checks. Together these show GMC(n) is false for every n ≥ 3.</p>
+      <p class="withppl"><span>With</span><b>Christopher D. Long</b></p>
+      <div class="tags"><span class="tag-chip">algebra</span><span class="tag-chip">polynomial-maps</span><span class="tag-chip">counterexample</span><span class="tag-chip">jacobian-conjecture</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The Gaussian moments conjecture is due to Derksen, van den Essen and Zhao (Israel J. Math., 2017), building on their earlier moment-vanishing and integral conjectures. No prior counterexample appears in the literature; the conjecture's interest was precisely that it implied the Jacobian conjecture, which was disproved on 2026-07-19. The two-variable case GMC(2) is explicitly left open by this paper.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>arXiv preprint, not peer-reviewed, single author. The constructions are explicit polynomials and checkable by computer algebra, which lowers the cost of verification, but no independent check is on the public record yet. The result is a corollary of the Jacobian collapse rather than an independent line of attack: the prompt that produced it began by telling the model that the Jacobian conjecture had fallen.</p></div>
+        
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.18186" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Small Counterexamples to the Gaussian Moments Conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/1506.05192" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Derksen, van den Essen, Zhao: The Gaussian Moments Conjecture and the Jacobian Conjecture</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
 <article class="entry" id="e-2026-07-19-jacobian-conjecture" data-ver="formal">
     <div class="rail">
       <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/anthropic.svg" alt=""></span><span class="lab-name">Anthropic</span></div>
@@ -286,6 +318,70 @@
         <div class="field reveal"><b>Caveats</b><p>Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript.</p></div>
         <div class="field checks reveal"><b>Independent checks</b><p>whataifound.org (symbolic recomputation, SymPy): <em>confirmed, det J = −2 identically; all three points map to (−¼,0,0)</em></p><p>Multiple mathematicians via public computer-algebra checks: <em>confirmed</em> · <a href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://jacobianfun.org/jacobian-explained" target="_blank" rel="noopener"><span class="ref-dom">jacobianfun.org</span><span class="ref-t">The Jacobian counterexample, explained</span><span class="ref-a">↗</span></a><a class="ref" href="https://alexisgallagher.com/posts/2026/jacobianfun/" target="_blank" rel="noopener"><span class="ref-dom">alexisgallagher.com</span><span class="ref-t">Alexis Gallagher: Jacobian Conjecture Disproved!</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Hacker News discussion</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-07-14-zeroth-order-oracle-bound" data-ver="formal">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#7c7a72" aria-hidden="true">IN</span><span class="lab-name">Independent</span></div>
+      <div class="rdate">2026-07-14</div>
+      <div class="rpills">
+        <span class="pill v v-formal">Formally verified</span>
+        <span class="pill a">AI-led</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>GPT-5.6 Sol Pro</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        <div><dt>Posed</dt><dd>1996 · open 30 yrs</dd></div>
+        <div><dt>Notability</dt><dd>17 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Near-quadratic lower bound for derivative-free convex optimization<a class="permalink" href="#e-2026-07-14-zeroth-order-oracle-bound" data-permalink="e-2026-07-14-zeroth-order-oracle-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal.</p>
+      <p class="detail">In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.</p>
+      <p class="withppl"><span>With</span><b>Phillip Kerger</b></p>
+      <div class="tags"><span class="tag-chip">optimization</span><span class="tag-chip">complexity-theory</span><span class="tag-chip">lower-bounds</span><span class="tag-chip">lean</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The gap between Protasov's O(d²) upper bound (1996) and the O(d) lower bound is documented in the derivative-free optimization literature and had stood for three decades. No prior matching lower bound appears in the literature. The paper is explicit that the AI produced the argument.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>arXiv preprint, not peer-reviewed. The author states plainly that 'it is accurate to say that the AI model used solved the problem, not the author of this paper', which is the basis for the ai-led grade; the human wrote the prompt, reviewed the proof, and did the Lean formalization. Graded `formal` on the strength of the machine-checked Lean artifact for the core bound, not on the preprint as a whole.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Lean 4 / Mathlib compiler (author-run, artifact public): <em>core Ω̃(d²) lower bound compiles with no sorry and no bespoke axioms</em> · <a href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.13335" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Closing the Oracle-Complexity Gap in Derivative-Free Convex Optimization</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean verification, prompt and chat logs</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2026-05-21-alphaproof-nexus" data-ver="formal">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2026-05-21</div>
+      <div class="rpills">
+        <span class="pill v v-formal">Formally verified</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaProof Nexus (LLM + Lean)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        <div><dt>Notability</dt><dd>20 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs<a class="permalink" href="#e-2026-05-21-alphaproof-nexus" data-permalink="e-2026-05-21-alphaproof-nexus" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An agent pairing language models with the Lean proof assistant resolved 9 of 353 open Erdős problems and 44 of 492 open OEIS conjectures, with every proof mechanically verified.</p>
+      <p class="detail">The system proposes proofs with a language model and checks every step in Lean, so a hallucinated argument cannot pass. Beyond the Erdős and OEIS totals it settled a 15-year-old question on log-concavity of pure O-sequences in codimension 3 and type 2, and proved an exact O(1/t) convergence rate for anchored gradient descent-ascent via a parameter choice not previously identified. Two of the Erdős problems had been open for 56 years. All formal proofs were released in a public repository.</p>
+      <p class="withppl"><span>With</span><b>Pushmeet Kohli, Swarat Chaudhuri</b></p>
+      <div class="tags"><span class="tag-chip">lean</span><span class="tag-chip">automated-theorem-proving</span><span class="tag-chip">erdos-problems</span><span class="tag-chip">combinatorics</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The Erdős problems were listed as open in the erdosproblems.com database and the OEIS conjectures as unproven at the time of the run; the paper documents which. In the course of the work the authors found misformalizations in the stated problems #125 and #741(i), which had to be corrected before resolution — a reminder that 'open' status in a database is itself fallible. Terence Tao's community wiki independently tracks AI contributions to Erdős problems and records these.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The headline is a hit rate, not a sweep: 9 of 353 and 44 of 492. The authors state successes concentrate in combinatorics, convex optimization and number theory where Lean's library is mature, that the agent inherits its LLM's biases and shows high search variance, and that it cannot solve problems requiring substantial new theory. Formal verification guarantees the proofs are correct; it says nothing about whether the problems were deep. Autonomy is graded search-scaffold rather than autonomous: humans built the agent, chose the problem sets, and supplied the formalization targets.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Lean compiler via the paper's SafeVerify step: <em>all proofs compile with no sorry and no disallowed axioms (sorryAx)</em> · <a href="https://github.com/google-deepmind/alphaproof-nexus-results" target="_blank" rel="noopener">link ↗</a></p><p>Terence Tao's AI-contributions wiki: <em>tracked among AI contributions to Erdős problems</em> · <a href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2605.22763" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Advancing Mathematics Research with AI-Driven Formal Proof Search</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphaproof-nexus-results" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">All Lean proofs (DeepMind repository)</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Tao's AI-contributions-to-Erdős-problems wiki</span><span class="ref-a">↗</span></a></div></div>
         
         
       </details>
@@ -419,6 +515,38 @@
       </details>
     </div>
   </article>
+<article class="entry" id="e-2025-11-03-alphaevolve-at-scale" data-ver="independent">
+    <div class="rail">
+      <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/deepmind.svg" alt=""></span><span class="lab-name">Google DeepMind</span></div>
+      <div class="rdate">2025-11-03</div>
+      <div class="rpills">
+        <span class="pill v v-independent">Independently checked</span>
+        <span class="pill a">Search scaffold</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>AlphaEvolve (Gemini-based)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        
+      </dl>
+    </div>
+    <div class="body">
+      <h2>AlphaEvolve across 67 problems: 20 improvements, 8 regressions<a class="permalink" href="#e-2025-11-03-alphaevolve-at-scale" data-permalink="e-2025-11-03-alphaevolve-at-scale" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">A systematic study with Terence Tao of an evolutionary coding agent on 67 open problems in analysis, combinatorics and geometry, reporting where it beat the literature and where it did not.</p>
+      <p class="detail">Rather than a single headline result, this is the systematic version: 67 problems attempted, with outcomes recorded either way. Tao reports roughly 20 cases of a new result, most others matching known bounds, and 8 where the tool did worse than the literature. Genuine advances include new three-dimensional constructions for finite-field Nikodym sets — which then prompted a human-refined hybrid construction beating both algebraic and random baselines — and an improved upper bound for Sidon sets, from 1.96365 to about 1.9526. On the well-known conjectures of Sidorenko, Sendov and Crouzeix it found no counterexample, which Tao notes may simply reflect that they are true.</p>
+      <p class="withppl"><span>With</span><b>Terence Tao, Javier Gómez-Serrano, Bogdan Georgiev, Adam Zsolt Wagner</b></p>
+      <div class="tags"><span class="tag-chip">combinatorics</span><span class="tag-chip">geometry</span><span class="tag-chip">analysis</span><span class="tag-chip">evolutionary-search</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>Prior bounds are cited per problem in the 81-page paper, with data and prompts released publicly. Tao flags the central novelty risk himself: for well-known problems the tool often proposed the optimal construction immediately, suggesting recall from training data rather than search, and one supposedly new four-dimensional Kakeya construction turned out to essentially match a prior Bukh–Chao paper. Entries in this registry drawn from the earlier AlphaEvolve release (kissing number, minimum overlap, matrix multiplication) are tracked separately.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Tao's own framing is that the contribution is scale and adaptability, not a fundamental breakthrough, and he describes the LLM as supplying 'educated randomness' inside an evolutionary loop rather than doing symbolic reasoning. Substantial human expertise was required to design non-exploitable verifiers: the system reliably finds loopholes, such as placing points at nearly identical locations to satisfy a distance tolerance. Included here because the negative and null results are reported alongside the wins, which is rare and is what makes it citable.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Terence Tao (co-author, published assessment): <em>reports ~20 new results, 8 worse than literature; cautions on training-data contamination</em> · <a href="https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2511.02864" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Mathematical exploration and discovery at scale</span><span class="ref-a">↗</span></a><a class="ref" href="https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/" target="_blank" rel="noopener"><span class="ref-dom">terrytao.wordpress.com</span><span class="ref-t">Terence Tao's write-up</span><span class="ref-a">↗</span></a></div></div>
+        
+        
+      </details>
+    </div>
+  </article>
 <article class="entry" id="e-2025-10-19-gpt5-erdos-retrieval" data-ver="known">
     <div class="rail">
       <div class="lab"><span class="labchip img" aria-hidden="true"><img src="assets/external-logos/openai.svg" alt=""></span><span class="lab-name">OpenAI</span></div>
@@ -447,6 +575,38 @@
         <div class="field checks reveal"><b>Independent checks</b><p>Thomas Bloom (erdosproblems.com maintainer): <em>the problems were already solved in the literature; no new proofs</em> · <a href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">OpenAI's 'embarrassing' math</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">A GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div></div>
         <div class="field reveal"><b>Community discussion</b><div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=45633482" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">OpenAI researcher announced a GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div></div>
+        
+      </details>
+    </div>
+  </article>
+<article class="entry" id="e-2025-09-11-gauss-strong-pnt" data-ver="author-verified">
+    <div class="rail">
+      <div class="lab"><span class="labchip" style="--lc:#7c7a72" aria-hidden="true">M</span><span class="lab-name">Math, Inc.</span></div>
+      <div class="rdate">2025-09-11</div>
+      <div class="rpills">
+        <span class="pill v v-author-verified">Author verified</span>
+        <span class="pill a">AI-assisted</span>
+      </div>
+      <dl class="rmeta">
+        <div><dt>Model</dt><dd>Gauss (autoformalization agent)</dd></div>
+        <div><dt>Field</dt><dd>mathematics</dd></div>
+        
+        <div><dt>Notability</dt><dd>49 Wikipedia editions</dd></div>
+      </dl>
+    </div>
+    <div class="body">
+      <h2>Strong prime number theorem formalized in Lean by an autoformalization agent<a class="permalink" href="#e-2025-09-11-gauss-strong-pnt" data-permalink="e-2025-09-11-gauss-strong-pnt" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An agent completed a Lean formalization of the strong prime number theorem in about three weeks, finishing a project two expert mathematicians had left blocked after 18 months.</p>
+      <p class="detail">Tao and Kontorovich began a Lean formalization of the strong prime number theorem — the version with an explicit error term — in January 2024, and by July 2025 had announced intermediate progress blocked on core difficulties in complex analysis. Math, Inc. reports that Gauss produced over 25,000 lines of Lean and roughly 1,100 theorems and definitions in about three weeks, completing the project. The repository README states that most statements and proofs were produced by the agent, with humans supplying the high-level blueprint, reviewing key lemmas, and adapting prior work.</p>
+      <p class="withppl"><span>With</span><b>Terence Tao, Alex Kontorovich</b></p>
+      <div class="tags"><span class="tag-chip">lean</span><span class="tag-chip">formalization</span><span class="tag-chip">number-theory</span><span class="tag-chip">prime-number-theorem</span></div>
+      <details>
+        <summary>Novelty check, caveats &amp; sources</summary>
+        <div class="field reveal"><b>Novelty check</b><p>The prime number theorem is not new mathematics; the contribution is formalization. What was open was whether this particular formalization could be completed, and the surrounding claim is about speed. Recorded because formalization at this scale is a distinct kind of contribution and because the AI finished work humans had started and stalled on, rather than producing a new theorem. Prior art is the PrimeNumberTheoremAnd project itself, which this build reuses and which the README credits.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>This is a formalization result, not a mathematical discovery: no new theorem was proved. The comparison to '18+ months' is not like-for-like — Tao and Kontorovich worked intermittently, and the repository explicitly reuses definitions and some proofs from their earlier PrimeNumberTheoremAnd project. Math, Inc.'s announcement states the agent 'relies on natural language scaffolding supplied by human mathematicians, and requires high-level expert guidance'; the proportion of human effort is not quantified, and neither Tao nor Kontorovich is quoted in it. Graded author-verified rather than formal: the artifact is public and Lean-checkable, but the README does not itself assert a sorry-free build and no independent audit of that is on the public record. Vendor-announced, so the framing carries the usual caution.</p></div>
+        <div class="field checks reveal"><b>Independent checks</b><p>Public Lean artifact (not independently audited): <em>repository public and machine-checkable; README reports the development finished</em> · <a href="https://github.com/math-inc/strongpnt" target="_blank" rel="noopener">link ↗</a></p></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.math.inc/gauss" target="_blank" rel="noopener"><span class="ref-dom">math.inc</span><span class="ref-t">Math, Inc.: Introducing Gauss</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/math-inc/strongpnt" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">strongpnt Lean repository</span><span class="ref-a">↗</span></a></div></div>
+        
         
       </details>
     </div>

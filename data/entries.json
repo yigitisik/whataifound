@@ -15,9 +15,9 @@
     "notability": 1,
     "notability_meta": {
       "source": "wikipedia-langlinks",
-      "article": "Dinitz-Garg-Goemans conjecture",
+      "article": "Dinitz–Garg–Goemans conjecture",
       "editions": 1,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "author-verified",
     "autonomy": "ai-led",
@@ -66,7 +66,7 @@
       "source": "wikipedia-langlinks",
       "article": "Jacobian conjecture",
       "editions": 15,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "formal",
     "autonomy": "collaborative",
@@ -121,7 +121,7 @@
       "source": "wikipedia-langlinks",
       "article": "Unit distance graph",
       "editions": 10,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "independent",
     "autonomy": "ai-led",
@@ -236,7 +236,7 @@
       "source": "wikipedia-langlinks",
       "article": "Matrix multiplication algorithm",
       "editions": 7,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "independent",
     "autonomy": "search-scaffold",
@@ -289,7 +289,7 @@
       "source": "wikipedia-langlinks",
       "article": "Kissing number",
       "editions": 12,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "independent",
     "autonomy": "search-scaffold",
@@ -398,7 +398,7 @@
       "source": "wikipedia-langlinks",
       "article": "Cap set",
       "editions": 2,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -444,7 +444,7 @@
       "source": "wikipedia-langlinks",
       "article": "Bin packing problem",
       "editions": 12,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -537,7 +537,7 @@
       "source": "wikipedia-langlinks",
       "article": "Matrix multiplication algorithm",
       "editions": 7,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -869,7 +869,7 @@
       "source": "wikipedia-langlinks",
       "article": "Protein structure prediction",
       "editions": 19,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "independent",
     "autonomy": "ai-led",
@@ -924,7 +924,7 @@
       "source": "wikipedia-langlinks",
       "article": "Tokamak",
       "editions": 56,
-      "as_of": "2026-07-24"
+      "as_of": "2026-07-27"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -999,5 +999,243 @@
       "alphaevolve"
     ],
     "added": "2026-07-21"
+  },
+  {
+    "id": "2026-07-20-gaussian-moments",
+    "title": "Counterexamples to the Gaussian moments conjecture",
+    "claim": "Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved.",
+    "field": "mathematics",
+    "date": "2026-07-20",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro + Claude Fable 5",
+    "humans": [
+      "Christopher D. Long"
+    ],
+    "year_posed": 2017,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Derksen, van den Essen and Zhao proposed the Gaussian moments conjecture and showed that the Jacobian conjecture would follow from it. Long reports that a cubic counterexample in four variables was produced by GPT-5.6 Sol Pro with no human intervention after the initial prompt, which simply noted that the Jacobian conjecture had just been disproved and asked whether a small counterexample to GMC might therefore exist; Claude Fable 5 then found a quartic counterexample in three variables and supplied independent algebraic checks. Together these show GMC(n) is false for every n ≥ 3.",
+    "novelty_check": "The Gaussian moments conjecture is due to Derksen, van den Essen and Zhao (Israel J. Math., 2017), building on their earlier moment-vanishing and integral conjectures. No prior counterexample appears in the literature; the conjecture's interest was precisely that it implied the Jacobian conjecture, which was disproved on 2026-07-19. The two-variable case GMC(2) is explicitly left open by this paper.",
+    "caveats": "arXiv preprint, not peer-reviewed, single author. The constructions are explicit polynomials and checkable by computer algebra, which lowers the cost of verification, but no independent check is on the public record yet. The result is a corollary of the Jacobian collapse rather than an independent line of attack: the prompt that produced it began by telling the model that the Jacobian conjecture had fallen.",
+    "sources": [
+      {
+        "label": "arXiv: Small Counterexamples to the Gaussian Moments Conjecture",
+        "url": "https://arxiv.org/abs/2607.18186"
+      },
+      {
+        "label": "Derksen, van den Essen, Zhao: The Gaussian Moments Conjecture and the Jacobian Conjecture",
+        "url": "https://arxiv.org/abs/1506.05192"
+      }
+    ],
+    "tags": [
+      "algebra",
+      "polynomial-maps",
+      "counterexample",
+      "jacobian-conjecture"
+    ],
+    "added": "2026-07-27"
+  },
+  {
+    "id": "2026-07-14-zeroth-order-oracle-bound",
+    "title": "Near-quadratic lower bound for derivative-free convex optimization",
+    "claim": "A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal.",
+    "field": "mathematics",
+    "date": "2026-07-14",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro",
+    "humans": [
+      "Phillip Kerger"
+    ],
+    "year_posed": 1996,
+    "wikipedia": "Convex optimization",
+    "notability": 17,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Convex optimization",
+      "editions": 17,
+      "as_of": "2026-07-27"
+    },
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.",
+    "novelty_check": "The gap between Protasov's O(d²) upper bound (1996) and the O(d) lower bound is documented in the derivative-free optimization literature and had stood for three decades. No prior matching lower bound appears in the literature. The paper is explicit that the AI produced the argument.",
+    "caveats": "arXiv preprint, not peer-reviewed. The author states plainly that 'it is accurate to say that the AI model used solved the problem, not the author of this paper', which is the basis for the ai-led grade; the human wrote the prompt, reviewed the proof, and did the Lean formalization. Graded `formal` on the strength of the machine-checked Lean artifact for the core bound, not on the preprint as a whole.",
+    "independent_checks": [
+      {
+        "who": "Lean 4 / Mathlib compiler (author-run, artifact public)",
+        "url": "https://github.com/PhillipKerger/zero-order-bounds-lean-verification",
+        "outcome": "core Ω̃(d²) lower bound compiles with no sorry and no bespoke axioms"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Closing the Oracle-Complexity Gap in Derivative-Free Convex Optimization",
+        "url": "https://arxiv.org/abs/2607.13335"
+      },
+      {
+        "label": "Lean verification, prompt and chat logs",
+        "url": "https://github.com/PhillipKerger/zero-order-bounds-lean-verification"
+      }
+    ],
+    "tags": [
+      "optimization",
+      "complexity-theory",
+      "lower-bounds",
+      "lean"
+    ],
+    "added": "2026-07-27"
+  },
+  {
+    "id": "2026-05-21-alphaproof-nexus",
+    "title": "Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs",
+    "claim": "An agent pairing language models with the Lean proof assistant resolved 9 of 353 open Erdős problems and 44 of 492 open OEIS conjectures, with every proof mechanically verified.",
+    "field": "mathematics",
+    "date": "2026-05-21",
+    "lab": "Google DeepMind",
+    "model": "AlphaProof Nexus (LLM + Lean)",
+    "humans": [
+      "Pushmeet Kohli",
+      "Swarat Chaudhuri"
+    ],
+    "wikipedia": "Automated theorem proving",
+    "notability": 20,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Automated theorem proving",
+      "editions": 20,
+      "as_of": "2026-07-27"
+    },
+    "verification": "formal",
+    "autonomy": "search-scaffold",
+    "detail": "The system proposes proofs with a language model and checks every step in Lean, so a hallucinated argument cannot pass. Beyond the Erdős and OEIS totals it settled a 15-year-old question on log-concavity of pure O-sequences in codimension 3 and type 2, and proved an exact O(1/t) convergence rate for anchored gradient descent-ascent via a parameter choice not previously identified. Two of the Erdős problems had been open for 56 years. All formal proofs were released in a public repository.",
+    "novelty_check": "The Erdős problems were listed as open in the erdosproblems.com database and the OEIS conjectures as unproven at the time of the run; the paper documents which. In the course of the work the authors found misformalizations in the stated problems #125 and #741(i), which had to be corrected before resolution — a reminder that 'open' status in a database is itself fallible. Terence Tao's community wiki independently tracks AI contributions to Erdős problems and records these.",
+    "caveats": "The headline is a hit rate, not a sweep: 9 of 353 and 44 of 492. The authors state successes concentrate in combinatorics, convex optimization and number theory where Lean's library is mature, that the agent inherits its LLM's biases and shows high search variance, and that it cannot solve problems requiring substantial new theory. Formal verification guarantees the proofs are correct; it says nothing about whether the problems were deep. Autonomy is graded search-scaffold rather than autonomous: humans built the agent, chose the problem sets, and supplied the formalization targets.",
+    "independent_checks": [
+      {
+        "who": "Lean compiler via the paper's SafeVerify step",
+        "url": "https://github.com/google-deepmind/alphaproof-nexus-results",
+        "outcome": "all proofs compile with no sorry and no disallowed axioms (sorryAx)"
+      },
+      {
+        "who": "Terence Tao's AI-contributions wiki",
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems",
+        "outcome": "tracked among AI contributions to Erdős problems"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Advancing Mathematics Research with AI-Driven Formal Proof Search",
+        "url": "https://arxiv.org/abs/2605.22763"
+      },
+      {
+        "label": "All Lean proofs (DeepMind repository)",
+        "url": "https://github.com/google-deepmind/alphaproof-nexus-results"
+      },
+      {
+        "label": "Tao's AI-contributions-to-Erdős-problems wiki",
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"
+      }
+    ],
+    "tags": [
+      "lean",
+      "automated-theorem-proving",
+      "erdos-problems",
+      "combinatorics"
+    ],
+    "added": "2026-07-27"
+  },
+  {
+    "id": "2025-11-03-alphaevolve-at-scale",
+    "title": "AlphaEvolve across 67 problems: 20 improvements, 8 regressions",
+    "claim": "A systematic study with Terence Tao of an evolutionary coding agent on 67 open problems in analysis, combinatorics and geometry, reporting where it beat the literature and where it did not.",
+    "field": "mathematics",
+    "date": "2025-11-03",
+    "lab": "Google DeepMind",
+    "model": "AlphaEvolve (Gemini-based)",
+    "humans": [
+      "Terence Tao",
+      "Javier Gómez-Serrano",
+      "Bogdan Georgiev",
+      "Adam Zsolt Wagner"
+    ],
+    "verification": "independent",
+    "autonomy": "search-scaffold",
+    "detail": "Rather than a single headline result, this is the systematic version: 67 problems attempted, with outcomes recorded either way. Tao reports roughly 20 cases of a new result, most others matching known bounds, and 8 where the tool did worse than the literature. Genuine advances include new three-dimensional constructions for finite-field Nikodym sets — which then prompted a human-refined hybrid construction beating both algebraic and random baselines — and an improved upper bound for Sidon sets, from 1.96365 to about 1.9526. On the well-known conjectures of Sidorenko, Sendov and Crouzeix it found no counterexample, which Tao notes may simply reflect that they are true.",
+    "novelty_check": "Prior bounds are cited per problem in the 81-page paper, with data and prompts released publicly. Tao flags the central novelty risk himself: for well-known problems the tool often proposed the optimal construction immediately, suggesting recall from training data rather than search, and one supposedly new four-dimensional Kakeya construction turned out to essentially match a prior Bukh–Chao paper. Entries in this registry drawn from the earlier AlphaEvolve release (kissing number, minimum overlap, matrix multiplication) are tracked separately.",
+    "caveats": "Tao's own framing is that the contribution is scale and adaptability, not a fundamental breakthrough, and he describes the LLM as supplying 'educated randomness' inside an evolutionary loop rather than doing symbolic reasoning. Substantial human expertise was required to design non-exploitable verifiers: the system reliably finds loopholes, such as placing points at nearly identical locations to satisfy a distance tolerance. Included here because the negative and null results are reported alongside the wins, which is rare and is what makes it citable.",
+    "independent_checks": [
+      {
+        "who": "Terence Tao (co-author, published assessment)",
+        "url": "https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/",
+        "outcome": "reports ~20 new results, 8 worse than literature; cautions on training-data contamination"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Mathematical exploration and discovery at scale",
+        "url": "https://arxiv.org/abs/2511.02864"
+      },
+      {
+        "label": "Terence Tao's write-up",
+        "url": "https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "geometry",
+      "analysis",
+      "evolutionary-search"
+    ],
+    "added": "2026-07-27"
+  },
+  {
+    "id": "2025-09-11-gauss-strong-pnt",
+    "title": "Strong prime number theorem formalized in Lean by an autoformalization agent",
+    "claim": "An agent completed a Lean formalization of the strong prime number theorem in about three weeks, finishing a project two expert mathematicians had left blocked after 18 months.",
+    "field": "mathematics",
+    "date": "2025-09-11",
+    "lab": "Math, Inc.",
+    "model": "Gauss (autoformalization agent)",
+    "humans": [
+      "Terence Tao",
+      "Alex Kontorovich"
+    ],
+    "wikipedia": "Prime number theorem",
+    "notability": 49,
+    "notability_meta": {
+      "source": "wikipedia-langlinks",
+      "article": "Prime number theorem",
+      "editions": 49,
+      "as_of": "2026-07-27"
+    },
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Tao and Kontorovich began a Lean formalization of the strong prime number theorem — the version with an explicit error term — in January 2024, and by July 2025 had announced intermediate progress blocked on core difficulties in complex analysis. Math, Inc. reports that Gauss produced over 25,000 lines of Lean and roughly 1,100 theorems and definitions in about three weeks, completing the project. The repository README states that most statements and proofs were produced by the agent, with humans supplying the high-level blueprint, reviewing key lemmas, and adapting prior work.",
+    "novelty_check": "The prime number theorem is not new mathematics; the contribution is formalization. What was open was whether this particular formalization could be completed, and the surrounding claim is about speed. Recorded because formalization at this scale is a distinct kind of contribution and because the AI finished work humans had started and stalled on, rather than producing a new theorem. Prior art is the PrimeNumberTheoremAnd project itself, which this build reuses and which the README credits.",
+    "caveats": "This is a formalization result, not a mathematical discovery: no new theorem was proved. The comparison to '18+ months' is not like-for-like — Tao and Kontorovich worked intermittently, and the repository explicitly reuses definitions and some proofs from their earlier PrimeNumberTheoremAnd project. Math, Inc.'s announcement states the agent 'relies on natural language scaffolding supplied by human mathematicians, and requires high-level expert guidance'; the proportion of human effort is not quantified, and neither Tao nor Kontorovich is quoted in it. Graded author-verified rather than formal: the artifact is public and Lean-checkable, but the README does not itself assert a sorry-free build and no independent audit of that is on the public record. Vendor-announced, so the framing carries the usual caution.",
+    "independent_checks": [
+      {
+        "who": "Public Lean artifact (not independently audited)",
+        "url": "https://github.com/math-inc/strongpnt",
+        "outcome": "repository public and machine-checkable; README reports the development finished"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Math, Inc.: Introducing Gauss",
+        "url": "https://www.math.inc/gauss"
+      },
+      {
+        "label": "strongpnt Lean repository",
+        "url": "https://github.com/math-inc/strongpnt"
+      }
+    ],
+    "tags": [
+      "lean",
+      "formalization",
+      "number-theory",
+      "prime-number-theorem"
+    ],
+    "added": "2026-07-27"
   }
 ]
