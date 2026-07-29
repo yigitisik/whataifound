@@ -33,7 +33,18 @@ ever edited by hand.
 data/entries.json ──► build.py ──► index.html (entries, stats, filters, FAQ tallies)
                                    finding/<id>.html   one page per entry
                                    llms.txt  sitemap.xml  feed.xml  feed.json
+
+data/vocab.json   ──► build.py ──► app.js label tables
+                                   methodology.html    the two grade lists
+                                   llms.txt            the grading scales
+                                   ClaimReview ratings on every finding page
 ```
+
+`data/vocab.json` holds the grading vocabulary: the slug, label, short description, full
+definition and schema.org rating for every `verification` and `autonomy` grade, plus the `field`
+display names. It used to be restated in six places by hand; now a label or definition is edited
+once and the build propagates it. Adding or removing a *grade* is a code change, not an entry
+change — it also needs a `.v-<slug>` pill colour in `styles.css`, and the build stops and says so.
 
 Each entry carries two grades: `verification` (how solid the result is, `formal` to `refuted`) and
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
@@ -57,6 +68,17 @@ and each finding also has its own URL for citation.
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `verify-parity.py` | Runs `app.js`'s real `card()` under Node and diffs it against the pre-rendered markup |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
+
+`check-links.py` is separate: it resolves every external URL in the registry and fails only on
+404/410. Paywalls, rate limits and 5xx are reported but do not fail, because a check that cries
+wolf gets ignored. CI runs it on PRs that touch `data/entries.json` (checking only the URLs the
+branch added) and sweeps the whole registry weekly, in its own workflow so a publisher outage
+never blocks a correct entry from merging.
+
+```bash
+python3 scripts/check-links.py            # all of them
+python3 scripts/check-links.py --changed  # only what this branch added
+```
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
 grade, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, or a non-`http(s)`
@@ -88,9 +110,9 @@ Two things are deliberately *not* part of every build:
   `wikipedia` title. `--check` reports drift.
 - **`build-icons.py`** regenerates the raster icons and the OG card. See [Brand assets](#brand-assets).
 
-A new `field` value needs a display name in `FIELD_LABEL` in `build-site.py`. This is the one edit
-outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve fields
-are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
+A new `field` value needs a display name in the `fields` map in `data/vocab.json`. This is the one
+edit outside `data/entries.json` an entry can require, and the build stops and tells you. Twelve
+fields are pre-registered. A new *lab* needs nothing; it falls back to a generated monogram.
 
 ## Contributing
 
@@ -103,12 +125,13 @@ the CI checks above.
 ```
 whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
-├── methodology.html        # grading reference
+├── methodology.html        # grading reference (grade lists generated from vocab.json)
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── app.js                  # render, filter, charts, theme, permalinks
+├── app.js                  # render, filter, charts, theme (label tables generated)
 ├── data/entries.json       # the registry, the only file you edit by hand
+├── data/vocab.json         # the grading vocabulary; both scales are generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── sitemap.xml             # generated
@@ -121,13 +144,14 @@ whataifound/
 ├── assets/brand/           # brand sources + generated raster icons and og.png
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
-├── .github/workflows/      # CI: integrity, rebuild, drift
+├── .github/workflows/      # CI: integrity, rebuild, drift, link rot
 ├── scripts/                # authoring toolchain (not deployed)
 │   ├── build.py            #   ← run this; validates + regenerates everything
 │   ├── build-site.py       #   pre-renders index.html; writes finding/, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds
 │   ├── build-notability.py #   measures notability from the Wikipedia API (run deliberately)
 │   ├── build-icons.py      #   rasterises the icons + og.png (run deliberately)
+│   ├── check-links.py      #   resolves every external URL (CI: PRs + weekly)
 │   ├── verify-parity.py    #   asserts pre-rendered cards == app.js card()
 │   ├── check-integrity.py  #   asserts no smuggled markup in deployed HTML
 │   └── serve.py            #   local preview server

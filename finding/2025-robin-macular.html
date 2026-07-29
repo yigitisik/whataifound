@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
 
 <title>Candidate treatment for dry age-related macular degeneration: graded Claimed | whataifound.org</title>
 <meta name="description" content="Candidate treatment for dry age-related macular degeneration is graded claimed on whataifound.org, with the AI&#x27;s role graded ai-led. The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.">
@@ -138,7 +139,10 @@
 }
 </script>
 
-<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
 
 <link rel="stylesheet" href="/styles.css">
 </head>

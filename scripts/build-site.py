@@ -30,6 +30,7 @@ import html
 import json
 import os
 import re
+import sys
 # No datetime import on purpose: every date written by this script comes from
 # data/entries.json. The output is committed and CI rebuilds it, so anything derived
 # from the clock would make the build non-reproducible and fail the drift check on a
@@ -39,45 +40,29 @@ from urllib.parse import quote, urlparse
 SITE = "https://whataifound.org"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# ---------------------------------------------------------------- label tables
-# Mirrors of the constants at the top of app.js.
-VER_LABEL = {
-    "formal": "Formally verified", "independent": "Independently checked",
-    "peer-reviewed": "Peer reviewed", "author-verified": "Author verified",
-    "claimed": "Claimed", "disputed": "Disputed", "known": "Already known",
-    "refuted": "Refuted",
-}
-AUT_LABEL = {
-    "autonomous": "Autonomous", "ai-led": "AI-led", "collaborative": "Collaborative",
-    "ai-assisted": "AI-assisted", "search-scaffold": "Search scaffold", "retrieval": "Retrieval",
-}
+# ---------------------------------------------------------------- vocabulary
+# The grading scales come from data/vocab.json, which is the single source of truth:
+# these tables, app.js's copies, the methodology page and llms.txt are all derived from
+# it, so a label or definition is edited in exactly one place. Array order is display
+# order (strongest to weakest).
+with open(os.path.join(ROOT, "data", "vocab.json")) as _f:
+    VOCAB = json.load(_f)
+
+VER = VOCAB["verification"]
+AUT = VOCAB["autonomy"]
+VER_LABEL = {v["slug"]: v["label"] for v in VER}
+AUT_LABEL = {a["slug"]: a["label"] for a in AUT}
 
 # How each verification grade maps onto a schema.org Rating, so a machine reading
 # ClaimReview gets the same ordering a reader gets from the pill colours. 5 = the
 # claim stands up; 1 = it does not. "known" is a true result that is not new, so it
 # sits mid-scale rather than at the bottom.
-VER_RATING = {
-    "formal": (5, "Formally verified: machine-checked proof"),
-    "independent": (5, "Independently checked by third parties"),
-    "peer-reviewed": (4, "Peer reviewed"),
-    "author-verified": (3, "Author verified only"),
-    "claimed": (2, "Claimed, not independently verified"),
-    "known": (2, "Already known: correct but not novel"),
-    "disputed": (1, "Disputed"),
-    "refuted": (1, "Refuted"),
-}
+VER_RATING = {v["slug"]: (v["rating"], v["rating_label"]) for v in VER}
 
-# Display names for the `field` values in use. A new field needs a line here. The
-# build refuses to run otherwise, rather than printing a raw slug like "computer-science"
-# into a headline. This is the one edit outside data/entries.json that adding an entry
-# can require, and only when the entry opens a brand-new field.
-FIELD_LABEL = {
-    "mathematics": "Mathematics", "computer-science": "Computer science",
-    "biology": "Biology", "materials": "Materials science", "physics": "Physics",
-    "chemistry": "Chemistry", "medicine": "Medicine", "neuroscience": "Neuroscience",
-    "astronomy": "Astronomy", "engineering": "Engineering",
-    "climate": "Climate science", "economics": "Economics",
-}
+# Display names for the `field` values in use. A new field needs a line in vocab.json.
+# The build refuses to run otherwise, rather than printing a raw slug like
+# "computer-science" into a headline.
+FIELD_LABEL = VOCAB["fields"]
 
 LAB_LOGO = {
     "Anthropic": "assets/external-logos/anthropic.svg",
@@ -440,6 +425,7 @@ def entry_page(e):
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
 
 <title>{esc(e["title"])}: graded {esc(ver)} | whataifound.org</title>
 <meta name="description" content="{attr(meta_desc)}">
@@ -475,7 +461,10 @@ def entry_page(e):
 {ld}
 </script>
 
-<script>try{{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}}catch(e){{}}</script>
+<script>try{{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}}}catch(e){{}}</script>
 
 <link rel="stylesheet" href="/styles.css">
 </head>
@@ -551,31 +540,9 @@ def build_llms_txt(entries):
         "Verification, strongest to weakest. When unsure, the lower grade wins:",
         "",
     ]
-    order = ["formal", "independent", "peer-reviewed", "author-verified",
-             "claimed", "disputed", "known", "refuted"]
-    desc = {
-        "formal": "machine-checked proof (e.g. Lean)",
-        "independent": "checked by third parties who were not the authors",
-        "peer-reviewed": "published after peer review",
-        "author-verified": "verified only by the people who produced it",
-        "claimed": "announced, not independently verified",
-        "disputed": "substantive public challenge to the result",
-        "known": "correct, but the result already existed in the literature",
-        "refuted": "shown to be wrong",
-    }
-    lines += [f"- **{VER_LABEL[k]}**: {desc[k]}" for k in order]
+    lines += [f"- **{v['label']}**: {v['short']}" for v in VER]
     lines += ["", "Autonomy, most to least AI-driven:", ""]
-    aut_desc = {
-        "autonomous": "the AI did it without human problem-setting or steering",
-        "ai-led": "the AI produced the core idea; humans framed or checked it",
-        "collaborative": "genuine back-and-forth between AI and human",
-        "ai-assisted": "humans led; the AI helped with parts",
-        "search-scaffold": "a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside",
-        "retrieval": "the AI located an existing result rather than producing a new one",
-    }
-    lines += [f"- **{AUT_LABEL[k]}**: {aut_desc[k]}"
-              for k in ["autonomous", "ai-led", "collaborative", "ai-assisted",
-                        "search-scaffold", "retrieval"]]
+    lines += [f"- **{a['label']}**: {a['short']}" for a in AUT]
     lines += [
         "",
         "## Core pages",
@@ -632,13 +599,67 @@ def build_sitemap(entries, updated):
 
 
 # ------------------------------------------------------------------ index.html
-def inject(src, start, end, payload, what):
+def inject(src, start, end, payload, what, where="index.html"):
     """Replace everything between two marker comments. Fails loudly if absent."""
     i, j = src.find(start), src.find(end)
     if i == -1 or j == -1:
-        raise SystemExit(f"index.html: missing {what} markers ({start} / {end}). "
+        raise SystemExit(f"{where}: missing {what} markers ({start} / {end}). "
                          "Restore them or re-run against a clean checkout.")
     return src[:i + len(start)] + payload + src[j:]
+
+
+def build_app_js():
+    """Write the grade label tables into app.js from data/vocab.json.
+
+    app.js is served to the browser unbundled, so it cannot read the vocabulary at
+    load time. Generating the two tables here keeps its copy from drifting from the
+    Python one without introducing a module loader or a build step for the client.
+    """
+    path = os.path.join(ROOT, "app.js")
+    with open(path) as f:
+        src = f.read()
+
+    def table(name, items):
+        rows = ",".join(f"\n  {json.dumps(i['slug'])}:{json.dumps(i['label'])}"
+                        for i in items)
+        return f"const {name} = {{{rows}\n}};"
+
+    payload = "\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
+    src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
+                 "vocabulary tables", "app.js")
+
+    with open(path, "w") as f:
+        f.write(src)
+
+
+def build_methodology():
+    """Regenerate the two grade lists on the methodology page from data/vocab.json.
+
+    The page defines the vocabulary the whole registry is graded against, so it must
+    not be able to drift from the tables the site actually renders with. Only the rows
+    between the markers are generated; the surrounding prose and the editorial rules
+    stay hand-written.
+    """
+    path = os.path.join(ROOT, "methodology.html")
+    with open(path) as f:
+        src = f.read()
+
+    ver = "\n      ".join(
+        f'<div class="meth-row"><span class="pill v v-{v["slug"]}">{esc(v["label"])}</span>\n'
+        f'        <p class="meth-def">{esc(v["definition"])}</p></div>'
+        for v in VER)
+    aut = "\n      ".join(
+        f'<div class="meth-row"><span class="meth-term">{esc(a["label"])}</span>\n'
+        f'        <p class="meth-def">{esc(a["definition"])}</p></div>'
+        for a in AUT)
+
+    src = inject(src, "<!--VERDEFS:START-->", "<!--VERDEFS:END-->", ver,
+                 "verification definitions", "methodology.html")
+    src = inject(src, "<!--AUTDEFS:START-->", "<!--AUTDEFS:END-->", aut,
+                 "autonomy definitions", "methodology.html")
+
+    with open(path, "w") as f:
+        f.write(src)
 
 
 def build_index(entries, updated):
@@ -738,6 +759,47 @@ def check_urls(e, where, problems):
         problems.append(f"{where}: wikipedia must be an article title string")
 
 
+def validate_vocab():
+    """Check data/vocab.json is complete and that every grade can actually render.
+
+    Adding a grade is a code change, not an entry change: a verification slug also
+    needs a .v-<slug> pill colour in styles.css. Without one the pill renders unstyled
+    and the omission is invisible until someone looks at that grade on the page, so it
+    is caught here instead.
+    """
+    problems = []
+    for axis in ("verification", "autonomy"):
+        seen = set()
+        for i, item in enumerate(VOCAB.get(axis) or []):
+            where = f"vocab.json {axis}[{i}]"
+            for key in ("slug", "label", "short", "definition"):
+                if not item.get(key):
+                    problems.append(f"{where}: missing '{key}'")
+            slug = item.get("slug")
+            if slug in seen:
+                problems.append(f"{where}: duplicate slug '{slug}'")
+            seen.add(slug)
+            if axis == "verification" and not item.get("rating_label"):
+                problems.append(f"{where}: missing 'rating_label'")
+            if axis == "verification" and not isinstance(item.get("rating"), int):
+                problems.append(f"{where}: 'rating' must be an integer 1-5")
+
+    css_path = os.path.join(ROOT, "styles.css")
+    if os.path.exists(css_path):
+        css = open(css_path).read()
+        for v in VER:
+            if f".v-{v['slug']}" not in css:
+                problems.append(
+                    f"vocab.json: verification '{v['slug']}' has no .v-{v['slug']} rule "
+                    f"in styles.css, so its pill would render unstyled")
+
+    if problems:
+        print(f"data/vocab.json has {len(problems)} problem(s):", file=sys.stderr)
+        for p in problems:
+            print(f"  - {p}", file=sys.stderr)
+        raise SystemExit(1)
+
+
 def validate(entries):
     """Reject data that would silently produce a broken, unsafe or unreachable page.
 
@@ -788,6 +850,7 @@ def main():
     with open(os.path.join(ROOT, "data", "entries.json")) as f:
         entries = json.load(f)
 
+    validate_vocab()
     validate(entries)
 
     # Same order the site shows: newest discovery first. app.js sorts identically,
@@ -797,6 +860,10 @@ def main():
     updated = (sorted(e["added"] for e in entries if e.get("added"))[-1]
                if any(e.get("added") for e in entries)
                else (entries[0].get("date", "") if entries else ""))
+    # Vocabulary-derived files first: card() output depends on the labels, so app.js
+    # must be current before verify-parity.py diffs it against the pre-rendered cards.
+    build_app_js()
+    build_methodology()
     build_index(entries, updated)
 
     out_dir = os.path.join(ROOT, "finding")

@@ -1,0 +1,57 @@
+name: links
+
+# Deliberately a separate workflow from build.yml.
+#
+# build.yml is deterministic: it either reproduces the committed output or it does not,
+# and a failure always means the PR is wrong. This one talks to ~90 third-party hosts,
+# so it can fail for reasons that have nothing to do with the change. Keeping it apart
+# means a publisher having an outage never blocks a correct entry from merging, and the
+# signal stays readable: a red "links" check means look at the links.
+#
+# Only 404/410 fail. Paywalls, rate limits and 5xx are reported as warnings, because a
+# check that cries wolf is a check people learn to ignore.
+
+on:
+  pull_request:
+    paths:
+      - 'data/entries.json'
+      - 'scripts/check-links.py'
+  # Rot happens to entries nobody is touching, so also sweep the whole registry on a
+  # schedule. Monday 06:00 UTC.
+  schedule:
+    - cron: '0 6 * * 1'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+        with:
+          # --changed diffs against HEAD, which needs the parent commit to exist.
+          fetch-depth: 2
+
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+
+      # On a PR, check only what the branch added: proportional to the diff and far
+      # less likely to trip rate limits. On the weekly run, sweep everything.
+      - name: Check links
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            python3 scripts/check-links.py --changed --json link-report.json
+          else
+            python3 scripts/check-links.py --json link-report.json
+          fi
+
+      - name: Upload report
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: link-report
+          path: link-report.json
+          if-no-files-found: ignore

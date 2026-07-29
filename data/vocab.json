@@ -1,0 +1,129 @@
+{
+  "_comment": [
+    "The grading vocabulary: the single source of truth for both scales.",
+    "Everything that names a grade is generated from this file - app.js's label tables,",
+    "build-site.py's, the methodology page, llms.txt, and the ClaimReview ratings.",
+    "Edit a label or definition here and run scripts/build.py; nothing else needs touching.",
+    "Adding or removing a grade is a code change, not an entry change: it also needs a",
+    "v-<slug> pill colour in styles.css, which the build will tell you about.",
+    "Array order is display order (strongest to weakest / most to least AI-driven)."
+  ],
+  "verification": [
+    {
+      "slug": "formal",
+      "label": "Formally verified",
+      "rating": 5,
+      "rating_label": "Formally verified: machine-checked proof",
+      "short": "machine-checked proof (e.g. Lean)",
+      "definition": "A machine-checked proof (Lean, Coq, Isabelle) or an exact symbolic or computational verification that anyone can rerun. The gold standard."
+    },
+    {
+      "slug": "independent",
+      "label": "Independently checked",
+      "rating": 5,
+      "rating_label": "Independently checked by third parties",
+      "short": "checked by third parties who were not the authors",
+      "definition": "Multiple qualified people unaffiliated with the announcing lab have checked the result and confirmed it."
+    },
+    {
+      "slug": "peer-reviewed",
+      "label": "Peer reviewed",
+      "rating": 4,
+      "rating_label": "Peer reviewed",
+      "short": "published after peer review",
+      "definition": "Published in a venue with real review. Weaker than a formal proof for mathematics, but stronger for empirical claims."
+    },
+    {
+      "slug": "author-verified",
+      "label": "Author verified",
+      "rating": 3,
+      "rating_label": "Author verified only",
+      "short": "verified only by the people who produced it",
+      "definition": "The human collaborator checked it, but no independent party has confirmed it yet."
+    },
+    {
+      "slug": "claimed",
+      "label": "Claimed",
+      "rating": 2,
+      "rating_label": "Claimed, not independently verified",
+      "short": "announced, not independently verified",
+      "definition": "Announced but not yet checked by anyone outside the lab. The default for a press release."
+    },
+    {
+      "slug": "disputed",
+      "label": "Disputed",
+      "rating": 1,
+      "rating_label": "Disputed",
+      "short": "substantive public challenge to the result",
+      "definition": "Substantive technical objections have been raised and remain unresolved."
+    },
+    {
+      "slug": "known",
+      "label": "Already known",
+      "rating": 2,
+      "rating_label": "Already known: correct but not novel",
+      "short": "correct, but the result already existed in the literature",
+      "definition": "The result turned out to already exist in the literature. These entries stay on the record; showing the failure mode is what makes the rest trustworthy."
+    },
+    {
+      "slug": "refuted",
+      "label": "Refuted",
+      "rating": 1,
+      "rating_label": "Refuted",
+      "short": "shown to be wrong",
+      "definition": "Shown to be wrong."
+    }
+  ],
+  "autonomy": [
+    {
+      "slug": "autonomous",
+      "label": "Autonomous",
+      "short": "the AI did it without human problem-setting or steering",
+      "definition": "The AI produced the core idea and the result with no human mathematical input beyond posing the problem."
+    },
+    {
+      "slug": "ai-led",
+      "label": "AI-led",
+      "short": "the AI produced the core idea; humans framed or checked it",
+      "definition": "The AI produced the key insight; humans formalised, checked, or cleaned it up."
+    },
+    {
+      "slug": "collaborative",
+      "label": "Collaborative",
+      "short": "genuine back-and-forth between AI and human",
+      "definition": "Genuine back-and-forth. Neither party would have gotten there alone."
+    },
+    {
+      "slug": "ai-assisted",
+      "label": "AI-assisted",
+      "short": "humans led; the AI helped with parts",
+      "definition": "A human drove the research; the AI accelerated search, algebra, or literature review."
+    },
+    {
+      "slug": "search-scaffold",
+      "label": "Search scaffold",
+      "short": "a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside",
+      "definition": "The AI is a component inside a human-designed search loop (FunSearch, AlphaEvolve). The system found it, but the framing was human."
+    },
+    {
+      "slug": "retrieval",
+      "label": "Retrieval",
+      "short": "the AI located an existing result rather than producing a new one",
+      "definition": "The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics."
+    }
+  ],
+  "fields": {
+    "mathematics": "Mathematics",
+    "computer-science": "Computer science",
+    "biology": "Biology",
+    "chemistry": "Chemistry",
+    "physics": "Physics",
+    "materials": "Materials science",
+    "medicine": "Medicine",
+    "neuroscience": "Neuroscience",
+    "astronomy": "Astronomy",
+    "engineering": "Engineering",
+    "climate": "Climate science",
+    "economics": "Economics"
+  }
+}

@@ -10,7 +10,7 @@ else (site, search, company pages) is a rendering of it.
 | `id` | string | Stable slug, never reused. `YYYY-MM-DD-short-name` |
 | `title` | string | Plain, factual. No hype verbs ("stuns", "shatters") |
 | `claim` | string | One sentence a smart non-expert can read |
-| `field` | string | `mathematics` \| `computer-science` \| `biology` \| `chemistry` \| `physics` \| `materials` \| `medicine` \| `neuroscience` \| `astronomy` \| `engineering` \| `climate` \| `economics`. A new value needs a display name in `FIELD_LABEL` in `scripts/build-site.py` |
+| `field` | string | `mathematics` \| `computer-science` \| `biology` \| `chemistry` \| `physics` \| `materials` \| `medicine` \| `neuroscience` \| `astronomy` \| `engineering` \| `climate` \| `economics`. A new value needs a display name in the `fields` map in `data/vocab.json` |
 | `date` | string | ISO date the result became public |
 | `lab` | string | Organization credited. `Independent` if none |
 | `model` | string | Model + version. `Unknown` if not disclosed |
@@ -117,7 +117,7 @@ deliberately strict:
 
 - `id`, `title`, `claim`, `date`, `field`, `lab`, `model`, `verification`, `autonomy` must all be
   present and non-empty.
-- `verification` and `autonomy` must be one of the values above; `field` must have a `FIELD_LABEL`.
+- `verification` and `autonomy` must be one of the values above; `field` must appear in `data/vocab.json`'s `fields` map.
 - `date` must be `YYYY-MM-DD`.
 - `id` must be unique and URL-safe (lowercase letters, digits, `-`, `_`, `.`). It becomes both a
   filename and a URL path segment.

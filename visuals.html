@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
 
 <!-- Canonical domain: https://whataifound.org -->
 <title>Visuals: The AI-Discovery Registry at a Glance | whataifound.org</title>
@@ -58,7 +59,12 @@
 }
 </script>
 
-<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Keep the browser-chrome tint on the theme that actually rendered. The static tag is
+   dark (the default); only a light result needs rewriting, and 'system' resolves via
+   the media query rather than the stored value. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
   /* Visuals leads with the charts, so these page-scoped overrides make the masthead a

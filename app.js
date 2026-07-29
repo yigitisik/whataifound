@@ -1,12 +1,26 @@
+// Grade labels. Generated from data/vocab.json by scripts/build-site.py: edit the
+// vocabulary there, not here. app.js is served to the browser as-is and cannot read
+// JSON at load, so the tables are written into the file at build time instead.
+/*VOCAB:START*/
 const VER_LABEL = {
-  'formal':'Formally verified','independent':'Independently checked','peer-reviewed':'Peer reviewed',
-  'author-verified':'Author verified','claimed':'Claimed','disputed':'Disputed',
-  'known':'Already known','refuted':'Refuted'
+  "formal":"Formally verified",
+  "independent":"Independently checked",
+  "peer-reviewed":"Peer reviewed",
+  "author-verified":"Author verified",
+  "claimed":"Claimed",
+  "disputed":"Disputed",
+  "known":"Already known",
+  "refuted":"Refuted"
 };
 const AUT_LABEL = {
-  'autonomous':'Autonomous','ai-led':'AI-led','collaborative':'Collaborative',
-  'ai-assisted':'AI-assisted','search-scaffold':'Search scaffold','retrieval':'Retrieval'
+  "autonomous":"Autonomous",
+  "ai-led":"AI-led",
+  "collaborative":"Collaborative",
+  "ai-assisted":"AI-assisted",
+  "search-scaffold":"Search scaffold",
+  "retrieval":"Retrieval"
 };
+/*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
 
@@ -17,10 +31,21 @@ let ALL = [], first = true;
   // Default is dark: a first-time visitor (no stored choice) gets dark, not the OS setting.
   const current = () => { try { return localStorage.getItem('theme') || 'dark'; } catch(e){ return 'dark'; } };
   const sync = mode => btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'));
+  // Browser-chrome tint on iOS/Android. Kept in step with the rendered theme, so the
+  // bar above the page never disagrees with the page. 'system' resolves through the
+  // media query, which is what the CSS does too.
+  const tint = mode => {
+    const m = document.querySelector('meta[name=theme-color]');
+    if (!m) return;
+    const light = mode === 'light' ||
+      (mode === 'system' && matchMedia('(prefers-color-scheme: light)').matches);
+    m.content = light ? '#faf9f6' : '#111310';
+  };
   const apply = mode => {
     if (mode === 'system') document.documentElement.removeAttribute('data-theme');
     else document.documentElement.setAttribute('data-theme', mode);
     sync(mode);
+    tint(mode);
     try { localStorage.setItem('theme', mode); } catch(e){}
   };
   sync(current());
@@ -35,6 +60,10 @@ let ALL = [], first = true;
         { duration: 1000, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' });
     });
   }));
+  // Under 'system' the CSS follows the OS live, so the tint has to as well; otherwise
+  // flipping the OS theme with the page open leaves the chrome on the old colour.
+  matchMedia('(prefers-color-scheme: light)')
+    .addEventListener('change', () => { if (current() === 'system') tint('system'); });
 })();
 
 function esc(s){ return String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
