@@ -29,9 +29,9 @@
   <!-- Brand lockup: the 24x24 mark scaled 2.5x, then the wordmark, per lockup.svg. -->
   <g transform="translate(80,90)">
     <g transform="scale(2.5)">
-      <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="#9aa4ae" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+      <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#markgrad)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
       <path d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="#e6e8ea" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="#9aa4ae"/>
+      <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#markgrad)" fill-opacity="0.75"/>
       <path d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#markgrad)"/>
     </g>
     <text x="78" y="41" font-family="Georgia, 'Times New Roman', serif" font-size="34" letter-spacing="0.6" fill="#e6e8ea">what<tspan fill="url(#ai)">ai</tspan>found<tspan fill="#6b7580">.org</tspan></text>

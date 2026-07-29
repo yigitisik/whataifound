@@ -335,8 +335,8 @@ const AUT_ORDER = ['autonomous','ai-led','collaborative','ai-assisted','search-s
 const FIELD_SHORT = {
   'mathematics':'Mathematics','computer-science':'Computer science','biology':'Biology',
   'materials':'Materials','physics':'Physics','chemistry':'Chemistry','medicine':'Medicine',
-  'neuroscience':'Neuroscience','astronomy':'Astronomy','engineering':'Engineering',
-  'climate':'Climate','economics':'Economics'
+  'neuroscience':'Neuroscience','astronomy':'Astronomy','archaeology':'Archaeology',
+  'engineering':'Engineering','climate':'Climate','economics':'Economics'
 };
 
 function scatterCard(){
