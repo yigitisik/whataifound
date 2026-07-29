@@ -14,9 +14,9 @@
     </linearGradient>
   </defs>
   <g transform="translate(0,4) scale(1.6667)">
-  <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="#9aa4ae" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
+  <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
   <path d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="#e6e8ea" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
-  <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="#9aa4ae"></path>
+  <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#i)" fill-opacity="0.75"></path>
   <path d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#i)"></path>
   </g>
   <text x="52" y="31" font-family="Georgia, &#39;Times New Roman&#39;, serif" font-size="24" letter-spacing="0.2" fill="#e6e8ea">what<tspan fill="url(#ai)">ai</tspan>found<tspan fill="#6b7580">.org</tspan></text>

@@ -46,7 +46,13 @@ Requirements:
 Negative results (`known`, `disputed`, `refuted`) are in scope and welcome.
 
 If your entry opens a **new `field` value**, add its display name to the `fields` map in
-[data/vocab.json](../data/vocab.json); the build will stop and tell you. A new lab needs nothing.
+[data/vocab.json](../data/vocab.json); the build will stop and tell you. This is the one edit
+outside `data/entries.json` an entry can require. Thirteen fields are pre-registered. A new *lab*
+needs nothing; it falls back to a generated monogram.
+
+If your entry has a `wikipedia` title, run `python3 scripts/build-notability.py` to measure
+`notability` from the live Wikipedia API. It hits the network and edits `data/entries.json`, so it
+is not part of `build.py`; run it deliberately. `--check` reports drift.
 
 ### Correcting or challenging
 
@@ -92,13 +98,44 @@ pill colour in [styles.css](../styles.css), and the build fails until it has one
 
 ### Brand assets
 
-Editing `assets/brand/favicon.svg` or `og.svg` means re-running `python3 scripts/build-icons.py`
-and committing the regenerated rasters. It is not part of `build.py`.
+`assets/brand/` holds the sources and their generated rasters.
+
+| File | Role |
+|---|---|
+| `favicon.svg` | The mark on its rounded dark plate. Source for every raster icon |
+| `mark.svg` | The mark alone, no plate |
+| `mark-mono.svg` | Single-colour mark via `currentColor`, for stamps and dark/light inversion |
+| `lockup.svg` | Mark + wordmark |
+| `og.svg` → `og.png` | 1200×630 social card |
+| `icon-48.png`, `icon-512.png` | Generated. With `favicon.ico` and `apple-touch-icon.png` at the root |
+
+The mark is a diamond crossed by a bar, forming an `A` over a serif `I`. Both carry the same
+blue→violet→amber gradient — the `A` at 75% opacity so the `I` stays the focal point. That gradient
+is the brand's one accent: it also fills the `ai` in the wordmark, in the lockup, the OG card, and
+the site header.
+
+Editing `favicon.svg` or `og.svg` means re-running `python3 scripts/build-icons.py` and committing
+the regenerated rasters. It is not part of `build.py`. The script prefers Node with Playwright
+(`PLAYWRIGHT_DIR=/path/to/node_modules/..` if it lives elsewhere) and falls back to macOS Quick
+Look, which needs no install.
+
+Four icon files, not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers the
+manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG —
+Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does not list SVG, so an
+SVG-only site tends to show a generic globe in search results. `og.png` is a PNG for the same class
+of reason: several platforms don't render SVG previews.
 
 The header mark is inlined in `index.html`, `methodology.html` and `visuals.html` (so it inherits
 `currentColor` and animates) and again, larger and static, in `404.html`. Change the shape and all
 four need the same edit, plus `assets/brand/` for the standalone files. Each inline copy needs its
 own gradient `id`; duplicates across a page collide.
+
+### Changing the domain
+
+`https://whataifound.org` is hard-coded in `index.html`, `methodology.html`, `visuals.html`,
+`robots.txt`, the `SITE` constant in `build-site.py`, `build-feed.py` and `build-notability.py`, and
+the `og.svg` wordmark. Changing it means editing all of those, then re-running `build.py` and
+`build-icons.py`.
 
 ## PRs
 
