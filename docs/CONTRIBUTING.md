@@ -45,8 +45,8 @@ Requirements:
 
 Negative results (`known`, `disputed`, `refuted`) are in scope and welcome.
 
-If your entry opens a **new `field` value**, add its display name to `FIELD_LABEL` in
-`scripts/build-site.py`; the build will stop and tell you. A new lab needs nothing.
+If your entry opens a **new `field` value**, add its display name to the `fields` map in
+[data/vocab.json](../data/vocab.json); the build will stop and tell you. A new lab needs nothing.
 
 ### Correcting or challenging
 
@@ -80,6 +80,16 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
 so drift fails the build; the markup would otherwise visibly change the first time a visitor
 filters.
 
+### The grading vocabulary
+
+Grade labels and definitions live in [data/vocab.json](../data/vocab.json) and nowhere else.
+`build.py` writes them into `app.js`'s label tables, the two lists on `methodology.html`, the
+scales in `llms.txt`, and the ClaimReview ratings on every finding page. Edit the JSON and rebuild;
+never edit those copies by hand.
+
+Adding or removing a grade is a code change: a new `verification` slug also needs a `.v-<slug>`
+pill colour in [styles.css](../styles.css), and the build fails until it has one.
+
 ### Brand assets
 
 Editing `assets/brand/favicon.svg` or `og.svg` means re-running `python3 scripts/build-icons.py`
@@ -103,6 +113,7 @@ CI runs on every PR:
 | `check-integrity.py` | The committed HTML contains unexpected inline scripts, off-allowlist script or frame origins, inline event handlers, `javascript:`/`data:` URLs, or `<base>`/`<object>`/`<embed>`/`<form>` |
 | `build.py` | The data is invalid, or `card()` has drifted between `app.js` and `build-site.py` |
 | rebuild-and-diff | The committed output doesn't match what `data/entries.json` produces (a forgotten rebuild, or a hand-edit inside the markers) |
+| `check-links.py` | A URL your branch added returns 404 or 410. Runs as its own `links` workflow so a publisher outage never blocks a merge; paywalls, rate limits and 5xx are reported but do not fail |
 
 The integrity check runs *before* the rebuild, because a rebuild would overwrite tampering in a
 fully generated file and hide it.
@@ -121,9 +132,9 @@ fully generated file and hide it.
 The registry's only asset is that its grades can be trusted. Automation covers the mechanical part
 (see the table above); none of it can tell whether a *claim* is true. What a reviewer does by hand:
 
-- **Open the primary sources.** Confirm they resolve and say what the entry says they say. A
-  plausible-looking URL to a paper that doesn't contain the result is the likeliest bad entry, and
-  no check catches it.
+- **Open the primary sources.** CI confirms they *resolve*; only you can confirm they *say what the
+  entry says they say*. A plausible-looking URL to a real paper that doesn't contain the result is
+  the likeliest bad entry, and no check catches it.
 - **Check the grades against the evidence**, not the contributor's summary. `formal` needs a
   machine-checked artifact you can point at. `independent` needs someone who isn't an author. When
   the evidence is arguable, the weaker grade wins.

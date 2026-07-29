@@ -3,6 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
 
 <!-- Canonical domain: https://whataifound.org -->
 <title>Methodology: How whataifound.org Grades AI Discoveries | Verification &amp; Autonomy Levels</title>
@@ -58,7 +59,12 @@
 }
 </script>
 
-<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');}catch(e){}</script>
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Keep the browser-chrome tint on the theme that actually rendered. The static tag is
+   dark (the default); only a light result needs rewriting, and 'system' resolves via
+   the media query rather than the stored value. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
   .meth-title{font-size:clamp(1.9rem,6vw,2.8rem);margin:0 0 12px;letter-spacing:-.02em;font-weight:600;line-height:1.05}
@@ -116,8 +122,7 @@
   <section class="meth-sec" aria-labelledby="ver-h">
     <h2 id="ver-h">Verification: how solid is it?</h2>
     <p class="sub">We order these strongest to weakest. When we're unsure, the lower grade wins.</p>
-    <div class="meth-list">
-      <div class="meth-row"><span class="pill v v-formal">Formally verified</span>
+    <div class="meth-list"><!--VERDEFS:START--><div class="meth-row"><span class="pill v v-formal">Formally verified</span>
         <p class="meth-def">A machine-checked proof (Lean, Coq, Isabelle) or an exact symbolic or computational verification that anyone can rerun. The gold standard.</p></div>
       <div class="meth-row"><span class="pill v v-independent">Independently checked</span>
         <p class="meth-def">Multiple qualified people unaffiliated with the announcing lab have checked the result and confirmed it.</p></div>
@@ -132,15 +137,13 @@
       <div class="meth-row"><span class="pill v v-known">Already known</span>
         <p class="meth-def">The result turned out to already exist in the literature. These entries stay on the record; showing the failure mode is what makes the rest trustworthy.</p></div>
       <div class="meth-row"><span class="pill v v-refuted">Refuted</span>
-        <p class="meth-def">Shown to be wrong.</p></div>
-    </div>
+        <p class="meth-def">Shown to be wrong.</p></div><!--VERDEFS:END--></div>
   </section>
 
   <section class="meth-sec" aria-labelledby="aut-h">
     <h2 id="aut-h">Autonomy: how much did the AI do?</h2>
     <p class="sub">This axis is the whole point. Most breathless claims collapse here; we grade on the strictest defensible reading.</p>
-    <div class="meth-list">
-      <div class="meth-row"><span class="meth-term">Autonomous</span>
+    <div class="meth-list"><!--AUTDEFS:START--><div class="meth-row"><span class="meth-term">Autonomous</span>
         <p class="meth-def">The AI produced the core idea and the result with no human mathematical input beyond posing the problem.</p></div>
       <div class="meth-row"><span class="meth-term">AI-led</span>
         <p class="meth-def">The AI produced the key insight; humans formalised, checked, or cleaned it up.</p></div>
@@ -151,7 +154,7 @@
       <div class="meth-row"><span class="meth-term">Search scaffold</span>
         <p class="meth-def">The AI is a component inside a human-designed search loop (FunSearch, AlphaEvolve). The system found it, but the framing was human.</p></div>
       <div class="meth-row"><span class="meth-term">Retrieval</span>
-        <p class="meth-def">The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics.</p></div>
+        <p class="meth-def">The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics.</p></div><!--AUTDEFS:END-->
     </div>
   </section>
 
