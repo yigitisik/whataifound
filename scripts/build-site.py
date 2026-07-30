@@ -693,6 +693,14 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   <dl class="finding-facts">
 {fact_rows}
   </dl>
+
+  <div class="challenge">
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Entries are never deleted. A grade that does not hold up is downgraded
+    on the record and the objection is kept beside it. Bring a citation.</p>
+    <a class="btn primary challenge-b" href="{esc(challenge)}" target="_blank" rel="noopener">Challenge
+    this grade<span aria-hidden="true"> ↗</span></a>
+  </div>
 {section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
 
   <h2 class="lbl">How this is graded</h2>
@@ -701,10 +709,6 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   the AI did versus its human collaborators). This finding is <strong>{esc(ver.lower())}</strong>
   and <strong>{esc(aut.lower())}</strong>. Full definitions are in the
   <a href="/methodology">methodology</a>.</p>
-
-  <p class="challenge"><a href="{esc(challenge)}" target="_blank" rel="noopener">Is this graded
-  wrong?</a> Open an issue with the citation. Entries are never deleted: a grade that does not
-  hold up is downgraded on the record, and the objection is kept with it.</p>
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org ({esc(str(e.get("date", ""))[:4])}). <em>{esc(e["title"])}.</em>

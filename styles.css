@@ -585,12 +585,20 @@
   .finding-facts dt{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
     letter-spacing:.11em;color:var(--muted);margin-bottom:3px}
   .finding-facts dd{margin:0;font-size:.9rem;color:var(--ink)}
-  /* Sits under "How this is graded", where the reader has just been told what the grades
-     mean. Quiet by design: an invitation to contest the record, not a call to action
-     competing with the sources. */
-  .challenge{font-size:.88rem;color:var(--muted);margin:14px 0 0;padding:12px 15px;
-    background:var(--panel);border:1px solid var(--line);border-radius:12px}
-  .challenge a{font-weight:600}
+  /* Sits directly under the facts table, where the two grades have just been stated, rather
+     than down beside "Cite this entry" where it read as a second citation box: same panel
+     fill, same hairline border, same radius. Tinted with the accent and led by a real button
+     so it reads as an action on the grades above it, not another block of reference text. */
+  .challenge{margin:20px 0 0;padding:15px 17px 16px;background:var(--accent-soft);
+    border:1px solid transparent;border-left:3px solid var(--accent);border-radius:12px}
+  .finding .challenge-t{font-family:var(--serif);font-size:.98rem;font-weight:600;
+    color:var(--ink);margin:0 0 4px;line-height:1.35}
+  .finding .challenge-d{font-size:.85rem;line-height:1.5;color:var(--muted);margin:0 0 12px;max-width:62ch}
+  .challenge-b{font-size:.78rem}
+  /* .finding a is accent-coloured; the button sits on the accent itself, so it needs the
+     page background back or the label disappears into its own fill. */
+  .finding a.challenge-b{color:var(--bg)}
+  @media(max-width:560px){.challenge-b{display:flex;width:100%;justify-content:center}}
   .finding-back{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:.9rem}
 
   .body h2,.claim,.detail,.ref-t,.vid-t,.lab-name,.rmeta dd{overflow-wrap:break-word}
