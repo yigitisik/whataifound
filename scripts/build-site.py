@@ -53,6 +53,28 @@ AUT = VOCAB["autonomy"]
 VER_LABEL = {v["slug"]: v["label"] for v in VER}
 AUT_LABEL = {a["slug"]: a["label"] for a in AUT}
 
+# Positions on the two axes of the evidence/autonomy matrix. Both are derived here so
+# data/vocab.json stays the only place a grade is defined.
+#
+# Autonomy is a plain ladder, so rank comes straight from display order (documented in
+# vocab.json as most-to-least AI-driven): reordering the vocabulary reorders the axis.
+AUT_RANK = {a["slug"]: len(AUT) - 1 - i for i, a in enumerate(AUT)}
+
+# Verification is NOT a plain ladder: three grades are negative findings, and they mean
+# different things. "Already known" is a correct result that simply wasn't new, whereas
+# "Disputed" and "Refuted" are evidence the claim is wrong. Ranking them 1-2 on the same
+# scale as "Claimed" would put a refuted result above nothing at all, so the axis is
+# signed instead: evidence for the claim above zero, evidence against it below.
+# Formal outranks Independent here even though both carry rating 5 in vocab.json, since
+# a machine-checked proof is the stronger of the two for this chart's purpose.
+VER_SCORE = {
+    "formal": 4, "independent": 3, "peer-reviewed": 3, "author-verified": 2,
+    "claimed": 1, "known": -1, "disputed": -2, "refuted": -3,
+}
+_missing = [v["slug"] for v in VER if v["slug"] not in VER_SCORE]
+if _missing:                      # a new grade must be placed deliberately, not defaulted
+    raise SystemExit(f"VER_SCORE in build-site.py is missing: {', '.join(_missing)}")
+
 # How each verification grade maps onto a schema.org Rating, so a machine reading
 # ClaimReview gets the same ordering a reader gets from the pill colours. 5 = the
 # claim stands up; 1 = it does not. "known" is a true result that is not new, so it
@@ -624,7 +646,12 @@ def build_app_js():
                         for i in items)
         return f"const {name} = {{{rows}\n}};"
 
-    payload = "\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
+    def ranks(name, mapping):
+        rows = ",".join(f"\n  {json.dumps(k)}:{v}" for k, v in mapping.items())
+        return f"const {name} = {{{rows}\n}};"
+
+    payload = ("\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
+               + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
                  "vocabulary tables", "app.js")
 
