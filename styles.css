@@ -325,6 +325,21 @@
   .sc-tip-r{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.72rem;color:var(--ink)}
   .sc-tip-r .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .sc-tip-m{font-family:var(--serif);font-size:.7rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
+  /* Evidence-vs-autonomy matrix. Shares .sc-wrap/.sc/.sc-tip with the scatter; only the
+     marks and the two axis treatments differ. */
+  .mx-guide{stroke:var(--line);stroke-width:1}
+  /* The boundary between evidence for a claim and evidence against it: the one line on
+     this axis that carries meaning, so it is drawn heavier than the cell guides. */
+  .mx-zero{stroke:var(--line-strong);stroke-width:1.5;stroke-dasharray:4 3}
+  .mx-tick{fill:var(--muted);font-family:var(--serif);font-size:10px}
+  .mx-zlab{fill:var(--muted);font-family:var(--serif);font-size:8.5px;letter-spacing:.04em;opacity:.75}
+  .mx-dot{stroke:var(--panel);stroke-width:1.5;opacity:.85;cursor:pointer;transition:opacity .15s}
+  .mx-dot:hover,.mx-dot:focus-visible{opacity:1;stroke:var(--ink);stroke-width:2;outline:none}
+  .mx-dot:focus-visible{stroke:var(--accent)}
+  /* Count printed inside the larger circles. pointer-events:none so the label never
+     swallows the hover that belongs to the circle underneath it. */
+  .mx-n{fill:var(--bg);font-family:var(--serif);font-size:10px;font-weight:600;
+    pointer-events:none;font-variant-numeric:lining-nums tabular-nums}
   .sc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px}
   .sc-key{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.68rem;color:var(--muted)}
   .sc-key .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}

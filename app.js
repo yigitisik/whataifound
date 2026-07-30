@@ -20,6 +20,24 @@ const AUT_LABEL = {
   "search-scaffold":"Search scaffold",
   "retrieval":"Retrieval"
 };
+const VER_SCORE = {
+  "formal":4,
+  "independent":3,
+  "peer-reviewed":3,
+  "author-verified":2,
+  "claimed":1,
+  "known":-1,
+  "disputed":-2,
+  "refuted":-3
+};
+const AUT_RANK = {
+  "autonomous":5,
+  "ai-led":4,
+  "collaborative":3,
+  "ai-assisted":2,
+  "search-scaffold":1,
+  "retrieval":0
+};
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -326,6 +344,7 @@ function renderCharts(){
     `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
     scatterCard()+
+    matrixCard()+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
   renderInsights();
@@ -396,10 +415,9 @@ function scatterCard(){
       `<p class="qv-empty">Not enough entries carry both a posed year and a notability score yet.</p></div>`;
   }
 
-  // A wide, short viewBox: the SVG scales to the full grid width, so a squarer box
-  // renders very tall for a chart this sparse. 900x260 keeps the plot readable while
-  // holding the card to roughly a third of its former height.
-  const W = 900, H = 260, PADL = 40, PADR = 14, PADT = 12, PADB = 34;
+  // Sized to sit beside the matrix in one grid row, so the box matches that card's
+  // proportions rather than the full page width it used to span.
+  const W = 440, H = 300, PADL = 44, PADR = 14, PADT = 12, PADB = 58;
   const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
   // x = notability on a LOG scale: values span 1..56, so a linear axis would crush the
   // 1..19 cluster into the left edge. All counts are >= 1 (no article => no point), so
@@ -474,7 +492,7 @@ function scatterCard(){
   const note = missing ? `<p class="qv-foot">${missing} entr${missing===1?'y':'ies'} not plotted (no posed year or notability yet).</p>` : '';
   const label = `Scatter of years open versus notability, colored by autonomy. ${pts.length} entries plotted.`;
 
-  return `<div class="qv-card qv-wide"><h3 class="qv-title">Years open vs. notability</h3>`+
+  return `<div class="qv-card"><h3 class="qv-title">Years open vs. notability</h3>`+
     `<div class="sc-wrap">`+
     `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}" preserveAspectRatio="xMidYMid meet">`+
     grid + axisTitles + dots + `</svg>`+
@@ -482,22 +500,150 @@ function scatterCard(){
     `</div>` + legend + note + `</div>`;
 }
 
-// Interactive tooltip for the scatter: shows on hover/focus of a dot, positioned
-// inside the chart wrapper. Delegated + re-bindable so it survives chart re-renders.
-function wireScatterTip(){
-  const wrap = document.querySelector('.sc-wrap');
-  if (!wrap) return;
-  const tip = wrap.querySelector('.sc-tip');
-  if (!tip) return;
+// The registry's own two axes plotted against each other: how much the AI did (x) by
+// how well the result is stood up (y). Unlike the notability scatter, every entry has
+// both grades, so this one plots the whole registry.
+//
+// It is a matrix, not a scatter, because both axes are ordinal with few levels: 52
+// entries land in only ~15 distinct combinations, and one cell alone holds 18. Drawn as
+// points they would sit on top of each other and hide two thirds of the data, so each
+// cell is a single mark whose area encodes how many entries share it.
+function matrixCard(){
+  const pts = ALL.filter(e => VER_SCORE[e.verification] != null && AUT_RANK[e.autonomy] != null);
+  const missing = ALL.length - pts.length;
+  if (!pts.length){
+    return `<div class="qv-card"><h3 class="qv-title">Evidence vs. autonomy</h3>`+
+      `<p class="qv-empty">No entries carry both a verification grade and an autonomy grade yet.</p></div>`;
+  }
 
+  // Group by cell, keeping the entries so the tooltip can name them.
+  const cells = new Map();
+  pts.forEach(e => {
+    const ax = AUT_RANK[e.autonomy], vy = VER_SCORE[e.verification];
+    const k = ax + ':' + vy;
+    if (!cells.has(k)) cells.set(k, {ax, vy, list: []});
+    cells.get(k).list.push(e);
+  });
+
+  // Axis domains come from the vocabulary, not the data, so an empty column or row still
+  // shows: "nothing is autonomous and refuted" is a finding, and a chart that silently
+  // dropped that column would hide it.
+  const axRanks = [...new Set(Object.values(AUT_RANK))].sort((a,b)=>a-b);
+  const vyScores = [...new Set(Object.values(VER_SCORE))].sort((a,b)=>a-b);
+  const vyMin = Math.min(...vyScores), vyMax = Math.max(...vyScores);
+  const axMin = Math.min(...axRanks), axMax = Math.max(...axRanks);
+
+  // Rows are positioned by their index in the score list, not by the score itself: the
+  // scale skips 0 (there is no neutral grade), so spacing by value would leave a gap
+  // twice the height of every other row straddling the zero line.
+  const W = 470, H = 310, PADL = 108, PADR = 12, PADT = 10, PADB = 70;
+  const rowOf = v => vyScores.indexOf(v);
+  const cw = (W - PADL - PADR) / (axMax - axMin + 1);
+  const ch = (H - PADT - PADB) / vyScores.length;
+  const cx = a => PADL + (a - axMin + 0.5) * cw;
+  const cy = v => H - PADB - (rowOf(v) + 0.5) * ch;
+
+  // Area-proportional radius: doubling the count doubles the ink, not the width, which
+  // is what makes 18 read as roughly twice 10 rather than four times it.
+  const maxN = Math.max(...[...cells.values()].map(c => c.list.length));
+  const rMax = Math.min(cw, ch) / 2 - 3;
+  const rOf = n => Math.max(3.5, rMax * Math.sqrt(n / maxN));
+
+  // A single label per autonomy column, rotated: the full labels ("Search scaffold")
+  // do not fit horizontally in a half-width card.
+  const AUT_BY_RANK = {};
+  Object.entries(AUT_RANK).forEach(([slug, r]) => { AUT_BY_RANK[r] = slug; });
+  const xlabels = axRanks.map(a => {
+    const slug = AUT_BY_RANK[a];
+    const x = cx(a).toFixed(1), y = H - PADB + 13;
+    return `<text x="${x}" y="${y}" class="mx-tick" text-anchor="end"`+
+      ` transform="rotate(-35 ${x} ${y})">${esc(AUT_LABEL[slug]||slug)}</text>`;
+  }).join('');
+
+  // One row label per distinct score. Grades that share a score share a row, so the
+  // label names the row, not any single grade.
+  const VROW = {4:'Formal', 3:'Independent / peer', 2:'Author verified', 1:'Claimed',
+    '-1':'Already known', '-2':'Disputed', '-3':'Refuted'};
+  const ylabels = vyScores.map(v =>
+    `<text x="${PADL-9}" y="${(cy(v)+3.5).toFixed(1)}" class="mx-tick" text-anchor="end">`+
+    `${esc(VROW[v]||v)}</text>`).join('');
+
+  // Faint cell guides, plus the zero line: the boundary between evidence for a claim and
+  // evidence against it is the one line on this axis worth drawing heavier. It sits on
+  // the row boundary between the lowest positive score and the highest negative one.
+  const firstPos = vyScores.findIndex(v => v > 0);
+  const zeroY = firstPos > 0 ? H - PADB - firstPos * ch : null;
+  const guides = vyScores.map(v =>
+    `<line x1="${PADL}" y1="${cy(v).toFixed(1)}" x2="${W-PADR}" y2="${cy(v).toFixed(1)}" class="mx-guide"/>`).join('')
+    + (zeroY != null
+      ? `<line x1="${PADL}" y1="${zeroY.toFixed(1)}" x2="${W-PADR}" y2="${zeroY.toFixed(1)}" class="mx-zero"/>`
+        + `<text x="${W-PADR}" y="${(zeroY-4).toFixed(1)}" class="mx-zlab" text-anchor="end">supports the claim ↑</text>`
+        + `<text x="${W-PADR}" y="${(zeroY+11).toFixed(1)}" class="mx-zlab" text-anchor="end">counts against it ↓</text>`
+      : '');
+
+  const dots = [...cells.values()].map(c => {
+    const n = c.list.length;
+    const col = AUT_COLOR[AUT_BY_RANK[c.ax]] || 'var(--muted)';
+    const names = c.list.slice(0,4).map(e=>e.title).join(' · ')
+      + (n > 4 ? ` · +${n-4} more` : '');
+    const vlab = VROW[c.vy] || c.vy, alab = AUT_LABEL[AUT_BY_RANK[c.ax]];
+    return `<circle cx="${cx(c.ax).toFixed(1)}" cy="${cy(c.vy).toFixed(1)}" r="${rOf(n).toFixed(1)}"`+
+      ` fill="${col}" class="mx-dot" tabindex="0" role="img"`+
+      ` data-title="${esc(`${alab} · ${vlab}`)}"`+
+      ` data-aut="${esc(`${n} finding${n===1?'':'s'}`)}"`+
+      ` data-autcol="${col}"`+
+      ` data-open="${esc(names)}"`+
+      ` aria-label="${esc(`${alab}, ${vlab}: ${n} finding${n===1?'':'s'}.`)}"></circle>`+
+      (n >= 4 ? `<text x="${cx(c.ax).toFixed(1)}" y="${(cy(c.vy)+3.5).toFixed(1)}"`+
+        ` class="mx-n" text-anchor="middle">${n}</text>` : '');
+  }).join('');
+
+  const midY = (PADT + (H - PADB)) / 2;
+  const axisTitles =
+    `<text x="${(PADL+(W-PADR))/2}" y="${H-4}" class="sc-axis" text-anchor="middle">More AI-driven →</text>`+
+    `<text x="10" y="${midY.toFixed(1)}" class="sc-axis" text-anchor="middle"`+
+    ` transform="rotate(-90 10 ${midY.toFixed(1)})">Better evidence →</text>`;
+
+  const summary = [...cells.values()].sort((a,b)=>b.list.length-a.list.length).slice(0,3)
+    .map(c => `${AUT_LABEL[AUT_BY_RANK[c.ax]]} and ${VROW[c.vy]||c.vy}: ${c.list.length}`).join('; ');
+  const label = `Matrix of verification against autonomy for ${pts.length} findings. `+
+    `Circle area is the number of findings in each combination. Largest groups: ${summary}.`;
+  const note = missing ? `<p class="qv-foot">${missing} entr${missing===1?'y':'ies'} not shown (unrecognised grade).</p>` : '';
+
+  return `<div class="qv-card"><h3 class="qv-title">Evidence vs. autonomy</h3>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}" preserveAspectRatio="xMidYMid meet">`+
+    guides + xlabels + ylabels + axisTitles + dots + `</svg>`+
+    `<div class="sc-tip" hidden aria-hidden="true"></div>`+
+    `</div>`+
+    `<p class="qv-foot">Circle area = findings in that combination. All ${pts.length} entries carry both grades.</p>`+
+    note + `</div>`;
+}
+
+// Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside
+// its own chart wrapper. Delegated + re-bindable so it survives chart re-renders, and
+// bound per wrapper so each plot's tooltip stays inside that plot's card.
+//
+// The rows are driven by which data attributes a mark carries rather than by which chart
+// it belongs to, so the two plots share one implementation: the scatter sets notability
+// and result-year, the matrix sets neither and lists its entries in `open` instead.
+function wireScatterTip(){
+  document.querySelectorAll('.sc-wrap').forEach(wrap => {
+    const tip = wrap.querySelector('.sc-tip');
+    if (!tip) return;
+    wireOnePlotTip(wrap, tip);
+  });
+}
+
+function wireOnePlotTip(wrap, tip){
   const show = dot => {
     const d = dot.dataset;
     tip.innerHTML =
       `<span class="sc-tip-t">${esc(d.title)}</span>`+
       `<span class="sc-tip-r"><i class="sw" style="background:${d.autcol}"></i>${esc(d.aut)}</span>`+
-      `<span class="sc-tip-m">${esc(d.open)}</span>`+
-      `<span class="sc-tip-m">Notability: ${esc(d.not)}</span>`+
-      `<span class="sc-tip-m">Result: ${esc(d.year)}</span>`;
+      (d.open ? `<span class="sc-tip-m">${esc(d.open)}</span>` : '')+
+      (d.not ? `<span class="sc-tip-m">Notability: ${esc(d.not)}</span>` : '')+
+      (d.year ? `<span class="sc-tip-m">Result: ${esc(d.year)}</span>` : '');
     tip.hidden = false;
     tip.setAttribute('aria-hidden', 'false');
     // Position: SVG scales to the wrapper, so map the dot's viewBox coords to px.
@@ -515,10 +661,11 @@ function wireScatterTip(){
   };
   const hide = () => { tip.hidden = true; tip.setAttribute('aria-hidden', 'true'); };
 
-  wrap.addEventListener('pointerover', e => { const d = e.target.closest('.sc-dot'); if (d) show(d); });
-  wrap.addEventListener('pointerout', e => { if (e.target.closest('.sc-dot')) hide(); });
-  wrap.addEventListener('focusin', e => { const d = e.target.closest('.sc-dot'); if (d) show(d); });
-  wrap.addEventListener('focusout', e => { if (e.target.closest('.sc-dot')) hide(); });
+  const MARK = '.sc-dot,.mx-dot';
+  wrap.addEventListener('pointerover', e => { const d = e.target.closest(MARK); if (d) show(d); });
+  wrap.addEventListener('pointerout', e => { if (e.target.closest(MARK)) hide(); });
+  wrap.addEventListener('focusin', e => { const d = e.target.closest(MARK); if (d) show(d); });
+  wrap.addEventListener('focusout', e => { if (e.target.closest(MARK)) hide(); });
 }
 
 function render(){
