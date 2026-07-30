@@ -170,7 +170,7 @@ function card(e){
       </dl>
     </div>
     <div class="body">
-      <h2>${esc(e.title)}<a class="permalink" href="#e-${esc(e.id)}" data-permalink="e-${esc(e.id)}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/${esc(e.id)}">${esc(e.title)}</a><a class="permalink" href="#e-${esc(e.id)}" data-permalink="e-${esc(e.id)}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">${esc(e.claim)}</p>
       ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
       ${e.humans?.length ? `<p class="withppl"><span>With</span><b>${esc(e.humans.join(', '))}</b></p>` : ''}
@@ -716,6 +716,11 @@ function boot(data){
   // standalone visuals page both mount it. Everything below is registry-only and is
   // skipped (via the #list guard) when app.js runs on visuals.html.
   renderCharts();
+
+  // The homepage hero has no #charts grid: its matrix is pre-rendered into the markup by
+  // build-site.py, so renderCharts() returned before reaching wireScatterTip(). Wire the
+  // plots already in the DOM instead. Guarded so the visuals page doesn't wire twice.
+  if (!document.getElementById('charts')) wireScatterTip();
 
   const updated = document.getElementById('updated');
   if (updated) updated.textContent =

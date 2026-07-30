@@ -60,6 +60,15 @@ Don't delete entries. Downgrade `verification`, add the objection to `caveats`, 
 challenge novelty, submit a PR downgrading the entry to `known` with the specific prior-work
 citation.
 
+Every finding page carries an **"Is this graded wrong?"** link that opens the
+[grade challenge](../.github/ISSUE_TEMPLATE/grade-challenge.yml) issue form with the entry id and
+its current grades already filled in. It exists so that contesting a grade doesn't require forking
+the repo: the reporter supplies the citation, nothing else.
+
+An issue is triage, not the fix. A grade changes when someone opens a PR editing
+`data/entries.json`, and the rules above still apply — new evidence, cited, and the weaker grade
+wins when it's arguable. A challenge without a specific citation gets closed.
+
 ### Never hand-edit generated files
 
 `finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, and anything between

@@ -67,11 +67,12 @@ var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: l
 if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
-  .meth-title{font-size:clamp(1.9rem,6vw,2.8rem);margin:0 0 12px;letter-spacing:-.02em;font-weight:600;line-height:1.05}
+  /* Matched to the registry's h1 so the two pages read as one publication. */
+  .meth-title{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 10px;letter-spacing:-.021em;font-weight:600;line-height:1.06}
   .back{font-family:var(--serif);font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
     color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
   .back:hover{color:var(--accent)}
-  .meth-sec{margin:40px 0}
+  .meth-sec{margin:34px 0}
   .meth-sec > h2{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
   .meth-sec > .sub{color:var(--muted);margin:0 0 22px;max-width:70ch}
   .meth-list{display:flex;flex-direction:column;gap:1px;background:var(--line);
@@ -114,8 +115,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
   <h1 class="meth-title">Methodology</h1>
   <p class="lede">We grade every finding as one record on two axes: <strong>how solid the evidence is</strong>
-  and <strong>how much the AI actually did</strong>. We set grades conservatively, and only ever
-  downgrade them, never quietly remove one. The schema is the product; everything else renders it.</p>
+  and <strong>how much the AI actually did</strong>. Grades are set conservatively and only ever
+  downgraded, never quietly removed.</p>
 </header>
 
 <main id="main">

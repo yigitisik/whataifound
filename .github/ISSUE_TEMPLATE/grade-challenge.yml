@@ -1,0 +1,78 @@
+name: Challenge a grade
+description: Argue that a finding's verification or autonomy grade is wrong.
+title: "Grade challenge: "
+labels: ["grade-challenge"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Grades are downgraded on evidence, never on opinion. A challenge without a specific
+        citation will be closed.
+
+        The two scales are defined in [docs/SCHEMA.md](../blob/main/docs/SCHEMA.md) and on
+        [the methodology page](https://whataifound.org/methodology). When the evidence is
+        arguable, the weaker grade wins.
+
+        Opening an issue starts the conversation; the fix is a pull request editing
+        `data/entries.json`. You are welcome to skip straight to the PR.
+
+  - type: input
+    id: entry
+    attributes:
+      label: Entry ID
+      description: Prefilled from the finding page. Leave as-is.
+      placeholder: 2026-07-22-dinitz-garg-goemans
+    validations:
+      required: true
+
+  - type: input
+    id: current
+    attributes:
+      label: Current grades
+      description: Prefilled from the finding page. Leave as-is.
+      placeholder: "verification: peer-reviewed, autonomy: search-scaffold"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: axis
+    attributes:
+      label: Which grade is wrong?
+      options:
+        - Verification (how solid the result is)
+        - Autonomy (how much the AI did)
+        - Both
+    validations:
+      required: true
+
+  - type: input
+    id: proposed
+    attributes:
+      label: What should it be?
+      description: A slug from the relevant scale.
+      placeholder: "known, or disputed"
+    validations:
+      required: true
+
+  - type: textarea
+    id: citation
+    attributes:
+      label: Citation
+      description: >
+        The specific evidence: paper, proof artifact, or prior-work reference, with a URL and
+        where in it the relevant claim sits (theorem number, section, page). "Appears wrong" or
+        "I think this is overstated" is not reviewable and will be closed.
+      placeholder: |
+        Wang (1980), "On the structure of ...", Theorem 3.2, https://doi.org/...
+        constructs the same object in dimension 3, which makes this entry `known`
+        rather than `independent`.
+    validations:
+      required: true
+
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else
+      description: Optional. Conflicts of interest go here — being an author is fine, saying so is expected.
+    validations:
+      required: false

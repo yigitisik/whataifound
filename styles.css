@@ -141,7 +141,7 @@
      *behind* it rather than through it, so the type always sits on its own panel. Negative
      side margins let the panel bleed past the .wrap text column, keeping the optical left
      edge of the type aligned with the content below it while the card breathes outward. */
-  header{padding:38px 40px 34px;margin:18px -24px 30px;position:relative;
+  header{padding:30px 40px 26px;margin:16px -24px 26px;position:relative;
     background:linear-gradient(180deg,var(--panel) 0%,var(--panel-2) 100%);
     border:1px solid var(--line);border-radius:20px;box-shadow:var(--shadow-card)}
   /* Hairline top highlight: catches the "edge" of the card the way paper stock does. */
@@ -150,7 +150,7 @@
     pointer-events:none}
   .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
     font-family:var(--serif);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
-    color:var(--muted);padding-bottom:22px;margin-bottom:26px;border-bottom:1px solid var(--line)}
+    color:var(--muted);padding-bottom:16px;margin-bottom:18px;border-bottom:1px solid var(--line)}
   .gh-icon{display:inline-grid;place-items:center;width:26px;height:26px;color:var(--muted);
     transition:color .2s var(--ease)}
   .gh-icon:hover,.gh-icon:focus-visible{color:var(--ink)}
@@ -203,8 +203,11 @@
     margin-right:7px;vertical-align:middle;box-shadow:0 0 0 0 var(--formal);animation:pulse 2.4s var(--ease) infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(26,107,74,.5)}70%{box-shadow:0 0 0 7px rgba(26,107,74,0)}100%{box-shadow:0 0 0 0 rgba(26,107,74,0)}}
 
-  h1{font-size:clamp(1.9rem,8vw,3.35rem);margin:0 0 14px;letter-spacing:-.021em;font-weight:600;line-height:1.05;max-width:19ch}
-  .lede{color:var(--muted);font-size:1.14rem;line-height:1.55;max-width:64ch;margin:0 0 26px}
+  /* The hero has a hard vertical budget: the sticky controls bar and the top of the first
+     entry card have to stay above the fold on a 900px window, and the matrix below costs
+     ~330px. Type is sized to that budget, not the other way round. */
+  h1{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 12px;letter-spacing:-.021em;font-weight:600;line-height:1.06;max-width:19ch}
+  .lede{color:var(--muted);font-size:1.02rem;line-height:1.5;max-width:92ch;margin:0 0 20px}
   .lede strong{color:var(--ink);font-weight:600}
 
   .actions{display:flex;gap:10px;flex-wrap:wrap;font-family:var(--serif)}
@@ -217,10 +220,42 @@
   .btn.primary:hover{filter:brightness(1.06)}
   .btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
 
+  /* ---------- Hero data band ---------- */
+  /* Chart left, counts right. The chart gets the wider column because it carries the whole
+     argument of the site; the four counts are its caption. */
+  /* 1.2fr, not more: the SVG is height-capped and preserves its aspect, so past about
+     420px of drawing width the extra column width becomes dead space either side of a
+     chart that cannot grow into it. */
+  .hero-data{display:grid;grid-template-columns:1.2fr 1fr;gap:22px;margin:18px 0 0;align-items:stretch}
+  /* .qv-card carries only background and padding: on the visuals page the frame lives on
+     .qv-grid, so a lone card needs its own or it reads as unfinished. */
+  .hero-chart{display:flex;flex-direction:column;min-width:0}
+  .hero-chart .qv-card{flex:1;display:flex;flex-direction:column;justify-content:center;
+    border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow);padding:12px 14px 8px}
+  .hero-chart .qv-title{margin:0 0 2px}
+  /* Height, not width, is the lever: the SVG carries preserveAspectRatio="xMidYMid meet",
+     so a fixed height letterboxes and centres it rather than distorting. This number is the
+     hero's vertical budget — raise it and the first entry card drops below the fold. */
+  .hero-chart .sc{height:262px;width:100%}
+  /* The footnote belongs on the visuals page, where the chart is the subject. Here it is
+     36px of that budget spent restating what the axis labels already say. */
+  .hero-chart .qv-foot{display:none}
+  .hero-side{display:grid;grid-template-rows:1fr auto;gap:9px;min-width:0}
+  .hero-links{margin:0;font-family:var(--serif);font-size:.78rem;letter-spacing:.04em;color:var(--muted)}
+  .hero-links a{color:var(--muted);text-decoration:none;transition:color .16s var(--ease)}
+  .hero-links a:hover{color:var(--accent)}
+  /* Lives beside the stats, not under the chart, so it survives the breakpoint that hides
+     the chart on narrow screens. */
+  .hero-cta{color:var(--accent)!important;font-weight:600}
+
   /* ---------- Instrument stats ---------- */
   /* Discrete raised tiles: each stat is its own card so the numbers read as objects sitting on
      the masthead, rather than cells of one flat table. */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:32px 0 0}
+  /* In the hero the tiles are a 2x2 beside the chart, stretched so the two columns end
+     flush. Nothing else on the site uses .stats, but scope it anyway. */
+  .hero-side .stats{grid-template-columns:repeat(2,1fr);margin:0;height:100%}
+  .hero-side .stat{display:flex;flex-direction:column;justify-content:center}
   .stat{background:var(--panel);padding:19px 20px 17px;position:relative;overflow:hidden;
     border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
     transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s}
@@ -233,6 +268,20 @@
     text-transform:uppercase;letter-spacing:.13em;line-height:1.4}
   @keyframes barIn{to{transform:scaleX(1)}}
   @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* Once the two columns stack there is no good size for this chart. At its natural aspect
+     a full-width column makes it ~343px tall and buries the registry under the hero; forcing
+     it shorter scales the whole drawing down until the row labels ("Independent / peer"
+     against a 108-of-470 gutter) are illegible. So below the two-column layout it is hidden
+     and .hero-cta, which lives in the other column, carries the link to the full chart.
+     display:none rather than omitted from the markup: the SVG stays in the pre-rendered HTML,
+     so crawlers still read all 15 cells. */
+  @media(max-width:640px){
+    .hero-data{grid-template-columns:1fr;gap:14px}
+    .hero-side{grid-template-rows:auto auto}
+    .hero-side .stats{height:auto}
+    .hero-chart{display:none}
+  }
 
   /* ---------- Controls (sticky toolbar) ---------- */
   .controls{position:sticky;top:0;z-index:20;display:flex;gap:9px;flex-wrap:wrap;
@@ -389,6 +438,13 @@
   .pill.a{background:var(--accent-soft);color:var(--accent);border-color:transparent;font-weight:600}
 
   .body h2{font-size:1.28rem;margin:0 0 9px;font-weight:600;line-height:1.32;letter-spacing:-.01em}
+  /* The title is the card's link to its own /finding/ page. Styled to read as the heading it
+     is, not as a link: the card already lifts on hover, and 52 blue underlines would turn the
+     registry into a link farm. Underline appears on hover so the affordance is still discoverable.
+     Focus ring comes from the global a:focus-visible rule. */
+  .entry-link{color:inherit;text-decoration:none}
+  .entry-link:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px;
+    text-decoration-thickness:1px}
   .permalink{margin-left:8px;color:var(--muted);font-weight:400;text-decoration:none;
     opacity:0;font-size:.9em;vertical-align:baseline;transition:opacity .15s,color .15s;
     position:relative;top:-.02em}
@@ -523,6 +579,12 @@
   .finding-facts dt{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
     letter-spacing:.11em;color:var(--muted);margin-bottom:3px}
   .finding-facts dd{margin:0;font-size:.9rem;color:var(--ink)}
+  /* Sits under "How this is graded", where the reader has just been told what the grades
+     mean. Quiet by design: an invitation to contest the record, not a call to action
+     competing with the sources. */
+  .challenge{font-size:.88rem;color:var(--muted);margin:14px 0 0;padding:12px 15px;
+    background:var(--panel);border:1px solid var(--line);border-radius:12px}
+  .challenge a{font-weight:600}
   .finding-back{margin-top:36px;padding-top:20px;border-top:1px solid var(--line);font-size:.9rem}
 
   .body h2,.claim,.detail,.ref-t,.vid-t,.lab-name,.rmeta dd{overflow-wrap:break-word}
@@ -547,8 +609,7 @@
     .stats{gap:9px}
     .eyebrow{gap:12px 14px}
     .eyebrow-right{width:100%;justify-content:flex-start;gap:10px 12px}
-    .lede{font-size:1.06rem}
-    .actions .btn{flex:1 1 auto;justify-content:center}
+    .lede{font-size:1rem}
     .stat{padding:16px 16px 14px} .stat b{font-size:1.7rem}
     .controls{position:static;gap:8px;padding:10px 0 16px}
     .controls input{flex:1 1 100%}

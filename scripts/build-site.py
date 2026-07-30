@@ -28,9 +28,11 @@ SITE must match index.html, methodology.html, visuals.html, robots.txt and build
 """
 import html
 import json
+import math
 import os
 import re
 import sys
+from decimal import ROUND_HALF_UP, Decimal
 # No datetime import on purpose: every date written by this script comes from
 # data/entries.json. The output is committed and CI rebuilds it, so anything derived
 # from the clock would make the build non-reproducible and fail the drift check on a
@@ -38,6 +40,11 @@ import sys
 from urllib.parse import quote, urlparse
 
 SITE = "https://whataifound.org"
+# Where a reader is sent to contest a grade. Every finding page links here with the entry
+# and its current grades prefilled, so a challenge arrives as a reviewable issue rather
+# than an email. The repo URL is also hand-written in the static HTML headers and footers;
+# this constant covers only what the build generates.
+REPO = "https://github.com/yigitisik/whataifound"
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------- vocabulary
@@ -279,7 +286,7 @@ def card(e):
       </dl>
     </div>
     <div class="body">
-      <h2>{esc(e["title"])}<a class="permalink" href="#e-{esc(e["id"])}" data-permalink="e-{esc(e["id"])}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a><a class="permalink" href="#e-{esc(e["id"])}" data-permalink="e-{esc(e["id"])}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">{esc(e["claim"])}</p>
       {detail}
       {humans}
@@ -295,6 +302,170 @@ def card(e):
       </details>
     </div>
   </article>'''
+
+
+# ------------------------------------------------------------------ evidence matrix
+# A hand-port of matrixCard() in app.js, byte for byte. The homepage leads with this chart,
+# and the hero is pre-rendered for the same reason the entries are: the AI crawlers
+# robots.txt invites do not run JavaScript, and a hero whose only content is an empty
+# <div> tells them nothing. app.js still owns the copy visuals.html mounts.
+#
+# verify-parity.py runs the real matrixCard() under Node and diffs it against what this
+# writes, so the two cannot drift silently. Change one, change the other, in the same PR.
+
+# Autonomy is the axis this registry owns, so it is the colour key of both plots.
+AUT_COLOR = {
+    "autonomous": "var(--formal)", "ai-led": "var(--independent)",
+    "collaborative": "var(--peer)", "ai-assisted": "var(--author)",
+    "search-scaffold": "var(--disputed)", "retrieval": "var(--known)",
+}
+
+# One label per distinct verification score. Grades that share a score share a row, so the
+# label names the row, not any single grade.
+VROW = {4: "Formal", 3: "Independent / peer", 2: "Author verified", 1: "Claimed",
+        -1: "Already known", -2: "Disputed", -3: "Refuted"}
+
+
+def fixed1(x):
+    """JS Number.prototype.toFixed(1).
+
+    Not f"{x:.1f}": Python rounds halves to even, JS picks the larger n on a tie. Every
+    coordinate on this chart is positive, so ROUND_HALF_UP against the exact binary value
+    of the double reproduces toFixed. A half-pixel disagreement here is a parity failure.
+    """
+    return str(Decimal(x).quantize(Decimal("0.1"), rounding=ROUND_HALF_UP))
+
+
+def matrix_card(entries):
+    """The registry's two axes plotted against each other, as one <div class="qv-card">.
+
+    `entries` must arrive in the order app.js's boot() sorts them (date descending): cell
+    order follows first appearance, and a different order permutes the markup.
+    """
+    pts = [e for e in entries
+           if VER_SCORE.get(e.get("verification")) is not None
+           and AUT_RANK.get(e.get("autonomy")) is not None]
+    missing = len(entries) - len(pts)
+    if not pts:
+        return ('<div class="qv-card"><h3 class="qv-title">Evidence vs. autonomy</h3>'
+                '<p class="qv-empty">No entries carry both a verification grade and an '
+                'autonomy grade yet.</p></div>')
+
+    # Group by cell, keeping the entries so the tooltip can name them.
+    cells = {}
+    for e in pts:
+        key = (AUT_RANK[e["autonomy"]], VER_SCORE[e["verification"]])
+        cells.setdefault(key, {"ax": key[0], "vy": key[1], "list": []})["list"].append(e)
+
+    # Axis domains come from the vocabulary, not the data, so an empty column or row still
+    # shows: "nothing is autonomous and refuted" is a finding, and a chart that silently
+    # dropped that column would hide it.
+    ax_ranks = sorted(set(AUT_RANK.values()))
+    vy_scores = sorted(set(VER_SCORE.values()))
+    ax_min, ax_max = min(ax_ranks), max(ax_ranks)
+
+    # Rows are positioned by their index in the score list, not by the score itself: the
+    # scale skips 0 (there is no neutral grade), so spacing by value would leave a gap
+    # twice the height of every other row straddling the zero line.
+    W, H, PADL, PADR, PADT, PADB = 470, 310, 108, 12, 10, 70
+    cw = (W - PADL - PADR) / (ax_max - ax_min + 1)
+    ch = (H - PADT - PADB) / len(vy_scores)
+
+    def cx(a):
+        return PADL + (a - ax_min + 0.5) * cw
+
+    def cy(v):
+        return H - PADB - (vy_scores.index(v) + 0.5) * ch
+
+    # Area-proportional radius: doubling the count doubles the ink, not the width.
+    max_n = max(len(c["list"]) for c in cells.values())
+    r_max = min(cw, ch) / 2 - 3
+
+    def r_of(n):
+        return max(3.5, r_max * math.sqrt(n / max_n))
+
+    by_rank = {r: slug for slug, r in AUT_RANK.items()}
+
+    # A single label per autonomy column, rotated: the full labels ("Search scaffold") do
+    # not fit horizontally in a half-width card.
+    label_y = H - PADB + 13
+    xlabels = "".join(
+        f'<text x="{fixed1(cx(a))}" y="{label_y}" class="mx-tick" text-anchor="end"'
+        f' transform="rotate(-35 {fixed1(cx(a))} {label_y})">'
+        f'{esc(AUT_LABEL.get(by_rank[a], by_rank[a]))}</text>'
+        for a in ax_ranks)
+
+    ylabels = "".join(
+        f'<text x="{PADL - 9}" y="{fixed1(cy(v) + 3.5)}" class="mx-tick" text-anchor="end">'
+        f'{esc(VROW.get(v, v))}</text>'
+        for v in vy_scores)
+
+    # Faint cell guides, plus the zero line: the boundary between evidence for a claim and
+    # evidence against it is the one line on this axis worth drawing heavier.
+    guides = "".join(
+        f'<line x1="{PADL}" y1="{fixed1(cy(v))}" x2="{W - PADR}" y2="{fixed1(cy(v))}"'
+        f' class="mx-guide"/>'
+        for v in vy_scores)
+    first_pos = next((i for i, v in enumerate(vy_scores) if v > 0), -1)
+    if first_pos > 0:
+        zero_y = H - PADB - first_pos * ch
+        guides += (
+            f'<line x1="{PADL}" y1="{fixed1(zero_y)}" x2="{W - PADR}" y2="{fixed1(zero_y)}"'
+            f' class="mx-zero"/>'
+            f'<text x="{W - PADR}" y="{fixed1(zero_y - 4)}" class="mx-zlab"'
+            f' text-anchor="end">supports the claim ↑</text>'
+            f'<text x="{W - PADR}" y="{fixed1(zero_y + 11)}" class="mx-zlab"'
+            f' text-anchor="end">counts against it ↓</text>')
+
+    dots = ""
+    for c in cells.values():
+        n = len(c["list"])
+        slug = by_rank[c["ax"]]
+        col = AUT_COLOR.get(slug, "var(--muted)")
+        names = " · ".join(x["title"] for x in c["list"][:4]) + (
+            f" · +{n - 4} more" if n > 4 else "")
+        vlab, alab = VROW.get(c["vy"], c["vy"]), AUT_LABEL.get(slug)
+        s = "" if n == 1 else "s"
+        dots += (
+            f'<circle cx="{fixed1(cx(c["ax"]))}" cy="{fixed1(cy(c["vy"]))}"'
+            f' r="{fixed1(r_of(n))}"'
+            f' fill="{col}" class="mx-dot" tabindex="0" role="img"'
+            f' data-title="{esc(f"{alab} · {vlab}")}"'
+            f' data-aut="{esc(f"{n} finding{s}")}"'
+            f' data-autcol="{col}"'
+            f' data-open="{esc(names)}"'
+            f' aria-label="{esc(f"{alab}, {vlab}: {n} finding{s}.")}"></circle>')
+        if n >= 4:
+            dots += (f'<text x="{fixed1(cx(c["ax"]))}" y="{fixed1(cy(c["vy"]) + 3.5)}"'
+                     f' class="mx-n" text-anchor="middle">{n}</text>')
+
+    mid_y = (PADT + (H - PADB)) / 2
+    axis_titles = (
+        f'<text x="{(PADL + (W - PADR)) // 2}" y="{H - 4}" class="sc-axis"'
+        f' text-anchor="middle">More AI-driven →</text>'
+        f'<text x="10" y="{fixed1(mid_y)}" class="sc-axis" text-anchor="middle"'
+        f' transform="rotate(-90 10 {fixed1(mid_y)})">Better evidence →</text>')
+
+    top = sorted(cells.values(), key=lambda c: len(c["list"]), reverse=True)[:3]
+    summary = "; ".join(
+        f'{AUT_LABEL.get(by_rank[c["ax"]])} and {VROW.get(c["vy"], c["vy"])}: {len(c["list"])}'
+        for c in top)
+    label = (f"Matrix of verification against autonomy for {len(pts)} findings. "
+             f"Circle area is the number of findings in each combination. "
+             f"Largest groups: {summary}.")
+    note = (f'<p class="qv-foot">{missing} entr{"y" if missing == 1 else "ies"} not shown '
+            f'(unrecognised grade).</p>') if missing else ""
+
+    return ('<div class="qv-card"><h3 class="qv-title">Evidence vs. autonomy</h3>'
+            '<div class="sc-wrap">'
+            f'<svg class="sc" viewBox="0 0 {W} {H}" role="img" aria-label="{esc(label)}"'
+            ' preserveAspectRatio="xMidYMid meet">'
+            + guides + xlabels + ylabels + axis_titles + dots + '</svg>'
+            '<div class="sc-tip" hidden aria-hidden="true"></div>'
+            '</div>'
+            f'<p class="qv-foot">Circle area = findings in that combination. '
+            f'All {len(pts)} entries carry both grades.</p>'
+            + note + '</div>')
 
 
 # ------------------------------------------------------------------ structured data
@@ -399,6 +570,18 @@ def entry_page(e):
     ver = VER_LABEL.get(e["verification"], e["verification"])
     aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
     n = years_open(e)
+
+    # Challenging a grade should cost a reader one click, not a fork. The GitHub issue form
+    # prefills from query parameters keyed on each field's id, so the entry and its current
+    # grades arrive filled in and the reporter only supplies the citation. esc() escapes the
+    # & separators, which an href requires.
+    challenge = REPO + "/issues/new?" + "&".join([
+        "template=grade-challenge.yml",
+        "title=" + enc_uri_component(f"Grade challenge: {e['id']}"),
+        "entry=" + enc_uri_component(e["id"]),
+        "current=" + enc_uri_component(
+            f"verification: {e['verification']}, autonomy: {e['autonomy']}"),
+    ])
 
     verdict = (f"{e['title']} is graded {ver.lower()} on whataifound.org, with the AI's "
                f"role graded {aut.lower()}.")
@@ -518,6 +701,10 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   the AI did versus its human collaborators). This finding is <strong>{esc(ver.lower())}</strong>
   and <strong>{esc(aut.lower())}</strong>. Full definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
+  <p class="challenge"><a href="{esc(challenge)}" target="_blank" rel="noopener">Is this graded
+  wrong?</a> Open an issue with the citation. Entries are never deleted: a grade that does not
+  hold up is downgraded on the record, and the objection is kept with it.</p>
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org ({esc(str(e.get("date", ""))[:4])}). <em>{esc(e["title"])}.</em>
@@ -711,6 +898,11 @@ def build_index(entries, updated):
         f'<div class="stat"><b data-target="{n}">{n}</b><span>{l}</span></div>'
         for n, l in stats)
     src = inject(src, "<!--STATS:START-->", "<!--STATS:END-->", stats_html, "stats")
+
+    # The hero chart, pre-rendered for the crawlers that never run app.js. No newlines
+    # around it: verify-parity.py diffs this region against matrixCard()'s own output.
+    src = inject(src, "<!--MATRIX:START-->", "<!--MATRIX:END-->",
+                 matrix_card(entries), "hero matrix")
 
     src = inject(src, "<!--COUNT:START-->", "<!--COUNT:END-->",
                  f"{len(entries)} / {len(entries)} entries", "result count")
