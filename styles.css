@@ -280,7 +280,7 @@
   .qv-title{font-family:var(--serif);font-size:.63rem;font-weight:600;text-transform:uppercase;letter-spacing:.12em;
     color:var(--muted);margin:0 0 11px}
   .hbars{display:flex;flex-direction:column;gap:7px}
-  .hbar{display:grid;grid-template-columns:122px 1fr 26px;align-items:center;gap:10px}
+  .hbar{display:grid;grid-template-columns:138px 1fr 26px;align-items:center;gap:10px}
   .hbar-label{font-family:var(--serif);font-size:.7rem;color:var(--ink);white-space:nowrap;overflow:hidden;
     text-overflow:ellipsis;display:flex;align-items:center;gap:6px}
   .hbar-label .sw{width:8px;height:8px;border-radius:2px;flex:0 0 auto}
@@ -289,6 +289,13 @@
     transform-origin:left;animation:growx .7s var(--ease) both}
   @keyframes growx{from{transform:scaleX(0)}to{transform:scaleX(1)}}
   .hbar-val{font-family:var(--serif);font-size:.72rem;color:var(--muted);text-align:right;font-variant-numeric:lining-nums tabular-nums}
+  /* The rolled-up row is a group total, not a single organisation, so it is set apart
+     from the bars above it: a hatched fill and italic label stop a "19 across 19 orgs"
+     bar from reading as one organisation rivalling the 18-finding leader. */
+  .hbar.is-rollup{margin-top:3px;padding-top:7px;border-top:1px dashed var(--line-strong)}
+  .hbar.is-rollup .hbar-label{font-style:italic;color:var(--muted)}
+  .hbar.is-rollup .hbar-fill{background:repeating-linear-gradient(135deg,
+    var(--muted) 0 2px,transparent 2px 5px);opacity:.5}
   /* margin-top:auto pins the bars to the bottom of the card, so this card's baseline
      lines up with the bar charts beside it instead of floating with dead space below. */
   .vbars{display:flex;align-items:flex-end;gap:8px;height:112px;margin-top:auto}

@@ -248,21 +248,66 @@ function renderCharts(){
     `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
     `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
 
+  // rows are [label, count, swatch?, titleOverride?, cls?]. The override carries the long
+  // form (a full org name, or the roster behind an aggregated row) into the tooltip
+  // while the visible label stays short enough for the label column.
   const hbars = (rows, name) => {
     const max = Math.max(...rows.map(r=>r[1]), 1);
     const lab = name + '. ' + rows.map(([l,c])=>`${l}: ${c}`).join('; ');
-    return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw])=>
-      `<div class="hbar" title="${esc(label)}: ${c}">`+
+    return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw,tt,cls])=>
+      `<div class="hbar${cls?' '+cls:''}" title="${esc(tt || `${label}: ${c}`)}">`+
       `<span class="hbar-label">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${esc(label)}</span>`+
       `<span class="hbar-track"><span class="hbar-fill" style="width:${Math.round(c/max*100)}%"></span></span>`+
       `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
   };
 
-  // Long organisation names get ellipsised to nothing useful in a 122px label column
+  // Long organisation names get ellipsised to nothing useful in the label column
   // ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
   // actually use. The full name stays in the row's title attribute and aria-label.
-  const LAB_SHORT = {'Lawrence Berkeley National Laboratory':'Berkeley Lab'};
-  const byLab = sortDesc(tally(e=>e.lab)).map(([l,c]) => [LAB_SHORT[l]||l, c]);
+  const LAB_SHORT = {
+    'Lawrence Berkeley National Laboratory':'Berkeley Lab',
+    'Google DeepMind (with Brown, NYU and Stanford)':'DeepMind + universities',
+    'Google DeepMind (with Oxford and Sydney)':'DeepMind + Oxford/Sydney',
+    'Google DeepMind / Isomorphic Labs':'DeepMind / Isomorphic',
+    'Google DeepMind / Google Quantum AI':'DeepMind / Quantum AI',
+    'Google Brain / University of Texas at Austin':'Google Brain / UT Austin',
+    'Institute for Protein Design, University of Washington':'IPD, U. Washington',
+    'Princeton University / PPPL / DIII-D National Fusion Facility':'Princeton / PPPL',
+    'FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont)':'FlyWire Consortium',
+    'Arc Institute / Stanford University':'Arc Institute / Stanford',
+    'MIT / Broad Institute / Harvard':'MIT / Broad / Harvard',
+    'UT Austin / CWI Amsterdam':'UT Austin / CWI'
+  };
+
+  // One organisation dominates and a long tail holds a single finding each (29 orgs, 26
+  // of them with one), so plotting every row made this the tallest card on the page and
+  // stretched its whole grid row. Show the rows that carry information and aggregate the
+  // rest, so the column still sums to the registry instead of silently truncating.
+  //
+  // MAXROWS is a height budget, not a ranking: everything above the tail is always kept,
+  // then the tail is drawn from only to fill the card to a height that matches the topic
+  // chart beside it. Tail entries are all tied, so which ones surface is arbitrary —
+  // hence "and N more with one finding each" rather than a bare "Other", which would
+  // imply the listed ones outrank the omitted ones.
+  const labRows = sortDesc(tally(e=>e.lab));
+  const MAXROWS = 11;                          // ~= the topic chart, this card's row-mate
+  const TAIL = 1;                              // counts at or below this are tied filler
+  const ranked = labRows.filter(([,c]) => c > TAIL);
+  const tied = labRows.filter(([,c]) => c <= TAIL);
+  // Keep every ranked row; spend what's left of the budget on tied rows, reserving one
+  // slot for the aggregate row when it's needed.
+  const room = Math.max(MAXROWS - ranked.length - 1, 0);
+  const shown = tied.slice(0, tied.length <= room + 1 ? tied.length : room);
+  const rest = tied.slice(shown.length);
+  // Shortened rows keep the full organisation name in the tooltip, so nothing is lost.
+  const labRow = ([l,c]) => LAB_SHORT[l] ? [LAB_SHORT[l], c, null, `${l}: ${c}`] : [l, c];
+  const byLab = [
+    ...ranked.map(labRow),
+    ...shown.map(labRow),
+    ...(rest.length ? [[`+${rest.length} more, 1 each`, rest.length, null,
+      `${rest.length} further organisations with one finding each: `+
+      rest.map(([l])=>l).join(', '), 'is-rollup']] : [])
+  ];
   const byField = sortDesc(tally(e=>e.field)).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
   const GORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
   const GVAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
@@ -272,16 +317,17 @@ function renderCharts(){
   const gm = tally(e=>e.verification);
   const byGrade = GORDER.filter(g=>gm[g]).map(g=>[GSHORT[g]||g, gm[g], `var(${GVAR[g]})`]);
 
-  // Order matters: the four small charts read at a glance and fit the opening view
-  // together, so they come first. The scatter is the largest element and plots only
-  // the subset of entries carrying both a posed year and a notability score, so it
-  // sits last rather than pushing everything else below the fold.
+  // Order matters, and a grid row is as tall as its tallest card, so row-mates are paired
+  // by similar height: fixed-height year bars with the 7-row grade breakdown, then the two
+  // capped category lists together. The scatter is the analytical centrepiece, so it comes
+  // third — one grid row down, inside the opening view — rather than below four cards,
+  // where reaching it took a deliberate scroll.
   el.innerHTML =
     `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
+    scatterCard()+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
-    `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`+
-    scatterCard();
+    `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
   renderInsights();
   wireScatterTip();
 }
@@ -357,24 +403,39 @@ function scatterCard(){
   const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
   // x = notability on a LOG scale: values span 1..56, so a linear axis would crush the
   // 1..19 cluster into the left edge. All counts are >= 1 (no article => no point), so
-  // log is well-defined. y = years open, linear.
+  // log is well-defined.
+  //
+  // y = years open on a SQRT scale. One problem stood 331 years and the next longest 87,
+  // so a linear axis spent about three quarters of its height on empty space above the
+  // cluster and stacked the other points on the baseline. Sqrt pulls the outlier in while
+  // keeping 0 at 0 (unlike log) and the ordering exact, so the card earns its height
+  // instead of padding it. Ticks are labelled in plain years, so the axis still reads
+  // directly even though the spacing is non-linear.
   const yMax = Math.max(...ys, 10);
   const xMax = Math.max(...xs, 10);
   const lx = v => Math.log10(Math.max(v, 1));
   const lxMax = lx(xMax);
+  const sy = v => Math.sqrt(Math.max(v, 0));
+  const syMax = sy(yMax);
   const px = x => PADL + (lx(x) / lxMax) * (W - PADL - PADR);
-  const py = y => H - PADB - (y / yMax) * (H - PADT - PADB);
+  const py = y => H - PADB - (sy(y) / syMax) * (H - PADT - PADB);
 
-  // x-ticks at 1-2-5-10-20-50 style stops up to the max; y-ticks in rounded steps.
+  // x-ticks at 1-2-5-10-20-50 style stops up to the max.
   const XSTOPS = [1,2,5,10,20,50,100,200];
   const xticks = XSTOPS.filter(v => v <= xMax * 1.001);
   if (xticks[xticks.length-1] < xMax) xticks.push(xMax);
-  // Aim for ~4 gridlines at a round step, rather than a fixed count: with one entry at
-  // 331 years and the rest under 90, a 5-step axis spent most of the plot on empty
-  // space above the cluster. Round steps keep the labels readable at any data range.
-  const NICE = [5,10,20,25,50,100,200,250,500];
-  const yStep = NICE.find(s => yMax / s <= 4.2) || Math.ceil(yMax / 4 / 100) * 100;
-  const yticks = []; for (let v = 0; v <= yMax; v += yStep) yticks.push(v);
+  // y-ticks from fixed round stops rather than a constant step: the axis is sqrt-scaled,
+  // so an even step would bunch the upper gridlines together. The data max is always
+  // labelled (the outlier should be readable, not merely implied), then round stops fill
+  // in below it — but only where they clear MINGAP pixels of their neighbours, otherwise
+  // sqrt compression prints overlapping labels like "331" over "300".
+  const MINGAP = 14;
+  const YSTOPS = [0,10,25,50,100,200,300,500,750,1000];
+  const yticks = [yMax];
+  YSTOPS.filter(v => v < yMax).reverse().forEach(v => {
+    if (yticks.every(k => Math.abs(py(v) - py(k)) >= MINGAP)) yticks.push(v);
+  });
+  yticks.sort((a,b) => a-b);
 
   const grid = [
     ...xticks.map(v => `<line x1="${px(v).toFixed(1)}" y1="${PADT}" x2="${px(v).toFixed(1)}" y2="${H-PADB}" class="sc-grid"/>`+

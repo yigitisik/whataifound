@@ -81,9 +81,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   /* The caption is the one piece of running prose on the page, sitting between two
      dense panels. It gets its own band of space, more above than below, so it reads as
      an introduction to the cards rather than a label squeezed between them, and a
-     measure short enough to break at a sensible clause instead of mid-phrase. */
-  .vis-lede{color:var(--muted);font-size:.95rem;line-height:1.62;max-width:82ch;
-    margin:22px 2px 18px;text-wrap:pretty}
+     measure short enough to break at a sensible clause instead of mid-phrase. The band
+     is kept tight because it spends height the charts below it need. */
+  .vis-lede{color:var(--muted);font-size:.95rem;line-height:1.55;max-width:82ch;
+    margin:14px 2px 12px;text-wrap:pretty}
   /* Keep each bolded clause whole: the line should break between the three phrases,
      never inside one ("how much the AI / actually did"). */
   .vis-lede strong{color:var(--ink);font-weight:600;white-space:nowrap}
