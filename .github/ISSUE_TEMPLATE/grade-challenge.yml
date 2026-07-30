@@ -73,6 +73,6 @@ body:
     id: notes
     attributes:
       label: Anything else
-      description: Optional. Conflicts of interest go here — being an author is fine, saying so is expected.
+      description: Optional. Conflicts of interest go here. Being an author is fine, saying so is expected.
     validations:
       required: false

@@ -66,7 +66,7 @@ its current grades already filled in. It exists so that contesting a grade doesn
 the repo: the reporter supplies the citation, nothing else.
 
 An issue is triage, not the fix. A grade changes when someone opens a PR editing
-`data/entries.json`, and the rules above still apply — new evidence, cited, and the weaker grade
+`data/entries.json`, and the rules above still apply: new evidence, cited, and the weaker grade
 wins when it's arguable. A challenge without a specific citation gets closed.
 
 ### Never hand-edit generated files
@@ -119,7 +119,7 @@ pill colour in [styles.css](../styles.css), and the build fails until it has one
 | `icon-48.png`, `icon-512.png` | Generated. With `favicon.ico` and `apple-touch-icon.png` at the root |
 
 The mark is a diamond crossed by a bar, forming an `A` over a serif `I`. Both carry the same
-blue→violet→amber gradient — the `A` at 75% opacity so the `I` stays the focal point. That gradient
+blue→violet→amber gradient, the `A` at 75% opacity so the `I` stays the focal point. That gradient
 is the brand's one accent: it also fills the `ai` in the wordmark, in the lockup, the OG card, and
 the site header.
 
@@ -129,7 +129,7 @@ the regenerated rasters. It is not part of `build.py`. The script prefers Node w
 Look, which needs no install.
 
 Four icon files, not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers the
-manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG —
+manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG:
 Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does not list SVG, so an
 SVG-only site tends to show a generic globe in search results. `og.png` is a PNG for the same class
 of reason: several platforms don't render SVG previews.

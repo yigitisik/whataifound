@@ -130,7 +130,7 @@
         "worstRating": 1,
         "alternateName": "Independently checked by third parties"
       },
-      "reviewBody": "Computer search for combinatorial counterexamples predates this work — linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the \"AI finds counterexamples\" line of work."
+      "reviewBody": "Computer search for combinatorial counterexamples predates this work: linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the \"AI finds counterexamples\" line of work."
     },
     {
       "@type": "BreadcrumbList",
@@ -190,9 +190,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <h2 class="lbl">What was found</h2>
   <p>Each conjecture was rewritten as a scoring function on graphs. A network proposes graphs one edge at a time, the top-scoring constructions are kept, and the network is retrained on them, so the search drifts toward whatever the conjecture says should be impossible. Among the conjectures refuted are a question of Brualdi and Cao on maximising permanents of pattern-avoiding matrices and several concerning adjacency and distance eigenvalues of graphs. The counterexamples are small finite graphs printed in the paper, so each can be checked by hand or by a few lines of code.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>Computer search for combinatorial counterexamples predates this work — linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p>
+  <p>Computer search for combinatorial counterexamples predates this work: linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p>
   <h2 class="lbl">Caveats</h2>
-  <p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest — none is a named problem of the Erdős or Jacobian class — and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p>
+  <p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest (none is a named problem of the Erdős or Jacobian class), and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p>
   <h2 class="lbl">Independent checks</h2>
   <div class="checks"><p>Roucairol &amp; Cazenave, Monte Carlo search replication and extension: <em>reproduced the refutations and found further counterexamples by different search</em> · <a href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener">link ↗</a></p></div>
   <h2 class="lbl">Sources</h2>

@@ -50,7 +50,7 @@ Each entry carries two grades: `verification` (how solid the result is, `formal`
 rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
 Every finding page ends with an **"Is this graded wrong?"** link that opens a prefilled issue
-naming the entry and its current grades. Contesting a grade shouldn't require forking the repo —
+naming the entry and its current grades. Contesting a grade shouldn't require forking the repo,
 only a citation. The fix is still a pull request; the issue is where it starts.
 
 ### Why the site is pre-rendered
