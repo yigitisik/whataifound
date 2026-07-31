@@ -75,3 +75,22 @@ jobs:
           if echo "$changed" | grep -qE '^(scripts/|\.github/|app\.js|vercel\.json)'; then
             echo "::warning::This PR touches build scripts, CI, app.js or vercel.json. Review as a code change, not an entry."
           fi
+
+      # Summarise the entry changes for the reviewer. Written to a file, never posted
+      # from here: this job checks out PR code, so it stays `contents: read`. The
+      # privileged job that posts it lives in comment.yml and runs no PR code at all.
+      - name: Build PR report
+        if: github.event_name == 'pull_request'
+        run: |
+          mkdir -p pr-report
+          echo "${{ github.event.number }}" > pr-report/pr-number
+          python3 scripts/pr-report.py FETCH_HEAD > pr-report/body.md || true
+          cat pr-report/body.md
+
+      - name: Upload PR report
+        if: github.event_name == 'pull_request'
+        uses: actions/upload-artifact@v4
+        with:
+          name: pr-report
+          path: pr-report/
+          if-no-files-found: ignore

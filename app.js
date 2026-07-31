@@ -170,7 +170,7 @@ function card(e){
       </dl>
     </div>
     <div class="body">
-      <h2>${esc(e.title)}<a class="permalink" href="#e-${esc(e.id)}" data-permalink="e-${esc(e.id)}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/${esc(e.id)}">${esc(e.title)}</a><a class="permalink" href="#e-${esc(e.id)}" data-permalink="e-${esc(e.id)}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">${esc(e.claim)}</p>
       ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
       ${e.humans?.length ? `<p class="withppl"><span>With</span><b>${esc(e.humans.join(', '))}</b></p>` : ''}
@@ -304,7 +304,7 @@ function renderCharts(){
   //
   // MAXROWS is a height budget, not a ranking: everything above the tail is always kept,
   // then the tail is drawn from only to fill the card to a height that matches the topic
-  // chart beside it. Tail entries are all tied, so which ones surface is arbitrary —
+  // chart beside it. Tail entries are all tied, so which ones surface is arbitrary;
   // hence "and N more with one finding each" rather than a bare "Other", which would
   // imply the listed ones outrank the omitted ones.
   const labRows = sortDesc(tally(e=>e.lab));
@@ -338,7 +338,7 @@ function renderCharts(){
   // Order matters, and a grid row is as tall as its tallest card, so row-mates are paired
   // by similar height: fixed-height year bars with the 7-row grade breakdown, then the two
   // capped category lists together. The scatter is the analytical centrepiece, so it comes
-  // third — one grid row down, inside the opening view — rather than below four cards,
+  // third (one grid row down, inside the opening view) rather than below four cards,
   // where reaching it took a deliberate scroll.
   el.innerHTML =
     `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
@@ -445,7 +445,7 @@ function scatterCard(){
   // y-ticks from fixed round stops rather than a constant step: the axis is sqrt-scaled,
   // so an even step would bunch the upper gridlines together. The data max is always
   // labelled (the outlier should be readable, not merely implied), then round stops fill
-  // in below it — but only where they clear MINGAP pixels of their neighbours, otherwise
+  // in below it, but only where they clear MINGAP pixels of their neighbours, otherwise
   // sqrt compression prints overlapping labels like "331" over "300".
   const MINGAP = 14;
   const YSTOPS = [0,10,25,50,100,200,300,500,750,1000];
@@ -716,6 +716,11 @@ function boot(data){
   // standalone visuals page both mount it. Everything below is registry-only and is
   // skipped (via the #list guard) when app.js runs on visuals.html.
   renderCharts();
+
+  // The homepage hero has no #charts grid: its matrix is pre-rendered into the markup by
+  // build-site.py, so renderCharts() returned before reaching wireScatterTip(). Wire the
+  // plots already in the DOM instead. Guarded so the visuals page doesn't wire twice.
+  if (!document.getElementById('charts')) wireScatterTip();
 
   const updated = document.getElementById('updated');
   if (updated) updated.textContent =

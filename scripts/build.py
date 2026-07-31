@@ -31,6 +31,8 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 STEPS = [
     ("build-site.py", "pre-render site", True),
     ("build-feed.py", "generate feeds", True),
+    # Regenerated every build so the editor schema cannot fall behind data/vocab.json.
+    ("build-schema.py", "regenerate entry schema", True),
     ("verify-parity.py", "verify render parity", False),
     ("check-integrity.py", "check for smuggled markup", False),
 ]

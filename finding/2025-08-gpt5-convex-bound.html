@@ -163,8 +163,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2025-08-gpt5-convex-bound">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -186,6 +189,18 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Sébastien Bubeck</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202025-08-gpt5-convex-bound&amp;entry=2025-08-gpt5-convex-bound"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202025-08-gpt5-convex-bound&amp;entry=2025-08-gpt5-convex-bound&amp;current=verification%3A%20known%2C%20autonomy%3A%20ai-assisted"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.</p>
   <h2 class="lbl">Novelty check</h2>
@@ -198,11 +213,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=44965577" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">claim that GPT-5-pro can prove new interesting mathematics</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>already known</strong>
-  and <strong>ai-assisted</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>already known</strong>
+  and <strong>ai-assisted</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2025). <em>Improved step-size bound in smooth convex optimization.</em>

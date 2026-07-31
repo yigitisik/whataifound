@@ -169,8 +169,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2026-01-erdos-728">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -191,6 +194,18 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Date</dt><dd>2026-01-13</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the objection beside it. Bring a citation.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-01-erdos-728&amp;entry=2026-01-erdos-728&amp;current=verification%3A%20formal%2C%20autonomy%3A%20autonomous"
+         target="_blank" rel="noopener">Challenge this grade<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-01-erdos-728&amp;entry=2026-01-erdos-728"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.</p>
   <h2 class="lbl">Novelty check</h2>
@@ -203,11 +218,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">arXiv 2601.07421: Resolution of Erdős Problem #728</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Tao: AI contributions to Erdős problems</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">Tao on GPT-5.2 Pro</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>formally verified</strong>
-  and <strong>autonomous</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>formally verified</strong>
+  and <strong>autonomous</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2026). <em>Erdős problem #728 resolved and formalized in Lean.</em>

@@ -221,6 +221,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
         <path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
       </svg>
       <span class="wm">what<span class="ai">ai</span>found.org</span></span>
+    <!--NAV:START--><nav class="pagenav" aria-label="Site"><a href="/" aria-current="page">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav><!--NAV:END-->
     <span class="eyebrow-right">
       <a class="gh-icon" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source on GitHub">
         <svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
@@ -240,17 +241,27 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     </span>
   </div>
   <h1 class="intro i2">What AI has<br><span class="grad">actually discovered</span></h1>
-  <p class="lede intro i3">A curated registry of real discoveries in mathematics, physics, biology, and
-  computer science produced by or with AI systems (Anthropic, OpenAI, Deepmind, and others). We grade every
-  entry on <strong>how it was verified</strong> and <strong>how much the AI actually did</strong>,
+  <!-- Kept short on purpose: the chart below is the argument, and the hero has to end
+       above the fold. The fields and lab names this used to list are carried by the meta
+       description and the JSON-LD, so nothing is lost for search. -->
+  <p class="lede intro i3">A curated registry of real discoveries produced by or with AI, graded on
+  <strong>how each result was verified</strong> and <strong>how much the AI actually did</strong>,
   so you can tell a machine-checked proof from a press release.</p>
-  <div class="actions intro i4">
-    <a class="btn primary" href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"
-       title="Submit a finding, suggest a correction, or ask for updates">Feedback</a>
-    <a class="btn" href="visuals.html">Visuals</a>
-    <a class="btn" href="methodology.html">Methodology</a>
+  <!-- The hero leads with the data, not a button row: the two grading axes plotted against
+       each other, beside the four headline counts. The chart is pre-rendered by
+       build-site.py for the same reason the entries are (crawlers do not run JS), and
+       verify-parity.py diffs it against app.js's matrixCard() so the homepage and the
+       visuals page cannot disagree about the same 52 findings. -->
+  <div class="hero-data intro i4">
+    <div class="hero-chart">
+      <!--MATRIX:START--><div class="qv-card"><h3 class="qv-title">Evidence vs. autonomy</h3><div class="sc-wrap"><svg class="sc" viewBox="0 0 470 310" role="img" aria-label="Matrix of verification against autonomy for 52 findings. Circle area is the number of findings in each combination. Largest groups: Search scaffold and Independent / peer: 18; AI-led and Independent / peer: 10; AI-led and Author verified: 4." preserveAspectRatio="xMidYMid meet"><line x1="108" y1="223.6" x2="458" y2="223.6" class="mx-guide"/><line x1="108" y1="190.7" x2="458" y2="190.7" class="mx-guide"/><line x1="108" y1="157.9" x2="458" y2="157.9" class="mx-guide"/><line x1="108" y1="125.0" x2="458" y2="125.0" class="mx-guide"/><line x1="108" y1="92.1" x2="458" y2="92.1" class="mx-guide"/><line x1="108" y1="59.3" x2="458" y2="59.3" class="mx-guide"/><line x1="108" y1="26.4" x2="458" y2="26.4" class="mx-guide"/><line x1="108" y1="141.4" x2="458" y2="141.4" class="mx-zero"/><text x="458" y="137.4" class="mx-zlab" text-anchor="end">supports the claim ↑</text><text x="458" y="152.4" class="mx-zlab" text-anchor="end">counts against it ↓</text><text x="137.2" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 137.2 253)">Retrieval</text><text x="195.5" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 195.5 253)">Search scaffold</text><text x="253.8" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 253.8 253)">AI-assisted</text><text x="312.2" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 312.2 253)">Collaborative</text><text x="370.5" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 370.5 253)">AI-led</text><text x="428.8" y="253" class="mx-tick" text-anchor="end" transform="rotate(-35 428.8 253)">Autonomous</text><text x="99" y="227.1" class="mx-tick" text-anchor="end">Refuted</text><text x="99" y="194.2" class="mx-tick" text-anchor="end">Disputed</text><text x="99" y="161.4" class="mx-tick" text-anchor="end">Already known</text><text x="99" y="128.5" class="mx-tick" text-anchor="end">Claimed</text><text x="99" y="95.6" class="mx-tick" text-anchor="end">Author verified</text><text x="99" y="62.8" class="mx-tick" text-anchor="end">Independent / peer</text><text x="99" y="29.9" class="mx-tick" text-anchor="end">Formal</text><text x="283" y="306" class="sc-axis" text-anchor="middle">More AI-driven →</text><text x="10" y="125.0" class="sc-axis" text-anchor="middle" transform="rotate(-90 10 125.0)">Better evidence →</text><circle cx="370.5" cy="92.1" r="6.3" fill="var(--independent)" class="mx-dot" tabindex="0" role="img" data-title="AI-led · Author verified" data-aut="4 findings" data-autcol="var(--independent)" data-open="Counterexample to the Dinitz–Garg–Goemans conjecture · Counterexamples to the Gaussian moments conjecture · AI-generated bacteriophage genomes that replicate and kill bacteria · A fully machine-generated paper passed workshop peer review" aria-label="AI-led, Author verified: 4 findings."></circle><text x="370.5" y="95.6" class="mx-n" text-anchor="middle">4</text><circle cx="312.2" cy="26.4" r="4.5" fill="var(--peer)" class="mx-dot" tabindex="0" role="img" data-title="Collaborative · Formal" data-aut="2 findings" data-autcol="var(--peer)" data-open="Counterexample to the Jacobian conjecture in dimension three · Counterexample to Grothendieck's question on finite flat group schemes" aria-label="Collaborative, Formal: 2 findings."></circle><circle cx="370.5" cy="26.4" r="4.5" fill="var(--independent)" class="mx-dot" tabindex="0" role="img" data-title="AI-led · Formal" data-aut="2 findings" data-autcol="var(--independent)" data-open="Near-quadratic lower bound for derivative-free convex optimization · Machine-checked Lean proofs for five of six 2025 IMO problems" aria-label="AI-led, Formal: 2 findings."></circle><circle cx="253.8" cy="92.1" r="6.3" fill="var(--author)" class="mx-dot" tabindex="0" role="img" data-title="AI-assisted · Author verified" data-aut="4 findings" data-autcol="var(--author)" data-open="First Herculaneum scroll read end to end without unrolling it · Limits to black-box amplification in QMA, with the key step written by GPT-5 · Strong prime number theorem formalized in Lean by an autoformalization agent · AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis" aria-label="AI-assisted, Author verified: 4 findings."></circle><text x="253.8" y="95.6" class="mx-n" text-anchor="middle">4</text><circle cx="195.5" cy="26.4" r="3.5" fill="var(--disputed)" class="mx-dot" tabindex="0" role="img" data-title="Search scaffold · Formal" data-aut="1 finding" data-autcol="var(--disputed)" data-open="Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs" aria-label="Search scaffold, Formal: 1 finding."></circle><circle cx="370.5" cy="59.3" r="10.0" fill="var(--independent)" class="mx-dot" tabindex="0" role="img" data-title="AI-led · Independent / peer" data-aut="10 findings" data-autcol="var(--independent)" data-open="Disproof of the Erdős unit-distance conjecture · Gold-medal standard at the 2025 International Mathematical Olympiad · A working fluorescent protein generated by a language model · A neural decoder that identifies quantum errors more accurately than hand-designed methods · +6 more" aria-label="AI-led, Independent / peer: 10 findings."></circle><text x="370.5" y="62.8" class="mx-n" text-anchor="middle">10</text><circle cx="195.5" cy="59.3" r="13.4" fill="var(--disputed)" class="mx-dot" tabindex="0" role="img" data-title="Search scaffold · Independent / peer" data-aut="18 findings" data-autcol="var(--disputed)" data-open="Structure in Bruhat intervals of permutation groups · AlphaEvolve across 67 problems: 20 improvements, 8 regressions · Phase 2a results for a drug whose target and molecule both came from AI · 4×4 complex matrix multiplication in 48 scalar multiplications · +14 more" aria-label="Search scaffold, Independent / peer: 18 findings."></circle><text x="195.5" y="62.8" class="mx-n" text-anchor="middle">18</text><circle cx="428.8" cy="26.4" r="3.5" fill="var(--formal)" class="mx-dot" tabindex="0" role="img" data-title="Autonomous · Formal" data-aut="1 finding" data-autcol="var(--formal)" data-open="Erdős problem #728 resolved and formalized in Lean" aria-label="Autonomous, Formal: 1 finding."></circle><circle cx="253.8" cy="59.3" r="5.5" fill="var(--author)" class="mx-dot" tabindex="0" role="img" data-title="AI-assisted · Independent / peer" data-aut="3 findings" data-autcol="var(--author)" data-open="Early science acceleration experiments with GPT-5 · Complete wiring diagram of an adult fruit-fly brain · Two theorems found by machine pattern-spotting in knot theory and representation theory" aria-label="AI-assisted, Independent / peer: 3 findings."></circle><circle cx="137.2" cy="157.9" r="3.5" fill="var(--known)" class="mx-dot" tabindex="0" role="img" data-title="Retrieval · Already known" data-aut="1 finding" data-autcol="var(--known)" data-open="GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions" aria-label="Retrieval, Already known: 1 finding."></circle><circle cx="195.5" cy="92.1" r="3.5" fill="var(--disputed)" class="mx-dot" tabindex="0" role="img" data-title="Search scaffold · Author verified" data-aut="1 finding" data-autcol="var(--disputed)" data-open="New families of unstable singularities in fluid equations" aria-label="Search scaffold, Author verified: 1 finding."></circle><circle cx="253.8" cy="157.9" r="3.5" fill="var(--author)" class="mx-dot" tabindex="0" role="img" data-title="AI-assisted · Already known" data-aut="1 finding" data-autcol="var(--author)" data-open="Improved step-size bound in smooth convex optimization" aria-label="AI-assisted, Already known: 1 finding."></circle><circle cx="370.5" cy="125.0" r="3.5" fill="var(--independent)" class="mx-dot" tabindex="0" role="img" data-title="AI-led · Claimed" data-aut="1 finding" data-autcol="var(--independent)" data-open="Candidate treatment for dry age-related macular degeneration" aria-label="AI-led, Claimed: 1 finding."></circle><circle cx="195.5" cy="190.7" r="4.5" fill="var(--disputed)" class="mx-dot" tabindex="0" role="img" data-title="Search scaffold · Disputed" data-aut="2 findings" data-autcol="var(--disputed)" data-open="Generative model designs crystals to order; its flagship synthesis turned out to be a known compound · Large-scale prediction of new stable crystalline materials (GNoME)" aria-label="Search scaffold, Disputed: 2 findings."></circle><circle cx="370.5" cy="190.7" r="3.5" fill="var(--independent)" class="mx-dot" tabindex="0" role="img" data-title="AI-led · Disputed" data-aut="1 finding" data-autcol="var(--independent)" data-open="Autonomous laboratory reports solid-state synthesis of new inorganic compounds" aria-label="AI-led, Disputed: 1 finding."></circle></svg><div class="sc-tip" hidden aria-hidden="true"></div></div><p class="qv-foot">Circle area = findings in that combination. All 52 entries carry both grades.</p></div><!--MATRIX:END-->
+    </div>
+    <div class="hero-side">
+      <div class="stats" id="stats"><!--STATS:START--><div class="stat"><b data-target="52">52</b><span>Entries on record</span></div><div class="stat"><b data-target="37">37</b><span>Well verified</span></div><div class="stat"><b data-target="19">19</b><span>AI-led or autonomous</span></div><div class="stat"><b data-target="5">5</b><span>Negative or contested</span></div><!--STATS:END--></div>
+      <!--PROMO:START--><a class="hero-promo" href="/review"><b>34</b> of 52 entries have never been independently checked. <span class="hero-promo-cta">Open the review queue<span aria-hidden="true"> →</span></span></a><!--PROMO:END-->
+      <p class="hero-links"><a class="btn primary" href="visuals.html">See the data<span aria-hidden="true"> →</span></a><a class="btn" href="methodology.html">Methodology</a></p>
+    </div>
   </div>
-  <div class="stats" id="stats"><!--STATS:START--><div class="stat"><b data-target="52">52</b><span>Entries on record</span></div><div class="stat"><b data-target="37">37</b><span>Well verified</span></div><div class="stat"><b data-target="19">19</b><span>AI-led or autonomous</span></div><div class="stat"><b data-target="5">5</b><span>Negative or contested</span></div><!--STATS:END--></div>
 </header>
 
 <div id="panel-registry">
@@ -283,7 +294,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Counterexample to the Dinitz–Garg–Goemans conjecture<a class="permalink" href="#e-2026-07-22-dinitz-garg-goemans" data-permalink="e-2026-07-22-dinitz-garg-goemans" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-07-22-dinitz-garg-goemans">Counterexample to the Dinitz–Garg–Goemans conjecture</a><a class="permalink" href="#e-2026-07-22-dinitz-garg-goemans" data-permalink="e-2026-07-22-dinitz-garg-goemans" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s.</p>
       <p class="detail">Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.</p>
       <p class="withppl"><span>With</span><b>Dmitry Rybin</b></p>
@@ -315,7 +326,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Counterexamples to the Gaussian moments conjecture<a class="permalink" href="#e-2026-07-20-gaussian-moments" data-permalink="e-2026-07-20-gaussian-moments" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-07-20-gaussian-moments">Counterexamples to the Gaussian moments conjecture</a><a class="permalink" href="#e-2026-07-20-gaussian-moments" data-permalink="e-2026-07-20-gaussian-moments" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved.</p>
       <p class="detail">Derksen, van den Essen and Zhao proposed the Gaussian moments conjecture and showed that the Jacobian conjecture would follow from it. Long reports that a cubic counterexample in four variables was produced by GPT-5.6 Sol Pro with no human intervention after the initial prompt, which simply noted that the Jacobian conjecture had just been disproved and asked whether a small counterexample to GMC might therefore exist; Claude Fable 5 then found a quartic counterexample in three variables and supplied independent algebraic checks. Together these show GMC(n) is false for every n ≥ 3.</p>
       <p class="withppl"><span>With</span><b>Christopher D. Long</b></p>
@@ -347,7 +358,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Counterexample to the Jacobian conjecture in dimension three<a class="permalink" href="#e-2026-07-19-jacobian-conjecture" data-permalink="e-2026-07-19-jacobian-conjecture" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-07-19-jacobian-conjecture">Counterexample to the Jacobian conjecture in dimension three</a><a class="permalink" href="#e-2026-07-19-jacobian-conjecture" data-permalink="e-2026-07-19-jacobian-conjecture" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939.</p>
       <p class="detail">The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.</p>
       <p class="withppl"><span>With</span><b>Levent Alpöge</b></p>
@@ -379,7 +390,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Near-quadratic lower bound for derivative-free convex optimization<a class="permalink" href="#e-2026-07-14-zeroth-order-oracle-bound" data-permalink="e-2026-07-14-zeroth-order-oracle-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-07-14-zeroth-order-oracle-bound">Near-quadratic lower bound for derivative-free convex optimization</a><a class="permalink" href="#e-2026-07-14-zeroth-order-oracle-bound" data-permalink="e-2026-07-14-zeroth-order-oracle-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal.</p>
       <p class="detail">In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.</p>
       <p class="withppl"><span>With</span><b>Phillip Kerger</b></p>
@@ -411,7 +422,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Counterexample to Grothendieck's question on finite flat group schemes<a class="permalink" href="#e-2026-07-11-grothendieck-group-schemes" data-permalink="e-2026-07-11-grothendieck-group-schemes" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-07-11-grothendieck-group-schemes">Counterexample to Grothendieck's question on finite flat group schemes</a><a class="permalink" href="#e-2026-07-11-grothendieck-group-schemes" data-permalink="e-2026-07-11-grothendieck-group-schemes" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A finite locally free group scheme of order four whose fourth power map is not trivial, answering a question Grothendieck raised in the 1960s; one model produced the construction and another formalised it in Lean.</p>
       <p class="detail">Grothendieck asked whether every finite locally free group scheme of order n is killed by n. Deligne proved it for commutative group schemes; the non-commutative case stayed open. The counterexample is a Hopf algebra of rank four over the ring Z[a,b]/(a³, b³, a²b+2), with coordinate algebra R[U,V]/(U² − abU + b²V, V² − a²V), whose fourth convolution power is not the convolution unit. Kevin Buzzard, told of a 12-page informal write-up, replied that he does not read AI-generated informal mathematics and asked for a Lean proof instead; four hours later a 1,076-line Lean formalisation existed, and it compiles on a laptop in under five minutes. It was submitted to mathlib as pull request #41748.</p>
       <p class="withppl"><span>With</span><b>Akhil Mathew, Kevin Buzzard</b></p>
@@ -443,15 +454,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>First Herculaneum scroll read end to end without unrolling it<a class="permalink" href="#e-2026-06-25-herculaneum-scroll-read" data-permalink="e-2026-06-25-herculaneum-scroll-read" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
-      <p class="claim">PHerc. 1667 was virtually unwrapped and read in full from X-ray scans using learned ink detection — about 1.4 metres of papyrus across roughly 22 columns of Greek, identified as Philodemus, On Gods, Book 8.</p>
+      <h2><a class="entry-link" href="/finding/2026-06-25-herculaneum-scroll-read">First Herculaneum scroll read end to end without unrolling it</a><a class="permalink" href="#e-2026-06-25-herculaneum-scroll-read" data-permalink="e-2026-06-25-herculaneum-scroll-read" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">PHerc. 1667 was virtually unwrapped and read in full from X-ray scans using learned ink detection: about 1.4 metres of papyrus across roughly 22 columns of Greek, identified as Philodemus, On Gods, Book 8.</p>
       <p class="detail">The Herculaneum scrolls were carbonised by the AD 79 eruption of Vesuvius and disintegrate if physically unrolled. The pipeline scans a scroll by X-ray tomography, traces the rolled sheet as a three-dimensional surface, flattens it, and runs a network that detects near-invisible carbon ink from sub-millimetre surface texture. Luke Farritor's model recovered the first word, πορφύρας (&quot;purple&quot;), in October 2023, and the 2023 Grand Prize for four passages of 140 characters was claimed in February 2024. In June 2026, PHerc. 1667 became the first scroll recovered continuously from beginning to end, and a title read in a related scroll established that Philodemus' On Gods ran to at least eight books.</p>
       <p class="withppl"><span>With</span><b>Brent Seales, Luke Farritor, Youssef Nader, Julian Schilliger</b></p>
       <div class="tags"><span class="tag-chip">papyrology</span><span class="tag-chip">virtual-unwrapping</span><span class="tag-chip">ink-detection</span><span class="tag-chip">ancient-texts</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Virtual unwrapping itself is older — Seales read the En-Gedi scroll in 2015 — but that worked because its ink contained metal and showed up in X-ray. Herculaneum ink is carbon-based and nearly invisible to tomography, which is why the ink signal had to be learned from texture instead of density. No Herculaneum scroll had been read by any method before this programme.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>Readings are probabilistic reconstructions from a learned ink signal, not photographs of text: characters come with varying confidence and papyrologists supply conventional editorial restoration on top. The project's papyrology team reviews prize submissions, but that team is part of the challenge rather than an outside body, and no peer-reviewed critical edition of PHerc. 1667 had appeared when this entry was written — hence author-verified rather than independent. The attribution to Philodemus rests on a title read in a different scroll.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Virtual unwrapping itself is older (Seales read the En-Gedi scroll in 2015), but that worked because its ink contained metal and showed up in X-ray. Herculaneum ink is carbon-based and nearly invisible to tomography, which is why the ink signal had to be learned from texture instead of density. No Herculaneum scroll had been read by any method before this programme.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Readings are probabilistic reconstructions from a learned ink signal, not photographs of text: characters come with varying confidence and papyrologists supply conventional editorial restoration on top. The project's papyrology team reviews prize submissions, but that team is part of the challenge rather than an outside body, and no peer-reviewed critical edition of PHerc. 1667 had appeared when this entry was written, hence author-verified rather than independent. The attribution to Philodemus rests on a title read in a different scroll.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://scrollprize.org/firstscroll" target="_blank" rel="noopener"><span class="ref-dom">scrollprize.org</span><span class="ref-t">Vesuvius Challenge: An entire Herculaneum scroll has been read for the first time</span><span class="ref-a">↗</span></a><a class="ref" href="https://scrollprize.org/" target="_blank" rel="noopener"><span class="ref-dom">scrollprize.org</span><span class="ref-t">Vesuvius Challenge</span><span class="ref-a">↗</span></a></div></div>
         
@@ -475,7 +486,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs<a class="permalink" href="#e-2026-05-21-alphaproof-nexus" data-permalink="e-2026-05-21-alphaproof-nexus" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-05-21-alphaproof-nexus">Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs</a><a class="permalink" href="#e-2026-05-21-alphaproof-nexus" data-permalink="e-2026-05-21-alphaproof-nexus" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An agent pairing language models with the Lean proof assistant resolved 9 of 353 open Erdős problems and 44 of 492 open OEIS conjectures, with every proof mechanically verified.</p>
       <p class="detail">The system proposes proofs with a language model and checks every step in Lean, so a hallucinated argument cannot pass. Beyond the Erdős and OEIS totals it settled a 15-year-old question on log-concavity of pure O-sequences in codimension 3 and type 2, and proved an exact O(1/t) convergence rate for anchored gradient descent-ascent via a parameter choice not previously identified. Two of the Erdős problems had been open for 56 years. All formal proofs were released in a public repository.</p>
       <p class="withppl"><span>With</span><b>Pushmeet Kohli, Swarat Chaudhuri</b></p>
@@ -507,7 +518,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Disproof of the Erdős unit-distance conjecture<a class="permalink" href="#e-2026-05-erdos-unit-distance" data-permalink="e-2026-05-erdos-unit-distance" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-05-erdos-unit-distance">Disproof of the Erdős unit-distance conjecture</a><a class="permalink" href="#e-2026-05-erdos-unit-distance" data-permalink="e-2026-05-erdos-unit-distance" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A reasoning model produced the core construction disproving a 1946 conjecture in discrete geometry, finding point configurations with more unit-distance pairs than the conjecture permitted.</p>
       <p class="detail">The model found configurations showing the unit-distance count can grow at least as fast as n^1.014, exceeding the conjectured bound. Checked by external mathematicians including Fields Medalist Timothy Gowers, who called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'</p>
       
@@ -539,7 +550,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Structure in Bruhat intervals of permutation groups<a class="permalink" href="#e-2026-01-alphaevolve-bruhat" data-permalink="e-2026-01-alphaevolve-bruhat" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-01-alphaevolve-bruhat">Structure in Bruhat intervals of permutation groups</a><a class="permalink" href="#e-2026-01-alphaevolve-bruhat" data-permalink="e-2026-01-alphaevolve-bruhat" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaEvolve identified unexpected special structure in Bruhat intervals for particular permutation groups.</p>
       <p class="detail">Part of a continuing series of AlphaEvolve results in combinatorics. The system evolves candidate programs under a human-specified evaluation function, so the search is automated but the problem framing is human.</p>
       
@@ -571,7 +582,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Erdős problem #728 resolved and formalized in Lean<a class="permalink" href="#e-2026-01-erdos-728" data-permalink="e-2026-01-erdos-728" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2026-01-erdos-728">Erdős problem #728 resolved and formalized in Lean</a><a class="permalink" href="#e-2026-01-erdos-728" data-permalink="e-2026-01-erdos-728" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">GPT-5.2 produced a proof of a previously open Erdős problem; Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with machine-checked proof.</p>
       <p class="detail">The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.</p>
       
@@ -603,7 +614,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Early science acceleration experiments with GPT-5<a class="permalink" href="#e-2025-11-gpt5-science-acceleration" data-permalink="e-2025-11-gpt5-science-acceleration" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-11-gpt5-science-acceleration">Early science acceleration experiments with GPT-5</a><a class="permalink" href="#e-2025-11-gpt5-science-acceleration" data-permalink="e-2025-11-gpt5-science-acceleration" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science.</p>
       <p class="detail">A collection of case studies rather than a single result. Useful as a source of individual entries; each contained claim needs separate grading before it belongs in the registry on its own.</p>
       
@@ -635,7 +646,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>AlphaEvolve across 67 problems: 20 improvements, 8 regressions<a class="permalink" href="#e-2025-11-03-alphaevolve-at-scale" data-permalink="e-2025-11-03-alphaevolve-at-scale" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-11-03-alphaevolve-at-scale">AlphaEvolve across 67 problems: 20 improvements, 8 regressions</a><a class="permalink" href="#e-2025-11-03-alphaevolve-at-scale" data-permalink="e-2025-11-03-alphaevolve-at-scale" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A systematic study with Terence Tao of an evolutionary coding agent on 67 open problems in analysis, combinatorics and geometry, reporting where it beat the literature and where it did not.</p>
       <p class="detail">Rather than a single headline result, this is the systematic version: 67 problems attempted, with outcomes recorded either way. Tao reports roughly 20 cases of a new result, most others matching known bounds, and 8 where the tool did worse than the literature. Genuine advances include new three-dimensional constructions for finite-field Nikodym sets, which then prompted a human-refined hybrid construction beating both algebraic and random baselines, and an improved upper bound for Sidon sets, from 1.96365 to about 1.9526. On the well-known conjectures of Sidorenko, Sendov and Crouzeix it found no counterexample, which Tao notes may simply reflect that they are true.</p>
       <p class="withppl"><span>With</span><b>Terence Tao, Javier Gómez-Serrano, Bogdan Georgiev, Adam Zsolt Wagner</b></p>
@@ -667,7 +678,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions<a class="permalink" href="#e-2025-10-19-gpt5-erdos-retrieval" data-permalink="e-2025-10-19-gpt5-erdos-retrieval" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-10-19-gpt5-erdos-retrieval">GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions</a><a class="permalink" href="#e-2025-10-19-gpt5-erdos-retrieval" data-permalink="e-2025-10-19-gpt5-erdos-retrieval" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more; the problems were only 'open' in the sense that one database maintainer was unaware of the already-published solutions the model surfaced.</p>
       <p class="detail">OpenAI VP Kevin Weil posted that 'GPT-5 found solutions to 10 (!) previously unsolved Erdős problems.' Thomas Bloom, who maintains erdosproblems.com, replied that listing a problem as open there only means he personally was unaware of a solution, and that GPT-5 had found existing papers containing the solutions rather than proving anything new. The post was deleted; Demis Hassabis called the episode 'embarrassing' and Yann LeCun mocked it.</p>
       
@@ -699,14 +710,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Limits to black-box amplification in QMA, with the key step written by GPT-5<a class="permalink" href="#e-2025-09-25-qma-amplification-limits" data-permalink="e-2025-09-25-qma-amplification-limits" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-09-25-qma-amplification-limits">Limits to black-box amplification in QMA, with the key step written by GPT-5</a><a class="permalink" href="#e-2025-09-25-qma-amplification-limits" data-permalink="e-2025-09-25-qma-amplification-limits" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A quantum complexity paper proving black-box error amplification for QMA cannot push completeness closer to certainty than doubly exponentially, in which the pivotal technical step was produced by GPT-5 in about half an hour.</p>
       <p class="detail">The authors were stuck on how the largest eigenvalue of a matrix behaved as a parameter varied. GPT-5 proposed reformulating the quantity so that a complex approximation-theory bound applied, and that reformulation became the technical core of the oracle separation. Aaronson wrote that the step would have cost him or a graduate student a couple of weeks and that it was the first substantive AI contribution to a paper of his. The result makes his 2008 oracle separation quantitative and shows recent amplification results are optimal for black-box procedures.</p>
       <p class="withppl"><span>With</span><b>Scott Aaronson, Freek Witteveen</b></p>
       <div class="tags"><span class="tag-chip">quantum-complexity</span><span class="tag-chip">proof-assistance</span><span class="tag-chip">oracle-separation</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>The theorem extends Aaronson's 2008 QMA oracle separation and a 2025 result of Jeffery and Witteveen; no prior bound of this form on black-box amplification appears in the literature. The AI contribution is documented in the paper's acknowledgements and on Aaronson's own blog, not inferred from press coverage — which matters, because most &quot;AI proved a theorem&quot; stories are not.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>The theorem extends Aaronson's 2008 QMA oracle separation and a 2025 result of Jeffery and Witteveen; no prior bound of this form on black-box amplification appears in the literature. The AI contribution is documented in the paper's acknowledgements and on Aaronson's own blog, not inferred from press coverage. That matters, because most &quot;AI proved a theorem&quot; stories are not.</p></div>
         <div class="field reveal"><b>Caveats</b><p>An arXiv preprint. The contribution is one lemma inside a human-conceived and human-written paper; Aaronson is explicit that the model did not pose the problem or design the argument and that he could have done the step himself given time. Autonomy is ai-assisted, which stays the right grade even though the step was pivotal.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2509.21131" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Limits to black-box amplification in QMA</span><span class="ref-a">↗</span></a><a class="ref" href="https://scottaaronson.blog/?p=9183" target="_blank" rel="noopener"><span class="ref-dom">scottaaronson.blog</span><span class="ref-t">Scott Aaronson: The QMA Singularity</span><span class="ref-a">↗</span></a></div></div>
@@ -731,7 +742,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>New families of unstable singularities in fluid equations<a class="permalink" href="#e-2025-09-17-unstable-singularities" data-permalink="e-2025-09-17-unstable-singularities" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-09-17-unstable-singularities">New families of unstable singularities in fluid equations</a><a class="permalink" href="#e-2025-09-17-unstable-singularities" data-permalink="e-2025-09-17-unstable-singularities" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Physics-informed neural networks found previously unknown unstable self-similar blow-up solutions for three fluid equations, computed to near machine precision, and revealed an unexpected near-linear relation between a solution's instability order and its blow-up rate.</p>
       <p class="detail">A physics-informed neural network minimises the residual of the differential equation itself rather than fitting data, which lets it hunt for self-similar blow-up profiles that ordinary simulation cannot hold onto because they are repelling. The team reports a stable and three unstable singularities for the incompressible porous media equation, a stable and three unstable solutions plus a candidate fourth for 2D Boussinesq, and an unstable singularity for 3D Euler with boundary. Residuals were driven near machine precision, the accuracy level a later computer-assisted proof would need. Across equations the blow-up rate depends almost linearly on the order of instability, a pattern nobody had predicted.</p>
       <p class="withppl"><span>With</span><b>Javier Gómez-Serrano, Tristan Buckmaster, Ching-Yao Lai, Yongji Wang</b></p>
@@ -739,7 +750,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         <div class="field reveal"><b>Novelty check</b><p>Stable self-similar blow-up for these equations was already known, including Chen and Hou's computer-assisted proof for 3D Euler with boundary. Unstable singularities had been found only in isolated cases because they are numerically repelling; no systematic families existed in the literature. This is the first paper to produce several unstable families across three different equations by one method.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>An arXiv preprint, not peer reviewed at the time of this entry. These are high-precision numerical solutions, not theorems: converting them into proofs requires a computer-assisted verification step the paper leaves to future work. No singularity for 3D Navier–Stokes — the Millennium Prize problem — is claimed, and the equations studied are not that one. Autonomy is search-scaffold: the equations, the self-similar ansatz and the loss function are human-designed and the network is the solver.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>An arXiv preprint, not peer reviewed at the time of this entry. These are high-precision numerical solutions, not theorems: converting them into proofs requires a computer-assisted verification step the paper leaves to future work. No singularity for 3D Navier–Stokes, the Millennium Prize problem, is claimed, and the equations studied are not that one. Autonomy is search-scaffold: the equations, the self-similar ansatz and the loss function are human-designed and the network is the solver.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2509.14185" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Discovery of Unstable Singularities</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/discovering-new-solutions-to-century-old-problems-in-fluid-dynamics/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Discovering new solutions to century-old problems in fluid dynamics</span><span class="ref-a">↗</span></a><a class="ref" href="https://physicsworld.com/a/neural-networks-discover-unstable-singularities-in-fluid-systems/" target="_blank" rel="noopener"><span class="ref-dom">physicsworld.com</span><span class="ref-t">Physics World: Neural networks discover unstable singularities in fluid systems</span><span class="ref-a">↗</span></a></div></div>
         
@@ -763,7 +774,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>AI-generated bacteriophage genomes that replicate and kill bacteria<a class="permalink" href="#e-2025-09-17-evo-phage-genomes" data-permalink="e-2025-09-17-evo-phage-genomes" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-09-17-evo-phage-genomes">AI-generated bacteriophage genomes that replicate and kill bacteria</a><a class="permalink" href="#e-2025-09-17-evo-phage-genomes" data-permalink="e-2025-09-17-evo-phage-genomes" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Genome language models wrote complete ΦX174-like bacteriophage genomes from scratch; of 285 designs that could be built, 16 produced viable infectious phages, several with faster lysis than the natural virus.</p>
       <p class="detail">The team fine-tuned Evo 1 and Evo 2 on a cleaned set of nearly 15,000 Microviridae genomes, generated 302 candidate genomes with ΦX174-like architecture, chemically synthesised the 285 that could be assembled, and tested them for plaque formation in E. coli. Sixteen were viable, with substantial sequence divergence from the template. Several generated phages outcompeted wild-type ΦX174 in growth and lysis kinetics, and a cocktail of them cleared three ΦX174-resistant E. coli strains. The authors frame it as the first generative design of a complete functional genome.</p>
       <p class="withppl"><span>With</span><b>Samuel King, Brian Hie</b></p>
@@ -795,7 +806,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Strong prime number theorem formalized in Lean by an autoformalization agent<a class="permalink" href="#e-2025-09-11-gauss-strong-pnt" data-permalink="e-2025-09-11-gauss-strong-pnt" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-09-11-gauss-strong-pnt">Strong prime number theorem formalized in Lean by an autoformalization agent</a><a class="permalink" href="#e-2025-09-11-gauss-strong-pnt" data-permalink="e-2025-09-11-gauss-strong-pnt" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An agent completed a Lean formalization of the strong prime number theorem in about three weeks, finishing a project two expert mathematicians had left blocked after 18 months.</p>
       <p class="detail">Tao and Kontorovich began a Lean formalization of the strong prime number theorem (the version with an explicit error term) in January 2024, and by July 2025 had announced intermediate progress blocked on core difficulties in complex analysis. Math, Inc. reports that Gauss produced over 25,000 lines of Lean and roughly 1,100 theorems and definitions in about three weeks, completing the project. The repository README states that most statements and proofs were produced by the agent, with humans supplying the high-level blueprint, reviewing key lemmas, and adapting prior work.</p>
       <p class="withppl"><span>With</span><b>Terence Tao, Alex Kontorovich</b></p>
@@ -827,7 +838,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Improved step-size bound in smooth convex optimization<a class="permalink" href="#e-2025-08-gpt5-convex-bound" data-permalink="e-2025-08-gpt5-convex-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-08-gpt5-convex-bound">Improved step-size bound in smooth convex optimization</a><a class="permalink" href="#e-2025-08-gpt5-convex-bound" data-permalink="e-2025-08-gpt5-convex-bound" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">GPT-5 Pro extended a guaranteed-convexity window for gradient descent from η ≤ 1/L to η ≤ 1.5/L, but the optimal 1.75/L bound had already been published months earlier.</p>
       <p class="detail">Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.</p>
       <p class="withppl"><span>With</span><b>Sébastien Bubeck</b></p>
@@ -859,14 +870,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Machine-checked Lean proofs for five of six 2025 IMO problems<a class="permalink" href="#e-2025-07-28-aristotle-imo-lean" data-permalink="e-2025-07-28-aristotle-imo-lean" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-07-28-aristotle-imo-lean">Machine-checked Lean proofs for five of six 2025 IMO problems</a><a class="permalink" href="#e-2025-07-28-aristotle-imo-lean" data-permalink="e-2025-07-28-aristotle-imo-lean" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Harmonic's Aristotle produced formally verified Lean 4 proofs for five of the six 2025 IMO problems, so the gold-medal-standard score rests on a compiler rather than on human graders.</p>
       <p class="detail">Aristotle drafts an informal proof, breaks it into intermediate lemmas, formalises each in Lean 4, and iterates against the compiler's feedback, which lets it use the large natural-language corpus of mathematics while still emitting machine-checked output. Harmonic published the Lean artifacts for the 2025 problems in a public repository. The announcement came a week after the natural-language gold results from Google DeepMind and OpenAI.</p>
       
       <div class="tags"><span class="tag-chip">olympiad</span><span class="tag-chip">lean</span><span class="tag-chip">formalization</span><span class="tag-chip">benchmark</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Formal IMO results are not new — AlphaProof solved three 2024 problems in Lean — but a gold-medal-level score with a formal proof for every claimed solution had not been reported. The problems have published official solutions, so this is a capability milestone rather than new mathematics.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Formal IMO results are not new (AlphaProof solved three 2024 problems in Lean), but a gold-medal-level score with a formal proof for every claimed solution had not been reported. The problems have published official solutions, so this is a capability milestone rather than new mathematics.</p></div>
         <div class="field reveal"><b>Caveats</b><p>Problems had to be stated formally in Lean before the system could attempt them, the same human step that capped AlphaProof's autonomy grade. Answer-construction problems require the answer to appear in the formal statement, a known weakness of formal olympiad evaluation. No IMO-certified grading and no independently enforced contest time limit. The `formal` grade covers the proofs Aristotle produced, not the claim that this equals a human gold medal.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2510.01346" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Aristotle: IMO-level Automated Theorem Proving</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/harmonic-ai/IMO2025" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">harmonic-ai/IMO2025: Lean proofs and verification artifacts</span><span class="ref-a">↗</span></a></div></div>
@@ -891,15 +902,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Gold-medal standard at the 2025 International Mathematical Olympiad<a class="permalink" href="#e-2025-07-21-gemini-deepthink-imo" data-permalink="e-2025-07-21-gemini-deepthink-imo" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
-      <p class="claim">An advanced version of Gemini Deep Think read the official problem statements and wrote natural-language proofs for five of the six 2025 IMO problems inside the contest time limits, scoring 35 of 42 — graded and certified by the official IMO coordinators.</p>
+      <h2><a class="entry-link" href="/finding/2025-07-21-gemini-deepthink-imo">Gold-medal standard at the 2025 International Mathematical Olympiad</a><a class="permalink" href="#e-2025-07-21-gemini-deepthink-imo" data-permalink="e-2025-07-21-gemini-deepthink-imo" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <p class="claim">An advanced version of Gemini Deep Think read the official problem statements and wrote natural-language proofs for five of the six 2025 IMO problems inside the contest time limits, scoring 35 of 42, graded and certified by the official IMO coordinators.</p>
       <p class="detail">The model worked end to end in natural language within the two 4.5-hour sessions, with no human translating problems into a formal language, and solved problems one through five. Google DeepMind was in the first cohort whose results were officially graded and certified by IMO coordinators against the rubric used for student scripts; 35 points is the gold-medal threshold. OpenAI announced the same 35/42 score two days earlier with an experimental reasoning model, graded internally by three former IMO medallists rather than by the IMO.</p>
       
       <div class="tags"><span class="tag-chip">olympiad</span><span class="tag-chip">benchmark</span><span class="tag-chip">natural-language-proof</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         <div class="field reveal"><b>Novelty check</b><p>IMO problems have published official solutions, so this is a capability milestone rather than a new mathematical result, and the registry records it as one. The prior best was AlphaProof and AlphaGeometry 2's 28/42 in 2024, which required humans to hand-translate each problem into Lean first; removing that step is the substantive change.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>Benchmark performance on problems with known answers, not a discovery. Google's own account describes training on a curated corpus of high-quality solutions and providing general guidance on how to approach IMO problems, which is human mathematical input beyond posing the problem — hence ai-led rather than autonomous. Problem six went unsolved. The parallel OpenAI claim is self-graded and not IMO-certified, and drew criticism for being published before the closing ceremony, which organisers had asked AI developers to wait for.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>Benchmark performance on problems with known answers, not a discovery. Google's own account describes training on a curated corpus of high-quality solutions and providing general guidance on how to approach IMO problems, which is human mathematical input beyond posing the problem, hence ai-led rather than autonomous. Problem six went unsolved. The parallel OpenAI claim is self-graded and not IMO-certified, and drew criticism for being published before the closing ceremony, which organisers had asked AI developers to wait for.</p></div>
         <div class="field checks reveal"><b>Independent checks</b><p>Official IMO coordinators (certified grading): <em>35/42, gold-medal standard</em> · <a href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Gemini with Deep Think officially achieves gold-medal standard at the IMO</span><span class="ref-a">↗</span></a><a class="ref" href="https://simonwillison.net/2025/Jul/19/openai-gold-medal-math-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">simonwillison.net</span><span class="ref-t">Simon Willison: OpenAI's gold medal performance on the IMO</span><span class="ref-a">↗</span></a></div></div>
         
@@ -923,7 +934,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Phase 2a results for a drug whose target and molecule both came from AI<a class="permalink" href="#e-2025-06-03-rentosertib-phase2a" data-permalink="e-2025-06-03-rentosertib-phase2a" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-06-03-rentosertib-phase2a">Phase 2a results for a drug whose target and molecule both came from AI</a><a class="permalink" href="#e-2025-06-03-rentosertib-phase2a" data-permalink="e-2025-06-03-rentosertib-phase2a" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Rentosertib, a TNIK inhibitor whose target was picked by one AI system and whose molecule was generated by another, improved forced vital capacity by 98.4 mL at the top dose against a 20.3 mL decline on placebo in a 71-patient randomised trial.</p>
       <p class="detail">TNIK was prioritised as a fibrosis target by PandaOmics from omics and literature data; the inhibitor was generated and optimised by Chemistry42. GENESIS-IPF was a 12-week double-blind placebo-controlled Phase 2a across 22 sites in China, randomising 71 idiopathic pulmonary fibrosis patients across placebo and three dose arms. The 60 mg once-daily arm showed the largest lung-function improvement, and the drug was generally well tolerated. Published in Nature Medicine.</p>
       
@@ -955,7 +966,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>4×4 complex matrix multiplication in 48 scalar multiplications<a class="permalink" href="#e-2025-05-alphaevolve-matmul" data-permalink="e-2025-05-alphaevolve-matmul" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-05-alphaevolve-matmul">4×4 complex matrix multiplication in 48 scalar multiplications</a><a class="permalink" href="#e-2025-05-alphaevolve-matmul" data-permalink="e-2025-05-alphaevolve-matmul" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaEvolve found a scheme multiplying 4×4 complex matrices with 48 scalar multiplications, improving on Strassen's 49 from 1969.</p>
       <p class="detail">Strassen's 1969 algorithm had stood at 49 multiplications for 56 years in this setting. AlphaEvolve was not purpose-built for matrix multiplication; it is a general evolutionary coding agent. The scheme is exactly checkable.</p>
       
@@ -987,7 +998,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Improved lower bound for the 11-dimensional kissing number<a class="permalink" href="#e-2025-05-alphaevolve-kissing" data-permalink="e-2025-05-alphaevolve-kissing" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-05-alphaevolve-kissing">Improved lower bound for the 11-dimensional kissing number</a><a class="permalink" href="#e-2025-05-alphaevolve-kissing" data-permalink="e-2025-05-alphaevolve-kissing" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaEvolve improved the best known configuration for the kissing number problem in 11 dimensions.</p>
       <p class="detail">Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.</p>
       
@@ -1019,7 +1030,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Improved bound for the Erdős minimum-overlap problem<a class="permalink" href="#e-2025-05-alphaevolve-minimum-overlap" data-permalink="e-2025-05-alphaevolve-minimum-overlap" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-05-alphaevolve-minimum-overlap">Improved bound for the Erdős minimum-overlap problem</a><a class="permalink" href="#e-2025-05-alphaevolve-minimum-overlap" data-permalink="e-2025-05-alphaevolve-minimum-overlap" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaEvolve nudged the best known bound for Erdős's minimum-overlap constant, the first improvement since 2016, and sharpened several autocorrelation inequalities.</p>
       <p class="detail">As part of a sweep across open problems in mathematical analysis, AlphaEvolve improved the upper bound on the Erdős minimum-overlap constant from about 0.380927 to about 0.380924, the first movement since 2016, and improved constants in autocorrelation inequalities. The gains are numerically small but exceed long-standing records, and the constructions are explicit and checkable.</p>
       
@@ -1051,7 +1062,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Candidate treatment for dry age-related macular degeneration<a class="permalink" href="#e-2025-robin-macular" data-permalink="e-2025-robin-macular" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-robin-macular">Candidate treatment for dry age-related macular degeneration</a><a class="permalink" href="#e-2025-robin-macular" data-permalink="e-2025-robin-macular" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.</p>
       <p class="detail">Presented as an end-to-end automated discovery loop with humans executing the physical experiments.</p>
       
@@ -1083,9 +1094,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>A fully machine-generated paper passed workshop peer review<a class="permalink" href="#e-2025-03-12-ai-scientist-workshop-paper" data-permalink="e-2025-03-12-ai-scientist-workshop-paper" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-03-12-ai-scientist-workshop-paper">A fully machine-generated paper passed workshop peer review</a><a class="permalink" href="#e-2025-03-12-ai-scientist-workshop-paper" data-permalink="e-2025-03-12-ai-scientist-workshop-paper" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">One of three end-to-end AI-generated manuscripts submitted to an ICLR 2025 workshop averaged 6.33 from reviewers and would have been accepted; the authors withdrew it, and the bar cleared was a workshop track, not the main conference.</p>
-      <p class="detail">The AI Scientist-v2 generates a hypothesis, writes and runs the experiments through agentic tree search, and produces the manuscript, figures and related work without human editing. Sakana submitted three such papers to the ICLR 2025 workshop &quot;I Can't Believe It's Not Better&quot;, with the knowledge and cooperation of the workshop organisers and ICLR leadership, and agreed in advance to withdraw anything accepted. One paper — on whether an explicit compositional regularisation term improves compositional generalisation — scored 6.33 and cleared the bar.</p>
+      <p class="detail">The AI Scientist-v2 generates a hypothesis, writes and runs the experiments through agentic tree search, and produces the manuscript, figures and related work without human editing. Sakana submitted three such papers to the ICLR 2025 workshop &quot;I Can't Believe It's Not Better&quot;, with the knowledge and cooperation of the workshop organisers and ICLR leadership, and agreed in advance to withdraw anything accepted. One paper, on whether an explicit compositional regularisation term improves compositional generalisation, scored 6.33 and cleared the bar.</p>
       
       <div class="tags"><span class="tag-chip">autonomous-research</span><span class="tag-chip">peer-review</span><span class="tag-chip">agents</span><span class="tag-chip">contested</span></div>
       <details>
@@ -1093,7 +1104,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
         <div class="field reveal"><b>Novelty check</b><p>Machine-written text had passed review before in the form of nonsense-generator stings (SCIgen, 2005), which tested review rather than produced research. The claim here is different: an autonomous pipeline produced a real experimental paper that reviewers rated acceptable. Sakana's own write-up is the source for the process, and the code and submitted manuscripts are public.</p></div>
         <div class="field reveal"><b>Caveats</b><p>Workshop tracks accept a far higher share of submissions than the main conference, and Sakana says so itself; the company also notes the accepted paper contains a citation error and that its own reviewers judged the work below the main-conference bar. The paper's scientific content is a negative result: the proposed regularisation did not help. Reviewers were not told which submissions were machine-generated, but the experiment ran with organiser consent, so this is not a blind test of peer review at scale. Humans chose the venue and selected which generated papers to submit, which caps autonomy at ai-led.</p></div>
         
-        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://sakana.ai/ai-scientist-first-publication/" target="_blank" rel="noopener"><span class="ref-dom">sakana.ai</span><span class="ref-t">Sakana AI: The AI Scientist generates its first peer-reviewed publication</span><span class="ref-a">↗</span></a><a class="ref" href="https://techcrunch.com/2025/03/12/sakana-claims-its-ai-paper-passed-peer-review-but-its-a-bit-more-nuanced-than-that/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">Sakana claims its AI paper passed peer review — it's more nuanced than that</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment (manuscripts and reviews)</span><span class="ref-a">↗</span></a></div></div>
+        <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://sakana.ai/ai-scientist-first-publication/" target="_blank" rel="noopener"><span class="ref-dom">sakana.ai</span><span class="ref-t">Sakana AI: The AI Scientist generates its first peer-reviewed publication</span><span class="ref-a">↗</span></a><a class="ref" href="https://techcrunch.com/2025/03/12/sakana-claims-its-ai-paper-passed-peer-review-but-its-a-bit-more-nuanced-than-that/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">Sakana claims its AI paper passed peer review (it's more nuanced than that)</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment (manuscripts and reviews)</span><span class="ref-a">↗</span></a></div></div>
         
         
       </details>
@@ -1115,7 +1126,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis<a class="permalink" href="#e-2025-02-ai-coscientist-amr" data-permalink="e-2025-02-ai-coscientist-amr" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-02-ai-coscientist-amr">AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis</a><a class="permalink" href="#e-2025-02-ai-coscientist-amr" data-permalink="e-2025-02-ai-coscientist-amr" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab.</p>
       <p class="detail">The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible.</p>
       
@@ -1147,14 +1158,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Enzymes with working catalytic machinery designed from scratch<a class="permalink" href="#e-2025-02-13-designed-serine-hydrolases" data-permalink="e-2025-02-13-designed-serine-hydrolases" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-02-13-designed-serine-hydrolases">Enzymes with working catalytic machinery designed from scratch</a><a class="permalink" href="#e-2025-02-13-designed-serine-hydrolases" data-permalink="e-2025-02-13-designed-serine-hydrolases" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Diffusion-based protein design produced serine hydrolases with catalytic efficiencies up to 2.2 × 10⁵ M⁻¹s⁻¹ on five folds unlike any natural serine hydrolase, with crystal structures matching the design models to under 1 Å.</p>
       <p class="detail">An enzyme needs more than the right shape: its active site has to stay organised at every step of the reaction, which is where designed enzymes have historically failed. The team generated backbones with RFdiffusion from a minimal active-site description, then used an ensemble-generation network to check that the catalytic geometry held along the whole reaction coordinate, keeping only designs that passed. The resulting hydrolases approach natural catalytic efficiency on folds not found among natural serine hydrolases, and the crystal structures match the designs closely. Published in Science.</p>
       <p class="withppl"><span>With</span><b>Anna Lauko, David Baker</b></p>
       <div class="tags"><span class="tag-chip">protein-design</span><span class="tag-chip">enzyme-design</span><span class="tag-chip">rfdiffusion</span><span class="tag-chip">catalysis</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>De novo enzyme design dates to the 2000s — Kemp eliminases, retro-aldolases — but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>De novo enzyme design dates to the 2000s (Kemp eliminases, retro-aldolases), but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution.</p></div>
         <div class="field reveal"><b>Caveats</b><p>Serine hydrolases are a comparatively tractable target with a well-understood catalytic triad; the result does not generalise automatically to harder chemistry. Efficiencies remain below the best natural hydrolases. The per-round success rate is low and the paper reports the screening funnel. The reaction, the active-site description and the assays were human-specified, which is why autonomy is search-scaffold.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.science.org/doi/10.1126/science.adu2454" target="_blank" rel="noopener"><span class="ref-dom">science.org</span><span class="ref-t">Science: Computational design of serine hydrolases</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.bakerlab.org/2025/02/13/ai-enzymes-with-complex-active-sites/" target="_blank" rel="noopener"><span class="ref-dom">bakerlab.org</span><span class="ref-t">Baker Lab: Generating new enzymes with complex active sites</span><span class="ref-a">↗</span></a></div></div>
@@ -1179,7 +1190,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>A working fluorescent protein generated by a language model<a class="permalink" href="#e-2025-01-16-esmgfp" data-permalink="e-2025-01-16-esmgfp" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-01-16-esmgfp">A working fluorescent protein generated by a language model</a><a class="permalink" href="#e-2025-01-16-esmgfp" data-permalink="e-2025-01-16-esmgfp" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">ESM3 designed esmGFP, a bright green fluorescent protein sharing only 58% of its sequence with the closest known natural fluorescent protein, a distance the authors estimate at over 500 million years of natural evolution.</p>
       <p class="detail">ESM3 is a masked language model over protein sequence, structure and function jointly. Prompted with the residues that form the GFP chromophore and little else, and run through iterative generation, it produced candidates that were synthesised and assayed in the lab. esmGFP fluoresces at brightness comparable to natural GFPs while differing at 96 of 229 positions from its nearest natural relative. Published in Science.</p>
       <p class="withppl"><span>With</span><b>Alexander Rives, Tom Sercu</b></p>
@@ -1211,15 +1222,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Generative model designs crystals to order; its flagship synthesis turned out to be a known compound<a class="permalink" href="#e-2025-01-16-mattergen" data-permalink="e-2025-01-16-mattergen" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2025-01-16-mattergen">Generative model designs crystals to order; its flagship synthesis turned out to be a known compound</a><a class="permalink" href="#e-2025-01-16-mattergen" data-permalink="e-2025-01-16-mattergen" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">MatterGen generates crystal structures conditioned on target properties, and its headline experimental validation was later shown to match a compound reported in 1972 that sits in the model's own training data.</p>
-      <p class="detail">MatterGen is a diffusion model over crystal structures — atom types, coordinates and lattice jointly — trained on about 608,000 stable materials from the Materials Project and Alexandria, and fine-tunable to condition on a target property. Conditioned on a bulk modulus of 200 GPa it proposed a structure that collaborators at the Shenzhen Institutes of Advanced Technology synthesised, measuring 169 GPa, within 20% of the specification. Published in Nature.</p>
+      <p class="detail">MatterGen is a diffusion model over crystal structures (atom types, coordinates and lattice jointly), trained on about 608,000 stable materials from the Materials Project and Alexandria, and fine-tunable to condition on a target property. Conditioned on a bulk modulus of 200 GPa it proposed a structure that collaborators at the Shenzhen Institutes of Advanced Technology synthesised, measuring 169 GPa, within 20% of the specification. Published in Nature.</p>
       
       <div class="tags"><span class="tag-chip">materials</span><span class="tag-chip">crystal-structure</span><span class="tag-chip">diffusion-model</span><span class="tag-chip">contested</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Generative models for crystals existed (CDVAE, and screening pipelines like GNoME); the contribution claimed is property-conditioned generation validated experimentally. The novelty question is precisely what is disputed below — whether the synthesised compound was new.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>A published critique in Materials Horizons argues the synthesised disordered phase Ta₁⁄₃Cr₂⁄₃O₂ is the same material as Ta₁⁄₂Cr₁⁄₂O₂ reported in 1972, that this compound is present in MatterGen's training set, and that its composition differs from the reported TaCr₂O₆ — i.e. the flagship validation recovered a known material rather than a new one. The generative method itself is not refuted; the disputed part is the experimental novelty claim, and the entry is graded on the strength of that published objection. This registry keeps entries like this one rather than removing them.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Generative models for crystals existed (CDVAE, and screening pipelines like GNoME); the contribution claimed is property-conditioned generation validated experimentally. The novelty question is precisely what is disputed below: whether the synthesised compound was new.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>A published critique in Materials Horizons argues the synthesised disordered phase Ta₁⁄₃Cr₂⁄₃O₂ is the same material as Ta₁⁄₂Cr₁⁄₂O₂ reported in 1972, that this compound is present in MatterGen's training set, and that its composition differs from the reported TaCr₂O₆, i.e. the flagship validation recovered a known material rather than a new one. The generative method itself is not refuted; the disputed part is the experimental novelty claim, and the entry is graded on the strength of that published objection. This registry keeps entries like this one rather than removing them.</p></div>
         <div class="field checks reveal"><b>Independent checks</b><p>Materials Horizons: Continued challenges in high-throughput materials predictions: <em>disputed the novelty of the synthesised compound; identified it as present in the training data</em> · <a href="https://pubs.rsc.org/en/content/articlelanding/2026/mh/d6mh00268d" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-025-08628-5" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">A generative model for inorganic materials design</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.microsoft.com/en-us/research/blog/mattergen-a-new-paradigm-of-materials-design-with-generative-ai/" target="_blank" rel="noopener"><span class="ref-dom">microsoft.com</span><span class="ref-t">Microsoft Research: MatterGen, a new paradigm of materials design with generative AI</span><span class="ref-a">↗</span></a><a class="ref" href="https://pubs.rsc.org/en/content/articlelanding/2026/mh/d6mh00268d" target="_blank" rel="noopener"><span class="ref-dom">pubs.rsc.org</span><span class="ref-t">Materials Horizons: MatterGen predicts compounds from the training dataset</span><span class="ref-a">↗</span></a></div></div>
         
@@ -1243,7 +1254,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>A neural decoder that identifies quantum errors more accurately than hand-designed methods<a class="permalink" href="#e-2024-11-20-alphaqubit" data-permalink="e-2024-11-20-alphaqubit" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-11-20-alphaqubit">A neural decoder that identifies quantum errors more accurately than hand-designed methods</a><a class="permalink" href="#e-2024-11-20-alphaqubit" data-permalink="e-2024-11-20-alphaqubit" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A transformer trained on Google's Sycamore surface-code data cut decoding errors by 6% against tensor-network decoding and 30% against correlated matching, the best reported accuracy at the time.</p>
       <p class="detail">A quantum error-correcting code produces a stream of syndrome measurements; a decoder has to infer from them which errors actually occurred. Hand-designed decoders assume a simplified noise model, whereas AlphaQubit is a transformer trained first on simulated data and then fine-tuned on hundreds of millions of real syndrome samples from Sycamore, so it can learn the device's actual correlated noise, leakage and crosstalk. It beat both the accuracy-oriented tensor-network decoder and the fast matching decoder, and held up in simulation to distance-11 codes. Published in Nature.</p>
       
@@ -1275,7 +1286,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Complete wiring diagram of an adult fruit-fly brain<a class="permalink" href="#e-2024-10-02-flywire-connectome" data-permalink="e-2024-10-02-flywire-connectome" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-10-02-flywire-connectome">Complete wiring diagram of an adult fruit-fly brain</a><a class="permalink" href="#e-2024-10-02-flywire-connectome" data-permalink="e-2024-10-02-flywire-connectome" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Machine segmentation of an electron-microscopy volume, corrected by a large community of proofreaders, produced the first synapse-level map of an entire adult brain: 139,255 neurons and roughly 50 million synapses.</p>
       <p class="detail">A female Drosophila brain was sliced into about 7,000 sections and imaged by electron microscopy, producing a volume no team could trace by hand. Neural networks segmented the neurons automatically; more than 200 labs and a crowd of proofreaders then corrected the segmentation over several years and annotated over 8,000 cell types. Simulations built directly on the resulting wiring diagram predicted which neurons drive feeding and grooming, and the predictions held up experimentally. Published as a Nature package in October 2024.</p>
       <p class="withppl"><span>With</span><b>Sebastian Seung, Mala Murthy, Gregory Jefferis</b></p>
@@ -1307,7 +1318,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Silver-medal standard at the 2024 International Mathematical Olympiad<a class="permalink" href="#e-2024-07-25-alphaproof-imo" data-permalink="e-2024-07-25-alphaproof-imo" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-07-25-alphaproof-imo">Silver-medal standard at the 2024 International Mathematical Olympiad</a><a class="permalink" href="#e-2024-07-25-alphaproof-imo" data-permalink="e-2024-07-25-alphaproof-imo" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaProof and AlphaGeometry 2 together solved four of the six 2024 IMO problems for 28 of 42 points (one short of the gold threshold), with the algebra and number-theory solutions produced and checked in the Lean proof assistant.</p>
       <p class="detail">AlphaProof, a reinforcement-learning system that works inside Lean, solved two algebra problems and one number-theory problem (including P6, the competition's hardest, which few human contestants solved), while AlphaGeometry 2 solved the geometry problem in seconds. The two combinatorics problems went unsolved. The Lean-based solutions are machine-checked by construction; the full performance was graded by mathematicians Timothy Gowers and Joseph Myers under competition-style marking.</p>
       
@@ -1346,7 +1357,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)<a class="permalink" href="#e-2024-05-08-alphafold3" data-permalink="e-2024-05-08-alphafold3" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-05-08-alphafold3">Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)</a><a class="permalink" href="#e-2024-05-08-alphafold3" data-permalink="e-2024-05-08-alphafold3" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A diffusion-based successor to AlphaFold predicts complexes spanning proteins, DNA, RNA, small molecules and ions in a single model, with large accuracy gains over the specialised docking tools used for each case.</p>
       <p class="detail">AlphaFold 2 predicted the fold of a protein chain; drug discovery mostly needs the structure of that protein bound to something else. AlphaFold 3 replaces the structure module with a diffusion model operating directly on atom coordinates, which lets one network cover protein–ligand, protein–nucleic-acid and antibody–antigen complexes. Reported accuracy substantially exceeds specialised docking tools on protein–ligand benchmarks. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>John Jumper, Max Jaderberg</b></p>
@@ -1378,7 +1389,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Reinforcement learning steers a tokamak away from tearing instabilities<a class="permalink" href="#e-2024-02-21-tearing-mode-avoidance" data-permalink="e-2024-02-21-tearing-mode-avoidance" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-02-21-tearing-mode-avoidance">Reinforcement learning steers a tokamak away from tearing instabilities</a><a class="permalink" href="#e-2024-02-21-tearing-mode-avoidance" data-permalink="e-2024-02-21-tearing-mode-avoidance" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A controller trained on past DIII-D shots forecast tearing-mode instabilities up to 300 ms ahead and adjusted the plasma in real time to avoid them, holding high-performance conditions that would otherwise have collapsed.</p>
       <p class="detail">Tearing modes break up the magnetic surfaces confining a fusion plasma and can end a discharge. Existing approaches suppress them once they appear; this one predicts them. A network trained on past DIII-D discharges estimates the instability probability, and a reinforcement-learning policy trained against a learned plasma model adjusts beam power and plasma shape to keep that probability low while holding pressure high. It was tested live on DIII-D, not only in simulation. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>Jaemin Seo, Egemen Kolemen</b></p>
@@ -1410,9 +1421,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Olympiad geometry solved without human demonstrations<a class="permalink" href="#e-2024-01-17-alphageometry" data-permalink="e-2024-01-17-alphageometry" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2024-01-17-alphageometry">Olympiad geometry solved without human demonstrations</a><a class="permalink" href="#e-2024-01-17-alphageometry" data-permalink="e-2024-01-17-alphageometry" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A language model trained purely on synthetic data, paired with a symbolic deduction engine, solved 25 of 30 olympiad geometry problems against 10 for the previous best automated system and 25.9 for the average human gold medallist.</p>
-      <p class="detail">Geometry proofs stall when they need an auxiliary construction — an extra point or line that is not in the problem statement. AlphaGeometry pairs a symbolic deduction engine, which exhausts what follows mechanically, with a language model that proposes constructions when deduction runs dry. The model was trained on 100 million synthetic proofs generated from random diagrams, with no human proof data, and its output is a symbolic proof that the deduction engine checks. Published in Nature.</p>
+      <p class="detail">Geometry proofs stall when they need an auxiliary construction, an extra point or line that is not in the problem statement. AlphaGeometry pairs a symbolic deduction engine, which exhausts what follows mechanically, with a language model that proposes constructions when deduction runs dry. The model was trained on 100 million synthetic proofs generated from random diagrams, with no human proof data, and its output is a symbolic proof that the deduction engine checks. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>Trieu Trinh, Thang Luong</b></p>
       <div class="tags"><span class="tag-chip">olympiad</span><span class="tag-chip">geometry</span><span class="tag-chip">neuro-symbolic</span><span class="tag-chip">benchmark</span></div>
       <details>
@@ -1442,7 +1453,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>A language-model agent that planned and ran chemistry experiments on lab robots<a class="permalink" href="#e-2023-12-20-coscientist" data-permalink="e-2023-12-20-coscientist" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-12-20-coscientist">A language-model agent that planned and ran chemistry experiments on lab robots</a><a class="permalink" href="#e-2023-12-20-coscientist" data-permalink="e-2023-12-20-coscientist" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Coscientist, driven by GPT-4 with web search, documentation search, code execution and lab automation, designed and executed palladium-catalysed cross-coupling reactions on real robotic hardware from a one-line goal.</p>
       <p class="detail">Given &quot;perform Suzuki and Sonogashira reactions&quot;, the agent searched the literature to identify the chemistry, read the hardware documentation for an API it had not seen, wrote the control code, located the reagents on the plate from a UV-Vis reading, and ran the reactions on a liquid handler. The paper reports six tasks in total, including reaction optimisation under Bayesian search. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>Daniil Boiko, Robert MacKnight, Gabe Gomes</b></p>
@@ -1474,7 +1485,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>A new structural class of antibiotic candidates against MRSA<a class="permalink" href="#e-2023-12-20-antibiotic-structural-class" data-permalink="e-2023-12-20-antibiotic-structural-class" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-12-20-antibiotic-structural-class">A new structural class of antibiotic candidates against MRSA</a><a class="permalink" href="#e-2023-12-20-antibiotic-structural-class" data-permalink="e-2023-12-20-antibiotic-structural-class" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Graph neural networks trained on 39,312 assayed compounds and applied to 12 million molecules surfaced a chemical class active against MRSA in mice, with the substructures driving each prediction made explicit rather than left opaque.</p>
       <p class="detail">The team measured antibiotic activity and human-cell cytotoxicity for 39,312 compounds, trained network ensembles on that data, and predicted both properties for over 12 million molecules. Rather than reading off top scores, they extracted the chemical substructures the models were keying on, which let them pick a class rather than isolated hits. Two lead compounds cleared MRSA infection in mouse models, topically and systemically, and appear to kill by collapsing the electrochemical gradient across the bacterial membrane. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>Felix Wong, Erica Zheng, James Collins</b></p>
@@ -1482,7 +1493,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         <div class="field reveal"><b>Novelty check</b><p>This is the same group's follow-up to the 2020 halicin work and to abaucin (2023); the new element is selecting a structural class via model interpretation instead of screening for individual hits. &quot;New structural class&quot; is a claim about scaffold novelty relative to clinical antibiotics, checked against known antibiotic chemotypes in the paper.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>These are candidates, not drugs: mouse models only, with no clinical development at the time of this entry. The mechanism — disrupting membrane potential — is the same one halicin uses, so the novelty is structural rather than mechanistic, and membrane-active compounds carry a known mammalian-toxicity risk. The screening library, assays and interpretation were human-run; the model scored and explained.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>These are candidates, not drugs: mouse models only, with no clinical development at the time of this entry. The mechanism, disrupting membrane potential, is the same one halicin uses, so the novelty is structural rather than mechanistic, and membrane-active compounds carry a known mammalian-toxicity risk. The screening library, assays and interpretation were human-run; the model scored and explained.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06887-8" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Discovery of a structural class of antibiotics with explainable deep learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.sciencedaily.com/releases/2023/12/231221012744.htm" target="_blank" rel="noopener"><span class="ref-dom">sciencedaily.com</span><span class="ref-t">ScienceDaily: Using AI, researchers identify a new class of antibiotic candidates</span><span class="ref-a">↗</span></a></div></div>
         
@@ -1506,7 +1517,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>New lower bound constructions for the cap set problem<a class="permalink" href="#e-2023-12-funsearch-capset" data-permalink="e-2023-12-funsearch-capset" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-12-funsearch-capset">New lower bound constructions for the cap set problem</a><a class="permalink" href="#e-2023-12-funsearch-capset" data-permalink="e-2023-12-funsearch-capset" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">FunSearch discovered larger cap sets than any previously known construction, the first time an LLM-based system produced a genuinely new discovery on an established open problem.</p>
       <p class="detail">FunSearch pairs an LLM that proposes programs with an automated evaluator that rejects incorrect ones, sidestepping hallucination by construction. Applied to extremal combinatorics, it found new large cap sets in both finite-dimensional and asymptotic cases. Published in Nature. Historically the first entry in this registry's scope.</p>
       
@@ -1538,7 +1549,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Improved heuristics for online bin packing<a class="permalink" href="#e-2023-12-funsearch-binpacking" data-permalink="e-2023-12-funsearch-binpacking" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-12-funsearch-binpacking">Improved heuristics for online bin packing</a><a class="permalink" href="#e-2023-12-funsearch-binpacking" data-permalink="e-2023-12-funsearch-binpacking" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">FunSearch produced bin-packing heuristics outperforming standard baselines on benchmark distributions.</p>
       <p class="detail">Discovered programs are human-readable, which allowed domain experts to inspect and deploy them. Practical rather than theoretical significance.</p>
       
@@ -1570,7 +1581,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Large-scale prediction of new stable crystalline materials (GNoME)<a class="permalink" href="#e-2023-11-29-gnome" data-permalink="e-2023-11-29-gnome" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-11-29-gnome">Large-scale prediction of new stable crystalline materials (GNoME)</a><a class="permalink" href="#e-2023-11-29-gnome" data-permalink="e-2023-11-29-gnome" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials.</p>
       <p class="detail">Graph Networks for Materials Exploration (GNoME) is a graph neural network trained in an active-learning loop against density-functional-theory calculations to predict formation energies and filter candidates by stability. DeepMind released the predicted structures as a public dataset. Published in Nature.</p>
       
@@ -1602,7 +1613,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Autonomous laboratory reports solid-state synthesis of new inorganic compounds<a class="permalink" href="#e-2023-11-29-a-lab-synthesis" data-permalink="e-2023-11-29-a-lab-synthesis" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-11-29-a-lab-synthesis">Autonomous laboratory reports solid-state synthesis of new inorganic compounds</a><a class="permalink" href="#e-2023-11-29-a-lab-synthesis" data-permalink="e-2023-11-29-a-lab-synthesis" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention.</p>
       <p class="detail">A-Lab coupled machine-learning synthesis-recipe prediction with robotic sample preparation, heating and X-ray characterisation, drawing targets from stability predictions including GNoME's. It reported making 41 of 58 targeted compounds autonomously. Published in Nature alongside GNoME.</p>
       
@@ -1634,14 +1645,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Medium-range weather forecasts from a graph neural network beat the operational physics model<a class="permalink" href="#e-2023-11-14-graphcast" data-permalink="e-2023-11-14-graphcast" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-11-14-graphcast">Medium-range weather forecasts from a graph neural network beat the operational physics model</a><a class="permalink" href="#e-2023-11-14-graphcast" data-permalink="e-2023-11-14-graphcast" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">GraphCast produced more accurate 10-day forecasts than ECMWF's HRES on roughly 90% of the evaluated variable and lead-time combinations, in under a minute on a single TPU against hours on a supercomputer.</p>
-      <p class="detail">GraphCast takes the two most recent global atmospheric states and predicts the next state six hours ahead on a roughly 0.25° grid, applied repeatedly to reach ten days. It is trained on ERA5 reanalysis rather than on the equations of motion, and it beat HRES — the operational gold standard — on the large majority of evaluated variables, rising to almost all of them within the troposphere. It also flagged severe weather events, including cyclone tracks, earlier than the physics model despite never being trained to look for them. Published in Science, with code and weights released.</p>
+      <p class="detail">GraphCast takes the two most recent global atmospheric states and predicts the next state six hours ahead on a roughly 0.25° grid, applied repeatedly to reach ten days. It is trained on ERA5 reanalysis rather than on the equations of motion, and it beat HRES, the operational gold standard, on the large majority of evaluated variables, rising to almost all of them within the troposphere. It also flagged severe weather events, including cyclone tracks, earlier than the physics model despite never being trained to look for them. Published in Science, with code and weights released.</p>
       <p class="withppl"><span>With</span><b>Remi Lam, Peter Battaglia</b></p>
       <div class="tags"><span class="tag-chip">weather</span><span class="tag-chip">forecasting</span><span class="tag-chip">graph-neural-network</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Machine-learning weather models existed before (FourCastNet, Pangu-Weather), and Pangu had already reported beating HRES on some measures. GraphCast's contribution is the breadth of the win across variables and lead times, at operational resolution, with public code — which is what moved national weather services to adopt learned models.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Machine-learning weather models existed before (FourCastNet, Pangu-Weather), and Pangu had already reported beating HRES on some measures. GraphCast's contribution is the breadth of the win across variables and lead times, at operational resolution, with public code. That is what moved national weather services to adopt learned models.</p></div>
         <div class="field reveal"><b>Caveats</b><p>GraphCast is trained on ECMWF reanalysis and initialised from ECMWF analyses, so it depends on the physics-based system it is measured against rather than replacing it. Deterministic models trained on a mean-squared-error objective blur fine structure and underestimate extremes such as peak cyclone intensity. It has no conservation guarantees and cannot forecast anything outside its trained variables. Later ensemble models such as GenCast address part of this.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.science.org/doi/10.1126/science.adi2336" target="_blank" rel="noopener"><span class="ref-dom">science.org</span><span class="ref-t">Science: Learning skillful medium-range global weather forecasting</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">GraphCast, AI model for faster and more accurate global weather forecasting</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/weathernext" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">GraphCast code and weights (google-deepmind/weathernext)</span><span class="ref-a">↗</span></a></div></div>
@@ -1666,7 +1677,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Pathogenicity predictions for 71 million human missense variants<a class="permalink" href="#e-2023-09-19-alphamissense" data-permalink="e-2023-09-19-alphamissense" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-09-19-alphamissense">Pathogenicity predictions for 71 million human missense variants</a><a class="permalink" href="#e-2023-09-19-alphamissense" data-permalink="e-2023-09-19-alphamissense" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">An AlphaFold-derived model classified 89% of all 71 million possible human missense variants as likely benign or likely pathogenic, against the roughly 0.1% that carry a clinical classification today.</p>
       <p class="detail">AlphaMissense fine-tunes AlphaFold's structural representation on human and primate variant frequency data, so it learns which substitutions natural selection tolerates without being trained on clinical labels. Applied across 19,233 canonical human proteins it scored every possible single amino-acid change, calling 57% likely benign and 32% likely pathogenic. The full catalogue and the model code were released publicly. Published in Science.</p>
       
@@ -1698,7 +1709,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Faster sorting routines discovered and merged into the LLVM C++ library<a class="permalink" href="#e-2023-06-07-alphadev" data-permalink="e-2023-06-07-alphadev" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2023-06-07-alphadev">Faster sorting routines discovered and merged into the LLVM C++ library</a><a class="permalink" href="#e-2023-06-07-alphadev" data-permalink="e-2023-06-07-alphadev" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaDev found shorter branchless routines for sorting small fixed-length inputs; reverse-engineered to C++, they were merged into LLVM's libc++, the first change to those routines in over a decade.</p>
       <p class="detail">AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.</p>
       
@@ -1737,7 +1748,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Faster matrix-multiplication algorithms found by reinforcement learning<a class="permalink" href="#e-2022-10-05-alphatensor" data-permalink="e-2022-10-05-alphatensor" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2022-10-05-alphatensor">Faster matrix-multiplication algorithms found by reinforcement learning</a><a class="permalink" href="#e-2022-10-05-alphatensor" data-permalink="e-2022-10-05-alphatensor" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaTensor discovered matrix-multiplication schemes using fewer scalar multiplications than any previously known, including a way to multiply 4×4 matrices over GF(2) in 47 multiplications versus the 49 of two-level Strassen.</p>
       <p class="detail">AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.</p>
       
@@ -1780,7 +1791,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Deep reinforcement learning controls tokamak fusion plasma<a class="permalink" href="#e-2022-02-16-tokamak-plasma-control" data-permalink="e-2022-02-16-tokamak-plasma-control" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2022-02-16-tokamak-plasma-control">Deep reinforcement learning controls tokamak fusion plasma</a><a class="permalink" href="#e-2022-02-16-tokamak-plasma-control" data-permalink="e-2022-02-16-tokamak-plasma-control" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A reinforcement-learning controller learned to shape and stabilise the magnetic confinement of real fusion plasma inside the TCV tokamak, holding configurations that are hard to sustain by hand.</p>
       <p class="detail">Working with EPFL's Swiss Plasma Center, DeepMind trained a deep reinforcement-learning agent to command the magnetic control coils of the TCV tokamak. Learning in a simulator against specified target shapes, the controller then ran on the real machine, holding elongated, snowflake and other configurations, including a 'droplet' state with two separate plasmas at once. It is one of the first times a single learned controller replaced the hand-engineered cascade normally required.</p>
       
@@ -1812,14 +1823,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Two theorems found by machine pattern-spotting in knot theory and representation theory<a class="permalink" href="#e-2021-12-01-knot-theory-intuition" data-permalink="e-2021-12-01-knot-theory-intuition" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2021-12-01-knot-theory-intuition">Two theorems found by machine pattern-spotting in knot theory and representation theory</a><a class="permalink" href="#e-2021-12-01-knot-theory-intuition" data-permalink="e-2021-12-01-knot-theory-intuition" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">Networks trained to predict one mathematical invariant from another, then probed for which inputs mattered, pointed mathematicians to a proved theorem linking a knot's signature to a new geometric quantity, and to structure behind the combinatorial invariance conjecture.</p>
       <p class="detail">The recipe was to train a network to predict one invariant from another, then use attribution to see which inputs carried the signal, and hand that to a mathematician. In knot theory it led Marc Lackenby to define a new quantity, the natural slope of a knot, and to prove a theorem bounding the signature in terms of it. In representation theory it led Geordie Williamson to structure in Bruhat interval graphs bearing on the combinatorial invariance conjecture for Kazhdan–Lusztig polynomials. Published in Nature.</p>
       <p class="withppl"><span>With</span><b>Alex Davies, Marc Lackenby, Geordie Williamson</b></p>
       <div class="tags"><span class="tag-chip">knot-theory</span><span class="tag-chip">representation-theory</span><span class="tag-chip">conjecture-generation</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Both theorems are new and neither had a prior form in the literature; both were proved conventionally by the human mathematicians after the models indicated where to look. The general idea of using computation to generate conjectures is old — what was new was the attribution step turning a black-box predictor into a usable hint.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Both theorems are new and neither had a prior form in the literature; both were proved conventionally by the human mathematicians after the models indicated where to look. The general idea of using computation to generate conjectures is old; what was new was the attribution step turning a black-box predictor into a usable hint.</p></div>
         <div class="field reveal"><b>Caveats</b><p>The mathematics was done by humans; the models indicated which relationships were worth studying, which is why autonomy is ai-assisted. Ernest Davis's review argues the &quot;guiding human intuition&quot; framing overstates the contribution and that the knot-theory signal was within reach of simpler statistical methods. The theorems themselves are not disputed.</p></div>
         <div class="field checks reveal"><b>Independent checks</b><p>Ernest Davis (critical review of the framing): <em>theorems accepted; disputes how much the deep learning contributed</em> · <a href="https://arxiv.org/abs/2112.04324" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-021-04086-x" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Advancing mathematics by guiding human intuition with AI</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.ox.ac.uk/news/2021-12-01-machine-learning-helps-mathematicians-make-new-connections-0" target="_blank" rel="noopener"><span class="ref-dom">ox.ac.uk</span><span class="ref-t">University of Oxford: Machine learning helps mathematicians make new connections</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2112.04324" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Ernest Davis: Deep Learning and Mathematical Intuition (review)</span><span class="ref-a">↗</span></a></div></div>
@@ -1844,7 +1855,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Accurate protein structure prediction across the known proteome (AlphaFold2)<a class="permalink" href="#e-2021-07-15-alphafold2" data-permalink="e-2021-07-15-alphafold2" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2021-07-15-alphafold2">Accurate protein structure prediction across the known proteome (AlphaFold2)</a><a class="permalink" href="#e-2021-07-15-alphafold2" data-permalink="e-2021-07-15-alphafold2" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">AlphaFold2 predicted three-dimensional structures for nearly all catalogued proteins from amino-acid sequence at accuracy rivalling experiment, work that earned the 2024 Nobel Prize in Chemistry.</p>
       <p class="detail">AlphaFold2 pairs an attention-based neural network with evolutionary sequence information to predict how a protein folds from its amino-acid sequence. At the 2020 CASP14 blind assessment it reached accuracy competitive with experimental methods, and DeepMind and EMBL-EBI then released predicted structures for over 200 million proteins, nearly the entire catalogued proteome. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for the work, alongside David Baker for computational protein design.</p>
       <p class="withppl"><span>With</span><b>John Jumper, Demis Hassabis</b></p>
@@ -1876,15 +1887,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Reinforcement learning refutes several conjectures in extremal combinatorics<a class="permalink" href="#e-2021-04-29-wagner-combinatorics" data-permalink="e-2021-04-29-wagner-combinatorics" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2021-04-29-wagner-combinatorics">Reinforcement learning refutes several conjectures in extremal combinatorics</a><a class="permalink" href="#e-2021-04-29-wagner-combinatorics" data-permalink="e-2021-04-29-wagner-combinatorics" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A neural network building graphs edge by edge under a cross-entropy search produced explicit counterexamples to several published conjectures in graph theory and extremal combinatorics.</p>
       <p class="detail">Each conjecture was rewritten as a scoring function on graphs. A network proposes graphs one edge at a time, the top-scoring constructions are kept, and the network is retrained on them, so the search drifts toward whatever the conjecture says should be impossible. Among the conjectures refuted are a question of Brualdi and Cao on maximising permanents of pattern-avoiding matrices and several concerning adjacency and distance eigenvalues of graphs. The counterexamples are small finite graphs printed in the paper, so each can be checked by hand or by a few lines of code.</p>
       <p class="withppl"><span>With</span><b>Adam Zsolt Wagner</b></p>
       <div class="tags"><span class="tag-chip">combinatorics</span><span class="tag-chip">graph-theory</span><span class="tag-chip">counterexample</span><span class="tag-chip">reinforcement-learning</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
-        <div class="field reveal"><b>Novelty check</b><p>Computer search for combinatorial counterexamples predates this work — linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest — none is a named problem of the Erdős or Jacobian class — and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p></div>
+        <div class="field reveal"><b>Novelty check</b><p>Computer search for combinatorial counterexamples predates this work: linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest (none is a named problem of the Erdős or Jacobian class), and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p></div>
         <div class="field checks reveal"><b>Independent checks</b><p>Roucairol &amp; Cazenave, Monte Carlo search replication and extension: <em>reproduced the refutations and found further counterexamples by different search</em> · <a href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener">link ↗</a></p></div>
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://arxiv.org/abs/2104.14516" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Constructions in combinatorics via neural networks</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Refutation of Spectral Graph Theory Conjectures with Monte Carlo Search</span><span class="ref-a">↗</span></a></div></div>
         
@@ -1908,9 +1919,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>Halicin, an antibiotic found by a neural network screening a compound library<a class="permalink" href="#e-2020-02-20-halicin" data-permalink="e-2020-02-20-halicin" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2020-02-20-halicin">Halicin, an antibiotic found by a neural network screening a compound library</a><a class="permalink" href="#e-2020-02-20-halicin" data-permalink="e-2020-02-20-halicin" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A graph neural network trained on 2,335 molecules picked halicin out of a repurposing library; it killed multidrug-resistant bacteria including Acinetobacter baumannii and Mycobacterium tuberculosis in vitro and cleared infections in mice.</p>
-      <p class="detail">The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin — an abandoned diabetes candidate — scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.</p>
+      <p class="detail">The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin, an abandoned diabetes candidate, scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.</p>
       <p class="withppl"><span>With</span><b>Jonathan Stokes, Regina Barzilay, James Collins</b></p>
       <div class="tags"><span class="tag-chip">antibiotics</span><span class="tag-chip">drug-repurposing</span><span class="tag-chip">graph-neural-network</span></div>
       <details>
@@ -1940,15 +1951,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </dl>
     </div>
     <div class="body">
-      <h2>An eighth planet around Kepler-90 found by a neural network<a class="permalink" href="#e-2017-12-14-kepler-90i" data-permalink="e-2017-12-14-kepler-90i" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
+      <h2><a class="entry-link" href="/finding/2017-12-14-kepler-90i">An eighth planet around Kepler-90 found by a neural network</a><a class="permalink" href="#e-2017-12-14-kepler-90i" data-permalink="e-2017-12-14-kepler-90i" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
       <p class="claim">A convolutional network re-examining Kepler light curves recovered transit signals the standard pipeline had ranked below threshold, yielding Kepler-90i and making Kepler-90 the first star besides the Sun known to host eight planets.</p>
-      <p class="detail">The network was trained on 15,000 previously vetted Kepler signals to separate genuine transits from false positives, then pointed at 670 stars already known to host multiple planets, searching the weak signals the automated pipeline had discarded. It surfaced Kepler-90i — about 30% larger than Earth, orbiting every 14.4 days, with a surface hot enough to rival Mercury — and Kepler-80g, which completes a five-planet resonant chain. Published in The Astronomical Journal.</p>
+      <p class="detail">The network was trained on 15,000 previously vetted Kepler signals to separate genuine transits from false positives, then pointed at 670 stars already known to host multiple planets, searching the weak signals the automated pipeline had discarded. It surfaced Kepler-90i (about 30% larger than Earth, orbiting every 14.4 days, with a surface hot enough to rival Mercury) and Kepler-80g, which completes a five-planet resonant chain. Published in The Astronomical Journal.</p>
       <p class="withppl"><span>With</span><b>Christopher Shallue, Andrew Vanderburg</b></p>
       <div class="tags"><span class="tag-chip">exoplanets</span><span class="tag-chip">kepler</span><span class="tag-chip">transit-detection</span></div>
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         <div class="field reveal"><b>Novelty check</b><p>Machine classification of Kepler transit candidates already existed in the pipeline (Autovetter, Robovetter). What was new was training a network to vet signals below the pipeline's detection threshold and getting confirmable planets out of the discard pile.</p></div>
-        <div class="field reveal"><b>Caveats</b><p>The network vetted candidate signals; the transit search, the follow-up and the statistical validation were conventional. &quot;First system with as many planets as ours&quot; is a statement about what has been detected, not what exists — detection is heavily biased toward close-in planets, and all of Kepler-90's known planets orbit within roughly Earth's distance from its star. The 670-star search produced two new planets in total.</p></div>
+        <div class="field reveal"><b>Caveats</b><p>The network vetted candidate signals; the transit search, the follow-up and the statistical validation were conventional. &quot;First system with as many planets as ours&quot; is a statement about what has been detected, not what exists. Detection is heavily biased toward close-in planets, and all of Kepler-90's known planets orbit within roughly Earth's distance from its star. The 670-star search produced two new planets in total.</p></div>
         
         <div class="field reveal"><b>Sources</b><div class="refs"><a class="ref" href="https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09" target="_blank" rel="noopener"><span class="ref-dom">iopscience.iop.org</span><span class="ref-t">The Astronomical Journal: Identifying Exoplanets with Deep Learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/" target="_blank" rel="noopener"><span class="ref-dom">nasa.gov</span><span class="ref-t">NASA: Artificial intelligence, NASA data used to discover eighth planet circling distant star</span><span class="ref-a">↗</span></a></div></div>
         
@@ -2013,18 +2024,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
 <footer id="about">
   <span class="lbl">Editorial policy</span>
-  <p>We enter lab announcements as <em>claimed</em> regardless of confidence. We never delete
-  anything; we downgrade and annotate entries instead, and keep the full history public. We write
-  a novelty check for every entry, including when it comes back clean.</p>
+  <p>Lab announcements enter as <em>claimed</em>, however confident they sound. Nothing is ever
+  deleted: entries are downgraded and annotated, and the history stays public. Every entry gets a
+  novelty check, including when it comes back clean. <a href="/methodology">Full rules</a></p>
+
   <span class="lbl">Disclaimer</span>
-  <p>We run whataifound.org as an independent editorial project. Verification and autonomy grades are
-  our editorial judgments, made in good faith from public information; they are provided "as is",
-  without warranty of any kind, and may change as new evidence emerges. Nothing here is
-  scientific, legal, or investment advice. This site is not affiliated with, sponsored by, or
-  endorsed by any laboratory or company mentioned. Logos and names are trademarks of their
-  respective owners and appear for identification only.</p>
-  <p>We maintain this as volunteer work. Corrections genuinely welcome.
-  <a href="mailto:misik6@gatech.edu">Get in touch</a>.</p>
+  <p>We run whataifound.org as an independent editorial project, as volunteer work. Verification and
+  autonomy grades are our good-faith judgments from public information, provided "as is" without
+  warranty, and may change as new evidence emerges. Nothing here is scientific, legal, or
+  investment advice. We are not affiliated with, sponsored by, or endorsed by any laboratory or
+  company mentioned; logos and names are trademarks of their owners and appear for identification
+  only. <a href="mailto:misik6@gatech.edu">Get in touch</a></p>
 
   <span class="lbl">Use the data</span>
   <p>The full registry is a single open file under a
@@ -2035,8 +2045,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <a href="/feed.json">JSON feed</a> ·
   <a href="https://whataifound.org/LICENSE">License</a></p>
 
+  <span class="lbl">Contribute</span>
+  <p>Most entries have never been checked outside the lab that announced them. The
+  <a href="/review">review queue</a> lists them, and a check takes one click to submit.
+  Checks are credited on the entry and on the <a href="/contributors">contributors page</a>.
+  <a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md"
+     target="_blank" rel="noopener">How the roles work</a></p>
+
   <span class="lbl">Source</span>
-  <p>The site and registry are open on GitHub. Corrections and new entries welcome by pull request.
+  <p>Site and registry are open on GitHub; corrections and new entries welcome by pull request.
+  <a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"
+     title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a> ·
   <a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener">
     <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
     github.com/yigitisik/whataifound</a></p>

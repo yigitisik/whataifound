@@ -164,8 +164,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2026-07-20-gaussian-moments">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -188,6 +191,18 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Problem posed</dt><dd>2017 · open 9 yrs</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-07-20-gaussian-moments&amp;entry=2026-07-20-gaussian-moments"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-07-20-gaussian-moments&amp;entry=2026-07-20-gaussian-moments&amp;current=verification%3A%20author-verified%2C%20autonomy%3A%20ai-led"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>Derksen, van den Essen and Zhao proposed the Gaussian moments conjecture and showed that the Jacobian conjecture would follow from it. Long reports that a cubic counterexample in four variables was produced by GPT-5.6 Sol Pro with no human intervention after the initial prompt, which simply noted that the Jacobian conjecture had just been disproved and asked whether a small counterexample to GMC might therefore exist; Claude Fable 5 then found a quartic counterexample in three variables and supplied independent algebraic checks. Together these show GMC(n) is false for every n ≥ 3.</p>
   <h2 class="lbl">Novelty check</h2>
@@ -198,11 +213,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.18186" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Small Counterexamples to the Gaussian Moments Conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/1506.05192" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Derksen, van den Essen, Zhao: The Gaussian Moments Conjecture and the Jacobian Conjecture</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>author verified</strong>
-  and <strong>ai-led</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>author verified</strong>
+  and <strong>ai-led</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2026). <em>Counterexamples to the Gaussian moments conjecture.</em>

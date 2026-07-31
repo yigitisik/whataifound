@@ -40,7 +40,8 @@ UA = "whataifound-notability/1.0 (https://whataifound.org)"
 ORDER = ["id", "title", "claim", "field", "date", "lab", "model", "humans",
          "year_posed", "wikipedia", "notability", "notability_meta",
          "verification", "autonomy", "detail", "novelty_check", "caveats",
-         "independent_checks", "sources", "discussion", "videos", "tags", "added"]
+         "independent_checks", "sources", "discussion", "videos", "tags",
+         "contributors", "reviewers", "added"]
 
 
 def reorder(e):

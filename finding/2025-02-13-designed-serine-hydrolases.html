@@ -134,7 +134,7 @@
         "worstRating": 1,
         "alternateName": "Peer reviewed"
       },
-      "reviewBody": "De novo enzyme design dates to the 2000s — Kemp eliminases, retro-aldolases — but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution."
+      "reviewBody": "De novo enzyme design dates to the 2000s (Kemp eliminases, retro-aldolases), but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution."
     },
     {
       "@type": "BreadcrumbList",
@@ -168,8 +168,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2025-02-13-designed-serine-hydrolases">Chemistry</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -191,21 +194,33 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Anna Lauko, David Baker</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202025-02-13-designed-serine-hydrolases&amp;entry=2025-02-13-designed-serine-hydrolases"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202025-02-13-designed-serine-hydrolases&amp;entry=2025-02-13-designed-serine-hydrolases&amp;current=verification%3A%20peer-reviewed%2C%20autonomy%3A%20search-scaffold"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>An enzyme needs more than the right shape: its active site has to stay organised at every step of the reaction, which is where designed enzymes have historically failed. The team generated backbones with RFdiffusion from a minimal active-site description, then used an ensemble-generation network to check that the catalytic geometry held along the whole reaction coordinate, keeping only designs that passed. The resulting hydrolases approach natural catalytic efficiency on folds not found among natural serine hydrolases, and the crystal structures match the designs closely. Published in Science.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>De novo enzyme design dates to the 2000s — Kemp eliminases, retro-aldolases — but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution.</p>
+  <p>De novo enzyme design dates to the 2000s (Kemp eliminases, retro-aldolases), but designed enzymes were typically orders of magnitude slower than natural ones and needed directed evolution to become useful. The advance is reaching this efficiency with multi-step catalytic machinery by design rather than by evolution.</p>
   <h2 class="lbl">Caveats</h2>
   <p>Serine hydrolases are a comparatively tractable target with a well-understood catalytic triad; the result does not generalise automatically to harder chemistry. Efficiencies remain below the best natural hydrolases. The per-round success rate is low and the paper reports the screening funnel. The reaction, the active-site description and the assays were human-specified, which is why autonomy is search-scaffold.</p>
   <h2 class="lbl">Sources</h2>
   <div class="refs"><a class="ref" href="https://www.science.org/doi/10.1126/science.adu2454" target="_blank" rel="noopener"><span class="ref-dom">science.org</span><span class="ref-t">Science: Computational design of serine hydrolases</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.bakerlab.org/2025/02/13/ai-enzymes-with-complex-active-sites/" target="_blank" rel="noopener"><span class="ref-dom">bakerlab.org</span><span class="ref-t">Baker Lab: Generating new enzymes with complex active sites</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
+  and <strong>search scaffold</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2025). <em>Enzymes with working catalytic machinery designed from scratch.</em>

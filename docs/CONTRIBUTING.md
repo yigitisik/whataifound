@@ -54,11 +54,34 @@ If your entry has a `wikipedia` title, run `python3 scripts/build-notability.py`
 `notability` from the live Wikipedia API. It hits the network and edits `data/entries.json`, so it
 is not part of `build.py`; run it deliberately. `--check` reports drift.
 
+### Submitting an independent check
+
+The most useful thing anyone can contribute. A grade of `independent` means qualified people
+unaffiliated with the announcing lab confirmed the result, and most entries have no check at all.
+[The open review queue](https://whataifound.org/review) lists every one of them, weakest evidence
+first, with a one-click prefilled issue on each.
+
+You do not have to reproduce a whole result. Reading the primary source closely enough to say
+whether it supports the claim is a check, and saying it does not is as valuable as saying it does.
+Accepted checks land in `independent_checks` and your name in `reviewers`, which is what the
+[contributors page](https://whataifound.org/contributors) is built from.
+
+Sustained review is also the route to a maintainer role. See [GOVERNANCE.md](../GOVERNANCE.md).
+
 ### Correcting or challenging
 
 Don't delete entries. Downgrade `verification`, add the objection to `caveats`, cite the source. To
 challenge novelty, submit a PR downgrading the entry to `known` with the specific prior-work
 citation.
+
+Every finding page carries an **"Is this graded wrong?"** link that opens the
+[grade challenge](../.github/ISSUE_TEMPLATE/grade-challenge.yml) issue form with the entry id and
+its current grades already filled in. It exists so that contesting a grade doesn't require forking
+the repo: the reporter supplies the citation, nothing else.
+
+An issue is triage, not the fix. A grade changes when someone opens a PR editing
+`data/entries.json`, and the rules above still apply: new evidence, cited, and the weaker grade
+wins when it's arguable. A challenge without a specific citation gets closed.
 
 ### Never hand-edit generated files
 
@@ -110,7 +133,7 @@ pill colour in [styles.css](../styles.css), and the build fails until it has one
 | `icon-48.png`, `icon-512.png` | Generated. With `favicon.ico` and `apple-touch-icon.png` at the root |
 
 The mark is a diamond crossed by a bar, forming an `A` over a serif `I`. Both carry the same
-blue→violet→amber gradient — the `A` at 75% opacity so the `I` stays the focal point. That gradient
+blue→violet→amber gradient, the `A` at 75% opacity so the `I` stays the focal point. That gradient
 is the brand's one accent: it also fills the `ai` in the wordmark, in the lockup, the OG card, and
 the site header.
 
@@ -120,7 +143,7 @@ the regenerated rasters. It is not part of `build.py`. The script prefers Node w
 Look, which needs no install.
 
 Four icon files, not ten: browsers scale a 48px icon down for tabs, and one 512px PNG covers the
-manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG —
+manifest, PWA install and the `Organization` JSON-LD logo. The PNGs are not redundant with the SVG:
 Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does not list SVG, so an
 SVG-only site tends to show a generic globe in search results. `og.png` is a PNG for the same class
 of reason: several platforms don't render SVG previews.

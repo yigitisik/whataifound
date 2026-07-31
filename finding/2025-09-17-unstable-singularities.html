@@ -185,8 +185,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2025-09-17-unstable-singularities">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -208,21 +211,33 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Javier Gómez-Serrano, Tristan Buckmaster, Ching-Yao Lai, Yongji Wang</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202025-09-17-unstable-singularities&amp;entry=2025-09-17-unstable-singularities"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202025-09-17-unstable-singularities&amp;entry=2025-09-17-unstable-singularities&amp;current=verification%3A%20author-verified%2C%20autonomy%3A%20search-scaffold"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>A physics-informed neural network minimises the residual of the differential equation itself rather than fitting data, which lets it hunt for self-similar blow-up profiles that ordinary simulation cannot hold onto because they are repelling. The team reports a stable and three unstable singularities for the incompressible porous media equation, a stable and three unstable solutions plus a candidate fourth for 2D Boussinesq, and an unstable singularity for 3D Euler with boundary. Residuals were driven near machine precision, the accuracy level a later computer-assisted proof would need. Across equations the blow-up rate depends almost linearly on the order of instability, a pattern nobody had predicted.</p>
   <h2 class="lbl">Novelty check</h2>
   <p>Stable self-similar blow-up for these equations was already known, including Chen and Hou's computer-assisted proof for 3D Euler with boundary. Unstable singularities had been found only in isolated cases because they are numerically repelling; no systematic families existed in the literature. This is the first paper to produce several unstable families across three different equations by one method.</p>
   <h2 class="lbl">Caveats</h2>
-  <p>An arXiv preprint, not peer reviewed at the time of this entry. These are high-precision numerical solutions, not theorems: converting them into proofs requires a computer-assisted verification step the paper leaves to future work. No singularity for 3D Navier–Stokes — the Millennium Prize problem — is claimed, and the equations studied are not that one. Autonomy is search-scaffold: the equations, the self-similar ansatz and the loss function are human-designed and the network is the solver.</p>
+  <p>An arXiv preprint, not peer reviewed at the time of this entry. These are high-precision numerical solutions, not theorems: converting them into proofs requires a computer-assisted verification step the paper leaves to future work. No singularity for 3D Navier–Stokes, the Millennium Prize problem, is claimed, and the equations studied are not that one. Autonomy is search-scaffold: the equations, the self-similar ansatz and the loss function are human-designed and the network is the solver.</p>
   <h2 class="lbl">Sources</h2>
   <div class="refs"><a class="ref" href="https://arxiv.org/abs/2509.14185" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Discovery of Unstable Singularities</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/discovering-new-solutions-to-century-old-problems-in-fluid-dynamics/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Discovering new solutions to century-old problems in fluid dynamics</span><span class="ref-a">↗</span></a><a class="ref" href="https://physicsworld.com/a/neural-networks-discover-unstable-singularities-in-fluid-systems/" target="_blank" rel="noopener"><span class="ref-dom">physicsworld.com</span><span class="ref-t">Physics World: Neural networks discover unstable singularities in fluid systems</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>author verified</strong>
-  and <strong>search scaffold</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>author verified</strong>
+  and <strong>search scaffold</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2025). <em>New families of unstable singularities in fluid equations.</em>

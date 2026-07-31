@@ -172,8 +172,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2023-12-20-antibiotic-structural-class">Chemistry</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -195,21 +198,33 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Felix Wong, Erica Zheng, James Collins</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202023-12-20-antibiotic-structural-class&amp;entry=2023-12-20-antibiotic-structural-class"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202023-12-20-antibiotic-structural-class&amp;entry=2023-12-20-antibiotic-structural-class&amp;current=verification%3A%20peer-reviewed%2C%20autonomy%3A%20search-scaffold"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>The team measured antibiotic activity and human-cell cytotoxicity for 39,312 compounds, trained network ensembles on that data, and predicted both properties for over 12 million molecules. Rather than reading off top scores, they extracted the chemical substructures the models were keying on, which let them pick a class rather than isolated hits. Two lead compounds cleared MRSA infection in mouse models, topically and systemically, and appear to kill by collapsing the electrochemical gradient across the bacterial membrane. Published in Nature.</p>
   <h2 class="lbl">Novelty check</h2>
   <p>This is the same group's follow-up to the 2020 halicin work and to abaucin (2023); the new element is selecting a structural class via model interpretation instead of screening for individual hits. &quot;New structural class&quot; is a claim about scaffold novelty relative to clinical antibiotics, checked against known antibiotic chemotypes in the paper.</p>
   <h2 class="lbl">Caveats</h2>
-  <p>These are candidates, not drugs: mouse models only, with no clinical development at the time of this entry. The mechanism — disrupting membrane potential — is the same one halicin uses, so the novelty is structural rather than mechanistic, and membrane-active compounds carry a known mammalian-toxicity risk. The screening library, assays and interpretation were human-run; the model scored and explained.</p>
+  <p>These are candidates, not drugs: mouse models only, with no clinical development at the time of this entry. The mechanism, disrupting membrane potential, is the same one halicin uses, so the novelty is structural rather than mechanistic, and membrane-active compounds carry a known mammalian-toxicity risk. The screening library, assays and interpretation were human-run; the model scored and explained.</p>
   <h2 class="lbl">Sources</h2>
   <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06887-8" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Discovery of a structural class of antibiotics with explainable deep learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.sciencedaily.com/releases/2023/12/231221012744.htm" target="_blank" rel="noopener"><span class="ref-dom">sciencedaily.com</span><span class="ref-t">ScienceDaily: Using AI, researchers identify a new class of antibiotic candidates</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
+  and <strong>search scaffold</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2023). <em>A new structural class of antibiotic candidates against MRSA.</em>

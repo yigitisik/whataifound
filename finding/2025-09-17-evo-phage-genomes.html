@@ -177,8 +177,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2025-09-17-evo-phage-genomes">Biology</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -200,6 +203,18 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Samuel King, Brian Hie</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202025-09-17-evo-phage-genomes&amp;entry=2025-09-17-evo-phage-genomes"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202025-09-17-evo-phage-genomes&amp;entry=2025-09-17-evo-phage-genomes&amp;current=verification%3A%20author-verified%2C%20autonomy%3A%20ai-led"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>The team fine-tuned Evo 1 and Evo 2 on a cleaned set of nearly 15,000 Microviridae genomes, generated 302 candidate genomes with ΦX174-like architecture, chemically synthesised the 285 that could be assembled, and tested them for plaque formation in E. coli. Sixteen were viable, with substantial sequence divergence from the template. Several generated phages outcompeted wild-type ΦX174 in growth and lysis kinetics, and a cocktail of them cleared three ΦX174-resistant E. coli strains. The authors frame it as the first generative design of a complete functional genome.</p>
   <h2 class="lbl">Novelty check</h2>
@@ -210,11 +225,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://www.biorxiv.org/content/10.1101/2025.09.12.675911v1" target="_blank" rel="noopener"><span class="ref-dom">biorxiv.org</span><span class="ref-t">bioRxiv: Generative design of novel bacteriophages with genome language models</span><span class="ref-a">↗</span></a><a class="ref" href="https://arcinstitute.org/news/hie-king-first-synthetic-phage" target="_blank" rel="noopener"><span class="ref-dom">arcinstitute.org</span><span class="ref-t">Arc Institute: How we built the first AI-generated genomes</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.asimov.press/p/ai-phages" target="_blank" rel="noopener"><span class="ref-dom">asimov.press</span><span class="ref-t">Asimov Press: AI-designed phages</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>author verified</strong>
-  and <strong>ai-led</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>author verified</strong>
+  and <strong>ai-led</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2025). <em>AI-generated bacteriophage genomes that replicate and kill bacteria.</em>

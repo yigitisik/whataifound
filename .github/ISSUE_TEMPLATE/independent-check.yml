@@ -1,0 +1,69 @@
+name: Submit an independent check
+description: Report that you have verified, or failed to verify, a finding in the registry.
+title: "Independent check: "
+labels: ["independent-check"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        You do not need to have reproduced the whole result. Reading the primary source
+        closely enough to say whether it supports the claim is a check.
+
+        Checks are credited on the entry and on
+        [the contributors page](https://whataifound.org/contributors).
+
+  - type: input
+    id: entry
+    attributes:
+      label: Entry ID
+      description: Prefilled from the finding page. Leave as-is.
+      placeholder: 2026-07-22-dinitz-garg-goemans
+    validations:
+      required: true
+
+  - type: input
+    id: who
+    attributes:
+      label: Your name and affiliation
+      description: >
+        As it should appear as credit. Affiliation is optional but helps a reader judge
+        independence. A pseudonym is fine if your evidence stands on its own.
+      placeholder: Jane Okafor, Institute for Advanced Study
+    validations:
+      required: true
+
+  - type: dropdown
+    id: outcome
+    attributes:
+      label: Outcome
+      options:
+        - Confirmed
+        - Confirmed with caveats
+        - Could not reproduce
+        - Refuted
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: What you checked, and how
+      description: >
+        Specific enough that someone else could repeat it: which artifact you ran, which
+        theorem you read, what version or commit. Include a URL if your check is public.
+      placeholder: |
+        Compiled the Lean development at commit a1b2c3d against mathlib 4.9.0 on a clean
+        checkout; `lake build` succeeds with no `sorry`. Theorem `main_thm` is the statement
+        the entry claims. Notes: https://gist.github.com/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: coi
+    attributes:
+      label: Conflicts of interest
+      description: >
+        Optional. Being an author or at the announcing lab does not disqualify the check;
+        an undeclared conflict found later does.
+    validations:
+      required: false

@@ -181,8 +181,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2024-10-02-flywire-connectome">Neuroscience</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -205,6 +208,18 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Notability</dt><dd>2 Wikipedia language editions</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202024-10-02-flywire-connectome&amp;entry=2024-10-02-flywire-connectome"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202024-10-02-flywire-connectome&amp;entry=2024-10-02-flywire-connectome&amp;current=verification%3A%20peer-reviewed%2C%20autonomy%3A%20ai-assisted"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
   <p>A female Drosophila brain was sliced into about 7,000 sections and imaged by electron microscopy, producing a volume no team could trace by hand. Neural networks segmented the neurons automatically; more than 200 labs and a crowd of proofreaders then corrected the segmentation over several years and annotated over 8,000 cell types. Simulations built directly on the resulting wiring diagram predicted which neurons drive feeding and grooming, and the predictions held up experimentally. Published as a Nature package in October 2024.</p>
   <h2 class="lbl">Novelty check</h2>
@@ -215,11 +230,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-024-07558-y" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Neuronal wiring diagram of an adult brain</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.nih.gov/news-events/nih-research-matters/complete-wiring-map-adult-fruit-fly-brain" target="_blank" rel="noopener"><span class="ref-dom">nih.gov</span><span class="ref-t">NIH: Complete wiring map of an adult fruit fly brain</span><span class="ref-a">↗</span></a><a class="ref" href="https://flywire.ai/" target="_blank" rel="noopener"><span class="ref-dom">flywire.ai</span><span class="ref-t">FlyWire (data and explorer)</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>peer reviewed</strong>
-  and <strong>ai-assisted</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
+  and <strong>ai-assisted</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2024). <em>Complete wiring diagram of an adult fruit-fly brain.</em>

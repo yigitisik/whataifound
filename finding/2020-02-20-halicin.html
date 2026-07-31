@@ -68,7 +68,7 @@
       ],
       "license": "https://creativecommons.org/licenses/by/4.0/",
       "creditText": "whataifound.org. Verification: Peer reviewed; autonomy: Search scaffold.",
-      "articleBody": "The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin — an abandoned diabetes candidate — scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.",
+      "articleBody": "The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin, an abandoned diabetes candidate, scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.",
       "contributor": [
         {
           "@type": "Organization",
@@ -171,8 +171,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+<nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav>
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-2020-02-20-halicin">Medicine</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -194,8 +197,20 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div><dt>Human collaborators</dt><dd>Jonathan Stokes, Regina Barzilay, James Collins</dd></div>
   </dl>
 
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202020-02-20-halicin&amp;entry=2020-02-20-halicin"
+         target="_blank" rel="noopener">Submit a check<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202020-02-20-halicin&amp;entry=2020-02-20-halicin&amp;current=verification%3A%20peer-reviewed%2C%20autonomy%3A%20search-scaffold"
+         target="_blank" rel="noopener">Challenge the grade<span aria-hidden="true"> ↗</span></a>
+      
+    </div>
+  </div>
+
   <h2 class="lbl">What was found</h2>
-  <p>The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin — an abandoned diabetes candidate — scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.</p>
+  <p>The model was trained to predict growth inhibition of E. coli from structure alone, then applied to the Drug Repurposing Hub. Halicin, an abandoned diabetes candidate, scored highly despite being structurally unlike known antibiotics. It kills by dissipating the proton-motive force across the bacterial membrane, and the team could not evolve resistant E. coli over 30 days of serial passage. A follow-up screen of about 107 million molecules from ZINC15 produced eight further candidates. Published in Cell.</p>
   <h2 class="lbl">Novelty check</h2>
   <p>Virtual screening long predates deep learning. What was new was a model surfacing a hit structurally distant from its training set, with a mechanism distinct from existing antibiotic classes, and the follow-through to efficacy in animals. Halicin itself was a known molecule; the discovery is of its antibacterial activity, not of the compound.</p>
   <h2 class="lbl">Caveats</h2>
@@ -204,11 +219,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="refs"><a class="ref" href="https://www.cell.com/cell/fulltext/S0092-8674(20)30102-1" target="_blank" rel="noopener"><span class="ref-dom">cell.com</span><span class="ref-t">Cell: A deep learning approach to antibiotic discovery</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.mit.edu/2020/artificial-intelligence-identifies-new-antibiotic-0220" target="_blank" rel="noopener"><span class="ref-dom">news.mit.edu</span><span class="ref-t">MIT News: Artificial intelligence yields new antibiotic</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
+  and <strong>search scaffold</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
+
 
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org (2020). <em>Halicin, an antibiotic found by a neural network screening a compound library.</em>

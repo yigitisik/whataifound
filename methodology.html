@@ -67,11 +67,12 @@ var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: l
 if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
 <link rel="stylesheet" href="styles.css">
 <style>
-  .meth-title{font-size:clamp(1.9rem,6vw,2.8rem);margin:0 0 12px;letter-spacing:-.02em;font-weight:600;line-height:1.05}
+  /* Matched to the registry's h1 so the two pages read as one publication. */
+  .meth-title{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 10px;letter-spacing:-.021em;font-weight:600;line-height:1.06}
   .back{font-family:var(--serif);font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
     color:var(--muted);text-decoration:none;display:inline-flex;align-items:center;gap:6px}
   .back:hover{color:var(--accent)}
-  .meth-sec{margin:40px 0}
+  .meth-sec{margin:34px 0}
   .meth-sec > h2{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
   .meth-sec > .sub{color:var(--muted);margin:0 0 22px;max-width:70ch}
   .meth-list{display:flex;flex-direction:column;gap:1px;background:var(--line);
@@ -110,12 +111,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
         <path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
       </svg>
       <span class="wm">what<span class="ai">ai</span>found.org</span></span>
-    <a class="back" href="index.html">← Back to the registry</a>
+    <!--NAV:START--><nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology" aria-current="page">Methodology</a><a href="/contributors">Contributors</a></nav><!--NAV:END-->
   </div>
   <h1 class="meth-title">Methodology</h1>
   <p class="lede">We grade every finding as one record on two axes: <strong>how solid the evidence is</strong>
-  and <strong>how much the AI actually did</strong>. We set grades conservatively, and only ever
-  downgrade them, never quietly remove one. The schema is the product; everything else renders it.</p>
+  and <strong>how much the AI actually did</strong>. Grades are set conservatively and only ever
+  downgraded, never quietly removed.</p>
 </header>
 
 <main id="main">
