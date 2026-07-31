@@ -5,8 +5,9 @@ each result was verified and how much the AI did. Refuted and already-known resu
 record, marked as such.
 
 [Live site](https://whataifound.org) · [Methodology](https://whataifound.org/methodology) ·
-[Schema](docs/SCHEMA.md) · [Contributing](docs/CONTRIBUTING.md) · [RSS](https://whataifound.org/feed.xml) ·
-[JSON Feed](https://whataifound.org/feed.json)
+[Review queue](https://whataifound.org/review) · [Contributors](https://whataifound.org/contributors) ·
+[Schema](docs/SCHEMA.md) · [Contributing](docs/CONTRIBUTING.md) · [Governance](GOVERNANCE.md) ·
+[RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json)
 
 ## Quick start
 
@@ -32,13 +33,21 @@ ever edited by hand.
 ```
 data/entries.json ──► build.py ──► index.html (entries, stats, filters, FAQ tallies)
                                    finding/<id>.html   one page per entry
+                                   review.html         the open review queue
+                                   contributors.html   the contributor roll
                                    llms.txt  sitemap.xml  feed.xml  feed.json
 
 data/vocab.json   ──► build.py ──► app.js label tables
                                    methodology.html    the two grade lists
                                    llms.txt            the grading scales
+                                   docs/entry.schema.json
                                    ClaimReview ratings on every finding page
 ```
+
+`/review` and `/contributors` are derived, not curated. The queue is every entry with no
+`independent_checks`, so an entry leaves it the moment a check lands; the roll is built from the
+`reviewers` and `contributors` fields plus the authors in `CITATION.cff`. Neither has a list to
+keep in step by hand.
 
 `data/vocab.json` holds the grading vocabulary: the slug, label, short description, full
 definition and schema.org rating for every `verification` and `autonomy` grade, plus the `field`
@@ -49,9 +58,10 @@ Each entry carries two grades: `verification` (how solid the result is, `formal`
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
 rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
 
-Every finding page ends with an **"Is this graded wrong?"** link that opens a prefilled issue
-naming the entry and its current grades. Contesting a grade shouldn't require forking the repo,
-only a citation. The fix is still a pull request; the issue is where it starts.
+Every finding page carries two prefilled issue links: **Submit a check** and **Challenge the
+grade**. An entry nobody has checked leads with the check, since the open question is whether
+anyone has looked; once a check exists it leads with the challenge. Neither requires forking the
+repo, only a citation. The fix is still a pull request; the issue is where it starts.
 
 ### Why the site is pre-rendered
 
@@ -67,8 +77,9 @@ and each finding also has its own URL for citation.
 
 | Step | Does |
 |---|---|
-| `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `llms.txt`, `sitemap.xml` |
+| `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared nav, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
+| `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
 | `verify-parity.py` | Runs `app.js`'s real `card()` under Node and diffs it against the pre-rendered markup |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
@@ -100,8 +111,9 @@ renderer the rest of the toolchain does not:
 
 ### Generated files: never hand-edit
 
-`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, and anything between
-`<!--…:START-->` / `<!--…:END-->` markers in `index.html`. Edit `data/entries.json` and rebuild.
+`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `docs/entry.schema.json`, and
+anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
+`contributors.html`, `methodology.html` or `visuals.html`. Edit `data/entries.json` and rebuild.
 
 ## Structure
 
@@ -109,6 +121,8 @@ renderer the rest of the toolchain does not:
 whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
 ├── methodology.html        # grading reference (grade lists generated from vocab.json)
+├── review.html             # open review queue (generated from entries with no checks)
+├── contributors.html       # contributor roll (generated from reviewers/contributors + CITATION.cff)
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
@@ -127,19 +141,27 @@ whataifound/
 ├── assets/brand/           # brand sources + generated raster icons and og.png
 ├── assets/fonts/           # self-hosted Newsreader (OFL)
 ├── assets/external-logos/  # lab marks from Wikimedia Commons
-├── .github/workflows/      # CI: integrity, rebuild, drift, link rot
+├── GOVERNANCE.md           # roles, what needs a second maintainer, operational access
+├── CITATION.cff            # maintainer roster; what GitHub cites, and the contributors page reads
+├── CODE_OF_CONDUCT.md      # participation rules
+├── SECURITY.md             # how to report a vulnerability
+├── .github/workflows/      # CI: integrity, rebuild, drift, link rot, PR entry report
+├── .github/ISSUE_TEMPLATE/ # prefilled forms: independent check, grade challenge
 ├── scripts/                # authoring toolchain (not deployed)
 │   ├── build.py            #   ← run this; validates + regenerates everything
-│   ├── build-site.py       #   pre-renders index.html; writes finding/, llms.txt, sitemap.xml
+│   ├── build-site.py       #   pre-renders index.html; writes finding/, /review, /contributors, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds
+│   ├── build-schema.py     #   regenerates docs/entry.schema.json from vocab.json
 │   ├── build-notability.py #   measures notability from the Wikipedia API (run deliberately)
 │   ├── build-icons.py      #   rasterises the icons + og.png (run deliberately)
 │   ├── check-links.py      #   resolves every external URL (CI: PRs + weekly)
 │   ├── verify-parity.py    #   asserts pre-rendered cards == app.js card()
 │   ├── check-integrity.py  #   asserts no smuggled markup in deployed HTML
+│   ├── pr-report.py        #   summarises a PR's entry changes for the CI comment
 │   └── serve.py            #   local preview server
 └── docs/
     ├── SCHEMA.md           #   field definitions + editorial rules
+    ├── entry.schema.json   #   generated JSON Schema for editor autocomplete
     └── CONTRIBUTING.md     #   how to add an entry, and how to review one
 ```
 
@@ -188,6 +210,11 @@ Static, no build command: the generated files are committed, so a deploy just se
 See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). Fork, branch, run `python3 scripts/build.py`,
 commit the regenerated files alongside your entry, open a PR. Each PR gets a Vercel preview URL and
 the CI checks above.
+
+The lowest-friction contribution is an independent check: the
+[review queue](https://whataifound.org/review) lists every entry nobody outside the announcing lab
+has confirmed, and each row opens a prefilled issue. Roles and the route to maintainer are in
+[GOVERNANCE.md](GOVERNANCE.md).
 
 ## Licensing
 

@@ -74,7 +74,7 @@ Don't delete entries. Downgrade `verification`, add the objection to `caveats`, 
 challenge novelty, submit a PR downgrading the entry to `known` with the specific prior-work
 citation.
 
-Every finding page carries an **"Is this graded wrong?"** link that opens the
+Every finding page carries a **Challenge the grade** link that opens the
 [grade challenge](../.github/ISSUE_TEMPLATE/grade-challenge.yml) issue form with the entry id and
 its current grades already filled in. It exists so that contesting a grade doesn't require forking
 the repo: the reporter supplies the citation, nothing else.
@@ -85,13 +85,16 @@ wins when it's arguable. A challenge without a specific citation gets closed.
 
 ### Never hand-edit generated files
 
-`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, and anything between
-`<!--…:START-->` / `<!--…:END-->` markers in `index.html`. Your change will be overwritten on the
-next build, and CI will fail. Edit `data/entries.json` instead.
+`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `entry.schema.json`, and anything
+between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
+`contributors.html`, `methodology.html` or `visuals.html` — including the shared `NAV` block, which
+is written into every page from one place. Your change will be overwritten on the next build, and
+CI will fail. Edit `data/entries.json` instead.
 
 ## Code
 
 Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
+[review.html](../review.html), [contributors.html](../contributors.html),
 [visuals.html](../visuals.html), [404.html](../404.html), [styles.css](../styles.css),
 [app.js](../app.js). Constraints:
 
@@ -148,17 +151,17 @@ Google's favicon crawler documents `.ico`/`.png`/`.jpg`/`.gif` and does not list
 SVG-only site tends to show a generic globe in search results. `og.png` is a PNG for the same class
 of reason: several platforms don't render SVG previews.
 
-The header mark is inlined in `index.html`, `methodology.html` and `visuals.html` (so it inherits
-`currentColor` and animates) and again, larger and static, in `404.html`. Change the shape and all
-four need the same edit, plus `assets/brand/` for the standalone files. Each inline copy needs its
-own gradient `id`; duplicates across a page collide.
+The header mark is inlined in `index.html`, `methodology.html`, `review.html`, `contributors.html`
+and `visuals.html` (so it inherits `currentColor` and animates) and again, larger and static, in
+`404.html`. Change the shape and all six need the same edit, plus `assets/brand/` for the
+standalone files. Each inline copy needs its own gradient `id`; duplicates across a page collide.
 
 ### Changing the domain
 
-`https://whataifound.org` is hard-coded in `index.html`, `methodology.html`, `visuals.html`,
-`robots.txt`, the `SITE` constant in `build-site.py`, `build-feed.py` and `build-notability.py`, and
-the `og.svg` wordmark. Changing it means editing all of those, then re-running `build.py` and
-`build-icons.py`.
+`https://whataifound.org` is hard-coded in `index.html`, `methodology.html`, `review.html`,
+`contributors.html`, `visuals.html`, `robots.txt`, the `SITE` constant in `build-site.py`,
+`build-feed.py` and `build-notability.py`, and the `og.svg` wordmark. Changing it means editing all
+of those, then re-running `build.py` and `build-icons.py`.
 
 ## PRs
 
@@ -177,6 +180,10 @@ CI runs on every PR:
 
 The integrity check runs *before* the rebuild, because a rebuild would overwrite tampering in a
 fully generated file and hide it.
+
+`pr-report.py` also summarises the entry changes in your PR, and the `comment` workflow posts that
+summary on the PR and updates it in place on each push. It reports what changed, never whether the
+change is right: reviewers open the primary sources themselves.
 
 ## Editorial rules
 
