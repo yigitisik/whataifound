@@ -70,8 +70,12 @@ script = (head + "\nconst DATA = " + json.dumps(entries) + ";\n"
           + "ALL = DATA;\n"
           + f"process.stdout.write(DATA.map(card).join('\\n') + {json.dumps(SPLIT)} + matrixCard());\n")
 
+# Delivered on stdin rather than as `node -e <script>`: the script embeds the whole
+# registry, and Linux caps a single argv entry at 128 KiB (MAX_ARG_STRLEN) regardless of
+# the much larger total ARG_MAX. macOS has no per-argument cap, so `-e` passed locally
+# and failed only in CI once data/entries.json grew past 128 KiB.
 try:
-    js = subprocess.run(["node", "-e", script], capture_output=True, text=True,
+    js = subprocess.run(["node", "-"], input=script, capture_output=True, text=True,
                         check=True).stdout
 except FileNotFoundError:
     sys.exit("verify-parity: node not found; install Node to run this check.")
