@@ -6,15 +6,12 @@ body:
   - type: markdown
     attributes:
       value: |
-        Grades are downgraded on evidence, never on opinion. A challenge without a specific
-        citation will be closed.
+        Grades move on evidence, never on opinion, and a challenge without a specific
+        citation will be closed. When the evidence is arguable, the weaker grade wins.
+        Both scales are defined on [the methodology page](https://whataifound.org/methodology).
 
-        The two scales are defined in [docs/SCHEMA.md](../blob/main/docs/SCHEMA.md) and on
-        [the methodology page](https://whataifound.org/methodology). When the evidence is
-        arguable, the weaker grade wins.
-
-        Opening an issue starts the conversation; the fix is a pull request editing
-        `data/entries.json`. You are welcome to skip straight to the PR.
+        The fix is a pull request editing `data/entries.json`; you are welcome to skip
+        straight to it.
 
   - type: input
     id: entry

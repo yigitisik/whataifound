@@ -6,16 +6,11 @@ body:
   - type: markdown
     attributes:
       value: |
-        An independent check is the most valuable thing anyone can contribute here. A grade of
-        `independent` means qualified people unaffiliated with the announcing lab confirmed the
-        result, and 34 of the 52 entries currently have no check at all.
+        You do not need to have reproduced the whole result. Reading the primary source
+        closely enough to say whether it supports the claim is a check.
 
-        You do not need to have reproduced the whole result. Reading the primary source closely
-        enough to say whether it supports the claim is a check, and saying so is useful.
-
-        Checks are recorded on the entry with your name against them, and on
-        [the contributors page](https://whataifound.org/contributors). See
-        [GOVERNANCE.md](../blob/main/GOVERNANCE.md) for how accepted checks lead to a reviewer role.
+        Checks are credited on the entry and on
+        [the contributors page](https://whataifound.org/contributors).
 
   - type: input
     id: entry
@@ -27,21 +22,12 @@ body:
       required: true
 
   - type: input
-    id: current
-    attributes:
-      label: Current grades
-      description: Prefilled from the finding page. Leave as-is.
-      placeholder: "verification: author-verified, autonomy: ai-led"
-    validations:
-      required: true
-
-  - type: input
     id: who
     attributes:
       label: Your name and affiliation
       description: >
-        Exactly as it should appear as credit on the entry. Affiliation is optional but helps a
-        reader judge independence. A pseudonym is acceptable if your evidence stands on its own.
+        As it should appear as credit. Affiliation is optional but helps a reader judge
+        independence. A pseudonym is fine if your evidence stands on its own.
       placeholder: Jane Okafor, Institute for Advanced Study
     validations:
       required: true
@@ -63,9 +49,8 @@ body:
     attributes:
       label: What you checked, and how
       description: >
-        Be specific enough that someone else could repeat it. Which artifact did you run, which
-        theorem did you read, which dataset did you rerun, what version or commit. Include a URL
-        if your check is public: a notebook, a gist, a mailing list post, a compiled proof.
+        Specific enough that someone else could repeat it: which artifact you ran, which
+        theorem you read, what version or commit. Include a URL if your check is public.
       placeholder: |
         Compiled the Lean development at commit a1b2c3d against mathlib 4.9.0 on a clean
         checkout; `lake build` succeeds with no `sorry`. Theorem `main_thm` is the statement
@@ -73,27 +58,12 @@ body:
     validations:
       required: true
 
-  - type: dropdown
-    id: upgrade
-    attributes:
-      label: Does this warrant a grade change?
-      description: Optional. The maintainers decide, but your view is useful.
-      options:
-        - "No, the current grades are right"
-        - "Yes, verification should go up"
-        - "Yes, verification should go down"
-        - "Yes, autonomy is wrong"
-        - Not sure
-    validations:
-      required: false
-
   - type: textarea
     id: coi
     attributes:
       label: Conflicts of interest
       description: >
-        Optional. Are you an author of the result, at the announcing lab, or otherwise not
-        independent? Say so. It does not disqualify the check, but an undeclared conflict found
-        later does.
+        Optional. Being an author or at the announcing lab does not disqualify the check;
+        an undeclared conflict found later does.
     validations:
       required: false

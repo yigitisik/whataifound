@@ -645,15 +645,19 @@ def entry_page(e):
     credit = credit_block(e)
     grades = f"verification: {e['verification']}, autonomy: {e['autonomy']}"
 
-    def issue_url(template, title):
+    def issue_url(template, title, *extra):
         return REPO + "/issues/new?" + "&".join([
             f"template={template}",
             "title=" + enc_uri_component(title),
             "entry=" + enc_uri_component(e["id"]),
-            "current=" + enc_uri_component(grades),
+            *extra,
         ])
 
-    challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}")
+    # Only the challenge form has a `current` field: it argues against a specific pair of
+    # grades, so the pair it was filed against is worth freezing. A check is about the
+    # result, not the grade, and a prefilled field nobody edits is just one more row.
+    challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}",
+                          "current=" + enc_uri_component(grades))
     check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
     # Discussions take a title and body, not the issue-form field ids. Rendered only when
     # DISCUSSIONS is on: a /discussions URL against a repo that has not enabled the
@@ -672,14 +676,13 @@ def entry_page(e):
     # has looked. Both actions are always present; only the order and framing change.
     unchecked = not e.get("independent_checks")
     if unchecked:
-        ask_title = "Nobody has independently checked this yet."
-        ask_body = ("A grade of <strong>independently checked</strong> needs someone unaffiliated "
-                    "with the lab to confirm the result. Reading the primary source closely enough "
-                    "to say whether it supports the claim counts, and you are credited on the entry.")
+        ask_title = "Nobody outside the lab has checked this yet."
+        ask_body = ("Reading the primary source closely enough to say whether it supports the "
+                    "claim counts as a check, and you are credited on the entry.")
     else:
         ask_title = "Disagree with these grades?"
-        ask_body = ("Entries are never deleted. A grade that does not hold up is downgraded on the "
-                    "record and the objection is kept beside it. Bring a citation.")
+        ask_body = ("Entries are never deleted. A grade that does not hold up is downgraded on "
+                    "the record, with the objection beside it. Bring a citation.")
 
     verdict = (f"{e['title']} is graded {ver.lower()} on whataifound.org, with the AI's "
                f"role graded {aut.lower()}.")
@@ -809,10 +812,9 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 {section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
 
   <h2 class="lbl">How this is graded</h2>
-  <p>whataifound.org grades every entry on two axes: <strong>verification</strong> (how solid the
-  result is, from a machine-checked proof down to refuted) and <strong>autonomy</strong> (how much
-  the AI did versus its human collaborators). This finding is <strong>{esc(ver.lower())}</strong>
-  and <strong>{esc(aut.lower())}</strong>. Full definitions are in the
+  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
+  <strong>autonomy</strong> (how much the AI did). This one is <strong>{esc(ver.lower())}</strong>
+  and <strong>{esc(aut.lower())}</strong>. Definitions are in the
   <a href="/methodology">methodology</a>.</p>
 
 {credit}
@@ -966,6 +968,8 @@ def build_review(entries):
     Ordering is by how badly the gap matters, not by date. An entry carrying a weak grade
     with nobody having checked it is the worst case: the grade is doing no work and the
     reader has no way to know that.
+
+    The page explains the ask once, in the lede in review.html. Nothing here repeats it.
     """
     # The queue is about verification, and only verification. Metadata gaps are real but
     # minor, and folding them in put 51 of 52 entries on the page, which reads as "the
@@ -981,10 +985,8 @@ def build_review(entries):
     queue = sorted((e for e in entries if not e.get("independent_checks")),
                    key=lambda e: (rank(e), e["id"]))
 
-    TIER = {0: ("Weakly graded, and nobody has checked it",
-                "The grade rests on the announcing lab alone. These matter most."),
-            1: ("No independent check yet",
-                "Better evidenced, but still unconfirmed by anyone outside the lab.")}
+    TIER = {0: ("Weak grade, no check", "The grade rests on the announcing lab alone."),
+            1: ("No check yet", "Better evidenced, still unconfirmed outside the lab.")}
 
     rows, current = "", None
     for e in queue:
@@ -993,16 +995,14 @@ def build_review(entries):
             current = r
             head, sub = TIER[r]
             n = sum(1 for x in queue if rank(x) == r)
-            rows += (f'<div class="q-head"><h2>{esc(head)}</h2>'
-                     f'<p>{esc(sub)} <b>{n}</b> {"entry" if n == 1 else "entries"}.</p></div>')
+            rows += (f'<div class="q-head"><h2>{esc(head)} <b>{n}</b></h2>'
+                     f'<p>{esc(sub)}</p></div>')
         ver = VER_LABEL.get(e["verification"], e["verification"])
         aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
         check = REPO + "/issues/new?" + "&".join([
             "template=independent-check.yml",
             "title=" + enc_uri_component(f"Independent check: {e['id']}"),
             "entry=" + enc_uri_component(e["id"]),
-            "current=" + enc_uri_component(
-                f"verification: {e['verification']}, autonomy: {e['autonomy']}"),
         ])
         rows += (
             f'<div class="q-row">'
@@ -1018,12 +1018,10 @@ def build_review(entries):
 
     # Smaller gaps, listed compactly. These are good first contributions: each is a
     # single verifiable fact, no judgment about evidence required.
-    SMALL = [("year_posed", "no year posed",
-              "the year the problem was first posed, so the site can show how long it stood"),
-             ("wikipedia", "no notability rating",
-              "the Wikipedia article for the problem itself, which drives the notability count"),
-             ("discussion", "no discussion linked",
-              "a thread where the result was debated, such as Hacker News or MathOverflow")]
+    SMALL = [("year_posed", "Year posed", "The year the problem was first posed."),
+             ("wikipedia", "Notability",
+              "The Wikipedia article for the problem, which drives the notability count."),
+             ("discussion", "Discussion", "A thread where the result was debated.")]
     small = ""
     for key, label, why in SMALL:
         missing = [e for e in entries if not e.get(key)]
@@ -1034,20 +1032,13 @@ def build_review(entries):
         more = (f' <span class="c-more">and {len(missing) - 8} more</span>'
                 if len(missing) > 8 else "")
         small += (f'<div class="q-small"><h3>{esc(label)} <b>{len(missing)}</b></h3>'
-                  f'<p>Needs {esc(why)}.</p><p class="q-small-links">{links}{more}</p></div>')
+                  f'<p>{esc(why)}</p><p class="q-small-links">{links}{more}</p></div>')
     if small:
         small = ('<div class="q-head"><h2>Smaller gaps</h2>'
-                 '<p>Single verifiable facts rather than judgments about evidence. '
-                 'A good first contribution.</p></div>' + small)
+                 '<p>Single facts, no judgment about evidence needed.</p></div>' + small)
 
-    checked = len(entries) - len(queue)
-    summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have never been '
-               f'independently checked. {checked} '
-               f'{"has" if checked == 1 else "have"} at least one check on the record. '
-               f'You do not need to reproduce a whole result to help: reading the primary source '
-               f'closely enough to say whether it supports the claim is a check, and you are '
-               f'credited on the entry and on the '
-               f'<a href="/contributors">contributors page</a>.</p>')
+    summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
+               f'independent check.</p>')
 
     path = os.path.join(ROOT, "review.html")
     src = open(path).read()
@@ -1078,7 +1069,10 @@ def build_contributors(entries):
                     rec["github"] = p["github"]
         return sorted(people.values(), key=lambda r: (-len(r["entries"]), r["name"]))
 
-    def tier(title, blurb, people, verb):
+    # The lede in contributors.html defines what each role is, so the tiers carry only a
+    # heading. A blurb per tier restated the lede three times on a page that is mostly
+    # names.
+    def tier(title, people, verb):
         if not people:
             return ""
         cards = ""
@@ -1092,28 +1086,25 @@ def build_contributors(entries):
                       f'<p class="c-count">{len(r["entries"])} '
                       f'{"entry" if len(r["entries"]) == 1 else "entries"} {esc(verb)}</p>'
                       f'<p class="c-links">{links}{more}</p></div>')
-        return (f'<section class="c-tier"><h2>{esc(title)}</h2><p class="c-blurb">{blurb}</p>'
+        return (f'<section class="c-tier"><h2>{esc(title)}</h2>'
                 f'<div class="c-grid">{cards}</div></section>')
 
     maintainers = "".join(
         f'<div class="c-card"><p class="c-name">{esc(m)}</p>'
         f'<p class="c-count">maintainer</p></div>' for m in citation_authors())
     out = (f'<section class="c-tier"><h2>Maintainers</h2>'
-           f'<p class="c-blurb">Listed as authors in '
+           f'<p class="c-blurb">Authors in '
            f'<a href="{REPO}/blob/main/CITATION.cff">CITATION.cff</a>, so citing the registry '
-           f'cites them. What the role involves, and how someone reaches it, is in '
-           f'<a href="{REPO}/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>.</p>'
+           f'cites them.</p>'
            f'<div class="c-grid">{maintainers}</div></section>')
 
     revs, cons = roll("reviewers"), roll("contributors")
-    out += tier("Reviewers", "Submitted independent checks that were accepted onto the record.",
-                revs, "checked")
-    out += tier("Contributors", "Added or corrected entries in the registry.", cons, "credited")
+    out += tier("Reviewers", revs, "checked")
+    out += tier("Contributors", cons, "credited")
 
     if not revs and not cons:
-        out += ('<p class="c-empty">No outside reviewers or contributors are credited yet. '
-                f'The <a href="/review">open review queue</a> is where that starts: pick an entry '
-                f'nobody has checked, check it, and your name goes on it.</p>')
+        out += ('<p class="c-empty">No outside reviewers or contributors yet. Take an entry from '
+                'the <a href="/review">review queue</a>, check it, and your name goes here.</p>')
 
     path = os.path.join(ROOT, "contributors.html")
     src = open(path).read()
@@ -1224,6 +1215,18 @@ def build_index(entries, updated):
     # around it: verify-parity.py diffs this region against matrixCard()'s own output.
     src = inject(src, "<!--MATRIX:START-->", "<!--MATRIX:END-->",
                  matrix_card(entries), "hero matrix")
+
+    # The counts column is shorter than the chart beside it, and the slack is better spent
+    # naming the registry's largest gap than padding four tiles out to fill it. Derived, so
+    # it drops to nothing the day every entry has been checked.
+    unchecked = sum(1 for e in entries if not e.get("independent_checks"))
+    promo = ""
+    if unchecked:
+        promo = (f'<a class="hero-promo" href="/review">'
+                 f'<b>{unchecked}</b> of {len(entries)} entries have never been independently '
+                 f'checked. <span class="hero-promo-cta">Open the review queue'
+                 f'<span aria-hidden="true"> →</span></span></a>')
+    src = inject(src, "<!--PROMO:START-->", "<!--PROMO:END-->", promo, "hero promo")
 
     src = inject(src, "<!--COUNT:START-->", "<!--COUNT:END-->",
                  f"{len(entries)} / {len(entries)} entries", "result count")
