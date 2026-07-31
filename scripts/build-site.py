@@ -45,6 +45,23 @@ SITE = "https://whataifound.org"
 # than an email. The repo URL is also hand-written in the static HTML headers and footers;
 # this constant covers only what the build generates.
 REPO = "https://github.com/yigitisik/whataifound"
+
+# GitHub Discussions has to be switched on in repo settings before any /discussions URL
+# resolves; until then every one of them 404s, which is worse than not offering the link.
+# Flip this to True once it is enabled. DISCUSSION_CATEGORY must be a category that
+# actually exists: "general" is created by default, "findings" is not.
+DISCUSSIONS = False
+DISCUSSION_CATEGORY = "general"
+
+# Every page in the site, in nav order. One list so the nav, the sitemap and llms.txt
+# cannot disagree about what exists; adding a page means adding a line here.
+PAGES = [
+    ("/", "Registry", "weekly", "1.0"),
+    ("/review", "Review queue", "weekly", "0.6"),
+    ("/visuals", "Visuals", "weekly", "0.7"),
+    ("/methodology", "Methodology", "monthly", "0.7"),
+    ("/contributors", "Contributors", "monthly", "0.5"),
+]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------- vocabulary
@@ -197,6 +214,24 @@ def ref_row(s):
     return (f'<a class="ref" href="{esc(s.get("url"))}" target="_blank" rel="noopener">'
             f'<span class="ref-dom">{esc(dom)}</span><span class="ref-t">{esc(label)}</span>'
             f'<span class="ref-a">↗</span></a>')
+
+
+def page_nav(current):
+    """The bar that links every page to every other page.
+
+    Before this, each sub-page could only go back to the registry, so getting from the
+    review queue to the contributors page meant two hops through the homepage. It is
+    generated from PAGES rather than hand-written into five files, because five
+    hand-maintained copies of a nav is five chances for one to fall out of date.
+
+    `current` is the path of the page being built, or None on finding pages, which are
+    below all of these rather than beside them.
+    """
+    items = ""
+    for path, label, _, _ in PAGES:
+        here = ' aria-current="page"' if path == current else ""
+        items += f'<a href="{path}"{here}>{esc(label)}</a>'
+    return f'<nav class="pagenav" aria-label="Site">{items}</nav>'
 
 
 def person(p):
@@ -620,10 +655,17 @@ def entry_page(e):
 
     challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}")
     check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
-    # Discussions take a title and body, not the issue-form field ids.
-    discuss = (REPO + "/discussions/new?category=findings&title="
-               + enc_uri_component(e["title"]) + "&body="
-               + enc_uri_component(f"About {url}\n\nCurrently graded {grades}.\n\n"))
+    # Discussions take a title and body, not the issue-form field ids. Rendered only when
+    # DISCUSSIONS is on: a /discussions URL against a repo that has not enabled the
+    # feature 404s, and so does a category that does not exist.
+    discuss = ""
+    if DISCUSSIONS:
+        discuss = (f'<a class="challenge-alt" href="'
+                   + esc(REPO + f"/discussions/new?category={DISCUSSION_CATEGORY}&title="
+                         + enc_uri_component(e["title"]) + "&body="
+                         + enc_uri_component(f"About {url}\n\nCurrently graded {grades}.\n\n"))
+                   + '" target="_blank" rel="noopener">or discuss it'
+                   + '<span aria-hidden="true"> ↗</span></a>')
     # An entry nobody has checked is the one most worth checking, so the ask leads with
     # that. Once a check exists the panel reverts to leading with the challenge, since
     # the open question is then whether the grade is right rather than whether anyone
@@ -733,8 +775,11 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
+{page_nav(None)}
 <nav class="crumb" aria-label="Breadcrumb">
-  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>Finding</span>
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/#e-{esc(e["id"])}">{esc(FIELD_LABEL.get(e.get("field"), e.get("field")))}</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
 <article class="finding">
@@ -758,7 +803,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
          target="_blank" rel="noopener">{"Submit a check" if unchecked else "Challenge this grade"}<span aria-hidden="true"> ↗</span></a>
       <a class="btn challenge-b" href="{esc(challenge if unchecked else check)}"
          target="_blank" rel="noopener">{"Challenge the grade" if unchecked else "Submit a check"}<span aria-hidden="true"> ↗</span></a>
-      <a class="challenge-alt" href="{esc(discuss)}" target="_blank" rel="noopener">or discuss it<span aria-hidden="true"> ↗</span></a>
+      {discuss}
     </div>
   </div>
 {section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
@@ -859,11 +904,7 @@ def build_sitemap(entries, updated):
     has nothing to do with the content. The registry pages change when an entry is
     added, so the newest `added` date is the honest answer for all three.
     """
-    urls = [(f"{SITE}/", updated, "weekly", "1.0"),
-            (f"{SITE}/methodology", updated, "monthly", "0.7"),
-            (f"{SITE}/visuals", updated, "weekly", "0.7"),
-            (f"{SITE}/review", updated, "weekly", "0.6"),
-            (f"{SITE}/contributors", updated, "monthly", "0.5")]
+    urls = [(SITE + path, updated, freq, pri) for path, _, freq, pri in PAGES]
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
         lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
@@ -1113,6 +1154,17 @@ def citation_authors():
     if given or family:
         names.append(" ".join(x for x in (given, family) if x))
     return names
+
+
+def build_nav():
+    """Write the shared nav into every static page, each marking its own entry current."""
+    for path, _, _, _ in PAGES:
+        name = "index.html" if path == "/" else path.lstrip("/") + ".html"
+        full = os.path.join(ROOT, name)
+        src = open(full).read()
+        src = inject(src, "<!--NAV:START-->", "<!--NAV:END-->", page_nav(path), "site nav", name)
+        with open(full, "w") as f:
+            f.write(src)
 
 
 def build_methodology():
@@ -1377,6 +1429,9 @@ def main():
     build_methodology()
     queued = build_review(entries)
     build_contributors(entries)
+    # After the page builders, so every shell has been written before the shared nav
+    # goes into it. One generated nav, five pages, no hand-maintained copies.
+    build_nav()
     build_index(entries, updated)
 
     out_dir = os.path.join(ROOT, "finding")

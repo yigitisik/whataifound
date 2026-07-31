@@ -91,6 +91,13 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   /* The caveat is secondary to the sentence it follows: set it apart on its own line
      so the lede reads as one clean statement rather than three clauses run together. */
   .vis-note{display:block;margin-top:5px;font-size:.83rem;opacity:.82}
+  /* The -24px bleed above is sized to the wide .wrap gutter. Below 720px the shared
+     stylesheet narrows that gutter to 20px, so the bleed would push the masthead 4px
+     past the viewport and give the whole page a horizontal scrollbar. This page-scoped
+     header rule overrides the shared one, so it has to carry its own breakpoint. */
+  @media(max-width:720px){
+    header{margin:10px -8px 0}
+  }
   @media(max-width:560px){
     header{padding:12px 16px 11px;margin:8px 0 0}
     .vis-lede{font-size:.9rem;line-height:1.55;margin:16px 2px 14px}
@@ -120,7 +127,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </svg>
       <span class="wm">what<span class="ai">ai</span>found.org</span></span>
     <h1 class="meth-title">Visuals</h1>
-    <a class="back" href="index.html">← Back to the registry</a>
+    <!--NAV:START--><nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals" aria-current="page">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav><!--NAV:END-->
   </div>
 </header>
 
