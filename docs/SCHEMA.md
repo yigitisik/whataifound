@@ -35,6 +35,13 @@ else (site, search, company pages) is a rendering of it.
 | `discussion` | array | `{label, url}`. Threads where the result was debated (Hacker News, Stack Exchange, Reddit). Not a substitute for a primary source |
 | `videos` | array | `{label, channel, youtube_id}`. Credible explainers only (official lab channels, established science press, recognized educators). Verify the ID resolves and the channel is who it claims before adding; never add hype-channel content |
 | `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms` |
+| `contributors` | array | `{name, github?, note?}`. Who added or corrected **this registry entry**. Not who made the discovery: that is `lab` and `humans` |
+| `reviewers` | array | `{name, github?, note?}`. Who independently checked the entry and had it accepted. Pairs with `independent_checks`, which records *what* was checked; this records *who gets credit* |
+
+`name` is the only required key on either. `github` is a bare handle with no `@`, and the build
+turns it into a link; a `url` key is rejected so there is no free-form scheme to smuggle. Both
+render on the finding page and aggregate on
+[whataifound.org/contributors](https://whataifound.org/contributors).
 
 ## `verification`: how solid is it?
 

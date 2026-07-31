@@ -54,6 +54,20 @@ If your entry has a `wikipedia` title, run `python3 scripts/build-notability.py`
 `notability` from the live Wikipedia API. It hits the network and edits `data/entries.json`, so it
 is not part of `build.py`; run it deliberately. `--check` reports drift.
 
+### Submitting an independent check
+
+The most useful thing anyone can contribute. A grade of `independent` means qualified people
+unaffiliated with the announcing lab confirmed the result, and most entries have no check at all.
+[The open review queue](https://whataifound.org/review) lists every one of them, weakest evidence
+first, with a one-click prefilled issue on each.
+
+You do not have to reproduce a whole result. Reading the primary source closely enough to say
+whether it supports the claim is a check, and saying it does not is as valuable as saying it does.
+Accepted checks land in `independent_checks` and your name in `reviewers`, which is what the
+[contributors page](https://whataifound.org/contributors) is built from.
+
+Sustained review is also the route to a maintainer role. See [GOVERNANCE.md](../GOVERNANCE.md).
+
 ### Correcting or challenging
 
 Don't delete entries. Downgrade `verification`, add the objection to `caveats`, cite the source. To

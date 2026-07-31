@@ -1,0 +1,29 @@
+# Review routing. GitHub requests a review from the owners of any path a PR touches.
+#
+# The split mirrors the one CI already draws: an entry change edits data and the files
+# generated from it; a code change edits the toolchain, the front end, or the deploy
+# config. build.yml warns when a single PR does both, because the second is never
+# reviewable on the strength of the first.
+#
+# With one maintainer every line points to the same person and this file does nothing.
+# That is the point: adding the second maintainer is then one line per area, not a
+# redesign. See GOVERNANCE.md for which merges need a second maintainer regardless.
+
+# Default owner for anything not matched below.
+*                       @yigitisik
+
+# Editorial. The registry itself and the vocabulary that grades it.
+/data/                  @yigitisik
+/docs/SCHEMA.md         @yigitisik
+
+# Toolchain and front end. Treat as code review, never as an entry review.
+/scripts/               @yigitisik
+/app.js                 @yigitisik
+/styles.css             @yigitisik
+
+# Deploy, CI and security posture. Changes here can disable the checks that make
+# contributor PRs safe to merge, so they get the closest reading.
+/.github/               @yigitisik
+/vercel.json            @yigitisik
+/CITATION.cff           @yigitisik
+/GOVERNANCE.md          @yigitisik

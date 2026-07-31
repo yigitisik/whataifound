@@ -61,6 +61,13 @@ def urls_from(entries):
         for c in e.get("independent_checks") or []:
             if c.get("url"):
                 out.append((e["id"], "independent_check", c.get("who", ""), c["url"]))
+        # Videos carry an id rather than a URL, so they were invisible to this check and a
+        # pulled or privated video would sit on the page indefinitely. youtube.com/watch
+        # answers 404 for an unknown id, which is exactly what DEAD looks for.
+        for v in e.get("videos") or []:
+            if v.get("youtube_id"):
+                out.append((e["id"], "video", v.get("label", ""),
+                            f"https://www.youtube.com/watch?v={v['youtube_id']}"))
     return out
 
 

@@ -199,6 +199,38 @@ def ref_row(s):
             f'<span class="ref-a">↗</span></a>')
 
 
+def person(p):
+    """One credited person. A GitHub handle becomes a link; a bare name stays text."""
+    name = esc(p.get("name"))
+    gh = str(p.get("github") or "").lstrip("@")
+    # Handles are the only thing here that becomes an href, so constrain them to
+    # GitHub's own character set rather than trusting the value.
+    if gh and re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?", gh):
+        name = (f'<a href="https://github.com/{esc(gh)}" target="_blank" '
+                f'rel="noopener">{name}</a>')
+    note = f' <span class="credit-note">{esc(p["note"])}</span>' if p.get("note") else ""
+    return f'<li>{name}{note}</li>'
+
+
+def credit_block(e):
+    """Who built this registry entry, as distinct from who made the discovery.
+
+    `lab` and `humans` credit the discovery. These credit the people who put the record
+    here and checked it, which is the currency the project pays contributors in. Rendered
+    on finding pages only: card() is mirrored in app.js and enforced by verify-parity.py,
+    and there is no reason to carry a second dual-maintained renderer for this.
+    """
+    rows = ""
+    for field, label in (("contributors", "Contributed by"), ("reviewers", "Reviewed by")):
+        people = e.get(field) or []
+        if people:
+            rows += (f'<div class="credit-row"><b>{label}</b>'
+                     f'<ul>{"".join(person(p) for p in people)}</ul></div>')
+    if not rows:
+        return ""
+    return (f'<h2 class="lbl">Credit</h2><div class="credit">{rows}</div>')
+
+
 def years_open(e):
     """Derived, never stored: how long the problem stood before this result."""
     if e.get("year_posed") is None:
@@ -575,13 +607,37 @@ def entry_page(e):
     # prefills from query parameters keyed on each field's id, so the entry and its current
     # grades arrive filled in and the reporter only supplies the citation. esc() escapes the
     # & separators, which an href requires.
-    challenge = REPO + "/issues/new?" + "&".join([
-        "template=grade-challenge.yml",
-        "title=" + enc_uri_component(f"Grade challenge: {e['id']}"),
-        "entry=" + enc_uri_component(e["id"]),
-        "current=" + enc_uri_component(
-            f"verification: {e['verification']}, autonomy: {e['autonomy']}"),
-    ])
+    credit = credit_block(e)
+    grades = f"verification: {e['verification']}, autonomy: {e['autonomy']}"
+
+    def issue_url(template, title):
+        return REPO + "/issues/new?" + "&".join([
+            f"template={template}",
+            "title=" + enc_uri_component(title),
+            "entry=" + enc_uri_component(e["id"]),
+            "current=" + enc_uri_component(grades),
+        ])
+
+    challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}")
+    check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
+    # Discussions take a title and body, not the issue-form field ids.
+    discuss = (REPO + "/discussions/new?category=findings&title="
+               + enc_uri_component(e["title"]) + "&body="
+               + enc_uri_component(f"About {url}\n\nCurrently graded {grades}.\n\n"))
+    # An entry nobody has checked is the one most worth checking, so the ask leads with
+    # that. Once a check exists the panel reverts to leading with the challenge, since
+    # the open question is then whether the grade is right rather than whether anyone
+    # has looked. Both actions are always present; only the order and framing change.
+    unchecked = not e.get("independent_checks")
+    if unchecked:
+        ask_title = "Nobody has independently checked this yet."
+        ask_body = ("A grade of <strong>independently checked</strong> needs someone unaffiliated "
+                    "with the lab to confirm the result. Reading the primary source closely enough "
+                    "to say whether it supports the claim counts, and you are credited on the entry.")
+    else:
+        ask_title = "Disagree with these grades?"
+        ask_body = ("Entries are never deleted. A grade that does not hold up is downgraded on the "
+                    "record and the objection is kept beside it. Bring a citation.")
 
     verdict = (f"{e['title']} is graded {ver.lower()} on whataifound.org, with the AI's "
                f"role graded {aut.lower()}.")
@@ -695,11 +751,15 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   </dl>
 
   <div class="challenge">
-    <p class="challenge-t">Disagree with these grades?</p>
-    <p class="challenge-d">Entries are never deleted. A grade that does not hold up is downgraded
-    on the record and the objection is kept beside it. Bring a citation.</p>
-    <a class="btn primary challenge-b" href="{esc(challenge)}" target="_blank" rel="noopener">Challenge
-    this grade<span aria-hidden="true"> ↗</span></a>
+    <p class="challenge-t">{esc(ask_title)}</p>
+    <p class="challenge-d">{ask_body}</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="{esc(check if unchecked else challenge)}"
+         target="_blank" rel="noopener">{"Submit a check" if unchecked else "Challenge this grade"}<span aria-hidden="true"> ↗</span></a>
+      <a class="btn challenge-b" href="{esc(challenge if unchecked else check)}"
+         target="_blank" rel="noopener">{"Challenge the grade" if unchecked else "Submit a check"}<span aria-hidden="true"> ↗</span></a>
+      <a class="challenge-alt" href="{esc(discuss)}" target="_blank" rel="noopener">or discuss it<span aria-hidden="true"> ↗</span></a>
+    </div>
   </div>
 {section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
 
@@ -710,6 +770,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   and <strong>{esc(aut.lower())}</strong>. Full definitions are in the
   <a href="/methodology">methodology</a>.</p>
 
+{credit}
   <h2 class="lbl">Cite this entry</h2>
   <p class="cite">whataifound.org ({esc(str(e.get("date", ""))[:4])}). <em>{esc(e["title"])}.</em>
   whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. {url}</p>
@@ -763,6 +824,8 @@ def build_llms_txt(entries):
         f"- [Registry]({SITE}/): all entries, searchable and filterable",
         f"- [Methodology]({SITE}/methodology): full definitions of both grading scales and the editorial rules",
         f"- [Visuals]({SITE}/visuals): the registry as charts",
+        f"- [Open review queue]({SITE}/review): entries still needing an independent check",
+        f"- [Contributors]({SITE}/contributors): who builds and checks the registry",
         "",
         "## Data",
         "",
@@ -798,7 +861,9 @@ def build_sitemap(entries, updated):
     """
     urls = [(f"{SITE}/", updated, "weekly", "1.0"),
             (f"{SITE}/methodology", updated, "monthly", "0.7"),
-            (f"{SITE}/visuals", updated, "weekly", "0.7")]
+            (f"{SITE}/visuals", updated, "weekly", "0.7"),
+            (f"{SITE}/review", updated, "weekly", "0.6"),
+            (f"{SITE}/contributors", updated, "monthly", "0.5")]
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
         lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
@@ -848,6 +913,206 @@ def build_app_js():
 
     with open(path, "w") as f:
         f.write(src)
+
+
+def build_review(entries):
+    """Regenerate /review: the entries that still need work, weakest evidence first.
+
+    This is the registry's open task list, and it is derived rather than curated so it
+    cannot go stale or flatter the project. An entry leaves the queue the moment its gap
+    is filled in data/entries.json, with no separate list to remember to update.
+
+    Ordering is by how badly the gap matters, not by date. An entry carrying a weak grade
+    with nobody having checked it is the worst case: the grade is doing no work and the
+    reader has no way to know that.
+    """
+    # The queue is about verification, and only verification. Metadata gaps are real but
+    # minor, and folding them in put 51 of 52 entries on the page, which reads as "the
+    # whole registry is broken" rather than as a task list anyone would pick up. They get
+    # a compact section at the bottom instead.
+    WEAK = ("claimed", "author-verified", "disputed")
+
+    def rank(e):
+        if e["verification"] in WEAK:
+            return 0
+        return 1
+
+    queue = sorted((e for e in entries if not e.get("independent_checks")),
+                   key=lambda e: (rank(e), e["id"]))
+
+    TIER = {0: ("Weakly graded, and nobody has checked it",
+                "The grade rests on the announcing lab alone. These matter most."),
+            1: ("No independent check yet",
+                "Better evidenced, but still unconfirmed by anyone outside the lab.")}
+
+    rows, current = "", None
+    for e in queue:
+        r = rank(e)
+        if r != current:
+            current = r
+            head, sub = TIER[r]
+            n = sum(1 for x in queue if rank(x) == r)
+            rows += (f'<div class="q-head"><h2>{esc(head)}</h2>'
+                     f'<p>{esc(sub)} <b>{n}</b> {"entry" if n == 1 else "entries"}.</p></div>')
+        ver = VER_LABEL.get(e["verification"], e["verification"])
+        aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
+        check = REPO + "/issues/new?" + "&".join([
+            "template=independent-check.yml",
+            "title=" + enc_uri_component(f"Independent check: {e['id']}"),
+            "entry=" + enc_uri_component(e["id"]),
+            "current=" + enc_uri_component(
+                f"verification: {e['verification']}, autonomy: {e['autonomy']}"),
+        ])
+        rows += (
+            f'<div class="q-row">'
+            f'<div class="q-main">'
+            f'<a class="q-title" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
+            f'<div class="q-meta"><span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>'
+            f'<span class="pill a">{esc(aut)}</span>'
+            f'<span class="q-lab">{esc(e.get("lab"))}</span></div>'
+            f'</div>'
+            f'<a class="btn q-act" href="{esc(check)}" target="_blank" rel="noopener">'
+            f'Check this<span aria-hidden="true"> ↗</span></a>'
+            f'</div>')
+
+    # Smaller gaps, listed compactly. These are good first contributions: each is a
+    # single verifiable fact, no judgment about evidence required.
+    SMALL = [("year_posed", "no year posed",
+              "the year the problem was first posed, so the site can show how long it stood"),
+             ("wikipedia", "no notability rating",
+              "the Wikipedia article for the problem itself, which drives the notability count"),
+             ("discussion", "no discussion linked",
+              "a thread where the result was debated, such as Hacker News or MathOverflow")]
+    small = ""
+    for key, label, why in SMALL:
+        missing = [e for e in entries if not e.get(key)]
+        if not missing:
+            continue
+        links = " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
+                         for e in missing[:8])
+        more = (f' <span class="c-more">and {len(missing) - 8} more</span>'
+                if len(missing) > 8 else "")
+        small += (f'<div class="q-small"><h3>{esc(label)} <b>{len(missing)}</b></h3>'
+                  f'<p>Needs {esc(why)}.</p><p class="q-small-links">{links}{more}</p></div>')
+    if small:
+        small = ('<div class="q-head"><h2>Smaller gaps</h2>'
+                 '<p>Single verifiable facts rather than judgments about evidence. '
+                 'A good first contribution.</p></div>' + small)
+
+    checked = len(entries) - len(queue)
+    summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have never been '
+               f'independently checked. {checked} '
+               f'{"has" if checked == 1 else "have"} at least one check on the record. '
+               f'You do not need to reproduce a whole result to help: reading the primary source '
+               f'closely enough to say whether it supports the claim is a check, and you are '
+               f'credited on the entry and on the '
+               f'<a href="/contributors">contributors page</a>.</p>')
+
+    path = os.path.join(ROOT, "review.html")
+    src = open(path).read()
+    src = inject(src, "<!--BACKLOG:START-->", "<!--BACKLOG:END-->",
+                 summary + rows + small, "review queue", "review.html")
+    with open(path, "w") as f:
+        f.write(src)
+    return len(queue)
+
+
+def build_contributors(entries):
+    """Regenerate /contributors from the credit recorded on the entries.
+
+    Maintainers come from CITATION.cff, which is the roster GitHub cites and the one
+    GOVERNANCE.md points at, so there is no second list to keep in step.
+    """
+    def roll(field):
+        people = {}
+        for e in entries:
+            for p in (e.get(field) or []):
+                name = p.get("name")
+                if not name:
+                    continue
+                rec = people.setdefault(name, {"name": name, "github": p.get("github"),
+                                               "entries": []})
+                rec["entries"].append(e)
+                if not rec["github"] and p.get("github"):
+                    rec["github"] = p["github"]
+        return sorted(people.values(), key=lambda r: (-len(r["entries"]), r["name"]))
+
+    def tier(title, blurb, people, verb):
+        if not people:
+            return ""
+        cards = ""
+        for r in people:
+            links = " ".join(
+                f'<a href="/finding/{esc(x["id"])}">{esc(x["title"])}</a>'
+                for x in r["entries"][:6])
+            more = (f' <span class="c-more">and {len(r["entries"]) - 6} more</span>'
+                    if len(r["entries"]) > 6 else "")
+            cards += (f'<div class="c-card"><p class="c-name">{person(r)}</p>'
+                      f'<p class="c-count">{len(r["entries"])} '
+                      f'{"entry" if len(r["entries"]) == 1 else "entries"} {esc(verb)}</p>'
+                      f'<p class="c-links">{links}{more}</p></div>')
+        return (f'<section class="c-tier"><h2>{esc(title)}</h2><p class="c-blurb">{blurb}</p>'
+                f'<div class="c-grid">{cards}</div></section>')
+
+    maintainers = "".join(
+        f'<div class="c-card"><p class="c-name">{esc(m)}</p>'
+        f'<p class="c-count">maintainer</p></div>' for m in citation_authors())
+    out = (f'<section class="c-tier"><h2>Maintainers</h2>'
+           f'<p class="c-blurb">Listed as authors in '
+           f'<a href="{REPO}/blob/main/CITATION.cff">CITATION.cff</a>, so citing the registry '
+           f'cites them. What the role involves, and how someone reaches it, is in '
+           f'<a href="{REPO}/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>.</p>'
+           f'<div class="c-grid">{maintainers}</div></section>')
+
+    revs, cons = roll("reviewers"), roll("contributors")
+    out += tier("Reviewers", "Submitted independent checks that were accepted onto the record.",
+                revs, "checked")
+    out += tier("Contributors", "Added or corrected entries in the registry.", cons, "credited")
+
+    if not revs and not cons:
+        out += ('<p class="c-empty">No outside reviewers or contributors are credited yet. '
+                f'The <a href="/review">open review queue</a> is where that starts: pick an entry '
+                f'nobody has checked, check it, and your name goes on it.</p>')
+
+    path = os.path.join(ROOT, "contributors.html")
+    src = open(path).read()
+    src = inject(src, "<!--ROLL:START-->", "<!--ROLL:END-->", out,
+                 "contributor roll", "contributors.html")
+    with open(path, "w") as f:
+        f.write(src)
+
+
+def citation_authors():
+    """Author names from CITATION.cff, without taking a YAML dependency for six lines.
+
+    build.py must run on a bare Python 3, and PyYAML is not otherwise needed, so this
+    reads the one list it cares about rather than parsing the whole document.
+    """
+    path = os.path.join(ROOT, "CITATION.cff")
+    if not os.path.exists(path):
+        return []
+    names, in_authors = [], False
+    given = family = None
+    for line in open(path):
+        if re.match(r"^authors:\s*$", line):
+            in_authors = True
+            continue
+        if in_authors:
+            if line.strip() and not line.startswith((" ", "\t", "-")):
+                break                       # a new top-level key ends the list
+            if re.match(r"^\s*-\s", line):  # flush the previous author
+                if given or family:
+                    names.append(" ".join(x for x in (given, family) if x))
+                given = family = None
+            m = re.search(r"given-names:\s*(.+?)\s*$", line)
+            if m:
+                given = m.group(1).strip('"\'')
+            m = re.search(r"family-names:\s*(.+?)\s*$", line)
+            if m:
+                family = m.group(1).strip('"\'')
+    if given or family:
+        names.append(" ".join(x for x in (given, family) if x))
+    return names
 
 
 def build_methodology():
@@ -1054,6 +1319,29 @@ def validate(entries):
                             f"add it to FIELD_LABEL in {os.path.basename(__file__)}")
         if not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(e.get("date", ""))):
             problems.append(f"{where}: date '{e.get('date')}' is not YYYY-MM-DD")
+        # Credit for the registry entry, as distinct from credit for the discovery
+        # (that is `lab` and `humans`). `name` is the only required part: an academic
+        # may want a real name with no GitHub account against it, and a check submitted
+        # by someone without an account is still a check.
+        for field in ("contributors", "reviewers"):
+            people = e.get(field)
+            if people is None:
+                continue
+            if not isinstance(people, list):
+                problems.append(f"{where}: '{field}' must be a list of objects")
+                continue
+            for i, p in enumerate(people):
+                if not isinstance(p, dict):
+                    problems.append(f"{where}: {field}[{i}] must be an object "
+                                    "with at least a 'name'")
+                elif not p.get("name"):
+                    problems.append(f"{where}: {field}[{i}] is missing 'name'")
+                # No url key by design: these render as text and a GitHub handle is
+                # turned into a link by the build, so there is no free-form URL to
+                # smuggle a scheme through. Reject one rather than silently drop it.
+                elif "url" in p:
+                    problems.append(f"{where}: {field}[{i}] has a 'url'; use "
+                                    "'github' (a handle) instead")
         eid = e.get("id")
         if eid:
             # The id becomes a filename and a URL path segment.
@@ -1087,6 +1375,8 @@ def main():
     # must be current before verify-parity.py diffs it against the pre-rendered cards.
     build_app_js()
     build_methodology()
+    queued = build_review(entries)
+    build_contributors(entries)
     build_index(entries, updated)
 
     out_dir = os.path.join(ROOT, "finding")
@@ -1107,7 +1397,8 @@ def main():
 
     print(f"Pre-rendered {len(entries)} entries into index.html")
     print(f"Wrote finding/ ({len(entries)} pages), llms.txt, sitemap.xml "
-          f"({len(entries) + 3} URLs).")
+          f"({build_sitemap(entries, updated).count('<loc>')} URLs).")
+    print(f"Review queue: {queued} of {len(entries)} entries need work.")
 
 
 if __name__ == "__main__":

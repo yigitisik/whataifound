@@ -55,3 +55,19 @@ jobs:
           name: link-report
           path: link-report.json
           if-no-files-found: ignore
+
+  # notability is measured from the live Wikipedia API by build-notability.py, which is
+  # deliberately not part of every build because it writes back to data/entries.json.
+  # Nothing was checking it, so an article gaining or losing language editions drifted
+  # silently. --check reports without writing, which is exactly what a cron wants.
+  # Weekly only: this is a slow-moving number and a PR should not wait on the API.
+  notability:
+    if: github.event_name != 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
+        with:
+          python-version: '3.x'
+      - name: Check notability drift
+        run: python3 scripts/build-notability.py --check

@@ -35,6 +35,8 @@ Autonomy, most to least AI-driven:
 - [Registry](https://whataifound.org/): all entries, searchable and filterable
 - [Methodology](https://whataifound.org/methodology): full definitions of both grading scales and the editorial rules
 - [Visuals](https://whataifound.org/visuals): the registry as charts
+- [Open review queue](https://whataifound.org/review): entries still needing an independent check
+- [Contributors](https://whataifound.org/contributors): who builds and checks the registry
 
 ## Data
 

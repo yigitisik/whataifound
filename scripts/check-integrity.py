@@ -43,7 +43,8 @@ ALLOWED_INLINE = (
 ALLOWED_SRC_HOSTS = ("https://va.vercel-scripts.com",)
 ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.com")
 
-DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "404.html"]
+DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
+                 "contributors.html", "404.html"]
 
 
 def html_files():

@@ -1,0 +1,295 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://whataifound.org/entry.schema.json",
+  "title": "whataifound.org registry entry",
+  "description": "One finding in data/entries.json. Generated from data/vocab.json by scripts/build-schema.py: do not hand-edit. See docs/SCHEMA.md.",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "required": [
+      "id",
+      "title",
+      "claim",
+      "field",
+      "date",
+      "lab",
+      "model",
+      "verification",
+      "autonomy",
+      "sources",
+      "added"
+    ],
+    "additionalProperties": false,
+    "properties": {
+      "id": {
+        "type": "string",
+        "pattern": "^[a-z0-9][a-z0-9._-]*$",
+        "description": "Stable slug, never reused. YYYY-MM-DD-short-name."
+      },
+      "title": {
+        "type": "string",
+        "minLength": 1,
+        "description": "Plain and factual. No hype verbs."
+      },
+      "claim": {
+        "type": "string",
+        "minLength": 1,
+        "description": "One sentence a smart non-expert can read."
+      },
+      "field": {
+        "type": "string",
+        "enum": [
+          "archaeology",
+          "astronomy",
+          "biology",
+          "chemistry",
+          "climate",
+          "computer-science",
+          "economics",
+          "engineering",
+          "materials",
+          "mathematics",
+          "medicine",
+          "neuroscience",
+          "physics"
+        ],
+        "description": "A new value needs a display name in data/vocab.json."
+      },
+      "date": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "ISO date the result became public."
+      },
+      "lab": {
+        "type": "string",
+        "description": "Organization credited. 'Independent' if none."
+      },
+      "model": {
+        "type": "string",
+        "description": "Model + version. 'Unknown' if not disclosed."
+      },
+      "verification": {
+        "type": "string",
+        "enum": [
+          "formal",
+          "independent",
+          "peer-reviewed",
+          "author-verified",
+          "claimed",
+          "disputed",
+          "known",
+          "refuted"
+        ],
+        "description": "One of: `formal` machine-checked proof (e.g. Lean); `independent` checked by third parties who were not the authors; `peer-reviewed` published after peer review; `author-verified` verified only by the people who produced it; `claimed` announced, not independently verified; `disputed` substantive public challenge to the result; `known` correct, but the result already existed in the literature; `refuted` shown to be wrong"
+      },
+      "autonomy": {
+        "type": "string",
+        "enum": [
+          "autonomous",
+          "ai-led",
+          "collaborative",
+          "ai-assisted",
+          "search-scaffold",
+          "retrieval"
+        ],
+        "description": "One of: `autonomous` the AI did it without human problem-setting or steering; `ai-led` the AI produced the core idea; humans framed or checked it; `collaborative` genuine back-and-forth between AI and human; `ai-assisted` humans led; the AI helped with parts; `search-scaffold` a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside; `retrieval` the AI located an existing result rather than producing a new one"
+      },
+      "sources": {
+        "type": "array",
+        "minItems": 1,
+        "items": {
+          "type": "object",
+          "required": [
+            "label",
+            "url"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://",
+              "description": "Must be http(s). Other schemes are rejected by the build."
+            }
+          }
+        },
+        "description": "At least one primary source. A news article is not one."
+      },
+      "added": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+        "description": "ISO date this entry was added to the registry."
+      },
+      "humans": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Named human collaborators on the discovery."
+      },
+      "year_posed": {
+        "type": "integer",
+        "description": "Year the problem was first posed. Omit if there is no single origin year."
+      },
+      "wikipedia": {
+        "type": "string",
+        "description": "English Wikipedia title for the problem itself, not a person or tool."
+      },
+      "notability": {
+        "type": "integer",
+        "description": "Computed by build-notability.py. Do not hand-set."
+      },
+      "notability_meta": {
+        "type": "object",
+        "description": "Audit trail written by build-notability.py. Never hand-edit."
+      },
+      "detail": {
+        "type": "string",
+        "description": "2-5 sentences. What was actually new."
+      },
+      "novelty_check": {
+        "type": "string",
+        "description": "What was searched and what turned up. Write it even when clean."
+      },
+      "caveats": {
+        "type": "string",
+        "description": "Known objections, disputes, unreplicated parts."
+      },
+      "independent_checks": {
+        "type": "array",
+        "description": "What was checked, by whom, and with what outcome.",
+        "items": {
+          "type": "object",
+          "required": [
+            "who",
+            "outcome"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "who": {
+              "type": "string"
+            },
+            "outcome": {
+              "type": "string"
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://"
+            }
+          }
+        }
+      },
+      "discussion": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "label",
+            "url"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string",
+              "minLength": 1
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://",
+              "description": "Must be http(s). Other schemes are rejected by the build."
+            }
+          }
+        },
+        "description": "Threads where the result was debated. Not a substitute for a source."
+      },
+      "videos": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "label",
+            "channel",
+            "youtube_id"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "label": {
+              "type": "string"
+            },
+            "channel": {
+              "type": "string"
+            },
+            "youtube_id": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9_-]{11}$"
+            }
+          }
+        },
+        "description": "Credible explainers only. Verify the ID resolves."
+      },
+      "tags": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "contributors": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "As it should appear as credit."
+            },
+            "github": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$",
+              "description": "Bare handle, no @. Becomes a link. Optional."
+            },
+            "note": {
+              "type": "string",
+              "description": "What they did, e.g. 'verified the Lean proof'."
+            }
+          }
+        },
+        "description": "Who added or corrected this registry entry."
+      },
+      "reviewers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "name"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "name": {
+              "type": "string",
+              "minLength": 1,
+              "description": "As it should appear as credit."
+            },
+            "github": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$",
+              "description": "Bare handle, no @. Becomes a link. Optional."
+            },
+            "note": {
+              "type": "string",
+              "description": "What they did, e.g. 'verified the Lean proof'."
+            }
+          }
+        },
+        "description": "Who independently checked it. Pairs with independent_checks."
+      }
+    }
+  }
+}

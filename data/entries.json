@@ -76,7 +76,6 @@
     "independent_checks": [
       {
         "who": "whataifound.org (symbolic recomputation, SymPy)",
-        "url": "",
         "outcome": "confirmed, det J = −2 identically; all three points map to (−¼,0,0)"
       },
       {
@@ -879,7 +878,6 @@
     "independent_checks": [
       {
         "who": "CASP14 blind assessment (independent assessors)",
-        "url": "",
         "outcome": "accuracy competitive with experiment across most targets"
       },
       {

@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+
+<!-- Canonical domain: https://whataifound.org -->
+<title>Contributors and Maintainers | whataifound.org</title>
+<meta name="description" content="The people who build and verify the whataifound.org registry: maintainers, reviewers who have submitted accepted independent checks, and contributors who have added or corrected entries.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/contributors">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Contributors and maintainers of whataifound.org">
+<meta property="og:description" content="The people who add entries to the registry and independently check them.">
+<meta property="og:url" content="https://whataifound.org/contributors">
+<!-- PNG, not SVG: WhatsApp, iMessage, Facebook, LinkedIn and X do not render SVG previews. -->
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contributors and maintainers of whataifound.org">
+<meta name="twitter:description" content="The people who add entries to the registry and independently check them.">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+
+<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
+     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
+     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
+     /favicon.ico is the path Google probes when no <link> is usable. -->
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+
+<!-- Subscribable feeds: new and updated registry entries. -->
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Keep the browser-chrome tint on the theme that actually rendered. The static tag is
+   dark (the default); only a light result needs rewriting, and 'system' resolves via
+   the media query rather than the stored value. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+<link rel="stylesheet" href="styles.css">
+<style>
+  /* Matched to the registry's h1 so the two pages read as one publication. */
+  .meth-title{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 10px;letter-spacing:-.021em;font-weight:600;line-height:1.06}
+  .back{font-family:var(--serif);font-size:.62rem;font-weight:600;letter-spacing:.13em;text-transform:uppercase;
+  .back:hover{color:var(--accent)}
+  @media(max-width:640px){.meth-row{grid-template-columns:1fr;gap:10px}}
+</style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header>
+  <div class="eyebrow">
+    <span class="brand">
+      <svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+        <defs>
+          <linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#5aa9e6"/>
+            <stop offset="0.5" stop-color="#7c6cf0"/>
+            <stop offset="1" stop-color="#d98a4a"/>
+          </linearGradient>
+        </defs>
+        <path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+        <path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/>
+        <path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
+      </svg>
+      <span class="wm">what<span class="ai">ai</span>found.org</span></span>
+    <a class="back" href="index.html">← Back to the registry</a>
+  </div>
+  <h1 class="meth-title">Contributors</h1>
+  <p class="lede">The registry is built by the people below. <strong>Reviewers</strong> submitted checks that were accepted; <strong>contributors</strong> added or corrected entries. How the roles work is set out in the governance document.</p>
+</header>
+
+<main id="main">
+  <!--ROLL:START--><section class="c-tier"><h2>Maintainers</h2><p class="c-blurb">Listed as authors in <a href="https://github.com/yigitisik/whataifound/blob/main/CITATION.cff">CITATION.cff</a>, so citing the registry cites them. What the role involves, and how someone reaches it, is in <a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md">GOVERNANCE.md</a>.</p><div class="c-grid"><div class="c-card"><p class="c-name">Mustafa Yigit Isik</p><p class="c-count">maintainer</p></div></div></section><p class="c-empty">No outside reviewers or contributors are credited yet. The <a href="/review">open review queue</a> is where that starts: pick an entry nobody has checked, check it, and your name goes on it.</p><!--ROLL:END-->
+</main>
+
+<footer>
+  <p>We run whataifound.org as an independent editorial project. Grades are our good-faith judgments from
+  public information, provided "as is", and may change as new evidence emerges.
+  <a href="index.html">Back to the registry ↗</a></p>
+  <p><a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener">
+    <svg viewBox="0 0 16 16" width="15" height="15" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>
+    Source on GitHub</a></p>
+</footer>
+
+</div>
+
+<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

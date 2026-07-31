@@ -1,0 +1,36 @@
+# Citation File Format 1.2.0: https://citation-file-format.github.io
+#
+# GitHub reads this file directly and renders a "Cite this repository" button on the
+# repo, offering APA and BibTeX. Nothing in the build touches it.
+#
+# This is also the project's author roster. A maintainer is listed here, which is the
+# point: it makes co-ownership a citable credit rather than a commit count. Adding a
+# maintainer means adding an `authors` entry and a row in GOVERNANCE.md, in the same PR.
+#
+# `license` names the licence of the citable artifact, which is the registry itself:
+# CC-BY-4.0 per LICENSE. The build scripts are MIT, covered separately in that file.
+
+cff-version: 1.2.0
+message: If you use this registry, please cite it as below.
+title: "whataifound.org: A Registry of AI Scientific and Mathematical Discoveries"
+abstract: >-
+  An open, curated registry of scientific and mathematical results produced by or with AI
+  systems. Every record is graded on two axes: verification, how solid the evidence is,
+  from a machine-checked proof down to refuted; and autonomy, how much the AI did versus
+  its human collaborators. Refuted and already-known results stay on the record, marked
+  as such.
+type: dataset
+url: "https://whataifound.org"
+repository-code: "https://github.com/yigitisik/whataifound"
+license: CC-BY-4.0
+date-released: 2026-07-30
+version: "2026.07"
+keywords:
+  - artificial intelligence
+  - scientific discovery
+  - research verification
+  - reproducibility
+  - open data
+authors:
+  - family-names: Isik
+    given-names: Mustafa Yigit
