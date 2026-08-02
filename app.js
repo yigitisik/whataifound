@@ -168,7 +168,7 @@ function receipts(e){
     // A missing challenge is the one absence worth stating: most of the registry has
     // none, and rendering nothing would quietly read as "nothing to answer here".
     if (!of.length) return kind === 'challenge'
-      ? `<div class="rc-row"><dt class="rc-k">${esc(SRC_CHIP[kind])}</dt>`+
+      ? `<div class="rc-row"><dt class="rc-k k-${esc(kind)}">${esc(SRC_CHIP[kind])}</dt>`+
         `<dd class="rc-v rc-none">none linked</dd></div>` : '';
     // Visible text is the domain, which is short enough to fit several per row but
     // says nothing on its own - and two papers from the same host would otherwise
@@ -180,7 +180,7 @@ function receipts(e){
       `<span class="rc-a" aria-hidden="true">↗</span></a>`).join('');
     const extra = of.length > RECEIPT_MAX
       ? `<span class="rc-more">+${of.length - RECEIPT_MAX}</span>` : '';
-    return `<div class="rc-row"><dt class="rc-k">${esc(SRC_CHIP[kind])}</dt>`+
+    return `<div class="rc-row"><dt class="rc-k k-${esc(kind)}">${esc(SRC_CHIP[kind])}</dt>`+
            `<dd class="rc-v">${shown}${extra}</dd></div>`;
   }).join('');
   return rows ? `<dl class="receipts">${rows}</dl>` : '';
@@ -191,7 +191,7 @@ function groupedRefs(src){
   return SRC_ORDER.map(kind => {
     const of = (src || []).filter(s => s.kind === kind);
     if (!of.length) return '';
-    return `<div class="field reveal"><b>${esc(SRC_LABEL[kind])}</b>`+
+    return `<div class="field reveal kind k-${esc(kind)}"><b>${esc(SRC_LABEL[kind])}</b>`+
            `<div class="refs">${of.map(refRow).join('')}</div></div>`;
   }).join('');
 }
@@ -229,7 +229,7 @@ function card(e){
       <div class="rdate">${esc(e.date)}</div>
       <div class="rpills">
         <span class="pill v v-${esc(e.verification)}">${esc(VER_LABEL[e.verification]||e.verification)}</span>
-        <span class="pill a">${esc(AUT_LABEL[e.autonomy]||e.autonomy)}</span>
+        <span class="pill a a-${esc(e.autonomy)}">${esc(AUT_LABEL[e.autonomy]||e.autonomy)}</span>
       </div>
       <dl class="rmeta">
         <div><dt>Model</dt><dd>${esc(e.model)}</dd></div>

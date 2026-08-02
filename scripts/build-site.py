@@ -256,7 +256,7 @@ def receipts(e):
         if not of:
             # A missing challenge is the one absence worth stating.
             if kind == "challenge":
-                rows += (f'<div class="rc-row"><dt class="rc-k">{esc(SRC_CHIP[kind])}</dt>'
+                rows += (f'<div class="rc-row"><dt class="rc-k k-{esc(kind)}">{esc(SRC_CHIP[kind])}</dt>'
                          f'<dd class="rc-v rc-none">none linked</dd></div>')
             continue
         # Visible text is the domain; the full title becomes the accessible name and
@@ -269,7 +269,7 @@ def receipts(e):
             for s in of[:RECEIPT_MAX])
         extra = (f'<span class="rc-more">+{len(of) - RECEIPT_MAX}</span>'
                  if len(of) > RECEIPT_MAX else "")
-        rows += (f'<div class="rc-row"><dt class="rc-k">{esc(SRC_CHIP[kind])}</dt>'
+        rows += (f'<div class="rc-row"><dt class="rc-k k-{esc(kind)}">{esc(SRC_CHIP[kind])}</dt>'
                  f'<dd class="rc-v">{shown}{extra}</dd></div>')
     return f'<dl class="receipts">{rows}</dl>' if rows else ""
 
@@ -281,7 +281,7 @@ def grouped_refs(src):
         of = [s for s in (src or []) if s.get("kind") == kind]
         if not of:
             continue
-        out += (f'<div class="field reveal"><b>{esc(SRC_LABEL[kind])}</b>'
+        out += (f'<div class="field reveal kind k-{esc(kind)}"><b>{esc(SRC_LABEL[kind])}</b>'
                 f'<div class="refs">{"".join(ref_row(s) for s in of)}</div></div>')
     return out
 
@@ -412,7 +412,7 @@ def card(e):
       <div class="rdate">{esc(e.get("date"))}</div>
       <div class="rpills">
         <span class="pill v v-{esc(e["verification"])}">{esc(VER_LABEL.get(e["verification"], e["verification"]))}</span>
-        <span class="pill a">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span>
+        <span class="pill a a-{esc(e["autonomy"])}">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span>
       </div>
       <dl class="rmeta">
         <div><dt>Model</dt><dd>{esc(e.get("model"))}</dd></div>
@@ -790,7 +790,7 @@ def entry_page(e):
         of = [s for s in (e.get("sources") or []) if s.get("kind") == kind]
         if not of:
             continue
-        sources += (f'\n  <h2 class="lbl">{esc(SRC_LABEL[kind])}</h2>\n  <div class="refs">'
+        sources += (f'\n  <h2 class="lbl kind k-{esc(kind)}">{esc(SRC_LABEL[kind])}</h2>\n  <div class="refs">'
                     + "".join(ref_row(s) for s in of) + "</div>")
     discussion = ""
     if e.get("discussion"):
@@ -867,7 +867,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <article class="finding">
   <div class="finding-pills">
     <span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>
-    <span class="pill a">{esc(aut)}</span>
+    <span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>
   </div>
   <h1>{esc(e["title"])}</h1>
   <p class="lede">{esc(verdict)}</p>
@@ -1046,6 +1046,101 @@ def build_app_js():
         f.write(src)
 
 
+# Where each organisation posts its own results. A URL cannot be derived from the data, so this
+# map is curated - but *which* organisations appear is not: build_lab_hub() reads that from
+# data/entries.json, so the hub cannot drift from the registry the way the hand-written one did
+# (it advertised Amazon and Meta, neither of which has ever had an entry).
+LAB_HUB = {
+    "Google DeepMind": "https://deepmind.google/science/",
+    "OpenAI": "https://openai.com/research/index/",
+    "Anthropic": "https://www.anthropic.com/science",
+    "Google": "https://research.google/",
+    "Microsoft Research": "https://www.microsoft.com/en-us/research/",
+    "Sakana AI": "https://sakana.ai/blog/",
+    "Arc Institute": "https://arcinstitute.org/news",
+    "EvolutionaryScale": "https://www.evolutionaryscale.ai/",
+    "Insilico Medicine": "https://insilico.com/news",
+    "FutureHouse": "https://www.futurehouse.org/",
+    "Harmonic": "https://harmonic.fun/",
+    "Math, Inc.": "https://math.inc/",
+    "Vesuvius Challenge": "https://scrollprize.org/",
+    "Institute for Protein Design": "https://www.ipd.uw.edu/",
+    "MIT": "https://news.mit.edu/topic/artificial-intelligence2",
+    "Carnegie Mellon University": "https://www.cmu.edu/news/",
+    "Princeton University": "https://www.pppl.gov/",
+    "Lawrence Berkeley National Laboratory": "https://www.lbl.gov/",
+    "Tel Aviv University": "https://english.tau.ac.il/",
+    "UT Austin": "https://cs.utexas.edu/",
+    "FlyWire Consortium": "https://flywire.ai/",
+}
+# `lab` is deliberately precise about who did the work, so one organisation appears under several
+# strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
+# the leading organisation for the hub only; the entry keeps its full attribution.
+LAB_ALIAS = {
+    "Google Brain": "Google",
+    "Institute for Protein Design, University of Washington": "Institute for Protein Design",
+}
+# Not an organisation with a research hub: an entry credited to nobody in particular.
+LAB_HUB_SKIP = {"Independent"}
+
+
+def hub_org(lab):
+    stem = (lab or "").split(" / ")[0].split(" (")[0].strip()
+    return LAB_ALIAS.get(lab, LAB_ALIAS.get(stem, stem))
+
+
+def hub_mark(org):
+    """The chip on a hub card: the real logo when there is one, else initials.
+
+    Not lab_mark(): that takes a single first letter, which gives Microsoft Research, MIT and
+    Math, Inc. three identical chips. Two initials plus a hue derived from the name keeps them
+    apart without committing new third-party logo files. Decorative, so aria-hidden.
+    """
+    src = LAB_LOGO.get(org)
+    if src:
+        return (f'<span class="labcard-logo" aria-hidden="true">'
+                f'<img src="{esc(src)}" alt=""></span>')
+    # Skip connector words, or "Institute for Protein Design" initials to "IF".
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", org)
+             if w and w.lower() not in ("for", "of", "and", "the", "at")]
+    first = words[0][:1]
+    second = words[1][:1] if len(words) > 1 else words[0][1:2]
+    hue = sum(ord(c) for c in org) % 360
+    return (f'<span class="labcard-logo mono" style="--lc:hsl({hue} 40% 36%)" aria-hidden="true">'
+            f'{esc((first + second).upper())}</span>')
+
+
+def build_lab_hub(entries):
+    """Regenerate the lab row of the #sources hub from the registry itself."""
+    counts = {}
+    for e in entries:
+        org = hub_org(e.get("lab"))
+        if org in LAB_HUB_SKIP:
+            continue
+        counts[org] = counts.get(org, 0) + 1
+
+    missing = sorted(o for o in counts if o not in LAB_HUB)
+    if missing:
+        # Warn rather than fail: a new entry from an unlisted university should not break the
+        # build, but the map must not silently fall behind either.
+        print(f"  note: no hub URL for {', '.join(missing)} "
+              f"(add to LAB_HUB in {os.path.basename(__file__)})")
+
+    cards = ""
+    for org in sorted(counts, key=lambda o: (-counts[o], o)):
+        url = LAB_HUB.get(org)
+        if not url:
+            continue
+        n = counts[org]
+        cards += (
+            f'<a class="labcard" href="{esc(url)}" target="_blank" rel="noopener">'
+            f'{hub_mark(org)}'
+            f'<span class="labcard-meta"><b>{esc(org)}</b>'
+            f'<span>{n} {"entry" if n == 1 else "entries"}</span></span>'
+            f'<span class="labcard-go" aria-hidden="true">↗</span></a>')
+    return cards
+
+
 def build_review(entries):
     """Regenerate /review: the entries that still need work, weakest evidence first.
 
@@ -1076,15 +1171,19 @@ def build_review(entries):
     TIER = {0: ("Weak grade, no check", "The grade rests on the announcing lab alone."),
             1: ("No check yet", "Better evidenced, still unconfirmed outside the lab.")}
 
-    rows, current = "", None
+    # Each group is a native <details>. The page carried 34 rows plus three gap lists plus a
+    # 44-entry challenge list in one scroll; collapsed, the whole backlog is legible at a glance
+    # and a visitor opens only the part they intend to work on. <details> is already the
+    # disclosure on entry cards: no JavaScript, so nothing for check-integrity.py to flag.
+    def q_section(title, sub, body, count, is_open=False):
+        return (f'<details class="q-sec"{" open" if is_open else ""}>'
+                f'<summary><span class="q-sec-t">{esc(title)}</span>'
+                f'<span class="q-sec-n">{count}</span></summary>'
+                f'<div class="q-sec-body"><p class="q-sec-sub">{esc(sub)}</p>{body}</div>'
+                f'</details>')
+
+    tiers = {}
     for e in queue:
-        r = rank(e)
-        if r != current:
-            current = r
-            head, sub = TIER[r]
-            n = sum(1 for x in queue if rank(x) == r)
-            rows += (f'<div class="q-head"><h2>{esc(head)} <b>{n}</b></h2>'
-                     f'<p>{esc(sub)}</p></div>')
         ver = VER_LABEL.get(e["verification"], e["verification"])
         aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
         check = REPO + "/issues/new?" + "&".join([
@@ -1092,17 +1191,23 @@ def build_review(entries):
             "title=" + enc_uri_component(f"Independent check: {e['id']}"),
             "entry=" + enc_uri_component(e["id"]),
         ])
-        rows += (
+        tiers.setdefault(rank(e), []).append(
             f'<div class="q-row">'
             f'<div class="q-main">'
             f'<a class="q-title" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
             f'<div class="q-meta"><span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>'
-            f'<span class="pill a">{esc(aut)}</span>'
+            f'<span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>'
             f'<span class="q-lab">{esc(e.get("lab"))}</span></div>'
             f'</div>'
             f'<a class="btn q-act" href="{esc(check)}" target="_blank" rel="noopener">'
             f'Check this<span aria-hidden="true"> ↗</span></a>'
             f'</div>')
+
+    # Only the first tier opens: it is the highest-value work, and a queue that opens showing
+    # nothing at all would be compact but useless.
+    rows = "".join(
+        q_section(TIER[r][0], TIER[r][1], "".join(tiers[r]), len(tiers[r]), is_open=(r == 0))
+        for r in sorted(tiers))
 
     # Smaller gaps, listed compactly. These are good first contributions: each is a
     # single verifiable fact, no judgment about evidence required.
@@ -1110,20 +1215,19 @@ def build_review(entries):
              ("wikipedia", "Notability",
               "The Wikipedia article for the problem, which drives the notability count."),
              ("discussion", "Discussion", "A thread where the result was debated.")]
+    # Collapsed, each of these lists every entry rather than the first eight. The old
+    # "and 32 more" existed because the page could not afford the height; an accordion can.
+    def link_list(items):
+        return ('<p class="q-small-links">'
+                + " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
+                           for e in items) + '</p>')
+
     small = ""
     for key, label, why in SMALL:
         missing = [e for e in entries if not e.get(key)]
         if not missing:
             continue
-        links = " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
-                         for e in missing[:8])
-        more = (f' <span class="c-more">and {len(missing) - 8} more</span>'
-                if len(missing) > 8 else "")
-        small += (f'<div class="q-small"><h3>{esc(label)} <b>{len(missing)}</b></h3>'
-                  f'<p>{esc(why)}</p><p class="q-small-links">{links}{more}</p></div>')
-    if small:
-        small = ('<div class="q-head"><h2>Smaller gaps</h2>'
-                 '<p>Single facts, no judgment about evidence needed.</p></div>' + small)
+        small += q_section(label, why, link_list(missing), len(missing))
 
     # Entries nobody has cited a counterargument for. Deliberately its own section rather
     # than part of the queue above: this affects most of the registry, and folding it in
@@ -1132,15 +1236,11 @@ def build_review(entries):
     nochallenge = [e for e in entries
                    if not any(s.get("kind") == "challenge" for s in (e.get("sources") or []))]
     if nochallenge:
-        links = " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
-                         for e in nochallenge[:8])
-        more = (f' <span class="c-more">and {len(nochallenge) - 8} more</span>'
-                if len(nochallenge) > 8 else "")
-        small += ('<div class="q-head"><h2>No challenge linked <b>'
-                  f'{len(nochallenge)}</b></h2><p>Nobody has cited a rebuttal, a critical '
-                  'review, or prior work. An entry with no challenge is not necessarily '
-                  'unchallenged &mdash; it may just be unexamined.</p></div>'
-                  f'<div class="q-small"><p class="q-small-links">{links}{more}</p></div>')
+        small += q_section(
+            "No challenge linked",
+            "Nobody has cited a rebuttal, a critical review, or prior work. An entry with no "
+            "challenge is not necessarily unchallenged — it may just be unexamined.",
+            link_list(nochallenge), len(nochallenge))
 
     summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
                f'independent check.</p>')
@@ -1279,13 +1379,16 @@ def build_methodology():
         f'<div class="meth-row"><span class="pill v v-{v["slug"]}">{esc(v["label"])}</span>\n'
         f'        <p class="meth-def">{esc(v["definition"])}</p></div>'
         for v in VER)
+    # Rendered with the same pill/dot the cards use, so the page that defines the vocabulary
+    # looks like the pages that apply it.
     aut = "\n      ".join(
-        f'<div class="meth-row"><span class="meth-term">{esc(a["label"])}</span>\n'
+        f'<div class="meth-row"><span class="pill a a-{a["slug"]}">{esc(a["label"])}</span>\n'
         f'        <p class="meth-def">{esc(a["definition"])}</p></div>'
         for a in AUT)
 
     srcs = "\n      ".join(
-        f'<div class="meth-row"><span class="meth-term">{esc(k["label"])}</span>\n'
+        f'<div class="meth-row kind k-{k["slug"]}">'
+        f'<span class="meth-term">{esc(k["label"])}</span>\n'
         f'        <p class="meth-def">{esc(k["definition"])}</p></div>'
         for k in SRC)
 
@@ -1339,6 +1442,8 @@ def build_index(entries, updated):
                  f'checked. <span class="hero-promo-cta">Open the review queue'
                  f'<span aria-hidden="true"> →</span></span></a>')
     src = inject(src, "<!--PROMO:START-->", "<!--PROMO:END-->", promo, "hero promo")
+    src = inject(src, "<!--LABHUB:START-->", "<!--LABHUB:END-->", build_lab_hub(entries),
+                 "lab hub")
 
     src = inject(src, "<!--COUNT:START-->", "<!--COUNT:END-->",
                  f"{len(entries)} / {len(entries)} entries", "result count")
@@ -1462,14 +1567,21 @@ def validate_vocab():
     if not VOCAB.get("source_kinds"):
         problems.append("vocab.json: 'source_kinds' is missing or empty")
 
+    # Every value in every vocabulary needs a colour rule, or it renders as an unstyled pill or
+    # a colourless dot -- invisible until someone happens to look at that value on the page.
+    # Autonomy went years rendering one flat accent for all six because nothing checked it.
     css_path = os.path.join(ROOT, "styles.css")
     if os.path.exists(css_path):
         css = open(css_path).read()
-        for v in VER:
-            if f".v-{v['slug']}" not in css:
-                problems.append(
-                    f"vocab.json: verification '{v['slug']}' has no .v-{v['slug']} rule "
-                    f"in styles.css, so its pill would render unstyled")
+        for axis, items, prefix, what in (
+                ("verification", VER, "v", "pill"),
+                ("autonomy", AUT, "a", "pill"),
+                ("source_kinds", SRC, "k", "dot")):
+            for item in items:
+                if f".{prefix}-{item['slug']}" not in css:
+                    problems.append(
+                        f"vocab.json: {axis} '{item['slug']}' has no .{prefix}-{item['slug']} rule "
+                        f"in styles.css, so its {what} would render unstyled")
 
     if problems:
         print(f"data/vocab.json has {len(problems)} problem(s):", file=sys.stderr)

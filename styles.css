@@ -14,6 +14,15 @@
     --accent:#12513a; --accent-soft:#e9f1ec;
     --formal:#1a6b4a; --independent:#2d6ba3; --peer:#5a4a9e;
     --author:#8a6d1f; --claimed:#8a6d1f; --disputed:#a8501f; --known:#8f2f2f; --refuted:#8f2f2f;
+    /* Source kinds. Their own family rather than reused grade colours: a link's kind is not a
+       grade, and "Original work" sharing a swatch with "Formally verified" would imply it is. */
+    --src-research:#16705a; --src-announcement:#2a6ea8; --src-coverage:#8a6420;
+    --src-commentary:#5f4f9c; --src-challenge:#a8461f;
+    /* Autonomy. Same hues the hero matrix already uses for these values (AUT_COLOR in
+       build-site.py), so the chart and the pills finally agree. Two are nudged a shade for
+       AA contrast as small text on the tint: ai-assisted (light) and retrieval (dark). */
+    --aut-autonomous:#1a6b4a; --aut-ai-led:#2d6ba3; --aut-collaborative:#5a4a9e;
+    --aut-ai-assisted:#83681d; --aut-search-scaffold:#a8501f; --aut-retrieval:#8f2f2f;
     --serif:'Newsreader',Georgia,'Iowan Old Style',Palatino,serif;
     --shadow:0 1px 2px rgba(30,28,24,.04),0 8px 24px rgba(30,28,24,.06);
     --shadow-card:0 1px 1px rgba(30,28,24,.04),0 2px 6px rgba(30,28,24,.05),
@@ -29,6 +38,10 @@
       --accent:#7ec6a3; --accent-soft:#1a251f;
       --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
       --author:#c9a94e; --claimed:#c9a94e; --disputed:#d47a45; --known:#d06666; --refuted:#d06666;
+      --src-research:#4fbf9a; --src-announcement:#5c9dd6; --src-coverage:#c9a94e;
+      --src-commentary:#9b8ae0; --src-challenge:#d47a45;
+      --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
+      --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
       --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -39,6 +52,10 @@
     --accent:#7ec6a3; --accent-soft:#1a251f;
     --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
     --author:#c9a94e; --claimed:#c9a94e; --disputed:#d47a45; --known:#d06666; --refuted:#d06666;
+    --src-research:#4fbf9a; --src-announcement:#5c9dd6; --src-coverage:#c9a94e;
+    --src-commentary:#9b8ae0; --src-challenge:#d47a45;
+    --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
+    --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
     --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -482,7 +499,25 @@
   .v-peer-reviewed{background:var(--peer)} .v-author-verified{background:var(--author)}
   .v-claimed{background:var(--claimed)} .v-disputed{background:var(--disputed)}
   .v-known{background:var(--known)} .v-refuted{background:var(--refuted)}
-  .pill.a{background:var(--accent-soft);color:var(--accent);border-color:transparent;font-weight:600}
+  /* Autonomy: the same colour as its verification neighbour would be, but tinted rather than
+     filled. Three vocabularies, one palette, three weights — solid pill for the evidence grade,
+     tint for autonomy, dot for what a link is — so they read as one system without the card
+     turning into seven competing colour blocks. --ac is set per value by the .a-<slug> rules. */
+  .pill.a{background:color-mix(in srgb, var(--ac) 13%, transparent);color:var(--ac);
+    border-color:color-mix(in srgb, var(--ac) 26%, transparent);font-weight:600;--ac:var(--accent)}
+  .a-autonomous{--ac:var(--aut-autonomous)} .a-ai-led{--ac:var(--aut-ai-led)}
+  .a-collaborative{--ac:var(--aut-collaborative)} .a-ai-assisted{--ac:var(--aut-ai-assisted)}
+  .a-search-scaffold{--ac:var(--aut-search-scaffold)} .a-retrieval{--ac:var(--aut-retrieval)}
+
+  /* Source kinds: a dot carries the colour, the label stays small. Lowest weight of the three,
+     because a card shows up to five of these and only one of each grade. */
+  .k-research{--kc:var(--src-research)} .k-announcement{--kc:var(--src-announcement)}
+  .k-coverage{--kc:var(--src-coverage)} .k-commentary{--kc:var(--src-commentary)}
+  .k-challenge{--kc:var(--src-challenge)}
+  /* Methodology's source-kind rows carry the same dot as a card. */
+  .meth-row.kind .meth-term{color:var(--kc);display:flex;align-items:center;gap:7px}
+  .meth-row.kind .meth-term::before{content:"";flex:0 0 auto;width:7px;height:7px;
+    border-radius:50%;background:var(--kc)}
 
   .body h2{font-size:1.28rem;margin:0 0 9px;font-weight:600;line-height:1.32;letter-spacing:-.01em}
   /* The title is the card's link to its own /finding/ page. Styled to read as the heading it
@@ -552,7 +587,19 @@
   .receipts{margin:13px 0 0;padding-top:11px;border-top:1px solid var(--line)}
   .rc-row{display:flex;align-items:baseline;gap:12px;padding:2px 0}
   .rc-k{flex:0 0 104px;font-family:var(--serif);font-size:.62rem;font-weight:600;
-    text-transform:uppercase;letter-spacing:.09em;color:var(--muted);white-space:nowrap}
+    text-transform:uppercase;letter-spacing:.09em;color:var(--kc,var(--muted));white-space:nowrap;
+    display:flex;align-items:center;gap:6px}
+  /* The dot is the colour carrier; ::before keeps it out of the text, so a screen reader
+     reads "Original work", not a bullet, and copy-paste stays clean. */
+  .rc-k::before{content:"";flex:0 0 auto;width:6px;height:6px;border-radius:50%;
+    background:var(--kc,var(--muted))}
+  /* Group headings inside the disclosure and on finding pages, same colour language. */
+  .field.kind b{color:var(--kc,var(--muted));display:flex;align-items:center;gap:6px}
+  .field.kind b::before{content:"";flex:0 0 auto;width:6px;height:6px;border-radius:50%;
+    background:var(--kc,var(--muted))}
+  .finding h2.lbl.kind{color:var(--kc,var(--muted));display:flex;align-items:center;gap:7px}
+  .finding h2.lbl.kind::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;
+    background:var(--kc,var(--muted))}
   .rc-v{margin:0;flex:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
   .rc-l{font-family:var(--serif);font-size:.76rem;color:var(--accent);text-decoration:none;
     white-space:nowrap;border-bottom:1px solid transparent;transition:border-color .14s var(--ease)}
@@ -604,6 +651,11 @@
   .labcard-logo{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:#fff;
     display:grid;place-items:center;padding:6px;box-shadow:inset 0 0 0 1px var(--line)}
   .labcard-logo img{width:100%;height:100%;object-fit:contain;display:block}
+  /* Monogram chip for organisations with no logo file. Hue is derived from the name in
+     build-site.py, so two organisations starting with the same letter still differ. */
+  .labcard-logo.mono{background:var(--lc,#7c7a72);color:#fff;display:grid;place-items:center;
+    font-family:var(--serif);font-size:.82rem;font-weight:600;letter-spacing:.02em;
+    box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 1px 2px rgba(0,0,0,.14)}
   .labcard-meta{flex:1;display:flex;flex-direction:column;line-height:1.2;min-width:0}
   .labcard-meta b{color:var(--ink);font-family:var(--serif);font-size:1rem;font-weight:600;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
@@ -619,11 +671,30 @@
   footer .lbl{font-weight: bold;font-family:var(--serif);font-size:.62rem;text-transform:uppercase;letter-spacing:.13em;
     color:var(--muted);display:block;margin:22px 0 6px}
   footer .lbl:first-child{margin-top:0}
-  .cite{font-family:var(--serif);font-size:.8rem;line-height:1.6;color:var(--ink);
+  /* About: four short cells side by side rather than six stacked paragraphs, so each answers
+     one question and carries its own links. The disclaimer stays full width and complete. */
+  .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;
+    background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .about-cell{background:var(--panel);padding:18px 20px 16px}
+  .about-cell .lbl{margin:0 0 7px}
+  .about-cell p{margin:0;font-size:.88rem;line-height:1.55;max-width:46ch}
+  .about-links{margin-top:10px !important;display:flex;flex-wrap:wrap;gap:6px 16px}
+  .about-links a{font-family:var(--serif);font-size:.8rem;font-weight:600;text-decoration:none;
+    display:inline-flex;align-items:center;gap:6px}
+  .about-links a:hover{text-decoration:underline;text-underline-offset:3px}
+  .about-note{margin-top:16px;padding:15px 18px;border:1px solid var(--line);border-radius:13px;
+    background:var(--panel-2)}
+  .about-note .lbl{margin:0 0 6px}
+  .about-note p{margin:0;font-size:.8rem;line-height:1.6;max-width:none}
+  .about-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:18px}
+  .cite{flex:1 1 460px;font-family:var(--serif);font-size:.78rem;line-height:1.55;color:var(--ink);
     background:var(--panel-2);border:1px solid var(--line);border-radius:11px;
-    padding:12px 15px;word-break:break-word}
-  .colophon{font-family:var(--serif);font-size:.7rem;letter-spacing:.04em;margin-top:26px;
-    padding-top:18px;border-top:1px solid var(--line)}
+    padding:11px 14px;word-break:break-word;margin:0}
+  .colophon{flex:0 0 auto;font-family:var(--serif);font-size:.7rem;letter-spacing:.04em;margin:0}
+  @media(max-width:720px){
+    .about-grid{grid-template-columns:1fr}
+    .about-foot{flex-direction:column;align-items:flex-start}
+  }
   .empty{text-align:center;color:var(--muted);padding:56px;font-family:var(--serif);font-size:.86rem;
     background:var(--panel);border:1px solid var(--line);border-radius:16px}
   .empty code{background:var(--panel-2);padding:2px 7px;border-radius:7px}
@@ -693,6 +764,30 @@
      glance and the line below can stay a plain description. */
   .q-head h2 b{color:var(--accent);font-variant-numeric:tabular-nums}
   .q-head p{color:var(--muted);margin:0;font-size:.9rem}
+
+  /* Each group of the backlog is a <details>. Collapsed, the whole queue reads as a handful
+     of counts; a visitor opens only the part they mean to work on. No JS: the marker and the
+     open state are the browser's. */
+  .q-sec{border:1px solid var(--line);border-radius:14px;background:var(--panel);
+    margin:0 0 10px;overflow:hidden}
+  .q-sec > summary{display:flex;align-items:center;gap:12px;padding:15px 18px;cursor:pointer;
+    list-style:none;font-weight:600;font-size:1.02rem;letter-spacing:-.005em;
+    transition:background .14s var(--ease)}
+  .q-sec > summary::-webkit-details-marker{display:none}
+  .q-sec > summary:hover{background:var(--panel-2)}
+  /* Own marker so it can rotate; ::before on the summary keeps it out of the accessible name. */
+  .q-sec > summary::before{content:"";flex:0 0 auto;width:7px;height:7px;margin-right:2px;
+    border-right:1.6px solid var(--muted);border-bottom:1.6px solid var(--muted);
+    transform:rotate(-45deg);transition:transform .18s var(--ease)}
+  .q-sec[open] > summary::before{transform:rotate(45deg)}
+  .q-sec-t{flex:1;min-width:0}
+  .q-sec-n{flex:0 0 auto;font-family:var(--serif);font-variant-numeric:tabular-nums;
+    font-size:.8rem;font-weight:600;color:var(--accent);background:var(--accent-soft);
+    padding:3px 10px;border-radius:999px}
+  .q-sec-body{padding:0 14px 14px}
+  .q-sec-sub{color:var(--muted);margin:0 0 12px;font-size:.88rem;max-width:72ch}
+  .q-sec .q-row:last-child{margin-bottom:0}
+
   .q-row{display:flex;align-items:center;gap:18px;padding:14px 16px;background:var(--panel);
     border:1px solid var(--line);border-radius:12px;margin-bottom:8px;
     transition:border-color .16s var(--ease),transform .16s var(--ease)}

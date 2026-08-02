@@ -153,8 +153,16 @@ link, and nothing scores or ranks an entry by it. Each kind carries both a `labe
 heading) and a `chip` (the short form for the card row, where the column is narrow); the build
 fails if either is missing.
 
-Adding or removing a grade is a code change: a new `verification` slug also needs a `.v-<slug>`
-pill colour in [styles.css](../styles.css), and the build fails until it has one.
+Adding or removing a value in any of the three vocabularies is a code change: it also needs a colour
+rule in [styles.css](../styles.css), and the build fails until it has one — `.v-<slug>` for a
+verification grade, `.a-<slug>` for an autonomy level, `.k-<slug>` for a source kind. The three are
+rendered with one palette at three weights: a filled pill for verification, a tinted pill for
+autonomy (the same hues the hero chart uses), and a coloured dot for source kinds.
+
+A new lab also needs a line in `LAB_HUB` in [scripts/build-site.py](../scripts/build-site.py) — the
+`#sources` hub is generated from the registry, but the URL where an organisation posts its own
+results cannot be. The build prints a note naming any organisation that is missing one; it does not
+fail, so an entry is never blocked on it.
 
 ### Brand assets
 

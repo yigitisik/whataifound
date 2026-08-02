@@ -456,6 +456,11 @@
         "kind": "research"
       },
       {
+        "label": "FunSearch code and discovered programs",
+        "url": "https://github.com/google-deepmind/funsearch",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: FunSearch",
         "url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/",
         "kind": "announcement"
@@ -501,6 +506,11 @@
       {
         "label": "Nature: Mathematical discoveries from program search with LLMs",
         "url": "https://www.nature.com/articles/s41586-023-06924-6",
+        "kind": "research"
+      },
+      {
+        "label": "FunSearch code and discovered programs",
+        "url": "https://github.com/google-deepmind/funsearch",
         "kind": "research"
       }
     ],
@@ -612,6 +622,11 @@
         "kind": "research"
       },
       {
+        "label": "AlphaTensor code and discovered algorithms",
+        "url": "https://github.com/google-deepmind/alphatensor",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: Discovering novel algorithms with AlphaTensor",
         "url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/",
         "kind": "announcement"
@@ -682,6 +697,11 @@
         "kind": "research"
       },
       {
+        "label": "AlphaDev code and discovered sorting routines",
+        "url": "https://github.com/google-deepmind/alphadev",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: AlphaDev discovers faster sorting algorithms",
         "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/",
         "kind": "announcement"
@@ -737,6 +757,11 @@
       {
         "label": "Nature: Scaling deep learning for materials discovery",
         "url": "https://www.nature.com/articles/s41586-023-06735-9",
+        "kind": "research"
+      },
+      {
+        "label": "GNoME models, DFT data and 380k predicted structures",
+        "url": "https://github.com/google-deepmind/materials_discovery",
         "kind": "research"
       },
       {
@@ -961,6 +986,11 @@
       {
         "label": "Nature: Highly accurate protein structure prediction with AlphaFold",
         "url": "https://www.nature.com/articles/s41586-021-03819-2",
+        "kind": "research"
+      },
+      {
+        "label": "AlphaFold code (google-deepmind/alphafold)",
+        "url": "https://github.com/google-deepmind/alphafold",
         "kind": "research"
       },
       {
@@ -1567,6 +1597,11 @@
         "kind": "research"
       },
       {
+        "label": "Knot theory and representation theory notebooks",
+        "url": "https://github.com/google-deepmind/mathematics_conjectures",
+        "kind": "research"
+      },
+      {
         "label": "University of Oxford: Machine learning helps mathematicians make new connections",
         "url": "https://www.ox.ac.uk/news/2021-12-01-machine-learning-helps-mathematicians-make-new-connections-0",
         "kind": "announcement"
@@ -1611,6 +1646,11 @@
       {
         "label": "arXiv: Constructions in combinatorics via neural networks",
         "url": "https://arxiv.org/abs/2104.14516",
+        "kind": "research"
+      },
+      {
+        "label": "Wagner's cross-entropy code for the counterexamples",
+        "url": "https://github.com/zawagner22/cross-entropy-for-combinatorics",
         "kind": "research"
       },
       {
@@ -1803,6 +1843,11 @@
         "kind": "research"
       },
       {
+        "label": "AlphaFold 3 code (google-deepmind/alphafold3)",
+        "url": "https://github.com/google-deepmind/alphafold3",
+        "kind": "research"
+      },
+      {
         "label": "Google DeepMind and Isomorphic Labs introduce AlphaFold 3",
         "url": "https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/",
         "kind": "announcement"
@@ -1894,6 +1939,11 @@
       {
         "label": "PubMed Central full text",
         "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10733136/",
+        "kind": "research"
+      },
+      {
+        "label": "Coscientist data and reference implementation",
+        "url": "https://github.com/gomesgroup/coscientist",
         "kind": "research"
       }
     ],
@@ -2045,6 +2095,11 @@
         "label": "Nature Biotechnology: Advancing missense variant pathogenicity prediction",
         "url": "https://www.nature.com/articles/s41587-023-01999-y",
         "kind": "research"
+      },
+      {
+        "label": "AlphaMissense predictions and code",
+        "url": "https://github.com/google-deepmind/alphamissense",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -2111,6 +2166,11 @@
       {
         "label": "Nature: A generative model for inorganic materials design",
         "url": "https://www.nature.com/articles/s41586-025-08628-5",
+        "kind": "research"
+      },
+      {
+        "label": "MatterGen code and model weights",
+        "url": "https://github.com/microsoft/mattergen",
         "kind": "research"
       },
       {
@@ -2263,6 +2323,11 @@
       {
         "label": "The Astronomical Journal: Identifying Exoplanets with Deep Learning",
         "url": "https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09",
+        "kind": "research"
+      },
+      {
+        "label": "AstroNet: Kepler light-curve models (exoplanet-ml)",
+        "url": "https://github.com/google-research/exoplanet-ml",
         "kind": "research"
       },
       {
