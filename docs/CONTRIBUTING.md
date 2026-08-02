@@ -35,8 +35,10 @@ Read [SCHEMA.md](SCHEMA.md) first for field definitions and grade scales.
 
 Requirements:
 
-- At least one primary source (paper, proof artifact, dataset, or repository). A news article
-  doesn't count.
+- At least one primary source (paper, proof artifact, dataset, or repository) tagged
+  `"kind": "research"`. A news article doesn't count, and the build now enforces it: any grade
+  above `claimed` without a `research` source fails validation.
+- Every source needs a `kind`; see [classifying sources](#classifying-sources).
 - Source URLs must be `http(s)`. Other schemes are rejected by the build.
 - Both grades set to the weaker reading when arguable, with the tension noted in `caveats`.
 - A `novelty_check` recording what you searched, even when nothing turned up. State the searches:
@@ -53,6 +55,27 @@ needs nothing; it falls back to a generated monogram.
 If your entry has a `wikipedia` title, run `python3 scripts/build-notability.py` to measure
 `notability` from the live Wikipedia API. It hits the network and edits `data/entries.json`, so it
 is not part of `build.py`; run it deliberately. `--check` reports drift.
+
+### Classifying sources
+
+Each source is tagged `research`, `announcement`, `coverage`, `commentary` or `challenge`
+([definitions](SCHEMA.md#sources-what-each-link-is)). The whole registry rests on keeping the result
+apart from the claim made about it, so two calls are worth getting right:
+
+**First-party or not?** `announcement` means the people behind the result said it, whoever they are:
+a company press release and a lone researcher's X post are the same kind. The test is not whether an
+organisation published it, but whether the author appears in the entry's `humans` or works for its
+`lab`. Three author blogs in the registry look like independent commentary and are not: Scott
+Aaronson, Terence Tao and Kevin Buzzard are each listed in `humans` on the entry their post
+accompanies.
+
+**Commentary or challenge?** `commentary` is an independent write-up that may support or complicate
+the claim; `challenge` argues it is wrong, unoriginal, or unsupported. The domain cannot tell you:
+the same outlet publishes both, and the registry cites TechCrunch as `coverage` on one entry and
+`challenge` on another. Read the piece.
+
+When a source is arguable, prefer the reading that makes the entry look weaker, the same way grades
+work: `coverage` over `research`, `challenge` over `commentary`.
 
 ### Submitting an independent check
 
@@ -87,40 +110,102 @@ wins when it's arguable. A challenge without a specific citation gets closed.
 
 `finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `entry.schema.json`, and anything
 between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
-`contributors.html`, `methodology.html` or `visuals.html` — including the shared `NAV` block, which
-is written into every page from one place. Your change will be overwritten on the next build, and
-CI will fail. Edit `data/entries.json` instead.
+`contributors.html`, `methodology.html` or `visuals.html`, including the shared `NAV` block, which
+is written into every page from one place. On `index.html` both list layouts are generated
+(`ENTRIES` for the cards, `TABLE` for the table), as are the filter dropdowns: `FIELDOPTS`,
+`LABOPTS`, `VEROPTS` and `AUTOPTS` are each filled from the registry, so a new autonomy value or lab
+appears in the controls without anyone editing the markup. Your change will be overwritten on the
+next build, and CI will fail. Edit `data/entries.json` instead.
 
 ## Code
 
 Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
 [review.html](../review.html), [contributors.html](../contributors.html),
 [visuals.html](../visuals.html), [404.html](../404.html), [styles.css](../styles.css),
-[app.js](../app.js). Constraints:
+[app.js](../app.js), [entry.js](../entry.js). Constraints:
 
+- **No em dashes**, anywhere: prose, code comments, UI copy, commit messages. `check-integrity.py`
+  fails the build and names the file and line. Use a colon, comma, semicolon or parentheses,
+  whichever the sentence wants. En dashes are fine and are used correctly throughout the registry
+  (`Navier-Stokes`, `2000-2022`, `protein-ligand`), so do not sweep those.
 - No runtime external requests. A new external resource also needs its CSP directive in
   [vercel.json](../vercel.json) widened.
 - No inline event handlers (`onclick=` and friends). CSP sets `script-src-attr 'none'`, and
-  `check-integrity.py` rejects them. Attach listeners in `app.js`.
+  `check-integrity.py` rejects them. Attach listeners in `app.js`. `check-integrity.py` also rejects
+  form elements outright, which is why the shortcuts dialog closes via a button in `app.js` rather
+  than the usual dialog-closing method.
 - WCAG 2.1 AA: keep focus rings, heading order, chart labels, `prefers-reduced-motion`.
-- Works in both light and dark themes.
-- Layout holds at 320, 560, 720px.
+- Works in both light and dark themes. A new colour needs `color-scheme` to stay correct in all three
+  colour blocks of [styles.css](../styles.css).
+- Layout holds at 320, 560, 720 and 1180px. The sticky filter bar is the tight one: it holds six
+  controls in 1056px of container with no slack, so anything added to it has to take room from
+  something else.
+
+`app.js` runs on the registry and visuals pages. `entry.js` (~1 KB) runs on finding pages and does
+one thing: the citation copy buttons. It is separate so a leaf page does not download 47 KB of
+filtering and chart code, and it is purely an enhancement, since `build-site.py` renders the citation
+text into the page and it stays selectable with JavaScript off.
+
+`app.js` is split into `bootStatic()`, which runs immediately and needs no data, and `bootData()`,
+which runs when `data/entries.json` arrives. The fetch is deliberately off the critical path: the
+52 entries are already pre-rendered, so the JSON is loaded on idle, on the first interaction with a
+control, or immediately when the URL carries a filter. **If you add something to `bootStatic()` that
+needs the registry, it will silently do nothing on a cold load.** `render()` returns early while
+`ALL` is empty, which is what stops the list being blanked in the meantime.
 
 `card()` exists twice: in [app.js](../app.js) and ported to
 [scripts/build-site.py](../scripts/build-site.py). **Change one, change the other, in the same PR.**
 `verify-parity.py` runs the real `card()` under Node and diffs it against the pre-rendered markup,
 so drift fails the build; the markup would otherwise visibly change the first time a visitor
-filters.
+filters. The same applies to the `DOMAIN_NAME` table and to the `receipts()` / `grouped_refs()`
+renderers, which are ported alongside it.
+
+`tableView()` is the third pair, added when the table became the default view. Both layouts are
+pre-rendered into `#list` and CSS shows one, because rendering the default client-side would mean
+either a visible cards-to-table swap on every load or the 143 KB of registry JSON back on the
+critical path to avoid one. Pre-rendering both costs about 18 KB and avoids both. Search
+highlighting deliberately stays *outside* `card()`, walking the rendered DOM afterwards, because
+`build-site.py` has no query to highlight and putting it in the template would put the two renderers
+permanently out of step.
+
+Inside `card()`, note that a tag is an `<a href="/?tag=…">`, not a label: the URL is real, so tags
+work with JavaScript off and give the registry 187 internal links across 118 distinct filtered views.
+`app.js` intercepts the click only to save the page load.
+
+Which layout shows is decided before first paint by the inline script in `index.html`, which sets
+`data-view` on `<html>` from `?view=`, then the stored preference, then the default. With no
+JavaScript at all the attribute is never set and the cards show, which is the richer fallback. A
+permalink (`#e-<id>`) points at a card, so `revealFromHash()` switches to cards when the target is
+hidden or absent; it records that in the URL but deliberately does not change the stored preference,
+because following someone else's link is not a preference.
+
+Adding an entry whose source is on a host the registry hasn't cited before means adding that host to
+`DOMAIN_NAME` in both files. The labelled rows on a card show the publisher name instead of the link
+title, so an unmapped host shows up as a bare domain like `pubs.rsc.org` where every neighbour reads
+`Nature` or `The Register`.
 
 ### The grading vocabulary
 
 Grade labels and definitions live in [data/vocab.json](../data/vocab.json) and nowhere else.
-`build.py` writes them into `app.js`'s label tables, the two lists on `methodology.html`, the
+`build.py` writes them into `app.js`'s label tables, the lists on `methodology.html`, the
 scales in `llms.txt`, and the ClaimReview ratings on every finding page. Edit the JSON and rebuild;
 never edit those copies by hand.
 
-Adding or removing a grade is a code change: a new `verification` slug also needs a `.v-<slug>`
-pill colour in [styles.css](../styles.css), and the build fails until it has one.
+`source_kinds` lives in the same file and works the same way, but is not a grade: it classifies a
+link, and nothing scores or ranks an entry by it. Each kind carries both a `label` (the group
+heading) and a `chip` (the short form for the card row, where the column is narrow); the build
+fails if either is missing.
+
+Adding or removing a value in any of the three vocabularies is a code change: it also needs a colour
+rule in [styles.css](../styles.css), and the build fails until it has one: `.v-<slug>` for a
+verification grade, `.a-<slug>` for an autonomy level, `.k-<slug>` for a source kind. The three are
+rendered with one palette at three weights: a filled pill for verification, a tinted pill for
+autonomy (the same hues the hero chart uses), and a coloured dot for source kinds.
+
+A new lab also needs a line in `LAB_HUB` in [scripts/build-site.py](../scripts/build-site.py): the
+`#sources` hub is generated from the registry, but the URL where an organisation posts its own
+results cannot be. The build prints a note naming any organisation that is missing one; it does not
+fail, so an entry is never blocked on it.
 
 ### Brand assets
 
@@ -174,7 +259,7 @@ CI runs on every PR:
 | Check | Fails when |
 |---|---|
 | `check-integrity.py` | The committed HTML contains unexpected inline scripts, off-allowlist script or frame origins, inline event handlers, `javascript:`/`data:` URLs, or `<base>`/`<object>`/`<embed>`/`<form>` |
-| `build.py` | The data is invalid, or `card()` has drifted between `app.js` and `build-site.py` |
+| `build.py` | The data is invalid, an entry graded above `claimed` links no `research` source, or `card()` has drifted between `app.js` and `build-site.py` |
 | rebuild-and-diff | The committed output doesn't match what `data/entries.json` produces (a forgotten rebuild, or a hand-edit inside the markers) |
 | `check-links.py` | A URL your branch added returns 404 or 410. Runs as its own `links` workflow so a publisher outage never blocks a merge; paywalls, rate limits and 5xx are reported but do not fail |
 
@@ -205,6 +290,10 @@ The registry's only asset is that its grades can be trusted. Automation covers t
 - **Check the grades against the evidence**, not the contributor's summary. `formal` needs a
   machine-checked artifact you can point at. `independent` needs someone who isn't an author. When
   the evidence is arguable, the weaker grade wins.
+- **Check the source kinds, especially `research` and `announcement`.** The build only checks that a
+  `research` source exists, not that it deserves the label; tagging a press release `research` would
+  satisfy the rule and defeat it. The other trap is a first-party post that reads as independent:
+  check whether the author appears in `humans` or works for the `lab` before accepting `commentary`.
 - **Read the `novelty_check` as a claim about search, not a conclusion.** "Appears novel" isn't
   reviewable; a named database and query is.
 - **Be suspicious of upgrades.** A PR raising an entry's `verification` or softening `caveats` is

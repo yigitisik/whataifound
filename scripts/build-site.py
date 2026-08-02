@@ -110,6 +110,14 @@ VER_RATING = {v["slug"]: (v["rating"], v["rating_label"]) for v in VER}
 # "computer-science" into a headline.
 FIELD_LABEL = VOCAB["fields"]
 
+# What each source link is: the original work, the claim about it, or the case against.
+# Not a grade - see the note in vocab.json. Array order is display order, and it is the
+# order the rows appear in on a card, so it reads original work -> claim -> pushback.
+SRC = VOCAB["source_kinds"]
+SRC_ORDER = [k["slug"] for k in SRC]
+SRC_LABEL = {k["slug"]: k["label"] for k in SRC}
+SRC_CHIP = {k["slug"]: k["chip"] for k in SRC}
+
 LAB_LOGO = {
     "Anthropic": "assets/external-logos/anthropic.svg",
     "OpenAI": "assets/external-logos/openai.svg",
@@ -132,6 +140,24 @@ DOMAIN_NAME = {
     "allthings.how": "AllThings.how", "turingpost.com": "Turing Post",
     "techjacksolutions.com": "Tech Jacks", "nobelprize.org": "Nobel Prize",
     "actu.epfl.ch": "EPFL", "storage.googleapis.com": "DeepMind",
+    # The card face shows this name instead of the link title, so an unmapped host
+    # renders as a raw domain there and looks broken. Every host in entries.json
+    # needs a line; the build warns when one is missing.
+    "science.org": "Science", "biorxiv.org": "bioRxiv", "cell.com": "Cell",
+    "pmc.ncbi.nlm.nih.gov": "NIH PMC", "iopscience.iop.org": "IOP",
+    "pubs.rsc.org": "Materials Horizons", "blog.google": "Google",
+    "microsoft.com": "Microsoft", "nasa.gov": "NASA", "nih.gov": "NIH",
+    "news.mit.edu": "MIT News", "ox.ac.uk": "Oxford",
+    "engineering.princeton.edu": "Princeton", "sakana.ai": "Sakana AI",
+    "arcinstitute.org": "Arc Institute", "bakerlab.org": "Baker Lab",
+    "evolutionaryscale.ai": "EvolutionaryScale", "insilico.com": "Insilico",
+    "math.inc": "Math Inc.", "flywire.ai": "FlyWire", "scrollprize.org": "Vesuvius Challenge",
+    "asimov.press": "Asimov Press", "physicsworld.com": "Physics World",
+    "sciencedaily.com": "ScienceDaily", "officechai.com": "OfficeChai",
+    "x.com": "X", "scottaaronson.blog": "Scott Aaronson",
+    "terrytao.wordpress.com": "Terence Tao", "xenaproject.wordpress.com": "Kevin Buzzard",
+    "simonwillison.net": "Simon Willison", "alexisgallagher.com": "Alexis Gallagher",
+    "jacobianfun.org": "jacobianfun.org",
 }
 
 
@@ -214,6 +240,50 @@ def ref_row(s):
     return (f'<a class="ref" href="{esc(s.get("url"))}" target="_blank" rel="noopener">'
             f'<span class="ref-dom">{esc(dom)}</span><span class="ref-t">{esc(label)}</span>'
             f'<span class="ref-a">↗</span></a>')
+
+
+# --- port of receipts() and groupedRefs() in app.js. Keep the markup identical;
+# verify-parity.py diffs the two and fails the build on any drift.
+RECEIPT_MAX = 3
+
+
+def receipts(e):
+    """The card face: what each link is, without opening the disclosure."""
+    src = e.get("sources") or []
+    rows = ""
+    for kind in SRC_ORDER:
+        of = [s for s in src if s.get("kind") == kind]
+        if not of:
+            # A missing challenge is the one absence worth stating.
+            if kind == "challenge":
+                rows += (f'<div class="rc-row"><dt class="rc-k k-{esc(kind)}">{esc(SRC_CHIP[kind])}</dt>'
+                         f'<dd class="rc-v rc-none">none linked</dd></div>')
+            continue
+        # Visible text is the domain; the full title becomes the accessible name and
+        # hover text, so two papers from the same host are still tellable apart.
+        shown = "".join(
+            f'<a class="rc-l" href="{esc(s.get("url"))}" target="_blank" rel="noopener" '
+            f'title="{esc(s.get("label"))}" aria-label="{esc(s.get("label"))}">'
+            f'{esc(domain_of(s.get("url", "")))}'
+            f'<span class="rc-a" aria-hidden="true">↗</span></a>'
+            for s in of[:RECEIPT_MAX])
+        extra = (f'<span class="rc-more">+{len(of) - RECEIPT_MAX}</span>'
+                 if len(of) > RECEIPT_MAX else "")
+        rows += (f'<div class="rc-row"><dt class="rc-k k-{esc(kind)}">{esc(SRC_CHIP[kind])}</dt>'
+                 f'<dd class="rc-v">{shown}{extra}</dd></div>')
+    return f'<dl class="receipts">{rows}</dl>' if rows else ""
+
+
+def grouped_refs(src):
+    """The same links inside the disclosure, grouped and with their full titles."""
+    out = ""
+    for kind in SRC_ORDER:
+        of = [s for s in (src or []) if s.get("kind") == kind]
+        if not of:
+            continue
+        out += (f'<div class="field reveal kind k-{esc(kind)}"><b>{esc(SRC_LABEL[kind])}</b>'
+                f'<div class="refs">{"".join(ref_row(s) for s in of)}</div></div>')
+    return out
 
 
 def page_nav(current):
@@ -310,13 +380,13 @@ def card(e):
     humans = (f'<p class="withppl"><span>With</span><b>{esc(", ".join(e["humans"]))}</b></p>'
               if e.get("humans") else "")
     tags = ('<div class="tags">'
-            + "".join(f'<span class="tag-chip">{esc(t)}</span>' for t in e["tags"])
+            + "".join(f'<a class="tag-chip" href="/?tag={enc_uri_component(t)}">{esc(t)}</a>'
+                      for t in e["tags"])
             + "</div>") if e.get("tags") else ""
     detail = f'<p class="detail">{esc(e["detail"])}</p>' if e.get("detail") else ""
     checks_block = (f'<div class="field checks reveal"><b>Independent checks</b>{checks}</div>'
                     if checks else "")
-    sources_block = (f'<div class="field reveal"><b>Sources</b>{refs(e["sources"])}</div>'
-                     if e.get("sources") else "")
+    sources_block = grouped_refs(e.get("sources"))
     disc_block = (f'<div class="field reveal"><b>Community discussion</b>{refs(e["discussion"])}</div>'
                   if e.get("discussion") else "")
 
@@ -343,7 +413,7 @@ def card(e):
       <div class="rdate">{esc(e.get("date"))}</div>
       <div class="rpills">
         <span class="pill v v-{esc(e["verification"])}">{esc(VER_LABEL.get(e["verification"], e["verification"]))}</span>
-        <span class="pill a">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span>
+        <span class="pill a a-{esc(e["autonomy"])}">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span>
       </div>
       <dl class="rmeta">
         <div><dt>Model</dt><dd>{esc(e.get("model"))}</dd></div>
@@ -358,6 +428,7 @@ def card(e):
       {detail}
       {humans}
       {tags}
+      {receipts(e)}
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         {f("Novelty check", e.get("novelty_check"))}
@@ -369,6 +440,54 @@ def card(e):
       </details>
     </div>
   </article>'''
+
+
+# ------------------------------------------------------------------ table view
+# A hand-port of tableView() in app.js, byte for byte, and the third pair verify-parity.py
+# guards. Both layouts are pre-rendered into #list and CSS shows one, because the table is
+# the default view: rendering it client-side instead would mean either a visible swap from
+# cards to table on every load, or putting the 143 KB of registry JSON back on the critical
+# path to avoid one. Pre-rendering both costs about 18 KB and avoids both.
+TABLE_COLS = [
+    {"label": "Date", "sort": "date-desc", "alt": "date-asc"},
+    {"label": "Finding", "sort": "title"},
+    {"label": "Lab", "sort": "lab"},
+    {"label": "Model"},
+    {"label": "Verification", "sort": "evidence"},
+    {"label": "Autonomy", "sort": "autonomy"},
+    {"label": "Field"},
+]
+
+
+def table_view(entries, sort="date-desc"):
+    """Port of tableView() in app.js. Output must match it character for character."""
+    head = ""
+    for c in TABLE_COLS:
+        if not c.get("sort"):
+            head += f'<th scope="col">{c["label"]}</th>'
+            continue
+        active = sort == c["sort"] or (c.get("alt") and sort == c.get("alt"))
+        nxt = c["alt"] if (c.get("alt") and sort == c["sort"]) else c["sort"]
+        direction = "none" if not active else ("ascending" if sort == "date-asc" else "descending")
+        head += (f'<th scope="col" aria-sort="{direction}"><button type="button" class="th-sort'
+                 f'{" on" if active else ""}" data-sort="{nxt}">{c["label"]}</button></th>')
+    rows = "".join(
+        f'''<tr>
+      <td class="t-date">{esc(e.get("date"))}</td>
+      <td class="t-title"><a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a></td>
+      <td title="{esc(e.get("lab"))}">{esc(e.get("lab"))}</td>
+      <td title="{esc(e.get("model"))}">{esc(e.get("model"))}</td>
+      <td><span class="pill v v-{esc(e["verification"])}">{esc(VER_LABEL.get(e["verification"], e["verification"]))}</span></td>
+      <td><span class="pill a a-{esc(e["autonomy"])}">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span></td>
+      <td title="{esc(e.get("field"))}">{esc(e.get("field"))}</td>
+    </tr>'''
+        for e in entries)
+    cols = "".join(f'<col class="c-{c}">'
+                   for c in ["date", "title", "lab", "model", "ver", "aut", "field"])
+    return (f'<div class="tablewrap"><table class="regtable">\n'
+            f'    <caption class="vh">All findings in the registry, sortable by column.</caption>\n'
+            f'    <colgroup>{cols}</colgroup>\n'
+            f'    <thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>')
 
 
 # ------------------------------------------------------------------ evidence matrix
@@ -559,8 +678,12 @@ def claim_review(e, url):
             "name": e["title"],
             "author": {"@type": "Organization", "name": author},
             "datePublished": e.get("date"),
+            # Where the claim was *made*, which is what schema.org means by appearance:
+            # the announcement and the reporting of it. A rebuttal is not an appearance
+            # of the claim, and listing one here told an answer engine the opposite.
             "appearance": [{"@type": "CreativeWork", "url": s["url"]}
-                           for s in (e.get("sources") or []) if s.get("url")],
+                           for s in (e.get("sources") or [])
+                           if s.get("url") and s.get("kind") in ("announcement", "coverage")],
         },
         "reviewRating": {
             "@type": "Rating",
@@ -623,8 +746,118 @@ def entry_jsonld(e, url):
     }
 
 
+def bibtex_key(e):
+    """A stable, conventional citation key: firstauthorless, so lab-year-slug."""
+    org = re.sub(r"[^a-z0-9]+", "", hub_org(e.get("lab") or "").lower()) or "whataifound"
+    return f"whataifound-{org}-{str(e.get('date', ''))[:4]}-{e['id'].split('-')[-1]}"
+
+
+def citation_block(e, url):
+    """The prose citation, plus BibTeX and APA, each copyable in one click.
+
+    The registry exists to be cited, and until now the only citation on a finding page
+    was a sentence to select by hand. The <pre> blocks are the source of truth and stay
+    selectable, so with JavaScript off this degrades to exactly what was here before;
+    entry.js only adds the buttons.
+    """
+    year = str(e.get("date", ""))[:4]
+    title = e["title"]
+    lab = e.get("lab") or "Independent"
+    site = "whataifound.org: A Registry of AI Scientific and Mathematical Discoveries"
+
+    bib = (f"@misc{{{bibtex_key(e)},\n"
+           f"  title        = {{{title}}},\n"
+           f"  author       = {{{{whataifound.org}}}},\n"
+           f"  year         = {{{year}}},\n"
+           f"  howpublished = {{{site}}},\n"
+           f"  note         = {{Result by {lab}. Verification: "
+           f"{VER_LABEL.get(e['verification'], e['verification'])}. Autonomy: "
+           f"{AUT_LABEL.get(e['autonomy'], e['autonomy'])}.}},\n"
+           f"  url          = {{{url}}}\n"
+           f"}}")
+    apa = f"whataifound.org. ({year}). {title}. {site}. {url}"
+
+    def block(label, text, lang=""):
+        return (f'    <div class="cite-block">\n'
+                f'      <div class="cite-head"><span class="cite-label">{esc(label)}</span>'
+                f'<button type="button" class="cite-copy" data-copy>Copy</button></div>\n'
+                f'      <pre class="cite-pre"{lang}><code>{esc(text)}</code></pre>\n'
+                f'    </div>')
+
+    return ('  <h2 class="lbl">Cite this entry</h2>\n'
+            '  <div class="cites">\n'
+            + block("Plain text", apa) + "\n"
+            + block("BibTeX", bib) + "\n"
+            + '  </div>')
+
+
+def related(e, entries):
+    """Up to three other findings, ranked by shared tags then by field.
+
+    Every finding page was a dead end: 52 leaf pages with no route to a 53rd. These are
+    computed at build time from the data, so there is no list to maintain and no way for
+    them to point at an entry that no longer exists.
+    """
+    tags = set(e.get("tags") or [])
+    scored = []
+    for o in entries:
+        if o["id"] == e["id"]:
+            continue
+        shared = len(tags & set(o.get("tags") or []))
+        same_field = 1 if o.get("field") == e.get("field") else 0
+        if not shared and not same_field:
+            continue
+        # Sorted by shared tags, then same field, then recency, so the tie-break chain
+        # is total and the output is stable across rebuilds.
+        scored.append((-shared, -same_field, str(o.get("date", "")), o))
+    scored.sort(key=lambda t: (t[0], t[1], [-ord(c) for c in t[2]]))
+    return [t[3] for t in scored[:3]]
+
+
+def entry_nav(e, entries):
+    """Previous, next and related, rendered as one block at the foot of the page."""
+    i = next((n for n, o in enumerate(entries) if o["id"] == e["id"]), None)
+    if i is None:
+        return "", ""
+    # entries is newest-first, so the *next* one chronologically is the previous index.
+    newer = entries[i - 1] if i > 0 else None
+    older = entries[i + 1] if i + 1 < len(entries) else None
+
+    def step(o, label, arrow_left):
+        if not o:
+            return '<span class="pn-step pn-empty"></span>'
+        arrow = ('<span class="pn-arrow" aria-hidden="true">←</span>' if arrow_left else "")
+        after = ('<span class="pn-arrow" aria-hidden="true">→</span>' if not arrow_left else "")
+        return (f'<a class="pn-step" href="/finding/{esc(o["id"])}">'
+                f'<span class="pn-dir">{arrow}{esc(label)}{after}</span>'
+                f'<span class="pn-title">{esc(o["title"])}</span></a>')
+
+    rel = related(e, entries)
+    rel_html = ""
+    if rel:
+        cards = "".join(
+            f'<a class="rel-card" href="/finding/{esc(o["id"])}">'
+            f'<span class="rel-grade pill v v-{esc(o["verification"])}">'
+            f'{esc(VER_LABEL.get(o["verification"], o["verification"]))}</span>'
+            f'<span class="rel-title">{esc(o["title"])}</span>'
+            f'<span class="rel-meta">{esc(o.get("lab"))} · {esc(o.get("date"))}</span></a>'
+            for o in rel)
+        rel_html = (f'\n  <h2 class="lbl">Related findings</h2>\n'
+                    f'  <div class="relgrid">{cards}</div>')
+
+    nav = (f'\n  <nav class="pagenav-steps" aria-label="Nearby findings">'
+           f'{step(older, "Older", True)}{step(newer, "Newer", False)}</nav>')
+    # rel="prev"/"next" for crawlers, matching the visible links.
+    head = ""
+    if older:
+        head += f'\n<link rel="prev" href="{SITE}/finding/{older["id"]}">'
+    if newer:
+        head += f'\n<link rel="next" href="{SITE}/finding/{newer["id"]}">'
+    return rel_html + nav, head
+
+
 # ------------------------------------------------------------------ entry pages
-def entry_page(e):
+def entry_page(e, entries):
     """A standalone, independently citable page for one finding.
 
     The point of these is citation surface: an answer engine picks 2–7 sources per
@@ -637,6 +870,7 @@ def entry_page(e):
     ver = VER_LABEL.get(e["verification"], e["verification"])
     aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
     n = years_open(e)
+    nav_html, nav_head = entry_nav(e, entries)
 
     # Challenging a grade should cost a reader one click, not a fork. The GitHub issue form
     # prefills from query parameters keyed on each field's id, so the entry and its current
@@ -709,10 +943,15 @@ def entry_page(e):
     def section(title, body):
         return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
 
+    # Grouped by what each link is, and uncapped: the finding page is the citable
+    # record, so it shows every source rather than the card's first three per kind.
     sources = ""
-    if e.get("sources"):
-        sources = ('\n  <h2 class="lbl">Sources</h2>\n  <div class="refs">'
-                   + "".join(ref_row(s) for s in e["sources"]) + "</div>")
+    for kind in SRC_ORDER:
+        of = [s for s in (e.get("sources") or []) if s.get("kind") == kind]
+        if not of:
+            continue
+        sources += (f'\n  <h2 class="lbl kind k-{esc(kind)}">{esc(SRC_LABEL[kind])}</h2>\n  <div class="refs">'
+                    + "".join(ref_row(s) for s in of) + "</div>")
     discussion = ""
     if e.get("discussion"):
         discussion = ('\n  <h2 class="lbl">Community discussion</h2>\n  <div class="refs">'
@@ -732,6 +971,7 @@ def entry_page(e):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
 
 <title>{esc(e["title"])}: graded {esc(ver)} | whataifound.org</title>
 <meta name="description" content="{attr(meta_desc)}">
@@ -761,7 +1001,7 @@ def entry_page(e):
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
-<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">{nav_head}
 
 <script type="application/ld+json">
 {ld}
@@ -788,7 +1028,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <article class="finding">
   <div class="finding-pills">
     <span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>
-    <span class="pill a">{esc(aut)}</span>
+    <span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>
   </div>
   <h1>{esc(e["title"])}</h1>
   <p class="lede">{esc(verdict)}</p>
@@ -818,15 +1058,15 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   <a href="/methodology">methodology</a>.</p>
 
 {credit}
-  <h2 class="lbl">Cite this entry</h2>
-  <p class="cite">whataifound.org ({esc(str(e.get("date", ""))[:4])}). <em>{esc(e["title"])}.</em>
-  whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. {url}</p>
+{citation_block(e, url)}
+{nav_html}
 
   <p class="finding-back"><a href="/#e-{esc(e["id"])}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
   .lower()} findings in the registry</a></p>
 </article>
 
 </div>
+<script src="/entry.js" defer></script>
 </body>
 </html>
 '''
@@ -949,13 +1189,117 @@ def build_app_js():
         rows = ",".join(f"\n  {json.dumps(k)}:{v}" for k, v in mapping.items())
         return f"const {name} = {{{rows}\n}};"
 
+    def chips(name, items):
+        rows = ",".join(f"\n  {json.dumps(i['slug'])}:{json.dumps(i['chip'])}"
+                        for i in items)
+        return f"const {name} = {{{rows}\n}};"
+
     payload = ("\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
-               + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n")
+               + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n"
+               # card() needs both forms: `chip` for the narrow card-face column and
+               # `label` for the group headings inside the disclosure.
+               + table("SRC_LABEL", SRC) + "\n" + chips("SRC_CHIP", SRC) + "\n"
+               + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
                  "vocabulary tables", "app.js")
 
     with open(path, "w") as f:
         f.write(src)
+
+
+# Where each organisation posts its own results. A URL cannot be derived from the data, so this
+# map is curated - but *which* organisations appear is not: build_lab_hub() reads that from
+# data/entries.json, so the hub cannot drift from the registry the way the hand-written one did
+# (it advertised Amazon and Meta, neither of which has ever had an entry).
+LAB_HUB = {
+    "Google DeepMind": "https://deepmind.google/science/",
+    "OpenAI": "https://openai.com/research/index/",
+    "Anthropic": "https://www.anthropic.com/science",
+    "Google": "https://research.google/",
+    "Microsoft Research": "https://www.microsoft.com/en-us/research/",
+    "Sakana AI": "https://sakana.ai/blog/",
+    "Arc Institute": "https://arcinstitute.org/news",
+    "EvolutionaryScale": "https://www.evolutionaryscale.ai/",
+    "Insilico Medicine": "https://insilico.com/news",
+    "FutureHouse": "https://www.futurehouse.org/",
+    "Harmonic": "https://harmonic.fun/",
+    "Math, Inc.": "https://math.inc/",
+    "Vesuvius Challenge": "https://scrollprize.org/",
+    "Institute for Protein Design": "https://www.ipd.uw.edu/",
+    "MIT": "https://news.mit.edu/topic/artificial-intelligence2",
+    "Carnegie Mellon University": "https://www.cmu.edu/news/",
+    "Princeton University": "https://www.pppl.gov/",
+    "Lawrence Berkeley National Laboratory": "https://www.lbl.gov/",
+    "Tel Aviv University": "https://english.tau.ac.il/",
+    "UT Austin": "https://cs.utexas.edu/",
+    "FlyWire Consortium": "https://flywire.ai/",
+}
+# `lab` is deliberately precise about who did the work, so one organisation appears under several
+# strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
+# the leading organisation for the hub only; the entry keeps its full attribution.
+LAB_ALIAS = {
+    "Google Brain": "Google",
+    "Institute for Protein Design, University of Washington": "Institute for Protein Design",
+}
+# Not an organisation with a research hub: an entry credited to nobody in particular.
+LAB_HUB_SKIP = {"Independent"}
+
+
+def hub_org(lab):
+    stem = (lab or "").split(" / ")[0].split(" (")[0].strip()
+    return LAB_ALIAS.get(lab, LAB_ALIAS.get(stem, stem))
+
+
+def hub_mark(org):
+    """The chip on a hub card: the real logo when there is one, else initials.
+
+    Not lab_mark(): that takes a single first letter, which gives Microsoft Research, MIT and
+    Math, Inc. three identical chips. Two initials plus a hue derived from the name keeps them
+    apart without committing new third-party logo files. Decorative, so aria-hidden.
+    """
+    src = LAB_LOGO.get(org)
+    if src:
+        return (f'<span class="labcard-logo" aria-hidden="true">'
+                f'<img src="{esc(src)}" alt=""></span>')
+    # Skip connector words, or "Institute for Protein Design" initials to "IF".
+    words = [w for w in re.split(r"[^A-Za-z0-9]+", org)
+             if w and w.lower() not in ("for", "of", "and", "the", "at")]
+    first = words[0][:1]
+    second = words[1][:1] if len(words) > 1 else words[0][1:2]
+    hue = sum(ord(c) for c in org) % 360
+    return (f'<span class="labcard-logo mono" style="--lc:hsl({hue} 40% 36%)" aria-hidden="true">'
+            f'{esc((first + second).upper())}</span>')
+
+
+def build_lab_hub(entries):
+    """Regenerate the lab row of the #sources hub from the registry itself."""
+    counts = {}
+    for e in entries:
+        org = hub_org(e.get("lab"))
+        if org in LAB_HUB_SKIP:
+            continue
+        counts[org] = counts.get(org, 0) + 1
+
+    missing = sorted(o for o in counts if o not in LAB_HUB)
+    if missing:
+        # Warn rather than fail: a new entry from an unlisted university should not break the
+        # build, but the map must not silently fall behind either.
+        print(f"  note: no hub URL for {', '.join(missing)} "
+              f"(add to LAB_HUB in {os.path.basename(__file__)})")
+
+    cards = ""
+    for org in sorted(counts, key=lambda o: (-counts[o], o)):
+        url = LAB_HUB.get(org)
+        if not url:
+            continue
+        n = counts[org]
+        cards += (
+            f'<a class="labcard" href="{esc(url)}" target="_blank" rel="noopener">'
+            f'{hub_mark(org)}'
+            f'<span class="labcard-meta"><b>{esc(org)}</b>'
+            f'<span>{n} {"entry" if n == 1 else "entries"}</span></span>'
+            f'<span class="labcard-go" aria-hidden="true">↗</span></a>')
+    return cards
 
 
 def build_review(entries):
@@ -988,15 +1332,19 @@ def build_review(entries):
     TIER = {0: ("Weak grade, no check", "The grade rests on the announcing lab alone."),
             1: ("No check yet", "Better evidenced, still unconfirmed outside the lab.")}
 
-    rows, current = "", None
+    # Each group is a native <details>. The page carried 34 rows plus three gap lists plus a
+    # 44-entry challenge list in one scroll; collapsed, the whole backlog is legible at a glance
+    # and a visitor opens only the part they intend to work on. <details> is already the
+    # disclosure on entry cards: no JavaScript, so nothing for check-integrity.py to flag.
+    def q_section(title, sub, body, count, is_open=False):
+        return (f'<details class="q-sec"{" open" if is_open else ""}>'
+                f'<summary><span class="q-sec-t">{esc(title)}</span>'
+                f'<span class="q-sec-n">{count}</span></summary>'
+                f'<div class="q-sec-body"><p class="q-sec-sub">{esc(sub)}</p>{body}</div>'
+                f'</details>')
+
+    tiers = {}
     for e in queue:
-        r = rank(e)
-        if r != current:
-            current = r
-            head, sub = TIER[r]
-            n = sum(1 for x in queue if rank(x) == r)
-            rows += (f'<div class="q-head"><h2>{esc(head)} <b>{n}</b></h2>'
-                     f'<p>{esc(sub)}</p></div>')
         ver = VER_LABEL.get(e["verification"], e["verification"])
         aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
         check = REPO + "/issues/new?" + "&".join([
@@ -1004,17 +1352,23 @@ def build_review(entries):
             "title=" + enc_uri_component(f"Independent check: {e['id']}"),
             "entry=" + enc_uri_component(e["id"]),
         ])
-        rows += (
+        tiers.setdefault(rank(e), []).append(
             f'<div class="q-row">'
             f'<div class="q-main">'
             f'<a class="q-title" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
             f'<div class="q-meta"><span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>'
-            f'<span class="pill a">{esc(aut)}</span>'
+            f'<span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>'
             f'<span class="q-lab">{esc(e.get("lab"))}</span></div>'
             f'</div>'
             f'<a class="btn q-act" href="{esc(check)}" target="_blank" rel="noopener">'
             f'Check this<span aria-hidden="true"> ↗</span></a>'
             f'</div>')
+
+    # Only the first tier opens: it is the highest-value work, and a queue that opens showing
+    # nothing at all would be compact but useless.
+    rows = "".join(
+        q_section(TIER[r][0], TIER[r][1], "".join(tiers[r]), len(tiers[r]), is_open=(r == 0))
+        for r in sorted(tiers))
 
     # Smaller gaps, listed compactly. These are good first contributions: each is a
     # single verifiable fact, no judgment about evidence required.
@@ -1022,20 +1376,32 @@ def build_review(entries):
              ("wikipedia", "Notability",
               "The Wikipedia article for the problem, which drives the notability count."),
              ("discussion", "Discussion", "A thread where the result was debated.")]
+    # Collapsed, each of these lists every entry rather than the first eight. The old
+    # "and 32 more" existed because the page could not afford the height; an accordion can.
+    def link_list(items):
+        return ('<p class="q-small-links">'
+                + " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
+                           for e in items) + '</p>')
+
     small = ""
     for key, label, why in SMALL:
         missing = [e for e in entries if not e.get(key)]
         if not missing:
             continue
-        links = " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
-                         for e in missing[:8])
-        more = (f' <span class="c-more">and {len(missing) - 8} more</span>'
-                if len(missing) > 8 else "")
-        small += (f'<div class="q-small"><h3>{esc(label)} <b>{len(missing)}</b></h3>'
-                  f'<p>{esc(why)}</p><p class="q-small-links">{links}{more}</p></div>')
-    if small:
-        small = ('<div class="q-head"><h2>Smaller gaps</h2>'
-                 '<p>Single facts, no judgment about evidence needed.</p></div>' + small)
+        small += q_section(label, why, link_list(missing), len(missing))
+
+    # Entries nobody has cited a counterargument for. Deliberately its own section rather
+    # than part of the queue above: this affects most of the registry, and folding it in
+    # would drown the verification queue in exactly the way the SMALL gaps were kept out.
+    # It is also not a "smaller gap" - finding the strongest objection takes judgment.
+    nochallenge = [e for e in entries
+                   if not any(s.get("kind") == "challenge" for s in (e.get("sources") or []))]
+    if nochallenge:
+        small += q_section(
+            "No challenge linked",
+            "Nobody has cited a rebuttal, a critical review, or prior work. An entry with no "
+            "challenge is not necessarily unchallenged; it may just be unexamined.",
+            link_list(nochallenge), len(nochallenge))
 
     summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
                f'independent check.</p>')
@@ -1174,15 +1540,25 @@ def build_methodology():
         f'<div class="meth-row"><span class="pill v v-{v["slug"]}">{esc(v["label"])}</span>\n'
         f'        <p class="meth-def">{esc(v["definition"])}</p></div>'
         for v in VER)
+    # Rendered with the same pill/dot the cards use, so the page that defines the vocabulary
+    # looks like the pages that apply it.
     aut = "\n      ".join(
-        f'<div class="meth-row"><span class="meth-term">{esc(a["label"])}</span>\n'
+        f'<div class="meth-row"><span class="pill a a-{a["slug"]}">{esc(a["label"])}</span>\n'
         f'        <p class="meth-def">{esc(a["definition"])}</p></div>'
         for a in AUT)
+
+    srcs = "\n      ".join(
+        f'<div class="meth-row kind k-{k["slug"]}">'
+        f'<span class="meth-term">{esc(k["label"])}</span>\n'
+        f'        <p class="meth-def">{esc(k["definition"])}</p></div>'
+        for k in SRC)
 
     src = inject(src, "<!--VERDEFS:START-->", "<!--VERDEFS:END-->", ver,
                  "verification definitions", "methodology.html")
     src = inject(src, "<!--AUTDEFS:START-->", "<!--AUTDEFS:END-->", aut,
                  "autonomy definitions", "methodology.html")
+    src = inject(src, "<!--SRCDEFS:START-->", "<!--SRCDEFS:END-->", srcs,
+                 "source kind definitions", "methodology.html")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1196,6 +1572,10 @@ def build_index(entries, updated):
     cards = "\n".join(card(e) for e in entries)
     src = inject(src, "<!--ENTRIES:START-->", "<!--ENTRIES:END-->",
                  "\n" + cards + "\n", "entry list")
+    # No newlines around it: verify-parity.py diffs this region against tableView()'s
+    # own output, the same way it does the hero matrix.
+    src = inject(src, "<!--TABLE:START-->", "<!--TABLE:END-->", table_view(entries),
+                 "entry table")
 
     strong = sum(1 for e in entries
                  if e["verification"] in ("formal", "independent", "peer-reviewed"))
@@ -1227,6 +1607,8 @@ def build_index(entries, updated):
                  f'checked. <span class="hero-promo-cta">Open the review queue'
                  f'<span aria-hidden="true"> →</span></span></a>')
     src = inject(src, "<!--PROMO:START-->", "<!--PROMO:END-->", promo, "hero promo")
+    src = inject(src, "<!--LABHUB:START-->", "<!--LABHUB:END-->", build_lab_hub(entries),
+                 "lab hub")
 
     src = inject(src, "<!--COUNT:START-->", "<!--COUNT:END-->",
                  f"{len(entries)} / {len(entries)} entries", "result count")
@@ -1263,6 +1645,8 @@ def build_index(entries, updated):
                  options(e["lab"] for e in entries), "lab options")
     src = inject(src, "<!--VEROPTS:START-->", "<!--VEROPTS:END-->",
                  options((e["verification"] for e in entries), VER_LABEL), "verification options")
+    src = inject(src, "<!--AUTOPTS:START-->", "<!--AUTOPTS:END-->",
+                 options((e["autonomy"] for e in entries), AUT_LABEL), "autonomy options")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1292,6 +1676,14 @@ def check_urls(e, where, problems):
                     f"{where}: {field} URL {url!r} is not an http(s) link. "
                     "javascript:, data: and other schemes are rejected because they "
                     "become executable links on the page.")
+    # What each source is: the work itself, the claim made about it, or the case
+    # against. The card groups by this, so an unknown value would silently drop a
+    # link off the face of the entry rather than render wrongly.
+    for i, s in enumerate(e.get("sources") or []):
+        kind = s.get("kind")
+        if kind is not None and kind not in SRC_LABEL:
+            problems.append(f"{where}: sources[{i}] has unknown kind {kind!r} "
+                            f"(expected one of: {', '.join(SRC_ORDER)})")
     for v in (e.get("videos") or []):
         # Interpolated into a youtube-nocookie iframe src and a watch?v= link.
         if not re.fullmatch(r"[A-Za-z0-9_-]{11}", str(v.get("youtube_id", ""))):
@@ -1327,14 +1719,36 @@ def validate_vocab():
             if axis == "verification" and not isinstance(item.get("rating"), int):
                 problems.append(f"{where}: 'rating' must be an integer 1-5")
 
+    # Source kinds carry a second label: `chip` is the short form for the card-face
+    # row, where the column is ~104px, and `label` is the group heading. A kind
+    # missing either renders as a blank cell rather than an error, so it is caught here.
+    src_seen = set()
+    for i, item in enumerate(VOCAB.get("source_kinds") or []):
+        where = f"vocab.json source_kinds[{i}]"
+        for key in ("slug", "label", "chip", "short", "definition"):
+            if not item.get(key):
+                problems.append(f"{where}: missing '{key}'")
+        if item.get("slug") in src_seen:
+            problems.append(f"{where}: duplicate slug '{item.get('slug')}'")
+        src_seen.add(item.get("slug"))
+    if not VOCAB.get("source_kinds"):
+        problems.append("vocab.json: 'source_kinds' is missing or empty")
+
+    # Every value in every vocabulary needs a colour rule, or it renders as an unstyled pill or
+    # a colourless dot -- invisible until someone happens to look at that value on the page.
+    # Autonomy went years rendering one flat accent for all six because nothing checked it.
     css_path = os.path.join(ROOT, "styles.css")
     if os.path.exists(css_path):
         css = open(css_path).read()
-        for v in VER:
-            if f".v-{v['slug']}" not in css:
-                problems.append(
-                    f"vocab.json: verification '{v['slug']}' has no .v-{v['slug']} rule "
-                    f"in styles.css, so its pill would render unstyled")
+        for axis, items, prefix, what in (
+                ("verification", VER, "v", "pill"),
+                ("autonomy", AUT, "a", "pill"),
+                ("source_kinds", SRC, "k", "dot")):
+            for item in items:
+                if f".{prefix}-{item['slug']}" not in css:
+                    problems.append(
+                        f"vocab.json: {axis} '{item['slug']}' has no .{prefix}-{item['slug']} rule "
+                        f"in styles.css, so its {what} would render unstyled")
 
     if problems:
         print(f"data/vocab.json has {len(problems)} problem(s):", file=sys.stderr)
@@ -1397,6 +1811,18 @@ def validate(entries):
                 elif "url" in p:
                     problems.append(f"{where}: {field}[{i}] has a 'url'; use "
                                     "'github' (a handle) instead")
+        # Editorial rule 4: a claim with no reproducible artifact caps at `claimed`.
+        # Stated in docs/SCHEMA.md since the registry began, but unenforceable until
+        # sources carried a kind - at which point nine entries turned out to be graded
+        # on a press release or a magazine feature alone.
+        ver = e.get("verification")
+        if (ver in VER_SCORE and VER_SCORE[ver] > 1
+                and not any(s.get("kind") == "research" for s in (e.get("sources") or []))):
+            kinds = sorted({s.get("kind") for s in (e.get("sources") or []) if s.get("kind")})
+            problems.append(
+                f"{where}: verification '{ver}' needs a source with kind 'research'; only "
+                f"{'/'.join(kinds) or 'unclassified'} links are present. Add the original "
+                "work, or downgrade to 'claimed'.")
         eid = e.get("id")
         if eid:
             # The id becomes a filename and a URL path segment.
@@ -1446,7 +1872,7 @@ def main():
             os.remove(os.path.join(out_dir, stale))
     for e in entries:
         with open(os.path.join(out_dir, f"{e['id']}.html"), "w") as f:
-            f.write(entry_page(e))
+            f.write(entry_page(e, entries))
 
     with open(os.path.join(ROOT, "llms.txt"), "w") as f:
         f.write(build_llms_txt(entries))

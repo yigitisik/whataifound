@@ -38,7 +38,7 @@ data/entries.json ──► build.py ──► index.html (entries, stats, filte
                                    llms.txt  sitemap.xml  feed.xml  feed.json
 
 data/vocab.json   ──► build.py ──► app.js label tables
-                                   methodology.html    the two grade lists
+                                   methodology.html    the two grade lists + source kinds
                                    llms.txt            the grading scales
                                    docs/entry.schema.json
                                    ClaimReview ratings on every finding page
@@ -50,13 +50,26 @@ data/vocab.json   ──► build.py ──► app.js label tables
 keep in step by hand.
 
 `data/vocab.json` holds the grading vocabulary: the slug, label, short description, full
-definition and schema.org rating for every `verification` and `autonomy` grade, plus the `field`
-display names. It used to be restated in six places by hand; now a label or definition is edited
-once and the build propagates it.
+definition and schema.org rating for every `verification` and `autonomy` grade, the `field`
+display names, and the `source_kinds` classification. It used to be restated in six places by
+hand; now a label or definition is edited once and the build propagates it.
 
 Each entry carries two grades: `verification` (how solid the result is, `formal` to `refuted`) and
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
 rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
+
+Every source also carries a `kind`, so the registry keeps the result apart from the claim made
+about it: `research` (the paper, proof, code or data), `announcement` (the claim as first made
+public, by whoever made it), `coverage` (press reporting), `commentary` (an independent write-up)
+and `challenge` (the case against). The kind describes what a link *does*, never who published
+it: a lone researcher announcing their own result is an `announcement` exactly as a corporate
+press release is. Each card shows these as labelled rows, so the distance between a result and a
+headline is visible without opening anything, and an entry nobody has argued against says
+`Challenge: none linked` rather than staying silent about it.
+
+This is also what makes editorial rule 4 checkable. **An entry graded above `claimed` must link at
+least one `research` source, and the build fails if it does not.** The rule predates the check; when
+the check first ran, nine entries turned out to be resting on a press release or a magazine feature.
 
 Every finding page carries two prefilled issue links: **Submit a check** and **Challenge the
 grade**. An entry nobody has checked leads with the check, since the open question is whether
@@ -80,16 +93,22 @@ and each finding also has its own URL for citation.
 | `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared nav, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
-| `verify-parity.py` | Runs `app.js`'s real `card()` under Node and diffs it against the pre-rendered markup |
+| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()` and `tableView()` under Node and diffs each against the pre-rendered markup |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
-grade, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, or a non-`http(s)`
-URL. `javascript:` and `data:` links are rejected outright: entry URLs become `href`s on the page,
-and the CSP allows `'unsafe-inline'`, so they would be live.
+grade, an unknown source `kind`, a malformed date, a duplicate or non-URL-safe `id`, a bad
+`youtube_id`, or a non-`http(s)` URL. `javascript:` and `data:` links are rejected outright: entry
+URLs become `href`s on the page, and the CSP allows `'unsafe-inline'`, so they would be live. One
+editorial rule is enforced here too, rather than left to review: a grade above `claimed` with no
+`research` source fails, naming the entry and both remedies (link the artifact, or downgrade).
 
 `check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
-inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
+inline event handlers, executable URL schemes, `<base>`/`<object>`/`<embed>`/form elements, and one
+house-style rule: **no em dashes anywhere in the repository**, in prose, code comments or generated
+output. En dashes are untouched, because the registry is full of legitimate ones (`Navier-Stokes`,
+`2000-2022`, `protein-ligand` all use them correctly and a blanket sweep would corrupt content). It
+exists
 because part of `index.html` (the `<head>`, JSON-LD, nav, footer, script tags) sits outside the
 `<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would survive a
 rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would otherwise
@@ -97,6 +116,11 @@ overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
+`matrixCard()` and `tableView()` are ported the same way, so all three pre-rendered surfaces are
+diffed byte for byte against the real functions on every build.
+The `DOMAIN_NAME` table is duplicated the same way and for the same reason: the labelled source rows
+on a card show a publisher name rather than a link title, so a source from a host with no entry in
+that table renders as a bare domain. Adding one means adding it to both files.
 
 Two scripts are deliberately *not* part of every build, because they hit the network or need a
 renderer the rest of the toolchain does not:
@@ -120,15 +144,16 @@ anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, 
 ```
 whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
-├── methodology.html        # grading reference (grade lists generated from vocab.json)
+├── methodology.html        # grading reference (grade lists + source kinds from vocab.json)
 ├── review.html             # open review queue (generated from entries with no checks)
 ├── contributors.html       # contributor roll (generated from reviewers/contributors + CITATION.cff)
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── app.js                  # render, filter, charts, theme (label tables generated)
+├── app.js                  # registry page: URL state, search, filters, sort, table view, charts, theme
+├── entry.js                # finding pages only (~1 KB): the citation copy buttons
 ├── data/entries.json       # the registry, the only file you edit by hand
-├── data/vocab.json         # the grading vocabulary; both scales are generated from it
+├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── sitemap.xml             # generated
@@ -169,16 +194,43 @@ whataifound/
 
 No bundler, no runtime external requests. Three inline scripts in `index.html` (a theme initialiser
 that runs before first paint, plus the two Vercel analytics shims); everything else is static
-`styles.css` and `app.js`.
+`styles.css`, `app.js` and, on finding pages only, `entry.js`.
 
+- **Every view is a URL.** `q`, `field`, `lab`, `ver`, `aut`, `tag`, `sort` and `view` are read from
+  the query string on load and written back on every change, so a filtered registry can be linked,
+  bookmarked and stepped through with the back button. Typing replaces the history entry; a
+  dropdown, a tag or Clear all pushes one. This is also what makes the `SearchAction` in the page's
+  JSON-LD (`/?q={search_term_string}`) true rather than advertised.
+- **Search** runs over named fields (title, claim, detail, lab, model, humans, tags, novelty check,
+  caveats), not over `JSON.stringify(entry)`, so a common word no longer matches every entry through
+  a key or a URL. Matches are wrapped in `<mark>` by a DOM pass *after* render, deliberately outside
+  `card()`, which is parity-checked. Typing switches the sort to best-match unless one was chosen
+  deliberately.
+- **Two layouts, table by default.** A registry is for scanning, so the default view is a sortable
+  table of all 52 entries; cards are one click away. The choice is stored in `localStorage` beside
+  the theme and mirrored to `?view=`, and an explicit `?view=` in a shared link wins for that visit
+  without overwriting the reader's own preference. **Both layouts are pre-rendered** and CSS shows
+  one, selected before first paint, so neither flashes and neither needs the registry JSON to
+  appear. With JavaScript off the cards show, which is the richer fallback.
+- Keyboard: `/` focuses search, `Esc` clears it, `?` opens a shortcut sheet (a native `<dialog>`).
+- Export: the CSV button writes the *current filtered view* client-side via a `Blob`, verified to
+  work under the production CSP. Finding pages carry BibTeX and plain-text citations, each with a
+  copy button that falls back to selecting the text where the clipboard API is unavailable.
 - Type: self-hosted Newsreader, 4 weights, no CDN.
 - Theme: dark by default; Light / System / Dark stored in `localStorage`. Switches via the View
-  Transitions API, with an instant fallback under `prefers-reduced-motion`.
+  Transitions API, with an instant fallback under `prefers-reduced-motion`. `color-scheme` is
+  declared per resolved theme, so native scrollbars and `<select>` dropdowns match the page.
 - Charts: built from the entries in plain HTML/CSS/SVG, no library.
-- Responsive from 320px; breakpoints at 560 and 720. `pointer: coarse` enlarges tap targets and
-  forces 16px inputs to stop iOS zoom-on-focus.
-- WCAG 2.1 AA: skip link, `role="search"`, live result count, `role="img"` chart labels, focus
-  rings, `prefers-contrast` and `prefers-reduced-motion` honoured.
+- Responsive from 320px; breakpoints at 560, 720 and 1180. The last one collapses the sticky filter
+  bar from two rows to one, which is worth a breakpoint because the bar is sticky. `pointer: coarse`
+  enlarges tap targets and forces 16px inputs to stop iOS zoom-on-focus.
+- Performance: `index.html` already contains all 52 entries, so `data/entries.json` is fetched on
+  idle (or on the first interaction, or immediately if the URL carries a filter) rather than on the
+  critical path. `content-visibility` skips layout for off-screen cards.
+- Print: a stylesheet that drops every control, forces disclosures open and prints link targets, so a
+  finding page saves to PDF as a citable document.
+- WCAG 2.1 AA: skip link, `role="search"`, live result count, `role="img"` chart labels, `aria-sort`
+  on table headers, focus rings, `prefers-contrast` and `prefers-reduced-motion` honoured.
 
 ## Deployment (Vercel)
 

@@ -4,6 +4,10 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
+<!-- Declares the page supports both palettes, dark preferred, before styles.css
+     loads. styles.css then sets color-scheme per resolved theme. Without this the
+     native scrollbars and <select> dropdown lists paint light on a dark page. -->
+<meta name="color-scheme" content="dark light">
 
 <!-- Canonical domain: https://whataifound.org -->
 <title>Methodology: How whataifound.org Grades AI Discoveries | Verification &amp; Autonomy Levels</title>
@@ -144,18 +148,34 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <section class="meth-sec" aria-labelledby="aut-h">
     <h2 id="aut-h">Autonomy: how much did the AI do?</h2>
     <p class="sub">This axis is the whole point. Most breathless claims collapse here; we grade on the strictest defensible reading.</p>
-    <div class="meth-list"><!--AUTDEFS:START--><div class="meth-row"><span class="meth-term">Autonomous</span>
+    <div class="meth-list"><!--AUTDEFS:START--><div class="meth-row"><span class="pill a a-autonomous">Autonomous</span>
         <p class="meth-def">The AI produced the core idea and the result with no human mathematical input beyond posing the problem.</p></div>
-      <div class="meth-row"><span class="meth-term">AI-led</span>
+      <div class="meth-row"><span class="pill a a-ai-led">AI-led</span>
         <p class="meth-def">The AI produced the key insight; humans formalised, checked, or cleaned it up.</p></div>
-      <div class="meth-row"><span class="meth-term">Collaborative</span>
+      <div class="meth-row"><span class="pill a a-collaborative">Collaborative</span>
         <p class="meth-def">Genuine back-and-forth. Neither party would have gotten there alone.</p></div>
-      <div class="meth-row"><span class="meth-term">AI-assisted</span>
+      <div class="meth-row"><span class="pill a a-ai-assisted">AI-assisted</span>
         <p class="meth-def">A human drove the research; the AI accelerated search, algebra, or literature review.</p></div>
-      <div class="meth-row"><span class="meth-term">Search scaffold</span>
+      <div class="meth-row"><span class="pill a a-search-scaffold">Search scaffold</span>
         <p class="meth-def">The AI is a component inside a human-designed search loop (FunSearch, AlphaEvolve). The system found it, but the framing was human.</p></div>
-      <div class="meth-row"><span class="meth-term">Retrieval</span>
+      <div class="meth-row"><span class="pill a a-retrieval">Retrieval</span>
         <p class="meth-def">The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics.</p></div><!--AUTDEFS:END-->
+    </div>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="sources-h" id="sources">
+    <h2 id="sources-h">What each source is</h2>
+    <p class="sub">Every link on an entry is one of five things, sorted by what the link does rather than who published it. Keeping them apart is the point: most of the distance between a result and a headline is in the last four. A lone researcher announcing their own result is an announcement exactly as a corporate press release is.</p>
+    <div class="meth-list"><!--SRCDEFS:START--><div class="meth-row kind k-research"><span class="meth-term">Original work</span>
+        <p class="meth-def">The work itself: a paper, preprint, formal proof, dataset or code repository - something a reader can open and check. Not what was said about the work, but the work. Any grade stronger than Claimed has to rest on one of these.</p></div>
+      <div class="meth-row kind k-announcement"><span class="meth-term">Announcement</span>
+        <p class="meth-def">The claim as first made public by the people behind it - a company press release, a research blog post, or an individual's own post on a personal site or social media. What matters is that it is first-party, not that an organisation published it: a single researcher announcing their own result belongs here. This is the claim framed by the people with the most at stake in it.</p></div>
+      <div class="meth-row kind k-coverage"><span class="meth-term">Media coverage</span>
+        <p class="meth-def">News and press reporting written by journalists rather than by the people who did the work. Coverage restates a result for a general audience, and the restatement is often where it acquires a stronger meaning than its authors gave it.</p></div>
+      <div class="meth-row kind k-commentary"><span class="meth-term">Independent commentary</span>
+        <p class="meth-def">An independent write-up by someone who neither produced the result nor is reporting it as news - a researcher's blog post, an expert explainer, a detailed thread. Often the most informative link on an entry. It may support the claim, complicate it, or both; commentary arguing the result is wrong is a challenge instead.</p></div>
+      <div class="meth-row kind k-challenge"><span class="meth-term">Challenge</span>
+        <p class="meth-def">The case against: a critical review, a rebuttal, a failed replication, or a citation of prior work showing the result was already known. The strongest challenge is listed first. A challenge disputes the claim, not the people who made it.</p></div><!--SRCDEFS:END-->
     </div>
   </section>
 

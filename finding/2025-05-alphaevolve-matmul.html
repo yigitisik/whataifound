@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
 
 <title>4×4 complex matrix multiplication in 48 scalar multiplications: graded Independently checked | whataifound.org</title>
 <meta name="description" content="4×4 complex matrix multiplication in 48 scalar multiplications is graded independently checked on whataifound.org, with the AI&#x27;s role graded search scaffold. AlphaEvolve found a scheme multiplying 4×4 complex matrices with 48 scalar multiplications, improving on Strassen&#x27;s 49 from 1969.">
@@ -34,6 +35,8 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2025-05-alphaevolve-kissing">
+<link rel="next" href="https://whataifound.org/finding/2025-06-03-rentosertib-phase2a">
 
 <script type="application/ld+json">
 {
@@ -78,6 +81,11 @@
       "citation": [
         {
           "@type": "CreativeWork",
+          "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf",
+          "name": "AlphaEvolve paper (PDF)"
+        },
+        {
+          "@type": "CreativeWork",
           "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
           "name": "DeepMind: AlphaEvolve"
         },
@@ -120,10 +128,6 @@
           {
             "@type": "CreativeWork",
             "url": "https://spectrum.ieee.org/deepmind-alphaevolve"
-          },
-          {
-            "@type": "CreativeWork",
-            "url": "https://en.wikipedia.org/wiki/AlphaEvolve"
           }
         ]
       },
@@ -178,7 +182,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <article class="finding">
   <div class="finding-pills">
     <span class="pill v v-independent">Independently checked</span>
-    <span class="pill a">Search scaffold</span>
+    <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>4×4 complex matrix multiplication in 48 scalar multiplications</h1>
   <p class="lede">4×4 complex matrix multiplication in 48 scalar multiplications is graded independently checked on whataifound.org, with the AI's role graded search scaffold.</p>
@@ -213,8 +217,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Strassen (1969) and subsequent literature exhaustively catalogued; 49 was the standing record for complex-valued 4×4. Confirmed new.</p>
   <h2 class="lbl">Caveats</h2>
   <p>Applies to complex-valued matrices specifically. Practical speedup is limited; the significance is theoretical. Related follow-up work by others has explored rank-23 schemes for 3×3.</p>
-  <h2 class="lbl">Sources</h2>
-  <div class="refs"><a class="ref" href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a><a class="ref" href="https://spectrum.ieee.org/deepmind-alphaevolve" target="_blank" rel="noopener"><span class="ref-dom">IEEE Spectrum</span><span class="ref-t">IEEE Spectrum</span><span class="ref-a">↗</span></a><a class="ref" href="https://en.wikipedia.org/wiki/AlphaEvolve" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-research">Original work</h2>
+  <div class="refs"><a class="ref" href="https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve paper (PDF)</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-announcement">Announcement</h2>
+  <div class="refs"><a class="ref" href="https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-coverage">Media coverage</h2>
+  <div class="refs"><a class="ref" href="https://spectrum.ieee.org/deepmind-alphaevolve" target="_blank" rel="noopener"><span class="ref-dom">IEEE Spectrum</span><span class="ref-t">IEEE Spectrum</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-commentary">Independent commentary</h2>
+  <div class="refs"><a class="ref" href="https://en.wikipedia.org/wiki/AlphaEvolve" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">AlphaEvolve</span><span class="ref-a">↗</span></a></div>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=43985489" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve announcement</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=45803805" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaEvolve independently discovered a novel matrix-multiplication algorithm</span><span class="ref-a">↗</span></a></div>
 
@@ -226,12 +236,32 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
 
   <h2 class="lbl">Cite this entry</h2>
-  <p class="cite">whataifound.org (2025). <em>4×4 complex matrix multiplication in 48 scalar multiplications.</em>
-  whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2025-05-alphaevolve-matmul</p>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2025). 4×4 complex matrix multiplication in 48 scalar multiplications. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2025-05-alphaevolve-matmul</code></pre>
+    </div>
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">BibTeX</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-googledeepmind-2025-matmul,
+  title        = {4×4 complex matrix multiplication in 48 scalar multiplications},
+  author       = {{whataifound.org}},
+  year         = {2025},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Google DeepMind. Verification: Independently checked. Autonomy: Search scaffold.},
+  url          = {https://whataifound.org/finding/2025-05-alphaevolve-matmul}
+}</code></pre>
+    </div>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2022-10-05-alphatensor"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Faster matrix-multiplication algorithms found by reinforcement learning</span><span class="rel-meta">Google DeepMind · 2022-10-05</span></a><a class="rel-card" href="/finding/2023-12-funsearch-binpacking"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Improved heuristics for online bin packing</span><span class="rel-meta">Google DeepMind · 2023-12-14</span></a><a class="rel-card" href="/finding/2023-06-07-alphadev"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Faster sorting routines discovered and merged into the LLVM C++ library</span><span class="rel-meta">Google DeepMind · 2023-06-07</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2025-05-alphaevolve-kissing"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Improved lower bound for the 11-dimensional kissing number</span></a><a class="pn-step" href="/finding/2025-06-03-rentosertib-phase2a"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Phase 2a results for a drug whose target and molecule both came from AI</span></a></nav>
 
   <p class="finding-back"><a href="/#e-2025-05-alphaevolve-matmul">← All computer science findings in the registry</a></p>
 </article>
 
 </div>
+<script src="/entry.js" defer></script>
 </body>
 </html>

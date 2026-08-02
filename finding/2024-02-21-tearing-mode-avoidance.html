@@ -4,6 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
 
 <title>Reinforcement learning steers a tokamak away from tearing instabilities: graded Peer reviewed | whataifound.org</title>
 <meta name="description" content="Reinforcement learning steers a tokamak away from tearing instabilities is graded peer reviewed on whataifound.org, with the AI&#x27;s role graded search scaffold. A controller trained on past DIII-D shots forecast tearing-mode instabilities up to 300 ms ahead and adjusted the plasma in real time to avoi">
@@ -34,6 +35,8 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2024-01-17-alphageometry">
+<link rel="next" href="https://whataifound.org/finding/2024-05-08-alphafold3">
 
 <script type="application/ld+json">
 {
@@ -119,10 +122,6 @@
         "appearance": [
           {
             "@type": "CreativeWork",
-            "url": "https://www.nature.com/articles/s41586-024-07024-9"
-          },
-          {
-            "@type": "CreativeWork",
             "url": "https://engineering.princeton.edu/news/2024/02/21/engineers-use-ai-wrangle-fusion-power-grid"
           }
         ]
@@ -178,7 +177,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <article class="finding">
   <div class="finding-pills">
     <span class="pill v v-peer-reviewed">Peer reviewed</span>
-    <span class="pill a">Search scaffold</span>
+    <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>Reinforcement learning steers a tokamak away from tearing instabilities</h1>
   <p class="lede">Reinforcement learning steers a tokamak away from tearing instabilities is graded peer reviewed on whataifound.org, with the AI's role graded search scaffold.</p>
@@ -212,8 +211,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Distinct from the 2022 DeepMind–TCV work already in this registry, which learned magnetic shape control rather than instability avoidance. Tearing-mode prediction from machine learning had been published before; closing the loop so the controller acts on the prediction during a live shot is the new part.</p>
   <h2 class="lbl">Caveats</h2>
   <p>Demonstrated on one machine in specific scenarios. A data-driven controller trained on DIII-D discharges has no guarantee of transferring to another tokamak, still less to ITER-scale burning plasma where the training data does not exist. Tearing modes are one disruption pathway among several. The physics model, actuators and safety limits are human-designed; the policy operates inside them.</p>
-  <h2 class="lbl">Sources</h2>
-  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-024-07024-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Avoiding fusion plasma tearing instability with deep reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://engineering.princeton.edu/news/2024/02/21/engineers-use-ai-wrangle-fusion-power-grid" target="_blank" rel="noopener"><span class="ref-dom">engineering.princeton.edu</span><span class="ref-t">Princeton Engineering: Engineers use AI to wrangle fusion power for the grid</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-research">Original work</h2>
+  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-024-07024-9" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Avoiding fusion plasma tearing instability with deep reinforcement learning</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl kind k-announcement">Announcement</h2>
+  <div class="refs"><a class="ref" href="https://engineering.princeton.edu/news/2024/02/21/engineers-use-ai-wrangle-fusion-power-grid" target="_blank" rel="noopener"><span class="ref-dom">Princeton</span><span class="ref-t">Princeton Engineering: Engineers use AI to wrangle fusion power for the grid</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
   <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
@@ -223,12 +224,32 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
 
   <h2 class="lbl">Cite this entry</h2>
-  <p class="cite">whataifound.org (2024). <em>Reinforcement learning steers a tokamak away from tearing instabilities.</em>
-  whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2024-02-21-tearing-mode-avoidance</p>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2024). Reinforcement learning steers a tokamak away from tearing instabilities. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2024-02-21-tearing-mode-avoidance</code></pre>
+    </div>
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">BibTeX</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-princetonuniversity-2024-avoidance,
+  title        = {Reinforcement learning steers a tokamak away from tearing instabilities},
+  author       = {{whataifound.org}},
+  year         = {2024},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Princeton University / PPPL / DIII-D National Fusion Facility. Verification: Peer reviewed. Autonomy: Search scaffold.},
+  url          = {https://whataifound.org/finding/2024-02-21-tearing-mode-avoidance}
+}</code></pre>
+    </div>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2022-02-16-tokamak-plasma-control"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Deep reinforcement learning controls tokamak fusion plasma</span><span class="rel-meta">Google DeepMind · 2022-02-16</span></a><a class="rel-card" href="/finding/2023-06-07-alphadev"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Faster sorting routines discovered and merged into the LLVM C++ library</span><span class="rel-meta">Google DeepMind · 2023-06-07</span></a><a class="rel-card" href="/finding/2022-10-05-alphatensor"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Faster matrix-multiplication algorithms found by reinforcement learning</span><span class="rel-meta">Google DeepMind · 2022-10-05</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2024-01-17-alphageometry"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Olympiad geometry solved without human demonstrations</span></a><a class="pn-step" href="/finding/2024-05-08-alphafold3"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)</span></a></nav>
 
   <p class="finding-back"><a href="/#e-2024-02-21-tearing-mode-avoidance">← All physics findings in the registry</a></p>
 </article>
 
 </div>
+<script src="/entry.js" defer></script>
 </body>
 </html>

@@ -50,6 +50,11 @@ head = re.sub(r"// Theme: light / dark / system.*?\n\}\)\(\);\n", "", head, flag
 # matrixCard() and the colour table it reads. Both sit past the cut above.
 head += region("const AUT_COLOR", "function scatterCard")
 head += region("function matrixCard", "function wireScatterTip")
+# tableView() reads STATE.sort for the active-column marker, so the state block comes
+# with it. Nothing in either slice is called at load, so the parts that would need a
+# browser (readState reading location, SORTS calling score) are never reached.
+head += region("const PARAMS =", "// ---------- Search ----------")
+head += region("// ---------- Table view ----------", "function render(){")
 
 entries = json.load(open(os.path.join(ROOT, "data", "entries.json")))
 entries.sort(key=lambda e: e.get("date", ""), reverse=True)
@@ -68,7 +73,8 @@ def rendered(start, end):
 SPLIT = "@@PARITY-SPLIT@@"
 script = (head + "\nconst DATA = " + json.dumps(entries) + ";\n"
           + "ALL = DATA;\n"
-          + f"process.stdout.write(DATA.map(card).join('\\n') + {json.dumps(SPLIT)} + matrixCard());\n")
+          + "process.stdout.write(DATA.map(card).join('\\n') + " + json.dumps(SPLIT)
+          + " + matrixCard() + " + json.dumps(SPLIT) + " + tableView(DATA));\n")
 
 # Delivered on stdin rather than as `node -e <script>`: the script embeds the whole
 # registry, and Linux caps a single argv entry at 128 KiB (MAX_ARG_STRLEN) regardless of
@@ -82,13 +88,15 @@ except FileNotFoundError:
 except subprocess.CalledProcessError as exc:
     sys.exit(f"verify-parity: app.js failed to run:\n{exc.stderr}")
 
-js_cards, js_matrix = js.split(SPLIT)
+js_cards, js_matrix, js_table = js.split(SPLIT)
 
 checks = [
     ("cards", rendered("<!--ENTRIES:START-->", "<!--ENTRIES:END-->"), js_cards,
      f"{len(entries)} pre-rendered cards match app.js card() exactly"),
     ("matrix", rendered("<!--MATRIX:START-->", "<!--MATRIX:END-->"), js_matrix,
      "pre-rendered hero matrix matches app.js matrixCard() exactly"),
+    ("table", rendered("<!--TABLE:START-->", "<!--TABLE:END-->"), js_table,
+     f"pre-rendered table of {len(entries)} findings matches app.js tableView() exactly"),
 ]
 
 failed = False

@@ -38,6 +38,21 @@ const AUT_RANK = {
   "search-scaffold":1,
   "retrieval":0
 };
+const SRC_LABEL = {
+  "research":"Original work",
+  "announcement":"Announcement",
+  "coverage":"Media coverage",
+  "commentary":"Independent commentary",
+  "challenge":"Challenge"
+};
+const SRC_CHIP = {
+  "research":"Original work",
+  "announcement":"Announced",
+  "coverage":"Media",
+  "commentary":"Commentary",
+  "challenge":"Challenge"
+};
+const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challenge"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -112,7 +127,22 @@ const DOMAIN_NAME = {
   'ncbi.nlm.nih.gov':'NIH PMC','techcrunch.com':'TechCrunch','the-decoder.com':'The Decoder',
   'unite.ai':'Unite.AI','hackmd.io':'HackMD','allthings.how':'AllThings.how',
   'turingpost.com':'Turing Post','techjacksolutions.com':'Tech Jacks',
-  'nobelprize.org':'Nobel Prize','actu.epfl.ch':'EPFL','storage.googleapis.com':'DeepMind'
+  'nobelprize.org':'Nobel Prize','actu.epfl.ch':'EPFL','storage.googleapis.com':'DeepMind',
+  // The card face shows this name instead of the link title, so an unmapped host renders
+  // as a raw domain there. Keep in step with DOMAIN_NAME in build-site.py.
+  'science.org':'Science','biorxiv.org':'bioRxiv','cell.com':'Cell',
+  'pmc.ncbi.nlm.nih.gov':'NIH PMC','iopscience.iop.org':'IOP',
+  'pubs.rsc.org':'Materials Horizons','blog.google':'Google','microsoft.com':'Microsoft',
+  'nasa.gov':'NASA','nih.gov':'NIH','news.mit.edu':'MIT News','ox.ac.uk':'Oxford',
+  'engineering.princeton.edu':'Princeton','sakana.ai':'Sakana AI',
+  'arcinstitute.org':'Arc Institute','bakerlab.org':'Baker Lab',
+  'evolutionaryscale.ai':'EvolutionaryScale','insilico.com':'Insilico','math.inc':'Math Inc.',
+  'flywire.ai':'FlyWire','scrollprize.org':'Vesuvius Challenge','asimov.press':'Asimov Press',
+  'physicsworld.com':'Physics World','sciencedaily.com':'ScienceDaily',
+  'officechai.com':'OfficeChai','x.com':'X','scottaaronson.blog':'Scott Aaronson',
+  'terrytao.wordpress.com':'Terence Tao','xenaproject.wordpress.com':'Kevin Buzzard',
+  'simonwillison.net':'Simon Willison','alexisgallagher.com':'Alexis Gallagher',
+  'jacobianfun.org':'jacobianfun.org'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }
@@ -125,6 +155,45 @@ function refRow(s){
   if (i > 0 && label.slice(0,i).trim().toLowerCase() === dom.toLowerCase()) label = label.slice(i+2);
   return `<a class="ref" href="${esc(s.url)}" target="_blank" rel="noopener">`+
     `<span class="ref-dom">${esc(dom)}</span><span class="ref-t">${esc(label)}</span><span class="ref-a">↗</span></a>`;
+}
+
+// The card face: what each link is, without opening the disclosure. This is the whole
+// point of classifying sources - the distance between a result and a headline lives in
+// the gap between these rows, and a reader who has to click to see it will not.
+const RECEIPT_MAX = 3;
+function receipts(e){
+  const src = e.sources || [];
+  const rows = SRC_ORDER.map(kind => {
+    const of = src.filter(s => s.kind === kind);
+    // A missing challenge is the one absence worth stating: most of the registry has
+    // none, and rendering nothing would quietly read as "nothing to answer here".
+    if (!of.length) return kind === 'challenge'
+      ? `<div class="rc-row"><dt class="rc-k k-${esc(kind)}">${esc(SRC_CHIP[kind])}</dt>`+
+        `<dd class="rc-v rc-none">none linked</dd></div>` : '';
+    // Visible text is the domain, which is short enough to fit several per row but
+    // says nothing on its own - and two papers from the same host would otherwise
+    // render as two identical words. The full title carries the meaning, so it
+    // becomes the accessible name and the hover text.
+    const shown = of.slice(0, RECEIPT_MAX).map(s =>
+      `<a class="rc-l" href="${esc(s.url)}" target="_blank" rel="noopener" `+
+      `title="${esc(s.label)}" aria-label="${esc(s.label)}">${esc(domainOf(s.url))}`+
+      `<span class="rc-a" aria-hidden="true">↗</span></a>`).join('');
+    const extra = of.length > RECEIPT_MAX
+      ? `<span class="rc-more">+${of.length - RECEIPT_MAX}</span>` : '';
+    return `<div class="rc-row"><dt class="rc-k k-${esc(kind)}">${esc(SRC_CHIP[kind])}</dt>`+
+           `<dd class="rc-v">${shown}${extra}</dd></div>`;
+  }).join('');
+  return rows ? `<dl class="receipts">${rows}</dl>` : '';
+}
+
+// The same links inside the disclosure, grouped and with their full titles.
+function groupedRefs(src){
+  return SRC_ORDER.map(kind => {
+    const of = (src || []).filter(s => s.kind === kind);
+    if (!of.length) return '';
+    return `<div class="field reveal kind k-${esc(kind)}"><b>${esc(SRC_LABEL[kind])}</b>`+
+           `<div class="refs">${of.map(refRow).join('')}</div></div>`;
+  }).join('');
 }
 
 // Derived, never stored: how long the problem stood before this result.
@@ -160,7 +229,7 @@ function card(e){
       <div class="rdate">${esc(e.date)}</div>
       <div class="rpills">
         <span class="pill v v-${esc(e.verification)}">${esc(VER_LABEL[e.verification]||e.verification)}</span>
-        <span class="pill a">${esc(AUT_LABEL[e.autonomy]||e.autonomy)}</span>
+        <span class="pill a a-${esc(e.autonomy)}">${esc(AUT_LABEL[e.autonomy]||e.autonomy)}</span>
       </div>
       <dl class="rmeta">
         <div><dt>Model</dt><dd>${esc(e.model)}</dd></div>
@@ -174,13 +243,14 @@ function card(e){
       <p class="claim">${esc(e.claim)}</p>
       ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
       ${e.humans?.length ? `<p class="withppl"><span>With</span><b>${esc(e.humans.join(', '))}</b></p>` : ''}
-      ${e.tags?.length ? `<div class="tags">${e.tags.map(t=>`<span class="tag-chip">${esc(t)}</span>`).join('')}</div>` : ''}
+      ${e.tags?.length ? `<div class="tags">${e.tags.map(t=>`<a class="tag-chip" href="/?tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</div>` : ''}
+      ${receipts(e)}
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         ${f('Novelty check', e.novelty_check)}
         ${f('Caveats', e.caveats)}
         ${checks ? `<div class="field checks reveal"><b>Independent checks</b>${checks}</div>` : ''}
-        ${e.sources?.length ? `<div class="field reveal"><b>Sources</b>${refs(e.sources)}</div>` : ''}
+        ${groupedRefs(e.sources)}
         ${e.discussion?.length ? `<div class="field reveal"><b>Community discussion</b>${refs(e.discussion)}</div>` : ''}
         ${e.videos?.length ? `<div class="field reveal"><b>Video explainers</b>
           ${e.videos.map(v=>`<div class="vid" data-yt="${esc(v.youtube_id)}">
@@ -668,35 +738,361 @@ function wireOnePlotTip(wrap, tip){
   wrap.addEventListener('focusout', e => { if (e.target.closest(MARK)) hide(); });
 }
 
+// ---------- View state ----------
+// Every view of the registry is a URL. The search box, the four filters and the sort
+// order all live in the query string, so a filtered view can be linked, bookmarked and
+// stepped back through with the browser's own back button. index.html's SearchAction
+// JSON-LD has advertised /?q=… since the site launched; reading it here is what makes
+// that claim true rather than aspirational.
+const PARAMS = ['q', 'field', 'lab', 'ver', 'aut', 'tag', 'sort', 'view'];
+const DEFAULTS = { q:'', field:'', lab:'', ver:'', aut:'', tag:'', sort:'date-desc', view:'table' };
+// The filters proper: the ones that narrow the list, as opposed to reordering it. The
+// chips, the empty state and the pristine test all work from this, not from PARAMS.
+const FILTERS = ['q', 'field', 'lab', 'ver', 'aut', 'tag'];
+const FILTER_NAME = { q:'Search', field:'Field', lab:'Lab', ver:'Verification',
+                      aut:'Autonomy', tag:'Tag' };
+const STATE = { ...DEFAULTS };
+
+// Sort orders. VER_SCORE and AUT_RANK are the registry's own rankings, already driving
+// the hero matrix and the pills, so sorting reuses them rather than inventing a second
+// scale that could disagree with the chart. Date breaks every tie, so the order is
+// total and a re-sort never reshuffles equal entries.
+const SORTS = {
+  'relevance': (a, b) => score(b, STATE.q) - score(a, STATE.q) || b.date.localeCompare(a.date),
+  'date-desc': (a, b) => b.date.localeCompare(a.date),
+  'date-asc':  (a, b) => a.date.localeCompare(b.date),
+  'evidence':  (a, b) => (VER_SCORE[b.verification] ?? 0) - (VER_SCORE[a.verification] ?? 0)
+                         || b.date.localeCompare(a.date),
+  'autonomy':  (a, b) => (AUT_RANK[b.autonomy] ?? 0) - (AUT_RANK[a.autonomy] ?? 0)
+                         || b.date.localeCompare(a.date),
+  'title':     (a, b) => a.title.localeCompare(b.title),
+  'lab':       (a, b) => a.lab.localeCompare(b.lab) || b.date.localeCompare(a.date)
+};
+
+// ---------- Search ----------
+// Searching JSON.stringify(entry) matched keys, URLs and slugs as well as prose, so
+// "claim", "com" and "http" each matched all 52 entries and the box appeared to do
+// nothing. This searches named fields only. Built once per entry and cached: the
+// haystack is the same for every keystroke, and only the needle changes.
+const HAY = new Map();
+function haystack(e){
+  let h = HAY.get(e.id);
+  if (h === undefined){
+    h = [e.title, e.claim, e.detail, e.lab, e.model, e.field, e.id, e.novelty_check,
+         e.caveats, (e.humans || []).join(' '), (e.tags || []).join(' ')]
+        .filter(Boolean).join(' ').toLowerCase();
+    HAY.set(e.id, h);
+  }
+  return h;
+}
+
+// Where a term hits matters: a title match is what you meant, a caveats match usually
+// is not. Used only by the relevance sort, so an explicit sort still wins.
+function score(e, q){
+  if (!q) return 0;
+  const n = q.toLowerCase();
+  const has = s => (s || '').toLowerCase().includes(n);
+  return (has(e.title) ? 8 : 0)
+       + (has(e.claim) || has(e.detail) ? 4 : 0)
+       + (has((e.tags || []).join(' ')) ? 2 : 0)
+       + (has(e.lab) || has(e.model) || has((e.humans || []).join(' ')) ? 1 : 0);
+}
+
+// Table or cards. The table is the default: a registry is for scanning, and 52 tall
+// cards is one long scroll. A preference rather than a property of the link, so it is
+// remembered the way the theme is, and a URL without ?view= opens the way this visitor
+// last left it. An explicit ?view= in a link still wins for that visit.
+function storedView(){
+  try { return localStorage.getItem('view') === 'cards' ? 'cards' : 'table'; }
+  catch (e){ return 'table'; }
+}
+
+function readState(){
+  const p = new URLSearchParams(location.search);
+  for (const k of PARAMS) STATE[k] = p.get(k) ?? DEFAULTS[k];
+  if (!p.has('view')) STATE.view = storedView();
+  // A hand-edited or truncated URL should degrade to the default rather than render an
+  // empty list the visitor has no way to explain.
+  if (!SORTS[STATE.sort]) STATE.sort = DEFAULTS.sort;
+  if (STATE.view !== 'cards') STATE.view = 'table';
+}
+
+function writeState(mode){
+  const p = new URLSearchParams();
+  for (const k of PARAMS) if (STATE[k] !== DEFAULTS[k]) p.set(k, STATE[k]);
+  const qs = p.toString();
+  const url = location.pathname + (qs ? '?' + qs : '') + location.hash;
+  if (url === location.pathname + location.search + location.hash) return;
+  // Typing replaces, so one keystroke is not one history entry. A discrete choice
+  // pushes, so back and forward step through decisions the visitor actually made.
+  history[mode === 'push' ? 'pushState' : 'replaceState'](null, '', url);
+}
+
+// Whether the pre-rendered markup is still correct. `view` is excluded on purpose:
+// build-site.py writes *both* layouts into #list and CSS shows one, so either view is
+// already right on the page. Only a filter or a non-default sort makes it wrong.
+function pristine(){
+  return PARAMS.every(k => k === 'view' || STATE[k] === DEFAULTS[k]);
+}
+function activeFilters(){ return FILTERS.filter(k => STATE[k] !== DEFAULTS[k]); }
+
+// Written as a function of (entry, state) rather than of the DOM, so the empty state can
+// re-run it with a single filter lifted to work out which one to suggest dropping.
+function matches(e, s){
+  return (!s.field || e.field === s.field)
+      && (!s.lab   || e.lab === s.lab)
+      && (!s.ver   || e.verification === s.ver)
+      && (!s.aut   || e.autonomy === s.aut)
+      && (!s.tag   || (e.tags || []).includes(s.tag))
+      && (!s.q     || haystack(e).includes(s.q.toLowerCase()));
+}
+
+// Highlighting runs over the rendered DOM rather than inside card(), on purpose.
+// card() is one half of a parity pair diffed byte for byte against build-site.py, which
+// has no query to highlight, so marking matches in the template would put the two
+// renderers permanently out of step. Text nodes only, for the same reason: re-parsing
+// innerHTML here could alter the exact markup card() produced.
+function highlight(root, q){
+  const needle = (q || '').toLowerCase();
+  if (!needle) return;
+  for (const el of root.querySelectorAll('.entry h2 .entry-link, .entry .claim, .entry .detail')){
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    const nodes = [];
+    for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
+    for (const n of nodes){
+      const hay = n.data.toLowerCase();
+      if (!hay.includes(needle)) continue;
+      const frag = document.createDocumentFragment();
+      let pos = 0, i = hay.indexOf(needle);
+      while (i >= 0){
+        if (i > pos) frag.append(n.data.slice(pos, i));
+        const mark = document.createElement('mark');
+        mark.textContent = n.data.slice(i, i + needle.length);
+        frag.append(mark);
+        pos = i + needle.length;
+        i = hay.indexOf(needle, pos);
+      }
+      if (pos < n.data.length) frag.append(n.data.slice(pos));
+      n.replaceWith(frag);
+    }
+  }
+}
+
+function selected(){ return ALL.filter(e => matches(e, STATE)).sort(SORTS[STATE.sort]); }
+
+function filterValue(k, v){
+  if (k === 'ver') return VER_LABEL[v] || v;
+  if (k === 'aut') return AUT_LABEL[v] || v;
+  return v;
+}
+
+function renderChips(){
+  const box = document.getElementById('chips');
+  if (!box) return;
+  const active = activeFilters();
+  // Emptied, not just hidden: the toolbar is sticky, so a chip row left in the DOM
+  // would keep taking height off every screen even when nothing is filtered.
+  box.hidden = !active.length;
+  box.innerHTML = !active.length ? '' : active.map(k => {
+    const v = filterValue(k, STATE[k]);
+    return `<button type="button" class="chip" data-clear="${k}"
+      aria-label="Remove ${FILTER_NAME[k]} filter: ${esc(v)}"><span class="chip-k">${FILTER_NAME[k]}</span
+      ><span class="chip-v">${esc(v)}</span><span class="chip-x" aria-hidden="true">×</span></button>`;
+  }).join('') + '<button type="button" class="chip chip-all" data-clear="*">Clear all</button>';
+}
+
+function emptyState(){
+  const active = activeFilters();
+  // Which single filter is doing the damage? Re-run the match with each one lifted and
+  // name the one that brings the most back, so the way out is one click rather than a
+  // guessing game against six controls.
+  let best = null, bestN = 0;
+  for (const k of active){
+    const n = ALL.filter(e => matches(e, { ...STATE, [k]: DEFAULTS[k] })).length;
+    if (n > bestN){ bestN = n; best = k; }
+  }
+  const hint = best ? `<p>Dropping the ${FILTER_NAME[best].toLowerCase()} filter
+    (<b>${esc(filterValue(best, STATE[best]))}</b>) brings back ${bestN}
+    ${bestN === 1 ? 'entry' : 'entries'}.</p>
+    <button type="button" class="empty-act" data-clear="${best}">Drop that filter</button>` : '';
+  return `<div class="empty"><p>No entries match
+    ${active.length === 1 ? 'that filter' : `all ${active.length} filters`}.</p>${hint}
+    <button type="button" class="empty-act empty-all" data-clear="*">Clear all filters</button></div>`;
+}
+
+// ---------- Table view ----------
+// 52 tall cards is one long scroll, and a registry exists to be scanned. The table puts
+// every entry on one screen and keeps the same pills, so the two views read as the same
+// data rather than two designs. Client-side only: the cards stay the pre-rendered
+// default, so crawlers and a no-JS visitor are unaffected and parity has nothing new to
+// guard. Model and Field are display-only; the sortable columns are the ones the
+// registry actually ranks by.
+const COLS = [
+  { label:'Date',         sort:'date-desc', alt:'date-asc' },
+  { label:'Finding',      sort:'title' },
+  { label:'Lab',          sort:'lab' },
+  { label:'Model' },
+  { label:'Verification', sort:'evidence' },
+  { label:'Autonomy',     sort:'autonomy' },
+  { label:'Field' }
+];
+
+function tableView(out){
+  const head = COLS.map(c => {
+    if (!c.sort) return `<th scope="col">${c.label}</th>`;
+    const active = STATE.sort === c.sort || (c.alt && STATE.sort === c.alt);
+    // Only Date reverses, because only Date has an obvious opposite reading.
+    const next = (c.alt && STATE.sort === c.sort) ? c.alt : c.sort;
+    const dir = !active ? 'none' : (STATE.sort === 'date-asc' ? 'ascending' : 'descending');
+    return `<th scope="col" aria-sort="${dir}"><button type="button" class="th-sort${
+      active ? ' on' : ''}" data-sort="${next}">${c.label}</button></th>`;
+  }).join('');
+  // title attributes because Lab, Model and Field clip with an ellipsis: the full value
+  // has to stay reachable without leaving the table.
+  const rows = out.map(e => `<tr>
+      <td class="t-date">${esc(e.date)}</td>
+      <td class="t-title"><a href="/finding/${esc(e.id)}">${esc(e.title)}</a></td>
+      <td title="${esc(e.lab)}">${esc(e.lab)}</td>
+      <td title="${esc(e.model)}">${esc(e.model)}</td>
+      <td><span class="pill v v-${esc(e.verification)}">${esc(VER_LABEL[e.verification]||e.verification)}</span></td>
+      <td><span class="pill a a-${esc(e.autonomy)}">${esc(AUT_LABEL[e.autonomy]||e.autonomy)}</span></td>
+      <td title="${esc(e.field)}">${esc(e.field)}</td>
+    </tr>`).join('');
+  const cols = ['date','title','lab','model','ver','aut','field']
+    .map(c => `<col class="c-${c}">`).join('');
+  return `<div class="tablewrap"><table class="regtable">
+    <caption class="vh">All findings in the registry, sortable by column.</caption>
+    <colgroup>${cols}</colgroup>
+    <thead><tr>${head}</tr></thead><tbody>${rows}</tbody></table></div>`;
+}
+
+// ---------- CSV export ----------
+// The whole registry has always been downloadable as one JSON file. This exports the
+// view actually on screen, filters and sort included, which is what someone reading a
+// filtered slice wants to take away. Built in the browser: nothing is uploaded, and
+// there is no endpoint to add.
+const CSV_COLS = [
+  ['id', e => e.id], ['date', e => e.date], ['title', e => e.title],
+  ['claim', e => e.claim], ['field', e => e.field], ['lab', e => e.lab],
+  ['model', e => e.model],
+  ['verification', e => VER_LABEL[e.verification] || e.verification],
+  ['autonomy', e => AUT_LABEL[e.autonomy] || e.autonomy],
+  ['humans', e => (e.humans || []).join('; ')],
+  ['tags', e => (e.tags || []).join('; ')],
+  ['url', e => location.origin + '/finding/' + e.id],
+  ['sources', e => (e.sources || []).map(s => `${SRC_LABEL[s.kind] || s.kind}: ${s.url}`).join(' | ')]
+];
+
+function csv(rows){
+  // RFC 4180 quoting throughout. A leading =, +, - or @ is prefixed with a quote as
+  // well: spreadsheets treat those as formulas, and a registry field should never
+  // execute in someone's spreadsheet.
+  const cell = v => {
+    let s = String(v ?? '');
+    if (/^[=+\-@]/.test(s)) s = "'" + s;
+    return '"' + s.replace(/"/g, '""') + '"';
+  };
+  return [CSV_COLS.map(c => cell(c[0])).join(',')]
+    .concat(rows.map(e => CSV_COLS.map(c => cell(c[1](e))).join(',')))
+    .join('\r\n');
+}
+
+function exportCsv(){
+  const rows = selected();
+  const blob = new Blob(['﻿' + csv(rows)], { type: 'text/csv;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  const bits = activeFilters().map(k => `${k}-${STATE[k]}`.replace(/[^a-z0-9-]+/gi, '-'));
+  a.download = ['whataifound', ...bits].join('_').slice(0, 120) + '.csv';
+  document.body.appendChild(a);
+  a.click();
+  a.remove();
+  // Revoked on the next frame rather than immediately: Safari has not always finished
+  // reading the blob by the time click() returns.
+  requestAnimationFrame(() => URL.revokeObjectURL(url));
+}
+
 function render(){
-  const q = document.getElementById('q').value.toLowerCase();
-  const fv = document.getElementById('field').value;
-  const lv = document.getElementById('lab').value;
-  const vv = document.getElementById('ver').value;
-  const out = ALL.filter(e =>
-    (!fv || e.field===fv) && (!lv || e.lab===lv) && (!vv || e.verification===vv) &&
-    (!q || JSON.stringify(e).toLowerCase().includes(q)));
+  // Before the registry has loaded there is nothing to render *from*, and the markup
+  // already on the page is correct for the unfiltered view. Rewriting it from an empty
+  // ALL would blank the list. bootData() calls render() again the moment data lands, so
+  // whatever the visitor asked for in the meantime is applied then.
+  if (!ALL.length) return;
+  const out = selected();
   const list = document.getElementById('list');
-  // build-site.py has already written these exact cards into index.html. Rewriting
-  // identical markup on load would throw away the parsed DOM (and any <details> the
-  // browser restored on a back-navigation) for no visual change, so the first paint
-  // is skipped and the server-rendered markup is adopted as-is. Every later call
-  // (any search or filter) renders normally.
-  if (list.hasAttribute('data-prerendered')) {
-    list.removeAttribute('data-prerendered');
-  } else {
-    list.innerHTML = out.length ? out.map(card).join('') : '<p class="empty">No entries match your filters.</p>';
+  // build-site.py has already written these exact cards into index.html, newest first
+  // with nothing filtered. Rewriting identical markup on load would throw away the
+  // parsed DOM (and any <details> the browser restored on a back-navigation) for no
+  // visual change, so the first paint adopts the server markup as-is. That is only
+  // correct for the pristine view: a URL carrying a filter or a sort asked for
+  // something the pre-render is not, and must render before it is seen.
+  const adopt = list.hasAttribute('data-prerendered') && pristine();
+  list.removeAttribute('data-prerendered');
+  const table = STATE.view === 'table';
+  list.classList.toggle('as-table', table);
+  if (!adopt){
+    if (!out.length) list.innerHTML = emptyState();
+    else if (table) list.innerHTML = tableView(out);
+    else { list.innerHTML = out.map(card).join(''); highlight(list, STATE.q); }
   }
   document.getElementById('count').textContent =
     `${out.length} / ${ALL.length} ${out.length===1?'entry':'entries'}`;
-  // Stagger only on the first paint so filtering stays instant.
-  if (first && !REDUCE){
+  const csvBtn = document.getElementById('csv');
+  if (csvBtn){
+    csvBtn.textContent = out.length === ALL.length
+      ? `Export all ${ALL.length} entries as CSV`
+      : `Export these ${out.length} ${out.length===1?'entry':'entries'} as CSV`;
+    csvBtn.disabled = !out.length;
+  }
+  // Stagger only on the first paint so filtering stays instant. The table is one child,
+  // so there is nothing to stagger there.
+  if (first && !REDUCE && !table){
     list.classList.add('animate');
     [...list.children].forEach((el,i)=> el.style.setProperty('--d', Math.min(i*45,520)+'ms'));
   } else {
     list.classList.remove('animate');
   }
   first = false;
+}
+
+// The single entry point for a state change: URL, controls, chips and list, in that
+// order. Anything that mutates STATE calls this rather than re-rendering by hand, so
+// the four can never disagree.
+function update(mode){
+  // Touching any control is the signal that this visitor wants filtering, so the
+  // deferred fetch starts here if it has not already. The URL, the controls and the
+  // chips all update at once regardless; only the list waits for the data.
+  ensureData();
+  writeState(mode);
+  syncControls();
+  renderChips();
+  render();
+}
+
+function syncControls(){
+  for (const id of ['q', 'field', 'lab', 'ver', 'aut', 'sort']){
+    const el = document.getElementById(id);
+    if (el && el.value !== STATE[id]) el.value = STATE[id];
+  }
+  document.querySelectorAll('.view-seg .vw').forEach(b =>
+    b.setAttribute('aria-pressed', b.dataset.view === STATE.view ? 'true' : 'false'));
+  // The same attribute the pre-paint script sets. While the pre-rendered markup is still
+  // in place this is what actually swaps the two layouts, so switching view is instant
+  // and works before the registry JSON has loaded.
+  document.documentElement.setAttribute('data-view', STATE.view);
+}
+
+// Chips and the empty state both clear filters, and the empty state lives inside #list,
+// so the handler is shared rather than written twice.
+function onClear(ev){
+  const btn = ev.target.closest('[data-clear]');
+  if (!btn) return;
+  const k = btn.dataset.clear;
+  if (k === '*') FILTERS.forEach(f => { STATE[f] = DEFAULTS[f]; });
+  else STATE[k] = DEFAULTS[k];
+  update('push');
+  return true;
 }
 
 function countUp(el, target){
@@ -709,7 +1105,9 @@ function countUp(el, target){
   })(performance.now());
 }
 
-function boot(data){
+// Runs when the registry JSON has landed. Everything here genuinely needs the data:
+// the charts, the derived stats, the filter option lists and the first real render.
+function bootData(data){
   ALL = data.sort((a,b)=> b.date.localeCompare(a.date));
 
   // Charts render wherever a #charts container exists: the registry page and the
@@ -762,9 +1160,119 @@ function boot(data){
   fill('field', ALL.map(e=>e.field));
   fill('lab', ALL.map(e=>e.lab));
   fill('ver', ALL.map(e=>e.verification), VER_LABEL);
-  ['q','field','lab','ver'].forEach(id =>
-    document.getElementById(id).addEventListener('input', render));
+  fill('aut', ALL.map(e=>e.autonomy), AUT_LABEL);
+
+
+  // The selects were just rebuilt, which drops any value set before the data arrived,
+  // so the controls are re-synced and the list rendered for whatever state is current.
+  syncControls();
+  renderChips();
+  render();
+}
+
+// Runs immediately, with no data. index.html already contains all 52 cards, the filter
+// options and the counts, pre-rendered by build-site.py, so the page is readable and
+// most of it is interactive before a single byte of JSON has been fetched.
+function bootStatic(){
+  const citeDate = document.getElementById('cite-date');
+  if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+  // visuals.html has no list to filter: its charts are the whole page, so it needs the
+  // registry straight away and none of the wiring below.
+  if (!document.getElementById('list')){ ensureData(); return; }
+
+  readState();
+  syncControls();
+  renderChips();
+  // Typing replaces the history entry; choosing from a dropdown pushes one. See
+  // writeState() for why the two differ.
+  document.getElementById('q').addEventListener('input', ev => {
+    const had = !!STATE.q;
+    STATE.q = ev.target.value;
+    // Typing switches to best-match ordering and clearing the box switches back, unless
+    // a sort was chosen deliberately in between, which is then left alone.
+    if (STATE.q && !had && STATE.sort === 'date-desc') STATE.sort = 'relevance';
+    if (!STATE.q && STATE.sort === 'relevance') STATE.sort = DEFAULTS.sort;
+    update('replace');
+  });
+  ['field','lab','ver','aut','sort'].forEach(id =>
+    document.getElementById(id).addEventListener('change', ev => {
+      STATE[id] = ev.target.value; update('push');
+    }));
+  document.getElementById('chips').addEventListener('click', onClear);
+  // Export needs the rows themselves, so unlike the filters it cannot act before the
+  // data is in hand.
+  document.getElementById('csv')?.addEventListener('click',
+    () => ensureData().then(exportCsv));
+  document.querySelector('.view-seg')?.addEventListener('click', ev => {
+    const b = ev.target.closest('.vw');
+    if (!b) return;
+    STATE.view = b.dataset.view;
+    try { localStorage.setItem('view', STATE.view); } catch (e){}
+    update('push');
+  });
+  // Back and forward restore a view without writing to history again.
+  addEventListener('popstate', () => {
+    // A fragment navigation fires popstate as well as hashchange. Nothing that affects
+    // the list has changed there, and re-rendering would destroy the pre-rendered markup
+    // revealFromHash is about to look in, so compare before acting.
+    const p = new URLSearchParams(location.search);
+    if (PARAMS.every(k => (p.get(k) ?? DEFAULTS[k]) === STATE[k])) return;
+    ensureData(); readState(); syncControls(); renderChips(); render();
+  });
+
+  // ---------- Keyboard ----------
+  const keys = document.getElementById('keys');
+  document.getElementById('keys-close')?.addEventListener('click', () => keys.close());
+  addEventListener('keydown', ev => {
+    if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
+    const el = document.activeElement;
+    const typing = el && (['INPUT','SELECT','TEXTAREA'].includes(el.tagName) || el.isContentEditable);
+    if (ev.key === 'Escape'){
+      // <dialog> closes itself on Escape, so only the search box needs handling here.
+      if (keys?.open || !typing) return;
+      if (STATE.q){
+        STATE.q = '';
+        if (STATE.sort === 'relevance') STATE.sort = DEFAULTS.sort;
+        update('push');
+      }
+      el.blur();
+      return;
+    }
+    if (typing) return;
+    if (ev.key === '/'){ ev.preventDefault(); document.getElementById('q').focus(); }
+    else if (ev.key === '?'){ ev.preventDefault(); keys?.showModal(); }
+  });
+
+  // ---------- Back to top ----------
+  // The list runs to roughly 8000px and the sitemap rail is hidden below 1280px, so on
+  // most screens there was no way back up but scrolling.
+  const totop = document.getElementById('totop');
+  if (totop){
+    let pending = false;
+    const sync = () => { pending = false; totop.hidden = scrollY < 1200; };
+    addEventListener('scroll', () => {
+      if (!pending){ pending = true; requestAnimationFrame(sync); }
+    }, { passive: true });
+    totop.addEventListener('click', () =>
+      scrollTo({ top: 0, behavior: REDUCE ? 'auto' : 'smooth' }));
+    sync();
+  }
+
   document.getElementById('list').addEventListener('click', ev => {
+    if (onClear(ev)) return;
+    const th = ev.target.closest('.th-sort');
+    if (th){ STATE.sort = th.dataset.sort; update('push'); return; }
+    const tag = ev.target.closest('.tag-chip');
+    if (tag){
+      // The href is a real /?tag=… URL, so a tag still works with JavaScript off and
+      // reads as a link to a crawler. Intercepted here only to save the page load.
+      ev.preventDefault();
+      STATE.tag = new URL(tag.href).searchParams.get('tag') || '';
+      update('push');
+      scrollTo({ top: document.getElementById('panel-registry').offsetTop - 8,
+                 behavior: REDUCE ? 'auto' : 'smooth' });
+      return;
+    }
     const link = ev.target.closest('.permalink');
     if (link) {
       ev.preventDefault();
@@ -798,7 +1306,20 @@ function boot(data){
   // while the page is already loaded (or back/forward between entries) still works.
   const revealFromHash = () => {
     if (!/^#e-/.test(location.hash)) return;
-    const target = document.getElementById(location.hash.slice(1));
+    let target = document.getElementById(location.hash.slice(1));
+    // A permalink points at a card. In the table view that card is either hidden (both
+    // layouts are pre-rendered) or absent entirely (the list has been re-rendered as a
+    // table), so following the link would silently do nothing. Switch this visit to
+    // cards and look again. The URL records it so the view and the address bar agree;
+    // the *stored* preference is deliberately left alone, because following someone
+    // else's link is not a change of preference.
+    if (STATE.view !== 'cards' && (!target || !target.offsetParent)){
+      STATE.view = 'cards';
+      writeState('replace');
+      syncControls();
+      render();
+      target = document.getElementById(location.hash.slice(1));
+    }
     if (!target) return;
     target.querySelector('details')?.setAttribute('open', '');
     requestAnimationFrame(() => {
@@ -808,14 +1329,43 @@ function boot(data){
     });
   };
   revealFromHash();
-  addEventListener('hashchange', revealFromHash);
+  addEventListener('hashchange', revealFromHash);}
+
+// ---------- Loading the registry ----------
+// data/entries.json is 143 KB, and index.html already ships every one of its 52 entries
+// as pre-rendered markup. The JSON is needed only to filter, sort, search or export, so
+// it is no longer fetched on the critical path: the page is readable and interactive
+// first, and the data follows on idle, or the moment a control is touched, whichever
+// comes first. A URL that arrives already filtered needs it at once and says so.
+let dataPromise = null;
+
+function ensureData(){
+  if (dataPromise) return dataPromise;
+  dataPromise = fetch('data/entries.json')
+    .then(r => r.json())
+    .then(bootData)
+    .catch(() => {
+      // Only replace the list if it is genuinely empty. On the built site the entries
+      // are already in the markup, so a failed fetch costs search and filtering but
+      // must not blank out content the visitor can otherwise read.
+      const list = document.getElementById('list');
+      if (list && !list.querySelector('.entry')) list.innerHTML =
+        '<p class="empty">Run a local server to load entries:<br><code>python3 -m http.server</code></p>';
+    });
+  return dataPromise;
 }
 
-fetch('data/entries.json').then(r=>r.json()).then(boot).catch(()=>{
-  // Only replace the list if it is genuinely empty. On the built site the entries are
-  // already in the markup, so a failed fetch costs search and filtering but must not
-  // blank out content the visitor can otherwise read.
-  const list = document.getElementById('list');
-  if (list && !list.querySelector('.entry')) list.innerHTML =
-    '<p class="empty">Run a local server to load entries:<br><code>python3 -m http.server</code></p>';
-});
+bootStatic();
+
+if (document.getElementById('list') || document.getElementById('charts')){
+  if (!pristine()){
+    // The visitor asked for a specific view, so the pre-rendered one is wrong for them.
+    ensureData();
+  } else if (typeof requestIdleCallback === 'function'){
+    // Fetched before it is wanted, but out of the way of the first paint. The timeout
+    // matters: without it a page that never goes idle would never load the registry.
+    requestIdleCallback(ensureData, { timeout: 2500 });
+  } else {
+    setTimeout(ensureData, 1200);
+  }
+}

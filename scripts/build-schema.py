@@ -58,6 +58,22 @@ LABELLED = {
     },
 }
 
+# A source is a labelled link plus what kind of link it is. `discussion` keeps the plain
+# LABELLED shape: a forum thread is not evidence and is not classified. Kept as a separate
+# object rather than an extra key on LABELLED because additionalProperties is False, so
+# adding `kind` there would let a discussion entry carry one.
+SRC_KINDS = [k["slug"] for k in vocab["source_kinds"]]
+SOURCE = {
+    "type": "object",
+    "required": ["label", "url", "kind"],
+    "additionalProperties": False,
+    "properties": {
+        **LABELLED["properties"],
+        "kind": {"type": "string", "enum": SRC_KINDS,
+                 "description": described(SRC_KINDS, vocab["source_kinds"])},
+    },
+}
+
 schema = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://whataifound.org/entry.schema.json",
@@ -87,8 +103,10 @@ schema = {
                              "description": described(VER, vocab["verification"])},
             "autonomy": {"type": "string", "enum": AUT,
                          "description": described(AUT, vocab["autonomy"])},
-            "sources": {"type": "array", "minItems": 1, "items": LABELLED,
-                        "description": "At least one primary source. A news article is not one."},
+            "sources": {"type": "array", "minItems": 1, "items": SOURCE,
+                        "description": ("Every link, each labelled with what it is. At least one "
+                                        "'research' source is required for any grade stronger "
+                                        "than 'claimed'. Most significant first within a kind.")},
             "added": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
                       "description": "ISO date this entry was added to the registry."},
 

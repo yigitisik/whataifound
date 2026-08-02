@@ -1,7 +1,11 @@
 {
+  "id": "/",
   "name": "whataifound.org: What AI Has Actually Discovered",
   "short_name": "whataifound",
   "description": "A curated, independently graded registry of scientific and mathematical results discovered by or with AI systems.",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["education", "news", "reference", "science"],
   "start_url": "/",
   "scope": "/",
   "display": "standalone",
@@ -11,12 +15,46 @@
     {
       "src": "/assets/brand/icon-512.png",
       "sizes": "512x512",
-      "type": "image/png"
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
     },
     {
       "src": "/assets/brand/favicon.svg",
       "sizes": "any",
-      "type": "image/svg+xml"
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "shortcuts": [
+    {
+      "name": "Review queue",
+      "short_name": "Review",
+      "description": "Entries carrying a weak grade with no independent check",
+      "url": "/review"
+    },
+    {
+      "name": "Formally verified findings",
+      "short_name": "Formal",
+      "description": "Only the machine-checked results",
+      "url": "/?ver=formal"
+    },
+    {
+      "name": "Visuals",
+      "short_name": "Visuals",
+      "description": "Charts of the registry",
+      "url": "/visuals"
+    },
+    {
+      "name": "Methodology",
+      "short_name": "Method",
+      "description": "How every entry is graded",
+      "url": "/methodology"
     }
   ]
 }
