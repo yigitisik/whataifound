@@ -442,6 +442,54 @@ def card(e):
   </article>'''
 
 
+# ------------------------------------------------------------------ table view
+# A hand-port of tableView() in app.js, byte for byte, and the third pair verify-parity.py
+# guards. Both layouts are pre-rendered into #list and CSS shows one, because the table is
+# the default view: rendering it client-side instead would mean either a visible swap from
+# cards to table on every load, or putting the 143 KB of registry JSON back on the critical
+# path to avoid one. Pre-rendering both costs about 18 KB and avoids both.
+TABLE_COLS = [
+    {"label": "Date", "sort": "date-desc", "alt": "date-asc"},
+    {"label": "Finding", "sort": "title"},
+    {"label": "Lab", "sort": "lab"},
+    {"label": "Model"},
+    {"label": "Verification", "sort": "evidence"},
+    {"label": "Autonomy", "sort": "autonomy"},
+    {"label": "Field"},
+]
+
+
+def table_view(entries, sort="date-desc"):
+    """Port of tableView() in app.js. Output must match it character for character."""
+    head = ""
+    for c in TABLE_COLS:
+        if not c.get("sort"):
+            head += f'<th scope="col">{c["label"]}</th>'
+            continue
+        active = sort == c["sort"] or (c.get("alt") and sort == c.get("alt"))
+        nxt = c["alt"] if (c.get("alt") and sort == c["sort"]) else c["sort"]
+        direction = "none" if not active else ("ascending" if sort == "date-asc" else "descending")
+        head += (f'<th scope="col" aria-sort="{direction}"><button type="button" class="th-sort'
+                 f'{" on" if active else ""}" data-sort="{nxt}">{c["label"]}</button></th>')
+    rows = "".join(
+        f'''<tr>
+      <td class="t-date">{esc(e.get("date"))}</td>
+      <td class="t-title"><a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a></td>
+      <td title="{esc(e.get("lab"))}">{esc(e.get("lab"))}</td>
+      <td title="{esc(e.get("model"))}">{esc(e.get("model"))}</td>
+      <td><span class="pill v v-{esc(e["verification"])}">{esc(VER_LABEL.get(e["verification"], e["verification"]))}</span></td>
+      <td><span class="pill a a-{esc(e["autonomy"])}">{esc(AUT_LABEL.get(e["autonomy"], e["autonomy"]))}</span></td>
+      <td title="{esc(e.get("field"))}">{esc(e.get("field"))}</td>
+    </tr>'''
+        for e in entries)
+    cols = "".join(f'<col class="c-{c}">'
+                   for c in ["date", "title", "lab", "model", "ver", "aut", "field"])
+    return (f'<div class="tablewrap"><table class="regtable">\n'
+            f'    <caption class="vh">All findings in the registry, sortable by column.</caption>\n'
+            f'    <colgroup>{cols}</colgroup>\n'
+            f'    <thead><tr>{head}</tr></thead><tbody>{rows}</tbody></table></div>')
+
+
 # ------------------------------------------------------------------ evidence matrix
 # A hand-port of matrixCard() in app.js, byte for byte. The homepage leads with this chart,
 # and the hero is pre-rendered for the same reason the entries are: the AI crawlers
@@ -1524,6 +1572,10 @@ def build_index(entries, updated):
     cards = "\n".join(card(e) for e in entries)
     src = inject(src, "<!--ENTRIES:START-->", "<!--ENTRIES:END-->",
                  "\n" + cards + "\n", "entry list")
+    # No newlines around it: verify-parity.py diffs this region against tableView()'s
+    # own output, the same way it does the hero matrix.
+    src = inject(src, "<!--TABLE:START-->", "<!--TABLE:END-->", table_view(entries),
+                 "entry table")
 
     strong = sum(1 for e in entries
                  if e["verification"] in ("formal", "independent", "peer-reviewed"))

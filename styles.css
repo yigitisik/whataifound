@@ -471,6 +471,13 @@
   .regtable td:has(.pill){padding-left:6px;padding-right:6px}
   .regtable .pill{font-size:.55rem;letter-spacing:.045em;padding:3px 7px}
   #list.as-table{display:block}
+  /* Which of the two pre-rendered layouts is showing. Set by the pre-paint script in
+     index.html and kept in step by syncControls(), so switching view is instant and
+     works before the registry JSON has loaded. Once app.js re-renders #list for a
+     filter these wrappers are gone and only the active layout exists, which is why
+     both rules are scoped to a direct child of #list. */
+  html[data-view="table"] #list > .v-cards{display:none}
+  html:not([data-view="table"]) #list > .v-table{display:none}
 
   /* ---------- Export ---------- */
   .listfoot{margin:18px 0 0;text-align:right}

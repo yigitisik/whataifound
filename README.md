@@ -93,7 +93,7 @@ and each finding also has its own URL for citation.
 | `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared nav, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
-| `verify-parity.py` | Runs `app.js`'s real `card()` under Node and diffs it against the pre-rendered markup |
+| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()` and `tableView()` under Node and diffs each against the pre-rendered markup |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
@@ -116,6 +116,8 @@ overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
+`matrixCard()` and `tableView()` are ported the same way, so all three pre-rendered surfaces are
+diffed byte for byte against the real functions on every build.
 The `DOMAIN_NAME` table is duplicated the same way and for the same reason: the labelled source rows
 on a card show a publisher name rather than a link title, so a source from a host with no entry in
 that table renders as a bare domain. Adding one means adding it to both files.
@@ -204,9 +206,12 @@ that runs before first paint, plus the two Vercel analytics shims); everything e
   a key or a URL. Matches are wrapped in `<mark>` by a DOM pass *after* render, deliberately outside
   `card()`, which is parity-checked. Typing switches the sort to best-match unless one was chosen
   deliberately.
-- **Two layouts.** Cards (pre-rendered, the default) or a sortable table of all 52 entries, stored in
-  `localStorage` beside the theme and mirrored to `?view=`. An explicit `?view=` in a shared link
-  wins for that visit without overwriting the reader's own preference.
+- **Two layouts, table by default.** A registry is for scanning, so the default view is a sortable
+  table of all 52 entries; cards are one click away. The choice is stored in `localStorage` beside
+  the theme and mirrored to `?view=`, and an explicit `?view=` in a shared link wins for that visit
+  without overwriting the reader's own preference. **Both layouts are pre-rendered** and CSS shows
+  one, selected before first paint, so neither flashes and neither needs the registry JSON to
+  appear. With JavaScript off the cards show, which is the richer fallback.
 - Keyboard: `/` focuses search, `Esc` clears it, `?` opens a shortcut sheet (a native `<dialog>`).
 - Export: the CSV button writes the *current filtered view* client-side via a `Blob`, verified to
   work under the production CSP. Finding pages carry BibTeX and plain-text citations, each with a

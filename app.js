@@ -745,7 +745,7 @@ function wireOnePlotTip(wrap, tip){
 // JSON-LD has advertised /?q=… since the site launched; reading it here is what makes
 // that claim true rather than aspirational.
 const PARAMS = ['q', 'field', 'lab', 'ver', 'aut', 'tag', 'sort', 'view'];
-const DEFAULTS = { q:'', field:'', lab:'', ver:'', aut:'', tag:'', sort:'date-desc', view:'cards' };
+const DEFAULTS = { q:'', field:'', lab:'', ver:'', aut:'', tag:'', sort:'date-desc', view:'table' };
 // The filters proper: the ones that narrow the list, as opposed to reordering it. The
 // chips, the empty state and the pristine test all work from this, not from PARAMS.
 const FILTERS = ['q', 'field', 'lab', 'ver', 'aut', 'tag'];
@@ -798,12 +798,13 @@ function score(e, q){
        + (has(e.lab) || has(e.model) || has((e.humans || []).join(' ')) ? 1 : 0);
 }
 
-// Cards or table. A preference rather than a property of the link, so it is remembered
-// the way the theme is, and a URL without ?view= opens the way this visitor last left
-// it. An explicit ?view= in the link still wins, so a shared table view arrives as one.
+// Table or cards. The table is the default: a registry is for scanning, and 52 tall
+// cards is one long scroll. A preference rather than a property of the link, so it is
+// remembered the way the theme is, and a URL without ?view= opens the way this visitor
+// last left it. An explicit ?view= in a link still wins for that visit.
 function storedView(){
-  try { return localStorage.getItem('view') === 'table' ? 'table' : 'cards'; }
-  catch (e){ return 'cards'; }
+  try { return localStorage.getItem('view') === 'cards' ? 'cards' : 'table'; }
+  catch (e){ return 'table'; }
 }
 
 function readState(){
@@ -813,7 +814,7 @@ function readState(){
   // A hand-edited or truncated URL should degrade to the default rather than render an
   // empty list the visitor has no way to explain.
   if (!SORTS[STATE.sort]) STATE.sort = DEFAULTS.sort;
-  if (STATE.view !== 'table') STATE.view = DEFAULTS.view;
+  if (STATE.view !== 'cards') STATE.view = 'table';
 }
 
 function writeState(mode){
@@ -827,7 +828,12 @@ function writeState(mode){
   history[mode === 'push' ? 'pushState' : 'replaceState'](null, '', url);
 }
 
-function pristine(){ return PARAMS.every(k => STATE[k] === DEFAULTS[k]); }
+// Whether the pre-rendered markup is still correct. `view` is excluded on purpose:
+// build-site.py writes *both* layouts into #list and CSS shows one, so either view is
+// already right on the page. Only a filter or a non-default sort makes it wrong.
+function pristine(){
+  return PARAMS.every(k => k === 'view' || STATE[k] === DEFAULTS[k]);
+}
 function activeFilters(){ return FILTERS.filter(k => STATE[k] !== DEFAULTS[k]); }
 
 // Written as a function of (entry, state) rather than of the DOM, so the empty state can
@@ -1071,6 +1077,10 @@ function syncControls(){
   }
   document.querySelectorAll('.view-seg .vw').forEach(b =>
     b.setAttribute('aria-pressed', b.dataset.view === STATE.view ? 'true' : 'false'));
+  // The same attribute the pre-paint script sets. While the pre-rendered markup is still
+  // in place this is what actually swaps the two layouts, so switching view is instant
+  // and works before the registry JSON has loaded.
+  document.documentElement.setAttribute('data-view', STATE.view);
 }
 
 // Chips and the empty state both clear filters, and the empty state lives inside #list,
@@ -1202,6 +1212,11 @@ function bootStatic(){
   });
   // Back and forward restore a view without writing to history again.
   addEventListener('popstate', () => {
+    // A fragment navigation fires popstate as well as hashchange. Nothing that affects
+    // the list has changed there, and re-rendering would destroy the pre-rendered markup
+    // revealFromHash is about to look in, so compare before acting.
+    const p = new URLSearchParams(location.search);
+    if (PARAMS.every(k => (p.get(k) ?? DEFAULTS[k]) === STATE[k])) return;
     ensureData(); readState(); syncControls(); renderChips(); render();
   });
 
@@ -1291,7 +1306,20 @@ function bootStatic(){
   // while the page is already loaded (or back/forward between entries) still works.
   const revealFromHash = () => {
     if (!/^#e-/.test(location.hash)) return;
-    const target = document.getElementById(location.hash.slice(1));
+    let target = document.getElementById(location.hash.slice(1));
+    // A permalink points at a card. In the table view that card is either hidden (both
+    // layouts are pre-rendered) or absent entirely (the list has been re-rendered as a
+    // table), so following the link would silently do nothing. Switch this visit to
+    // cards and look again. The URL records it so the view and the address bar agree;
+    // the *stored* preference is deliberately left alone, because following someone
+    // else's link is not a change of preference.
+    if (STATE.view !== 'cards' && (!target || !target.offsetParent)){
+      STATE.view = 'cards';
+      writeState('replace');
+      syncControls();
+      render();
+      target = document.getElementById(location.hash.slice(1));
+    }
     if (!target) return;
     target.querySelector('details')?.setAttribute('open', '');
     requestAnimationFrame(() => {

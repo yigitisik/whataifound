@@ -191,7 +191,11 @@
    dark (the default); only a light result needs rewriting, and 'system' resolves via
    the media query rather than the stored value. */
 var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
-if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}
+/* Layout, resolved before first paint for the same reason as the theme. ?view= in the
+   link wins, then the stored preference, then the default, which is the table. */
+var vw=(location.search.match(/[?&]view=(cards|table)/)||[])[1]||localStorage.getItem('view');
+el.setAttribute('data-view',vw==='cards'?'cards':'table');}catch(e){}</script>
 
 <link rel="stylesheet" href="styles.css">
 </head>
@@ -306,7 +310,13 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
        execute JS, and this content is the whole point of the site. app.js takes over
        for search and filtering and skips its first paint while data-prerendered is
        set. Do not hand-edit between the markers; edit data/entries.json and rebuild. -->
-  <main id="list" data-prerendered><!--ENTRIES:START-->
+  <!-- Both layouts are pre-rendered. The table is the default view, so rendering it
+       client-side would mean either a visible cards-to-table swap on every load, or
+       the registry JSON back on the critical path to avoid one. CSS shows whichever
+       the pre-paint script selected; with no JavaScript at all the attribute is never
+       set and the cards show, which is the richer fallback. -->
+  <main id="list" data-prerendered>
+<div class="v-cards"><!--ENTRIES:START-->
 <article class="entry" id="e-2026-07-22-dinitz-garg-goemans" data-ver="claimed">
     <div class="rail">
       <div class="lab"><span class="labchip" style="--lc:#7c7a72" aria-hidden="true">IN</span><span class="lab-name">Independent</span></div>
@@ -2048,7 +2058,428 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       </details>
     </div>
   </article>
-<!--ENTRIES:END--></main>
+<!--ENTRIES:END--></div>
+<div class="v-table"><!--TABLE:START--><div class="tablewrap"><table class="regtable">
+    <caption class="vh">All findings in the registry, sortable by column.</caption>
+    <colgroup><col class="c-date"><col class="c-title"><col class="c-lab"><col class="c-model"><col class="c-ver"><col class="c-aut"><col class="c-field"></colgroup>
+    <thead><tr><th scope="col" aria-sort="descending"><button type="button" class="th-sort on" data-sort="date-asc">Date</button></th><th scope="col" aria-sort="none"><button type="button" class="th-sort" data-sort="title">Finding</button></th><th scope="col" aria-sort="none"><button type="button" class="th-sort" data-sort="lab">Lab</button></th><th scope="col">Model</th><th scope="col" aria-sort="none"><button type="button" class="th-sort" data-sort="evidence">Verification</button></th><th scope="col" aria-sort="none"><button type="button" class="th-sort" data-sort="autonomy">Autonomy</button></th><th scope="col">Field</th></tr></thead><tbody><tr>
+      <td class="t-date">2026-07-22</td>
+      <td class="t-title"><a href="/finding/2026-07-22-dinitz-garg-goemans">Counterexample to the Dinitz–Garg–Goemans conjecture</a></td>
+      <td title="Independent">Independent</td>
+      <td title="GPT-5.6 Pro">GPT-5.6 Pro</td>
+      <td><span class="pill v v-claimed">Claimed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2026-07-20</td>
+      <td class="t-title"><a href="/finding/2026-07-20-gaussian-moments">Counterexamples to the Gaussian moments conjecture</a></td>
+      <td title="Independent">Independent</td>
+      <td title="GPT-5.6 Sol Pro + Claude Fable 5">GPT-5.6 Sol Pro + Claude Fable 5</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-07-19</td>
+      <td class="t-title"><a href="/finding/2026-07-19-jacobian-conjecture">Counterexample to the Jacobian conjecture in dimension three</a></td>
+      <td title="Anthropic">Anthropic</td>
+      <td title="Claude Fable 5">Claude Fable 5</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-collaborative">Collaborative</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-07-14</td>
+      <td class="t-title"><a href="/finding/2026-07-14-zeroth-order-oracle-bound">Near-quadratic lower bound for derivative-free convex optimization</a></td>
+      <td title="Independent">Independent</td>
+      <td title="GPT-5.6 Sol Pro">GPT-5.6 Sol Pro</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-07-11</td>
+      <td class="t-title"><a href="/finding/2026-07-11-grothendieck-group-schemes">Counterexample to Grothendieck's question on finite flat group schemes</a></td>
+      <td title="Independent">Independent</td>
+      <td title="OpenAI Sol (construction); Claude Fable (Lean formalisation)">OpenAI Sol (construction); Claude Fable (Lean formalisation)</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-collaborative">Collaborative</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-06-25</td>
+      <td class="t-title"><a href="/finding/2026-06-25-herculaneum-scroll-read">First Herculaneum scroll read end to end without unrolling it</a></td>
+      <td title="Vesuvius Challenge">Vesuvius Challenge</td>
+      <td title="Community-developed ink-detection neural networks">Community-developed ink-detection neural networks</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="archaeology">archaeology</td>
+    </tr><tr>
+      <td class="t-date">2026-05-21</td>
+      <td class="t-title"><a href="/finding/2026-05-21-alphaproof-nexus">Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaProof Nexus (LLM + Lean)">AlphaProof Nexus (LLM + Lean)</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-05-20</td>
+      <td class="t-title"><a href="/finding/2026-05-erdos-unit-distance">Disproof of the Erdős unit-distance conjecture</a></td>
+      <td title="OpenAI">OpenAI</td>
+      <td title="GPT-5 series reasoning model">GPT-5 series reasoning model</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-01-15</td>
+      <td class="t-title"><a href="/finding/2026-01-alphaevolve-bruhat">Structure in Bruhat intervals of permutation groups</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaEvolve (Gemini-based)">AlphaEvolve (Gemini-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2026-01-13</td>
+      <td class="t-title"><a href="/finding/2026-01-erdos-728">Erdős problem #728 resolved and formalized in Lean</a></td>
+      <td title="OpenAI / Harmonic">OpenAI / Harmonic</td>
+      <td title="GPT-5.2 Pro + Aristotle">GPT-5.2 Pro + Aristotle</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-autonomous">Autonomous</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-11-20</td>
+      <td class="t-title"><a href="/finding/2025-11-gpt5-science-acceleration">Early science acceleration experiments with GPT-5</a></td>
+      <td title="OpenAI">OpenAI</td>
+      <td title="GPT-5">GPT-5</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2025-11-03</td>
+      <td class="t-title"><a href="/finding/2025-11-03-alphaevolve-at-scale">AlphaEvolve across 67 problems: 20 improvements, 8 regressions</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaEvolve (Gemini-based)">AlphaEvolve (Gemini-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-10-19</td>
+      <td class="t-title"><a href="/finding/2025-10-19-gpt5-erdos-retrieval">GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions</a></td>
+      <td title="OpenAI">OpenAI</td>
+      <td title="GPT-5">GPT-5</td>
+      <td><span class="pill v v-known">Already known</span></td>
+      <td><span class="pill a a-retrieval">Retrieval</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-09-25</td>
+      <td class="t-title"><a href="/finding/2025-09-25-qma-amplification-limits">Limits to black-box amplification in QMA, with the key step written by GPT-5</a></td>
+      <td title="UT Austin / CWI Amsterdam">UT Austin / CWI Amsterdam</td>
+      <td title="GPT-5 Thinking">GPT-5 Thinking</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2025-09-17</td>
+      <td class="t-title"><a href="/finding/2025-09-17-unstable-singularities">New families of unstable singularities in fluid equations</a></td>
+      <td title="Google DeepMind (with Brown, NYU and Stanford)">Google DeepMind (with Brown, NYU and Stanford)</td>
+      <td title="Physics-informed neural networks with Gauss–Newton optimisation">Physics-informed neural networks with Gauss–Newton optimisation</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-09-17</td>
+      <td class="t-title"><a href="/finding/2025-09-17-evo-phage-genomes">AI-generated bacteriophage genomes that replicate and kill bacteria</a></td>
+      <td title="Arc Institute / Stanford University">Arc Institute / Stanford University</td>
+      <td title="Evo 1 and Evo 2">Evo 1 and Evo 2</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2025-09-11</td>
+      <td class="t-title"><a href="/finding/2025-09-11-gauss-strong-pnt">Strong prime number theorem formalized in Lean by an autoformalization agent</a></td>
+      <td title="Math, Inc.">Math, Inc.</td>
+      <td title="Gauss (autoformalization agent)">Gauss (autoformalization agent)</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-08-01</td>
+      <td class="t-title"><a href="/finding/2025-08-gpt5-convex-bound">Improved step-size bound in smooth convex optimization</a></td>
+      <td title="OpenAI">OpenAI</td>
+      <td title="GPT-5 Pro">GPT-5 Pro</td>
+      <td><span class="pill v v-known">Already known</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-07-28</td>
+      <td class="t-title"><a href="/finding/2025-07-28-aristotle-imo-lean">Machine-checked Lean proofs for five of six 2025 IMO problems</a></td>
+      <td title="Harmonic">Harmonic</td>
+      <td title="Aristotle">Aristotle</td>
+      <td><span class="pill v v-formal">Formally verified</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-07-21</td>
+      <td class="t-title"><a href="/finding/2025-07-21-gemini-deepthink-imo">Gold-medal standard at the 2025 International Mathematical Olympiad</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="Gemini Deep Think (advanced version)">Gemini Deep Think (advanced version)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-06-03</td>
+      <td class="t-title"><a href="/finding/2025-06-03-rentosertib-phase2a">Phase 2a results for a drug whose target and molecule both came from AI</a></td>
+      <td title="Insilico Medicine">Insilico Medicine</td>
+      <td title="PandaOmics (target) + Chemistry42 (molecule)">PandaOmics (target) + Chemistry42 (molecule)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="medicine">medicine</td>
+    </tr><tr>
+      <td class="t-date">2025-05-14</td>
+      <td class="t-title"><a href="/finding/2025-05-alphaevolve-matmul">4×4 complex matrix multiplication in 48 scalar multiplications</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaEvolve (Gemini-based)">AlphaEvolve (Gemini-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2025-05-14</td>
+      <td class="t-title"><a href="/finding/2025-05-alphaevolve-kissing">Improved lower bound for the 11-dimensional kissing number</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaEvolve (Gemini-based)">AlphaEvolve (Gemini-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-05-14</td>
+      <td class="t-title"><a href="/finding/2025-05-alphaevolve-minimum-overlap">Improved bound for the Erdős minimum-overlap problem</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaEvolve (Gemini-based)">AlphaEvolve (Gemini-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2025-05-01</td>
+      <td class="t-title"><a href="/finding/2025-robin-macular">Candidate treatment for dry age-related macular degeneration</a></td>
+      <td title="FutureHouse">FutureHouse</td>
+      <td title="Robin (multi-agent)">Robin (multi-agent)</td>
+      <td><span class="pill v v-claimed">Claimed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2025-03-12</td>
+      <td class="t-title"><a href="/finding/2025-03-12-ai-scientist-workshop-paper">A fully machine-generated paper passed workshop peer review</a></td>
+      <td title="Sakana AI">Sakana AI</td>
+      <td title="The AI Scientist-v2">The AI Scientist-v2</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2025-02-19</td>
+      <td class="t-title"><a href="/finding/2025-02-ai-coscientist-amr">AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis</a></td>
+      <td title="Google">Google</td>
+      <td title="AI Co-Scientist (Gemini 2.0 multi-agent)">AI Co-Scientist (Gemini 2.0 multi-agent)</td>
+      <td><span class="pill v v-author-verified">Author verified</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2025-02-13</td>
+      <td class="t-title"><a href="/finding/2025-02-13-designed-serine-hydrolases">Enzymes with working catalytic machinery designed from scratch</a></td>
+      <td title="Institute for Protein Design, University of Washington">Institute for Protein Design, University of Washington</td>
+      <td title="RFdiffusion with PLACER ensemble scoring">RFdiffusion with PLACER ensemble scoring</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="chemistry">chemistry</td>
+    </tr><tr>
+      <td class="t-date">2025-01-16</td>
+      <td class="t-title"><a href="/finding/2025-01-16-esmgfp">A working fluorescent protein generated by a language model</a></td>
+      <td title="EvolutionaryScale">EvolutionaryScale</td>
+      <td title="ESM3 (98B)">ESM3 (98B)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2025-01-16</td>
+      <td class="t-title"><a href="/finding/2025-01-16-mattergen">Generative model designs crystals to order; its flagship synthesis turned out to be a known compound</a></td>
+      <td title="Microsoft Research">Microsoft Research</td>
+      <td title="MatterGen">MatterGen</td>
+      <td><span class="pill v v-disputed">Disputed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="materials">materials</td>
+    </tr><tr>
+      <td class="t-date">2024-11-20</td>
+      <td class="t-title"><a href="/finding/2024-11-20-alphaqubit">A neural decoder that identifies quantum errors more accurately than hand-designed methods</a></td>
+      <td title="Google DeepMind / Google Quantum AI">Google DeepMind / Google Quantum AI</td>
+      <td title="AlphaQubit">AlphaQubit</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="physics">physics</td>
+    </tr><tr>
+      <td class="t-date">2024-10-02</td>
+      <td class="t-title"><a href="/finding/2024-10-02-flywire-connectome">Complete wiring diagram of an adult fruit-fly brain</a></td>
+      <td title="FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont)">FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont)</td>
+      <td title="Automated electron-microscopy segmentation networks">Automated electron-microscopy segmentation networks</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="neuroscience">neuroscience</td>
+    </tr><tr>
+      <td class="t-date">2024-07-25</td>
+      <td class="t-title"><a href="/finding/2024-07-25-alphaproof-imo">Silver-medal standard at the 2024 International Mathematical Olympiad</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaProof + AlphaGeometry 2">AlphaProof + AlphaGeometry 2</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2024-05-08</td>
+      <td class="t-title"><a href="/finding/2024-05-08-alphafold3">Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)</a></td>
+      <td title="Google DeepMind / Isomorphic Labs">Google DeepMind / Isomorphic Labs</td>
+      <td title="AlphaFold 3">AlphaFold 3</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2024-02-21</td>
+      <td class="t-title"><a href="/finding/2024-02-21-tearing-mode-avoidance">Reinforcement learning steers a tokamak away from tearing instabilities</a></td>
+      <td title="Princeton University / PPPL / DIII-D National Fusion Facility">Princeton University / PPPL / DIII-D National Fusion Facility</td>
+      <td title="Deep reinforcement learning controller over a learned plasma model">Deep reinforcement learning controller over a learned plasma model</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="physics">physics</td>
+    </tr><tr>
+      <td class="t-date">2024-01-17</td>
+      <td class="t-title"><a href="/finding/2024-01-17-alphageometry">Olympiad geometry solved without human demonstrations</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaGeometry">AlphaGeometry</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2023-12-20</td>
+      <td class="t-title"><a href="/finding/2023-12-20-coscientist">A language-model agent that planned and ran chemistry experiments on lab robots</a></td>
+      <td title="Carnegie Mellon University">Carnegie Mellon University</td>
+      <td title="GPT-4 (Coscientist agent)">GPT-4 (Coscientist agent)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="chemistry">chemistry</td>
+    </tr><tr>
+      <td class="t-date">2023-12-20</td>
+      <td class="t-title"><a href="/finding/2023-12-20-antibiotic-structural-class">A new structural class of antibiotic candidates against MRSA</a></td>
+      <td title="MIT / Broad Institute / Harvard">MIT / Broad Institute / Harvard</td>
+      <td title="Ensembles of graph neural networks with substructure attribution">Ensembles of graph neural networks with substructure attribution</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="chemistry">chemistry</td>
+    </tr><tr>
+      <td class="t-date">2023-12-14</td>
+      <td class="t-title"><a href="/finding/2023-12-funsearch-capset">New lower bound constructions for the cap set problem</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="FunSearch (PaLM 2 / Codey)">FunSearch (PaLM 2 / Codey)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2023-12-14</td>
+      <td class="t-title"><a href="/finding/2023-12-funsearch-binpacking">Improved heuristics for online bin packing</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="FunSearch (PaLM 2 / Codey)">FunSearch (PaLM 2 / Codey)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2023-11-29</td>
+      <td class="t-title"><a href="/finding/2023-11-29-gnome">Large-scale prediction of new stable crystalline materials (GNoME)</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="GNoME (graph neural network)">GNoME (graph neural network)</td>
+      <td><span class="pill v v-disputed">Disputed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="materials">materials</td>
+    </tr><tr>
+      <td class="t-date">2023-11-29</td>
+      <td class="t-title"><a href="/finding/2023-11-29-a-lab-synthesis">Autonomous laboratory reports solid-state synthesis of new inorganic compounds</a></td>
+      <td title="Lawrence Berkeley National Laboratory">Lawrence Berkeley National Laboratory</td>
+      <td title="A-Lab (ML planning + robotics)">A-Lab (ML planning + robotics)</td>
+      <td><span class="pill v v-disputed">Disputed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="materials">materials</td>
+    </tr><tr>
+      <td class="t-date">2023-11-14</td>
+      <td class="t-title"><a href="/finding/2023-11-14-graphcast">Medium-range weather forecasts from a graph neural network beat the operational physics model</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="GraphCast">GraphCast</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="climate">climate</td>
+    </tr><tr>
+      <td class="t-date">2023-09-19</td>
+      <td class="t-title"><a href="/finding/2023-09-19-alphamissense">Pathogenicity predictions for 71 million human missense variants</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaMissense">AlphaMissense</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="medicine">medicine</td>
+    </tr><tr>
+      <td class="t-date">2023-06-07</td>
+      <td class="t-title"><a href="/finding/2023-06-07-alphadev">Faster sorting routines discovered and merged into the LLVM C++ library</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaDev (AlphaZero-based)">AlphaDev (AlphaZero-based)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2022-10-05</td>
+      <td class="t-title"><a href="/finding/2022-10-05-alphatensor">Faster matrix-multiplication algorithms found by reinforcement learning</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaTensor (AlphaZero-based)">AlphaTensor (AlphaZero-based)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="computer-science">computer-science</td>
+    </tr><tr>
+      <td class="t-date">2022-02-16</td>
+      <td class="t-title"><a href="/finding/2022-02-16-tokamak-plasma-control">Deep reinforcement learning controls tokamak fusion plasma</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="DeepMind RL controller">DeepMind RL controller</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="physics">physics</td>
+    </tr><tr>
+      <td class="t-date">2021-12-01</td>
+      <td class="t-title"><a href="/finding/2021-12-01-knot-theory-intuition">Two theorems found by machine pattern-spotting in knot theory and representation theory</a></td>
+      <td title="Google DeepMind (with Oxford and Sydney)">Google DeepMind (with Oxford and Sydney)</td>
+      <td title="Supervised networks with gradient-based attribution">Supervised networks with gradient-based attribution</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-ai-assisted">AI-assisted</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2021-07-15</td>
+      <td class="t-title"><a href="/finding/2021-07-15-alphafold2">Accurate protein structure prediction across the known proteome (AlphaFold2)</a></td>
+      <td title="Google DeepMind">Google DeepMind</td>
+      <td title="AlphaFold2">AlphaFold2</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-ai-led">AI-led</span></td>
+      <td title="biology">biology</td>
+    </tr><tr>
+      <td class="t-date">2021-04-29</td>
+      <td class="t-title"><a href="/finding/2021-04-29-wagner-combinatorics">Reinforcement learning refutes several conjectures in extremal combinatorics</a></td>
+      <td title="Tel Aviv University">Tel Aviv University</td>
+      <td title="Deep cross-entropy method (custom network)">Deep cross-entropy method (custom network)</td>
+      <td><span class="pill v v-independent">Independently checked</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="mathematics">mathematics</td>
+    </tr><tr>
+      <td class="t-date">2020-02-20</td>
+      <td class="t-title"><a href="/finding/2020-02-20-halicin">Halicin, an antibiotic found by a neural network screening a compound library</a></td>
+      <td title="MIT / Broad Institute">MIT / Broad Institute</td>
+      <td title="Directed message-passing graph neural network (Chemprop)">Directed message-passing graph neural network (Chemprop)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="medicine">medicine</td>
+    </tr><tr>
+      <td class="t-date">2017-12-14</td>
+      <td class="t-title"><a href="/finding/2017-12-14-kepler-90i">An eighth planet around Kepler-90 found by a neural network</a></td>
+      <td title="Google Brain / University of Texas at Austin">Google Brain / University of Texas at Austin</td>
+      <td title="Convolutional neural network (AstroNet)">Convolutional neural network (AstroNet)</td>
+      <td><span class="pill v v-peer-reviewed">Peer reviewed</span></td>
+      <td><span class="pill a a-search-scaffold">Search scaffold</span></td>
+      <td title="astronomy">astronomy</td>
+    </tr></tbody></table></div><!--TABLE:END--></div>
+  </main>
   <!-- Export sits under the results, not in the toolbar: it applies to what you have
        just narrowed down, and the sticky bar has no room left. Label is rewritten by
        app.js to name the actual number. -->

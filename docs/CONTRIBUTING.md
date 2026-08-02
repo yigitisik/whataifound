@@ -111,10 +111,11 @@ wins when it's arguable. A challenge without a specific citation gets closed.
 `finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `entry.schema.json`, and anything
 between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
 `contributors.html`, `methodology.html` or `visuals.html`, including the shared `NAV` block, which
-is written into every page from one place. On `index.html` the filter dropdowns are generated too:
-`FIELDOPTS`, `LABOPTS`, `VEROPTS` and `AUTOPTS` are each filled from the registry, so a new autonomy
-value or lab appears in the controls without anyone editing the markup. Your change will be
-overwritten on the next build, and CI will fail. Edit `data/entries.json` instead.
+is written into every page from one place. On `index.html` both list layouts are generated
+(`ENTRIES` for the cards, `TABLE` for the table), as are the filter dropdowns: `FIELDOPTS`,
+`LABOPTS`, `VEROPTS` and `AUTOPTS` are each filled from the registry, so a new autonomy value or lab
+appears in the controls without anyone editing the markup. Your change will be overwritten on the
+next build, and CI will fail. Edit `data/entries.json` instead.
 
 ## Code
 
@@ -159,12 +160,24 @@ so drift fails the build; the markup would otherwise visibly change the first ti
 filters. The same applies to the `DOMAIN_NAME` table and to the `receipts()` / `grouped_refs()`
 renderers, which are ported alongside it.
 
-Two things deliberately live *outside* `card()` for that reason: search highlighting, which walks the
-rendered DOM afterwards, and the table view, which `build-site.py` never emits. Keeping them out is
-what lets them exist at all, since `build-site.py` has no query to highlight and no table to render.
+`tableView()` is the third pair, added when the table became the default view. Both layouts are
+pre-rendered into `#list` and CSS shows one, because rendering the default client-side would mean
+either a visible cards-to-table swap on every load or the 143 KB of registry JSON back on the
+critical path to avoid one. Pre-rendering both costs about 18 KB and avoids both. Search
+highlighting deliberately stays *outside* `card()`, walking the rendered DOM afterwards, because
+`build-site.py` has no query to highlight and putting it in the template would put the two renderers
+permanently out of step.
+
 Inside `card()`, note that a tag is an `<a href="/?tag=…">`, not a label: the URL is real, so tags
 work with JavaScript off and give the registry 187 internal links across 118 distinct filtered views.
 `app.js` intercepts the click only to save the page load.
+
+Which layout shows is decided before first paint by the inline script in `index.html`, which sets
+`data-view` on `<html>` from `?view=`, then the stored preference, then the default. With no
+JavaScript at all the attribute is never set and the cards show, which is the richer fallback. A
+permalink (`#e-<id>`) points at a card, so `revealFromHash()` switches to cards when the target is
+hidden or absent; it records that in the URL but deliberately does not change the stored preference,
+because following someone else's link is not a preference.
 
 Adding an entry whose source is on a host the registry hasn't cited before means adding that host to
 `DOMAIN_NAME` in both files. The labelled rows on a card show the publisher name instead of the link
