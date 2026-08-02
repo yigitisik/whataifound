@@ -101,7 +101,8 @@
           "type": "object",
           "required": [
             "label",
-            "url"
+            "url",
+            "kind"
           ],
           "additionalProperties": false,
           "properties": {
@@ -113,10 +114,21 @@
               "type": "string",
               "pattern": "^https?://",
               "description": "Must be http(s). Other schemes are rejected by the build."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "research",
+                "announcement",
+                "coverage",
+                "commentary",
+                "challenge"
+              ],
+              "description": "One of: `research` the paper, proof, code or data itself; `announcement` the claim as first made public, by whoever made it; `coverage` news and press reporting on the claim; `commentary` analysis by someone not involved; `challenge` the case against the claim"
             }
           }
         },
-        "description": "At least one primary source. A news article is not one."
+        "description": "Every link, each labelled with what it is. At least one 'research' source is required for any grade stronger than 'claimed'. Most significant first within a kind."
       },
       "added": {
         "type": "string",

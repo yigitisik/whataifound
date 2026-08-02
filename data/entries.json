@@ -19,19 +19,21 @@
       "editions": 1,
       "as_of": "2026-07-29"
     },
-    "verification": "author-verified",
+    "verification": "claimed",
     "autonomy": "ai-led",
     "detail": "Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.",
     "novelty_check": "The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example.",
-    "caveats": "Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified.",
+    "caveats": "Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified. Downgraded from 'author verified' when source classification showed no primary artifact is linked: the construction was published as a chat transcript rather than a paper or repository. Readers have checked the arithmetic and found it consistent, but there is nothing citable to point at, so the grade caps at 'claimed' until someone links a standalone write-up.",
     "sources": [
       {
         "label": "Dmitry Rybin announcement (X)",
-        "url": "https://x.com/DmitryRybin1/status/2079907499545919968"
+        "url": "https://x.com/DmitryRybin1/status/2079907499545919968",
+        "kind": "announcement"
       },
       {
         "label": "Coverage: officechai",
-        "url": "https://officechai.com/ai/mathematician-says-gpt-5-6-disproved-the-30-year-old-dinitz-garg-goemans-conjecture-with-4-simple-prompts/"
+        "url": "https://officechai.com/ai/mathematician-says-gpt-5-6-disproved-the-30-year-old-dinitz-garg-goemans-conjecture-with-4-simple-prompts/",
+        "kind": "coverage"
       }
     ],
     "discussion": [
@@ -87,15 +89,18 @@
     "sources": [
       {
         "label": "The Jacobian counterexample, explained",
-        "url": "https://jacobianfun.org/jacobian-explained"
+        "url": "https://jacobianfun.org/jacobian-explained",
+        "kind": "research"
       },
       {
         "label": "Alexis Gallagher: Jacobian Conjecture Disproved!",
-        "url": "https://alexisgallagher.com/posts/2026/jacobianfun/"
+        "url": "https://alexisgallagher.com/posts/2026/jacobianfun/",
+        "kind": "commentary"
       },
       {
         "label": "Hacker News discussion",
-        "url": "https://news.ycombinator.com/item?id=48973869"
+        "url": "https://news.ycombinator.com/item?id=48973869",
+        "kind": "commentary"
       }
     ],
     "tags": [
@@ -124,21 +129,34 @@
     },
     "verification": "independent",
     "autonomy": "ai-led",
-    "detail": "The model found configurations showing the unit-distance count can grow at least as fast as n^1.014, exceeding the conjectured bound. Checked by external mathematicians including Fields Medalist Timothy Gowers, who called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
+    "detail": "The model produced a construction beating the conjectured bound, with an inexplicit exponent greater than 1. Nine mathematicians - Alon, Bloom, Gowers, Litt, Sawin, Shankar, Tsimerman, Wang and Wood - published a human-verified version of the argument; Sawin separately made the exponent explicit at n^1.014. Gowers called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
     "novelty_check": "The unit-distance problem dates to Erdős (1946). Prior bounds were well documented; the construction is new.",
-    "caveats": "Human mathematicians shaped the problem framing and verified the construction. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.",
+    "caveats": "Human mathematicians shaped the problem framing and verified the construction. The explicit n^1.014 exponent is Sawin's refinement, not the model's output: the model's own bound was inexplicit. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.",
     "sources": [
       {
+        "label": "Remarks on the disproof of the unit distance conjecture (human-verified writeup)",
+        "url": "https://arxiv.org/abs/2605.20695",
+        "kind": "research"
+      },
+      {
+        "label": "Sawin: An explicit lower bound for the unit distance problem",
+        "url": "https://arxiv.org/abs/2605.20579",
+        "kind": "research"
+      },
+      {
         "label": "Quanta: The AI Revolution in Math Has Arrived",
-        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"
+        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/",
+        "kind": "coverage"
       },
       {
         "label": "TechCrunch: OpenAI claims it solved an 80-year-old math problem, for real this time",
-        "url": "https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/"
+        "url": "https://techcrunch.com/2026/05/20/openai-claims-it-solved-an-80-year-old-math-problem-for-real-this-time/",
+        "kind": "coverage"
       },
       {
         "label": "Tech Jacks: AI math reasoning milestones",
-        "url": "https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/"
+        "url": "https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -176,15 +194,18 @@
     "sources": [
       {
         "label": "arXiv 2601.07421: Resolution of Erdős Problem #728",
-        "url": "https://arxiv.org/abs/2601.07421"
+        "url": "https://arxiv.org/abs/2601.07421",
+        "kind": "research"
       },
       {
         "label": "Tao: AI contributions to Erdős problems",
-        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems",
+        "kind": "research"
       },
       {
         "label": "The Decoder: Tao on GPT-5.2 Pro",
-        "url": "https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/"
+        "url": "https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -203,15 +224,21 @@
     "date": "2026-01-15",
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
-    "verification": "peer-reviewed",
+    "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "Part of a continuing series of AlphaEvolve results in combinatorics. The system evolves candidate programs under a human-specified evaluation function, so the search is automated but the problem framing is human.",
     "novelty_check": "Documented as a new observation in the Quanta coverage; the specific structure was not previously catalogued.",
-    "caveats": "Reported via lab and press coverage. Independent replication status unclear at time of entry.",
+    "caveats": "The paper is an arXiv preprint, not yet peer reviewed, so this entry was downgraded from 'peer reviewed' once the artifact was located. The five authors are academic mathematicians unaffiliated with the announcing lab, and they turned AlphaEvolve's suggested permutations into proved theorems, which is what the 'independently checked' grade rests on.",
     "sources": [
       {
+        "label": "Ellenberg, Libedinsky, Plaza, Simental, Williamson: Bruhat intervals that are large hypercubes",
+        "url": "https://arxiv.org/abs/2601.01235",
+        "kind": "research"
+      },
+      {
         "label": "Quanta: The AI Revolution in Math Has Arrived",
-        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/"
+        "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -244,16 +271,24 @@
     "caveats": "Applies to complex-valued matrices specifically. Practical speedup is limited; the significance is theoretical. Related follow-up work by others has explored rank-23 schemes for 3×3.",
     "sources": [
       {
+        "label": "AlphaEvolve paper (PDF)",
+        "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: AlphaEvolve",
-        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+        "kind": "announcement"
       },
       {
         "label": "IEEE Spectrum",
-        "url": "https://spectrum.ieee.org/deepmind-alphaevolve"
+        "url": "https://spectrum.ieee.org/deepmind-alphaevolve",
+        "kind": "coverage"
       },
       {
         "label": "Wikipedia: AlphaEvolve",
-        "url": "https://en.wikipedia.org/wiki/AlphaEvolve"
+        "url": "https://en.wikipedia.org/wiki/AlphaEvolve",
+        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -297,12 +332,19 @@
     "caveats": "A lower-bound improvement via explicit construction, not a resolution of the problem. The 20% improvement rate means most of the 50+ problems saw no advance.",
     "sources": [
       {
+        "label": "AlphaEvolve paper (PDF)",
+        "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: AlphaEvolve",
-        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+        "kind": "announcement"
       },
       {
         "label": "IEEE Spectrum: AlphaEvolve Tackles Kissing Problem",
-        "url": "https://spectrum.ieee.org/deepmind-alphaevolve"
+        "url": "https://spectrum.ieee.org/deepmind-alphaevolve",
+        "kind": "coverage"
       }
     ],
     "discussion": [
@@ -337,11 +379,13 @@
     "sources": [
       {
         "label": "Analysis of the claim",
-        "url": "https://hackmd.io/@niloydebbarma/HkGxVPwFgx"
+        "url": "https://hackmd.io/@niloydebbarma/HkGxVPwFgx",
+        "kind": "challenge"
       },
       {
         "label": "What does GPT-5's 'new math' claim actually mean?",
-        "url": "https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/"
+        "url": "https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/",
+        "kind": "challenge"
       }
     ],
     "discussion": [
@@ -373,7 +417,8 @@
     "sources": [
       {
         "label": "arXiv 2511.16072",
-        "url": "https://arxiv.org/pdf/2511.16072"
+        "url": "https://arxiv.org/pdf/2511.16072",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -407,11 +452,13 @@
     "sources": [
       {
         "label": "Nature: Mathematical discoveries from program search with LLMs",
-        "url": "https://www.nature.com/articles/s41586-023-06924-6"
+        "url": "https://www.nature.com/articles/s41586-023-06924-6",
+        "kind": "research"
       },
       {
         "label": "DeepMind: FunSearch",
-        "url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/"
+        "url": "https://deepmind.google/blog/funsearch-making-new-discoveries-in-mathematical-sciences-using-large-language-models/",
+        "kind": "announcement"
       }
     ],
     "discussion": [
@@ -453,7 +500,8 @@
     "sources": [
       {
         "label": "Nature: Mathematical discoveries from program search with LLMs",
-        "url": "https://www.nature.com/articles/s41586-023-06924-6"
+        "url": "https://www.nature.com/articles/s41586-023-06924-6",
+        "kind": "research"
       }
     ],
     "discussion": [
@@ -484,8 +532,14 @@
     "caveats": "Hypothesis generation with human-run validation, not autonomous discovery. Independent replication outside the collaborating labs is limited. Graded conservatively.",
     "sources": [
       {
+        "label": "bioRxiv: AI mirrors experimental science to uncover a novel mechanism of gene transfer",
+        "url": "https://www.biorxiv.org/content/10.1101/2025.02.19.639094v1",
+        "kind": "research"
+      },
+      {
         "label": "Turing Post: 12 AI Co-Scientists of 2026",
-        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"
+        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -511,7 +565,8 @@
     "sources": [
       {
         "label": "Turing Post: 12 AI Co-Scientists of 2026",
-        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026"
+        "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -553,15 +608,18 @@
     "sources": [
       {
         "label": "Nature: Discovering faster matrix multiplication algorithms with reinforcement learning",
-        "url": "https://www.nature.com/articles/s41586-022-05172-4"
+        "url": "https://www.nature.com/articles/s41586-022-05172-4",
+        "kind": "research"
       },
       {
         "label": "DeepMind: Discovering novel algorithms with AlphaTensor",
-        "url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/"
+        "url": "https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/",
+        "kind": "announcement"
       },
       {
         "label": "Quanta: AI Reveals New Possibilities in Matrix Multiplication",
-        "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/"
+        "url": "https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/",
+        "kind": "coverage"
       }
     ],
     "discussion": [
@@ -620,15 +678,18 @@
     "sources": [
       {
         "label": "Nature: Faster sorting algorithms discovered using deep reinforcement learning",
-        "url": "https://www.nature.com/articles/s41586-023-06004-9"
+        "url": "https://www.nature.com/articles/s41586-023-06004-9",
+        "kind": "research"
       },
       {
         "label": "DeepMind: AlphaDev discovers faster sorting algorithms",
-        "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/"
+        "url": "https://deepmind.google/blog/alphadev-discovers-faster-sorting-algorithms/",
+        "kind": "announcement"
       },
       {
         "label": "Wikipedia: AlphaDev",
-        "url": "https://en.wikipedia.org/wiki/AlphaDev"
+        "url": "https://en.wikipedia.org/wiki/AlphaDev",
+        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -675,15 +736,18 @@
     "sources": [
       {
         "label": "Nature: Scaling deep learning for materials discovery",
-        "url": "https://www.nature.com/articles/s41586-023-06735-9"
+        "url": "https://www.nature.com/articles/s41586-023-06735-9",
+        "kind": "research"
       },
       {
         "label": "DeepMind: Millions of new materials discovered with deep learning",
-        "url": "https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/"
+        "url": "https://deepmind.google/blog/millions-of-new-materials-discovered-with-deep-learning/",
+        "kind": "announcement"
       },
       {
         "label": "The Register: Boffins deem DeepMind's material discoveries shallow",
-        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/",
+        "kind": "challenge"
       }
     ],
     "discussion": [
@@ -728,11 +792,13 @@
     "sources": [
       {
         "label": "Nature: An autonomous laboratory for the accelerated synthesis of inorganic materials",
-        "url": "https://www.nature.com/articles/s41586-023-06734-w"
+        "url": "https://www.nature.com/articles/s41586-023-06734-w",
+        "kind": "research"
       },
       {
         "label": "The Register: Boffins deem DeepMind's material discoveries shallow",
-        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/"
+        "url": "https://www.theregister.com/2024/04/11/google_deepmind_material_study/",
+        "kind": "challenge"
       }
     ],
     "discussion": [
@@ -772,15 +838,18 @@
     "sources": [
       {
         "label": "DeepMind: AI achieves silver-medal standard solving IMO problems",
-        "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/"
+        "url": "https://deepmind.google/discover/blog/ai-solves-imo-problems-at-silver-medal-level/",
+        "kind": "announcement"
       },
       {
         "label": "Nature: Olympiad-level formal mathematical reasoning with reinforcement learning",
-        "url": "https://www.nature.com/articles/s41586-025-09833-y"
+        "url": "https://www.nature.com/articles/s41586-025-09833-y",
+        "kind": "research"
       },
       {
         "label": "Unite.AI: How AlphaProof and AlphaGeometry 2 achieved silver-medal standard",
-        "url": "https://www.unite.ai/ai-at-the-international-mathematical-olympiad-how-alphaproof-and-alphageometry-2-achieved-silver-medal-standard/"
+        "url": "https://www.unite.ai/ai-at-the-international-mathematical-olympiad-how-alphaproof-and-alphageometry-2-achieved-silver-medal-standard/",
+        "kind": "coverage"
       }
     ],
     "discussion": [
@@ -827,11 +896,13 @@
     "sources": [
       {
         "label": "TechCrunch: OpenAI's 'embarrassing' math",
-        "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/"
+        "url": "https://techcrunch.com/2025/10/19/openais-embarrassing-math/",
+        "kind": "challenge"
       },
       {
         "label": "The Decoder: A GPT-5 math breakthrough that never happened",
-        "url": "https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/"
+        "url": "https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/",
+        "kind": "challenge"
       }
     ],
     "discussion": [
@@ -889,15 +960,18 @@
     "sources": [
       {
         "label": "Nature: Highly accurate protein structure prediction with AlphaFold",
-        "url": "https://www.nature.com/articles/s41586-021-03819-2"
+        "url": "https://www.nature.com/articles/s41586-021-03819-2",
+        "kind": "research"
       },
       {
         "label": "DeepMind: AlphaFold",
-        "url": "https://deepmind.google/science/alphafold/"
+        "url": "https://deepmind.google/science/alphafold/",
+        "kind": "announcement"
       },
       {
         "label": "Nobel Prize: Chemistry 2024 press release",
-        "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/"
+        "url": "https://www.nobelprize.org/prizes/chemistry/2024/press-release/",
+        "kind": "commentary"
       }
     ],
     "tags": [
@@ -932,15 +1006,18 @@
     "sources": [
       {
         "label": "Nature: Magnetic control of tokamak plasmas through deep reinforcement learning",
-        "url": "https://www.nature.com/articles/s41586-021-04301-9"
+        "url": "https://www.nature.com/articles/s41586-021-04301-9",
+        "kind": "research"
       },
       {
         "label": "DeepMind: Accelerating fusion science through learned plasma control",
-        "url": "https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/"
+        "url": "https://deepmind.google/discover/blog/accelerating-fusion-science-through-learned-plasma-control/",
+        "kind": "announcement"
       },
       {
         "label": "EPFL: EPFL and DeepMind use AI to control plasmas for fusion",
-        "url": "https://actu.epfl.ch/news/epfl-and-deepmind-use-ai-to-control-plasmas-for-nu/"
+        "url": "https://actu.epfl.ch/news/epfl-and-deepmind-use-ai-to-control-plasmas-for-nu/",
+        "kind": "announcement"
       }
     ],
     "discussion": [
@@ -974,15 +1051,18 @@
     "sources": [
       {
         "label": "DeepMind: AlphaEvolve",
-        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/"
+        "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+        "kind": "announcement"
       },
       {
         "label": "AlphaEvolve paper (PDF)",
-        "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf"
+        "url": "https://storage.googleapis.com/deepmind-media/DeepMind.com/Blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/AlphaEvolve.pdf",
+        "kind": "research"
       },
       {
         "label": "Wikipedia: Minimum overlap problem",
-        "url": "https://en.wikipedia.org/wiki/Minimum_overlap_problem"
+        "url": "https://en.wikipedia.org/wiki/Minimum_overlap_problem",
+        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -1018,11 +1098,13 @@
     "sources": [
       {
         "label": "arXiv: Small Counterexamples to the Gaussian Moments Conjecture",
-        "url": "https://arxiv.org/abs/2607.18186"
+        "url": "https://arxiv.org/abs/2607.18186",
+        "kind": "research"
       },
       {
         "label": "Derksen, van den Essen, Zhao: The Gaussian Moments Conjecture and the Jacobian Conjecture",
-        "url": "https://arxiv.org/abs/1506.05192"
+        "url": "https://arxiv.org/abs/1506.05192",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1068,11 +1150,13 @@
     "sources": [
       {
         "label": "arXiv: Closing the Oracle-Complexity Gap in Derivative-Free Convex Optimization",
-        "url": "https://arxiv.org/abs/2607.13335"
+        "url": "https://arxiv.org/abs/2607.13335",
+        "kind": "research"
       },
       {
         "label": "Lean verification, prompt and chat logs",
-        "url": "https://github.com/PhillipKerger/zero-order-bounds-lean-verification"
+        "url": "https://github.com/PhillipKerger/zero-order-bounds-lean-verification",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1123,15 +1207,18 @@
     "sources": [
       {
         "label": "arXiv: Advancing Mathematics Research with AI-Driven Formal Proof Search",
-        "url": "https://arxiv.org/abs/2605.22763"
+        "url": "https://arxiv.org/abs/2605.22763",
+        "kind": "research"
       },
       {
         "label": "All Lean proofs (DeepMind repository)",
-        "url": "https://github.com/google-deepmind/alphaproof-nexus-results"
+        "url": "https://github.com/google-deepmind/alphaproof-nexus-results",
+        "kind": "research"
       },
       {
         "label": "Tao's AI-contributions-to-Erdős-problems wiki",
-        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems"
+        "url": "https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1171,11 +1258,13 @@
     "sources": [
       {
         "label": "arXiv: Mathematical exploration and discovery at scale",
-        "url": "https://arxiv.org/abs/2511.02864"
+        "url": "https://arxiv.org/abs/2511.02864",
+        "kind": "research"
       },
       {
         "label": "Terence Tao's write-up",
-        "url": "https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/"
+        "url": "https://terrytao.wordpress.com/2025/11/05/mathematical-exploration-and-discovery-at-scale/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1221,11 +1310,13 @@
     "sources": [
       {
         "label": "Math, Inc.: Introducing Gauss",
-        "url": "https://www.math.inc/gauss"
+        "url": "https://www.math.inc/gauss",
+        "kind": "announcement"
       },
       {
         "label": "strongpnt Lean repository",
-        "url": "https://github.com/math-inc/strongpnt"
+        "url": "https://github.com/math-inc/strongpnt",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1263,11 +1354,13 @@
     "sources": [
       {
         "label": "Kevin Buzzard: Human mathematicians are being outcounterexampled",
-        "url": "https://xenaproject.wordpress.com/2026/07/20/human-mathematicians-are-being-outcounterexampled/"
+        "url": "https://xenaproject.wordpress.com/2026/07/20/human-mathematicians-are-being-outcounterexampled/",
+        "kind": "announcement"
       },
       {
         "label": "mathlib4 PR #41748: a finite free group scheme of order four not killed by four",
-        "url": "https://github.com/leanprover-community/mathlib4/pull/41748"
+        "url": "https://github.com/leanprover-community/mathlib4/pull/41748",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1301,15 +1394,18 @@
     "sources": [
       {
         "label": "arXiv: Discovery of Unstable Singularities",
-        "url": "https://arxiv.org/abs/2509.14185"
+        "url": "https://arxiv.org/abs/2509.14185",
+        "kind": "research"
       },
       {
         "label": "DeepMind: Discovering new solutions to century-old problems in fluid dynamics",
-        "url": "https://deepmind.google/blog/discovering-new-solutions-to-century-old-problems-in-fluid-dynamics/"
+        "url": "https://deepmind.google/blog/discovering-new-solutions-to-century-old-problems-in-fluid-dynamics/",
+        "kind": "announcement"
       },
       {
         "label": "Physics World: Neural networks discover unstable singularities in fluid systems",
-        "url": "https://physicsworld.com/a/neural-networks-discover-unstable-singularities-in-fluid-systems/"
+        "url": "https://physicsworld.com/a/neural-networks-discover-unstable-singularities-in-fluid-systems/",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -1342,12 +1438,19 @@
     ],
     "sources": [
       {
+        "label": "Gemini Deep Think: official IMO 2025 solutions (PDF)",
+        "url": "https://storage.googleapis.com/deepmind-media/gemini/IMO_2025.pdf",
+        "kind": "research"
+      },
+      {
         "label": "DeepMind: Gemini with Deep Think officially achieves gold-medal standard at the IMO",
-        "url": "https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/"
+        "url": "https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/",
+        "kind": "announcement"
       },
       {
         "label": "Simon Willison: OpenAI's gold medal performance on the IMO",
-        "url": "https://simonwillison.net/2025/Jul/19/openai-gold-medal-math-olympiad/"
+        "url": "https://simonwillison.net/2025/Jul/19/openai-gold-medal-math-olympiad/",
+        "kind": "commentary"
       }
     ],
     "tags": [
@@ -1373,11 +1476,13 @@
     "sources": [
       {
         "label": "arXiv: Aristotle: IMO-level Automated Theorem Proving",
-        "url": "https://arxiv.org/abs/2510.01346"
+        "url": "https://arxiv.org/abs/2510.01346",
+        "kind": "research"
       },
       {
         "label": "harmonic-ai/IMO2025: Lean proofs and verification artifacts",
-        "url": "https://github.com/harmonic-ai/IMO2025"
+        "url": "https://github.com/harmonic-ai/IMO2025",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1408,15 +1513,18 @@
     "sources": [
       {
         "label": "Nature: Solving olympiad geometry without human demonstrations",
-        "url": "https://www.nature.com/articles/s41586-023-06747-5"
+        "url": "https://www.nature.com/articles/s41586-023-06747-5",
+        "kind": "research"
       },
       {
         "label": "DeepMind: AlphaGeometry, an olympiad-level AI system for geometry",
-        "url": "https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/"
+        "url": "https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/",
+        "kind": "announcement"
       },
       {
         "label": "google-deepmind/alphageometry (code)",
-        "url": "https://github.com/google-deepmind/alphageometry"
+        "url": "https://github.com/google-deepmind/alphageometry",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1455,15 +1563,18 @@
     "sources": [
       {
         "label": "Nature: Advancing mathematics by guiding human intuition with AI",
-        "url": "https://www.nature.com/articles/s41586-021-04086-x"
+        "url": "https://www.nature.com/articles/s41586-021-04086-x",
+        "kind": "research"
       },
       {
         "label": "University of Oxford: Machine learning helps mathematicians make new connections",
-        "url": "https://www.ox.ac.uk/news/2021-12-01-machine-learning-helps-mathematicians-make-new-connections-0"
+        "url": "https://www.ox.ac.uk/news/2021-12-01-machine-learning-helps-mathematicians-make-new-connections-0",
+        "kind": "announcement"
       },
       {
         "label": "Ernest Davis: Deep Learning and Mathematical Intuition (review)",
-        "url": "https://arxiv.org/abs/2112.04324"
+        "url": "https://arxiv.org/abs/2112.04324",
+        "kind": "challenge"
       }
     ],
     "tags": [
@@ -1499,11 +1610,13 @@
     "sources": [
       {
         "label": "arXiv: Constructions in combinatorics via neural networks",
-        "url": "https://arxiv.org/abs/2104.14516"
+        "url": "https://arxiv.org/abs/2104.14516",
+        "kind": "research"
       },
       {
         "label": "Refutation of Spectral Graph Theory Conjectures with Monte Carlo Search",
-        "url": "https://arxiv.org/abs/2207.03343"
+        "url": "https://arxiv.org/abs/2207.03343",
+        "kind": "challenge"
       }
     ],
     "tags": [
@@ -1534,11 +1647,13 @@
     "sources": [
       {
         "label": "arXiv: Limits to black-box amplification in QMA",
-        "url": "https://arxiv.org/abs/2509.21131"
+        "url": "https://arxiv.org/abs/2509.21131",
+        "kind": "research"
       },
       {
         "label": "Scott Aaronson: The QMA Singularity",
-        "url": "https://scottaaronson.blog/?p=9183"
+        "url": "https://scottaaronson.blog/?p=9183",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1564,15 +1679,18 @@
     "sources": [
       {
         "label": "Sakana AI: The AI Scientist generates its first peer-reviewed publication",
-        "url": "https://sakana.ai/ai-scientist-first-publication/"
+        "url": "https://sakana.ai/ai-scientist-first-publication/",
+        "kind": "announcement"
       },
       {
         "label": "TechCrunch: Sakana claims its AI paper passed peer review (it's more nuanced than that)",
-        "url": "https://techcrunch.com/2025/03/12/sakana-claims-its-ai-paper-passed-peer-review-but-its-a-bit-more-nuanced-than-that/"
+        "url": "https://techcrunch.com/2025/03/12/sakana-claims-its-ai-paper-passed-peer-review-but-its-a-bit-more-nuanced-than-that/",
+        "kind": "challenge"
       },
       {
         "label": "SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment (manuscripts and reviews)",
-        "url": "https://github.com/SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment"
+        "url": "https://github.com/SakanaAI/AI-Scientist-ICLR2025-Workshop-Experiment",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1603,11 +1721,13 @@
     "sources": [
       {
         "label": "Science: Simulating 500 million years of evolution with a language model",
-        "url": "https://www.science.org/doi/10.1126/science.ads0018"
+        "url": "https://www.science.org/doi/10.1126/science.ads0018",
+        "kind": "research"
       },
       {
         "label": "EvolutionaryScale: ESM3 release",
-        "url": "https://www.evolutionaryscale.ai/blog/esm3-release"
+        "url": "https://www.evolutionaryscale.ai/blog/esm3-release",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1637,15 +1757,18 @@
     "sources": [
       {
         "label": "bioRxiv: Generative design of novel bacteriophages with genome language models",
-        "url": "https://www.biorxiv.org/content/10.1101/2025.09.12.675911v1"
+        "url": "https://www.biorxiv.org/content/10.1101/2025.09.12.675911v1",
+        "kind": "research"
       },
       {
         "label": "Arc Institute: How we built the first AI-generated genomes",
-        "url": "https://arcinstitute.org/news/hie-king-first-synthetic-phage"
+        "url": "https://arcinstitute.org/news/hie-king-first-synthetic-phage",
+        "kind": "announcement"
       },
       {
         "label": "Asimov Press: AI-designed phages",
-        "url": "https://www.asimov.press/p/ai-phages"
+        "url": "https://www.asimov.press/p/ai-phages",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -1676,11 +1799,13 @@
     "sources": [
       {
         "label": "Nature: Accurate structure prediction of biomolecular interactions with AlphaFold 3",
-        "url": "https://www.nature.com/articles/s41586-024-07487-w"
+        "url": "https://www.nature.com/articles/s41586-024-07487-w",
+        "kind": "research"
       },
       {
         "label": "Google DeepMind and Isomorphic Labs introduce AlphaFold 3",
-        "url": "https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/"
+        "url": "https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1720,15 +1845,18 @@
     "sources": [
       {
         "label": "Nature: Neuronal wiring diagram of an adult brain",
-        "url": "https://www.nature.com/articles/s41586-024-07558-y"
+        "url": "https://www.nature.com/articles/s41586-024-07558-y",
+        "kind": "research"
       },
       {
         "label": "NIH: Complete wiring map of an adult fruit fly brain",
-        "url": "https://www.nih.gov/news-events/nih-research-matters/complete-wiring-map-adult-fruit-fly-brain"
+        "url": "https://www.nih.gov/news-events/nih-research-matters/complete-wiring-map-adult-fruit-fly-brain",
+        "kind": "announcement"
       },
       {
         "label": "FlyWire (data and explorer)",
-        "url": "https://flywire.ai/"
+        "url": "https://flywire.ai/",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1760,11 +1888,13 @@
     "sources": [
       {
         "label": "Nature: Autonomous chemical research with large language models",
-        "url": "https://www.nature.com/articles/s41586-023-06792-0"
+        "url": "https://www.nature.com/articles/s41586-023-06792-0",
+        "kind": "research"
       },
       {
         "label": "PubMed Central full text",
-        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10733136/"
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10733136/",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1795,11 +1925,13 @@
     "sources": [
       {
         "label": "Science: Computational design of serine hydrolases",
-        "url": "https://www.science.org/doi/10.1126/science.adu2454"
+        "url": "https://www.science.org/doi/10.1126/science.adu2454",
+        "kind": "research"
       },
       {
         "label": "Baker Lab: Generating new enzymes with complex active sites",
-        "url": "https://www.bakerlab.org/2025/02/13/ai-enzymes-with-complex-active-sites/"
+        "url": "https://www.bakerlab.org/2025/02/13/ai-enzymes-with-complex-active-sites/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1831,11 +1963,13 @@
     "sources": [
       {
         "label": "Nature: Discovery of a structural class of antibiotics with explainable deep learning",
-        "url": "https://www.nature.com/articles/s41586-023-06887-8"
+        "url": "https://www.nature.com/articles/s41586-023-06887-8",
+        "kind": "research"
       },
       {
         "label": "ScienceDaily: Using AI, researchers identify a new class of antibiotic candidates",
-        "url": "https://www.sciencedaily.com/releases/2023/12/231221012744.htm"
+        "url": "https://www.sciencedaily.com/releases/2023/12/231221012744.htm",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -1867,11 +2001,13 @@
     "sources": [
       {
         "label": "Cell: A deep learning approach to antibiotic discovery",
-        "url": "https://www.cell.com/cell/fulltext/S0092-8674(20)30102-1"
+        "url": "https://www.cell.com/cell/fulltext/S0092-8674(20)30102-1",
+        "kind": "research"
       },
       {
         "label": "MIT News: Artificial intelligence yields new antibiotic",
-        "url": "https://news.mit.edu/2020/artificial-intelligence-identifies-new-antibiotic-0220"
+        "url": "https://news.mit.edu/2020/artificial-intelligence-identifies-new-antibiotic-0220",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1897,15 +2033,18 @@
     "sources": [
       {
         "label": "Science: Accurate proteome-wide missense variant effect prediction with AlphaMissense",
-        "url": "https://www.science.org/doi/10.1126/science.adg7492"
+        "url": "https://www.science.org/doi/10.1126/science.adg7492",
+        "kind": "research"
       },
       {
         "label": "DeepMind: A catalogue of genetic mutations to help pinpoint the cause of diseases",
-        "url": "https://deepmind.google/blog/a-catalogue-of-genetic-mutations-to-help-pinpoint-the-cause-of-diseases/"
+        "url": "https://deepmind.google/blog/a-catalogue-of-genetic-mutations-to-help-pinpoint-the-cause-of-diseases/",
+        "kind": "announcement"
       },
       {
         "label": "Nature Biotechnology: Advancing missense variant pathogenicity prediction",
-        "url": "https://www.nature.com/articles/s41587-023-01999-y"
+        "url": "https://www.nature.com/articles/s41587-023-01999-y",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -1931,11 +2070,13 @@
     "sources": [
       {
         "label": "Nature Medicine: A generative AI-discovered TNIK inhibitor for idiopathic pulmonary fibrosis",
-        "url": "https://www.nature.com/articles/s41591-025-03743-2"
+        "url": "https://www.nature.com/articles/s41591-025-03743-2",
+        "kind": "research"
       },
       {
         "label": "Insilico Medicine: positive topline results of ISM001-055",
-        "url": "https://insilico.com/news/tnik-ipf-phase2a"
+        "url": "https://insilico.com/news/tnik-ipf-phase2a",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -1969,15 +2110,18 @@
     "sources": [
       {
         "label": "Nature: A generative model for inorganic materials design",
-        "url": "https://www.nature.com/articles/s41586-025-08628-5"
+        "url": "https://www.nature.com/articles/s41586-025-08628-5",
+        "kind": "research"
       },
       {
         "label": "Microsoft Research: MatterGen, a new paradigm of materials design with generative AI",
-        "url": "https://www.microsoft.com/en-us/research/blog/mattergen-a-new-paradigm-of-materials-design-with-generative-ai/"
+        "url": "https://www.microsoft.com/en-us/research/blog/mattergen-a-new-paradigm-of-materials-design-with-generative-ai/",
+        "kind": "announcement"
       },
       {
         "label": "Materials Horizons: MatterGen predicts compounds from the training dataset",
-        "url": "https://pubs.rsc.org/en/content/articlelanding/2026/mh/d6mh00268d"
+        "url": "https://pubs.rsc.org/en/content/articlelanding/2026/mh/d6mh00268d",
+        "kind": "challenge"
       }
     ],
     "tags": [
@@ -2008,11 +2152,13 @@
     "sources": [
       {
         "label": "Nature: Avoiding fusion plasma tearing instability with deep reinforcement learning",
-        "url": "https://www.nature.com/articles/s41586-024-07024-9"
+        "url": "https://www.nature.com/articles/s41586-024-07024-9",
+        "kind": "research"
       },
       {
         "label": "Princeton Engineering: Engineers use AI to wrangle fusion power for the grid",
-        "url": "https://engineering.princeton.edu/news/2024/02/21/engineers-use-ai-wrangle-fusion-power-grid"
+        "url": "https://engineering.princeton.edu/news/2024/02/21/engineers-use-ai-wrangle-fusion-power-grid",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -2039,11 +2185,13 @@
     "sources": [
       {
         "label": "Nature: Learning high-accuracy error decoding for quantum processors",
-        "url": "https://www.nature.com/articles/s41586-024-08148-8"
+        "url": "https://www.nature.com/articles/s41586-024-08148-8",
+        "kind": "research"
       },
       {
         "label": "Google: AlphaQubit, research on quantum error correction",
-        "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/alphaqubit-quantum-error-correction/"
+        "url": "https://blog.google/innovation-and-ai/models-and-research/google-deepmind/alphaqubit-quantum-error-correction/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -2073,15 +2221,18 @@
     "sources": [
       {
         "label": "Science: Learning skillful medium-range global weather forecasting",
-        "url": "https://www.science.org/doi/10.1126/science.adi2336"
+        "url": "https://www.science.org/doi/10.1126/science.adi2336",
+        "kind": "research"
       },
       {
         "label": "DeepMind: GraphCast, AI model for faster and more accurate global weather forecasting",
-        "url": "https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/"
+        "url": "https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/",
+        "kind": "announcement"
       },
       {
         "label": "GraphCast code and weights (google-deepmind/weathernext)",
-        "url": "https://github.com/google-deepmind/weathernext"
+        "url": "https://github.com/google-deepmind/weathernext",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -2111,11 +2262,13 @@
     "sources": [
       {
         "label": "The Astronomical Journal: Identifying Exoplanets with Deep Learning",
-        "url": "https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09"
+        "url": "https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09",
+        "kind": "research"
       },
       {
         "label": "NASA: Artificial intelligence, NASA data used to discover eighth planet circling distant star",
-        "url": "https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/"
+        "url": "https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -2154,12 +2307,19 @@
     "caveats": "Readings are probabilistic reconstructions from a learned ink signal, not photographs of text: characters come with varying confidence and papyrologists supply conventional editorial restoration on top. The project's papyrology team reviews prize submissions, but that team is part of the challenge rather than an outside body, and no peer-reviewed critical edition of PHerc. 1667 had appeared when this entry was written, hence author-verified rather than independent. The attribution to Philodemus rests on a title read in a different scroll.",
     "sources": [
       {
+        "label": "Complete virtual unwrapping and reading of a rolled Herculaneum papyrus",
+        "url": "https://arxiv.org/abs/2606.29085",
+        "kind": "research"
+      },
+      {
         "label": "Vesuvius Challenge: An entire Herculaneum scroll has been read for the first time",
-        "url": "https://scrollprize.org/firstscroll"
+        "url": "https://scrollprize.org/firstscroll",
+        "kind": "announcement"
       },
       {
         "label": "Vesuvius Challenge",
-        "url": "https://scrollprize.org/"
+        "url": "https://scrollprize.org/",
+        "kind": "announcement"
       }
     ],
     "tags": [

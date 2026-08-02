@@ -38,7 +38,7 @@ data/entries.json ──► build.py ──► index.html (entries, stats, filte
                                    llms.txt  sitemap.xml  feed.xml  feed.json
 
 data/vocab.json   ──► build.py ──► app.js label tables
-                                   methodology.html    the two grade lists
+                                   methodology.html    the two grade lists + source kinds
                                    llms.txt            the grading scales
                                    docs/entry.schema.json
                                    ClaimReview ratings on every finding page
@@ -50,13 +50,26 @@ data/vocab.json   ──► build.py ──► app.js label tables
 keep in step by hand.
 
 `data/vocab.json` holds the grading vocabulary: the slug, label, short description, full
-definition and schema.org rating for every `verification` and `autonomy` grade, plus the `field`
-display names. It used to be restated in six places by hand; now a label or definition is edited
-once and the build propagates it.
+definition and schema.org rating for every `verification` and `autonomy` grade, the `field`
+display names, and the `source_kinds` classification. It used to be restated in six places by
+hand; now a label or definition is edited once and the build propagates it.
 
 Each entry carries two grades: `verification` (how solid the result is, `formal` to `refuted`) and
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
 rules are in [docs/SCHEMA.md](docs/SCHEMA.md).
+
+Every source also carries a `kind`, so the registry keeps the result apart from the claim made
+about it: `research` (the paper, proof, code or data), `announcement` (the claim as first made
+public, by whoever made it), `coverage` (press reporting), `commentary` (an independent write-up)
+and `challenge` (the case against). The kind describes what a link *does*, never who published
+it — a lone researcher announcing their own result is an `announcement` exactly as a corporate
+press release is. Each card shows these as labelled rows, so the distance between a result and a
+headline is visible without opening anything, and an entry nobody has argued against says
+`Challenge: none linked` rather than staying silent about it.
+
+This is also what makes editorial rule 4 checkable. **An entry graded above `claimed` must link at
+least one `research` source, and the build fails if it does not.** The rule predates the check; when
+the check first ran, nine entries turned out to be resting on a press release or a magazine feature.
 
 Every finding page carries two prefilled issue links: **Submit a check** and **Challenge the
 grade**. An entry nobody has checked leads with the check, since the open question is whether
@@ -84,9 +97,11 @@ and each finding also has its own URL for citation.
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
-grade, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, or a non-`http(s)`
-URL. `javascript:` and `data:` links are rejected outright: entry URLs become `href`s on the page,
-and the CSP allows `'unsafe-inline'`, so they would be live.
+grade, an unknown source `kind`, a malformed date, a duplicate or non-URL-safe `id`, a bad
+`youtube_id`, or a non-`http(s)` URL. `javascript:` and `data:` links are rejected outright: entry
+URLs become `href`s on the page, and the CSP allows `'unsafe-inline'`, so they would be live. One
+editorial rule is enforced here too, rather than left to review: a grade above `claimed` with no
+`research` source fails, naming the entry and both remedies (link the artifact, or downgrade).
 
 `check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
 inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
@@ -97,6 +112,9 @@ overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
+The `DOMAIN_NAME` table is duplicated the same way and for the same reason: the labelled source rows
+on a card show a publisher name rather than a link title, so a source from a host with no entry in
+that table renders as a bare domain. Adding one means adding it to both files.
 
 Two scripts are deliberately *not* part of every build, because they hit the network or need a
 renderer the rest of the toolchain does not:
@@ -120,7 +138,7 @@ anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, 
 ```
 whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
-├── methodology.html        # grading reference (grade lists generated from vocab.json)
+├── methodology.html        # grading reference (grade lists + source kinds from vocab.json)
 ├── review.html             # open review queue (generated from entries with no checks)
 ├── contributors.html       # contributor roll (generated from reviewers/contributors + CITATION.cff)
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
@@ -128,7 +146,7 @@ whataifound/
 ├── styles.css              # all styles
 ├── app.js                  # render, filter, charts, theme (label tables generated)
 ├── data/entries.json       # the registry, the only file you edit by hand
-├── data/vocab.json         # the grading vocabulary; both scales are generated from it
+├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── sitemap.xml             # generated

@@ -123,15 +123,7 @@
         "appearance": [
           {
             "@type": "CreativeWork",
-            "url": "https://www.science.org/doi/10.1126/science.adi2336"
-          },
-          {
-            "@type": "CreativeWork",
             "url": "https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/"
-          },
-          {
-            "@type": "CreativeWork",
-            "url": "https://github.com/google-deepmind/weathernext"
           }
         ]
       },
@@ -220,8 +212,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Machine-learning weather models existed before (FourCastNet, Pangu-Weather), and Pangu had already reported beating HRES on some measures. GraphCast's contribution is the breadth of the win across variables and lead times, at operational resolution, with public code. That is what moved national weather services to adopt learned models.</p>
   <h2 class="lbl">Caveats</h2>
   <p>GraphCast is trained on ECMWF reanalysis and initialised from ECMWF analyses, so it depends on the physics-based system it is measured against rather than replacing it. Deterministic models trained on a mean-squared-error objective blur fine structure and underestimate extremes such as peak cyclone intensity. It has no conservation guarantees and cannot forecast anything outside its trained variables. Later ensemble models such as GenCast address part of this.</p>
-  <h2 class="lbl">Sources</h2>
-  <div class="refs"><a class="ref" href="https://www.science.org/doi/10.1126/science.adi2336" target="_blank" rel="noopener"><span class="ref-dom">science.org</span><span class="ref-t">Science: Learning skillful medium-range global weather forecasting</span><span class="ref-a">↗</span></a><a class="ref" href="https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">GraphCast, AI model for faster and more accurate global weather forecasting</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/weathernext" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">GraphCast code and weights (google-deepmind/weathernext)</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl">Original work</h2>
+  <div class="refs"><a class="ref" href="https://www.science.org/doi/10.1126/science.adi2336" target="_blank" rel="noopener"><span class="ref-dom">Science</span><span class="ref-t">Learning skillful medium-range global weather forecasting</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/weathernext" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">GraphCast code and weights (google-deepmind/weathernext)</span><span class="ref-a">↗</span></a></div>
+  <h2 class="lbl">Announcement</h2>
+  <div class="refs"><a class="ref" href="https://deepmind.google/blog/graphcast-ai-model-for-faster-and-more-accurate-global-weather-forecasting/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">GraphCast, AI model for faster and more accurate global weather forecasting</span><span class="ref-a">↗</span></a></div>
 
   <h2 class="lbl">How this is graded</h2>
   <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and

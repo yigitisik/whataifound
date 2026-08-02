@@ -38,6 +38,21 @@ const AUT_RANK = {
   "search-scaffold":1,
   "retrieval":0
 };
+const SRC_LABEL = {
+  "research":"Original work",
+  "announcement":"Announcement",
+  "coverage":"Media coverage",
+  "commentary":"Independent commentary",
+  "challenge":"Challenge"
+};
+const SRC_CHIP = {
+  "research":"Original work",
+  "announcement":"Announced",
+  "coverage":"Media",
+  "commentary":"Commentary",
+  "challenge":"Challenge"
+};
+const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challenge"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -112,7 +127,22 @@ const DOMAIN_NAME = {
   'ncbi.nlm.nih.gov':'NIH PMC','techcrunch.com':'TechCrunch','the-decoder.com':'The Decoder',
   'unite.ai':'Unite.AI','hackmd.io':'HackMD','allthings.how':'AllThings.how',
   'turingpost.com':'Turing Post','techjacksolutions.com':'Tech Jacks',
-  'nobelprize.org':'Nobel Prize','actu.epfl.ch':'EPFL','storage.googleapis.com':'DeepMind'
+  'nobelprize.org':'Nobel Prize','actu.epfl.ch':'EPFL','storage.googleapis.com':'DeepMind',
+  // The card face shows this name instead of the link title, so an unmapped host renders
+  // as a raw domain there. Keep in step with DOMAIN_NAME in build-site.py.
+  'science.org':'Science','biorxiv.org':'bioRxiv','cell.com':'Cell',
+  'pmc.ncbi.nlm.nih.gov':'NIH PMC','iopscience.iop.org':'IOP',
+  'pubs.rsc.org':'Materials Horizons','blog.google':'Google','microsoft.com':'Microsoft',
+  'nasa.gov':'NASA','nih.gov':'NIH','news.mit.edu':'MIT News','ox.ac.uk':'Oxford',
+  'engineering.princeton.edu':'Princeton','sakana.ai':'Sakana AI',
+  'arcinstitute.org':'Arc Institute','bakerlab.org':'Baker Lab',
+  'evolutionaryscale.ai':'EvolutionaryScale','insilico.com':'Insilico','math.inc':'Math Inc.',
+  'flywire.ai':'FlyWire','scrollprize.org':'Vesuvius Challenge','asimov.press':'Asimov Press',
+  'physicsworld.com':'Physics World','sciencedaily.com':'ScienceDaily',
+  'officechai.com':'OfficeChai','x.com':'X','scottaaronson.blog':'Scott Aaronson',
+  'terrytao.wordpress.com':'Terence Tao','xenaproject.wordpress.com':'Kevin Buzzard',
+  'simonwillison.net':'Simon Willison','alexisgallagher.com':'Alexis Gallagher',
+  'jacobianfun.org':'jacobianfun.org'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }
@@ -125,6 +155,45 @@ function refRow(s){
   if (i > 0 && label.slice(0,i).trim().toLowerCase() === dom.toLowerCase()) label = label.slice(i+2);
   return `<a class="ref" href="${esc(s.url)}" target="_blank" rel="noopener">`+
     `<span class="ref-dom">${esc(dom)}</span><span class="ref-t">${esc(label)}</span><span class="ref-a">↗</span></a>`;
+}
+
+// The card face: what each link is, without opening the disclosure. This is the whole
+// point of classifying sources - the distance between a result and a headline lives in
+// the gap between these rows, and a reader who has to click to see it will not.
+const RECEIPT_MAX = 3;
+function receipts(e){
+  const src = e.sources || [];
+  const rows = SRC_ORDER.map(kind => {
+    const of = src.filter(s => s.kind === kind);
+    // A missing challenge is the one absence worth stating: most of the registry has
+    // none, and rendering nothing would quietly read as "nothing to answer here".
+    if (!of.length) return kind === 'challenge'
+      ? `<div class="rc-row"><dt class="rc-k">${esc(SRC_CHIP[kind])}</dt>`+
+        `<dd class="rc-v rc-none">none linked</dd></div>` : '';
+    // Visible text is the domain, which is short enough to fit several per row but
+    // says nothing on its own - and two papers from the same host would otherwise
+    // render as two identical words. The full title carries the meaning, so it
+    // becomes the accessible name and the hover text.
+    const shown = of.slice(0, RECEIPT_MAX).map(s =>
+      `<a class="rc-l" href="${esc(s.url)}" target="_blank" rel="noopener" `+
+      `title="${esc(s.label)}" aria-label="${esc(s.label)}">${esc(domainOf(s.url))}`+
+      `<span class="rc-a" aria-hidden="true">↗</span></a>`).join('');
+    const extra = of.length > RECEIPT_MAX
+      ? `<span class="rc-more">+${of.length - RECEIPT_MAX}</span>` : '';
+    return `<div class="rc-row"><dt class="rc-k">${esc(SRC_CHIP[kind])}</dt>`+
+           `<dd class="rc-v">${shown}${extra}</dd></div>`;
+  }).join('');
+  return rows ? `<dl class="receipts">${rows}</dl>` : '';
+}
+
+// The same links inside the disclosure, grouped and with their full titles.
+function groupedRefs(src){
+  return SRC_ORDER.map(kind => {
+    const of = (src || []).filter(s => s.kind === kind);
+    if (!of.length) return '';
+    return `<div class="field reveal"><b>${esc(SRC_LABEL[kind])}</b>`+
+           `<div class="refs">${of.map(refRow).join('')}</div></div>`;
+  }).join('');
 }
 
 // Derived, never stored: how long the problem stood before this result.
@@ -175,12 +244,13 @@ function card(e){
       ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
       ${e.humans?.length ? `<p class="withppl"><span>With</span><b>${esc(e.humans.join(', '))}</b></p>` : ''}
       ${e.tags?.length ? `<div class="tags">${e.tags.map(t=>`<span class="tag-chip">${esc(t)}</span>`).join('')}</div>` : ''}
+      ${receipts(e)}
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         ${f('Novelty check', e.novelty_check)}
         ${f('Caveats', e.caveats)}
         ${checks ? `<div class="field checks reveal"><b>Independent checks</b>${checks}</div>` : ''}
-        ${e.sources?.length ? `<div class="field reveal"><b>Sources</b>${refs(e.sources)}</div>` : ''}
+        ${groupedRefs(e.sources)}
         ${e.discussion?.length ? `<div class="field reveal"><b>Community discussion</b>${refs(e.discussion)}</div>` : ''}
         ${e.videos?.length ? `<div class="field reveal"><b>Video explainers</b>
           ${e.videos.map(v=>`<div class="vid" data-yt="${esc(v.youtube_id)}">

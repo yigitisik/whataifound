@@ -6,7 +6,13 @@
     "Edit a label or definition here and run scripts/build.py; nothing else needs touching.",
     "Adding or removing a grade is a code change, not an entry change: it also needs a",
     "v-<slug> pill colour in styles.css, which the build will tell you about.",
-    "Array order is display order (strongest to weakest / most to least AI-driven)."
+    "Array order is display order (strongest to weakest / most to least AI-driven).",
+    "",
+    "source_kinds is not a third grade. It classifies a *link*, not a result: nothing",
+    "scores or ranks an entry by it. The categories describe the role a link plays and",
+    "never who published it - a lone researcher announcing their own result on X is an",
+    "announcement exactly as a corporate press release is. Medium is irrelevant; who is",
+    "speaking, and what they are doing, is the whole question."
   ],
   "verification": [
     {
@@ -110,6 +116,43 @@
       "label": "Retrieval",
       "short": "the AI located an existing result rather than producing a new one",
       "definition": "The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics."
+    }
+  ],
+  "source_kinds": [
+    {
+      "slug": "research",
+      "label": "Original work",
+      "chip": "Original work",
+      "short": "the paper, proof, code or data itself",
+      "definition": "The work itself: a paper, preprint, formal proof, dataset or code repository - something a reader can open and check. Not what was said about the work, but the work. Any grade stronger than Claimed has to rest on one of these."
+    },
+    {
+      "slug": "announcement",
+      "label": "Announcement",
+      "chip": "Announced",
+      "short": "the claim as first made public, by whoever made it",
+      "definition": "The claim as first made public by the people behind it - a company press release, a research blog post, or an individual's own post on a personal site or social media. What matters is that it is first-party, not that an organisation published it: a single researcher announcing their own result belongs here. This is the claim framed by the people with the most at stake in it."
+    },
+    {
+      "slug": "coverage",
+      "label": "Media coverage",
+      "chip": "Media",
+      "short": "news and press reporting on the claim",
+      "definition": "News and press reporting written by journalists rather than by the people who did the work. Coverage restates a result for a general audience, and the restatement is often where it acquires a stronger meaning than its authors gave it."
+    },
+    {
+      "slug": "commentary",
+      "label": "Independent commentary",
+      "chip": "Commentary",
+      "short": "analysis by someone not involved",
+      "definition": "An independent write-up by someone who neither produced the result nor is reporting it as news - a researcher's blog post, an expert explainer, a detailed thread. Often the most informative link on an entry. It may support the claim, complicate it, or both; commentary arguing the result is wrong is a challenge instead."
+    },
+    {
+      "slug": "challenge",
+      "label": "Challenge",
+      "chip": "Challenge",
+      "short": "the case against the claim",
+      "definition": "The case against: a critical review, a rebuttal, a failed replication, or a citation of prior work showing the result was already known. The strongest challenge is listed first. A challenge disputes the claim, not the people who made it."
     }
   ],
   "fields": {

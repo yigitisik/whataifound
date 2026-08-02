@@ -537,6 +537,32 @@
   .ref-t{flex:1;font-family:var(--serif);font-size:.77rem;line-height:1.42;color:var(--ink)}
   .ref-a{flex:0 0 auto;color:var(--muted);font-size:.78rem}
 
+  /* Explains the labelled rows below, once, above the list. */
+  .srclegend{margin:0 0 14px;padding:11px 14px;border:1px solid var(--line);border-radius:12px;
+    background:var(--panel-2);font-family:var(--serif);font-size:.8rem;line-height:1.5;
+    color:var(--muted);max-width:80ch}
+  .srclegend b{color:var(--ink);font-weight:600}
+  .srclegend a{color:var(--accent);text-decoration:none;white-space:nowrap}
+  .srclegend a:hover{text-decoration:underline}
+
+  /* ---------- Receipts: what each link is, on the card face ----------
+     The separation between the work, the claim about it, and the case against is the
+     point of the registry, so it sits above the disclosure rather than inside it.
+     Label column matches .ref-dom's width so the two blocks line up when both show. */
+  .receipts{margin:13px 0 0;padding-top:11px;border-top:1px solid var(--line)}
+  .rc-row{display:flex;align-items:baseline;gap:12px;padding:2px 0}
+  .rc-k{flex:0 0 104px;font-family:var(--serif);font-size:.62rem;font-weight:600;
+    text-transform:uppercase;letter-spacing:.09em;color:var(--muted);white-space:nowrap}
+  .rc-v{margin:0;flex:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
+  .rc-l{font-family:var(--serif);font-size:.76rem;color:var(--accent);text-decoration:none;
+    white-space:nowrap;border-bottom:1px solid transparent;transition:border-color .14s var(--ease)}
+  .rc-l:hover{border-bottom-color:var(--accent)}
+  .rc-a{font-size:.66rem;opacity:.6;margin-left:3px}
+  .rc-more{font-family:var(--serif);font-size:.72rem;color:var(--muted)}
+  /* An unchallenged entry states so. Muted and unlinked: it is a fact about the
+     record, not something to click. */
+  .rc-none{color:var(--muted);font-family:var(--serif);font-size:.74rem;font-style:italic}
+
   /* ---------- Video facades (nothing loads from YouTube until pressed) ---------- */
   .vid{display:flex;align-items:center;gap:13px;padding:10px 11px;border:1px solid var(--line);
     border-radius:12px;margin:6px 0;background:var(--panel-2);transition:border-color .15s}
@@ -735,6 +761,7 @@
     .rpills{flex-direction:row;flex-wrap:wrap}
     .rmeta{flex-flow:row wrap;gap:8px 18px}
     .ref-dom{flex-basis:84px}
+    .rc-k{flex-basis:84px}
   }
   @media(max-width:560px){
     header{margin:8px 0 20px;padding:24px 18px 22px;border-radius:14px}
@@ -749,6 +776,10 @@
     .controls select{flex:1 1 30%;min-width:0}
     .count{margin-left:0;flex:1 1 100%;text-align:right}
     .ref{gap:9px} .ref-dom{flex-basis:74px}
+    /* Below this the label column would squeeze the links to one per line, so stack
+       instead: label above, links wrapping under it. */
+    .rc-row{flex-direction:column;gap:1px;padding:4px 0}
+    .rc-k{flex-basis:auto}
     .hbar{grid-template-columns:94px 1fr 22px;gap:8px}
     .labcard{padding:15px 16px}
     .labs-hub{padding:24px 18px}

@@ -110,6 +110,14 @@ VER_RATING = {v["slug"]: (v["rating"], v["rating_label"]) for v in VER}
 # "computer-science" into a headline.
 FIELD_LABEL = VOCAB["fields"]
 
+# What each source link is: the original work, the claim about it, or the case against.
+# Not a grade - see the note in vocab.json. Array order is display order, and it is the
+# order the rows appear in on a card, so it reads original work -> claim -> pushback.
+SRC = VOCAB["source_kinds"]
+SRC_ORDER = [k["slug"] for k in SRC]
+SRC_LABEL = {k["slug"]: k["label"] for k in SRC}
+SRC_CHIP = {k["slug"]: k["chip"] for k in SRC}
+
 LAB_LOGO = {
     "Anthropic": "assets/external-logos/anthropic.svg",
     "OpenAI": "assets/external-logos/openai.svg",
@@ -132,6 +140,24 @@ DOMAIN_NAME = {
     "allthings.how": "AllThings.how", "turingpost.com": "Turing Post",
     "techjacksolutions.com": "Tech Jacks", "nobelprize.org": "Nobel Prize",
     "actu.epfl.ch": "EPFL", "storage.googleapis.com": "DeepMind",
+    # The card face shows this name instead of the link title, so an unmapped host
+    # renders as a raw domain there and looks broken. Every host in entries.json
+    # needs a line; the build warns when one is missing.
+    "science.org": "Science", "biorxiv.org": "bioRxiv", "cell.com": "Cell",
+    "pmc.ncbi.nlm.nih.gov": "NIH PMC", "iopscience.iop.org": "IOP",
+    "pubs.rsc.org": "Materials Horizons", "blog.google": "Google",
+    "microsoft.com": "Microsoft", "nasa.gov": "NASA", "nih.gov": "NIH",
+    "news.mit.edu": "MIT News", "ox.ac.uk": "Oxford",
+    "engineering.princeton.edu": "Princeton", "sakana.ai": "Sakana AI",
+    "arcinstitute.org": "Arc Institute", "bakerlab.org": "Baker Lab",
+    "evolutionaryscale.ai": "EvolutionaryScale", "insilico.com": "Insilico",
+    "math.inc": "Math Inc.", "flywire.ai": "FlyWire", "scrollprize.org": "Vesuvius Challenge",
+    "asimov.press": "Asimov Press", "physicsworld.com": "Physics World",
+    "sciencedaily.com": "ScienceDaily", "officechai.com": "OfficeChai",
+    "x.com": "X", "scottaaronson.blog": "Scott Aaronson",
+    "terrytao.wordpress.com": "Terence Tao", "xenaproject.wordpress.com": "Kevin Buzzard",
+    "simonwillison.net": "Simon Willison", "alexisgallagher.com": "Alexis Gallagher",
+    "jacobianfun.org": "jacobianfun.org",
 }
 
 
@@ -214,6 +240,50 @@ def ref_row(s):
     return (f'<a class="ref" href="{esc(s.get("url"))}" target="_blank" rel="noopener">'
             f'<span class="ref-dom">{esc(dom)}</span><span class="ref-t">{esc(label)}</span>'
             f'<span class="ref-a">↗</span></a>')
+
+
+# --- port of receipts() and groupedRefs() in app.js. Keep the markup identical;
+# verify-parity.py diffs the two and fails the build on any drift.
+RECEIPT_MAX = 3
+
+
+def receipts(e):
+    """The card face: what each link is, without opening the disclosure."""
+    src = e.get("sources") or []
+    rows = ""
+    for kind in SRC_ORDER:
+        of = [s for s in src if s.get("kind") == kind]
+        if not of:
+            # A missing challenge is the one absence worth stating.
+            if kind == "challenge":
+                rows += (f'<div class="rc-row"><dt class="rc-k">{esc(SRC_CHIP[kind])}</dt>'
+                         f'<dd class="rc-v rc-none">none linked</dd></div>')
+            continue
+        # Visible text is the domain; the full title becomes the accessible name and
+        # hover text, so two papers from the same host are still tellable apart.
+        shown = "".join(
+            f'<a class="rc-l" href="{esc(s.get("url"))}" target="_blank" rel="noopener" '
+            f'title="{esc(s.get("label"))}" aria-label="{esc(s.get("label"))}">'
+            f'{esc(domain_of(s.get("url", "")))}'
+            f'<span class="rc-a" aria-hidden="true">↗</span></a>'
+            for s in of[:RECEIPT_MAX])
+        extra = (f'<span class="rc-more">+{len(of) - RECEIPT_MAX}</span>'
+                 if len(of) > RECEIPT_MAX else "")
+        rows += (f'<div class="rc-row"><dt class="rc-k">{esc(SRC_CHIP[kind])}</dt>'
+                 f'<dd class="rc-v">{shown}{extra}</dd></div>')
+    return f'<dl class="receipts">{rows}</dl>' if rows else ""
+
+
+def grouped_refs(src):
+    """The same links inside the disclosure, grouped and with their full titles."""
+    out = ""
+    for kind in SRC_ORDER:
+        of = [s for s in (src or []) if s.get("kind") == kind]
+        if not of:
+            continue
+        out += (f'<div class="field reveal"><b>{esc(SRC_LABEL[kind])}</b>'
+                f'<div class="refs">{"".join(ref_row(s) for s in of)}</div></div>')
+    return out
 
 
 def page_nav(current):
@@ -315,8 +385,7 @@ def card(e):
     detail = f'<p class="detail">{esc(e["detail"])}</p>' if e.get("detail") else ""
     checks_block = (f'<div class="field checks reveal"><b>Independent checks</b>{checks}</div>'
                     if checks else "")
-    sources_block = (f'<div class="field reveal"><b>Sources</b>{refs(e["sources"])}</div>'
-                     if e.get("sources") else "")
+    sources_block = grouped_refs(e.get("sources"))
     disc_block = (f'<div class="field reveal"><b>Community discussion</b>{refs(e["discussion"])}</div>'
                   if e.get("discussion") else "")
 
@@ -358,6 +427,7 @@ def card(e):
       {detail}
       {humans}
       {tags}
+      {receipts(e)}
       <details>
         <summary>Novelty check, caveats &amp; sources</summary>
         {f("Novelty check", e.get("novelty_check"))}
@@ -559,8 +629,12 @@ def claim_review(e, url):
             "name": e["title"],
             "author": {"@type": "Organization", "name": author},
             "datePublished": e.get("date"),
+            # Where the claim was *made*, which is what schema.org means by appearance:
+            # the announcement and the reporting of it. A rebuttal is not an appearance
+            # of the claim, and listing one here told an answer engine the opposite.
             "appearance": [{"@type": "CreativeWork", "url": s["url"]}
-                           for s in (e.get("sources") or []) if s.get("url")],
+                           for s in (e.get("sources") or [])
+                           if s.get("url") and s.get("kind") in ("announcement", "coverage")],
         },
         "reviewRating": {
             "@type": "Rating",
@@ -709,10 +783,15 @@ def entry_page(e):
     def section(title, body):
         return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
 
+    # Grouped by what each link is, and uncapped: the finding page is the citable
+    # record, so it shows every source rather than the card's first three per kind.
     sources = ""
-    if e.get("sources"):
-        sources = ('\n  <h2 class="lbl">Sources</h2>\n  <div class="refs">'
-                   + "".join(ref_row(s) for s in e["sources"]) + "</div>")
+    for kind in SRC_ORDER:
+        of = [s for s in (e.get("sources") or []) if s.get("kind") == kind]
+        if not of:
+            continue
+        sources += (f'\n  <h2 class="lbl">{esc(SRC_LABEL[kind])}</h2>\n  <div class="refs">'
+                    + "".join(ref_row(s) for s in of) + "</div>")
     discussion = ""
     if e.get("discussion"):
         discussion = ('\n  <h2 class="lbl">Community discussion</h2>\n  <div class="refs">'
@@ -949,8 +1028,17 @@ def build_app_js():
         rows = ",".join(f"\n  {json.dumps(k)}:{v}" for k, v in mapping.items())
         return f"const {name} = {{{rows}\n}};"
 
+    def chips(name, items):
+        rows = ",".join(f"\n  {json.dumps(i['slug'])}:{json.dumps(i['chip'])}"
+                        for i in items)
+        return f"const {name} = {{{rows}\n}};"
+
     payload = ("\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
-               + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n")
+               + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n"
+               # card() needs both forms: `chip` for the narrow card-face column and
+               # `label` for the group headings inside the disclosure.
+               + table("SRC_LABEL", SRC) + "\n" + chips("SRC_CHIP", SRC) + "\n"
+               + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
                  "vocabulary tables", "app.js")
 
@@ -1036,6 +1124,23 @@ def build_review(entries):
     if small:
         small = ('<div class="q-head"><h2>Smaller gaps</h2>'
                  '<p>Single facts, no judgment about evidence needed.</p></div>' + small)
+
+    # Entries nobody has cited a counterargument for. Deliberately its own section rather
+    # than part of the queue above: this affects most of the registry, and folding it in
+    # would drown the verification queue in exactly the way the SMALL gaps were kept out.
+    # It is also not a "smaller gap" - finding the strongest objection takes judgment.
+    nochallenge = [e for e in entries
+                   if not any(s.get("kind") == "challenge" for s in (e.get("sources") or []))]
+    if nochallenge:
+        links = " ".join(f'<a href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
+                         for e in nochallenge[:8])
+        more = (f' <span class="c-more">and {len(nochallenge) - 8} more</span>'
+                if len(nochallenge) > 8 else "")
+        small += ('<div class="q-head"><h2>No challenge linked <b>'
+                  f'{len(nochallenge)}</b></h2><p>Nobody has cited a rebuttal, a critical '
+                  'review, or prior work. An entry with no challenge is not necessarily '
+                  'unchallenged &mdash; it may just be unexamined.</p></div>'
+                  f'<div class="q-small"><p class="q-small-links">{links}{more}</p></div>')
 
     summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
                f'independent check.</p>')
@@ -1179,10 +1284,17 @@ def build_methodology():
         f'        <p class="meth-def">{esc(a["definition"])}</p></div>'
         for a in AUT)
 
+    srcs = "\n      ".join(
+        f'<div class="meth-row"><span class="meth-term">{esc(k["label"])}</span>\n'
+        f'        <p class="meth-def">{esc(k["definition"])}</p></div>'
+        for k in SRC)
+
     src = inject(src, "<!--VERDEFS:START-->", "<!--VERDEFS:END-->", ver,
                  "verification definitions", "methodology.html")
     src = inject(src, "<!--AUTDEFS:START-->", "<!--AUTDEFS:END-->", aut,
                  "autonomy definitions", "methodology.html")
+    src = inject(src, "<!--SRCDEFS:START-->", "<!--SRCDEFS:END-->", srcs,
+                 "source kind definitions", "methodology.html")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1292,6 +1404,14 @@ def check_urls(e, where, problems):
                     f"{where}: {field} URL {url!r} is not an http(s) link. "
                     "javascript:, data: and other schemes are rejected because they "
                     "become executable links on the page.")
+    # What each source is: the work itself, the claim made about it, or the case
+    # against. The card groups by this, so an unknown value would silently drop a
+    # link off the face of the entry rather than render wrongly.
+    for i, s in enumerate(e.get("sources") or []):
+        kind = s.get("kind")
+        if kind is not None and kind not in SRC_LABEL:
+            problems.append(f"{where}: sources[{i}] has unknown kind {kind!r} "
+                            f"(expected one of: {', '.join(SRC_ORDER)})")
     for v in (e.get("videos") or []):
         # Interpolated into a youtube-nocookie iframe src and a watch?v= link.
         if not re.fullmatch(r"[A-Za-z0-9_-]{11}", str(v.get("youtube_id", ""))):
@@ -1326,6 +1446,21 @@ def validate_vocab():
                 problems.append(f"{where}: missing 'rating_label'")
             if axis == "verification" and not isinstance(item.get("rating"), int):
                 problems.append(f"{where}: 'rating' must be an integer 1-5")
+
+    # Source kinds carry a second label: `chip` is the short form for the card-face
+    # row, where the column is ~104px, and `label` is the group heading. A kind
+    # missing either renders as a blank cell rather than an error, so it is caught here.
+    src_seen = set()
+    for i, item in enumerate(VOCAB.get("source_kinds") or []):
+        where = f"vocab.json source_kinds[{i}]"
+        for key in ("slug", "label", "chip", "short", "definition"):
+            if not item.get(key):
+                problems.append(f"{where}: missing '{key}'")
+        if item.get("slug") in src_seen:
+            problems.append(f"{where}: duplicate slug '{item.get('slug')}'")
+        src_seen.add(item.get("slug"))
+    if not VOCAB.get("source_kinds"):
+        problems.append("vocab.json: 'source_kinds' is missing or empty")
 
     css_path = os.path.join(ROOT, "styles.css")
     if os.path.exists(css_path):
@@ -1397,6 +1532,18 @@ def validate(entries):
                 elif "url" in p:
                     problems.append(f"{where}: {field}[{i}] has a 'url'; use "
                                     "'github' (a handle) instead")
+        # Editorial rule 4: a claim with no reproducible artifact caps at `claimed`.
+        # Stated in docs/SCHEMA.md since the registry began, but unenforceable until
+        # sources carried a kind - at which point nine entries turned out to be graded
+        # on a press release or a magazine feature alone.
+        ver = e.get("verification")
+        if (ver in VER_SCORE and VER_SCORE[ver] > 1
+                and not any(s.get("kind") == "research" for s in (e.get("sources") or []))):
+            kinds = sorted({s.get("kind") for s in (e.get("sources") or []) if s.get("kind")})
+            problems.append(
+                f"{where}: verification '{ver}' needs a source with kind 'research'; only "
+                f"{'/'.join(kinds) or 'unclassified'} links are present. Add the original "
+                "work, or downgrade to 'claimed'.")
         eid = e.get("id")
         if eid:
             # The id becomes a filename and a URL path segment.

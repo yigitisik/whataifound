@@ -16,7 +16,7 @@ else (site, search, company pages) is a rendering of it.
 | `model` | string | Model + version. `Unknown` if not disclosed |
 | `verification` | enum | See below |
 | `autonomy` | enum | See below |
-| `sources` | array | `{label, url}`. At least one primary source. `url` must be `http(s)` |
+| `sources` | array | `{label, url, kind}`. At least one `research` source for any grade above `claimed`. `url` must be `http(s)`. See [source kinds](#sources-what-each-link-is) |
 | `added` | string | ISO date this entry was added to the registry |
 
 ## Optional fields
@@ -42,6 +42,35 @@ else (site, search, company pages) is a rendering of it.
 turns it into a link; a `url` key is rejected so there is no free-form scheme to smuggle. Both
 render on the finding page and aggregate on
 [whataifound.org/contributors](https://whataifound.org/contributors).
+
+## `sources`: what each link is
+
+Every source carries a `kind`. The registry's job is to keep the result apart from the claim made
+about it, and an unlabelled list of links cannot do that: a paper, a press release and a rebuttal
+look identical in it.
+
+**The kind describes the role the link plays, never who published it.** A lone researcher announcing
+their own result on X is an `announcement` exactly as a corporate press release is. Medium is
+irrelevant: an X post can be an announcement, commentary or a challenge depending on who is speaking
+and what they are doing. The reliable test for first-party is whether the author appears in the
+entry's `humans`, or works for its `lab`.
+
+- **`research`**: The work itself — paper, preprint, formal proof, dataset or code repository.
+  Something a reader can open and check. **Any grade stronger than `claimed` requires one**; the
+  build enforces this.
+- **`announcement`**: The claim as first made public by the people behind it — press release,
+  research blog post, or an individual's own post. The claim framed by those with the most at stake.
+- **`coverage`**: News and press reporting, written by journalists rather than by the people who did
+  the work.
+- **`commentary`**: An independent write-up by someone who neither produced the result nor is
+  reporting it as news. May support the claim, complicate it, or both.
+- **`challenge`**: The case against — a critical review, rebuttal, failed replication, or prior work
+  showing the result was already known.
+
+Order within a kind is significance order, most authoritative first; the "strongest counterargument"
+is simply the first `challenge`. The registry card shows the first three of each kind and then `+N`;
+the finding page shows all of them. There is no cap in the data — never drop a link someone did the
+work to find.
 
 ## `verification`: how solid is it?
 
@@ -81,7 +110,8 @@ This column is the whole point. Most breathless claims collapse here.
    comes back clean. This field is what separates the registry from a press-release aggregator.
 2. **Never delete an entry.** Downgrade its `verification` and add `caveats`. The public git
    history is the credibility mechanism; quiet edits destroy it.
-3. **A claim with no reproducible artifact caps at `claimed`.** No exceptions for famous labs.
+3. **A claim with no reproducible artifact caps at `claimed`.** No exceptions for famous labs. The
+   build enforces this: an entry graded above `claimed` with no `research` source fails validation.
 4. **Lab-announced results start at `claimed`** regardless of how confident the blog post sounds.
 5. **`autonomy` is graded on the strictest defensible reading.** When a human posed the problem,
    suggested the approach, and checked the algebra, that is not `autonomous`.
@@ -107,7 +137,8 @@ This column is the whole point. Most breathless claims collapse here.
   "wikipedia": "Jacobian conjecture",
   "verification": "formal",
   "autonomy": "collaborative",
-  "sources": [{"label": "Explainer", "url": "https://jacobianfun.org/jacobian-explained"}],
+  "sources": [{"label": "Explainer", "url": "https://jacobianfun.org/jacobian-explained",
+               "kind": "research"}],
   "added": "2026-07-20"
 }
 ```
