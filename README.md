@@ -62,7 +62,7 @@ Every source also carries a `kind`, so the registry keeps the result apart from 
 about it: `research` (the paper, proof, code or data), `announcement` (the claim as first made
 public, by whoever made it), `coverage` (press reporting), `commentary` (an independent write-up)
 and `challenge` (the case against). The kind describes what a link *does*, never who published
-it — a lone researcher announcing their own result is an `announcement` exactly as a corporate
+it: a lone researcher announcing their own result is an `announcement` exactly as a corporate
 press release is. Each card shows these as labelled rows, so the distance between a result and a
 headline is visible without opening anything, and an entry nobody has argued against says
 `Challenge: none linked` rather than staying silent about it.
@@ -104,7 +104,11 @@ editorial rule is enforced here too, rather than left to review: a grade above `
 `research` source fails, naming the entry and both remedies (link the artifact, or downgrade).
 
 `check-integrity.py` looks for unexpected inline scripts, script or frame origins outside the CSP,
-inline event handlers, executable URL schemes, and `<base>`/`<object>`/`<embed>`/`<form>`. It exists
+inline event handlers, executable URL schemes, `<base>`/`<object>`/`<embed>`/form elements, and one
+house-style rule: **no em dashes anywhere in the repository**, in prose, code comments or generated
+output. En dashes are untouched, because the registry is full of legitimate ones (`Navier-Stokes`,
+`2000-2022`, `protein-ligand` all use them correctly and a blanket sweep would corrupt content). It
+exists
 because part of `index.html` (the `<head>`, JSON-LD, nav, footer, script tags) sits outside the
 `<!--…:START/END-->` markers and is *not* regenerated, so a payload placed there would survive a
 rebuild and leave a clean diff. In CI it runs **before** the rebuild, which would otherwise
@@ -144,7 +148,8 @@ whataifound/
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── app.js                  # render, filter, charts, theme (label tables generated)
+├── app.js                  # registry page: URL state, search, filters, sort, table view, charts, theme
+├── entry.js                # finding pages only (~1 KB): the citation copy buttons
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
@@ -187,16 +192,40 @@ whataifound/
 
 No bundler, no runtime external requests. Three inline scripts in `index.html` (a theme initialiser
 that runs before first paint, plus the two Vercel analytics shims); everything else is static
-`styles.css` and `app.js`.
+`styles.css`, `app.js` and, on finding pages only, `entry.js`.
 
+- **Every view is a URL.** `q`, `field`, `lab`, `ver`, `aut`, `tag`, `sort` and `view` are read from
+  the query string on load and written back on every change, so a filtered registry can be linked,
+  bookmarked and stepped through with the back button. Typing replaces the history entry; a
+  dropdown, a tag or Clear all pushes one. This is also what makes the `SearchAction` in the page's
+  JSON-LD (`/?q={search_term_string}`) true rather than advertised.
+- **Search** runs over named fields (title, claim, detail, lab, model, humans, tags, novelty check,
+  caveats), not over `JSON.stringify(entry)`, so a common word no longer matches every entry through
+  a key or a URL. Matches are wrapped in `<mark>` by a DOM pass *after* render, deliberately outside
+  `card()`, which is parity-checked. Typing switches the sort to best-match unless one was chosen
+  deliberately.
+- **Two layouts.** Cards (pre-rendered, the default) or a sortable table of all 52 entries, stored in
+  `localStorage` beside the theme and mirrored to `?view=`. An explicit `?view=` in a shared link
+  wins for that visit without overwriting the reader's own preference.
+- Keyboard: `/` focuses search, `Esc` clears it, `?` opens a shortcut sheet (a native `<dialog>`).
+- Export: the CSV button writes the *current filtered view* client-side via a `Blob`, verified to
+  work under the production CSP. Finding pages carry BibTeX and plain-text citations, each with a
+  copy button that falls back to selecting the text where the clipboard API is unavailable.
 - Type: self-hosted Newsreader, 4 weights, no CDN.
 - Theme: dark by default; Light / System / Dark stored in `localStorage`. Switches via the View
-  Transitions API, with an instant fallback under `prefers-reduced-motion`.
+  Transitions API, with an instant fallback under `prefers-reduced-motion`. `color-scheme` is
+  declared per resolved theme, so native scrollbars and `<select>` dropdowns match the page.
 - Charts: built from the entries in plain HTML/CSS/SVG, no library.
-- Responsive from 320px; breakpoints at 560 and 720. `pointer: coarse` enlarges tap targets and
-  forces 16px inputs to stop iOS zoom-on-focus.
-- WCAG 2.1 AA: skip link, `role="search"`, live result count, `role="img"` chart labels, focus
-  rings, `prefers-contrast` and `prefers-reduced-motion` honoured.
+- Responsive from 320px; breakpoints at 560, 720 and 1180. The last one collapses the sticky filter
+  bar from two rows to one, which is worth a breakpoint because the bar is sticky. `pointer: coarse`
+  enlarges tap targets and forces 16px inputs to stop iOS zoom-on-focus.
+- Performance: `index.html` already contains all 52 entries, so `data/entries.json` is fetched on
+  idle (or on the first interaction, or immediately if the URL carries a filter) rather than on the
+  critical path. `content-visibility` skips layout for off-screen cards.
+- Print: a stylesheet that drops every control, forces disclosures open and prints link targets, so a
+  finding page saves to PDF as a citable document.
+- WCAG 2.1 AA: skip link, `role="search"`, live result count, `role="img"` chart labels, `aria-sort`
+  on table headers, focus rings, `prefers-contrast` and `prefers-reduced-motion` honoured.
 
 ## Deployment (Vercel)
 

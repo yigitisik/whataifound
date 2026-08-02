@@ -380,7 +380,8 @@ def card(e):
     humans = (f'<p class="withppl"><span>With</span><b>{esc(", ".join(e["humans"]))}</b></p>'
               if e.get("humans") else "")
     tags = ('<div class="tags">'
-            + "".join(f'<span class="tag-chip">{esc(t)}</span>' for t in e["tags"])
+            + "".join(f'<a class="tag-chip" href="/?tag={enc_uri_component(t)}">{esc(t)}</a>'
+                      for t in e["tags"])
             + "</div>") if e.get("tags") else ""
     detail = f'<p class="detail">{esc(e["detail"])}</p>' if e.get("detail") else ""
     checks_block = (f'<div class="field checks reveal"><b>Independent checks</b>{checks}</div>'
@@ -697,8 +698,118 @@ def entry_jsonld(e, url):
     }
 
 
+def bibtex_key(e):
+    """A stable, conventional citation key: firstauthorless, so lab-year-slug."""
+    org = re.sub(r"[^a-z0-9]+", "", hub_org(e.get("lab") or "").lower()) or "whataifound"
+    return f"whataifound-{org}-{str(e.get('date', ''))[:4]}-{e['id'].split('-')[-1]}"
+
+
+def citation_block(e, url):
+    """The prose citation, plus BibTeX and APA, each copyable in one click.
+
+    The registry exists to be cited, and until now the only citation on a finding page
+    was a sentence to select by hand. The <pre> blocks are the source of truth and stay
+    selectable, so with JavaScript off this degrades to exactly what was here before;
+    entry.js only adds the buttons.
+    """
+    year = str(e.get("date", ""))[:4]
+    title = e["title"]
+    lab = e.get("lab") or "Independent"
+    site = "whataifound.org: A Registry of AI Scientific and Mathematical Discoveries"
+
+    bib = (f"@misc{{{bibtex_key(e)},\n"
+           f"  title        = {{{title}}},\n"
+           f"  author       = {{{{whataifound.org}}}},\n"
+           f"  year         = {{{year}}},\n"
+           f"  howpublished = {{{site}}},\n"
+           f"  note         = {{Result by {lab}. Verification: "
+           f"{VER_LABEL.get(e['verification'], e['verification'])}. Autonomy: "
+           f"{AUT_LABEL.get(e['autonomy'], e['autonomy'])}.}},\n"
+           f"  url          = {{{url}}}\n"
+           f"}}")
+    apa = f"whataifound.org. ({year}). {title}. {site}. {url}"
+
+    def block(label, text, lang=""):
+        return (f'    <div class="cite-block">\n'
+                f'      <div class="cite-head"><span class="cite-label">{esc(label)}</span>'
+                f'<button type="button" class="cite-copy" data-copy>Copy</button></div>\n'
+                f'      <pre class="cite-pre"{lang}><code>{esc(text)}</code></pre>\n'
+                f'    </div>')
+
+    return ('  <h2 class="lbl">Cite this entry</h2>\n'
+            '  <div class="cites">\n'
+            + block("Plain text", apa) + "\n"
+            + block("BibTeX", bib) + "\n"
+            + '  </div>')
+
+
+def related(e, entries):
+    """Up to three other findings, ranked by shared tags then by field.
+
+    Every finding page was a dead end: 52 leaf pages with no route to a 53rd. These are
+    computed at build time from the data, so there is no list to maintain and no way for
+    them to point at an entry that no longer exists.
+    """
+    tags = set(e.get("tags") or [])
+    scored = []
+    for o in entries:
+        if o["id"] == e["id"]:
+            continue
+        shared = len(tags & set(o.get("tags") or []))
+        same_field = 1 if o.get("field") == e.get("field") else 0
+        if not shared and not same_field:
+            continue
+        # Sorted by shared tags, then same field, then recency, so the tie-break chain
+        # is total and the output is stable across rebuilds.
+        scored.append((-shared, -same_field, str(o.get("date", "")), o))
+    scored.sort(key=lambda t: (t[0], t[1], [-ord(c) for c in t[2]]))
+    return [t[3] for t in scored[:3]]
+
+
+def entry_nav(e, entries):
+    """Previous, next and related, rendered as one block at the foot of the page."""
+    i = next((n for n, o in enumerate(entries) if o["id"] == e["id"]), None)
+    if i is None:
+        return "", ""
+    # entries is newest-first, so the *next* one chronologically is the previous index.
+    newer = entries[i - 1] if i > 0 else None
+    older = entries[i + 1] if i + 1 < len(entries) else None
+
+    def step(o, label, arrow_left):
+        if not o:
+            return '<span class="pn-step pn-empty"></span>'
+        arrow = ('<span class="pn-arrow" aria-hidden="true">←</span>' if arrow_left else "")
+        after = ('<span class="pn-arrow" aria-hidden="true">→</span>' if not arrow_left else "")
+        return (f'<a class="pn-step" href="/finding/{esc(o["id"])}">'
+                f'<span class="pn-dir">{arrow}{esc(label)}{after}</span>'
+                f'<span class="pn-title">{esc(o["title"])}</span></a>')
+
+    rel = related(e, entries)
+    rel_html = ""
+    if rel:
+        cards = "".join(
+            f'<a class="rel-card" href="/finding/{esc(o["id"])}">'
+            f'<span class="rel-grade pill v v-{esc(o["verification"])}">'
+            f'{esc(VER_LABEL.get(o["verification"], o["verification"]))}</span>'
+            f'<span class="rel-title">{esc(o["title"])}</span>'
+            f'<span class="rel-meta">{esc(o.get("lab"))} · {esc(o.get("date"))}</span></a>'
+            for o in rel)
+        rel_html = (f'\n  <h2 class="lbl">Related findings</h2>\n'
+                    f'  <div class="relgrid">{cards}</div>')
+
+    nav = (f'\n  <nav class="pagenav-steps" aria-label="Nearby findings">'
+           f'{step(older, "Older", True)}{step(newer, "Newer", False)}</nav>')
+    # rel="prev"/"next" for crawlers, matching the visible links.
+    head = ""
+    if older:
+        head += f'\n<link rel="prev" href="{SITE}/finding/{older["id"]}">'
+    if newer:
+        head += f'\n<link rel="next" href="{SITE}/finding/{newer["id"]}">'
+    return rel_html + nav, head
+
+
 # ------------------------------------------------------------------ entry pages
-def entry_page(e):
+def entry_page(e, entries):
     """A standalone, independently citable page for one finding.
 
     The point of these is citation surface: an answer engine picks 2–7 sources per
@@ -711,6 +822,7 @@ def entry_page(e):
     ver = VER_LABEL.get(e["verification"], e["verification"])
     aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
     n = years_open(e)
+    nav_html, nav_head = entry_nav(e, entries)
 
     # Challenging a grade should cost a reader one click, not a fork. The GitHub issue form
     # prefills from query parameters keyed on each field's id, so the entry and its current
@@ -811,6 +923,7 @@ def entry_page(e):
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
 
 <title>{esc(e["title"])}: graded {esc(ver)} | whataifound.org</title>
 <meta name="description" content="{attr(meta_desc)}">
@@ -840,7 +953,7 @@ def entry_page(e):
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
 <link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
-<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">{nav_head}
 
 <script type="application/ld+json">
 {ld}
@@ -897,15 +1010,15 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   <a href="/methodology">methodology</a>.</p>
 
 {credit}
-  <h2 class="lbl">Cite this entry</h2>
-  <p class="cite">whataifound.org ({esc(str(e.get("date", ""))[:4])}). <em>{esc(e["title"])}.</em>
-  whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. {url}</p>
+{citation_block(e, url)}
+{nav_html}
 
   <p class="finding-back"><a href="/#e-{esc(e["id"])}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
   .lower()} findings in the registry</a></p>
 </article>
 
 </div>
+<script src="/entry.js" defer></script>
 </body>
 </html>
 '''
@@ -1239,7 +1352,7 @@ def build_review(entries):
         small += q_section(
             "No challenge linked",
             "Nobody has cited a rebuttal, a critical review, or prior work. An entry with no "
-            "challenge is not necessarily unchallenged — it may just be unexamined.",
+            "challenge is not necessarily unchallenged; it may just be unexamined.",
             link_list(nochallenge), len(nochallenge))
 
     summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
@@ -1480,6 +1593,8 @@ def build_index(entries, updated):
                  options(e["lab"] for e in entries), "lab options")
     src = inject(src, "<!--VEROPTS:START-->", "<!--VEROPTS:END-->",
                  options((e["verification"] for e in entries), VER_LABEL), "verification options")
+    src = inject(src, "<!--AUTOPTS:START-->", "<!--AUTOPTS:END-->",
+                 options((e["autonomy"] for e in entries), AUT_LABEL), "autonomy options")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1705,7 +1820,7 @@ def main():
             os.remove(os.path.join(out_dir, stale))
     for e in entries:
         with open(os.path.join(out_dir, f"{e['id']}.html"), "w") as f:
-            f.write(entry_page(e))
+            f.write(entry_page(e, entries))
 
     with open(os.path.join(ROOT, "llms.txt"), "w") as f:
         f.write(build_llms_txt(entries))

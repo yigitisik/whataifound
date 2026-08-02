@@ -55,21 +55,21 @@ irrelevant: an X post can be an announcement, commentary or a challenge dependin
 and what they are doing. The reliable test for first-party is whether the author appears in the
 entry's `humans`, or works for its `lab`.
 
-- **`research`**: The work itself — paper, preprint, formal proof, dataset or code repository.
+- **`research`**: The work itself: paper, preprint, formal proof, dataset or code repository.
   Something a reader can open and check. **Any grade stronger than `claimed` requires one**; the
   build enforces this.
-- **`announcement`**: The claim as first made public by the people behind it — press release,
+- **`announcement`**: The claim as first made public by the people behind it: press release,
   research blog post, or an individual's own post. The claim framed by those with the most at stake.
 - **`coverage`**: News and press reporting, written by journalists rather than by the people who did
   the work.
 - **`commentary`**: An independent write-up by someone who neither produced the result nor is
   reporting it as news. May support the claim, complicate it, or both.
-- **`challenge`**: The case against — a critical review, rebuttal, failed replication, or prior work
+- **`challenge`**: The case against: a critical review, rebuttal, failed replication, or prior work
   showing the result was already known.
 
 Order within a kind is significance order, most authoritative first; the "strongest counterargument"
 is simply the first `challenge`. The registry card shows the first three of each kind and then `+N`;
-the finding page shows all of them. There is no cap in the data — never drop a link someone did the
+the finding page shows all of them. There is no cap in the data: never drop a link someone did the
 work to find.
 
 ## `verification`: how solid is it?

@@ -8,7 +8,14 @@
   @font-face{font-family:'Newsreader';src:url('assets/fonts/news-600.woff2') format('woff2');
     font-weight:600;font-style:normal;font-display:swap}
 
+  /* Tells the browser which palette its own widgets should use. Without it the native
+     scrollbars, the filter <select> dropdown lists, focus rings and form controls all
+     render light no matter what the page does, which was visible on every dark view of
+     this site. Declared in all three colour blocks below, so it tracks the resolved
+     theme rather than only the OS setting. The default is dark, matching the pre-paint
+     initialiser: a first-time visitor with no stored choice gets dark. */
   :root{
+    color-scheme:light;
     --bg:#faf9f6; --panel:#ffffff; --panel-2:#f6f4ef; --ink:#191917; --muted:#6a6760;
     --line:#e5e1d9; --line-strong:#d3cec3;
     --accent:#12513a; --accent-soft:#e9f1ec;
@@ -33,7 +40,7 @@
   /* Dark palette. Applies for system-dark (no manual choice) and for an explicit dark choice.
      Two blocks because a media query and an attribute selector cannot share one rule; keep in sync. */
   @media (prefers-color-scheme: dark){
-    :root:not([data-theme]){ --bg:#111310; --panel:#181a15; --panel-2:#1e211a; --ink:#ecebe0; --muted:#9c998d;
+    :root:not([data-theme]){ color-scheme:dark; --bg:#111310; --panel:#181a15; --panel-2:#1e211a; --ink:#ecebe0; --muted:#9c998d;
       --line:#2a2d24; --line-strong:#3a3e32;
       --accent:#7ec6a3; --accent-soft:#1a251f;
       --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
@@ -47,7 +54,7 @@
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
       --edge-hi:rgba(255,255,255,.07);}
   }
-  :root[data-theme="dark"]{ --bg:#111310; --panel:#181a15; --panel-2:#1e211a; --ink:#ecebe0; --muted:#9c998d;
+  :root[data-theme="dark"]{ color-scheme:dark; --bg:#111310; --panel:#181a15; --panel-2:#1e211a; --ink:#ecebe0; --muted:#9c998d;
     --line:#2a2d24; --line-strong:#3a3e32;
     --accent:#7ec6a3; --accent-soft:#1a251f;
     --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
@@ -348,18 +355,214 @@
   }
 
   /* ---------- Controls (sticky toolbar) ---------- */
-  .controls{position:sticky;top:0;z-index:20;display:flex;gap:9px;flex-wrap:wrap;
-    margin:0 0 26px;padding:13px 0;font-family:var(--serif);
+  /* Two deliberate rows rather than six flex items wrapping wherever the widest lab
+     name pushes them: search and count on top, the four filters plus sort beneath.
+     The bar is sticky, so an unpredictable third row would cost every visitor that
+     height on every screen. */
+  .controls{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:minmax(0,1fr) auto;
+    gap:9px;margin:0 0 26px;padding:13px 0;font-family:var(--serif);
     background:var(--bg);border-bottom:1px solid var(--line)}
   .controls input,.controls select{padding:10px 13px;border:1px solid var(--line-strong);border-radius:11px;
     background:var(--panel);color:var(--ink);font:inherit;font-size:.82rem;transition:border-color .15s,box-shadow .15s}
-  .controls input{flex:1;min-width:200px}
+  /* Placed explicitly rather than by source order, so the three rows stay put whatever
+     is added to the bar next. */
+  .controls input{grid-area:1/1;min-width:0}
+  .ctl-filters{grid-area:2/1/auto/-1;display:flex;flex-wrap:wrap;gap:9px}
+  /* Sort reorders the list rather than narrowing it, so it sits apart from the four
+     that do. */
+  .ctl-filters #sort{margin-left:auto}
   .controls input::placeholder{color:var(--muted)}
   .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent);
     box-shadow:0 0 0 3px var(--accent-soft)}
-  .controls select{cursor:pointer}
-  .count{margin-left:auto;align-self:center;font-family:var(--serif);font-size:.72rem;color:var(--muted);
-    letter-spacing:.04em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+  /* A <select> sizes itself to its widest option, and the lab list contains
+     "Institute for Protein Design, University of Washington". Left alone, six controls
+     either blow the 1120px row out or shrink each other to unreadable stubs, and the
+     bar is sticky, so a second row costs every visitor that height on every screen.
+     The bounds keep all six on one line and clip the outlier instead. */
+  /* A <select> sizes itself to its widest option, and the lab list contains
+     "Institute for Protein Design, University of Washington". The bounds stop that one
+     entry from setting the width of the whole row, and clip it instead. */
+  .controls select{cursor:pointer;flex:1 1 auto;min-width:8rem;max-width:14rem;
+    overflow:hidden;text-overflow:ellipsis}
+  .count{grid-area:1/2;justify-self:end;align-self:center;font-family:var(--serif);font-size:.72rem;
+    color:var(--muted);letter-spacing:.04em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+
+  /* Active filters, on their own row under the controls. [hidden] keeps the sticky bar
+     at its two-row height for the visitor who never filters. */
+  .chips{grid-area:3/1/auto/-1;display:flex;flex-wrap:wrap;gap:6px;margin-top:2px}
+  .chips[hidden]{display:none}
+  .chip{display:inline-flex;align-items:center;gap:6px;padding:5px 9px 5px 10px;
+    border:1px solid var(--line-strong);border-radius:999px;background:var(--panel-2);
+    color:var(--ink);font-family:var(--serif);font-size:.7rem;line-height:1.3;cursor:pointer;
+    transition:border-color .15s,background .15s,color .15s}
+  .chip:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .chip-k{color:var(--muted);letter-spacing:.05em;text-transform:uppercase;font-size:.6rem}
+  .chip-v{max-width:22ch;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .chip-x{color:var(--muted);font-size:.85rem;line-height:1}
+  .chip:hover .chip-x{color:var(--accent)}
+  .chip-all{background:transparent;border-style:dashed;color:var(--muted)}
+  .chip-all:hover{color:var(--accent)}
+  /* The way out of a dead end, styled as an action rather than as more prose. */
+  .empty-act{margin-top:4px;padding:9px 16px;border:1px solid var(--line-strong);border-radius:11px;
+    background:var(--panel-2);color:var(--ink);font-family:var(--serif);font-size:.78rem;cursor:pointer;
+    transition:border-color .15s,background .15s}
+  .empty-act:hover{border-color:var(--accent);background:var(--accent-soft)}
+  .empty-all{margin-left:8px;background:transparent;color:var(--muted)}
+
+  /* Cards or table. Same segmented pattern as the theme switch in the header, sized to
+     sit level with the selects beside it. */
+  .view-seg{display:inline-flex;align-self:stretch;border:1px solid var(--line-strong);
+    border-radius:11px;overflow:hidden;flex:0 0 auto}
+  .view-seg .vw{width:32px;display:grid;place-items:center;background:var(--panel);border:0;
+    border-right:1px solid var(--line);cursor:pointer;color:var(--muted);
+    transition:color .15s,background .15s}
+  .view-seg .vw:last-child{border-right:0}
+  .view-seg .vw:hover{color:var(--ink)}
+  .view-seg .vw[aria-pressed="true"]{background:var(--accent);color:var(--bg)}
+  .view-seg .vw svg{width:15px;height:15px;display:block}
+
+  /* Screen-reader-only, for the table caption. */
+  .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip-path:inset(50%);white-space:nowrap;border:0}
+
+  /* ---------- Table view ----------
+     All 52 entries on one screen. Scrolls inside its own wrapper rather than pushing the
+     page sideways, which is the failure mode of a wide table on a phone. */
+  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;
+    background:var(--panel)}
+  /* table-layout:fixed, and every column sized: with auto layout the Model column grew
+     to fit "OpenAI Sol (construction); Claude Fable (Lean formalisation)" and pushed the
+     two grade columns, which are the point of the registry, off the right edge. */
+  .regtable{width:100%;table-layout:fixed;border-collapse:collapse;font-family:var(--serif);
+    font-size:.78rem;min-width:1040px}
+  .regtable th,.regtable td{padding:9px 11px;text-align:left;vertical-align:middle;
+    border-bottom:1px solid var(--line);overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap}
+  /* Sized against the longest real value in each column: "Independently checked" sets
+     the verification width, "computer-science" sets Field. Getting these wrong clips a
+     grade pill mid-word, which is the one thing the table exists to show. */
+  .regtable col.c-date{width:10%} .regtable col.c-title{width:23%}
+  .regtable col.c-lab{width:13%}  .regtable col.c-model{width:11%}
+  .regtable col.c-ver{width:18%}  .regtable col.c-aut{width:13%}
+  .regtable col.c-field{width:12%}
+  /* No sticky header: the filter bar is already sticky at top:0 and its height changes
+     with the breakpoint, so the two would overlap at every width but one. */
+  .regtable thead th{background:var(--panel-2);
+    font-size:.64rem;letter-spacing:.09em;text-transform:uppercase;color:var(--muted);
+    font-weight:500;padding:0}
+  .regtable thead th:not(:has(.th-sort)){padding:10px 13px}
+  .th-sort{width:100%;padding:10px 13px;background:transparent;border:0;cursor:pointer;
+    font:inherit;letter-spacing:inherit;text-transform:inherit;color:inherit;text-align:left;
+    transition:color .15s}
+  .th-sort:hover{color:var(--ink)}
+  .th-sort.on{color:var(--accent)}
+  .th-sort.on::after{content:" \2193";font-size:.9em}
+  .regtable tbody tr:last-child td{border-bottom:0}
+  .regtable tbody tr:hover{background:var(--panel-2)}
+  /* The finding is the one column allowed to wrap, and only to two lines, so rows stay
+     scannable. Everything else clips with an ellipsis and carries a title attribute. */
+  .regtable .t-title{white-space:normal}
+  .regtable .t-title a{color:var(--ink);text-decoration:none;font-weight:500;
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .regtable .t-title a:hover{color:var(--accent)}
+  .regtable .t-date{font-variant-numeric:lining-nums tabular-nums;color:var(--muted)}
+  /* Pill cells give up most of their padding: "Independently checked" is 170px wide
+     and every pixel of the column is needed to render it whole. */
+  .regtable td:has(.pill){padding-left:6px;padding-right:6px}
+  .regtable .pill{font-size:.55rem;letter-spacing:.045em;padding:3px 7px}
+  #list.as-table{display:block}
+
+  /* ---------- Export ---------- */
+  .listfoot{margin:18px 0 0;text-align:right}
+  .csv-btn{padding:9px 15px;border:1px solid var(--line-strong);border-radius:11px;
+    background:var(--panel);color:var(--muted);font-family:var(--serif);font-size:.75rem;
+    cursor:pointer;transition:color .15s,border-color .15s,background .15s}
+  .csv-btn:hover{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
+  .csv-btn:disabled{opacity:.45;cursor:default}
+  .csv-btn:disabled:hover{color:var(--muted);border-color:var(--line-strong);background:var(--panel)}
+
+  /* ---------- Citation blocks (finding pages) ---------- */
+  .cites{display:grid;gap:12px;margin:0 0 6px}
+  .cite-block{border:1px solid var(--line);border-radius:12px;background:var(--panel-2);
+    overflow:hidden}
+  .cite-head{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    padding:8px 12px;border-bottom:1px solid var(--line)}
+  .cite-label{font-family:var(--serif);font-size:.62rem;letter-spacing:.09em;
+    text-transform:uppercase;color:var(--muted)}
+  .cite-copy{padding:4px 11px;border:1px solid var(--line-strong);border-radius:8px;
+    background:var(--panel);color:var(--muted);font-family:var(--serif);font-size:.68rem;
+    cursor:pointer;transition:color .15s,border-color .15s}
+  .cite-copy:hover{color:var(--ink);border-color:var(--accent)}
+  .cite-copy.done{color:var(--accent);border-color:var(--accent)}
+  /* pre wraps rather than scrolls: a citation is meant to be read and selected, and a
+     horizontal scrollbar hides the end of the URL, which is the part that matters. */
+  .cite-pre{margin:0;padding:12px;overflow-x:auto;font-size:.72rem;line-height:1.65;
+    white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+
+  /* ---------- Related findings and prev/next (finding pages) ---------- */
+  .relgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:0 0 4px}
+  .rel-card{display:flex;flex-direction:column;gap:7px;padding:14px 15px;
+    border:1px solid var(--line);border-radius:13px;background:var(--panel);
+    text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s}
+  .rel-card:hover{border-color:var(--line-strong);transform:translateY(-2px);
+    box-shadow:var(--shadow-card)}
+  .rel-grade{align-self:flex-start;font-size:.55rem}
+  .rel-title{font-family:var(--serif);font-size:.84rem;line-height:1.4;color:var(--ink)}
+  .rel-meta{font-family:var(--serif);font-size:.68rem;color:var(--muted)}
+  .pagenav-steps{display:grid;grid-template-columns:1fr 1fr;gap:11px;margin:22px 0 4px}
+  .pn-step{display:flex;flex-direction:column;gap:5px;padding:13px 15px;
+    border:1px solid var(--line);border-radius:13px;background:var(--panel);
+    text-decoration:none;transition:border-color .15s}
+  .pn-step:hover{border-color:var(--accent)}
+  .pn-empty{border-style:dashed;opacity:.4;pointer-events:none}
+  .pn-step:last-child{text-align:right}
+  .pn-dir{display:flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.62rem;
+    letter-spacing:.09em;text-transform:uppercase;color:var(--muted)}
+  .pn-step:last-child .pn-dir{justify-content:flex-end}
+  .pn-title{font-family:var(--serif);font-size:.82rem;line-height:1.4;color:var(--ink)}
+  @media(max-width:720px){
+    .relgrid{grid-template-columns:1fr}
+    .pagenav-steps{grid-template-columns:1fr}
+    .pn-step:last-child{text-align:left}
+    .pn-step:last-child .pn-dir{justify-content:flex-start}
+  }
+
+  /* ---------- Back to top ---------- */
+  .totop{position:fixed;right:18px;bottom:18px;z-index:30;width:42px;height:42px;
+    display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:50%;
+    background:var(--panel);color:var(--muted);cursor:pointer;box-shadow:var(--shadow-card);
+    transition:color .15s,border-color .15s,transform .15s}
+  .totop:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
+  .totop svg{width:17px;height:17px}
+  .totop[hidden]{display:none}
+
+  /* ---------- Keyboard shortcuts dialog ---------- */
+  .keys{border:1px solid var(--line-strong);border-radius:16px;background:var(--panel);
+    color:var(--ink);padding:24px 26px;max-width:min(430px,92vw);font-family:var(--serif)}
+  .keys::backdrop{background:rgba(0,0,0,.55)}
+  .keys h2{margin:0 0 14px;font-size:1rem}
+  .keys dl{margin:0 0 14px;display:grid;gap:8px}
+  .keys dl div{display:flex;align-items:baseline;gap:12px}
+  .keys dt{flex:0 0 58px}
+  .keys dd{margin:0;font-size:.82rem;color:var(--muted)}
+  .keys kbd{display:inline-block;min-width:26px;text-align:center;padding:3px 7px;
+    border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:7px;
+    background:var(--panel-2);font-family:var(--mono,ui-monospace,monospace);font-size:.72rem}
+  .keys-note{margin:0 0 18px;font-size:.76rem;color:var(--muted);line-height:1.55}
+
+  /* Wide enough for search, five controls and the count on one line, which drops the
+     sticky bar from two rows to one and hands ~46px back to every screen. Placed after
+     the rules it overrides: a media query adds no specificity, so source order decides. */
+  @media(min-width:1180px){
+    /* minmax(0,auto), not a bare auto: an auto track sizes to max-content and refuses to
+       shrink, so the nowrap select row would overrun the count instead of letting the
+       selects flex down to their 8.5rem floor. */
+    .controls{grid-template-columns:minmax(190px,1fr) minmax(0,auto) auto}
+    .ctl-filters{grid-area:1/2;flex-wrap:nowrap;min-width:0}
+    .ctl-filters #sort{margin-left:0}
+    .count{grid-area:1/3}
+    .chips{grid-area:2/1/auto/-1}
+  }
 
   /* ---------- Insight strip ----------
      The conclusions, stated above the charts. A chart shows a distribution; these say
@@ -463,7 +666,14 @@
   @media(prefers-reduced-motion:reduce){.hbar-fill,.vbar-fill{animation:none}}
 
   /* ---------- Entry cards ---------- */
+  /* content-visibility skips layout and paint for the entries below the fold. The list
+     is 52 cards and roughly 8000px, so most of that work is for content nobody has
+     scrolled to. contain-intrinsic-size is the height to assume for a skipped card,
+     measured from the real ones: too small and the scrollbar jumps as you scroll, which
+     is worse than the work it saves. Text inside stays findable with Ctrl+F, and a card
+     targeted by a permalink is rendered because the browser expands it to scroll there. */
   .entry{display:grid;grid-template-columns:216px 1fr;gap:30px;
+    content-visibility:auto;contain-intrinsic-size:auto 420px;
     background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vc,var(--line-strong));
     border-radius:16px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow);
     transition:transform .18s var(--ease),border-color .18s,box-shadow .18s,background .18s}
@@ -500,8 +710,8 @@
   .v-claimed{background:var(--claimed)} .v-disputed{background:var(--disputed)}
   .v-known{background:var(--known)} .v-refuted{background:var(--refuted)}
   /* Autonomy: the same colour as its verification neighbour would be, but tinted rather than
-     filled. Three vocabularies, one palette, three weights — solid pill for the evidence grade,
-     tint for autonomy, dot for what a link is — so they read as one system without the card
+     filled. Three vocabularies, one palette, three weights: a solid pill for the evidence grade,
+     a tint for autonomy, a dot for what a link is, so they read as one system without the card
      turning into seven competing colour blocks. --ac is set per value by the .a-<slug> rules. */
   .pill.a{background:color-mix(in srgb, var(--ac) 13%, transparent);color:var(--ac);
     border-color:color-mix(in srgb, var(--ac) 26%, transparent);font-weight:600;--ac:var(--accent)}
@@ -546,8 +756,15 @@
   .withppl b{color:var(--ink);font-weight:500}
   .withppl span{text-transform:uppercase;letter-spacing:.11em;font-size:.6rem;margin-right:7px}
   .tags{display:flex;flex-wrap:wrap;gap:6px;margin-top:15px}
+  /* A link, not a label: the href is a real /?tag=… view, so it works without
+     JavaScript and gives the registry 118 internal links it did not have. */
   .tag-chip{font-family:var(--serif);font-size:.66rem;color:var(--muted);background:var(--panel-2);
-    border:1px solid var(--line);border-radius:9px;padding:3px 9px}
+    border:1px solid var(--line);border-radius:9px;padding:3px 9px;text-decoration:none;
+    transition:border-color .15s,color .15s,background .15s}
+  .tag-chip:hover{border-color:var(--accent);color:var(--ink);background:var(--accent-soft)}
+  /* Search hits, marked in the rendered DOM rather than in card(). See highlight(). */
+  mark{background:var(--accent-soft);color:var(--ink);border-radius:3px;
+    padding:0 1px;box-shadow:inset 0 -1px 0 var(--accent)}
 
   details{margin-top:15px;border-top:1px solid var(--line);padding-top:4px}
   summary{cursor:pointer;color:var(--accent);font-family:var(--serif);font-size:.74rem;font-weight:500;
@@ -698,6 +915,8 @@
   .empty{text-align:center;color:var(--muted);padding:56px;font-family:var(--serif);font-size:.86rem;
     background:var(--panel);border:1px solid var(--line);border-radius:16px}
   .empty code{background:var(--panel-2);padding:2px 7px;border-radius:7px}
+  .empty p{margin:0 0 10px}
+  .empty p b{color:var(--ink);font-weight:600}
 
   /* Per-entry pages (finding/*.html, generated by scripts/build-site.py).
      One finding per URL, so each is independently citable. Deliberately a single
@@ -866,10 +1085,12 @@
     .eyebrow-right{width:100%;justify-content:flex-start;gap:10px 12px}
     .lede{font-size:1rem}
     .stat{padding:16px 16px 14px} .stat b{font-size:1.7rem}
-    .controls{position:static;gap:8px;padding:10px 0 16px}
-    .controls input{flex:1 1 100%}
-    .controls select{flex:1 1 30%;min-width:0}
-    .count{margin-left:0;flex:1 1 100%;text-align:right}
+    .controls{position:static;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 0 16px}
+    /* The desktop bounds exist to keep the filter row tidy at 1120px. Below 640 the bar
+       is no longer sticky and the selects tile two per row, so they are lifted. */
+    .controls select{flex:1 1 42%;min-width:0;max-width:none}
+    .ctl-filters #sort{margin-left:0}
+    .count{justify-self:start;text-align:left}
     .ref{gap:9px} .ref-dom{flex-basis:74px}
     /* Below this the label column would squeeze the links to one per line, so stack
        instead: label above, links wrapping under it. */
@@ -895,4 +1116,50 @@
     /* The "ai" starts at opacity 0 and is revealed by its fade-in, so killing the
        animation would erase it. Show it, still gradient-filled, just not drifting. */
     .eyebrow .brand .ai{opacity:1;background-position:0 0}
+  }
+
+  /* ---------- Print ----------
+     The registry is meant to be cited, and a cited page gets printed or saved to PDF.
+     Everything interactive is dropped, every disclosure is forced open so nothing is
+     silently missing from the paper copy, and link targets are printed after the text
+     on finding pages, where a reader has no address bar to check them against. */
+  @media print{
+    /* :root[data-theme="dark"] is more specific than :root, so it would keep the dark
+       palette on paper; matching the attribute here is what actually wins. */
+    :root,:root[data-theme]{color-scheme:light}
+    /* ::before and ::after are matched explicitly: the page's dot texture is drawn by
+       body::before, and a bare * selector never reaches a pseudo-element. */
+    *,*::before,*::after{background:transparent!important;box-shadow:none!important;
+      color:#000!important;text-shadow:none!important;filter:none!important}
+    body::before{display:none!important}
+    /* !important, and after the reset above: the * rule would otherwise leave the page
+       canvas transparent and the dark theme would print through it. */
+    html,body{background:#fff!important}
+    .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.totop,.keys,.listfoot,
+    .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
+    .permalink,.skip,.hero-promo,.labs-hub,.srclegend,.crumb{display:none!important}
+    a{text-decoration:underline}
+    /* Open every disclosure: a printed page cannot be expanded. */
+    details{display:block!important}
+    details>summary{display:none}
+    details>*{display:block!important}
+    .entry{break-inside:avoid;page-break-inside:avoid;border:0;border-top:1px solid #999;
+      border-radius:0;padding:12px 0;margin:0;display:block;
+      content-visibility:visible;contain-intrinsic-size:auto}
+    .entry .rail{display:flex;flex-wrap:wrap;gap:10px;margin-bottom:6px;font-size:.8em}
+    .entry .rmeta{display:flex;gap:14px}
+    .pill{border:1px solid #000!important;padding:1px 6px}
+    .regtable{font-size:.7em} .regtable th,.regtable td{border-bottom:1px solid #bbb}
+    .tablewrap{overflow:visible;border:0}
+    /* Print the destination of every outbound link, since there is no hover on paper. */
+    .finding-page .body a[href^="http"]::after,
+    .finding-page .refs a[href^="http"]::after,
+    .finding-page .cite-pre a::after{content:" <" attr(href) ">";font-size:.85em;
+      word-break:break-all}
+    .cite-block{border:1px solid #999}
+    .cite-copy,.cite-head{display:none}
+    .cite-pre{padding:8px 0}
+    .relgrid,.pagenav-steps{display:none}
+    footer,.about-grid{font-size:.85em}
+    @page{margin:16mm}
   }

@@ -22,6 +22,9 @@ no unexpected inline scripts, no external script/frame origins outside the CSP, 
 javascript:/data: links, and no stray markup in the registry data. It is cheap, has no
 dependencies, and is meant to run on every PR alongside the rebuild.
 
+It also enforces one house-style rule, for the same reason: prose is written by hand in
+a dozen places and a rule nobody can forget is worth more than a rule everybody knows.
+
 Exits non-zero and names the file and line on any violation.
 """
 import json
@@ -45,6 +48,14 @@ ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.
 
 DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
                  "contributors.html", "404.html"]
+
+# Directories the em dash sweep never descends into: version control, build caches, and
+# anything a local tool dropped in. All are either untracked or not prose.
+STYLE_SKIP_DIRS = {".git", "__pycache__", "node_modules", ".vercel", ".vscode", ".idea",
+                   ".cache", "tmp"}
+# Written as an escape, not as the character: this file is swept like every other, and a
+# literal here would make the check fail on itself.
+EM_DASH = "\u2014"
 
 
 def html_files():
@@ -140,18 +151,58 @@ def check_data(problems):
                                 f"({v[:60]!r}). Review before merging")
 
 
+def check_em_dashes(problems):
+    """No em dash (U+2014) anywhere in the repository.
+
+    House style for the site's written voice, and the kind of rule that only holds if
+    something checks it: prose lives in the docs, in `index.html`'s hand-written
+    sections, in code comments, and in the strings build-site.py writes into the
+    generated pages. One sweep covers all four.
+
+    En dashes (U+2013) are deliberately *not* covered. The registry is full of
+    legitimate ones and a blanket sweep would corrupt its content: proper nouns
+    (Navier-Stokes, Dinitz-Garg-Goemans), numeric ranges (2000-2022) and compound
+    modifiers (protein-ligand) all use them correctly.
+
+    Binary files are skipped by failing to decode as UTF-8 rather than by extension, so
+    adding a new asset type never means editing this list.
+    """
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = sorted(d for d in dirnames if d not in STYLE_SKIP_DIRS)
+        for name in sorted(filenames):
+            path = os.path.join(dirpath, name)
+            try:
+                with open(path, encoding="utf-8") as f:
+                    text = f.read()
+            except (UnicodeDecodeError, OSError):
+                continue
+            if EM_DASH not in text:
+                continue
+            rel = os.path.relpath(path, ROOT)
+            for n, line in enumerate(text.split("\n"), 1):
+                col = line.find(EM_DASH)
+                if col < 0:
+                    continue
+                context = line[max(0, col - 32):col + 33].strip()
+                problems.append(
+                    f"{rel}:{n}: em dash (U+2014) in {context!r}. Use a colon, comma, "
+                    "semicolon or parentheses, whichever the sentence wants.")
+
+
 def main():
     problems = []
     for path in html_files():
         check_html(path, problems)
     check_data(problems)
+    check_em_dashes(problems)
 
     if problems:
         print(f"Integrity check failed with {len(problems)} problem(s):", file=sys.stderr)
         for p in problems:
             print(f"  - {p}", file=sys.stderr)
         sys.exit(1)
-    print("Integrity check passed: no unexpected scripts, origins, handlers or URL schemes.")
+    print("Integrity check passed: no unexpected scripts, origins, handlers, URL schemes "
+          "or em dashes.")
 
 
 if __name__ == "__main__":
