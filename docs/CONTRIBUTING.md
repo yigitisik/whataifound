@@ -52,10 +52,6 @@ If your entry opens a **new `field` value**, add its display name to the `fields
 outside `data/entries.json` an entry can require. Thirteen fields are pre-registered. A new *lab*
 needs nothing; it falls back to a generated monogram.
 
-If your entry has a `wikipedia` title, run `python3 scripts/build-notability.py` to measure
-`notability` from the live Wikipedia API. It hits the network and edits `data/entries.json`, so it
-is not part of `build.py`; run it deliberately. `--check` reports drift.
-
 ### Classifying sources
 
 Each source is tagged `research`, `announcement`, `coverage`, `commentary` or `challenge`
@@ -245,7 +241,7 @@ standalone files. Each inline copy needs its own gradient `id`; duplicates acros
 
 `https://whataifound.org` is hard-coded in `index.html`, `methodology.html`, `review.html`,
 `contributors.html`, `visuals.html`, `robots.txt`, the `SITE` constant in `build-site.py`,
-`build-feed.py` and `build-notability.py`, and the `og.svg` wordmark. Changing it means editing all
+`build-feed.py`, and the `og.svg` wordmark. Changing it means editing all
 of those, then re-running `build.py` and `build-icons.py`.
 
 ## PRs

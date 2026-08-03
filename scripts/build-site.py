@@ -356,13 +356,6 @@ def open_meta(e):
     return f"<div><dt>Posed</dt><dd>{e['year_posed']} · {span}</dd></div>"
 
 
-def notability_meta(e):
-    v = e.get("notability")
-    if v is None:
-        return ""
-    return f"<div><dt>Notability</dt><dd>{v} Wikipedia edition{'' if v == 1 else 's'}</dd></div>"
-
-
 def card(e):
     """Port of card() in app.js. Output must match it character for character."""
     def f(label, val):
@@ -419,7 +412,6 @@ def card(e):
         <div><dt>Model</dt><dd>{esc(e.get("model"))}</dd></div>
         <div><dt>Field</dt><dd>{esc(e.get("field"))}</dd></div>
         {open_meta(e)}
-        {notability_meta(e)}
       </dl>
     </div>
     <div class="body">
@@ -933,9 +925,6 @@ def entry_page(e, entries):
     if e.get("year_posed") is not None:
         facts.append(("Problem posed", str(e["year_posed"])
                       + (f" · open {n} yr{'' if n == 1 else 's'}" if n else "")))
-    if e.get("notability") is not None:
-        facts.append(("Notability", f"{e['notability']} Wikipedia language edition"
-                                    f"{'' if e['notability'] == 1 else 's'}"))
     fact_rows = "\n".join(
         f"      <div><dt>{esc(k)}</dt><dd>{esc(v)}</dd></div>"
         for k, v in facts if v)
@@ -1373,8 +1362,6 @@ def build_review(entries):
     # Smaller gaps, listed compactly. These are good first contributions: each is a
     # single verifiable fact, no judgment about evidence required.
     SMALL = [("year_posed", "Year posed", "The year the problem was first posed."),
-             ("wikipedia", "Notability",
-              "The Wikipedia article for the problem, which drives the notability count."),
              ("discussion", "Discussion", "A thread where the result was debated.")]
     # Collapsed, each of these lists every entry rather than the first eight. The old
     # "and 32 more" existed because the page could not afford the height; an accordion can.
@@ -1689,9 +1676,6 @@ def check_urls(e, where, problems):
         if not re.fullmatch(r"[A-Za-z0-9_-]{11}", str(v.get("youtube_id", ""))):
             problems.append(f"{where}: youtube_id {v.get('youtube_id')!r} is not a valid "
                             "11-character YouTube id")
-    # Used as a Wikipedia article title by build-notability.py, not as a URL.
-    if e.get("wikipedia") is not None and not isinstance(e["wikipedia"], str):
-        problems.append(f"{where}: wikipedia must be an article title string")
 
 
 def validate_vocab():

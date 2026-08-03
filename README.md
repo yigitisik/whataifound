@@ -129,8 +129,6 @@ renderer the rest of the toolchain does not:
   Paywalls, rate limits and 5xx are reported but do not fail, because a check that cries wolf gets
   ignored. CI runs it on PRs that touch `data/entries.json` and sweeps the whole registry weekly, in
   its own workflow so a publisher outage never blocks a correct entry from merging.
-- **`build-notability.py`** measures `notability` (Wikipedia language editions covering the problem)
-  from the live Wikipedia API, following redirects and writing a `notability_meta` audit trail.
 - **`build-icons.py`** rasterises the brand icons and the OG card. Outputs are committed.
 
 ### Generated files: never hand-edit
@@ -177,7 +175,6 @@ whataifound/
 │   ├── build-site.py       #   pre-renders index.html; writes finding/, /review, /contributors, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds
 │   ├── build-schema.py     #   regenerates docs/entry.schema.json from vocab.json
-│   ├── build-notability.py #   measures notability from the Wikipedia API (run deliberately)
 │   ├── build-icons.py      #   rasterises the icons + og.png (run deliberately)
 │   ├── check-links.py      #   resolves every external URL (CI: PRs + weekly)
 │   ├── verify-parity.py    #   asserts pre-rendered cards == app.js card()

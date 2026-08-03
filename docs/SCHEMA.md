@@ -25,9 +25,6 @@ else (site, search, company pages) is a rendering of it.
 |---|---|---|
 | `humans` | array | Named human collaborators |
 | `year_posed` | number | Year the problem/conjecture was first posed. Lets the site show how long it stood before the result. Omit when there is no single origin year (open-ended empirical work) |
-| `wikipedia` | string | Title (or URL) of the English Wikipedia article for the *problem itself*, not a person, tool, or broad parent field. Drives `notability`. Choose the most specific article that is genuinely about this problem; omit if none exists |
-| `notability` | number | How widely known the problem is: the count of Wikipedia language editions with an article, **English included**. Do not hand-set this: it is computed from `wikipedia` by `build-notability.py`, which follows redirects and records provenance in `notability_meta`. Absent means unrated; there is no `0` (an absent article means no `wikipedia` field, hence no `notability`) |
-| `notability_meta` | object | `{source, article, editions, as_of}` written by `build-notability.py`. The audit trail for `notability`: which article was measured, how many editions, and on what date. Never hand-edit |
 | `detail` | string | 2–5 sentences of context. What was actually new |
 | `novelty_check` | string | What was searched, what turned up. **Write this even when clean** |
 | `caveats` | string | Known objections, disputes, unreplicated parts |
@@ -115,11 +112,6 @@ This column is the whole point. Most breathless claims collapse here.
 4. **Lab-announced results start at `claimed`** regardless of how confident the blog post sounds.
 5. **`autonomy` is graded on the strictest defensible reading.** When a human posed the problem,
    suggested the approach, and checked the algebra, that is not `autonomous`.
-6. **`notability` is measured, not guessed.** Set only `wikipedia` (the article title), then run
-   `python3 scripts/build-notability.py` to fill `notability` and `notability_meta` from the live Wikipedia
-   API. The one judgment you make is *which article*: pick the one about the problem itself, not a
-   person, a tool, or a broad parent field (e.g. a specific sorting result should not point at the
-   general "Sorting algorithm" article). No article → no `wikipedia` field → the entry stays unrated.
 
 ## Adding an entry
 
@@ -134,7 +126,6 @@ This column is the whole point. Most breathless claims collapse here.
   "model": "Claude Fable 5",
   "humans": ["Levent Alpöge"],
   "year_posed": 1939,
-  "wikipedia": "Jacobian conjecture",
   "verification": "formal",
   "autonomy": "collaborative",
   "sources": [{"label": "Explainer", "url": "https://jacobianfun.org/jacobian-explained",

@@ -629,16 +629,14 @@
   @keyframes growy{from{transform:scaleY(0)}to{transform:scaleY(1)}}
   .vbar-val{font-family:var(--serif);font-size:.68rem;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;font-weight:600}
   .vbar-x{font-family:var(--serif);font-size:.6rem;color:var(--muted)}
-  /* Scatter: years open vs notability, colored by autonomy. Spans both columns. */
+  /* A chart card that closes an odd row by taking the full grid width. */
   .qv-wide{grid-column:1 / -1}
+  /* Shared plot chrome: wrapper, SVG sizing, axis labels and the tooltip below. Named
+     .sc-* from when a scatter chart used them too; the evidence/autonomy matrix is the
+     only plot now, and a second one would reuse these rather than add its own. */
   .sc-wrap{position:relative}
   .sc{width:100%;height:auto;display:block;overflow:visible}
-  .sc-grid{stroke:var(--line);stroke-width:1}
-  .sc-tick{fill:var(--muted);font-family:var(--serif);font-size:10px;font-variant-numeric:lining-nums tabular-nums}
   .sc-axis{fill:var(--muted);font-family:var(--serif);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-  .sc-dot{stroke:var(--panel);stroke-width:1.5;opacity:.9;cursor:pointer;transition:opacity .15s}
-  .sc-dot:hover,.sc-dot:focus-visible{opacity:1;stroke:var(--ink);stroke-width:2;outline:none}
-  .sc-dot:focus-visible{stroke:var(--accent)}
   /* Interactive tooltip: positioned by JS within .sc-wrap. */
   .sc-tip{position:absolute;z-index:5;pointer-events:none;max-width:260px;
     background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;
@@ -648,8 +646,8 @@
   .sc-tip-r{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.72rem;color:var(--ink)}
   .sc-tip-r .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .sc-tip-m{font-family:var(--serif);font-size:.7rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
-  /* Evidence-vs-autonomy matrix. Shares .sc-wrap/.sc/.sc-tip with the scatter; only the
-     marks and the two axis treatments differ. */
+  /* Evidence-vs-autonomy matrix. Uses the shared .sc-wrap/.sc/.sc-axis/.sc-tip chrome
+     above; only the marks and the two axis treatments are its own. */
   .mx-guide{stroke:var(--line);stroke-width:1}
   /* The boundary between evidence for a claim and evidence against it: the one line on
      this axis that carries meaning, so it is drawn heavier than the cell guides. */
@@ -663,9 +661,6 @@
      swallows the hover that belongs to the circle underneath it. */
   .mx-n{fill:var(--bg);font-family:var(--serif);font-size:10px;font-weight:600;
     pointer-events:none;font-variant-numeric:lining-nums tabular-nums}
-  .sc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px}
-  .sc-key{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.68rem;color:var(--muted)}
-  .sc-key .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .qv-empty,.qv-foot{font-family:var(--serif);color:var(--muted);margin:8px 0 0}
   .qv-empty{font-size:.8rem}
   .qv-foot{font-size:.66rem;letter-spacing:.02em}

@@ -47,9 +47,9 @@ head = src[:src.index("// Sitemap rail")]
 head = head.replace("const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;",
                     "const REDUCE = false;")
 head = re.sub(r"// Theme: light / dark / system.*?\n\}\)\(\);\n", "", head, flags=re.S)
-# matrixCard() and the colour table it reads. Both sit past the cut above.
-head += region("const AUT_COLOR", "function scatterCard")
-head += region("function matrixCard", "function wireScatterTip")
+# matrixCard() and the colour table it reads. Both sit past the cut above, and are now
+# adjacent: the scatter chart that used to sit between them has been removed.
+head += region("const AUT_COLOR", "function wireScatterTip")
 # tableView() reads STATE.sort for the active-column marker, so the state block comes
 # with it. Nothing in either slice is called at load, so the parts that would need a
 # browser (readState reading location, SORTS calling score) are never reached.

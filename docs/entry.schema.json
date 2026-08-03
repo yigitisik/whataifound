@@ -146,18 +146,6 @@
         "type": "integer",
         "description": "Year the problem was first posed. Omit if there is no single origin year."
       },
-      "wikipedia": {
-        "type": "string",
-        "description": "English Wikipedia title for the problem itself, not a person or tool."
-      },
-      "notability": {
-        "type": "integer",
-        "description": "Computed by build-notability.py. Do not hand-set."
-      },
-      "notability_meta": {
-        "type": "object",
-        "description": "Audit trail written by build-notability.py. Never hand-edit."
-      },
       "detail": {
         "type": "string",
         "description": "2-5 sentences. What was actually new."
