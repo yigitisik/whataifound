@@ -11,14 +11,6 @@
       "Dmitry Rybin"
     ],
     "year_posed": 1999,
-    "wikipedia": "Dinitz-Garg-Goemans conjecture",
-    "notability": 1,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Dinitz–Garg–Goemans conjecture",
-      "editions": 1,
-      "as_of": "2026-08-03"
-    },
     "verification": "claimed",
     "autonomy": "ai-led",
     "detail": "Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.",
@@ -48,7 +40,14 @@
       "counterexample",
       "unsplittable-flow"
     ],
-    "added": "2026-07-24"
+    "added": "2026-07-24",
+    "revisions": [
+      {
+        "date": "2026-08-02",
+        "kind": "regraded",
+        "note": "Downgraded from author verified to claimed: classifying the sources showed no primary artifact, only a chat transcript."
+      }
+    ]
   },
   {
     "id": "2026-07-19-jacobian-conjecture",
@@ -62,14 +61,6 @@
       "Levent Alpöge"
     ],
     "year_posed": 1939,
-    "wikipedia": "Jacobian conjecture",
-    "notability": 16,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Jacobian conjecture",
-      "editions": 16,
-      "as_of": "2026-08-03"
-    },
     "verification": "formal",
     "autonomy": "collaborative",
     "detail": "The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.",
@@ -119,14 +110,6 @@
     "lab": "OpenAI",
     "model": "GPT-5 series reasoning model",
     "year_posed": 1946,
-    "wikipedia": "Unit distance graph",
-    "notability": 10,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Unit distance graph",
-      "editions": 10,
-      "as_of": "2026-08-03"
-    },
     "verification": "independent",
     "autonomy": "ai-led",
     "detail": "The model produced a construction beating the conjectured bound, with an inexplicit exponent greater than 1. Nine mathematicians - Alon, Bloom, Gowers, Litt, Sawin, Shankar, Tsimerman, Wang and Wood - published a human-verified version of the argument; Sawin separately made the exponent explicit at n^1.014. Gowers called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
@@ -245,7 +228,14 @@
       "combinatorics",
       "alphaevolve"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "revisions": [
+      {
+        "date": "2026-08-02",
+        "kind": "regraded",
+        "note": "Downgraded from peer reviewed to independently checked: the linked artifact is an arXiv preprint, not a reviewed paper."
+      }
+    ]
   },
   {
     "id": "2025-05-alphaevolve-matmul",
@@ -256,14 +246,6 @@
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
     "year_posed": 1969,
-    "wikipedia": "Matrix multiplication algorithm",
-    "notability": 7,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Matrix multiplication algorithm",
-      "editions": 7,
-      "as_of": "2026-08-03"
-    },
     "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "Strassen's 1969 algorithm had stood at 49 multiplications for 56 years in this setting. AlphaEvolve was not purpose-built for matrix multiplication; it is a general evolutionary coding agent. The scheme is exactly checkable.",
@@ -317,14 +299,6 @@
     "lab": "Google DeepMind",
     "model": "AlphaEvolve (Gemini-based)",
     "year_posed": 1694,
-    "wikipedia": "Kissing number",
-    "notability": 12,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Kissing number",
-      "editions": 12,
-      "as_of": "2026-08-03"
-    },
     "verification": "independent",
     "autonomy": "search-scaffold",
     "detail": "Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.",
@@ -436,14 +410,6 @@
     "lab": "Google DeepMind",
     "model": "FunSearch (PaLM 2 / Codey)",
     "year_posed": 1970,
-    "wikipedia": "Cap set",
-    "notability": 2,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Cap set",
-      "editions": 2,
-      "as_of": "2026-08-03"
-    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "FunSearch pairs an LLM that proposes programs with an automated evaluator that rejects incorrect ones, sidestepping hallucination by construction. Applied to extremal combinatorics, it found new large cap sets in both finite-dimensional and asymptotic cases. Published in Nature. Historically the first entry in this registry's scope.",
@@ -489,14 +455,6 @@
     "lab": "Google DeepMind",
     "model": "FunSearch (PaLM 2 / Codey)",
     "year_posed": 1971,
-    "wikipedia": "Bin packing problem",
-    "notability": 12,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Bin packing problem",
-      "editions": 12,
-      "as_of": "2026-08-03"
-    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "Discovered programs are human-readable, which allowed domain experts to inspect and deploy them. Practical rather than theoretical significance.",
@@ -595,14 +553,6 @@
     "lab": "Google DeepMind",
     "model": "AlphaTensor (AlphaZero-based)",
     "year_posed": 1969,
-    "wikipedia": "Matrix multiplication algorithm",
-    "notability": 7,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Matrix multiplication algorithm",
-      "editions": 7,
-      "as_of": "2026-08-03"
-    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.",
@@ -958,14 +908,6 @@
       "Demis Hassabis"
     ],
     "year_posed": 1972,
-    "wikipedia": "Protein structure prediction",
-    "notability": 19,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Protein structure prediction",
-      "editions": 19,
-      "as_of": "2026-08-03"
-    },
     "verification": "independent",
     "autonomy": "ai-led",
     "detail": "AlphaFold2 pairs an attention-based neural network with evolutionary sequence information to predict how a protein folds from its amino-acid sequence. At the 2020 CASP14 blind assessment it reached accuracy competitive with experimental methods, and DeepMind and EMBL-EBI then released predicted structures for over 200 million proteins, nearly the entire catalogued proteome. Demis Hassabis and John Jumper shared the 2024 Nobel Prize in Chemistry for the work, alongside David Baker for computational protein design.",
@@ -1020,14 +962,6 @@
     "date": "2022-02-16",
     "lab": "Google DeepMind",
     "model": "DeepMind RL controller",
-    "wikipedia": "Tokamak",
-    "notability": 56,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Tokamak",
-      "editions": 56,
-      "as_of": "2026-08-03"
-    },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
     "detail": "Working with EPFL's Swiss Plasma Center, DeepMind trained a deep reinforcement-learning agent to command the magnetic control coils of the TCV tokamak. Learning in a simulator against specified target shapes, the controller then ran on the real machine, holding elongated, snowflake and other configurations, including a 'droplet' state with two separate plasmas at once. It is one of the first times a single learned controller replaced the hand-engineered cascade normally required.",
@@ -1157,14 +1091,6 @@
       "Phillip Kerger"
     ],
     "year_posed": 1996,
-    "wikipedia": "Convex optimization",
-    "notability": 17,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Convex optimization",
-      "editions": 17,
-      "as_of": "2026-08-03"
-    },
     "verification": "formal",
     "autonomy": "ai-led",
     "detail": "In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.",
@@ -1209,14 +1135,6 @@
       "Pushmeet Kohli",
       "Swarat Chaudhuri"
     ],
-    "wikipedia": "Automated theorem proving",
-    "notability": 20,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Automated theorem proving",
-      "editions": 20,
-      "as_of": "2026-08-03"
-    },
     "verification": "formal",
     "autonomy": "search-scaffold",
     "detail": "The system proposes proofs with a language model and checks every step in Lean, so a hallucinated argument cannot pass. Beyond the Erdős and OEIS totals it settled a 15-year-old question on log-concavity of pure O-sequences in codimension 3 and type 2, and proved an exact O(1/t) convergence rate for anchored gradient descent-ascent via a parameter choice not previously identified. Two of the Erdős problems had been open for 56 years. All formal proofs were released in a public repository.",
@@ -1317,14 +1235,6 @@
       "Terence Tao",
       "Alex Kontorovich"
     ],
-    "wikipedia": "Prime number theorem",
-    "notability": 50,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Prime number theorem",
-      "editions": 50,
-      "as_of": "2026-08-03"
-    },
     "verification": "author-verified",
     "autonomy": "ai-assisted",
     "detail": "Tao and Kontorovich began a Lean formalization of the strong prime number theorem (the version with an explicit error term) in January 2024, and by July 2025 had announced intermediate progress blocked on core difficulties in complex analysis. Math, Inc. reports that Gauss produced over 25,000 lines of Lean and roughly 1,100 theorems and definitions in about three weeks, completing the project. The repository README states that most statements and proofs were produced by the agent, with humans supplying the high-level blueprint, reviewing key lemmas, and adapting prior work.",
@@ -1874,14 +1784,6 @@
       "Mala Murthy",
       "Gregory Jefferis"
     ],
-    "wikipedia": "Drosophila connectome",
-    "notability": 2,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Drosophila connectome",
-      "editions": 2,
-      "as_of": "2026-08-03"
-    },
     "verification": "peer-reviewed",
     "autonomy": "ai-assisted",
     "detail": "A female Drosophila brain was sliced into about 7,000 sections and imaged by electron microscopy, producing a volume no team could trace by hand. Neural networks segmented the neurons automatically; more than 200 labs and a crowd of proofreaders then corrected the segmentation over several years and annotated over 8,000 cell types. Simulations built directly on the resulting wiring diagram predicted which neurons drive feeding and grooming, and the predictions held up experimentally. Published as a Nature package in October 2024.",
@@ -2357,14 +2259,6 @@
       "Youssef Nader",
       "Julian Schilliger"
     ],
-    "wikipedia": "Herculaneum papyri",
-    "notability": 17,
-    "notability_meta": {
-      "source": "wikipedia-langlinks",
-      "article": "Herculaneum papyri",
-      "editions": 17,
-      "as_of": "2026-08-03"
-    },
     "verification": "author-verified",
     "autonomy": "ai-assisted",
     "detail": "The Herculaneum scrolls were carbonised by the AD 79 eruption of Vesuvius and disintegrate if physically unrolled. The pipeline scans a scroll by X-ray tomography, traces the rolled sheet as a three-dimensional surface, flattens it, and runs a network that detects near-invisible carbon ink from sub-millimetre surface texture. Luke Farritor's model recovered the first word, πορφύρας (\"purple\"), in October 2023, and the 2023 Grand Prize for four passages of 140 characters was claimed in February 2024. In June 2026, PHerc. 1667 became the first scroll recovered continuously from beginning to end, and a title read in a related scroll established that Philodemus' On Gods ran to at least eight books.",

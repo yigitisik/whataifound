@@ -17,10 +17,6 @@ Any step failing stops the run, so a bad entry never reaches a commit. verify-pa
 needs Node; if it is missing the build still succeeds and the check is reported as
 skipped, since it guards a developer-side invariant rather than the output itself.
 
-build-notability.py is deliberately not included: it calls the live Wikipedia API and
-writes measured values back into data/entries.json, so it is a separate, deliberate
-step rather than part of every rebuild. Run it when adding an entry with a `wikipedia`
-title, then run this.
 """
 import os
 import shutil

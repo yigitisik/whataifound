@@ -74,6 +74,29 @@ SOURCE = {
     },
 }
 
+# One recorded edit to an entry. `added` is excluded from the enum on purpose: the build
+# synthesises that row from the entry's `added` date, so offering it here would let an
+# editor write a second one, or backdate the first. build-site.py rejects it too; this
+# just means the editor flags it before the build has to.
+REV_KINDS = [k["slug"] for k in vocab["revision_kinds"] if k["slug"] != "added"]
+REVISION = {
+    "type": "object",
+    "required": ["date", "kind", "note"],
+    "additionalProperties": False,
+    "properties": {
+        "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                 "description": "ISO date of the edit. Cannot precede the entry's `added`."},
+        "kind": {"type": "string", "enum": REV_KINDS,
+                 "description": described(REV_KINDS, vocab["revision_kinds"])},
+        "note": {"type": "string", "minLength": 1,
+                 "description": "What changed and why, in one sentence. Shown verbatim in "
+                                "the activity feed on the home page."},
+        "url": {"type": "string", "pattern": "^https?://",
+                "description": "What prompted the edit, if there is something to point at. "
+                               "Must be http(s). Optional."},
+    },
+}
+
 schema = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://whataifound.org/entry.schema.json",
@@ -114,12 +137,6 @@ schema = {
                        "description": "Named human collaborators on the discovery."},
             "year_posed": {"type": "integer",
                            "description": "Year the problem was first posed. Omit if there is no single origin year."},
-            "wikipedia": {"type": "string",
-                          "description": "English Wikipedia title for the problem itself, not a person or tool."},
-            "notability": {"type": "integer",
-                           "description": "Computed by build-notability.py. Do not hand-set."},
-            "notability_meta": {"type": "object",
-                                "description": "Audit trail written by build-notability.py. Never hand-edit."},
             "detail": {"type": "string", "description": "2-5 sentences. What was actually new."},
             "novelty_check": {"type": "string",
                               "description": "What was searched and what turned up. Write it even when clean."},
@@ -147,6 +164,11 @@ schema = {
                              "description": "Who added or corrected this registry entry."},
             "reviewers": {"type": "array", "items": PERSON,
                           "description": "Who independently checked it. Pairs with independent_checks."},
+            "revisions": {"type": "array", "items": REVISION,
+                          "description": ("What has been edited on this entry since it was "
+                                          "added, newest last. This is where editorial rule 2 "
+                                          "is recorded: an entry is downgraded and annotated, "
+                                          "never deleted, and a regrade belongs here.")},
         },
     },
 }

@@ -30,6 +30,13 @@
        AA contrast as small text on the tint: ai-assisted (light) and retrieval (dark). */
     --aut-autonomous:#1a6b4a; --aut-ai-led:#2d6ba3; --aut-collaborative:#5a4a9e;
     --aut-ai-assisted:#83681d; --aut-search-scaffold:#a8501f; --aut-retrieval:#8f2f2f;
+    /* Revision kinds: what an edit to an entry was. Borrowed from the source-kind family
+       rather than given a fourth palette, because they answer related questions: a check
+       landing reads green like the original work it confirms, a challenge keeps the
+       challenge colour, and `added` is deliberately the quietest of the five, since every
+       entry has one and a feed of them should not look like five alarms. */
+    --rev-added:#5b5f57; --rev-regraded:#83681d; --rev-check:#16705a;
+    --rev-challenge:#a8461f; --rev-correction:#5f4f9c;
     --serif:'Newsreader',Georgia,'Iowan Old Style',Palatino,serif;
     --shadow:0 1px 2px rgba(30,28,24,.04),0 8px 24px rgba(30,28,24,.06);
     --shadow-card:0 1px 1px rgba(30,28,24,.04),0 2px 6px rgba(30,28,24,.05),
@@ -49,6 +56,8 @@
       --src-commentary:#9b8ae0; --src-challenge:#d47a45;
       --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
       --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
+      --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
+      --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
       --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -63,6 +72,8 @@
     --src-commentary:#9b8ae0; --src-challenge:#d47a45;
     --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
     --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
+    --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
+    --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
     --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -175,6 +186,10 @@
   .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
     font-family:var(--serif);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--muted);padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+  /* The rule under the eyebrow separates it from the page title beneath. On a finding
+     page the masthead holds nothing else, so the same border would be a line dangling
+     under the last row with empty space below it. */
+  header > .eyebrow:only-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
   /* The bar that links every page to every other one. It sits inside the eyebrow flex row
      rather than on its own line, so on desktop it costs no vertical space at all, which
      matters on the homepage where the hero has to end above the fold. Below 720px the
@@ -210,7 +225,8 @@
   .gh-icon svg{display:block}
   .gh-link{display:inline-flex;align-items:center;gap:6px}
   .gh-link svg{flex:none}
-  .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:9px}
+  .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;
+    gap:9px;text-decoration:none}
   /* The brand is a flex row, so the wordmark has to stay one flex item: left as bare
      text nodes, the gradient span would split it into three items and the 9px gap
      meant for the mark would open up inside the word too. */
@@ -299,19 +315,47 @@
      absorb the slack rather than leaving it as a void between the two: pinning the buttons
      to the bottom of a 355px column with 150px of counts above them opens a gap wider than
      the tiles themselves. */
-  /* Counts at their natural size, actions at the foot, and the review prompt taking the
-     slack between them. Stretching the four tiles to fill a 392px column instead made each
-     one 180px tall around a single number, which is padding rather than design. */
+  /* The feed takes the slack, actions sit at the foot on the chart's own baseline. The four
+     count tiles used to hold this column; they were the chart's caption rather than news, so
+     they moved down to the reports strip and the column went to the one thing on the page
+     that changes between visits. */
   .hero-side{display:flex;flex-direction:column;gap:11px;min-width:0}
-  .hero-promo{flex:1;display:flex;flex-direction:column;justify-content:center;
-    background:var(--accent-soft);border:1px solid transparent;border-left:3px solid var(--accent);
-    border-radius:12px;padding:13px 15px;text-decoration:none;color:var(--muted);
-    font-size:.84rem;line-height:1.5;transition:border-color .16s var(--ease)}
-  .hero-promo:hover{border-color:var(--accent)}
-  .hero-promo b{color:var(--ink);font-family:var(--serif);font-size:1.15rem;font-weight:600;
-    font-variant-numeric:lining-nums tabular-nums}
-  .hero-promo-cta{display:block;margin-top:6px;color:var(--accent);font-weight:600;
-    font-family:var(--serif);font-size:.8rem}
+
+  /* ---------- Activity feed ---------- */
+  /* Fixed height, not scrolling: build_activity() emits exactly ACTIVITY_ROWS rows, so the
+     card is sized by its content and the two hero columns end on the same baseline. If rows
+     ever overflow, raise the row budget or cut a row; do not add a scrollbar to a hero. */
+  .hero-feed{flex:1;display:flex;flex-direction:column;min-height:0;
+    background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    box-shadow:var(--shadow);padding:13px 15px 12px}
+  .feed-head{font-family:var(--serif);font-size:.63rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted);margin:0 0 9px}
+  .feed-list{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;
+    gap:8px;flex:1;min-height:0}
+  .feed-row{display:grid;grid-template-columns:auto 1fr;grid-template-areas:"meta title" ". note";
+    column-gap:9px;row-gap:2px;align-items:baseline;padding-bottom:8px;
+    border-bottom:1px solid var(--line);min-width:0}
+  .feed-row:last-child{border-bottom:none;padding-bottom:0}
+  .feed-meta{grid-area:meta;display:flex;align-items:center;gap:6px}
+  .feed-date{font-family:var(--serif);font-size:.63rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+  /* One line each. A feed of 7 rows in a fixed column cannot let one long title reflow into
+     three lines and push the last row out of the card. */
+  .feed-title{grid-area:title;font-family:var(--serif);font-size:.82rem;line-height:1.3;
+    color:var(--ink);text-decoration:none;overflow:hidden;text-overflow:ellipsis;
+    white-space:nowrap;min-width:0}
+  .feed-title:hover{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  .feed-note{grid-area:note;font-family:var(--serif);font-size:.72rem;line-height:1.35;
+    color:var(--muted);overflow:hidden;text-overflow:ellipsis;white-space:nowrap;min-width:0}
+  .feed-src{margin-left:5px;color:var(--accent);text-decoration:none}
+  .feed-foot{display:block;margin-top:10px;padding:9px 11px;border-radius:11px;
+    background:var(--accent-soft);border-left:3px solid var(--accent);
+    font-family:var(--serif);font-size:.74rem;line-height:1.45;color:var(--muted);
+    text-decoration:none;transition:filter .16s var(--ease)}
+  .feed-foot:hover{filter:brightness(1.04)}
+  .feed-foot b{color:var(--ink);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+  .feed-foot-cta{display:block;margin-top:3px;color:var(--accent);font-weight:600;font-size:.72rem}
+
   .hero-links{display:flex;gap:9px;margin:0;font-family:var(--serif);flex-wrap:wrap}
   .hero-links .btn{flex:1 1 auto;justify-content:center;padding:12px 17px}
 
@@ -319,14 +363,13 @@
   /* Discrete raised tiles: each stat is its own card so the numbers read as objects sitting on
      the masthead, rather than cells of one flat table. */
   .stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:32px 0 0}
-  /* In the hero the tiles are a compact 2x2 beside the chart: they are the chart's caption,
-     not its equal, so they take their natural height and hand the rest of the column to the
-     chart and the two buttons below. Tighter padding and a smaller number than the standalone
-     .stat, which has a full row to itself. */
-  .hero-side .stats{grid-template-columns:repeat(2,1fr);margin:0;gap:10px;flex:none}
-  .hero-side .stat{display:flex;flex-direction:column;justify-content:center;padding:12px 13px 10px}
-  .hero-side .stat b{font-size:1.6rem}
-  .hero-side .stat span{margin-top:4px;font-size:.57rem;letter-spacing:.09em}
+  /* Heading the reports strip rather than the hero: four counts are the caption to the
+     analysis under them, not a headline in their own right, so they run at a reduced size
+     across the top of the strip instead of taking a column beside the chart. */
+  .reports .stats{margin:0 0 12px;gap:10px}
+  .reports .stat{padding:13px 15px 11px}
+  .reports .stat b{font-size:1.55rem}
+  .reports .stat span{margin-top:5px;font-size:.58rem;letter-spacing:.1em}
   .stat{background:var(--panel);padding:19px 20px 17px;position:relative;overflow:hidden;
     border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
     transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s}
@@ -340,17 +383,50 @@
   @keyframes barIn{to{transform:scaleX(1)}}
   @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
 
+  /* ---------- Reports strip ---------- */
+  /* Between the hero and the sticky toolbar: what the corpus says, before the reader starts
+     filtering it. Four cards rather than the two-column .qv-grid /visuals uses, because a
+     strip that ran two-up here would be as tall as the registry it introduces. */
+  .reports{margin:28px 0 0}
+  .reportgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:1px;
+    background:var(--line);border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    box-shadow:var(--shadow)}
+  /* Four across only where the 1120px wrap can give each card ~265px. Below that the
+     hbar label column stops being readable before the bars do. */
+  @media(min-width:1180px){.reportgrid{grid-template-columns:repeat(4,1fr)}}
+  @media(max-width:640px){.reportgrid{grid-template-columns:1fr}}
+  .reports .qv-card{display:flex;flex-direction:column}
+  /* Narrower than the 138px /visuals gives it: this card is a quarter of the row, not half
+     a page. Same trade the 640px and print rules already make further down. */
+  .reports .hbar{grid-template-columns:86px 1fr 22px;gap:8px}
+  .reports .hbar-label{font-size:.66rem}
+  .reports .qv-foot{margin-top:auto;padding-top:9px}
+
+  /* Longest-standing rows: the number is the point, so it leads and the title follows. */
+  .standing{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .standing a{display:grid;grid-template-columns:auto 1fr;column-gap:9px;row-gap:1px;
+    text-decoration:none;align-items:baseline}
+  .standing b{grid-row:span 2;font-family:var(--serif);font-size:1.15rem;font-weight:600;
+    color:var(--ink);line-height:1.1;font-variant-numeric:lining-nums tabular-nums;
+    white-space:nowrap}
+  .standing span{font-family:var(--serif);font-size:.72rem;line-height:1.3;color:var(--ink);
+    display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+  .standing em{font-family:var(--serif);font-size:.65rem;font-style:normal;color:var(--muted);
+    overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .standing a:hover span{color:var(--accent);text-decoration:underline;text-underline-offset:2px}
+  .reports-note{font-family:var(--serif);font-size:.7rem;color:var(--muted);margin:10px 0 0;
+    line-height:1.5}
+
   /* Once the two columns stack there is no good size for this chart. At its natural aspect
      a full-width column makes it ~343px tall and buries the registry under the hero; forcing
      it shorter scales the whole drawing down until the row labels ("Independent / peer"
      against a 108-of-470 gutter) are illegible. So below the two-column layout it is hidden
-     and .hero-cta, which lives in the other column, carries the link to the full chart.
-     display:none rather than omitted from the markup: the SVG stays in the pre-rendered HTML,
-     so crawlers still read all 15 cells. */
+     and the feed, which lives in the other column, carries the hero on its own. The feed
+     stays: it is compact, and it is what a returning reader came back for. display:none
+     rather than omitted from the markup: the SVG stays in the pre-rendered HTML, so
+     crawlers still read all 15 cells. */
   @media(max-width:640px){
     .hero-data{grid-template-columns:1fr;gap:14px}
-    .hero-side{grid-template-rows:auto auto}
-    .hero-side .stats{height:auto}
     .hero-chart{display:none}
   }
 
@@ -629,16 +705,14 @@
   @keyframes growy{from{transform:scaleY(0)}to{transform:scaleY(1)}}
   .vbar-val{font-family:var(--serif);font-size:.68rem;color:var(--ink);font-variant-numeric:lining-nums tabular-nums;font-weight:600}
   .vbar-x{font-family:var(--serif);font-size:.6rem;color:var(--muted)}
-  /* Scatter: years open vs notability, colored by autonomy. Spans both columns. */
+  /* A chart card that closes an odd row by taking the full grid width. */
   .qv-wide{grid-column:1 / -1}
+  /* Shared plot chrome: wrapper, SVG sizing, axis labels and the tooltip below. Named
+     .sc-* from when a scatter chart used them too; the evidence/autonomy matrix is the
+     only plot now, and a second one would reuse these rather than add its own. */
   .sc-wrap{position:relative}
   .sc{width:100%;height:auto;display:block;overflow:visible}
-  .sc-grid{stroke:var(--line);stroke-width:1}
-  .sc-tick{fill:var(--muted);font-family:var(--serif);font-size:10px;font-variant-numeric:lining-nums tabular-nums}
   .sc-axis{fill:var(--muted);font-family:var(--serif);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase}
-  .sc-dot{stroke:var(--panel);stroke-width:1.5;opacity:.9;cursor:pointer;transition:opacity .15s}
-  .sc-dot:hover,.sc-dot:focus-visible{opacity:1;stroke:var(--ink);stroke-width:2;outline:none}
-  .sc-dot:focus-visible{stroke:var(--accent)}
   /* Interactive tooltip: positioned by JS within .sc-wrap. */
   .sc-tip{position:absolute;z-index:5;pointer-events:none;max-width:260px;
     background:var(--panel);border:1px solid var(--line-strong);border-radius:10px;
@@ -648,8 +722,8 @@
   .sc-tip-r{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.72rem;color:var(--ink)}
   .sc-tip-r .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .sc-tip-m{font-family:var(--serif);font-size:.7rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
-  /* Evidence-vs-autonomy matrix. Shares .sc-wrap/.sc/.sc-tip with the scatter; only the
-     marks and the two axis treatments differ. */
+  /* Evidence-vs-autonomy matrix. Uses the shared .sc-wrap/.sc/.sc-axis/.sc-tip chrome
+     above; only the marks and the two axis treatments are its own. */
   .mx-guide{stroke:var(--line);stroke-width:1}
   /* The boundary between evidence for a claim and evidence against it: the one line on
      this axis that carries meaning, so it is drawn heavier than the cell guides. */
@@ -663,9 +737,6 @@
      swallows the hover that belongs to the circle underneath it. */
   .mx-n{fill:var(--bg);font-family:var(--serif);font-size:10px;font-weight:600;
     pointer-events:none;font-variant-numeric:lining-nums tabular-nums}
-  .sc-legend{display:flex;flex-wrap:wrap;gap:6px 16px;margin-top:12px}
-  .sc-key{display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.68rem;color:var(--muted)}
-  .sc-key .sw{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
   .qv-empty,.qv-foot{font-family:var(--serif);color:var(--muted);margin:8px 0 0}
   .qv-empty{font-size:.8rem}
   .qv-foot{font-size:.66rem;letter-spacing:.02em}
@@ -725,6 +796,17 @@
   .a-autonomous{--ac:var(--aut-autonomous)} .a-ai-led{--ac:var(--aut-ai-led)}
   .a-collaborative{--ac:var(--aut-collaborative)} .a-ai-assisted{--ac:var(--aut-ai-assisted)}
   .a-search-scaffold{--ac:var(--aut-search-scaffold)} .a-retrieval{--ac:var(--aut-retrieval)}
+
+  /* Revision kinds: a tint like autonomy, but smaller and set in caps, because these sit in
+     a narrow feed column where the date beside them is the other fixed-width thing. --rc is
+     set per value by the .r-<slug> rules. */
+  .pill.r{background:color-mix(in srgb, var(--rc) 14%, transparent);color:var(--rc);
+    border-color:color-mix(in srgb, var(--rc) 28%, transparent);font-weight:600;
+    text-transform:uppercase;letter-spacing:.07em;font-size:.56rem;padding:3px 7px;
+    --rc:var(--accent)}
+  .r-added{--rc:var(--rev-added)} .r-regraded{--rc:var(--rev-regraded)}
+  .r-check{--rc:var(--rev-check)} .r-challenge{--rc:var(--rev-challenge)}
+  .r-correction{--rc:var(--rev-correction)}
 
   /* Source kinds: a dot carries the colour, the label stays small. Lowest weight of the three,
      because a card shows up to five of these and only one of each grade. */
@@ -933,7 +1015,6 @@
      column and needs its own breathing room; inside a <header> it gets that from the
      eyebrow. Pulled left by the link padding so the first item lines up with the text
      column below it rather than sitting a few pixels proud of it. */
-  .finding-page .pagenav{margin:22px 0 6px}
   .crumb{font-family:var(--serif);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;
     color:var(--muted);padding:14px 0 0}
   .crumb a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-strong)}
@@ -1144,7 +1225,7 @@
     html,body{background:#fff!important}
     .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.totop,.keys,.listfoot,
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
-    .permalink,.skip,.hero-promo,.labs-hub,.srclegend,.crumb{display:none!important}
+    .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
     a{text-decoration:underline}
     /* Open every disclosure: a printed page cannot be expanded. */
     details{display:block!important}

@@ -12,7 +12,12 @@
     "scores or ranks an entry by it. The categories describe the role a link plays and",
     "never who published it - a lone researcher announcing their own result on X is an",
     "announcement exactly as a corporate press release is. Medium is irrelevant; who is",
-    "speaking, and what they are doing, is the whole question."
+    "speaking, and what they are doing, is the whole question.",
+    "",
+    "revision_kinds is not a grade either. It classifies an *edit* to an entry, so that",
+    "editorial rule 2 (never delete; downgrade and annotate) is visible on the site and",
+    "not only in the git log. `added` is owned by the build, which synthesises one row",
+    "per entry from the `added` field; writing it into an entry's revisions is rejected."
   ],
   "verification": [
     {
@@ -153,6 +158,43 @@
       "chip": "Challenge",
       "short": "the case against the claim",
       "definition": "The case against: a critical review, a rebuttal, a failed replication, or a citation of prior work showing the result was already known. The strongest challenge is listed first. A challenge disputes the claim, not the people who made it."
+    }
+  ],
+  "revision_kinds": [
+    {
+      "slug": "added",
+      "label": "Added",
+      "chip": "Added",
+      "short": "the entry entered the registry",
+      "definition": "The entry entered the registry. Owned by the build, which synthesises one of these per entry from its `added` date; it is rejected in an entry's own revisions, so there is exactly one and it cannot be backdated by hand."
+    },
+    {
+      "slug": "regraded",
+      "label": "Regraded",
+      "chip": "Regraded",
+      "short": "a verification or autonomy grade moved",
+      "definition": "The verification or autonomy grade changed, in either direction. This is the record editorial rule 2 asks for: an entry is never deleted, it is downgraded and annotated, and this is where that shows. Say which grade moved and what moved it."
+    },
+    {
+      "slug": "check",
+      "label": "Check landed",
+      "chip": "Checked",
+      "short": "someone outside the lab checked the result",
+      "definition": "An independent check was recorded on the entry. Pairs with the `independent_checks` field, which holds who checked and what they found; this records that it happened and when, so the entry leaving the review queue is visible as an event."
+    },
+    {
+      "slug": "challenge",
+      "label": "Challenge linked",
+      "chip": "Challenged",
+      "short": "a counterargument was cited",
+      "definition": "A challenge source was added: a rebuttal, a critical review, a failed replication, or prior work showing the result was already known. Recorded separately from a regrade because a challenge can be cited without the grade moving."
+    },
+    {
+      "slug": "correction",
+      "label": "Corrected",
+      "chip": "Corrected",
+      "short": "a factual fix that left the grades alone",
+      "definition": "A factual correction that did not move either grade: a wrong date, a misattributed lab, a broken or superseded link, a claim sentence that overstated the result. Small, but recorded, because a registry that quietly edits itself is worth less than one that does not."
     }
   ],
   "fields": {

@@ -57,47 +57,9 @@ const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challe
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
 
-// Theme: light / dark / system. Top-to-bottom wipe via View Transitions.
-(function(){
-  const btns = [...document.querySelectorAll('.theme-seg .th')];
-  if (!btns.length) return;
-  // Default is dark: a first-time visitor (no stored choice) gets dark, not the OS setting.
-  const current = () => { try { return localStorage.getItem('theme') || 'dark'; } catch(e){ return 'dark'; } };
-  const sync = mode => btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'));
-  // Browser-chrome tint on iOS/Android. Kept in step with the rendered theme, so the
-  // bar above the page never disagrees with the page. 'system' resolves through the
-  // media query, which is what the CSS does too.
-  const tint = mode => {
-    const m = document.querySelector('meta[name=theme-color]');
-    if (!m) return;
-    const light = mode === 'light' ||
-      (mode === 'system' && matchMedia('(prefers-color-scheme: light)').matches);
-    m.content = light ? '#faf9f6' : '#111310';
-  };
-  const apply = mode => {
-    if (mode === 'system') document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme', mode);
-    sync(mode);
-    tint(mode);
-    try { localStorage.setItem('theme', mode); } catch(e){}
-  };
-  sync(current());
-  btns.forEach(b => b.addEventListener('click', () => {
-    const mode = b.dataset.mode;
-    if (!document.startViewTransition || REDUCE) { apply(mode); return; }
-    // The incoming theme is revealed as a horizontal edge sweeping down the viewport:
-    // inset() insets from the bottom by 100% (nothing visible) to 0 (fully revealed).
-    document.startViewTransition(() => apply(mode)).ready.then(() => {
-      document.documentElement.animate(
-        { clipPath: ['inset(0 0 100% 0)', 'inset(0 0 0 0)'] },
-        { duration: 1000, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' });
-    });
-  }));
-  // Under 'system' the CSS follows the OS live, so the tint has to as well; otherwise
-  // flipping the OS theme with the page open leaves the chrome on the old colour.
-  matchMedia('(prefers-color-scheme: light)')
-    .addEventListener('change', () => { if (current() === 'system') tint('system'); });
-})();
+// The theme switcher used to live here. It moved to chrome.js, which loads on every
+// page: this file does not, so the switcher was missing from five of the seven page
+// types. REDUCE stays because the chart and card animations below still read it.
 
 function esc(s){ return String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -210,13 +172,6 @@ function openMeta(e){
   const span = n === 0 ? 'same year' : `open ${n} yr${n===1?'':'s'}`;
   return `<div><dt>Posed</dt><dd>${e.year_posed} · ${span}</dd></div>`;
 }
-// notability = # of Wikipedia language editions with an article (English included),
-// measured from the live API by build-notability.py. Absent means unrated.
-function notabilityMeta(e){
-  if (e.notability == null) return '';
-  const v = e.notability;
-  return `<div><dt>Notability</dt><dd>${v} Wikipedia edition${v===1?'':'s'}</dd></div>`;
-}
 
 function card(e){
   const f = (label, val) => val ? `<div class="field reveal"><b>${label}</b><p>${esc(val)}</p></div>` : '';
@@ -235,7 +190,6 @@ function card(e){
         <div><dt>Model</dt><dd>${esc(e.model)}</dd></div>
         <div><dt>Field</dt><dd>${esc(e.field)}</dd></div>
         ${openMeta(e)}
-        ${notabilityMeta(e)}
       </dl>
     </div>
     <div class="body">
@@ -323,31 +277,7 @@ function renderCharts(){
   if (!el) return;
   const tally = keyFn => { const m={}; ALL.forEach(e=>{const k=keyFn(e); if(k!=null) m[k]=(m[k]||0)+1;}); return m; };
   const sortDesc = m => Object.entries(m).sort((a,b)=>b[1]-a[1]);
-
-  // Time series: findings per year, gaps filled
-  const years = ALL.map(e=>+e.date.slice(0,4));
-  const y0=Math.min(...years), y1=Math.max(...years), byYear=[];
-  for (let y=y0; y<=y1; y++) byYear.push([y, years.filter(v=>v===y).length]);
-  const ymax = Math.max(...byYear.map(d=>d[1]), 1);
-  const vLabel = 'Findings per year. ' + byYear.map(([y,c])=>`${y}: ${c}`).join('; ');
-  const vbars = `<div class="vbars" role="img" aria-label="${esc(vLabel)}">` + byYear.map(([y,c])=>
-    `<div class="vbar" title="${y}: ${c} finding${c===1?'':'s'}">`+
-    `<span class="vbar-val">${c}</span>`+
-    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
-    `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
-
-  // rows are [label, count, swatch?, titleOverride?, cls?]. The override carries the long
-  // form (a full org name, or the roster behind an aggregated row) into the tooltip
-  // while the visible label stays short enough for the label column.
-  const hbars = (rows, name) => {
-    const max = Math.max(...rows.map(r=>r[1]), 1);
-    const lab = name + '. ' + rows.map(([l,c])=>`${l}: ${c}`).join('; ');
-    return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw,tt,cls])=>
-      `<div class="hbar${cls?' '+cls:''}" title="${esc(tt || `${label}: ${c}`)}">`+
-      `<span class="hbar-label">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${esc(label)}</span>`+
-      `<span class="hbar-track"><span class="hbar-fill" style="width:${Math.round(c/max*100)}%"></span></span>`+
-      `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
-  };
+  const hbars = hbarsHtml;
 
   // Long organisation names get ellipsised to nothing useful in the label column
   // ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
@@ -396,7 +326,6 @@ function renderCharts(){
       `${rest.length} further organisations with one finding each: `+
       rest.map(([l])=>l).join(', '), 'is-rollup']] : [])
   ];
-  const byField = sortDesc(tally(e=>e.field)).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
   const GORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
   const GVAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
     claimed:'--claimed',disputed:'--disputed',known:'--known',refuted:'--refuted'};
@@ -407,16 +336,19 @@ function renderCharts(){
 
   // Order matters, and a grid row is as tall as its tallest card, so row-mates are paired
   // by similar height: fixed-height year bars with the 7-row grade breakdown, then the two
-  // capped category lists together. The scatter is the analytical centrepiece, so it comes
-  // third (one grid row down, inside the opening view) rather than below four cards,
-  // where reaching it took a deliberate scroll.
+  // capped category lists together. The evidence/autonomy matrix is the analytical
+  // centrepiece, so it comes third (one grid row down, inside the opening view) rather
+  // than below three cards, where reaching it took a deliberate scroll.
   el.innerHTML =
-    `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
+    yearCard()+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
-    scatterCard()+
     matrixCard()+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
-    `<div class="qv-card"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
+    // Five cards in a two-column grid leaves the last one orphaned beside dead space, so
+    // the longest list takes the full width and closes the row. Was six cards while the
+    // notability scatter existed, which spanned both columns for its own reasons.
+    // 0 = no cap: this page has the width for all of them, the home page does not.
+    topicCard(0, 'qv-wide');
   renderInsights();
   wireScatterTip();
 }
@@ -456,14 +388,12 @@ function renderInsights(){
     `<span class="ins-n">${esc(note)}</span></div>`).join('');
 }
 
-// Autonomy is the axis this registry owns, so it's the color key of the scatter:
-// how famous a problem was (notability) vs how long it stood (years open),
-// with each point tinted by how much the AI actually did.
+// Autonomy is the axis this registry owns, so it is the colour key of the matrix and of
+// the tinted pills on every card, which is what keeps the chart and the cards agreeing.
 const AUT_COLOR = {
   'autonomous':'var(--formal)','ai-led':'var(--independent)','collaborative':'var(--peer)',
   'ai-assisted':'var(--author)','search-scaffold':'var(--disputed)','retrieval':'var(--known)'
 };
-const AUT_ORDER = ['autonomous','ai-led','collaborative','ai-assisted','search-scaffold','retrieval'];
 
 // Chart labels for the `field` slugs. Unlisted fields fall back to the raw value, so a
 // new one still renders; it just reads as the slug until it is named here.
@@ -473,111 +403,6 @@ const FIELD_SHORT = {
   'neuroscience':'Neuroscience','astronomy':'Astronomy','archaeology':'Archaeology',
   'engineering':'Engineering','climate':'Climate','economics':'Economics'
 };
-
-function scatterCard(){
-  // x = notability (α, fame); y = years open before the result. Color = autonomy.
-  // Only entries with both fields can be placed; the rest are noted, not silently dropped.
-  const pts = ALL.map(e => ({e, x: e.notability, y: yearsOpen(e)}))
-                 .filter(p => p.x != null && p.y != null);
-  const missing = ALL.length - pts.length;
-  if (pts.length < 2){
-    return `<div class="qv-card qv-wide"><h3 class="qv-title">Years open vs. notability</h3>`+
-      `<p class="qv-empty">Not enough entries carry both a posed year and a notability score yet.</p></div>`;
-  }
-
-  // Sized to sit beside the matrix in one grid row, so the box matches that card's
-  // proportions rather than the full page width it used to span.
-  const W = 440, H = 300, PADL = 44, PADR = 14, PADT = 12, PADB = 58;
-  const xs = pts.map(p=>p.x), ys = pts.map(p=>p.y);
-  // x = notability on a LOG scale: values span 1..56, so a linear axis would crush the
-  // 1..19 cluster into the left edge. All counts are >= 1 (no article => no point), so
-  // log is well-defined.
-  //
-  // y = years open on a SQRT scale. One problem stood 331 years and the next longest 87,
-  // so a linear axis spent about three quarters of its height on empty space above the
-  // cluster and stacked the other points on the baseline. Sqrt pulls the outlier in while
-  // keeping 0 at 0 (unlike log) and the ordering exact, so the card earns its height
-  // instead of padding it. Ticks are labelled in plain years, so the axis still reads
-  // directly even though the spacing is non-linear.
-  const yMax = Math.max(...ys, 10);
-  const xMax = Math.max(...xs, 10);
-  const lx = v => Math.log10(Math.max(v, 1));
-  const lxMax = lx(xMax);
-  const sy = v => Math.sqrt(Math.max(v, 0));
-  const syMax = sy(yMax);
-  const px = x => PADL + (lx(x) / lxMax) * (W - PADL - PADR);
-  const py = y => H - PADB - (sy(y) / syMax) * (H - PADT - PADB);
-
-  // x-ticks at 1-2-5-10-20-50 style stops up to the max.
-  const XSTOPS = [1,2,5,10,20,50,100,200];
-  const xticks = XSTOPS.filter(v => v <= xMax * 1.001);
-  if (xticks[xticks.length-1] < xMax) xticks.push(xMax);
-  // y-ticks from fixed round stops rather than a constant step: the axis is sqrt-scaled,
-  // so an even step would bunch the upper gridlines together. The data max is always
-  // labelled (the outlier should be readable, not merely implied), then round stops fill
-  // in below it, but only where they clear MINGAP pixels of their neighbours, otherwise
-  // sqrt compression prints overlapping labels like "331" over "300".
-  const MINGAP = 14;
-  const YSTOPS = [0,10,25,50,100,200,300,500,750,1000];
-  const yticks = [yMax];
-  YSTOPS.filter(v => v < yMax).reverse().forEach(v => {
-    if (yticks.every(k => Math.abs(py(v) - py(k)) >= MINGAP)) yticks.push(v);
-  });
-  yticks.sort((a,b) => a-b);
-
-  const grid = [
-    ...xticks.map(v => `<line x1="${px(v).toFixed(1)}" y1="${PADT}" x2="${px(v).toFixed(1)}" y2="${H-PADB}" class="sc-grid"/>`+
-      `<text x="${px(v).toFixed(1)}" y="${H-PADB+16}" class="sc-tick" text-anchor="middle">${v}</text>`),
-    ...yticks.map(v => `<line x1="${PADL}" y1="${py(v).toFixed(1)}" x2="${W-PADR}" y2="${py(v).toFixed(1)}" class="sc-grid"/>`+
-      `<text x="${PADL-6}" y="${(py(v)+3.5).toFixed(1)}" class="sc-tick" text-anchor="end">${v}</text>`)
-  ].join('');
-
-  // Deterministic jitter so coincident points fan out without Math.random(); seeded by index.
-  const dots = pts.map((p,i) => {
-    const jx = ((i * 37) % 11 - 5) * 0.6, jy = ((i * 53) % 9 - 4) * 0.6;
-    const cx = (px(p.x)+jx).toFixed(1), cy = (py(p.y)+jy).toFixed(1);
-    const col = AUT_COLOR[p.e.autonomy] || 'var(--muted)';
-    const nt = `${p.x} Wikipedia edition${p.x===1?'':'s'}`;
-    // Data attributes drive the interactive HTML tooltip (richer than SVG <title>).
-    return `<circle cx="${cx}" cy="${cy}" r="6" fill="${col}" class="sc-dot" tabindex="0" role="img"`+
-      ` data-title="${esc(p.e.title)}"`+
-      ` data-aut="${esc(AUT_LABEL[p.e.autonomy]||p.e.autonomy)}"`+
-      ` data-autcol="${col}"`+
-      ` data-open="posed ${esc(String(p.e.year_posed))} · open ${p.y} yr${p.y===1?'':'s'}"`+
-      ` data-not="${esc(nt)}"`+
-      ` data-year="${esc(String(p.e.date).slice(0,4))}"`+
-      ` aria-label="${esc(`${p.e.title}. Open ${p.y} years, notability ${p.x}, ${AUT_LABEL[p.e.autonomy]||p.e.autonomy}.`)}">`+
-      `</circle>`;
-  }).join('');
-
-  const axisTitles =
-    `<text x="${(PADL+(W-PADR))/2}" y="${H-4}" class="sc-axis" text-anchor="middle">Notability α, Wikipedia editions (log)</text>`+
-    `<text x="13" y="${(PADT+(H-PADB))/2}" class="sc-axis" text-anchor="middle" transform="rotate(-90 13 ${(PADT+(H-PADB))/2})">Years open before result</text>`;
-
-  // Legend: only autonomy classes actually present, in canonical order.
-  const present = AUT_ORDER.filter(a => pts.some(p => p.e.autonomy === a));
-  const legend = `<div class="sc-legend">` + present.map(a =>
-    `<span class="sc-key"><i class="sw" style="background:${AUT_COLOR[a]}"></i>${esc(AUT_LABEL[a]||a)}</span>`).join('') + `</div>`;
-
-  const note = missing ? `<p class="qv-foot">${missing} entr${missing===1?'y':'ies'} not plotted (no posed year or notability yet).</p>` : '';
-  const label = `Scatter of years open versus notability, colored by autonomy. ${pts.length} entries plotted.`;
-
-  return `<div class="qv-card"><h3 class="qv-title">Years open vs. notability</h3>`+
-    `<div class="sc-wrap">`+
-    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(label)}" preserveAspectRatio="xMidYMid meet">`+
-    grid + axisTitles + dots + `</svg>`+
-    `<div class="sc-tip" hidden aria-hidden="true"></div>`+
-    `</div>` + legend + note + `</div>`;
-}
-
-// The registry's own two axes plotted against each other: how much the AI did (x) by
-// how well the result is stood up (y). Unlike the notability scatter, every entry has
-// both grades, so this one plots the whole registry.
-//
-// It is a matrix, not a scatter, because both axes are ordinal with few levels: 52
-// entries land in only ~15 distinct combinations, and one cell alone holds 18. Drawn as
-// points they would sit on top of each other and hide two thirds of the data, so each
-// cell is a single mark whose area encodes how many entries share it.
 function matrixCard(){
   const pts = ALL.filter(e => VER_SCORE[e.verification] != null && AUT_RANK[e.autonomy] != null);
   const missing = ALL.length - pts.length;
@@ -690,13 +515,68 @@ function matrixCard(){
     note + `</div>`;
 }
 
+// ---------- Chart builders shared by /visuals and the home page ----------
+// These three are pure: same ALL in, same string out, no DOM. That is what lets
+// build-site.py pre-render them for the home page and verify-parity.py diff the two
+// implementations, exactly as it already does for card(), matrixCard() and tableView().
+// They live here rather than inside renderCharts() for the same reason: a closure cannot
+// be called from a parity check.
+
+// rows are [label, count, swatch?, titleOverride?, cls?]. The override carries the long
+// form (a full org name, or the roster behind an aggregated row) into the tooltip
+// while the visible label stays short enough for the label column.
+function hbarsHtml(rows, name){
+  const max = Math.max(...rows.map(r=>r[1]), 1);
+  const lab = name + '. ' + rows.map(([l,c])=>`${l}: ${c}`).join('; ');
+  return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw,tt,cls])=>
+    `<div class="hbar${cls?' '+cls:''}" title="${esc(tt || `${label}: ${c}`)}">`+
+    `<span class="hbar-label">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${esc(label)}</span>`+
+    `<span class="hbar-track"><span class="hbar-fill" style="width:${Math.round(c/max*100)}%"></span></span>`+
+    `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
+}
+
+// Time series: findings per year, gaps filled. Empty years are drawn rather than skipped
+// because a gap is a fact about the registry, and a bar chart that closed up its own
+// quiet years would read as steady output.
+function yearCard(){
+  const years = ALL.map(e=>+e.date.slice(0,4));
+  const y0=Math.min(...years), y1=Math.max(...years), byYear=[];
+  for (let y=y0; y<=y1; y++) byYear.push([y, years.filter(v=>v===y).length]);
+  const ymax = Math.max(...byYear.map(d=>d[1]), 1);
+  const vLabel = 'Findings per year. ' + byYear.map(([y,c])=>`${y}: ${c}`).join('; ');
+  const bars = `<div class="vbars" role="img" aria-label="${esc(vLabel)}">` + byYear.map(([y,c])=>
+    `<div class="vbar" title="${y}: ${c} finding${c===1?'':'s'}">`+
+    `<span class="vbar-val">${c}</span>`+
+    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
+    `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
+  return `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${bars}</div>`;
+}
+
+// Findings by topic area. `max` is a height budget, not a ranking: /visuals passes 0 and
+// gets all of them, the home page passes a cap because the card is a quarter of the width
+// there. The tail aggregates into one labelled row rather than being dropped, so the
+// column still sums to the registry, the same way the lab chart handles its long tail.
+function topicCard(max, cls){
+  const m = {};
+  ALL.forEach(e => { if (e.field != null) m[e.field] = (m[e.field]||0)+1; });
+  const rows = Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
+  const head = (max && rows.length > max) ? rows.slice(0, max-1) : rows;
+  const rest = rows.slice(head.length);
+  const out = head.slice();
+  if (rest.length) out.push([`+${rest.length} more topics`, rest.reduce((s,r)=>s+r[1],0), null,
+    `${rest.length} further topics: ` + rest.map(([l,c])=>`${l} (${c})`).join(', '), 'is-rollup']);
+  return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">By topic area</h3>`+
+    hbarsHtml(out, 'By topic area') + `</div>`;
+}
+
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside
 // its own chart wrapper. Delegated + re-bindable so it survives chart re-renders, and
 // bound per wrapper so each plot's tooltip stays inside that plot's card.
 //
 // The rows are driven by which data attributes a mark carries rather than by which chart
-// it belongs to, so the two plots share one implementation: the scatter sets notability
-// and result-year, the matrix sets neither and lists its entries in `open` instead.
+// it belongs to. Only the evidence/autonomy matrix uses this now, but the `.sc-*` naming
+// is the shared plot chrome rather than anything scatter-specific, and a second plot
+// would need no changes here beyond setting its own data attributes.
 function wireScatterTip(){
   document.querySelectorAll('.sc-wrap').forEach(wrap => {
     const tip = wrap.querySelector('.sc-tip');
@@ -711,9 +591,7 @@ function wireOnePlotTip(wrap, tip){
     tip.innerHTML =
       `<span class="sc-tip-t">${esc(d.title)}</span>`+
       `<span class="sc-tip-r"><i class="sw" style="background:${d.autcol}"></i>${esc(d.aut)}</span>`+
-      (d.open ? `<span class="sc-tip-m">${esc(d.open)}</span>` : '')+
-      (d.not ? `<span class="sc-tip-m">Notability: ${esc(d.not)}</span>` : '')+
-      (d.year ? `<span class="sc-tip-m">Result: ${esc(d.year)}</span>` : '');
+      (d.open ? `<span class="sc-tip-m">${esc(d.open)}</span>` : '');
     tip.hidden = false;
     tip.setAttribute('aria-hidden', 'false');
     // Position: SVG scales to the wrapper, so map the dot's viewBox coords to px.
@@ -731,7 +609,7 @@ function wireOnePlotTip(wrap, tip){
   };
   const hide = () => { tip.hidden = true; tip.setAttribute('aria-hidden', 'true'); };
 
-  const MARK = '.sc-dot,.mx-dot';
+  const MARK = '.mx-dot';
   wrap.addEventListener('pointerover', e => { const d = e.target.closest(MARK); if (d) show(d); });
   wrap.addEventListener('pointerout', e => { if (e.target.closest(MARK)) hide(); });
   wrap.addEventListener('focusin', e => { const d = e.target.closest(MARK); if (d) show(d); });
@@ -1120,11 +998,14 @@ function bootData(data){
   // plots already in the DOM instead. Guarded so the visuals page doesn't wire twice.
   if (!document.getElementById('charts')) wireScatterTip();
 
+  // Same rule as build-site.py's `updated`: the latest date the data carries, counting
+  // revisions as well as additions. Both halves matter, or this overwrites the
+  // pre-rendered stamp with an older one and the badge contradicts the activity feed
+  // three inches to its left.
   const updated = document.getElementById('updated');
   if (updated) updated.textContent =
-    ALL.map(e=>e.added).filter(Boolean).sort().pop() || ALL[0]?.date || '';
-  const citeDate = document.getElementById('cite-date');
-  if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+    ALL.flatMap(e => [e.added, ...(e.revisions || []).map(r => r.date)])
+       .filter(Boolean).sort().pop() || ALL[0]?.date || '';
 
   if (!document.getElementById('list')) return;  // visuals-only page: done here.
 
@@ -1174,8 +1055,8 @@ function bootData(data){
 // options and the counts, pre-rendered by build-site.py, so the page is readable and
 // most of it is interactive before a single byte of JSON has been fetched.
 function bootStatic(){
-  const citeDate = document.getElementById('cite-date');
-  if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+  // The citation year moved to chrome.js, which runs on every page; the footer it
+  // stamps is now on every page too.
   // visuals.html has no list to filter: its charts are the whole page, so it needs the
   // registry straight away and none of the wiring below.
   if (!document.getElementById('list')){ ensureData(); return; }
