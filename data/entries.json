@@ -17,7 +17,7 @@
       "source": "wikipedia-langlinks",
       "article": "Dinitz–Garg–Goemans conjecture",
       "editions": 1,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "claimed",
     "autonomy": "ai-led",
@@ -63,12 +63,12 @@
     ],
     "year_posed": 1939,
     "wikipedia": "Jacobian conjecture",
-    "notability": 15,
+    "notability": 16,
     "notability_meta": {
       "source": "wikipedia-langlinks",
       "article": "Jacobian conjecture",
-      "editions": 15,
-      "as_of": "2026-07-29"
+      "editions": 16,
+      "as_of": "2026-08-03"
     },
     "verification": "formal",
     "autonomy": "collaborative",
@@ -125,7 +125,7 @@
       "source": "wikipedia-langlinks",
       "article": "Unit distance graph",
       "editions": 10,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "independent",
     "autonomy": "ai-led",
@@ -262,7 +262,7 @@
       "source": "wikipedia-langlinks",
       "article": "Matrix multiplication algorithm",
       "editions": 7,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "independent",
     "autonomy": "search-scaffold",
@@ -323,7 +323,7 @@
       "source": "wikipedia-langlinks",
       "article": "Kissing number",
       "editions": 12,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "independent",
     "autonomy": "search-scaffold",
@@ -442,7 +442,7 @@
       "source": "wikipedia-langlinks",
       "article": "Cap set",
       "editions": 2,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -495,7 +495,7 @@
       "source": "wikipedia-langlinks",
       "article": "Bin packing problem",
       "editions": 12,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -601,7 +601,7 @@
       "source": "wikipedia-langlinks",
       "article": "Matrix multiplication algorithm",
       "editions": 7,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -964,7 +964,7 @@
       "source": "wikipedia-langlinks",
       "article": "Protein structure prediction",
       "editions": 19,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "independent",
     "autonomy": "ai-led",
@@ -1026,7 +1026,7 @@
       "source": "wikipedia-langlinks",
       "article": "Tokamak",
       "editions": 56,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "peer-reviewed",
     "autonomy": "search-scaffold",
@@ -1163,7 +1163,7 @@
       "source": "wikipedia-langlinks",
       "article": "Convex optimization",
       "editions": 17,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "formal",
     "autonomy": "ai-led",
@@ -1215,7 +1215,7 @@
       "source": "wikipedia-langlinks",
       "article": "Automated theorem proving",
       "editions": 20,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "formal",
     "autonomy": "search-scaffold",
@@ -1318,12 +1318,12 @@
       "Alex Kontorovich"
     ],
     "wikipedia": "Prime number theorem",
-    "notability": 49,
+    "notability": 50,
     "notability_meta": {
       "source": "wikipedia-langlinks",
       "article": "Prime number theorem",
-      "editions": 49,
-      "as_of": "2026-07-29"
+      "editions": 50,
+      "as_of": "2026-08-03"
     },
     "verification": "author-verified",
     "autonomy": "ai-assisted",
@@ -1880,7 +1880,7 @@
       "source": "wikipedia-langlinks",
       "article": "Drosophila connectome",
       "editions": 2,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "peer-reviewed",
     "autonomy": "ai-assisted",
@@ -2363,7 +2363,7 @@
       "source": "wikipedia-langlinks",
       "article": "Herculaneum papyri",
       "editions": 17,
-      "as_of": "2026-07-29"
+      "as_of": "2026-08-03"
     },
     "verification": "author-verified",
     "autonomy": "ai-assisted",
