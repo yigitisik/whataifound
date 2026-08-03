@@ -121,7 +121,7 @@ and each finding also has its own URL for citation.
 
 | Step | Does |
 |---|---|
-| `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared nav, `llms.txt`, `sitemap.xml` |
+| `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared header and footer, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
 | `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` under Node and diffs each against the pre-rendered markup |
@@ -176,6 +176,11 @@ renderer the rest of the toolchain does not:
 anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
 `contributors.html`, `methodology.html` or `visuals.html`. Edit `data/entries.json` and rebuild.
 
+That now includes the whole masthead and footer: `HEADER` and `FOOTER` are written into all
+five pages from `site_header()` and `site_footer()` in `build-site.py`, and the same two
+functions are called directly by `entry_page()` for the 52 finding pages. Change the chrome
+in one place, not fifty-seven.
+
 ## Structure
 
 ```
@@ -187,8 +192,9 @@ whataifound/
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── app.js                  # registry page: URL state, search, filters, sort, table view, charts, theme
-├── entry.js                # finding pages only (~1 KB): the citation copy buttons
+├── chrome.js               # every page (~4 KB): the theme switcher and the shared footer's date
+├── app.js                  # registry page: URL state, search, filters, sort, table view, charts
+├── entry.js                # finding pages only (~2 KB): the citation copy buttons
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
@@ -230,7 +236,14 @@ whataifound/
 
 No bundler, no runtime external requests. Three inline scripts in `index.html` (a theme initialiser
 that runs before first paint, plus the two Vercel analytics shims); everything else is static
-`styles.css`, `app.js` and, on finding pages only, `entry.js`.
+`styles.css`, `chrome.js` on every page, `app.js` on the registry and visuals pages, and `entry.js`
+on finding pages.
+
+The split is by what a page actually needs. `chrome.js` is about 4 KB and owns the parts of the
+masthead and footer that have to work everywhere, which is why it exists at all: the theme switcher
+used to live in `app.js`, and `app.js` loads on two of the seven page types, so five of them shipped
+a stored theme with no way to change it. `app.js` is 62 KB of filtering, sorting and chart drawing
+that only two pages need, and a leaf page should not download it to run a theme button.
 
 - **Every view is a URL.** `q`, `field`, `lab`, `ver`, `aut`, `tag`, `sort` and `view` are read from
   the query string on load and written back on every change, so a filtered registry can be linked,
@@ -253,7 +266,8 @@ that runs before first paint, plus the two Vercel analytics shims); everything e
   work under the production CSP. Finding pages carry BibTeX and plain-text citations, each with a
   copy button that falls back to selecting the text where the clipboard API is unavailable.
 - Type: self-hosted Newsreader, 4 weights, no CDN.
-- Theme: dark by default; Light / System / Dark stored in `localStorage`. Switches via the View
+- Theme: dark by default; Light / System / Dark stored in `localStorage`, and switchable from
+  every page rather than only the home page. Switches via the View
   Transitions API, with an instant fallback under `prefers-reduced-motion`. `color-scheme` is
   declared per resolved theme, so native scrollbars and `<select>` dropdowns match the page.
 - Charts: built from the entries in plain HTML/CSS/SVG, no library. The four in the home page's

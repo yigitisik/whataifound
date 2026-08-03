@@ -57,47 +57,9 @@ const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challe
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
 
-// Theme: light / dark / system. Top-to-bottom wipe via View Transitions.
-(function(){
-  const btns = [...document.querySelectorAll('.theme-seg .th')];
-  if (!btns.length) return;
-  // Default is dark: a first-time visitor (no stored choice) gets dark, not the OS setting.
-  const current = () => { try { return localStorage.getItem('theme') || 'dark'; } catch(e){ return 'dark'; } };
-  const sync = mode => btns.forEach(b => b.setAttribute('aria-pressed', b.dataset.mode === mode ? 'true' : 'false'));
-  // Browser-chrome tint on iOS/Android. Kept in step with the rendered theme, so the
-  // bar above the page never disagrees with the page. 'system' resolves through the
-  // media query, which is what the CSS does too.
-  const tint = mode => {
-    const m = document.querySelector('meta[name=theme-color]');
-    if (!m) return;
-    const light = mode === 'light' ||
-      (mode === 'system' && matchMedia('(prefers-color-scheme: light)').matches);
-    m.content = light ? '#faf9f6' : '#111310';
-  };
-  const apply = mode => {
-    if (mode === 'system') document.documentElement.removeAttribute('data-theme');
-    else document.documentElement.setAttribute('data-theme', mode);
-    sync(mode);
-    tint(mode);
-    try { localStorage.setItem('theme', mode); } catch(e){}
-  };
-  sync(current());
-  btns.forEach(b => b.addEventListener('click', () => {
-    const mode = b.dataset.mode;
-    if (!document.startViewTransition || REDUCE) { apply(mode); return; }
-    // The incoming theme is revealed as a horizontal edge sweeping down the viewport:
-    // inset() insets from the bottom by 100% (nothing visible) to 0 (fully revealed).
-    document.startViewTransition(() => apply(mode)).ready.then(() => {
-      document.documentElement.animate(
-        { clipPath: ['inset(0 0 100% 0)', 'inset(0 0 0 0)'] },
-        { duration: 1000, easing: 'ease-in-out', pseudoElement: '::view-transition-new(root)' });
-    });
-  }));
-  // Under 'system' the CSS follows the OS live, so the tint has to as well; otherwise
-  // flipping the OS theme with the page open leaves the chrome on the old colour.
-  matchMedia('(prefers-color-scheme: light)')
-    .addEventListener('change', () => { if (current() === 'system') tint('system'); });
-})();
+// The theme switcher used to live here. It moved to chrome.js, which loads on every
+// page: this file does not, so the switcher was missing from five of the seven page
+// types. REDUCE stays because the chart and card animations below still read it.
 
 function esc(s){ return String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
@@ -1044,8 +1006,6 @@ function bootData(data){
   if (updated) updated.textContent =
     ALL.flatMap(e => [e.added, ...(e.revisions || []).map(r => r.date)])
        .filter(Boolean).sort().pop() || ALL[0]?.date || '';
-  const citeDate = document.getElementById('cite-date');
-  if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
 
   if (!document.getElementById('list')) return;  // visuals-only page: done here.
 
@@ -1095,8 +1055,8 @@ function bootData(data){
 // options and the counts, pre-rendered by build-site.py, so the page is readable and
 // most of it is interactive before a single byte of JSON has been fetched.
 function bootStatic(){
-  const citeDate = document.getElementById('cite-date');
-  if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+  // The citation year moved to chrome.js, which runs on every page; the footer it
+  // stamps is now on every page too.
   // visuals.html has no list to filter: its charts are the whole page, so it needs the
   // registry straight away and none of the wiring below.
   if (!document.getElementById('list')){ ensureData(); return; }

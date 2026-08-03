@@ -106,8 +106,10 @@ wins when it's arguable. A challenge without a specific citation gets closed.
 
 `finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `entry.schema.json`, and anything
 between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
-`contributors.html`, `methodology.html` or `visuals.html`, including the shared `NAV` block, which
-is written into every page from one place. On `index.html` both list layouts are generated
+`contributors.html`, `methodology.html` or `visuals.html`, including the shared `HEADER` and
+`FOOTER` blocks, which are written into every page from one place. The same two functions
+(`site_header()` and `site_footer()`) are called directly by `entry_page()`, so the 52 finding pages
+carry the identical masthead and footer without a marker. On `index.html` both list layouts are generated
 (`ENTRIES` for the cards, `TABLE` for the table), as are the filter dropdowns: `FIELDOPTS`,
 `LABOPTS`, `VEROPTS` and `AUTOPTS` are each filled from the registry, so a new autonomy value or lab
 appears in the controls without anyone editing the markup. Your change will be overwritten on the
@@ -118,7 +120,7 @@ next build, and CI will fail. Edit `data/entries.json` instead.
 Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
 [review.html](../review.html), [contributors.html](../contributors.html),
 [visuals.html](../visuals.html), [404.html](../404.html), [styles.css](../styles.css),
-[app.js](../app.js), [entry.js](../entry.js). Constraints:
+[chrome.js](../chrome.js), [app.js](../app.js), [entry.js](../entry.js). Constraints:
 
 - **No em dashes**, anywhere: prose, code comments, UI copy, commit messages. `check-integrity.py`
   fails the build and names the file and line. Use a colon, comma, semicolon or parentheses,
@@ -137,7 +139,12 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
   controls in 1056px of container with no slack, so anything added to it has to take room from
   something else.
 
-`app.js` runs on the registry and visuals pages. `entry.js` (~1 KB) runs on finding pages and does
+`chrome.js` (~4 KB) runs on every page and owns the shared masthead: the theme switcher, and the
+retrieval date in the footer. It exists because that switcher used to live in `app.js`, which loads
+on two of the seven page types, so the other five shipped a stored theme with no control to change
+it. Anything that has to work on a finding page and on the home page belongs here.
+
+`app.js` runs on the registry and visuals pages. `entry.js` (~2 KB) runs on finding pages and does
 one thing: the citation copy buttons. It is separate so a leaf page does not download 47 KB of
 filtering and chart code, and it is purely an enhancement, since `build-site.py` renders the citation
 text into the page and it stays selectable with JavaScript off.

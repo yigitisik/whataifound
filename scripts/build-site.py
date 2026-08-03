@@ -316,6 +316,163 @@ def page_nav(current):
     return f'<nav class="pagenav" aria-label="Site">{items}</nav>'
 
 
+# ------------------------------------------------------------------ shared chrome
+# The header and footer are generated for the same reason page_nav() is: they were
+# hand-written into five files and generated into none, and the copies had already
+# drifted. The theme switcher existed on the home page alone, so a reader who followed a
+# link to a finding page could not change the theme without going back; the minimal
+# footer was copy-pasted across four files, inline GitHub SVG and all.
+#
+# One definition, used two ways: injected between the HEADER/FOOTER markers in the five
+# hand-written pages, and called directly by entry_page(), which writes the 52 finding
+# pages from scratch. 404.html is the documented exception and carries its own inlined
+# copy, because it is self-contained by design so it still renders if styles.css fails.
+
+# The gradient id has to be unique within a page (a duplicate collides and the second
+# mark renders blank), so this is the only place a page gets one.
+BRAND_MARK = (
+    '<svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">'
+    '<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1">'
+    '<stop offset="0" stop-color="#5aa9e6"/>'
+    '<stop offset="0.5" stop-color="#7c6cf0"/>'
+    '<stop offset="1" stop-color="#d98a4a"/>'
+    '</linearGradient></defs>'
+    '<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)"'
+    ' stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    '<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor"'
+    ' stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    '<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)"'
+    ' fill-opacity="0.75"/>'
+    '<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4'
+    ' h-1.35 z" fill="url(#mk-i)"/>'
+    '</svg>')
+
+GH_MARK = (
+    '<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor"'
+    ' fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38'
+    ' 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52'
+    '-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64'
+    '-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32'
+    '-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27'
+    '.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46'
+    '.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>')
+
+# Light / System / Dark. Wired by chrome.js, which loads on every page: app.js owns 47 KB
+# of filtering and charts and is not on the sub-pages, which is exactly why the switcher
+# used to be missing from them.
+THEME_SEG = (
+    '<span class="theme-seg" role="group" aria-label="Colour theme">'
+    '<button type="button" class="th" data-mode="light" aria-label="Light theme"'
+    ' aria-pressed="false" title="Light">'
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
+    ' stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/>'
+    '<path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3'
+    'M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>'
+    '<button type="button" class="th" data-mode="system" aria-label="System theme"'
+    ' aria-pressed="false" title="System">'
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
+    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/>'
+    '</svg></button>'
+    '<button type="button" class="th" data-mode="dark" aria-label="Dark theme"'
+    ' aria-pressed="false" title="Dark">'
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
+    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>'
+    '</span>')
+
+
+def site_header(current, updated, extra_class=""):
+    """The eyebrow every page carries: brand, nav, GitHub, theme switcher, updated stamp.
+
+    `current` is the page's path, or None on a finding page, which sits below the nav
+    rather than beside it. `extra_class` carries the home page's intro animation hooks.
+    """
+    cls = ("eyebrow " + extra_class).strip()
+    return (
+        f'<div class="{esc(cls)}">'
+        f'<a class="brand" href="/" aria-label="whataifound.org home">{BRAND_MARK}'
+        f'<span class="wm">what<span class="ai">ai</span>found.org</span></a>'
+        f'{page_nav(current)}'
+        f'<span class="eyebrow-right">'
+        f'<a class="gh-icon" href="{REPO}" target="_blank" rel="noopener"'
+        f' aria-label="Source code on GitHub" title="Source on GitHub">{GH_MARK}</a>'
+        f'{THEME_SEG}'
+        # Filled by chrome.js once /api/me answers. Pre-rendered signed-out so there is
+        # no flash of the wrong state and no layout shift when the session resolves.
+        f'<span class="acct" data-acct hidden></span>'
+        f'<span class="updated"><span class="pulse"></span>Updated '
+        f'<b id="updated">{esc(updated)}</b></span>'
+        f'</span></div>')
+
+
+def site_footer():
+    """One footer on every page.
+
+    Every cell is a site-level statement (editorial policy, the licence, how to help, the
+    source), so there is no page for which a reduced version would be more honest. It
+    costs about 3 KB, which is the right trade on a leaf page that until now offered no
+    way back into the site at all.
+    """
+    return (
+        '<footer id="about">'
+        '<div class="about-grid">'
+        '<section class="about-cell">'
+        '<h2 class="lbl">Editorial policy</h2>'
+        '<p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is '
+        'ever deleted: entries are downgraded and annotated, and the history stays public. '
+        'Every entry carries a novelty check, including when it comes back clean.</p>'
+        '<p class="about-links"><a href="/methodology">Full rules →</a></p>'
+        '</section>'
+        '<section class="about-cell">'
+        '<h2 class="lbl">Use the data</h2>'
+        '<p>The whole registry is one open file under '
+        '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
+        ' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with '
+        'attribution.</p>'
+        '<p class="about-links"><a href="/data/entries.json" download>Download JSON</a>'
+        '<a href="/feed.xml">RSS</a><a href="/feed.json">JSON Feed</a>'
+        f'<a href="{SITE}/LICENSE">License</a></p>'
+        '</section>'
+        '<section class="about-cell">'
+        '<h2 class="lbl">Contribute</h2>'
+        '<p>Most entries have never been checked outside the lab that announced them. A check '
+        'takes one click to submit, and is credited on the entry and on the contributors '
+        'page.</p>'
+        '<p class="about-links"><a href="/review">Review queue →</a>'
+        '<a href="/contributors">Contributors</a>'
+        f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p>'
+        '</section>'
+        '<section class="about-cell">'
+        '<h2 class="lbl">Source</h2>'
+        '<p>Site and registry are open on GitHub. Corrections and new entries are welcome by '
+        'pull request.</p>'
+        '<p class="about-links">'
+        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}'
+        'Repository</a>'
+        '<a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"'
+        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>'
+        '</p></section>'
+        '</div>'
+        '<section class="about-note">'
+        '<h2 class="lbl">Disclaimer</h2>'
+        '<p>We run whataifound.org as an independent editorial project, as volunteer work. '
+        'Verification and autonomy grades are our good-faith judgments from public '
+        'information, provided "as is" without warranty, and may change as new evidence '
+        'emerges. Nothing here is scientific, legal, or investment advice. We are not '
+        'affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; '
+        'logos and names are trademarks of their owners and appear for identification only. '
+        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>'
+        '</section>'
+        '<div class="about-foot">'
+        '<p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI '
+        'Scientific and Mathematical Discoveries.</em> Retrieved '
+        f'<span id="cite-date">2026</span> from {SITE}/</p>'
+        '<p class="colophon">© 2026 Isik &amp; Co.</p>'
+        '</div>'
+        '</footer>')
+
+
 def person(p):
     """One credited person. A GitHub handle becomes a link; a bare name stays text."""
     name = esc(p.get("name"))
@@ -961,7 +1118,7 @@ def entry_nav(e, entries):
 
 
 # ------------------------------------------------------------------ entry pages
-def entry_page(e, entries):
+def entry_page(e, entries, updated):
     """A standalone, independently citable page for one finding.
 
     The point of these is citation surface: an answer engine picks 2–7 sources per
@@ -1119,7 +1276,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
-{page_nav(None)}
+<header>{site_header(None, updated)}</header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
   <a href="/#e-{esc(e["id"])}">{esc(FIELD_LABEL.get(e.get("field"), e.get("field")))}</a>
@@ -1166,7 +1323,9 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   .lower()} findings in the registry</a></p>
 </article>
 
+{site_footer()}
 </div>
+<script src="/chrome.js" defer></script>
 <script src="/entry.js" defer></script>
 </body>
 </html>
@@ -1761,13 +1920,24 @@ def citation_authors():
     return names
 
 
-def build_nav():
-    """Write the shared nav into every static page, each marking its own entry current."""
+def build_chrome(updated):
+    """Write the shared header and footer into every static page.
+
+    Was build_nav(), which generated the nav alone while the rest of the chrome stayed
+    hand-written in five files. That is how the theme switcher ended up on the home page
+    only and the sub-page footer ended up copy-pasted four times. The nav marker is gone:
+    page_nav() is now called from inside site_header().
+    """
     for path, _, _, _ in PAGES:
         name = "index.html" if path == "/" else path.lstrip("/") + ".html"
         full = os.path.join(ROOT, name)
         src = open(full).read()
-        src = inject(src, "<!--NAV:START-->", "<!--NAV:END-->", page_nav(path), "site nav", name)
+        # The home page's eyebrow carries the intro animation hooks; the others do not.
+        extra = "intro i1" if path == "/" else ""
+        src = inject(src, "<!--HEADER:START-->", "<!--HEADER:END-->",
+                     site_header(path, updated, extra), "site header", name)
+        src = inject(src, "<!--FOOTER:START-->", "<!--FOOTER:END-->",
+                     site_footer(), "site footer", name)
         with open(full, "w") as f:
             f.write(src)
 
@@ -1865,7 +2035,9 @@ def build_index(entries, updated):
 
     src = inject(src, "<!--COUNT:START-->", "<!--COUNT:END-->",
                  f"{len(entries)} / {len(entries)} entries", "result count")
-    src = inject(src, "<!--UPDATED:START-->", "<!--UPDATED:END-->", updated, "updated date")
+    # The updated stamp used to be injected here, into a marker inside the home page's
+    # hand-written eyebrow. site_header() renders it directly now, on all seven page
+    # types rather than one.
 
     # The "how many are actually verified" FAQ answer quotes these tallies. It lives
     # inside the JSON-LD, where an HTML comment marker would become literal text an
@@ -2160,9 +2332,9 @@ def main():
     build_methodology()
     queued = build_review(entries)
     build_contributors(entries)
-    # After the page builders, so every shell has been written before the shared nav
-    # goes into it. One generated nav, five pages, no hand-maintained copies.
-    build_nav()
+    # After the page builders, so every shell has been written before the shared header
+    # and footer go into it. One definition, five pages, no hand-maintained copies.
+    build_chrome(updated)
     build_index(entries, updated)
 
     out_dir = os.path.join(ROOT, "finding")
@@ -2174,7 +2346,7 @@ def main():
             os.remove(os.path.join(out_dir, stale))
     for e in entries:
         with open(os.path.join(out_dir, f"{e['id']}.html"), "w") as f:
-            f.write(entry_page(e, entries))
+            f.write(entry_page(e, entries, updated))
 
     with open(os.path.join(ROOT, "llms.txt"), "w") as f:
         f.write(build_llms_txt(entries))

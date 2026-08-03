@@ -186,6 +186,10 @@
   .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
     font-family:var(--serif);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--muted);padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid var(--line)}
+  /* The rule under the eyebrow separates it from the page title beneath. On a finding
+     page the masthead holds nothing else, so the same border would be a line dangling
+     under the last row with empty space below it. */
+  header > .eyebrow:only-child{padding-bottom:0;margin-bottom:0;border-bottom:0}
   /* The bar that links every page to every other one. It sits inside the eyebrow flex row
      rather than on its own line, so on desktop it costs no vertical space at all, which
      matters on the homepage where the hero has to end above the fold. Below 720px the
@@ -221,7 +225,8 @@
   .gh-icon svg{display:block}
   .gh-link{display:inline-flex;align-items:center;gap:6px}
   .gh-link svg{flex:none}
-  .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;gap:9px}
+  .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;
+    gap:9px;text-decoration:none}
   /* The brand is a flex row, so the wordmark has to stay one flex item: left as bare
      text nodes, the gradient span would split it into three items and the 9px gap
      meant for the mark would open up inside the word too. */
@@ -1010,7 +1015,6 @@
      column and needs its own breathing room; inside a <header> it gets that from the
      eyebrow. Pulled left by the link padding so the first item lines up with the text
      column below it rather than sitting a few pixels proud of it. */
-  .finding-page .pagenav{margin:22px 0 6px}
   .crumb{font-family:var(--serif);font-size:.72rem;text-transform:uppercase;letter-spacing:.12em;
     color:var(--muted);padding:14px 0 0}
   .crumb a{color:var(--muted);text-decoration:none;border-bottom:1px solid var(--line-strong)}
