@@ -34,6 +34,7 @@ else (site, search, company pages) is a rendering of it.
 | `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms` |
 | `contributors` | array | `{name, github?, note?}`. Who added or corrected **this registry entry**. Not who made the discovery: that is `lab` and `humans` |
 | `reviewers` | array | `{name, github?, note?}`. Who independently checked the entry and had it accepted. Pairs with `independent_checks`, which records *what* was checked; this records *who gets credit* |
+| `revisions` | array | `{date, kind, note, url?}`. What has been edited on this entry since it was added, oldest first. See [recording a revision](#revisions-what-changed-since-the-entry-was-added) |
 
 `name` is the only required key on either. `github` is a bare handle with no `@`, and the build
 turns it into a link; a `url` key is rejected so there is no free-form scheme to smuggle. Both
@@ -68,6 +69,41 @@ Order within a kind is significance order, most authoritative first; the "strong
 is simply the first `challenge`. The registry card shows the first three of each kind and then `+N`;
 the finding page shows all of them. There is no cap in the data: never drop a link someone did the
 work to find.
+
+## `revisions`: what changed since the entry was added
+
+Editorial rule 2 says an entry is never deleted: it is downgraded and annotated, and the
+public git history is the credibility mechanism. That promise was only checkable by reading
+commit messages. `revisions` puts it on the site.
+
+```json
+"revisions": [
+  {"date": "2026-08-02", "kind": "regraded",
+   "note": "Downgraded from author verified to claimed: classifying the sources showed no primary artifact, only a chat transcript."}
+]
+```
+
+- **`date`**: ISO date of the edit. It cannot precede the entry's `added`, and the build
+  rejects one that does.
+- **`kind`**: `regraded` (a verification or autonomy grade moved), `check` (an independent
+  check landed), `challenge` (a counterargument was cited), `correction` (a factual fix
+  that left the grades alone). Defined in `data/vocab.json` like every other vocabulary.
+- **`note`**: one sentence, shown verbatim in the activity feed on the home page. Say what
+  changed and what moved it. Required: an edit with no stated reason records nothing.
+- **`url`**: optional, `http(s)` only. What prompted the edit, when there is something to
+  point at.
+
+There is a fifth kind, `added`, which the build owns: it writes one per entry from the
+`added` field, so the feed is never empty and the entry's own arrival is dated once.
+Writing `"kind": "added"` into an entry is rejected.
+
+Order oldest first. Nothing reads the order (the feed sorts by date across every entry),
+but a revision list is a history and reads as one.
+
+**Not every edit needs a row.** A typo fix, a reworded caveat or a new tag is not a
+revision. The test is whether a reader who trusted this entry last month would want to
+know: a grade moving, a check arriving, a counterargument appearing, a fact turning out to
+be wrong.
 
 ## `verification`: how solid is it?
 
@@ -105,8 +141,10 @@ This column is the whole point. Most breathless claims collapse here.
 
 1. **A novelty check is mandatory before publishing.** Record what you searched even when it
    comes back clean. This field is what separates the registry from a press-release aggregator.
-2. **Never delete an entry.** Downgrade its `verification` and add `caveats`. The public git
-   history is the credibility mechanism; quiet edits destroy it.
+2. **Never delete an entry.** Downgrade its `verification` and add `caveats`, and record
+   the change in [`revisions`](#revisions-what-changed-since-the-entry-was-added) so it is
+   visible on the site rather than only in the git log. The public history is the
+   credibility mechanism; quiet edits destroy it.
 3. **A claim with no reproducible artifact caps at `claimed`.** No exceptions for famous labs. The
    build enforces this: an entry graded above `claimed` with no `research` source fails validation.
 4. **Lab-announced results start at `claimed`** regardless of how confident the blog post sounds.

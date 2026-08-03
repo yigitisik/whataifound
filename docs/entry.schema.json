@@ -289,6 +289,46 @@
           }
         },
         "description": "Who independently checked it. Pairs with independent_checks."
+      },
+      "revisions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "required": [
+            "date",
+            "kind",
+            "note"
+          ],
+          "additionalProperties": false,
+          "properties": {
+            "date": {
+              "type": "string",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+              "description": "ISO date of the edit. Cannot precede the entry's `added`."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "regraded",
+                "check",
+                "challenge",
+                "correction"
+              ],
+              "description": "One of: `regraded` a verification or autonomy grade moved; `check` someone outside the lab checked the result; `challenge` a counterargument was cited; `correction` a factual fix that left the grades alone"
+            },
+            "note": {
+              "type": "string",
+              "minLength": 1,
+              "description": "What changed and why, in one sentence. Shown verbatim in the activity feed on the home page."
+            },
+            "url": {
+              "type": "string",
+              "pattern": "^https?://",
+              "description": "What prompted the edit, if there is something to point at. Must be http(s). Optional."
+            }
+          }
+        },
+        "description": "What has been edited on this entry since it was added, newest last. This is where editorial rule 2 is recorded: an entry is downgraded and annotated, never deleted, and a regrade belongs here."
       }
     }
   }

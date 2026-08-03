@@ -134,10 +134,12 @@ def check_data(problems):
     entries = json.load(open(path))
     for e in entries:
         eid = e.get("id", "?")
-        for field in ("sources", "discussion", "independent_checks"):
+        for field in ("sources", "discussion", "independent_checks", "revisions"):
             for item in (e.get(field) or []):
+                if not isinstance(item, dict):
+                    continue
                 url = item.get("url")
-                if field == "independent_checks" and not url:
+                if field in ("independent_checks", "revisions") and not url:
                     continue
                 if not isinstance(url, str) or not url.startswith(("https://", "http://")):
                     problems.append(f"data/entries.json: {eid}: {field} URL {url!r} "

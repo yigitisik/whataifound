@@ -40,7 +40,14 @@
       "counterexample",
       "unsplittable-flow"
     ],
-    "added": "2026-07-24"
+    "added": "2026-07-24",
+    "revisions": [
+      {
+        "date": "2026-08-02",
+        "kind": "regraded",
+        "note": "Downgraded from author verified to claimed: classifying the sources showed no primary artifact, only a chat transcript."
+      }
+    ]
   },
   {
     "id": "2026-07-19-jacobian-conjecture",
@@ -221,7 +228,14 @@
       "combinatorics",
       "alphaevolve"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "revisions": [
+      {
+        "date": "2026-08-02",
+        "kind": "regraded",
+        "note": "Downgraded from peer reviewed to independently checked: the linked artifact is an arXiv preprint, not a reviewed paper."
+      }
+    ]
   },
   {
     "id": "2025-05-alphaevolve-matmul",

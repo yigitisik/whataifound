@@ -315,31 +315,7 @@ function renderCharts(){
   if (!el) return;
   const tally = keyFn => { const m={}; ALL.forEach(e=>{const k=keyFn(e); if(k!=null) m[k]=(m[k]||0)+1;}); return m; };
   const sortDesc = m => Object.entries(m).sort((a,b)=>b[1]-a[1]);
-
-  // Time series: findings per year, gaps filled
-  const years = ALL.map(e=>+e.date.slice(0,4));
-  const y0=Math.min(...years), y1=Math.max(...years), byYear=[];
-  for (let y=y0; y<=y1; y++) byYear.push([y, years.filter(v=>v===y).length]);
-  const ymax = Math.max(...byYear.map(d=>d[1]), 1);
-  const vLabel = 'Findings per year. ' + byYear.map(([y,c])=>`${y}: ${c}`).join('; ');
-  const vbars = `<div class="vbars" role="img" aria-label="${esc(vLabel)}">` + byYear.map(([y,c])=>
-    `<div class="vbar" title="${y}: ${c} finding${c===1?'':'s'}">`+
-    `<span class="vbar-val">${c}</span>`+
-    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
-    `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
-
-  // rows are [label, count, swatch?, titleOverride?, cls?]. The override carries the long
-  // form (a full org name, or the roster behind an aggregated row) into the tooltip
-  // while the visible label stays short enough for the label column.
-  const hbars = (rows, name) => {
-    const max = Math.max(...rows.map(r=>r[1]), 1);
-    const lab = name + '. ' + rows.map(([l,c])=>`${l}: ${c}`).join('; ');
-    return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw,tt,cls])=>
-      `<div class="hbar${cls?' '+cls:''}" title="${esc(tt || `${label}: ${c}`)}">`+
-      `<span class="hbar-label">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${esc(label)}</span>`+
-      `<span class="hbar-track"><span class="hbar-fill" style="width:${Math.round(c/max*100)}%"></span></span>`+
-      `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
-  };
+  const hbars = hbarsHtml;
 
   // Long organisation names get ellipsised to nothing useful in the label column
   // ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
@@ -388,7 +364,6 @@ function renderCharts(){
       `${rest.length} further organisations with one finding each: `+
       rest.map(([l])=>l).join(', '), 'is-rollup']] : [])
   ];
-  const byField = sortDesc(tally(e=>e.field)).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
   const GORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
   const GVAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
     claimed:'--claimed',disputed:'--disputed',known:'--known',refuted:'--refuted'};
@@ -403,14 +378,15 @@ function renderCharts(){
   // centrepiece, so it comes third (one grid row down, inside the opening view) rather
   // than below three cards, where reaching it took a deliberate scroll.
   el.innerHTML =
-    `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${vbars}</div>`+
+    yearCard()+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
     matrixCard()+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
     // Five cards in a two-column grid leaves the last one orphaned beside dead space, so
     // the longest list takes the full width and closes the row. Was six cards while the
     // notability scatter existed, which spanned both columns for its own reasons.
-    `<div class="qv-card qv-wide"><h3 class="qv-title">By topic area</h3>${hbars(byField,'By topic area')}</div>`;
+    // 0 = no cap: this page has the width for all of them, the home page does not.
+    topicCard(0, 'qv-wide');
   renderInsights();
   wireScatterTip();
 }
@@ -575,6 +551,60 @@ function matrixCard(){
     `</div>`+
     `<p class="qv-foot">Circle area = findings in that combination. All ${pts.length} entries carry both grades.</p>`+
     note + `</div>`;
+}
+
+// ---------- Chart builders shared by /visuals and the home page ----------
+// These three are pure: same ALL in, same string out, no DOM. That is what lets
+// build-site.py pre-render them for the home page and verify-parity.py diff the two
+// implementations, exactly as it already does for card(), matrixCard() and tableView().
+// They live here rather than inside renderCharts() for the same reason: a closure cannot
+// be called from a parity check.
+
+// rows are [label, count, swatch?, titleOverride?, cls?]. The override carries the long
+// form (a full org name, or the roster behind an aggregated row) into the tooltip
+// while the visible label stays short enough for the label column.
+function hbarsHtml(rows, name){
+  const max = Math.max(...rows.map(r=>r[1]), 1);
+  const lab = name + '. ' + rows.map(([l,c])=>`${l}: ${c}`).join('; ');
+  return `<div class="hbars" role="img" aria-label="${esc(lab)}">` + rows.map(([label,c,sw,tt,cls])=>
+    `<div class="hbar${cls?' '+cls:''}" title="${esc(tt || `${label}: ${c}`)}">`+
+    `<span class="hbar-label">${sw?`<i class="sw" style="background:${sw}"></i>`:''}${esc(label)}</span>`+
+    `<span class="hbar-track"><span class="hbar-fill" style="width:${Math.round(c/max*100)}%"></span></span>`+
+    `<span class="hbar-val">${c}</span></div>`).join('') + `</div>`;
+}
+
+// Time series: findings per year, gaps filled. Empty years are drawn rather than skipped
+// because a gap is a fact about the registry, and a bar chart that closed up its own
+// quiet years would read as steady output.
+function yearCard(){
+  const years = ALL.map(e=>+e.date.slice(0,4));
+  const y0=Math.min(...years), y1=Math.max(...years), byYear=[];
+  for (let y=y0; y<=y1; y++) byYear.push([y, years.filter(v=>v===y).length]);
+  const ymax = Math.max(...byYear.map(d=>d[1]), 1);
+  const vLabel = 'Findings per year. ' + byYear.map(([y,c])=>`${y}: ${c}`).join('; ');
+  const bars = `<div class="vbars" role="img" aria-label="${esc(vLabel)}">` + byYear.map(([y,c])=>
+    `<div class="vbar" title="${y}: ${c} finding${c===1?'':'s'}">`+
+    `<span class="vbar-val">${c}</span>`+
+    `<span class="vbar-fill" style="height:${Math.max(Math.round(c/ymax*72),2)}px"></span>`+
+    `<span class="vbar-x">'${String(y).slice(2)}</span></div>`).join('') + `</div>`;
+  return `<div class="qv-card"><h3 class="qv-title">Findings per year</h3>${bars}</div>`;
+}
+
+// Findings by topic area. `max` is a height budget, not a ranking: /visuals passes 0 and
+// gets all of them, the home page passes a cap because the card is a quarter of the width
+// there. The tail aggregates into one labelled row rather than being dropped, so the
+// column still sums to the registry, the same way the lab chart handles its long tail.
+function topicCard(max, cls){
+  const m = {};
+  ALL.forEach(e => { if (e.field != null) m[e.field] = (m[e.field]||0)+1; });
+  const rows = Object.entries(m).sort((a,b)=>b[1]-a[1]).map(([f,c]) => [FIELD_SHORT[f]||f, c]);
+  const head = (max && rows.length > max) ? rows.slice(0, max-1) : rows;
+  const rest = rows.slice(head.length);
+  const out = head.slice();
+  if (rest.length) out.push([`+${rest.length} more topics`, rest.reduce((s,r)=>s+r[1],0), null,
+    `${rest.length} further topics: ` + rest.map(([l,c])=>`${l} (${c})`).join(', '), 'is-rollup']);
+  return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">By topic area</h3>`+
+    hbarsHtml(out, 'By topic area') + `</div>`;
 }
 
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside
@@ -1006,9 +1036,14 @@ function bootData(data){
   // plots already in the DOM instead. Guarded so the visuals page doesn't wire twice.
   if (!document.getElementById('charts')) wireScatterTip();
 
+  // Same rule as build-site.py's `updated`: the latest date the data carries, counting
+  // revisions as well as additions. Both halves matter, or this overwrites the
+  // pre-rendered stamp with an older one and the badge contradicts the activity feed
+  // three inches to its left.
   const updated = document.getElementById('updated');
   if (updated) updated.textContent =
-    ALL.map(e=>e.added).filter(Boolean).sort().pop() || ALL[0]?.date || '';
+    ALL.flatMap(e => [e.added, ...(e.revisions || []).map(r => r.date)])
+       .filter(Boolean).sort().pop() || ALL[0]?.date || '';
   const citeDate = document.getElementById('cite-date');
   if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
 

@@ -31,7 +31,8 @@ from it. No database, no server-side code, no framework.
 ever edited by hand.
 
 ```
-data/entries.json ──► build.py ──► index.html (entries, stats, filters, FAQ tallies)
+data/entries.json ──► build.py ──► index.html (entries, activity feed, reports, filters,
+                                               stats, FAQ tallies)
                                    finding/<id>.html   one page per entry
                                    review.html         the open review queue
                                    contributors.html   the contributor roll
@@ -51,8 +52,10 @@ keep in step by hand.
 
 `data/vocab.json` holds the grading vocabulary: the slug, label, short description, full
 definition and schema.org rating for every `verification` and `autonomy` grade, the `field`
-display names, and the `source_kinds` classification. It used to be restated in six places by
-hand; now a label or definition is edited once and the build propagates it.
+display names, and the `source_kinds` and `revision_kinds` classifications. It used to be restated
+in six places by hand; now a label or definition is edited once and the build propagates it. Adding
+a value to any of the four vocabularies is a code change, not an entry change: each also needs a
+colour rule in `styles.css` (`.v-`, `.a-`, `.k-`, `.r-`), and the build names the missing one.
 
 Each entry carries two grades: `verification` (how solid the result is, `formal` to `refuted`) and
 `autonomy` (how much the AI did, `autonomous` to `retrieval`). Field definitions and editorial
@@ -70,6 +73,34 @@ headline is visible without opening anything, and an entry nobody has argued aga
 This is also what makes editorial rule 4 checkable. **An entry graded above `claimed` must link at
 least one `research` source, and the build fails if it does not.** The rule predates the check; when
 the check first ran, nine entries turned out to be resting on a press release or a magazine feature.
+
+### The hero: what the registry holds, and what has moved in it
+
+The home page opens on two things side by side. The chart is the corpus: both grading axes
+plotted against each other. Beside it, **Latest activity** is what has changed, newest
+first.
+
+That feed exists because of editorial rule 2. The registry never deletes an entry, it
+downgrades and annotates it, and until now that promise was only observable by reading
+commit messages. Each entry may carry a `revisions` array (`{date, kind, note, url?}`)
+recording a regrade, a landed check, a challenge or a correction; the build merges those
+with one synthesised `Added` row per entry and shows the most recent seven. The kinds live
+in `data/vocab.json` like every other vocabulary, and `added` is reserved for the build, so
+an entry cannot backdate its own arrival.
+
+**Dates in the feed are absolute, never relative.** `build-site.py` imports no clock on
+purpose: the generated files are committed and CI rebuilds them and diffs the bytes, so
+"3 days ago" would rot the moment nobody touched the registry for a week. For the same
+reason the feed's sort carries an explicit tiebreak (date, then the entry's own date, then
+id): 25 entries share a single `added` date, and an unstable order would fail CI on an
+unrelated pull request. "Last updated" is the latest date the data carries, counting
+revisions as well as additions.
+
+Under the hero sits a strip of four small cards. **Evidence chain** counts how many entries
+link each kind of source, which is the site's own thesis made visible: 48 of 52 rest on
+original work, and only 8 link a counterargument. **Open longest before falling** ranks the
+problems by how long they stood. The other two, findings per year and by topic area, are
+the same charts `/visuals` shows, pre-rendered here from the same functions.
 
 Every finding page carries two prefilled issue links: **Submit a check** and **Challenge the
 grade**. An entry nobody has checked leads with the check, since the open question is whether
@@ -93,12 +124,14 @@ and each finding also has its own URL for citation.
 | `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared nav, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
-| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()` and `tableView()` under Node and diffs each against the pre-rendered markup |
+| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` under Node and diffs each against the pre-rendered markup |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
 grade, an unknown source `kind`, a malformed date, a duplicate or non-URL-safe `id`, a bad
-`youtube_id`, or a non-`http(s)` URL. `javascript:` and `data:` links are rejected outright: entry
+`youtube_id`, or a non-`http(s)` URL. A `revisions` entry is held to the same standard: a known
+`kind` that is not the build-owned `added`, a real date that does not precede the entry's own
+`added`, and a non-empty `note`. `javascript:` and `data:` links are rejected outright: entry
 URLs become `href`s on the page, and the CSP allows `'unsafe-inline'`, so they would be live. One
 editorial rule is enforced here too, rather than left to review: a grade above `claimed` with no
 `research` source fails, naming the entry and both remedies (link the artifact, or downgrade).
@@ -116,11 +149,17 @@ overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
-`matrixCard()` and `tableView()` are ported the same way, so all three pre-rendered surfaces are
-diffed byte for byte against the real functions on every build.
-The `DOMAIN_NAME` table is duplicated the same way and for the same reason: the labelled source rows
-on a card show a publisher name rather than a link title, so a source from a host with no entry in
-that table renders as a bare domain. Adding one means adding it to both files.
+`matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` are ported the same way, so all five
+pre-rendered surfaces are diffed byte for byte against the real functions on every build. The last
+two are the charts the home page's reports strip shares with `/visuals`; they were hoisted out of
+`renderCharts()` into module scope precisely so a parity check could call them, since a closure
+inside a function that writes to the DOM cannot be called from one. `topicCard()` takes a row cap,
+and both call sites are checked: `/visuals` shows every topic, the home page rolls the tail into one
+labelled row so the column still sums to the registry.
+The `DOMAIN_NAME` and `FIELD_SHORT` tables are duplicated the same way and for the same reason: the
+labelled source rows on a card show a publisher name rather than a link title, so a source from a
+host with no entry in that table renders as a bare domain, and a chart label column 86px wide cannot
+hold "Materials science". Adding one means adding it to both files.
 
 Two scripts are deliberately *not* part of every build, because they hit the network or need a
 renderer the rest of the toolchain does not:
@@ -141,7 +180,7 @@ anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, 
 
 ```
 whataifound/
-├── index.html              # registry: SEO head, JSON-LD, pre-rendered entries
+├── index.html              # registry: SEO head, JSON-LD, pre-rendered hero feed, reports, entries
 ├── methodology.html        # grading reference (grade lists + source kinds from vocab.json)
 ├── review.html             # open review queue (generated from entries with no checks)
 ├── contributors.html       # contributor roll (generated from reviewers/contributors + CITATION.cff)
@@ -217,7 +256,9 @@ that runs before first paint, plus the two Vercel analytics shims); everything e
 - Theme: dark by default; Light / System / Dark stored in `localStorage`. Switches via the View
   Transitions API, with an instant fallback under `prefers-reduced-motion`. `color-scheme` is
   declared per resolved theme, so native scrollbars and `<select>` dropdowns match the page.
-- Charts: built from the entries in plain HTML/CSS/SVG, no library.
+- Charts: built from the entries in plain HTML/CSS/SVG, no library. The four in the home page's
+  reports strip and the activity feed above them are pre-rendered by `build-site.py`, so they are
+  in the markup for a crawler and for a visitor with JavaScript off.
 - Responsive from 320px; breakpoints at 560, 720 and 1180. The last one collapses the sticky filter
   bar from two rows to one, which is worth a breakpoint because the bar is sticky. `pointer: coarse`
   enlarges tap targets and forces 16px inputs to stop iOS zoom-on-focus.

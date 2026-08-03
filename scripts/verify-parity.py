@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Check that the pre-rendered markup in index.html matches what app.js produces.
 
-Two renderers in build-site.py are hand-ports of functions in app.js:
+Several renderers in build-site.py are hand-ports of functions in app.js:
 
     card()        the entry cards. If these drift, the DOM visibly changes the moment
                   app.js re-renders (any search or filter), which is exactly the bug
@@ -9,6 +9,12 @@ Two renderers in build-site.py are hand-ports of functions in app.js:
     matrix_card() the evidence/autonomy chart in the homepage hero. app.js owns the copy
                   visuals.html mounts; a drift shows as two different charts of the same
                   data on two pages of the same site.
+    table_view()  the sortable table, which is the default view.
+    year_card()   findings per year, and
+    topic_card()  findings by topic area: two of the four cards in the home page's
+                  reports strip, and two of the five on /visuals. Same drift risk as the
+                  matrix, and the topic card additionally has to agree at two different
+                  row caps, so both call sites are checked.
 
 This runs the real app.js functions under Node against the real data and diffs them
 against what build-site.py wrote.
@@ -47,8 +53,10 @@ head = src[:src.index("// Sitemap rail")]
 head = head.replace("const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;",
                     "const REDUCE = false;")
 head = re.sub(r"// Theme: light / dark / system.*?\n\}\)\(\);\n", "", head, flags=re.S)
-# matrixCard() and the colour table it reads. Both sit past the cut above, and are now
-# adjacent: the scatter chart that used to sit between them has been removed.
+# matrixCard(), the colour table it reads, and the two pure chart builders that sit
+# beside it. All are past the cut above, and hbarsHtml()/yearCard()/topicCard() were
+# hoisted out of renderCharts() into this span precisely so they could be sliced here:
+# a closure inside a function that writes to the DOM cannot be called from a parity check.
 head += region("const AUT_COLOR", "function wireScatterTip")
 # tableView() reads STATE.sort for the active-column marker, so the state block comes
 # with it. Nothing in either slice is called at load, so the parts that would need a
@@ -71,10 +79,20 @@ def rendered(start, end):
 # One Node process for both checks. Each writes to stdout with a sentinel between them,
 # so a failure in either is reported against the right renderer.
 SPLIT = "@@PARITY-SPLIT@@"
+
+# The row cap the home page's copy of the topic chart uses. Read out of build-site.py
+# rather than repeated here, so raising the cap there cannot leave this check silently
+# comparing the wrong two things.
+_bs = open(os.path.join(ROOT, "scripts", "build-site.py")).read()
+_m = re.search(r"^TOPIC_ROWS = (\d+)$", _bs, re.M)
+if not _m:
+    sys.exit("verify-parity: could not find TOPIC_ROWS in build-site.py")
+TOPIC_ROWS = int(_m.group(1))
+
 script = (head + "\nconst DATA = " + json.dumps(entries) + ";\n"
           + "ALL = DATA;\n"
-          + "process.stdout.write(DATA.map(card).join('\\n') + " + json.dumps(SPLIT)
-          + " + matrixCard() + " + json.dumps(SPLIT) + " + tableView(DATA));\n")
+          + "process.stdout.write([DATA.map(card).join('\\n'), matrixCard(), tableView(DATA),"
+          + f" yearCard(), topicCard({TOPIC_ROWS})].join(" + json.dumps(SPLIT) + "));\n")
 
 # Delivered on stdin rather than as `node -e <script>`: the script embeds the whole
 # registry, and Linux caps a single argv entry at 128 KiB (MAX_ARG_STRLEN) regardless of
@@ -88,7 +106,7 @@ except FileNotFoundError:
 except subprocess.CalledProcessError as exc:
     sys.exit(f"verify-parity: app.js failed to run:\n{exc.stderr}")
 
-js_cards, js_matrix, js_table = js.split(SPLIT)
+js_cards, js_matrix, js_table, js_year, js_topic = js.split(SPLIT)
 
 checks = [
     ("cards", rendered("<!--ENTRIES:START-->", "<!--ENTRIES:END-->"), js_cards,
@@ -97,6 +115,10 @@ checks = [
      "pre-rendered hero matrix matches app.js matrixCard() exactly"),
     ("table", rendered("<!--TABLE:START-->", "<!--TABLE:END-->"), js_table,
      f"pre-rendered table of {len(entries)} findings matches app.js tableView() exactly"),
+    ("year", rendered("<!--RYEAR:START-->", "<!--RYEAR:END-->"), js_year,
+     "pre-rendered findings-per-year card matches app.js yearCard() exactly"),
+    ("topic", rendered("<!--RTOPIC:START-->", "<!--RTOPIC:END-->"), js_topic,
+     f"pre-rendered topic card matches app.js topicCard({TOPIC_ROWS}) exactly"),
 ]
 
 failed = False
