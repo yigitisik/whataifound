@@ -13,11 +13,11 @@
   if (!root) return;
 
   const $ = sel => document.querySelector(sel);
-  const show = which => document.querySelectorAll('.acct-state').forEach(el => {
-    el.hidden = el.dataset.state !== which;
-  });
-  const esc = s => String(s ?? '').replace(/[&<>"]/g,
-    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // Shared from chrome.js, which loads first on every page. This page keeps its own
+  // wrapper class because `.acct-state` also carries layout, so the selector is passed
+  // in rather than the class being renamed to match the other pages.
+  const esc = window.wafEsc;
+  const show = which => window.wafShow(which, '.acct-state');
 
   // GOVERNANCE.md: "Three accepted independent checks, or five merged entries." Two
   // routes to the same role, so the meter shows whichever the person is closer to
@@ -99,17 +99,12 @@
     }
   }
 
-  const STATUS_LABEL = {
-    pending: 'Pending', pr_open: 'PR open', merged: 'Merged',
-    rejected: 'Not accepted', needs_info: 'Needs info',
-  };
-  // What was submitted, as distinct from what happened to it. Both are looked up
-  // through Object.hasOwn rather than indexed directly: one of these becomes part of a
-  // class name, and esc() escapes quotes and angle brackets but not spaces.
-  const KIND_LABEL = {
-    check: 'Independent check', challenge: 'Grade challenge',
-    entry: 'New entry', correction: 'Correction',
-  };
+  // What was submitted, and what happened to it. Shared with /admin through chrome.js so
+  // a contributor and the maintainer deciding on their submission read the same words.
+  // Both are looked up through Object.hasOwn rather than indexed directly: one of these
+  // becomes part of a class name, and esc() escapes quotes and angle brackets but not
+  // spaces.
+  const { status: STATUS_LABEL, kind: KIND_LABEL } = window.wafLabels;
 
   // A pull request link, or null.
   //

@@ -417,13 +417,18 @@ THEME_SEG = (
 # switcher and the updated stamp: a fourth text control tipped the row onto two lines at
 # every width the site supports. The label survives for anyone who needs it, on
 # aria-label and title.
+# The signed-out account control, and the one thing in the eyebrow that is an action
+# rather than a utility. It carries the word because a bare person glyph sitting between
+# a GitHub mark and a theme switcher reads as a third toggle: three outlined icons of the
+# same weight, and the only one that does anything consequential is the one nobody
+# notices. Filled with the accent so it is the single filled element in the row.
 SIGNIN_LINK = (
-    '<a class="acct-in" href="/api/auth/start" data-signin'
-    ' aria-label="Sign in" title="Sign in">'
+    '<a class="acct-in" href="/api/auth/start" data-signin title="Sign in">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"'
     ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
     '<circle cx="12" cy="8.2" r="3.6"/>'
-    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg></a>')
+    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg>'
+    '<span class="acct-in-t">Sign in</span></a>')
 
 
 def site_header(current, updated, extra_class=""):
@@ -448,7 +453,13 @@ def site_header(current, updated, extra_class=""):
         # when the session resolves. `return_to` is filled in by chrome.js from the
         # current URL, so signing in from a finding page comes back to that page.
         f'<span class="acct" data-acct>{SIGNIN_LINK}</span>'
-        f'<span class="updated"><span class="pulse"></span>Updated '
+        # The word "Updated" is dropped from the visible badge and kept for screen
+        # readers. It cost about seventy pixels of the eyebrow, which is the only row on
+        # the site with no slack, and it was spending them on a label the pulse dot and
+        # an ISO date already imply. Those pixels now carry the word "Sign in", which is
+        # an action a reader can take rather than a status they can only read.
+        f'<span class="updated" title="Registry last updated"><span class="pulse"></span>'
+        f'<span class="vh">Registry last updated </span>'
         f'<b id="updated">{esc(updated)}</b></span>'
         f'</span></div>')
 
@@ -1444,9 +1455,9 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 
 {site_footer()}
 </div>
-<script src="/chrome.js" defer></script>
-<script src="/entry.js" defer></script>
-<script src="/signals.js" defer></script>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
 </body>
 </html>
 '''
@@ -1558,7 +1569,7 @@ def build_app_js():
     load time. Generating the two tables here keeps its copy from drifting from the
     Python one without introducing a module loader or a build step for the client.
     """
-    path = os.path.join(ROOT, "app.js")
+    path = os.path.join(ROOT, "js", "app.js")
     with open(path) as f:
         src = f.read()
 
@@ -1583,7 +1594,7 @@ def build_app_js():
                + table("SRC_LABEL", SRC) + "\n" + chips("SRC_CHIP", SRC) + "\n"
                + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                 "vocabulary tables", "app.js")
+                 "vocabulary tables", "js/app.js")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1634,7 +1645,7 @@ def build_contribute(entries):
 
     # The JavaScript side: labels and definitions for the two grade axes, plus the
     # current grades per entry so the challenge form can show what it is arguing against.
-    js_path = os.path.join(ROOT, "contribute.js")
+    js_path = os.path.join(ROOT, "js", "contribute.js")
     with open(js_path) as f:
         js = f.read()
 
@@ -1661,7 +1672,7 @@ def build_contribute(entries):
                f"const ID_BY_TITLE = {{{ids}\n}};\n"
                f"const TITLE_BY_ID = {{{titles}\n}};\n")
     js = inject(js, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                "vocabulary tables", "contribute.js")
+                "vocabulary tables", "js/contribute.js")
     with open(js_path, "w") as f:
         f.write(js)
 

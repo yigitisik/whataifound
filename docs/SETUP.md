@@ -133,6 +133,51 @@ cannot be used to find out who holds which role.
 
 ---
 
+## "Sign-in is not configured on this deployment."
+
+The first thing most people hit. `/api/auth/start` returns this 503 when
+`GOOGLE_CLIENT_ID` is not set **in the deployment that is currently serving the domain**,
+which is not the same question as whether it is set in the project settings.
+
+**Vercel injects environment variables at deploy time. Adding one does not redeploy.**
+The production domain keeps serving the deployment built before you added it, so a
+correctly-set variable still reads as absent until you redeploy:
+
+```bash
+vercel env ls        # confirm the name, and the Environment column
+vercel --prod        # redeploy so the running deployment picks it up
+```
+
+If it persists, work down this list:
+
+| Check | How |
+|---|---|
+| Set for **Production**, not only Preview or Development | the Environment column in `vercel env ls` |
+| Named exactly `GOOGLE_CLIENT_ID` | no `NEXT_PUBLIC_` prefix, no trailing space |
+| The redirect URI is registered with Google | must be exactly `https://<your-domain>/api/auth/callback` |
+
+Two things worth knowing while you debug.
+
+**The check is ordered, so one missing variable can mask another.** `api/auth/start.js`
+tests `GOOGLE_CLIENT_ID` before it signs the flow cookie, so while that 503 is showing you
+cannot tell whether `SESSION_SECRET` is set. If it is missing or shorter than 32
+characters, `api/_lib/session.js` throws and sign-in fails with a 500 at the callback
+instead. Confirm all five together rather than one at a time.
+
+**Other endpoints tell you which variables did arrive**, without exposing any of them:
+
+```bash
+curl -s https://<your-domain>/api/me        # {"signedIn":false}  -> functions run at all
+curl -s https://<your-domain>/api/signals   # no "degraded" flag  -> DATABASE_URL works
+curl -so /dev/null -w '%{http_code}\n' \
+     "https://<your-domain>/api/auth/start" # 302 -> fixed;  503 -> still missing
+```
+
+`/api/signals` answering with `"degraded": true` means the database is unreachable;
+answering without it means the query succeeded.
+
+---
+
 ## Checking it works
 
 1. Load any page. The header shows a person icon at the far right of the masthead.
@@ -166,7 +211,7 @@ And the guard that makes the bot path safe, which is worth testing once by hand:
 
 ```bash
 git checkout -b submission/test-guard
-echo "// not allowed" >> app.js
+echo "// not allowed" >> js/app.js
 git commit -am "should be refused" && git push origin submission/test-guard
 ```
 

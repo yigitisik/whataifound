@@ -103,6 +103,52 @@
   const esc = s => String(s ?? '').replace(/[&<>"]/g,
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
+  // ---------- Shared helpers for the per-page scripts ----------
+  // account.js, admin.js, contribute.js and signals.js each had their own copy of these.
+  // There is no module system here on purpose (no bundler, no build step for the
+  // client), so the sharing mechanism is the one this file already uses for the session
+  // and the identicon: hang it on window, and rely on chrome.js loading first.
+  //
+  // That ordering is guaranteed, not hoped for. Every page loads chrome.js before its
+  // own script and both carry `defer`, which runs them in document order. app.js is the
+  // exception and deliberately keeps its own esc(): it loads WITHOUT defer on the home
+  // page, so it executes before this file, and its copy is diffed byte for byte against
+  // the Python port in build-site.py by verify-parity.py. It must not move.
+
+  /**
+   * Show one of a page's pre-rendered states and hide the rest.
+   *
+   * The selector is a parameter rather than a fixed class because the state wrappers
+   * also carry layout: /account styles `.acct-state` with its own top margin. Sharing
+   * the implementation is the point; sharing the class name would tie page layout to
+   * this helper for no gain.
+   */
+  const show = (which, sel = '.c-state') => {
+    document.querySelectorAll(sel).forEach(el => {
+      el.hidden = el.dataset.state !== which;
+    });
+  };
+
+  // What a submission is, and what has happened to it. Rendered on /account (the
+  // contributor's own view) and /admin (the maintainer's queue), which must agree:
+  // a status the two pages worded differently would read as two different things.
+  // api/u/[handle].js has its own copy on purpose, being a server function with no
+  // window to read from.
+  const LABELS = {
+    status: {
+      pending: 'Pending', pr_open: 'PR open', merged: 'Merged',
+      rejected: 'Not accepted', needs_info: 'Needs info',
+    },
+    kind: {
+      check: 'Independent check', challenge: 'Grade challenge',
+      entry: 'New entry', correction: 'Correction',
+    },
+  };
+
+  window.wafEsc = esc;
+  window.wafShow = show;
+  window.wafLabels = LABELS;
+
   // ---------- Account control ----------
   // The header is pre-rendered signed-out. This swaps it once the session resolves,
   // which is the only correct order: build-site.py has no session to render, and

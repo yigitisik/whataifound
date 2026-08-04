@@ -71,6 +71,25 @@ def html_files():
                 yield os.path.join(fdir, name)
 
 
+def text_files():
+    """Every UTF-8 text file in the repository, as (relative path, contents).
+
+    Shared by the two whole-tree style sweeps below so the walk happens once. Binary
+    files are skipped by failing to decode rather than by extension, so adding a new
+    asset type never means editing a list here.
+    """
+    for dirpath, dirnames, filenames in os.walk(ROOT):
+        dirnames[:] = sorted(d for d in dirnames if d not in STYLE_SKIP_DIRS)
+        for name in sorted(filenames):
+            path = os.path.join(dirpath, name)
+            try:
+                with open(path, encoding="utf-8") as f:
+                    text = f.read()
+            except (UnicodeDecodeError, OSError):
+                continue
+            yield os.path.relpath(path, ROOT), text
+
+
 def line_of(text, index):
     return text.count("\n", 0, index) + 1
 
@@ -96,7 +115,7 @@ def check_html(path, problems):
         ext = re.search(r'\bsrc\s*=\s*["\']([^"\']+)["\']', attrs, re.I)
         if ext:
             url = ext.group(1)
-            # Same-origin ("/x.js", "app.js") is fine; anything else must be allowlisted.
+            # Same-origin ("/js/app.js", "x.js") is fine; anything else must be allowlisted.
             if re.match(r"^(?:[a-z]+:)?//", url, re.I) and not url.startswith(ALLOWED_SRC_HOSTS):
                 problems.append(f"{rel}:{line}: external script src {url!r} is not in the CSP allowlist")
         elif body.strip() and not any(a in body for a in ALLOWED_INLINE):
@@ -182,26 +201,47 @@ def check_em_dashes(problems):
     Binary files are skipped by failing to decode as UTF-8 rather than by extension, so
     adding a new asset type never means editing this list.
     """
-    for dirpath, dirnames, filenames in os.walk(ROOT):
-        dirnames[:] = sorted(d for d in dirnames if d not in STYLE_SKIP_DIRS)
-        for name in sorted(filenames):
-            path = os.path.join(dirpath, name)
-            try:
-                with open(path, encoding="utf-8") as f:
-                    text = f.read()
-            except (UnicodeDecodeError, OSError):
+    for rel, text in text_files():
+        if EM_DASH not in text:
+            continue
+        for n, line in enumerate(text.split("\n"), 1):
+            col = line.find(EM_DASH)
+            if col < 0:
                 continue
-            if EM_DASH not in text:
-                continue
-            rel = os.path.relpath(path, ROOT)
-            for n, line in enumerate(text.split("\n"), 1):
-                col = line.find(EM_DASH)
-                if col < 0:
+            context = line[max(0, col - 32):col + 33].strip()
+            problems.append(
+                f"{rel}:{n}: em dash (U+2014) in {context!r}. Use a colon, comma, "
+                "semicolon or parentheses, whichever the sentence wants.")
+
+
+def check_control_chars(problems):
+    """No literal control character in a text file.
+
+    These are legal in a JavaScript string or regex and run correctly, which is exactly
+    the problem: `api/_lib/names.js` carried a real NUL byte inside its UNSAFE character
+    class for two phases and every test passed. What it broke was everything that reads
+    the file as text. grep classifies a file containing NUL as binary and silently prints
+    nothing, so a search for a symbol in that file returns no hits and reads as "unused";
+    diffs and code review hide the byte entirely.
+
+    Written as an escape (\\u0000) the behaviour is identical and the intent is legible.
+    Tab, newline and carriage return are excluded because they are ordinary text.
+    """
+    # DEL plus the C0 range, minus the three whitespace characters that belong in a file.
+    offenders = {chr(c) for c in range(32)} - {"\t", "\n", "\r"} | {"\x7f"}
+    for rel, text in text_files():
+        if not offenders.intersection(text):
+            continue
+        for n, line in enumerate(text.split("\n"), 1):
+            for col, ch in enumerate(line):
+                if ch not in offenders:
                     continue
                 context = line[max(0, col - 32):col + 33].strip()
                 problems.append(
-                    f"{rel}:{n}: em dash (U+2014) in {context!r}. Use a colon, comma, "
-                    "semicolon or parentheses, whichever the sentence wants.")
+                    f"{rel}:{n}: literal control character U+{ord(ch):04X} in {context!r}. "
+                    f"Write it as an escape (\\u{ord(ch):04x}) instead: a NUL byte makes "
+                    "grep treat the whole file as binary.")
+                break   # one report per line is enough to find it
 
 
 def main():
@@ -210,14 +250,15 @@ def main():
         check_html(path, problems)
     check_data(problems)
     check_em_dashes(problems)
+    check_control_chars(problems)
 
     if problems:
         print(f"Integrity check failed with {len(problems)} problem(s):", file=sys.stderr)
         for p in problems:
             print(f"  - {p}", file=sys.stderr)
         sys.exit(1)
-    print("Integrity check passed: no unexpected scripts, origins, handlers, URL schemes "
-          "or em dashes.")
+    print("Integrity check passed: no unexpected scripts, origins, handlers, URL schemes, "
+          "em dashes or control characters.")
 
 
 if __name__ == "__main__":

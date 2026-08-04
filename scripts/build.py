@@ -10,6 +10,8 @@ No HTML is ever edited by hand. This runs, in order:
                         llms.txt and sitemap.xml
     build-feed.py       regenerates feed.xml and feed.json
     verify-parity.py    asserts the pre-rendered cards still match app.js's card()
+    verify-doors.py     asserts the GitHub issue templates and /contribute ask the
+                        same questions, so a contribution does not depend on route
     check-integrity.py  asserts the deployed HTML contains no smuggled scripts,
                         handlers, origins or executable URL schemes
 
@@ -30,6 +32,7 @@ STEPS = [
     # Regenerated every build so the editor schema cannot fall behind data/vocab.json.
     ("build-schema.py", "regenerate entry schema", True),
     ("verify-parity.py", "verify render parity", False),
+    ("verify-doors.py", "verify both contribution doors match", False),
     ("check-integrity.py", "check for smuggled markup", False),
 ]
 

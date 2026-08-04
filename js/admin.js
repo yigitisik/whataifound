@@ -10,21 +10,15 @@
 (function () {
   const $ = sel => document.querySelector(sel);
   const $$ = sel => [...document.querySelectorAll(sel)];
-  const esc = s => String(s ?? '').replace(/[&<>"]/g,
-    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
-  const show = which => $$('.c-state').forEach(el => { el.hidden = el.dataset.state !== which; });
+  const esc = window.wafEsc;
+  const show = window.wafShow;
 
   const queue = $('[data-queue]');
   if (!queue) return;
 
-  const KIND_LABEL = {
-    check: 'Independent check', challenge: 'Grade challenge',
-    entry: 'New entry', correction: 'Correction',
-  };
-  const STATUS_LABEL = {
-    pending: 'Pending', pr_open: 'PR open', merged: 'Merged',
-    rejected: 'Not accepted', needs_info: 'Needs info',
-  };
+  // Shared with /account through chrome.js: the same submission has to read the same
+  // way to the person who made it and to the maintainer deciding on it.
+  const { kind: KIND_LABEL, status: STATUS_LABEL } = window.wafLabels;
 
   // Payload fields worth showing, per kind, in the order a reviewer reads them. An
   // allowlist rather than a dump of the object: a payload gains fields over time and a

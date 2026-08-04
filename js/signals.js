@@ -9,8 +9,8 @@
 // scripting off gets the page exactly as it was before signals existed rather than a
 // row of buttons that do nothing.
 (function () {
-  const esc = s => String(s ?? '').replace(/[&<>"]/g,
-    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  // Shared from chrome.js, which loads first on every page. See the note there.
+  const esc = window.wafEsc;
 
   const group = document.querySelector('[data-signals]');
   const queue = document.querySelector('[data-qsort]');
