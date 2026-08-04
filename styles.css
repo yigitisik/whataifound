@@ -110,7 +110,10 @@
   a:focus-visible,button:focus-visible,summary:focus-visible,.labcard:focus-visible,
   input:focus-visible,select:focus-visible,[tabindex]:focus-visible{
     outline:2.5px solid var(--accent);outline-offset:2px;border-radius:7px}
-  .eyebrow-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+  /* The account control joined this row, which put it a few pixels over its budget at
+     1280 and wrapped the whole cluster onto a second line. Tightened rather than
+     thinned: every item here earns its place, and the row has to hold four of them. */
+  .eyebrow-right{display:flex;align-items:center;gap:11px;flex-wrap:wrap;justify-content:flex-end}
   .theme-seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden}
   .theme-seg .th{width:31px;height:26px;display:grid;place-items:center;background:transparent;border:0;
     border-right:1px solid var(--line);cursor:pointer;color:var(--muted);transition:color .15s,background .15s}
@@ -382,6 +385,185 @@
     text-transform:uppercase;letter-spacing:.13em;line-height:1.4}
   @keyframes barIn{to{transform:scaleX(1)}}
   @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Account control (header) ---------- */
+  /* Lives in .eyebrow-right beside the theme switcher, on every page, because that is
+     where the shared chrome put a slot for it. Pre-rendered signed-out and swapped by
+     chrome.js once /api/me answers; both states are the same height, so the row does
+     not move when the session resolves. */
+  .acct{display:inline-flex;align-items:center;min-height:26px}
+  /* Exactly the size of the identicon that replaces it, so the row does not reflow when
+     the session resolves, and the same physical language as .gh-icon beside it. */
+  .acct-in{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;
+    color:var(--muted);box-shadow:0 0 0 1px var(--line-strong);
+    transition:color .16s var(--ease),box-shadow .16s var(--ease)}
+  .acct-in svg{width:15px;height:15px;display:block}
+  .acct-in:hover,.acct-in:focus-visible{color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+
+  /* A <details> rather than a scripted popover: it opens on click and closes on Escape
+     with no code, and it still works if chrome.js fails after rendering. */
+  .acct-menu{position:relative}
+  /* list-style:none alone is not enough: Safari draws the disclosure triangle from
+     ::-webkit-details-marker, and Chrome renders a ::marker box that displaces the
+     avatar inside the 26px circle and clips it. Both have to be removed explicitly. */
+  /* display:block is doing real work here. A <summary> defaults to display:list-item,
+     and a list-item lays out a marker box that offsets the avatar inside the 26px
+     circle and clips it; list-style:none does not remove that box. Setting display to
+     anything else drops the marker entirely, which is why the flex centring lives on an
+     inner wrapper rather than on the summary itself. */
+  /* Three overrides, all of them undoing the global details/summary styling further
+     down this file, which is written for the disclosure sections on a finding page:
+     that rule set gives every summary a flex row, 9px of top padding and a rotating
+     chevron via summary:before. Inherited here, the padding pushes the avatar out of
+     its own 26px box and the chevron sits where the avatar should be, which renders as
+     an empty rounded square with a stray accent-coloured sliver in it.
+     A rounded square rather than a circle, too: an identicon is a 5x5 grid whose outer
+     ring is load-bearing, and a circle clips the corners and the full-height edge
+     columns away. Same shape as the 56px avatar on the account page. */
+  .acct-menu>summary{display:block;padding:0;margin:0;cursor:pointer;
+    width:26px;height:26px;border-radius:8px;overflow:hidden;
+    box-shadow:0 0 0 1px var(--line-strong);transition:box-shadow .16s var(--ease)}
+  .acct-menu>summary:before{content:none}
+  .acct-menu>summary::-webkit-details-marker{display:none}
+  .acct-menu>summary>svg{display:block;width:26px;height:26px}
+  /* The same global rule puts a top border and margin on every <details>. */
+  .acct-menu{margin:0;border-top:0;padding-top:0}
+  .acct-menu>summary:hover,.acct-menu[open]>summary{box-shadow:0 0 0 2px var(--accent)}
+  .acct-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:40;min-width:190px;
+    display:flex;flex-direction:column;padding:6px;border-radius:13px;
+    background:var(--panel);border:1px solid var(--line-strong);box-shadow:var(--shadow-card)}
+  .acct-who{margin:0;padding:8px 10px 9px;border-bottom:1px solid var(--line);
+    display:flex;flex-direction:column;gap:2px;text-transform:none;letter-spacing:0}
+  .acct-who b{font-family:var(--serif);font-size:.86rem;color:var(--ink);font-weight:600}
+  .acct-who span{font-family:var(--serif);font-size:.72rem;color:var(--muted)}
+  .acct-pop a,.acct-pop button{display:block;width:100%;text-align:left;padding:8px 10px;
+    margin-top:2px;border:0;border-radius:9px;background:transparent;cursor:pointer;
+    font-family:var(--serif);font-size:.8rem;color:var(--ink);text-decoration:none;
+    text-transform:none;letter-spacing:0}
+  .acct-pop a:hover,.acct-pop button:hover{background:var(--panel-2);color:var(--accent)}
+
+  /* The identicon: a 5x5 grid mirrored about its spine, filled with the brand gradient.
+     Not a Google photo, because img-src is 'self' data: and blocks one outright. */
+  .idic{display:block;shape-rendering:crispEdges}
+
+  /* ---------- Account page ---------- */
+  .acct-state{margin-top:22px}
+  .acct-muted{font-family:var(--serif);color:var(--muted);font-size:.86rem}
+  .acct-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:19px 22px 20px;margin:0 0 14px;box-shadow:var(--shadow)}
+  .acct-card>.lbl{margin:0 0 9px}
+  .acct-card p{font-family:var(--serif);font-size:.86rem;line-height:1.6;color:var(--muted);
+    margin:0 0 10px;max-width:62ch}
+  .acct-card p:last-child{margin-bottom:0}
+  .acct-fine{font-size:.76rem!important;color:var(--muted)}
+  .acct-signin .btn{margin-top:2px}
+
+  /* Identity strip. The avatar carries the brand gradient, which is the one accent this
+     page gets: everything else stays in the editorial palette. */
+  .acct-id{display:flex;align-items:center;gap:15px;flex-wrap:wrap;
+    padding:18px 22px;margin:0 0 14px;border-radius:16px;
+    background:linear-gradient(180deg,var(--panel) 0%,var(--panel-2) 100%);
+    border:1px solid var(--line);box-shadow:var(--shadow-card)}
+  .acct-avatar{flex:none;display:grid;place-items:center;width:56px;height:56px;
+    border-radius:15px;overflow:hidden;box-shadow:0 0 0 1px var(--line-strong)}
+  .acct-idmeta{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+  .acct-idmeta b{font-family:var(--serif);font-size:1.32rem;font-weight:600;color:var(--ink);
+    letter-spacing:-.01em;line-height:1.2}
+  .acct-handle{font-family:var(--serif);font-size:.82rem;color:var(--muted)}
+  .acct-joined{font-family:var(--serif);font-size:.72rem;color:var(--muted)}
+  .acct-role{align-self:flex-start;text-transform:uppercase}
+
+  /* Progress meter. The gradient fill is deliberate and used once: it is the only thing
+     on the page that should feel like it is going somewhere. */
+  .meter{height:9px;border-radius:99px;background:var(--panel-2);overflow:hidden;
+    border:1px solid var(--line);margin:2px 0 10px}
+  .meter-fill{display:block;height:100%;border-radius:99px;
+    background:linear-gradient(90deg,#5aa9e6,#7c6cf0 55%,#d98a4a);
+    transition:width .9s var(--ease)}
+  .acct-meter-note{font-family:var(--serif);font-size:.82rem;color:var(--muted);margin:0 0 10px}
+  .acct-meter-note b{color:var(--ink);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+  .acct-or{display:inline-block;margin:0 8px;opacity:.7}
+  .acct-stats{margin:0 0 8px}
+  .acct-rate{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:0 0 14px}
+
+  /* ---------- Forms ---------- */
+  /* The site had no <form> at all before this: check-integrity.py rejected the element
+     outright and the shortcuts dialog was written around that. The rule is now "a form
+     with no action attribute", which with form-action 'self' means it cannot post
+     anywhere but here, and real form semantics are worth a lot to keyboard and screen
+     reader users. */
+  .acct-form{display:flex;flex-direction:column;gap:15px}
+  .fld{display:flex;flex-direction:column;gap:5px}
+  .fld label{font-family:var(--serif);font-size:.7rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted)}
+  /* Every control, not just input[type=text]: /account had only text fields, and
+     /contribute added url, number, date, textarea and select. Naming the types rather
+     than using a bare `input` keeps checkboxes and radios out of it, which want the
+     browser's own rendering. */
+  .fld input[type=text],.fld input[type=url],.fld input[type=number],
+  .fld input[type=date],.fld input[type=email],.fld textarea,.fld select,
+  .c-source input,.c-source select{
+    font-family:var(--serif);font-size:.92rem;padding:10px 12px;
+    border-radius:11px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);
+    transition:border-color .16s var(--ease),box-shadow .16s}
+  .fld textarea{line-height:1.6;resize:vertical;min-height:64px}
+  /* The native arrow disappears on a restyled select in some engines, so it is drawn
+     here rather than left to chance. */
+  .fld select,.c-source select{appearance:none;padding-right:34px;cursor:pointer;
+    background-image:linear-gradient(45deg,transparent 50%,currentColor 50%),
+      linear-gradient(135deg,currentColor 50%,transparent 50%);
+    background-position:calc(100% - 17px) calc(50% + 1px),calc(100% - 12px) calc(50% + 1px);
+    background-size:5px 5px,5px 5px;background-repeat:no-repeat}
+  .fld input:focus-visible,.fld textarea:focus-visible,.fld select:focus-visible,
+  .c-source input:focus-visible,.c-source select:focus-visible{
+    outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+  .fld input:disabled,.fld textarea:disabled,.fld select:disabled{opacity:.55;cursor:not-allowed}
+  .fld-help{font-family:var(--serif);font-size:.76rem;line-height:1.5;color:var(--muted);
+    margin:0;max-width:60ch}
+  .fld-err{font-family:var(--serif);font-size:.78rem;line-height:1.5;color:var(--refuted);
+    margin:0}
+  .fld-check label{display:flex;align-items:center;gap:9px;text-transform:none;
+    letter-spacing:0;font-size:.9rem;color:var(--ink);font-weight:400;cursor:pointer}
+  .fld-check input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .acct-actions{display:flex;align-items:center;gap:12px;margin:2px 0 0!important}
+  .acct-saved{font-family:var(--serif);font-size:.8rem;color:var(--accent);font-weight:600}
+  .acct-empty{font-family:var(--serif);font-size:.84rem;color:var(--muted);margin:0}
+
+  .acct-danger{border-color:color-mix(in srgb,var(--refuted) 32%,var(--line))}
+  .btn-danger{border-color:color-mix(in srgb,var(--refuted) 45%,var(--line-strong));
+    color:var(--refuted)}
+  .btn-danger:hover{border-color:var(--refuted);background:color-mix(in srgb,var(--refuted) 10%,transparent)}
+
+  /* Contribution rows reuse the activity feed, so a contribution reads the same on the
+     account page as it does in the hero. These are the extra statuses. */
+  .r-pending{--rc:var(--rev-added)} .r-pr_open{--rc:var(--rev-regraded)}
+  .r-merged{--rc:var(--rev-check)} .r-rejected{--rc:var(--rev-challenge)}
+  .r-needs_info{--rc:var(--rev-correction)}
+  .acct-card .feed-list{gap:9px}
+  .acct-card .feed-row{border-bottom:1px solid var(--line)}
+
+  /* ---------- Privacy page ---------- */
+  .privacy-table{width:100%;border-collapse:collapse;margin:0 0 18px;
+    font-family:var(--serif);font-size:.84rem}
+  .privacy-table th,.privacy-table td{text-align:left;vertical-align:top;padding:9px 12px;
+    border-bottom:1px solid var(--line);line-height:1.5}
+  .privacy-table th{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);font-weight:600}
+  .privacy-table td:first-child{color:var(--ink)}
+  .privacy-table td{color:var(--muted)}
+  .privacy-updated{font-size:.78rem!important;border-top:1px solid var(--line);padding-top:14px}
+
+  @media(max-width:640px){
+    .acct-id{gap:12px;padding:15px 16px}
+    .acct-avatar{width:46px;height:46px}
+    .acct-idmeta b{font-size:1.12rem}
+    .acct-card{padding:16px 16px 17px}
+    .privacy-table,.privacy-table tbody,.privacy-table tr,.privacy-table td{display:block;width:100%}
+    .privacy-table thead{display:none}
+    .privacy-table tr{border-bottom:1px solid var(--line);padding:9px 0}
+    .privacy-table td{border:0;padding:2px 0}
+    .privacy-table td:first-child{color:var(--ink);font-weight:600}
+  }
 
   /* ---------- Reports strip ---------- */
   /* Between the hero and the sticky toolbar: what the corpus says, before the reader starts
@@ -1052,6 +1234,34 @@
     text-decoration:none;margin-left:2px}
   .finding a.challenge-alt:hover{color:var(--accent);text-decoration:underline;
     text-underline-offset:3px}
+  /* ---------- Triage signals ---------- */
+  /* Inside the challenge panel, below the two real actions and separated by a hairline:
+     a signal is the cheapest thing a reader can do and must not out-shout submitting a
+     check. Ships hidden; signals.js reveals it, so no-JS sees the panel it always had. */
+  .sig{margin:14px 0 0;padding:13px 0 0;border-top:1px solid var(--line)}
+  .sig[hidden]{display:none}
+  .sig-t{font-family:var(--serif);font-size:.72rem;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--muted);font-weight:600;margin:0 0 9px}
+  .sig-row{display:flex;flex-wrap:wrap;gap:8px}
+  .sig-b{display:inline-flex;align-items:center;gap:7px;padding:6px 11px;font:inherit;
+    font-size:.76rem;color:var(--muted);background:var(--panel);cursor:pointer;
+    border:1px solid var(--line);border-radius:999px;transition:all .18s var(--ease)}
+  .sig-b:hover{color:var(--ink);border-color:var(--line-strong)}
+  /* Pressed is the reader's own signal. Filled rather than merely outlined, because the
+     one thing this control must answer at a glance is "did I already flag this". */
+  .sig-b[aria-pressed=true]{color:var(--accent);border-color:var(--accent);
+    background:var(--accent-soft)}
+  .sig-b:disabled{opacity:.55;cursor:default}
+  .sig-n{font-variant-numeric:tabular-nums;font-size:.72rem;color:var(--muted)}
+  .sig-n:empty{display:none}
+  .sig-b[aria-pressed=true] .sig-n{color:var(--accent)}
+  .sig-note{font-size:.76rem;line-height:1.5;color:var(--muted);margin:10px 0 0;max-width:62ch}
+  .sig-signin{font-size:.78rem;color:var(--muted);margin:9px 0 0}
+  @media(max-width:560px){
+    .sig-row{flex-direction:column;align-items:stretch}
+    .sig-b{justify-content:space-between}
+  }
+
   /* Credit for the entry, not the discovery. Set quieter than the facts table above it:
      it is a standing acknowledgement, not evidence. */
   .credit{display:flex;flex-wrap:wrap;gap:10px 34px}
@@ -1060,11 +1270,178 @@
   .credit-row ul{list-style:none;margin:0;padding:0}
   .credit-row li{font-size:.9rem;line-height:1.5}
   .credit-note{color:var(--muted);font-size:.82rem}
+  /* An ORCID beside a name. Small and quiet: it is a credential, not a decoration, and
+     it earns its place by being the identifier that means something in this context. */
+  .credit-orcid{display:inline-block;font-family:var(--serif);font-size:.62rem;
+    font-weight:600;letter-spacing:.06em;color:#a6ce39;text-decoration:none;
+    border:1px solid currentColor;border-radius:4px;padding:0 3px;vertical-align:1px}
+  .credit-orcid:hover{background:color-mix(in srgb, #a6ce39 16%, transparent)}
+
+  /* ---------- Contribute (/contribute) ---------- */
+  /* The form is the product here, so it gets the width and the quiet. Field help is set
+     below each control rather than beside it: half of these rules are editorial and
+     want a sentence, not a tooltip. */
+  .c-kinds{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));
+    gap:10px;margin:0 0 24px}
+  .c-kind{display:block;text-align:left;padding:13px 15px;font:inherit;cursor:pointer;
+    background:var(--panel);border:1px solid var(--line);border-radius:11px;
+    transition:all .18s var(--ease)}
+  .c-kind:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  .c-kind[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
+  .c-kind b{display:block;font-family:var(--serif);font-size:.92rem;font-weight:600;
+    color:var(--ink);margin-bottom:4px}
+  .c-kind span{display:block;font-size:.76rem;line-height:1.45;color:var(--muted)}
+  .c-kind[aria-pressed=true] b{color:var(--accent)}
+
+  .c-entry{margin-bottom:16px}
+  .c-form{margin:0}
+  .c-fields{border:0;padding:0;margin:0;min-width:0}
+  .c-fields[hidden]{display:none}
+  .c-fields legend{padding:0}
+  .c-intro{font-size:.86rem;line-height:1.6;color:var(--muted);max-width:66ch;margin:0 0 18px}
+  .c-opt{font-family:var(--serif);font-size:.62rem;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--muted);font-weight:600;margin-left:5px}
+  .c-row{display:grid;grid-template-columns:1fr 1fr;gap:0 18px}
+  .c-now{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin:0 0 18px;
+    padding:10px 13px;background:var(--accent-soft);border-radius:9px}
+  .c-now[hidden]{display:none}
+  .c-now .lbl{margin:0}
+
+  /* The four steps of the new-entry wizard. A list rather than a progress bar: the
+     steps are named, and knowing what is coming is more useful than a percentage. */
+  .c-steps{display:flex;flex-wrap:wrap;gap:8px 6px;list-style:none;margin:0 0 22px;padding:0;
+    counter-reset:cstep}
+  .c-steps li{counter-increment:cstep;font-family:var(--serif);font-size:.74rem;
+    color:var(--muted);padding:5px 11px 5px 9px;border:1px solid var(--line);
+    border-radius:999px}
+  .c-steps li:before{content:counter(cstep) ". ";font-variant-numeric:tabular-nums}
+  .c-steps li[aria-current=step]{color:var(--accent);border-color:var(--accent);
+    background:var(--accent-soft)}
+  .c-steps li.done{color:var(--ink)}
+  .c-steps li.done:before{content:"\2713 "}
+  .c-step[hidden]{display:none}
+  .c-nav{display:flex;gap:9px;margin:22px 0 0}
+  .c-nav [hidden]{display:none}
+
+  .c-source{display:grid;grid-template-columns:2fr 1.4fr auto auto;gap:0 12px;
+    align-items:end;padding:12px 0;border-top:1px solid var(--line)}
+  .c-source:first-child{border-top:0;padding-top:0}
+  .c-drop{align-self:end;margin-bottom:14px;padding:5px 10px;font:inherit;font-size:.72rem;
+    color:var(--muted);background:none;border:1px solid var(--line);border-radius:7px;
+    cursor:pointer}
+  .c-drop:hover{color:var(--ink);border-color:var(--line-strong)}
+  /* Editorial rule 4, stated at the moment it starts to matter. Not an error: the
+     submitter has not done anything wrong yet, they are one source away from fine. */
+  .c-rule{font-size:.82rem;line-height:1.55;color:var(--ink);max-width:66ch;
+    margin:14px 0 0;padding:11px 14px;background:var(--accent-soft);
+    border-left:3px solid var(--accent);border-radius:0 8px 8px 0}
+  .c-rule[hidden]{display:none}
+
+  .c-actions{display:flex;flex-wrap:wrap;align-items:center;gap:12px;margin:26px 0 0}
+  .c-actions[hidden]{display:none}
+  .c-fine,.c-alt{font-size:.78rem;line-height:1.6;color:var(--muted)}
+  .c-alt{max-width:70ch;margin:28px 0 0}
+  .c-done[hidden]{display:none}
+  .c-state[hidden]{display:none}
+  .c-empty{color:var(--muted);font-style:italic}
+  @media(max-width:640px){
+    .c-row,.c-source{grid-template-columns:1fr}
+    .c-source{gap:0}
+  }
+
+  /* ---------- Maintainer queue (/admin) ---------- */
+  /* No colour system of its own. A submission is not a new kind of thing on this site,
+     it is an entry-shaped object waiting to become one, so it reuses the entry card. */
+  .ad-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:16px 18px;margin:0 0 14px}
+  .ad-head{display:flex;flex-wrap:wrap;align-items:center;gap:9px;margin-bottom:9px}
+  .ad-kind{font-family:var(--serif);font-size:.8rem;font-weight:600;color:var(--ink)}
+  .ad-entry{font-size:.76rem;color:var(--muted)}
+  .ad-when{margin-left:auto;font-size:.72rem;color:var(--muted);
+    font-variant-numeric:tabular-nums}
+  .ad-who{display:flex;flex-wrap:wrap;align-items:center;gap:8px;font-size:.8rem;
+    color:var(--accent);margin:0 0 13px}
+  .ad-name{color:var(--ink)}
+  .ad-record{font-family:var(--serif);font-size:.7rem;color:var(--muted)}
+  .ad-new{font-family:var(--serif);font-size:.7rem;color:var(--muted);font-style:italic}
+  .ad-fields{margin:0 0 13px}
+  .ad-f{display:grid;grid-template-columns:132px 1fr;gap:4px 14px;padding:5px 0;
+    border-top:1px solid var(--line)}
+  .ad-f:first-child{border-top:0}
+  .ad-f dt{font-family:var(--serif);font-size:.66rem;text-transform:uppercase;
+    letter-spacing:.09em;color:var(--muted);font-weight:600;padding-top:2px}
+  .ad-f dd{margin:0;font-size:.85rem;line-height:1.55;white-space:pre-wrap;
+    overflow-wrap:anywhere}
+  .ad-src{list-style:none;margin:0;padding:0;display:grid;gap:5px}
+  .ad-slabel{color:var(--muted);font-size:.78rem}
+  .ad-pr{font-size:.82rem;color:var(--muted);margin:0 0 13px}
+  .ad-act{border-top:1px solid var(--line);padding-top:13px}
+  .ad-note{width:100%;font:inherit;font-size:.82rem;padding:8px 10px;color:var(--ink);
+    background:var(--bg);border:1px solid var(--line);border-radius:8px;resize:vertical}
+  .ad-btns{display:flex;flex-wrap:wrap;gap:9px;margin-top:10px}
+  .ad-no{color:var(--rev-challenge)}
+  .admin-warn{font-size:.84rem;line-height:1.6;color:var(--ink);max-width:74ch;
+    margin:0 0 22px;padding:12px 15px;background:color-mix(in srgb, var(--rev-challenge) 12%, transparent);
+    border-left:3px solid var(--rev-challenge);border-radius:0 8px 8px 0}
+  .admin-warn[hidden]{display:none}
+  @media(max-width:560px){
+    .ad-f{grid-template-columns:1fr}
+    .ad-when{margin-left:0;width:100%}
+  }
+
+  /* The GitHub route, kept and made quieter. Someone who already contributes there
+     should not be pushed through a form; someone who does not should not have to. */
+  .challenge-gh{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.74rem;
+    color:var(--muted);margin:11px 0 0}
+  .finding a.challenge-gh-link,.challenge-gh a{color:var(--muted);text-decoration:none}
+  .challenge-gh a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+
+  /* ---------- Public profile (/u/<handle>) ---------- */
+  /* Rendered by a Vercel function, styled from here like every other page: a profile
+     that looked different from the registry would read as a bolted-on account system
+     rather than as part of the publication. */
+  .prof-head{display:flex;align-items:center;gap:20px;margin:0 0 30px}
+  .prof-avatar{flex:0 0 auto;width:72px;height:72px;display:grid;place-items:center;
+    background:var(--panel);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+  .prof-who{min-width:0}
+  .prof .meth-title{margin:0 0 6px}
+  .prof-sub{display:flex;flex-wrap:wrap;align-items:center;gap:8px 12px;margin:0;
+    font-size:.85rem;color:var(--muted)}
+  .prof-handle{font-family:var(--mono,var(--serif));color:var(--accent)}
+  .prof-marks{display:flex;flex-wrap:wrap;gap:12px;margin:9px 0 0;font-size:.78rem}
+  .prof-marks a{color:var(--muted);text-decoration:none}
+  .prof-marks a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+  /* Fewer than four tiles is normal here: only the kinds someone has actually
+     contributed are shown, so a profile never displays a row of zeroes. */
+  .prof-stats{grid-template-columns:repeat(auto-fit,minmax(150px,1fr));margin:0 0 34px}
+  .prof-note{font-size:.82rem;line-height:1.6;color:var(--muted);max-width:68ch;margin:22px 0 0}
+  @media(max-width:560px){
+    .prof-head{gap:14px}
+    .prof-avatar{width:56px;height:56px}
+  }
 
   /* ---------- Review queue (/review) ---------- */
   /* A task list, so it is set as rows with one action each rather than as prose. */
-  .q-sum{color:var(--muted);max-width:74ch;line-height:1.55;margin:0 0 26px}
+  .q-sum{color:var(--muted);max-width:74ch;line-height:1.55;margin:0}
   .q-sum b{color:var(--ink);font-weight:600}
+  /* The count and the order control on one line. The control appears only once at least
+     one entry has been flagged, so on a quiet week this is just the sentence it used to be. */
+  .q-bar{display:flex;flex-wrap:wrap;align-items:baseline;justify-content:space-between;
+    gap:12px 20px;margin:0 0 26px}
+  .q-sort{display:inline-flex;align-items:center;gap:3px;padding:3px;
+    background:var(--panel);border:1px solid var(--line);border-radius:999px}
+  .q-sort[hidden]{display:none}
+  .q-sort-l{font-family:var(--serif);font-size:.66rem;text-transform:uppercase;
+    letter-spacing:.1em;color:var(--muted);padding:0 7px 0 9px}
+  .q-sortb{padding:4px 11px;font:inherit;font-size:.74rem;color:var(--muted);
+    background:none;border:0;border-radius:999px;cursor:pointer;transition:all .18s var(--ease)}
+  .q-sortb:hover{color:var(--ink)}
+  .q-sortb[aria-pressed=true]{color:var(--bg);background:var(--ink)}
+  /* Deliberately the quietest thing on the row: below the two grades, which are the
+     evidence, and after the lab. A flag count is triage, not a finding about the entry. */
+  .q-sig{font-family:var(--serif);font-size:.7rem;color:var(--accent);
+    font-variant-numeric:tabular-nums}
+  .q-sig[hidden]{display:none}
   .q-head{margin:30px 0 12px}
   .q-head h2{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;margin:0 0 4px}
   /* The count sits in the heading rather than in a sentence under it, so it reads at a

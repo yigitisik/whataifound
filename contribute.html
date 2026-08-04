@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Contribute to the registry | whataifound.org</title>
+<meta name="description" content="Submit an independent check, challenge a grade, send a correction or propose a new entry to the whataifound.org registry. No GitHub account needed.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://whataifound.org/contribute">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Contribute to the registry">
+<meta property="og:description" content="Submit an independent check, challenge a grade, send a correction or propose a new entry. Every submission is reviewed by a maintainer and lands as a pull request.">
+<meta property="og:url" content="https://whataifound.org/contribute">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Contribute to the registry">
+<meta name="twitter:description" content="Submit an independent check, challenge a grade, send a correction or propose a new entry.">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header>
+  <!--HEADER:START--><div class="eyebrow"><a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs><path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/><path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/></svg><span class="wm">what<span class="ai">ai</span>found.org</span></a><nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav><span class="eyebrow-right"><a class="gh-icon" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a><span class="theme-seg" role="group" aria-label="Colour theme"><button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button><button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button><button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button></span><span class="acct" data-acct><a class="acct-in" href="/api/auth/start" data-signin aria-label="Sign in" title="Sign in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg></a></span><span class="updated"><span class="pulse"></span>Updated <b id="updated">2026-08-02</b></span></span></div><!--HEADER:END-->
+  <h1 class="meth-title">Contribute</h1>
+  <p class="lede">Two doors, one review. Anything submitted here becomes a pull request
+  against <code>data/entries.json</code> that a maintainer reads and merges, which is
+  exactly what happens to a contribution sent from GitHub. The difference is only that
+  this one does not need a GitHub account or a fork.</p>
+</header>
+
+<main id="main" class="meth contrib">
+
+  <!-- Signed out. Pre-rendered rather than built in script, so the page is honest with
+       the stylesheet off and there is no flash of a form nobody can submit. -->
+  <div class="c-state" data-state="out" hidden>
+    <section class="acct-card acct-signin">
+      <h2 class="lbl">Sign in first</h2>
+      <p>A submission has to be attributable, because credit for it is published on the
+      entry. One account, one Google sign-in, no GitHub.</p>
+      <p><a class="btn primary" href="/api/auth/start" data-signin-btn>Continue with Google</a></p>
+      <p class="acct-fine">We ask Google only for your email and name. Your profile stays
+      private until you publish it. <a href="/privacy">What we store</a>.</p>
+      <p class="acct-fine">Prefer GitHub? Every route below also exists as an
+      <a href="https://github.com/yigitisik/whataifound/issues/new/choose" target="_blank" rel="noopener">issue
+      template</a>, and pull requests are always welcome.</p>
+    </section>
+  </div>
+
+  <div class="c-state" data-state="loading">
+    <p class="acct-muted">Checking your session…</p>
+  </div>
+
+  <div class="c-state" data-state="in" hidden>
+
+    <!-- What kind of contribution. A tab strip rather than four pages: the four forms
+         differ in three fields, and making someone navigate to find that out is worse
+         than showing the choice. -->
+    <nav class="c-kinds" data-kinds aria-label="What are you contributing?">
+      <button type="button" class="c-kind" data-kind="check" aria-pressed="true">
+        <b>Independent check</b>
+        <span>You read the source and can say whether it supports the claim.</span>
+      </button>
+      <button type="button" class="c-kind" data-kind="challenge" aria-pressed="false">
+        <b>Grade challenge</b>
+        <span>A verification or autonomy grade is wrong, and you have a citation.</span>
+      </button>
+      <button type="button" class="c-kind" data-kind="correction" aria-pressed="false">
+        <b>Correction</b>
+        <span>A dead link, a missing source, or the wrong year.</span>
+      </button>
+      <button type="button" class="c-kind" data-kind="entry" aria-pressed="false">
+        <b>New entry</b>
+        <span>A result the registry does not have yet.</span>
+      </button>
+    </nav>
+
+    <!-- Which entry. Hidden for a new entry, which does not refer to one. -->
+    <section class="acct-card c-entry" data-entrypick>
+      <div class="fld">
+        <label for="c-entry">Entry</label>
+        <input type="text" id="c-entry" list="c-entries" autocomplete="off"
+               placeholder="Start typing a title" spellcheck="false">
+        <p class="fld-help" data-entry-help>The entry this is about.</p>
+        <p class="fld-err" data-err="entry" hidden></p>
+      </div>
+      <datalist id="c-entries" data-entrylist><!--ENTRYLIST:START--><option value="4×4 complex matrix multiplication in 48 scalar multiplications"></option><option value="A fully machine-generated paper passed workshop peer review"></option><option value="A language-model agent that planned and ran chemistry experiments on lab robots"></option><option value="A neural decoder that identifies quantum errors more accurately than hand-designed methods"></option><option value="A new structural class of antibiotic candidates against MRSA"></option><option value="A working fluorescent protein generated by a language model"></option><option value="AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis"></option><option value="AI-generated bacteriophage genomes that replicate and kill bacteria"></option><option value="Accurate protein structure prediction across the known proteome (AlphaFold2)"></option><option value="AlphaEvolve across 67 problems: 20 improvements, 8 regressions"></option><option value="An eighth planet around Kepler-90 found by a neural network"></option><option value="Autonomous laboratory reports solid-state synthesis of new inorganic compounds"></option><option value="Candidate treatment for dry age-related macular degeneration"></option><option value="Complete wiring diagram of an adult fruit-fly brain"></option><option value="Counterexample to Grothendieck&#x27;s question on finite flat group schemes"></option><option value="Counterexample to the Dinitz–Garg–Goemans conjecture"></option><option value="Counterexample to the Jacobian conjecture in dimension three"></option><option value="Counterexamples to the Gaussian moments conjecture"></option><option value="Deep reinforcement learning controls tokamak fusion plasma"></option><option value="Disproof of the Erdős unit-distance conjecture"></option><option value="Early science acceleration experiments with GPT-5"></option><option value="Enzymes with working catalytic machinery designed from scratch"></option><option value="Erdős problem #728 resolved and formalized in Lean"></option><option value="Faster matrix-multiplication algorithms found by reinforcement learning"></option><option value="Faster sorting routines discovered and merged into the LLVM C++ library"></option><option value="First Herculaneum scroll read end to end without unrolling it"></option><option value="GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions"></option><option value="Generative model designs crystals to order; its flagship synthesis turned out to be a known compound"></option><option value="Gold-medal standard at the 2025 International Mathematical Olympiad"></option><option value="Halicin, an antibiotic found by a neural network screening a compound library"></option><option value="Improved bound for the Erdős minimum-overlap problem"></option><option value="Improved heuristics for online bin packing"></option><option value="Improved lower bound for the 11-dimensional kissing number"></option><option value="Improved step-size bound in smooth convex optimization"></option><option value="Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)"></option><option value="Large-scale prediction of new stable crystalline materials (GNoME)"></option><option value="Limits to black-box amplification in QMA, with the key step written by GPT-5"></option><option value="Machine-checked Lean proofs for five of six 2025 IMO problems"></option><option value="Medium-range weather forecasts from a graph neural network beat the operational physics model"></option><option value="Near-quadratic lower bound for derivative-free convex optimization"></option><option value="New families of unstable singularities in fluid equations"></option><option value="New lower bound constructions for the cap set problem"></option><option value="Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs"></option><option value="Olympiad geometry solved without human demonstrations"></option><option value="Pathogenicity predictions for 71 million human missense variants"></option><option value="Phase 2a results for a drug whose target and molecule both came from AI"></option><option value="Reinforcement learning refutes several conjectures in extremal combinatorics"></option><option value="Reinforcement learning steers a tokamak away from tearing instabilities"></option><option value="Silver-medal standard at the 2024 International Mathematical Olympiad"></option><option value="Strong prime number theorem formalized in Lean by an autoformalization agent"></option><option value="Structure in Bruhat intervals of permutation groups"></option><option value="Two theorems found by machine pattern-spotting in knot theory and representation theory"></option><!--ENTRYLIST:END--></datalist>
+    </section>
+
+    <form class="acct-card c-form" data-form novalidate>
+
+      <!-- check ------------------------------------------------------- -->
+      <fieldset class="c-fields" data-for="check">
+        <legend class="lbl">Independent check</legend>
+        <p class="c-intro">A check is a statement that you read the primary source
+        closely enough to say whether it supports the claim. It is not a vote, and a
+        check that finds a problem is worth more than one that does not.</p>
+
+        <div class="fld">
+          <label for="f-who">Your name and affiliation</label>
+          <input type="text" id="f-who" maxlength="200" autocomplete="off">
+          <p class="fld-help">As it should appear as credit on the entry. An affiliation
+          is optional but it is what makes a check weigh something.</p>
+          <p class="fld-err" data-err="who" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-outcome">Outcome</label>
+          <input type="text" id="f-outcome" maxlength="400" autocomplete="off"
+                 placeholder="confirmed, the construction is correct">
+          <p class="fld-help">One line. This is what appears on the entry.</p>
+          <p class="fld-err" data-err="outcome" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-evidence">What you checked, and how</label>
+          <textarea id="f-evidence" rows="7" maxlength="5000"></textarea>
+          <p class="fld-help">The reasoning, for the maintainer reading this. It stays in
+          the pull request and does not go on the entry. At least a paragraph.</p>
+          <p class="fld-err" data-err="evidence" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-checkurl">Link <span class="c-opt">optional</span></label>
+          <input type="url" id="f-checkurl" maxlength="500" autocomplete="off"
+                 placeholder="https://">
+          <p class="fld-help">A notebook, a thread, a write-up. An in-house recomputation
+          has nothing to link to, and that is fine.</p>
+          <p class="fld-err" data-err="url" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-coi">Conflicts of interest <span class="c-opt">optional</span></label>
+          <textarea id="f-coi" rows="2" maxlength="1000"
+                    placeholder="e.g. I work at the lab that announced this"></textarea>
+          <p class="fld-help">Say so if you have one. It does not disqualify a check; an
+          undisclosed one discredits it later.</p>
+          <p class="fld-err" data-err="coi" hidden></p>
+        </div>
+      </fieldset>
+
+      <!-- challenge --------------------------------------------------- -->
+      <fieldset class="c-fields" data-for="challenge" hidden>
+        <legend class="lbl">Grade challenge</legend>
+        <p class="c-intro">Grades move on evidence, never on opinion. That is why the
+        citation below is required: without one there is nothing for a maintainer to
+        weigh, and the entry is never deleted, only downgraded and annotated.</p>
+
+        <div class="c-now" data-current hidden>
+          <span class="lbl">Currently</span>
+          <span data-current-pills></span>
+        </div>
+
+        <div class="fld">
+          <label for="f-axis">Which grade is wrong?</label>
+          <select id="f-axis">
+            <option value="verification">Verification, how solid the result is</option>
+            <option value="autonomy">Autonomy, how much the AI did</option>
+          </select>
+          <p class="fld-err" data-err="axis" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-proposed">What should it be?</label>
+          <select id="f-proposed" data-proposed></select>
+          <p class="fld-help" data-grade-help></p>
+          <p class="fld-err" data-err="proposed" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-citation">Citation</label>
+          <input type="url" id="f-citation" maxlength="500" autocomplete="off"
+                 placeholder="https://">
+          <p class="fld-help">The paper, rebuttal, retraction or thread that makes the
+          case. This is added to the entry as a challenge source.</p>
+          <p class="fld-err" data-err="citation" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-citationLabel">What to call it <span class="c-opt">optional</span></label>
+          <input type="text" id="f-citationLabel" maxlength="120" autocomplete="off"
+                 placeholder="Grade challenge">
+          <p class="fld-err" data-err="citationLabel" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-why">The argument</label>
+          <textarea id="f-why" rows="6" maxlength="3000"></textarea>
+          <p class="fld-help">Why the citation supports the grade you are proposing. This
+          becomes the note on the revision record, so write it to be read later.</p>
+          <p class="fld-err" data-err="why" hidden></p>
+        </div>
+      </fieldset>
+
+      <!-- correction -------------------------------------------------- -->
+      <fieldset class="c-fields" data-for="correction" hidden>
+        <legend class="lbl">Correction</legend>
+        <p class="c-intro">Small factual fixes that leave both grades alone. Anything
+        that would move a grade is a challenge, and anything larger is better sent as a
+        pull request where the whole diff is visible.</p>
+
+        <div class="fld">
+          <label for="f-target">What needs fixing</label>
+          <select id="f-target">
+            <option value="source">Add a source link</option>
+            <option value="discussion">Add a discussion link</option>
+            <option value="year_posed">The year the problem was posed</option>
+          </select>
+          <p class="fld-err" data-err="target" hidden></p>
+        </div>
+
+        <div class="fld" data-when="year_posed" hidden>
+          <label for="f-year">Year posed</label>
+          <input type="number" id="f-year" min="1500" max="2100" step="1" inputmode="numeric">
+          <p class="fld-err" data-err="year" hidden></p>
+        </div>
+
+        <div class="fld" data-when="source discussion">
+          <label for="f-corrurl">Link</label>
+          <input type="url" id="f-corrurl" maxlength="500" autocomplete="off" placeholder="https://">
+          <p class="fld-err" data-err="url" hidden></p>
+        </div>
+
+        <div class="fld" data-when="source discussion">
+          <label for="f-label">What to call it</label>
+          <input type="text" id="f-label" maxlength="120" autocomplete="off"
+                 placeholder="Nature (2026)">
+          <p class="fld-err" data-err="label" hidden></p>
+        </div>
+
+        <div class="fld" data-when="source">
+          <label for="f-sourceKind">What kind of source</label>
+          <select id="f-sourceKind" data-sourcekind><!--SRCSEL:START--><option value="research" title="the paper, proof, code or data itself">Original work</option><option value="announcement" title="the claim as first made public, by whoever made it">Announcement</option><option value="coverage" title="news and press reporting on the claim">Media coverage</option><option value="commentary" title="analysis by someone not involved">Independent commentary</option><option value="challenge" title="the case against the claim">Challenge</option><!--SRCSEL:END--></select>
+          <p class="fld-help" data-sourcekind-help></p>
+          <p class="fld-err" data-err="sourceKind" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-note">What is wrong, and how you know</label>
+          <textarea id="f-note" rows="4" maxlength="1000"></textarea>
+          <p class="fld-help">This is recorded on the entry as a correction, because a
+          registry that quietly edits itself is worth less than one that does not.</p>
+          <p class="fld-err" data-err="note" hidden></p>
+        </div>
+      </fieldset>
+
+      <!-- entry ------------------------------------------------------- -->
+      <fieldset class="c-fields" data-for="entry" hidden>
+        <legend class="lbl">New entry</legend>
+        <p class="c-intro">Four steps. The rules enforced here are the ones the build
+        enforces, so a submission that passes this form is one that will pass CI.</p>
+
+        <ol class="c-steps" data-steps>
+          <li data-step="1" aria-current="step">What was found</li>
+          <li data-step="2">Who and what</li>
+          <li data-step="3">Sources</li>
+          <li data-step="4">Novelty</li>
+        </ol>
+
+        <!-- step 1 -->
+        <div class="c-step" data-stepbody="1">
+          <div class="fld">
+            <label for="f-title">Title</label>
+            <input type="text" id="f-title" maxlength="200" autocomplete="off">
+            <p class="fld-help">Plain and factual. No hype verbs.</p>
+            <p class="fld-err" data-err="title" hidden></p>
+          </div>
+          <div class="fld">
+            <label for="f-claim">The claim, in one sentence</label>
+            <textarea id="f-claim" rows="3" maxlength="600"></textarea>
+            <p class="fld-help">One sentence a smart non-expert can read.</p>
+            <p class="fld-err" data-err="claim" hidden></p>
+          </div>
+          <div class="fld">
+            <label for="f-detail">What was found <span class="c-opt">optional</span></label>
+            <textarea id="f-detail" rows="6" maxlength="6000"></textarea>
+            <p class="fld-help">The detail a reader needs to judge it.</p>
+            <p class="fld-err" data-err="detail" hidden></p>
+          </div>
+        </div>
+
+        <!-- step 2 -->
+        <div class="c-step" data-stepbody="2" hidden>
+          <div class="c-row">
+            <div class="fld">
+              <label for="f-field">Field</label>
+              <select id="f-field" data-fields><!--FIELDSEL:START--><option value="archaeology">Archaeology</option><option value="astronomy">Astronomy</option><option value="biology">Biology</option><option value="chemistry">Chemistry</option><option value="climate">Climate science</option><option value="computer-science">Computer science</option><option value="economics">Economics</option><option value="engineering">Engineering</option><option value="materials">Materials science</option><option value="mathematics">Mathematics</option><option value="medicine">Medicine</option><option value="neuroscience">Neuroscience</option><option value="physics">Physics</option><!--FIELDSEL:END--></select>
+              <p class="fld-err" data-err="field" hidden></p>
+            </div>
+            <div class="fld">
+              <label for="f-date">Date it became public</label>
+              <input type="date" id="f-date">
+              <p class="fld-err" data-err="date" hidden></p>
+            </div>
+          </div>
+          <div class="c-row">
+            <div class="fld">
+              <label for="f-lab">Lab</label>
+              <input type="text" id="f-lab" maxlength="120" autocomplete="off"
+                     placeholder="Independent">
+              <p class="fld-err" data-err="lab" hidden></p>
+            </div>
+            <div class="fld">
+              <label for="f-model">Model</label>
+              <input type="text" id="f-model" maxlength="120" autocomplete="off"
+                     placeholder="Model and version, or Unknown">
+              <p class="fld-err" data-err="model" hidden></p>
+            </div>
+          </div>
+          <div class="c-row">
+            <div class="fld">
+              <label for="f-verification">Verification</label>
+              <select id="f-verification" data-verification><!--VERSEL:START--><option value="formal" title="machine-checked proof (e.g. Lean)">Formally verified</option><option value="independent" title="checked by third parties who were not the authors">Independently checked</option><option value="peer-reviewed" title="published after peer review">Peer reviewed</option><option value="author-verified" title="verified only by the people who produced it">Author verified</option><option value="claimed" title="announced, not independently verified">Claimed</option><option value="disputed" title="substantive public challenge to the result">Disputed</option><option value="known" title="correct, but the result already existed in the literature">Already known</option><option value="refuted" title="shown to be wrong">Refuted</option><!--VERSEL:END--></select>
+              <p class="fld-help" data-ver-help></p>
+              <p class="fld-err" data-err="verification" hidden></p>
+            </div>
+            <div class="fld">
+              <label for="f-autonomy">Autonomy</label>
+              <select id="f-autonomy" data-autonomy><!--AUTSEL:START--><option value="autonomous" title="the AI did it without human problem-setting or steering">Autonomous</option><option value="ai-led" title="the AI produced the core idea; humans framed or checked it">AI-led</option><option value="collaborative" title="genuine back-and-forth between AI and human">Collaborative</option><option value="ai-assisted" title="humans led; the AI helped with parts">AI-assisted</option><option value="search-scaffold" title="a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside">Search scaffold</option><option value="retrieval" title="the AI located an existing result rather than producing a new one">Retrieval</option><!--AUTSEL:END--></select>
+              <p class="fld-help" data-aut-help></p>
+              <p class="fld-err" data-err="autonomy" hidden></p>
+            </div>
+          </div>
+          <div class="c-row">
+            <div class="fld">
+              <label for="f-humans">Human collaborators <span class="c-opt">optional</span></label>
+              <input type="text" id="f-humans" maxlength="600" autocomplete="off"
+                     placeholder="Comma separated">
+              <p class="fld-err" data-err="humans" hidden></p>
+            </div>
+            <div class="fld">
+              <label for="f-yearposed">Year the problem was posed <span class="c-opt">optional</span></label>
+              <input type="number" id="f-yearposed" min="1500" max="2100" step="1" inputmode="numeric">
+              <p class="fld-err" data-err="year_posed" hidden></p>
+            </div>
+          </div>
+        </div>
+
+        <!-- step 3 -->
+        <div class="c-step" data-stepbody="3" hidden>
+          <p class="c-intro">At least one. A grade above <em>claimed</em> needs a
+          research source: a paper, a preprint, a proof or a repository. An announcement
+          on its own supports <em>claimed</em> and nothing more.</p>
+          <div data-sources></div>
+          <p><button type="button" class="btn" data-addsource>Add another source</button></p>
+          <p class="fld-err" data-err="sources" hidden></p>
+          <p class="c-rule" data-rule4 hidden></p>
+        </div>
+
+        <!-- step 4 -->
+        <div class="c-step" data-stepbody="4" hidden>
+          <div class="fld">
+            <label for="f-novelty">Novelty check</label>
+            <textarea id="f-novelty" rows="5" maxlength="3000"></textarea>
+            <p class="fld-help">What you searched to confirm this is new, including when
+            it comes back clean. Every entry carries one.</p>
+            <p class="fld-err" data-err="novelty_check" hidden></p>
+          </div>
+          <div class="fld">
+            <label for="f-caveats">Caveats <span class="c-opt">optional</span></label>
+            <textarea id="f-caveats" rows="4" maxlength="3000"></textarea>
+            <p class="fld-help">What would make this weaker than it looks.</p>
+            <p class="fld-err" data-err="caveats" hidden></p>
+          </div>
+          <div class="fld">
+            <label for="f-tags">Tags <span class="c-opt">optional</span></label>
+            <input type="text" id="f-tags" maxlength="300" autocomplete="off"
+                   placeholder="Comma separated, lowercase">
+            <p class="fld-err" data-err="tags" hidden></p>
+          </div>
+          <div class="fld">
+            <label for="f-id">Entry id</label>
+            <input type="text" id="f-id" maxlength="80" autocomplete="off" spellcheck="false">
+            <p class="fld-help">Suggested from the date and title. Permanent once merged
+            and never reused, so it is worth a second look.</p>
+            <p class="fld-err" data-err="id" hidden></p>
+          </div>
+        </div>
+
+        <div class="c-nav">
+          <button type="button" class="btn" data-back hidden>Back</button>
+          <button type="button" class="btn primary" data-next>Next</button>
+        </div>
+      </fieldset>
+
+      <p class="fld-err" data-err="_" hidden></p>
+
+      <div class="c-actions" data-actions>
+        <button type="submit" class="btn primary" data-submit>Submit for review</button>
+        <span class="c-fine">A maintainer reads this before anything is published.</span>
+      </div>
+    </form>
+
+    <!-- After submitting. Replaces the form rather than sitting under it, so there is no
+         way to read this as "submitted, now submit again". -->
+    <section class="acct-card c-done" data-done hidden>
+      <h2 class="lbl">Submitted</h2>
+      <p data-done-msg></p>
+      <p class="c-fine">You can follow it on <a href="/account">your account</a>. Nothing
+      is published until a maintainer merges it.</p>
+      <p><button type="button" class="btn" data-again>Submit something else</button></p>
+    </section>
+
+    <p class="c-alt">Prefer the GitHub route? The
+    <a href="https://github.com/yigitisik/whataifound/issues/new/choose" target="_blank" rel="noopener">issue
+    templates</a> ask the same questions, and a pull request against
+    <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener"><code>data/entries.json</code></a>
+    is still the most direct way in. Both end at the same review.</p>
+  </div>
+</main>
+
+<!--FOOTER:START--><footer id="about"><div class="about-grid"><section class="about-cell"><h2 class="lbl">Editorial policy</h2><p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is ever deleted: entries are downgraded and annotated, and the history stays public. Every entry carries a novelty check, including when it comes back clean.</p><p class="about-links"><a href="/methodology">Full rules →</a></p></section><section class="about-cell"><h2 class="lbl">Use the data</h2><p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p><p class="about-links"><a href="/data/entries.json" download>Download JSON</a><a href="/feed.xml">RSS</a><a href="/feed.json">JSON Feed</a><a href="https://whataifound.org/LICENSE">License</a></p></section><section class="about-cell"><h2 class="lbl">Contribute</h2><p>Most entries have never been checked outside the lab that announced them. A check takes one form to submit, needs no GitHub account, and is credited on the entry and on the contributors page.</p><p class="about-links"><a href="/contribute">Contribute →</a><a href="/review">Review queue</a><a href="/contributors">Contributors</a><a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p></section><section class="about-cell"><h2 class="lbl">Source</h2><p>Site and registry are open on GitHub. Corrections and new entries are welcome by pull request.</p><p class="about-links"><a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a><a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback" title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a></p></section></div><section class="about-note"><h2 class="lbl">Disclaimer</h2><p>We run whataifound.org as an independent editorial project, as volunteer work. Verification and autonomy grades are our good-faith judgments from public information, provided "as is" without warranty, and may change as new evidence emerges. Nothing here is scientific, legal, or investment advice. We are not affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; logos and names are trademarks of their owners and appear for identification only. <a href="mailto:misik6@gatech.edu">Get in touch</a></p></section><div class="about-foot"><p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p><p class="colophon">© 2026 Isik &amp; Co.</p></div></footer><!--FOOTER:END-->
+</div>
+<script src="chrome.js" defer></script>
+<script src="contribute.js" defer></script>
+</body>
+</html>

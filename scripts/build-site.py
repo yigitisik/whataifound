@@ -62,6 +62,23 @@ PAGES = [
     ("/methodology", "Methodology", "monthly", "0.7"),
     ("/contributors", "Contributors", "monthly", "0.5"),
 ]
+
+# Pages that carry the shared chrome but do not belong in the nav. /account is a
+# per-reader surface reached from the header control, and /privacy is a footer link
+# rather than a destination, so putting either in the nav would crowd a bar that is
+# already tight at 1180px. The flag is whether the page belongs in the sitemap: a
+# privacy policy should be indexable, an account dashboard should not.
+#   (path, in_sitemap, changefreq, priority)
+CHROME_PAGES = [
+    ("/privacy", True, "yearly", "0.2"),
+    ("/account", False, None, None),
+    # Indexable, and deliberately so: this is the page that answers "how do I contribute
+    # without a GitHub account", which is the question the whole in-UI path exists for.
+    ("/contribute", True, "monthly", "0.6"),
+    # Maintainers only. Every row on it comes from a session-authenticated request, so an
+    # indexed copy would be an empty shell in search results.
+    ("/admin", False, None, None),
+]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------- vocabulary
@@ -129,6 +146,17 @@ REV_CHIP = {k["slug"]: k["chip"] for k in REV}
 # that row or backdate it, and neither is visible in a diff of a 3000-line data file.
 REV_KIND_BUILD_OWNED = "added"
 REV_KINDS_AUTHORABLE = [k["slug"] for k in REV if k["slug"] != REV_KIND_BUILD_OWNED]
+
+# The three triage signals a reader can raise from the UI. Vocabulary rather than three
+# hardcoded strings because they are named in four places that must agree: the buttons
+# on a finding page, the counts on the review queue, the CHECK constraint in
+# db/002_signals.sql, and the validation in api/signals.js. Only the first two are
+# generated from here; the API gets them through api/_lib/registry.js, and the SQL
+# names them literally, which is why validate_vocab() pins the list.
+SIG = VOCAB["signal_kinds"]
+SIG_ORDER = [k["slug"] for k in SIG]
+SIG_LABEL = {k["slug"]: k["label"] for k in SIG}
+SIG_SHORT = {k["slug"]: k["short"] for k in SIG}
 
 LAB_LOGO = {
     "Anthropic": "assets/external-logos/anthropic.svg",
@@ -382,6 +410,22 @@ THEME_SEG = (
     '</span>')
 
 
+# Signed out, the account slot is an icon the same 26px as the identicon that replaces
+# it, so the masthead is exactly as wide before and after the session resolves and the
+# row never reflows. It is an icon rather than a "Sign in" pill because the eyebrow
+# already carries the brand, the five-item nav, the GitHub link, a three-button theme
+# switcher and the updated stamp: a fourth text control tipped the row onto two lines at
+# every width the site supports. The label survives for anyone who needs it, on
+# aria-label and title.
+SIGNIN_LINK = (
+    '<a class="acct-in" href="/api/auth/start" data-signin'
+    ' aria-label="Sign in" title="Sign in">'
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"'
+    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<circle cx="12" cy="8.2" r="3.6"/>'
+    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg></a>')
+
+
 def site_header(current, updated, extra_class=""):
     """The eyebrow every page carries: brand, nav, GitHub, theme switcher, updated stamp.
 
@@ -398,9 +442,12 @@ def site_header(current, updated, extra_class=""):
         f'<a class="gh-icon" href="{REPO}" target="_blank" rel="noopener"'
         f' aria-label="Source code on GitHub" title="Source on GitHub">{GH_MARK}</a>'
         f'{THEME_SEG}'
-        # Filled by chrome.js once /api/me answers. Pre-rendered signed-out so there is
-        # no flash of the wrong state and no layout shift when the session resolves.
-        f'<span class="acct" data-acct hidden></span>'
+        # Pre-rendered in the signed-out state, which is what a crawler and a reader
+        # with no session both see. chrome.js replaces the inner markup once /api/me
+        # answers; the outer span keeps its size either way, so the row does not jump
+        # when the session resolves. `return_to` is filled in by chrome.js from the
+        # current URL, so signing in from a finding page comes back to that page.
+        f'<span class="acct" data-acct>{SIGNIN_LINK}</span>'
         f'<span class="updated"><span class="pulse"></span>Updated '
         f'<b id="updated">{esc(updated)}</b></span>'
         f'</span></div>')
@@ -437,9 +484,10 @@ def site_footer():
         '<section class="about-cell">'
         '<h2 class="lbl">Contribute</h2>'
         '<p>Most entries have never been checked outside the lab that announced them. A check '
-        'takes one click to submit, and is credited on the entry and on the contributors '
-        'page.</p>'
-        '<p class="about-links"><a href="/review">Review queue →</a>'
+        'takes one form to submit, needs no GitHub account, and is credited on the entry '
+        'and on the contributors page.</p>'
+        '<p class="about-links"><a href="/contribute">Contribute →</a>'
+        '<a href="/review">Review queue</a>'
         '<a href="/contributors">Contributors</a>'
         f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p>'
         '</section>'
@@ -473,17 +521,41 @@ def site_footer():
         '</footer>')
 
 
+HANDLE_RE = r"[a-z0-9]+(?:-[a-z0-9]+)*"
+GITHUB_RE = r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?"
+
+
 def person(p):
-    """One credited person. A GitHub handle becomes a link; a bare name stays text."""
+    """One credited person.
+
+    The name links to their profile here if they have one, and to GitHub otherwise.
+    That order is deliberate: a site handle is an identity this project can speak to,
+    and a profile page that credits the same work is a better destination than an
+    unrelated GitHub account. Someone who contributed by pull request and never signed
+    in has only the GitHub link, and keeps it.
+
+    Both values become an href, so both are matched against their own character set
+    rather than trusted. An ORCID is shown as a separate mark because it is the
+    credential that carries weight here, and because it identifies a researcher rather
+    than an account.
+    """
     name = esc(p.get("name"))
+    handle = str(p.get("handle") or "").lstrip("@")
     gh = str(p.get("github") or "").lstrip("@")
-    # Handles are the only thing here that becomes an href, so constrain them to
-    # GitHub's own character set rather than trusting the value.
-    if gh and re.fullmatch(r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?", gh):
+
+    if handle and re.fullmatch(HANDLE_RE, handle):
+        name = f'<a href="/u/{esc(handle)}">{name}</a>'
+    elif gh and re.fullmatch(GITHUB_RE, gh):
         name = (f'<a href="https://github.com/{esc(gh)}" target="_blank" '
                 f'rel="noopener">{name}</a>')
+
+    marks = ""
+    orcid = str(p.get("orcid") or "")
+    if re.fullmatch(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]", orcid):
+        marks += (f' <a class="credit-orcid" href="https://orcid.org/{esc(orcid)}" '
+                  f'target="_blank" rel="noopener" title="ORCID {esc(orcid)}">iD</a>')
     note = f' <span class="credit-note">{esc(p["note"])}</span>' if p.get("note") else ""
-    return f'<li>{name}{note}</li>'
+    return f'<li>{name}{marks}{note}</li>'
 
 
 def credit_block(e):
@@ -1118,6 +1190,35 @@ def entry_nav(e, entries):
 
 
 # ------------------------------------------------------------------ entry pages
+def signal_block(e):
+    """The three one-click triage signals, pre-rendered but hidden until signals.js runs.
+
+    Hidden rather than absent because the markup should be in the committed HTML where
+    check-integrity.py can see it, and revealed by script rather than shown by default
+    because a button that does nothing without JavaScript is worse than no button. The
+    reader with scripting off loses a feature they could not have used anyway, and the
+    page they get is the page they got before signals existed.
+
+    The note under the buttons is not decoration. Editorial rule: grades move on
+    evidence, never on opinion, and a count of clicks is an opinion. Saying so at the
+    point of clicking is the only place a reader will actually read it.
+    """
+    buttons = "".join(
+        f'<button type="button" class="sig-b" data-kind="{esc(k)}" aria-pressed="false" '
+        f'title="{attr(SIG_SHORT[k])}">'
+        f'<span class="sig-l">{esc(SIG_LABEL[k])}</span>'
+        f'<span class="sig-n" data-n aria-hidden="true"></span>'
+        f'</button>'
+        for k in SIG_ORDER)
+    return (f'<div class="sig" data-signals="{attr(e["id"])}" hidden>'
+            f'<p class="sig-t">Flag this for triage</p>'
+            f'<div class="sig-row">{buttons}</div>'
+            f'<p class="sig-note">Signals order the <a href="/review">review queue</a> and '
+            f'nothing else. They are never published, and they never move a grade: that '
+            f'takes a citation.</p>'
+            f'</div>')
+
+
 def entry_page(e, entries, updated):
     """A standalone, independently citable page for one finding.
 
@@ -1154,6 +1255,20 @@ def entry_page(e, entries, updated):
     challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}",
                           "current=" + enc_uri_component(grades))
     check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
+
+    # The in-UI route, which is now the primary one. Same questions as the issue
+    # templates above, same review at the end; the difference is that this one does not
+    # need a GitHub account or a fork, and 34 of 52 entries have never been checked
+    # because the cheapest possible contribution still cost a signup. The GitHub links
+    # stay, quieter, because a contributor who already lives there should not be pushed
+    # through a form.
+    # Raw "&" here: esc() runs on the way into the href, and pre-escaping would emit
+    # &amp;amp;.
+    def ui_url(kind):
+        return f"/contribute?kind={kind}&entry={enc_uri_component(e['id'])}"
+
+    ui_check = ui_url("check")
+    ui_challenge = ui_url("challenge")
     # Discussions take a title and body, not the issue-form field ids. Rendered only when
     # DISCUSSIONS is on: a /discussions URL against a repo that has not enabled the
     # feature 404s, and so does a category that does not exist.
@@ -1300,12 +1415,16 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
     <p class="challenge-t">{esc(ask_title)}</p>
     <p class="challenge-d">{ask_body}</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="{esc(check if unchecked else challenge)}"
-         target="_blank" rel="noopener">{"Submit a check" if unchecked else "Challenge this grade"}<span aria-hidden="true"> ↗</span></a>
-      <a class="btn challenge-b" href="{esc(challenge if unchecked else check)}"
-         target="_blank" rel="noopener">{"Challenge the grade" if unchecked else "Submit a check"}<span aria-hidden="true"> ↗</span></a>
+      <a class="btn primary challenge-b" href="{esc(ui_check if unchecked else ui_challenge)}">{"Submit a check" if unchecked else "Challenge this grade"}</a>
+      <a class="btn challenge-b" href="{esc(ui_challenge if unchecked else ui_check)}">{"Challenge the grade" if unchecked else "Submit a check"}</a>
       {discuss}
     </div>
+    <p class="challenge-gh">Or do it on GitHub:
+      <a href="{esc(check)}" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
+      <a href="{esc(challenge)}" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="{esc(REPO)}/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
+    </p>
+  {signal_block(e)}
   </div>
 {section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
 
@@ -1327,6 +1446,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 </div>
 <script src="/chrome.js" defer></script>
 <script src="/entry.js" defer></script>
+<script src="/signals.js" defer></script>
 </body>
 </html>
 '''
@@ -1407,6 +1527,8 @@ def build_sitemap(entries, updated):
     added, so the newest `added` date is the honest answer for all three.
     """
     urls = [(SITE + path, updated, freq, pri) for path, _, freq, pri in PAGES]
+    urls += [(SITE + path, updated, freq, pri)
+             for path, listed, freq, pri in CHROME_PAGES if listed]
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
         lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
@@ -1462,6 +1584,162 @@ def build_app_js():
                + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
                  "vocabulary tables", "app.js")
+
+    with open(path, "w") as f:
+        f.write(src)
+
+
+def build_contribute(entries):
+    """Fill /contribute's selects and its entry picker from the vocabulary and the data.
+
+    Pre-rendered rather than built by contribute.js, for the same reason every other list
+    on this site is: the options are a property of the registry, not of the session, and
+    a form whose choices arrive after a fetch is a form that is briefly wrong. It also
+    means the one place a grade's definition is written stays data/vocab.json.
+
+    contribute.js still needs the two grade vocabularies in JavaScript, because the
+    challenge form swaps one select for the other when the axis changes. That block is
+    generated too, into the same marker pattern app.js uses.
+    """
+    def options(items, value=lambda i: i["slug"], label=lambda i: i["label"],
+                title=lambda i: i.get("short", "")):
+        return "".join(
+            f'<option value="{attr(value(i))}" title="{attr(title(i))}">{esc(label(i))}</option>'
+            for i in items)
+
+    path = os.path.join(ROOT, "contribute.html")
+    src = open(path).read()
+
+    src = inject(src, "<!--VERSEL:START-->", "<!--VERSEL:END-->", options(VER),
+                 "verification options", "contribute.html")
+    src = inject(src, "<!--AUTSEL:START-->", "<!--AUTSEL:END-->", options(AUT),
+                 "autonomy options", "contribute.html")
+    src = inject(src, "<!--SRCSEL:START-->", "<!--SRCSEL:END-->", options(SRC),
+                 "source kind options", "contribute.html")
+    src = inject(src, "<!--FIELDSEL:START-->", "<!--FIELDSEL:END-->",
+                 "".join(f'<option value="{attr(slug)}">{esc(label)}</option>'
+                         for slug, label in sorted(FIELD_LABEL.items(), key=lambda kv: kv[1])),
+                 "field options", "contribute.html")
+
+    # The option's *value* is the title, not the id, because that is the string a
+    # datalist filters on. Chrome also matches the label text, but Firefox matches the
+    # value alone, so an id-valued list would silently stop autocompleting there.
+    # contribute.js maps the chosen title back to an id before submitting.
+    src = inject(src, "<!--ENTRYLIST:START-->", "<!--ENTRYLIST:END-->",
+                 "".join(f'<option value="{attr(e["title"])}"></option>'
+                         for e in sorted(entries, key=lambda e: e["title"])),
+                 "entry picker", "contribute.html")
+    with open(path, "w") as f:
+        f.write(src)
+
+    # The JavaScript side: labels and definitions for the two grade axes, plus the
+    # current grades per entry so the challenge form can show what it is arguing against.
+    js_path = os.path.join(ROOT, "contribute.js")
+    with open(js_path) as f:
+        js = f.read()
+
+    def table(items):
+        return "[" + ",".join(
+            "{" + f'slug:{json.dumps(i["slug"])},label:{json.dumps(i["label"])},'
+                  f'short:{json.dumps(i.get("short", ""))}' + "}"
+            for i in items) + "]"
+
+    by_id = sorted(entries, key=lambda e: e["id"])
+    grades = ",".join(
+        f'\n  {json.dumps(e["id"])}:[{json.dumps(e["verification"])},{json.dumps(e["autonomy"])}]'
+        for e in by_id)
+    # Title to id, for the picker. Lowercased keys so a pasted title with different
+    # capitalisation still resolves rather than being treated as an unknown entry.
+    ids = ",".join(f'\n  {json.dumps(e["title"].lower())}:{json.dumps(e["id"])}'
+                   for e in by_id)
+    titles = ",".join(f'\n  {json.dumps(e["id"])}:{json.dumps(e["title"])}' for e in by_id)
+    payload = ("\n"
+               f"const VER = {table(VER)};\n"
+               f"const AUT = {table(AUT)};\n"
+               f"const SRC_KINDS = {table(SRC)};\n"
+               f"const GRADES = {{{grades}\n}};\n"
+               f"const ID_BY_TITLE = {{{ids}\n}};\n"
+               f"const TITLE_BY_ID = {{{titles}\n}};\n")
+    js = inject(js, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
+                "vocabulary tables", "contribute.js")
+    with open(js_path, "w") as f:
+        f.write(js)
+
+
+def build_api_shell(updated):
+    """Write the shared header and footer into api/_lib/shell.js.
+
+    /u/<handle> is the one page on this site that is not committed: it is assembled at
+    request time by a Vercel function, because a profile has to render server-side for a
+    shared link to preview properly. That function is JavaScript and site_header() is
+    Python, so without this it would carry a hand-copied header and footer that drift
+    from the real ones the first time either changes.
+
+    Same device as build_app_js() and build_api_registry(): one definition here, a
+    generated copy wherever it cannot be imported, and CI fails on any difference.
+    """
+    path = os.path.join(ROOT, "api", "_lib", "shell.js")
+    with open(path) as f:
+        src = f.read()
+    # current=None: a profile is not one of the nav destinations, so nothing is marked
+    # as the current page, which is what every finding page does too.
+    payload = ("\n"
+               f"export const HEADER = {json.dumps(site_header(None, updated))};\n"
+               f"export const FOOTER = {json.dumps(site_footer())};\n")
+    src = inject(src, "/*SHELL:START*/", "/*SHELL:END*/", payload,
+                 "shared chrome", "api/_lib/shell.js")
+    with open(path, "w") as f:
+        f.write(src)
+
+
+def build_api_registry(entries):
+    """Write the entry ids and the vocabulary into api/_lib/registry.js.
+
+    Same problem as app.js, different runtime. A Vercel function validating a signal or
+    a proposal has to know which entry ids exist and which grades are real, and reading
+    data/entries.json at request time would make the API depend on that file being
+    traced into the deployment bundle - a detail that fails silently and only in
+    production.
+
+    Generating it means the check is an allowlist rather than a pattern: a signal filed
+    against an id nobody can navigate to would be counted but never displayed, which is
+    worse than an error because nothing surfaces it.
+    """
+    path = os.path.join(ROOT, "api", "_lib", "registry.js")
+    with open(path) as f:
+        src = f.read()
+
+    # Sorted, so the generated file is a function of the data and not of the order
+    # entries happen to sit in. A reordered data file must not produce a diff here.
+    ids = sorted(e["id"] for e in entries)
+    lines = ",".join(f"\n  {json.dumps(i)}" for i in ids)
+
+    def arr(name, values):
+        return f"export const {name} = {json.dumps(values)};"
+
+    # The two grades per entry, so a grade challenge proposing the grade the entry
+    # already carries is refused at the point of typing rather than by a maintainer.
+    # Only these two fields: this is a validation table, not a copy of the registry.
+    by_id = {e["id"]: [e["verification"], e["autonomy"]] for e in entries}
+    grades = ",".join(f"\n  {json.dumps(i)}: {json.dumps(by_id[i])}" for i in ids)
+
+    # Titles, so a contribution can be named on /account and on a public profile without
+    # either page loading the whole 137 KB registry to look one up. This is display data
+    # rather than validation data, which is why it is a separate table: nothing in the
+    # API branches on a title.
+    titles = {e["id"]: e["title"] for e in entries}
+    title_rows = ",".join(f"\n  {json.dumps(i)}: {json.dumps(titles[i])}" for i in ids)
+
+    payload = ("\n"
+               f"export const ENTRY_IDS = new Set([{lines}\n]);\n"
+               f"export const ENTRY_GRADES = {{{grades}\n}};\n"
+               f"export const ENTRY_TITLES = {{{title_rows}\n}};\n"
+               + arr("VERIFICATION", [v["slug"] for v in VER]) + "\n"
+               + arr("AUTONOMY", [a["slug"] for a in AUT]) + "\n"
+               + arr("SOURCE_KINDS", SRC_ORDER) + "\n"
+               + arr("FIELDS", sorted(FIELD_LABEL)) + "\n")
+    src = inject(src, "/*REGISTRY:START*/", "/*REGISTRY:END*/", payload,
+                 "registry tables", "api/_lib/registry.js")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1756,21 +2034,23 @@ def build_review(entries):
     for e in queue:
         ver = VER_LABEL.get(e["verification"], e["verification"])
         aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
-        check = REPO + "/issues/new?" + "&".join([
-            "template=independent-check.yml",
-            "title=" + enc_uri_component(f"Independent check: {e['id']}"),
-            "entry=" + enc_uri_component(e["id"]),
-        ])
+        # Straight into the form with the entry filled in. This is the whole point of
+        # the queue: the distance between reading a row and starting the work should be
+        # one click, not a fork.
+        check = "/contribute?kind=check&entry=" + enc_uri_component(e["id"])
+        # data-entry is what signals.js keys its counts off. The row is complete without
+        # it: with scripting off there is no counts slot and no reordering, and the queue
+        # is exactly the evidence-ordered list it has always been.
         tiers.setdefault(rank(e), []).append(
-            f'<div class="q-row">'
+            f'<div class="q-row" data-entry="{attr(e["id"])}">'
             f'<div class="q-main">'
             f'<a class="q-title" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a>'
             f'<div class="q-meta"><span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>'
             f'<span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>'
-            f'<span class="q-lab">{esc(e.get("lab"))}</span></div>'
+            f'<span class="q-lab">{esc(e.get("lab"))}</span>'
+            f'<span class="q-sig" data-sig hidden></span></div>'
             f'</div>'
-            f'<a class="btn q-act" href="{esc(check)}" target="_blank" rel="noopener">'
-            f'Check this<span aria-hidden="true"> ↗</span></a>'
+            f'<a class="btn q-act" href="{esc(check)}">Check this</a>'
             f'</div>')
 
     # Only the first tier opens: it is the highest-value work, and a queue that opens showing
@@ -1810,8 +2090,19 @@ def build_review(entries):
             "challenge is not necessarily unchallenged; it may just be unexamined.",
             link_list(nochallenge), len(nochallenge))
 
-    summary = (f'<p class="q-sum"><b>{len(queue)}</b> of {len(entries)} entries have no '
-               f'independent check.</p>')
+    # Ordering is by evidence gap and stays that way unless the reader asks otherwise:
+    # the default has to be the editorially defensible one, and "most flagged" is a
+    # popularity order. Hidden until signals.js runs, for the same reason the buttons on
+    # a finding page are: with no script there is nothing to sort by.
+    sort_ctl = ('<div class="q-sort" data-qsort hidden role="group" aria-label="Queue order">'
+                '<span class="q-sort-l">Order</span>'
+                '<button type="button" class="q-sortb" data-order="gap" aria-pressed="true">'
+                'Evidence gap</button>'
+                '<button type="button" class="q-sortb" data-order="signals" aria-pressed="false">'
+                'Most flagged</button>'
+                '</div>')
+    summary = (f'<div class="q-bar"><p class="q-sum"><b>{len(queue)}</b> of {len(entries)} '
+               f'entries have no independent check.</p>{sort_ctl}</div>')
 
     path = os.path.join(ROOT, "review.html")
     src = open(path).read()
@@ -1928,7 +2219,8 @@ def build_chrome(updated):
     only and the sub-page footer ended up copy-pasted four times. The nav marker is gone:
     page_nav() is now called from inside site_header().
     """
-    for path, _, _, _ in PAGES:
+    paths = [p for p, _, _, _ in PAGES] + [p for p, _, _, _ in CHROME_PAGES]
+    for path in paths:
         name = "index.html" if path == "/" else path.lstrip("/") + ".html"
         full = os.path.join(ROOT, name)
         src = open(full).read()
@@ -2149,7 +2441,7 @@ def validate_vocab():
     # missing either renders as a blank cell rather than an error, so it is caught here.
     # Revision kinds carry the same two labels for the same reason: `chip` is the pill
     # on a feed row, where the column is narrow, and `label` is the long form.
-    for key_name in ("source_kinds", "revision_kinds"):
+    for key_name in ("source_kinds", "revision_kinds", "signal_kinds"):
         kind_seen = set()
         for i, item in enumerate(VOCAB.get(key_name) or []):
             where = f"vocab.json {key_name}[{i}]"
@@ -2165,6 +2457,18 @@ def validate_vocab():
     if REV_KIND_BUILD_OWNED not in REV_LABEL:
         problems.append(f"vocab.json: revision_kinds has no '{REV_KIND_BUILD_OWNED}' entry, "
                         "which the build needs to label the row it writes per entry")
+
+    # Signal kinds are the one vocabulary a database also names, in the CHECK constraint
+    # in db/002_signals.sql, and SQL cannot read this file. A slug added here without the
+    # matching migration would render a button whose every click is rejected by Postgres,
+    # so the set is pinned and changing it is deliberately a three-file edit.
+    SIGNALS_IN_SQL = {"needs-check", "looks-wrong", "dead-link"}
+    if set(SIG_ORDER) != SIGNALS_IN_SQL:
+        problems.append(
+            "vocab.json: signal_kinds is "
+            f"{sorted(SIG_ORDER)}, but db/002_signals.sql allows {sorted(SIGNALS_IN_SQL)}. "
+            "Write a migration that widens the CHECK constraint, update SIGNAL_KINDS in "
+            "api/_lib/registry.js, then update this list.")
 
     # Every value in every vocabulary needs a colour rule, or it renders as an unstyled pill or
     # a colourless dot -- invisible until someone happens to look at that value on the page.
@@ -2244,6 +2548,21 @@ def validate(entries):
                 elif "url" in p:
                     problems.append(f"{where}: {field}[{i}] has a 'url'; use "
                                     "'github' (a handle) instead")
+                else:
+                    # `handle` and `github` both become an href in person(), and `orcid`
+                    # does too. A bad value would silently render as plain text rather
+                    # than fail, so it is caught here where a contributor can see it.
+                    for key, pattern, what in (
+                            ("handle", HANDLE_RE, "a site handle: lowercase words joined by hyphens"),
+                            ("github", GITHUB_RE, "a GitHub username"),
+                            ("orcid", r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]",
+                             "an ORCID, as 0000-0002-1825-0097")):
+                        v = p.get(key)
+                        if v is None:
+                            continue
+                        if not isinstance(v, str) or not re.fullmatch(pattern, v.lstrip("@")):
+                            problems.append(f"{where}: {field}[{i}] '{key}' is {v!r}, "
+                                            f"which is not {what}")
         # What has been edited on this entry since it was added. The activity feed on
         # the home page renders these verbatim, so a malformed one is a broken row in
         # the hero rather than a detail on a page nobody opened.
@@ -2329,9 +2648,12 @@ def main():
     # Vocabulary-derived files first: card() output depends on the labels, so app.js
     # must be current before verify-parity.py diffs it against the pre-rendered cards.
     build_app_js()
+    build_api_registry(entries)
+    build_api_shell(updated)
     build_methodology()
     queued = build_review(entries)
     build_contributors(entries)
+    build_contribute(entries)
     # After the page builders, so every shell has been written before the shared header
     # and footer go into it. One definition, five pages, no hand-maintained copies.
     build_chrome(updated)

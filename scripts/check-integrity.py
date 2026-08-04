@@ -47,7 +47,8 @@ ALLOWED_SRC_HOSTS = ("https://va.vercel-scripts.com",)
 ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.com")
 
 DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
-                 "contributors.html", "404.html"]
+                 "contributors.html", "account.html", "privacy.html",
+                 "contribute.html", "admin.html", "404.html"]
 
 # Directories the em dash sweep never descends into: version control, build caches, and
 # anything a local tool dropped in. All are either untracked or not prose.
@@ -119,9 +120,21 @@ def check_html(path, problems):
             problems.append(f"{rel}:{line_of(src, m.start())}: iframe src {url!r} "
                             "is not an allowed frame origin")
 
-    for tag in ("<object", "<embed", "<base", "<form"):
+    for tag in ("<object", "<embed", "<base"):
         for m in re.finditer(re.escape(tag) + r"\b", src, re.I):
             problems.append(f"{rel}:{line_of(src, m.start())}: unexpected {tag}> element")
+
+    # <form> was rejected outright until the account page needed one. A real form is
+    # meaningfully better than a div for keyboard and screen reader users, so the rule
+    # is narrowed rather than dropped: a form may exist, but not carry an `action`.
+    # Without one it can only submit to the current URL, and the CSP's `form-action
+    # 'self'` is the second lock. An action= would be a way to post a reader's input to
+    # another origin from a page that looks like ours.
+    for m in re.finditer(r"<form\b([^>]*)>", src, re.I):
+        if re.search(r"\baction\s*=", m.group(1), re.I):
+            problems.append(f"{rel}:{line_of(src, m.start())}: <form> carries an action "
+                            "attribute. Forms here submit through fetch to /api/ on the "
+                            "same origin; an action= can post a reader's input off-site")
 
 
 def check_data(problems):

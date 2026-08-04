@@ -1,0 +1,18 @@
+{
+  "name": "whataifound",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Server-side only. The site itself is static and has no build step: these dependencies exist for the Vercel functions under api/, which hold the session and the database connection. Nothing here is served to a browser.",
+  "license": "MIT",
+  "type": "module",
+  "engines": {
+    "node": ">=20"
+  },
+  "scripts": {
+    "dev": "vercel dev",
+    "test": "node --test api/_lib/*.test.js"
+  },
+  "dependencies": {
+    "postgres": "^3.4.5"
+  }
+}

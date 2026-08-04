@@ -255,6 +255,16 @@
               "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$",
               "description": "Bare handle, no @. Becomes a link. Optional."
             },
+            "handle": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Their whataifound.org handle, no @. Links to /u/<handle>. Optional."
+            },
+            "orcid": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$",
+              "description": "The identifier that carries weight in a science registry. Optional."
+            },
             "note": {
               "type": "string",
               "description": "What they did, e.g. 'verified the Lean proof'."
@@ -281,6 +291,16 @@
               "type": "string",
               "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$",
               "description": "Bare handle, no @. Becomes a link. Optional."
+            },
+            "handle": {
+              "type": "string",
+              "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+              "description": "Their whataifound.org handle, no @. Links to /u/<handle>. Optional."
+            },
+            "orcid": {
+              "type": "string",
+              "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$",
+              "description": "The identifier that carries weight in a science registry. Optional."
             },
             "note": {
               "type": "string",

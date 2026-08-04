@@ -43,6 +43,14 @@ PERSON = {
                  "description": "As it should appear as credit."},
         "github": {"type": "string", "pattern": "^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$",
                    "description": "Bare handle, no @. Becomes a link. Optional."},
+        # Both optional, and both written by the contribution path rather than by hand:
+        # a submission made through the site carries the submitter's site handle and,
+        # if they gave one, their ORCID. `{name}` alone stays valid, so nothing about
+        # crediting someone from a pull request changes.
+        "handle": {"type": "string", "pattern": "^[a-z0-9]+(-[a-z0-9]+)*$",
+                   "description": "Their whataifound.org handle, no @. Links to /u/<handle>. Optional."},
+        "orcid": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$",
+                  "description": "The identifier that carries weight in a science registry. Optional."},
         "note": {"type": "string", "description": "What they did, e.g. 'verified the Lean proof'."},
     },
 }

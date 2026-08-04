@@ -5,6 +5,27 @@ Two kinds of change, both via pull request. No direct pushes to `main`.
 - **Entries**: add, correct, or challenge a finding in `data/entries.json`.
 - **Code**: site markup, styles, behaviour, build scripts.
 
+There is now also a third route that is not a pull request: **[/contribute](https://whataifound.org/contribute)**,
+after signing in with Google. It asks the same questions as the issue templates, and it
+ends at the same place: a maintainer approves it, a bot opens a pull request against
+`data/entries.json`, and a maintainer reviews and merges that pull request. Nothing is
+published without one.
+
+Which route to use:
+
+| You want to | Use |
+|---|---|
+| Submit a check, challenge a grade, fix a link, propose an entry | [/contribute](https://whataifound.org/contribute). No GitHub account, no fork. |
+| Change several entries at once, or shape a diff yourself | A pull request, as below. |
+| Change code, styles, scripts, docs or CI | A pull request. The in-UI route cannot touch these, by design. |
+
+The two doors ask the same questions field for field, so neither is the "real" one. The
+bot path is deliberately the narrower of the two: the branch it pushes may contain a
+change to `data/entries.json` and nothing else, and
+[`.github/workflows/rebuild-bot.yml`](../.github/workflows/rebuild-bot.yml) fails the
+build if that is not what arrived. Everything below is the pull request path, which
+remains the only way to change code, docs or the build.
+
 ## Setup
 
 Requires Python 3. Node is needed only for `verify-parity.py`, which is skipped without it.
@@ -119,8 +140,11 @@ next build, and CI will fail. Edit `data/entries.json` instead.
 
 Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
 [review.html](../review.html), [contributors.html](../contributors.html),
-[visuals.html](../visuals.html), [404.html](../404.html), [styles.css](../styles.css),
-[chrome.js](../chrome.js), [app.js](../app.js), [entry.js](../entry.js). Constraints:
+[visuals.html](../visuals.html), [account.html](../account.html),
+[privacy.html](../privacy.html), [404.html](../404.html), [styles.css](../styles.css),
+[chrome.js](../chrome.js), [app.js](../app.js), [account.js](../account.js),
+[entry.js](../entry.js). Server-side code lives under [api/](../api/) and is never sent to
+a browser. Constraints:
 
 - **No em dashes**, anywhere: prose, code comments, UI copy, commit messages. `check-integrity.py`
   fails the build and names the file and line. Use a colon, comma, semicolon or parentheses,
@@ -129,9 +153,23 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
 - No runtime external requests. A new external resource also needs its CSP directive in
   [vercel.json](../vercel.json) widened.
 - No inline event handlers (`onclick=` and friends). CSP sets `script-src-attr 'none'`, and
-  `check-integrity.py` rejects them. Attach listeners in `app.js`. `check-integrity.py` also rejects
-  form elements outright, which is why the shortcuts dialog closes via a button in `app.js` rather
-  than the usual dialog-closing method.
+  `check-integrity.py` rejects them. Attach listeners in `app.js`.
+- **A `<form>` may not carry an `action` attribute.** Forms were rejected outright until the
+  account page needed one, which is why the shortcuts dialog still closes via a button
+  rather than the usual dialog-closing method. Forms here submit through `fetch` to `/api/`
+  on the same origin; an `action=` would be a way to post a reader's input to another
+  origin from a page that looks like ours. `check-integrity.py` enforces this, and the
+  CSP's `form-action 'self'` is the second lock.
+- **Untrusted values are checked where they are used, not where they arrive.** Two rules
+  the code follows, both of which had to be learned the hard way in review: a name from
+  Google is as untrusted as a name typed into a form (`api/_lib/names.js` owns both, so
+  they cannot drift), and `esc()` is not enough for a URL going into an `href`, because
+  an escaped `javascript:` still runs on click. Anything becoming an `href` is checked
+  against an allowed prefix after parsing, never with `startsWith` on the raw string.
+- **The browser talks only to `/api/*` on its own origin.** No third-party SDK, no token in
+  `localStorage`. The Google OAuth exchange is server-side precisely so `connect-src` can
+  stay `'self'`; see [SETUP.md](SETUP.md). A change that needs a new origin is a change to
+  the site's security posture, not a detail.
 - WCAG 2.1 AA: keep focus rings, heading order, chart labels, `prefers-reduced-motion`.
 - Works in both light and dark themes. A new colour needs `color-scheme` to stay correct in all three
   colour blocks of [styles.css](../styles.css).
@@ -139,8 +177,8 @@ Static files at the root: [index.html](../index.html), [methodology.html](../met
   controls in 1056px of container with no slack, so anything added to it has to take room from
   something else.
 
-`chrome.js` (~4 KB) runs on every page and owns the shared masthead: the theme switcher, and the
-retrieval date in the footer. It exists because that switcher used to live in `app.js`, which loads
+`chrome.js` (~7 KB) runs on every page and owns the shared masthead: the theme switcher, the
+account control and its identicon, and the retrieval date in the footer. It exists because that switcher used to live in `app.js`, which loads
 on two of the seven page types, so the other five shipped a stored theme with no control to change
 it. Anything that has to work on a finding page and on the home page belongs here.
 

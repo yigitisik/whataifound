@@ -31,6 +31,18 @@
     <priority>0.5</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/privacy</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.2</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/contribute</loc>
+    <lastmod>2026-08-02</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
