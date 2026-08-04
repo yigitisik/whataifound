@@ -271,6 +271,11 @@
     animation:gradShift 16s ease-in-out infinite}
   @keyframes gradShift{0%{background-position:0% 0}50%{background-position:100% 0}100%{background-position:0% 0}}
   .eyebrow .updated b{color:var(--ink);font-weight:600}
+  /* Present for a screen reader, absent for the eye. The eyebrow is the one row on the
+     site with no spare width, and the visible word "Updated" was spending about seventy
+     pixels of it to say what the pulse dot and an ISO date already say. */
+  .vh{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;
+    clip:rect(0 0 0 0);clip-path:inset(50%);white-space:nowrap;border:0}
   .pulse{display:inline-block;width:6px;height:6px;border-radius:50%;background:var(--formal);
     margin-right:7px;vertical-align:middle;box-shadow:0 0 0 0 var(--formal);animation:pulse 2.4s var(--ease) infinite}
   @keyframes pulse{0%{box-shadow:0 0 0 0 rgba(26,107,74,.5)}70%{box-shadow:0 0 0 7px rgba(26,107,74,0)}100%{box-shadow:0 0 0 0 rgba(26,107,74,0)}}
@@ -391,14 +396,31 @@
      where the shared chrome put a slot for it. Pre-rendered signed-out and swapped by
      chrome.js once /api/me answers; both states are the same height, so the row does
      not move when the session resolves. */
-  .acct{display:inline-flex;align-items:center;min-height:26px}
-  /* Exactly the size of the identicon that replaces it, so the row does not reflow when
-     the session resolves, and the same physical language as .gh-icon beside it. */
-  .acct-in{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;
-    color:var(--muted);box-shadow:0 0 0 1px var(--line-strong);
-    transition:color .16s var(--ease),box-shadow .16s var(--ease)}
-  .acct-in svg{width:15px;height:15px;display:block}
-  .acct-in:hover,.acct-in:focus-visible{color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+  /* The slot is sized for the WIDER of its two states, and the identicon that replaces
+     the button is right-aligned inside it. Without the reservation the masthead jumps
+     leftward on every load for a signed-in reader, once /api/me answers and a labelled
+     button becomes a 26px avatar. */
+  .acct{display:inline-flex;align-items:center;justify-content:flex-end;
+    min-height:26px;min-width:83px}
+  /* The one filled element in the eyebrow, and deliberately so: it sits beside the
+     GitHub mark and the theme switcher, and as another outlined glyph it was read as a
+     third toggle rather than as the way in. */
+  .acct-in{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 8px;
+    border-radius:999px;font-family:var(--serif);font-size:.72rem;font-weight:600;
+    letter-spacing:.02em;text-decoration:none;white-space:nowrap;
+    color:var(--bg);background:var(--accent);
+    transition:filter .16s var(--ease),box-shadow .16s var(--ease),transform .16s var(--ease)}
+  .acct-in svg{width:14px;height:14px;display:block;flex:0 0 auto}
+  .acct-in:hover{filter:brightness(1.08);transform:translateY(-1px)}
+  .acct-in:focus-visible{outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
+  /* Under ~420px the eyebrow is carrying the brand and three controls on one line, so
+     the label is the first thing to go. The button stays filled, which is the part that
+     made it findable in the first place. */
+  @media(max-width:420px){
+    .acct{min-width:26px}
+    .acct-in{gap:0;padding:0;width:26px;justify-content:center}
+    .acct-in-t{display:none}
+  }
 
   /* A <details> rather than a scripted popover: it opens on click and closes on Escape
      with no code, and it still works if chrome.js fails after rendering. */
