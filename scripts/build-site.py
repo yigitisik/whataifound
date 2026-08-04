@@ -62,6 +62,17 @@ PAGES = [
     ("/methodology", "Methodology", "monthly", "0.7"),
     ("/contributors", "Contributors", "monthly", "0.5"),
 ]
+
+# Pages that carry the shared chrome but do not belong in the nav. /account is a
+# per-reader surface reached from the header control, and /privacy is a footer link
+# rather than a destination, so putting either in the nav would crowd a bar that is
+# already tight at 1180px. The flag is whether the page belongs in the sitemap: a
+# privacy policy should be indexable, an account dashboard should not.
+#   (path, in_sitemap, changefreq, priority)
+CHROME_PAGES = [
+    ("/privacy", True, "yearly", "0.2"),
+    ("/account", False, None, None),
+]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 # ---------------------------------------------------------------- vocabulary
@@ -382,6 +393,22 @@ THEME_SEG = (
     '</span>')
 
 
+# Signed out, the account slot is an icon the same 26px as the identicon that replaces
+# it, so the masthead is exactly as wide before and after the session resolves and the
+# row never reflows. It is an icon rather than a "Sign in" pill because the eyebrow
+# already carries the brand, the five-item nav, the GitHub link, a three-button theme
+# switcher and the updated stamp: a fourth text control tipped the row onto two lines at
+# every width the site supports. The label survives for anyone who needs it, on
+# aria-label and title.
+SIGNIN_LINK = (
+    '<a class="acct-in" href="/api/auth/start" data-signin'
+    ' aria-label="Sign in" title="Sign in">'
+    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"'
+    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
+    '<circle cx="12" cy="8.2" r="3.6"/>'
+    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg></a>')
+
+
 def site_header(current, updated, extra_class=""):
     """The eyebrow every page carries: brand, nav, GitHub, theme switcher, updated stamp.
 
@@ -398,9 +425,12 @@ def site_header(current, updated, extra_class=""):
         f'<a class="gh-icon" href="{REPO}" target="_blank" rel="noopener"'
         f' aria-label="Source code on GitHub" title="Source on GitHub">{GH_MARK}</a>'
         f'{THEME_SEG}'
-        # Filled by chrome.js once /api/me answers. Pre-rendered signed-out so there is
-        # no flash of the wrong state and no layout shift when the session resolves.
-        f'<span class="acct" data-acct hidden></span>'
+        # Pre-rendered in the signed-out state, which is what a crawler and a reader
+        # with no session both see. chrome.js replaces the inner markup once /api/me
+        # answers; the outer span keeps its size either way, so the row does not jump
+        # when the session resolves. `return_to` is filled in by chrome.js from the
+        # current URL, so signing in from a finding page comes back to that page.
+        f'<span class="acct" data-acct>{SIGNIN_LINK}</span>'
         f'<span class="updated"><span class="pulse"></span>Updated '
         f'<b id="updated">{esc(updated)}</b></span>'
         f'</span></div>')
@@ -1407,6 +1437,8 @@ def build_sitemap(entries, updated):
     added, so the newest `added` date is the honest answer for all three.
     """
     urls = [(SITE + path, updated, freq, pri) for path, _, freq, pri in PAGES]
+    urls += [(SITE + path, updated, freq, pri)
+             for path, listed, freq, pri in CHROME_PAGES if listed]
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
         lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
@@ -1928,7 +1960,8 @@ def build_chrome(updated):
     only and the sub-page footer ended up copy-pasted four times. The nav marker is gone:
     page_nav() is now called from inside site_header().
     """
-    for path, _, _, _ in PAGES:
+    paths = [p for p, _, _, _ in PAGES] + [p for p, _, _, _ in CHROME_PAGES]
+    for path in paths:
         name = "index.html" if path == "/" else path.lstrip("/") + ".html"
         full = os.path.join(ROOT, name)
         src = open(full).read()

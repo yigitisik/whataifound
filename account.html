@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Your account | whataifound.org</title>
+<meta name="description" content="Your handle, your contributions to the whataifound.org registry, and your account settings.">
+<!-- Per-reader and behind a session: there is nothing here for a crawler to index, and
+     indexing a signed-out shell would put an empty page in search results. -->
+<meta name="robots" content="noindex, follow">
+<link rel="canonical" href="https://whataifound.org/account">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header>
+  <!--HEADER:START--><div class="eyebrow"><a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true"><defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs><path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/><path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/><path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/></svg><span class="wm">what<span class="ai">ai</span>found.org</span></a><nav class="pagenav" aria-label="Site"><a href="/">Registry</a><a href="/review">Review queue</a><a href="/visuals">Visuals</a><a href="/methodology">Methodology</a><a href="/contributors">Contributors</a></nav><span class="eyebrow-right"><a class="gh-icon" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source code on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a><span class="theme-seg" role="group" aria-label="Colour theme"><button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button><button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button><button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button></span><span class="acct" data-acct><a class="acct-in" href="/api/auth/start" data-signin aria-label="Sign in" title="Sign in"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.2" r="3.6"/><path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg></a></span><span class="updated"><span class="pulse"></span>Updated <b id="updated">2026-08-02</b></span></span></div><!--HEADER:END-->
+  <h1 class="meth-title">Your account</h1>
+</header>
+
+<main id="main">
+  <!-- Three states, all pre-rendered, one shown by account.js once /api/me answers.
+       Rendering them here rather than building them in JavaScript keeps the page honest
+       with the stylesheet off and means the signed-out state is instant rather than a
+       spinner that resolves into a sign-in button. -->
+
+  <div class="acct-state" data-state="loading">
+    <p class="acct-muted">Checking your session…</p>
+  </div>
+
+  <div class="acct-state" data-state="out" hidden>
+    <section class="acct-card acct-signin">
+      <h2 class="lbl">Sign in</h2>
+      <p>An account lets you submit an independent check, challenge a grade and flag an
+      entry for review, without a GitHub account and without forking anything.</p>
+      <p><a class="btn primary" href="/api/auth/start" data-signin-btn>Continue with Google</a></p>
+      <p class="acct-fine">We ask Google only for your email and name. Your profile is
+      private until you publish it, and you can delete the account in one click.
+      <a href="/privacy">What we store</a>.</p>
+    </section>
+  </div>
+
+  <div class="acct-state" data-state="in" hidden>
+    <!-- Identity ------------------------------------------------------ -->
+    <section class="acct-id">
+      <span class="acct-avatar" data-avatar></span>
+      <span class="acct-idmeta">
+        <b data-name></b>
+        <span class="acct-handle">@<span data-handle></span></span>
+        <span class="acct-joined" data-joined></span>
+      </span>
+      <span class="pill r r-added acct-role" data-role></span>
+    </section>
+
+    <!-- Progress to reviewer ------------------------------------------ -->
+    <!-- The threshold is the one GOVERNANCE.md already states, not an invented level:
+         three accepted checks, or five merged entries. Showing progress toward a role
+         the project actually grants is the whole engagement design. -->
+    <section class="acct-card">
+      <h2 class="lbl">Progress to reviewer</h2>
+      <div class="meter" data-meter>
+        <span class="meter-fill" data-meter-fill style="width:0%"></span>
+      </div>
+      <p class="acct-meter-note" data-meter-note></p>
+      <p class="acct-fine">A reviewer is trusted to review other people's entries. The bar
+      is <a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md"
+      target="_blank" rel="noopener">three accepted checks or five merged entries</a>, plus
+      a track record of citing sources. It is not a reward for volume.</p>
+    </section>
+
+    <!-- Stats --------------------------------------------------------- -->
+    <div class="stats acct-stats">
+      <div class="stat"><b data-target="0" data-stat="checksAccepted">0</b><span>Checks accepted</span></div>
+      <div class="stat"><b data-target="0" data-stat="entriesMerged">0</b><span>Entries merged</span></div>
+      <div class="stat"><b data-target="0" data-stat="challengesUpheld">0</b><span>Challenges upheld</span></div>
+      <div class="stat"><b data-target="0" data-stat="signals">0</b><span>Signals cast</span></div>
+    </div>
+    <p class="acct-rate" data-rate></p>
+
+    <!-- Contributions -------------------------------------------------- -->
+    <section class="acct-card">
+      <h2 class="lbl">Your contributions</h2>
+      <ol class="feed-list" data-contribs></ol>
+      <p class="acct-empty" data-contribs-empty>Nothing yet. The
+      <a href="/review">review queue</a> lists every entry nobody has checked, weakest
+      evidence first.</p>
+    </section>
+
+    <!-- Settings ------------------------------------------------------- -->
+    <section class="acct-card">
+      <h2 class="lbl">Settings</h2>
+      <!-- No action attribute: this posts through fetch to /api/account on the same
+           origin. check-integrity.py permits a form only without one, and the CSP's
+           form-action 'self' is the second lock. -->
+      <form class="acct-form" data-settings>
+        <div class="fld">
+          <label for="f-handle">Handle</label>
+          <input id="f-handle" name="handle" type="text" autocomplete="off" spellcheck="false"
+                 maxlength="30" pattern="[A-Za-z0-9]+(-[A-Za-z0-9]+)*">
+          <p class="fld-help">How the site refers to you. Lowercase letters, digits and
+          single hyphens. You can change it once every 30 days.</p>
+          <p class="fld-err" data-err="handle" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-name">Display name</label>
+          <input id="f-name" name="displayName" type="text" maxlength="60" autocomplete="name">
+          <p class="fld-help">Optional. Shown instead of your handle where you are credited.
+          Leave it blank to be known only by your handle.</p>
+          <p class="fld-err" data-err="displayName" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-orcid">ORCID</label>
+          <input id="f-orcid" name="orcid" type="text" inputmode="numeric"
+                 placeholder="0000-0002-1825-0097" autocomplete="off" spellcheck="false">
+          <p class="fld-help">Optional, and the one credential that carries real weight
+          here: it lets a reader judge whether a check is independent.</p>
+          <p class="fld-err" data-err="orcid" hidden></p>
+        </div>
+
+        <div class="fld">
+          <label for="f-github">GitHub username</label>
+          <input id="f-github" name="githubLogin" type="text" autocomplete="off" spellcheck="false">
+          <p class="fld-help">Optional. Links your account here to pull requests you open
+          there, so both routes credit the same person.</p>
+          <p class="fld-err" data-err="githubLogin" hidden></p>
+        </div>
+
+        <div class="fld fld-check">
+          <label for="f-public">
+            <input id="f-public" name="isPublic" type="checkbox">
+            <span>Publish my profile</span>
+          </label>
+          <p class="fld-help">Off by default. When on, <span data-pub-url>your profile</span>
+          shows your handle, role and accepted contributions. Your email is never shown,
+          published or not.</p>
+        </div>
+
+        <p class="acct-actions">
+          <button type="submit" class="btn primary" data-save>Save changes</button>
+          <span class="acct-saved" data-saved hidden>Saved</span>
+        </p>
+        <p class="fld-err" data-err="_" hidden></p>
+      </form>
+    </section>
+
+    <!-- Danger --------------------------------------------------------- -->
+    <section class="acct-card acct-danger">
+      <h2 class="lbl">Delete your account</h2>
+      <p>Removes your account row: the Google identifier, your email, your handle and these
+      settings. Immediately, with no retention window.</p>
+      <p>Contributions already merged keep their credit in <code>data/entries.json</code>,
+      which is public, CC BY 4.0 and mirrored by anyone who cloned the repository. That
+      record is the registry's audit trail and cannot be retracted.
+      <a href="/privacy">The full explanation</a>.</p>
+      <p><button type="button" class="btn btn-danger" data-delete>Delete my account</button></p>
+      <p class="fld-err" data-err="delete" hidden></p>
+    </section>
+  </div>
+</main>
+
+<!--FOOTER:START--><footer id="about"><div class="about-grid"><section class="about-cell"><h2 class="lbl">Editorial policy</h2><p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is ever deleted: entries are downgraded and annotated, and the history stays public. Every entry carries a novelty check, including when it comes back clean.</p><p class="about-links"><a href="/methodology">Full rules →</a></p></section><section class="about-cell"><h2 class="lbl">Use the data</h2><p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p><p class="about-links"><a href="/data/entries.json" download>Download JSON</a><a href="/feed.xml">RSS</a><a href="/feed.json">JSON Feed</a><a href="https://whataifound.org/LICENSE">License</a></p></section><section class="about-cell"><h2 class="lbl">Contribute</h2><p>Most entries have never been checked outside the lab that announced them. A check takes one click to submit, and is credited on the entry and on the contributors page.</p><p class="about-links"><a href="/review">Review queue →</a><a href="/contributors">Contributors</a><a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p></section><section class="about-cell"><h2 class="lbl">Source</h2><p>Site and registry are open on GitHub. Corrections and new entries are welcome by pull request.</p><p class="about-links"><a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a><a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback" title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a></p></section></div><section class="about-note"><h2 class="lbl">Disclaimer</h2><p>We run whataifound.org as an independent editorial project, as volunteer work. Verification and autonomy grades are our good-faith judgments from public information, provided "as is" without warranty, and may change as new evidence emerges. Nothing here is scientific, legal, or investment advice. We are not affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; logos and names are trademarks of their owners and appear for identification only. <a href="mailto:misik6@gatech.edu">Get in touch</a></p></section><div class="about-foot"><p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p><p class="colophon">© 2026 Isik &amp; Co.</p></div></footer><!--FOOTER:END-->
+
+</div>
+
+<script src="chrome.js" defer></script>
+<script src="account.js" defer></script>
+<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

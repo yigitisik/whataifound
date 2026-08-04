@@ -56,6 +56,20 @@ Co-ownership is not real while one person holds every key. Current state and int
 | Vercel project | Single account | Maintainers added to the project so a deploy is not blocked on one person |
 | Domain and DNS | Single owner | Documented, transferable; not shared by default |
 | Merge protection | None | Require a passing build and one approving review on `main` |
+| **Google OAuth client** | Single account | At least two people able to rotate the client secret |
+| **Supabase project** | Single account | At least two people with access; the account table is the only personal data the project holds |
+| **`SESSION_SECRET`** | Single holder | Two holders. Rotating it signs every reader out, which is the intended emergency lever |
+
+The last three arrived with accounts, and they change what this section is for. Until then
+every asset above was a convenience: losing access delayed a deploy. A database of reader
+identities is different. **One person must not be the only one who can rotate a leaked
+secret or answer a deletion request**, and a maintainer who cannot do either is a
+maintainer in name only. Treat granting these as part of the maintainer role, not as an
+afterthought once someone has been in it a while.
+
+Personal data carries obligations the rest of the project does not have: what is stored,
+why, and how to erase it are set out on [/privacy](https://whataifound.org/privacy), and
+that page changes in the same pull request as any change to what is stored.
 
 Anyone accepting a maintainer role should be told exactly which of these they get and which they do
 not, before they accept.

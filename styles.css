@@ -110,7 +110,10 @@
   a:focus-visible,button:focus-visible,summary:focus-visible,.labcard:focus-visible,
   input:focus-visible,select:focus-visible,[tabindex]:focus-visible{
     outline:2.5px solid var(--accent);outline-offset:2px;border-radius:7px}
-  .eyebrow-right{display:flex;align-items:center;gap:14px;flex-wrap:wrap;justify-content:flex-end}
+  /* The account control joined this row, which put it a few pixels over its budget at
+     1280 and wrapped the whole cluster onto a second line. Tightened rather than
+     thinned: every item here earns its place, and the row has to hold four of them. */
+  .eyebrow-right{display:flex;align-items:center;gap:11px;flex-wrap:wrap;justify-content:flex-end}
   .theme-seg{display:inline-flex;border:1px solid var(--line-strong);border-radius:12px;overflow:hidden}
   .theme-seg .th{width:31px;height:26px;display:grid;place-items:center;background:transparent;border:0;
     border-right:1px solid var(--line);cursor:pointer;color:var(--muted);transition:color .15s,background .15s}
@@ -382,6 +385,169 @@
     text-transform:uppercase;letter-spacing:.13em;line-height:1.4}
   @keyframes barIn{to{transform:scaleX(1)}}
   @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+
+  /* ---------- Account control (header) ---------- */
+  /* Lives in .eyebrow-right beside the theme switcher, on every page, because that is
+     where the shared chrome put a slot for it. Pre-rendered signed-out and swapped by
+     chrome.js once /api/me answers; both states are the same height, so the row does
+     not move when the session resolves. */
+  .acct{display:inline-flex;align-items:center;min-height:26px}
+  /* Exactly the size of the identicon that replaces it, so the row does not reflow when
+     the session resolves, and the same physical language as .gh-icon beside it. */
+  .acct-in{display:grid;place-items:center;width:26px;height:26px;border-radius:8px;
+    color:var(--muted);box-shadow:0 0 0 1px var(--line-strong);
+    transition:color .16s var(--ease),box-shadow .16s var(--ease)}
+  .acct-in svg{width:15px;height:15px;display:block}
+  .acct-in:hover,.acct-in:focus-visible{color:var(--ink);box-shadow:0 0 0 2px var(--accent)}
+
+  /* A <details> rather than a scripted popover: it opens on click and closes on Escape
+     with no code, and it still works if chrome.js fails after rendering. */
+  .acct-menu{position:relative}
+  /* list-style:none alone is not enough: Safari draws the disclosure triangle from
+     ::-webkit-details-marker, and Chrome renders a ::marker box that displaces the
+     avatar inside the 26px circle and clips it. Both have to be removed explicitly. */
+  /* display:block is doing real work here. A <summary> defaults to display:list-item,
+     and a list-item lays out a marker box that offsets the avatar inside the 26px
+     circle and clips it; list-style:none does not remove that box. Setting display to
+     anything else drops the marker entirely, which is why the flex centring lives on an
+     inner wrapper rather than on the summary itself. */
+  /* Three overrides, all of them undoing the global details/summary styling further
+     down this file, which is written for the disclosure sections on a finding page:
+     that rule set gives every summary a flex row, 9px of top padding and a rotating
+     chevron via summary:before. Inherited here, the padding pushes the avatar out of
+     its own 26px box and the chevron sits where the avatar should be, which renders as
+     an empty rounded square with a stray accent-coloured sliver in it.
+     A rounded square rather than a circle, too: an identicon is a 5x5 grid whose outer
+     ring is load-bearing, and a circle clips the corners and the full-height edge
+     columns away. Same shape as the 56px avatar on the account page. */
+  .acct-menu>summary{display:block;padding:0;margin:0;cursor:pointer;
+    width:26px;height:26px;border-radius:8px;overflow:hidden;
+    box-shadow:0 0 0 1px var(--line-strong);transition:box-shadow .16s var(--ease)}
+  .acct-menu>summary:before{content:none}
+  .acct-menu>summary::-webkit-details-marker{display:none}
+  .acct-menu>summary>svg{display:block;width:26px;height:26px}
+  /* The same global rule puts a top border and margin on every <details>. */
+  .acct-menu{margin:0;border-top:0;padding-top:0}
+  .acct-menu>summary:hover,.acct-menu[open]>summary{box-shadow:0 0 0 2px var(--accent)}
+  .acct-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:40;min-width:190px;
+    display:flex;flex-direction:column;padding:6px;border-radius:13px;
+    background:var(--panel);border:1px solid var(--line-strong);box-shadow:var(--shadow-card)}
+  .acct-who{margin:0;padding:8px 10px 9px;border-bottom:1px solid var(--line);
+    display:flex;flex-direction:column;gap:2px;text-transform:none;letter-spacing:0}
+  .acct-who b{font-family:var(--serif);font-size:.86rem;color:var(--ink);font-weight:600}
+  .acct-who span{font-family:var(--serif);font-size:.72rem;color:var(--muted)}
+  .acct-pop a,.acct-pop button{display:block;width:100%;text-align:left;padding:8px 10px;
+    margin-top:2px;border:0;border-radius:9px;background:transparent;cursor:pointer;
+    font-family:var(--serif);font-size:.8rem;color:var(--ink);text-decoration:none;
+    text-transform:none;letter-spacing:0}
+  .acct-pop a:hover,.acct-pop button:hover{background:var(--panel-2);color:var(--accent)}
+
+  /* The identicon: a 5x5 grid mirrored about its spine, filled with the brand gradient.
+     Not a Google photo, because img-src is 'self' data: and blocks one outright. */
+  .idic{display:block;shape-rendering:crispEdges}
+
+  /* ---------- Account page ---------- */
+  .acct-state{margin-top:22px}
+  .acct-muted{font-family:var(--serif);color:var(--muted);font-size:.86rem}
+  .acct-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:19px 22px 20px;margin:0 0 14px;box-shadow:var(--shadow)}
+  .acct-card>.lbl{margin:0 0 9px}
+  .acct-card p{font-family:var(--serif);font-size:.86rem;line-height:1.6;color:var(--muted);
+    margin:0 0 10px;max-width:62ch}
+  .acct-card p:last-child{margin-bottom:0}
+  .acct-fine{font-size:.76rem!important;color:var(--muted)}
+  .acct-signin .btn{margin-top:2px}
+
+  /* Identity strip. The avatar carries the brand gradient, which is the one accent this
+     page gets: everything else stays in the editorial palette. */
+  .acct-id{display:flex;align-items:center;gap:15px;flex-wrap:wrap;
+    padding:18px 22px;margin:0 0 14px;border-radius:16px;
+    background:linear-gradient(180deg,var(--panel) 0%,var(--panel-2) 100%);
+    border:1px solid var(--line);box-shadow:var(--shadow-card)}
+  .acct-avatar{flex:none;display:grid;place-items:center;width:56px;height:56px;
+    border-radius:15px;overflow:hidden;box-shadow:0 0 0 1px var(--line-strong)}
+  .acct-idmeta{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+  .acct-idmeta b{font-family:var(--serif);font-size:1.32rem;font-weight:600;color:var(--ink);
+    letter-spacing:-.01em;line-height:1.2}
+  .acct-handle{font-family:var(--serif);font-size:.82rem;color:var(--muted)}
+  .acct-joined{font-family:var(--serif);font-size:.72rem;color:var(--muted)}
+  .acct-role{align-self:flex-start;text-transform:uppercase}
+
+  /* Progress meter. The gradient fill is deliberate and used once: it is the only thing
+     on the page that should feel like it is going somewhere. */
+  .meter{height:9px;border-radius:99px;background:var(--panel-2);overflow:hidden;
+    border:1px solid var(--line);margin:2px 0 10px}
+  .meter-fill{display:block;height:100%;border-radius:99px;
+    background:linear-gradient(90deg,#5aa9e6,#7c6cf0 55%,#d98a4a);
+    transition:width .9s var(--ease)}
+  .acct-meter-note{font-family:var(--serif);font-size:.82rem;color:var(--muted);margin:0 0 10px}
+  .acct-meter-note b{color:var(--ink);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+  .acct-or{display:inline-block;margin:0 8px;opacity:.7}
+  .acct-stats{margin:0 0 8px}
+  .acct-rate{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:0 0 14px}
+
+  /* ---------- Forms ---------- */
+  /* The site had no <form> at all before this: check-integrity.py rejected the element
+     outright and the shortcuts dialog was written around that. The rule is now "a form
+     with no action attribute", which with form-action 'self' means it cannot post
+     anywhere but here, and real form semantics are worth a lot to keyboard and screen
+     reader users. */
+  .acct-form{display:flex;flex-direction:column;gap:15px}
+  .fld{display:flex;flex-direction:column;gap:5px}
+  .fld label{font-family:var(--serif);font-size:.7rem;font-weight:600;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted)}
+  .fld input[type=text]{font-family:var(--serif);font-size:.92rem;padding:10px 12px;
+    border-radius:11px;border:1px solid var(--line-strong);background:var(--bg);color:var(--ink);
+    transition:border-color .16s var(--ease),box-shadow .16s}
+  .fld input[type=text]:focus-visible{outline:none;border-color:var(--accent);
+    box-shadow:0 0 0 3px var(--accent-soft)}
+  .fld input[type=text]:disabled{opacity:.55;cursor:not-allowed}
+  .fld-help{font-family:var(--serif);font-size:.76rem;line-height:1.5;color:var(--muted);
+    margin:0;max-width:60ch}
+  .fld-err{font-family:var(--serif);font-size:.78rem;line-height:1.5;color:var(--refuted);
+    margin:0}
+  .fld-check label{display:flex;align-items:center;gap:9px;text-transform:none;
+    letter-spacing:0;font-size:.9rem;color:var(--ink);font-weight:400;cursor:pointer}
+  .fld-check input{width:17px;height:17px;accent-color:var(--accent);cursor:pointer}
+  .acct-actions{display:flex;align-items:center;gap:12px;margin:2px 0 0!important}
+  .acct-saved{font-family:var(--serif);font-size:.8rem;color:var(--accent);font-weight:600}
+  .acct-empty{font-family:var(--serif);font-size:.84rem;color:var(--muted);margin:0}
+
+  .acct-danger{border-color:color-mix(in srgb,var(--refuted) 32%,var(--line))}
+  .btn-danger{border-color:color-mix(in srgb,var(--refuted) 45%,var(--line-strong));
+    color:var(--refuted)}
+  .btn-danger:hover{border-color:var(--refuted);background:color-mix(in srgb,var(--refuted) 10%,transparent)}
+
+  /* Contribution rows reuse the activity feed, so a contribution reads the same on the
+     account page as it does in the hero. These are the extra statuses. */
+  .r-pending{--rc:var(--rev-added)} .r-pr_open{--rc:var(--rev-regraded)}
+  .r-merged{--rc:var(--rev-check)} .r-rejected{--rc:var(--rev-challenge)}
+  .r-needs_info{--rc:var(--rev-correction)}
+  .acct-card .feed-list{gap:9px}
+  .acct-card .feed-row{border-bottom:1px solid var(--line)}
+
+  /* ---------- Privacy page ---------- */
+  .privacy-table{width:100%;border-collapse:collapse;margin:0 0 18px;
+    font-family:var(--serif);font-size:.84rem}
+  .privacy-table th,.privacy-table td{text-align:left;vertical-align:top;padding:9px 12px;
+    border-bottom:1px solid var(--line);line-height:1.5}
+  .privacy-table th{font-size:.68rem;text-transform:uppercase;letter-spacing:.1em;
+    color:var(--muted);font-weight:600}
+  .privacy-table td:first-child{color:var(--ink)}
+  .privacy-table td{color:var(--muted)}
+  .privacy-updated{font-size:.78rem!important;border-top:1px solid var(--line);padding-top:14px}
+
+  @media(max-width:640px){
+    .acct-id{gap:12px;padding:15px 16px}
+    .acct-avatar{width:46px;height:46px}
+    .acct-idmeta b{font-size:1.12rem}
+    .acct-card{padding:16px 16px 17px}
+    .privacy-table,.privacy-table tbody,.privacy-table tr,.privacy-table td{display:block;width:100%}
+    .privacy-table thead{display:none}
+    .privacy-table tr{border-bottom:1px solid var(--line);padding:9px 0}
+    .privacy-table td{border:0;padding:2px 0}
+    .privacy-table td:first-child{color:var(--ink);font-weight:600}
+  }
 
   /* ---------- Reports strip ---------- */
   /* Between the hero and the sticky toolbar: what the corpus says, before the reader starts

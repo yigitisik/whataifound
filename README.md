@@ -107,6 +107,43 @@ grade**. An entry nobody has checked leads with the check, since the open questi
 anyone has looked; once a check exists it leads with the challenge. Neither requires forking the
 repo, only a citation. The fix is still a pull request; the issue is where it starts.
 
+### Accounts, and why the CSP did not have to move
+
+Contributing used to require a GitHub account: every route in
+[docs/CONTRIBUTING.md](docs/CONTRIBUTING.md) ended in a fork, a pull request, or a
+prefilled issue form. Signing in with Google is now an alternative, so someone who can say
+in a paragraph whether a proof holds can say it without a GitHub signup.
+
+**Nothing about the static site changed.** It builds, deploys and serves exactly as before,
+and with the API absent the header simply stays on "Sign in". The functions under `api/`
+are additive.
+
+The design constraint was the CSP: `default-src 'self'` with `connect-src 'self'`, and the
+project rule that there are no runtime external requests. A hosted auth SDK would have
+meant widening `script-src` to a third-party origin, vendoring a bundle into a repo with no
+bundler, and putting a token in `localStorage` where any script can read it. So **the
+browser never talks to Google or to Supabase.** The OAuth code exchange happens
+server-side in `api/auth/callback.js`, and the browser gets an `HttpOnly` cookie it cannot
+read. `connect-src` and `script-src` are byte for byte what they were.
+
+The same constraint decided the avatar. `img-src` is `'self' data:`, so a Google profile
+photo is blocked outright; accounts get a deterministic identicon generated from the handle
+as inline SVG, filled with the brand gradient. That lands better than the photo would have.
+
+A new account is given a handle from a curated wordlist in the site's own register:
+`patient-lemma`, `amber-conjecture`, `quiet-axiom`. Not the usual `swift-otter-4417`, and
+deliberately not the person's real name, which would publish an identity they never chose
+to share. Handles are theirs to change, once every 30 days.
+
+`/account` shows progress toward the reviewer role, and that progression is the one
+[GOVERNANCE.md](GOVERNANCE.md) already defines: three accepted checks, or five merged
+entries. The stats lead with *accepted* work and an acceptance rate rather than raw counts,
+because the same document says the bar "is not a reward for volume". There are no badges
+and no leaderboard, for the same reason.
+
+Turning any of it on needs a Google OAuth client, a Supabase project and three secrets:
+[docs/SETUP.md](docs/SETUP.md).
+
 ### Why the site is pre-rendered
 
 The AI crawlers `robots.txt` invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not
@@ -192,9 +229,19 @@ whataifound/
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── chrome.js               # every page (~4 KB): the theme switcher and the shared footer's date
+├── chrome.js               # every page (~7 KB): theme switcher, account control, identicon
+├── account.js              # /account only: the profile dashboard and its settings form
 ├── app.js                  # registry page: URL state, search, filters, sort, table view, charts
 ├── entry.js                # finding pages only (~2 KB): the citation copy buttons
+├── account.html            # your profile: handle, stats, settings (signed in)
+├── privacy.html            # what is stored when you sign in, and how to delete it
+├── api/                    # Vercel functions: auth, session, account. Server-side only
+│   ├── _lib/               #   session cookie, handle generation, db, http helpers
+│   ├── auth/               #   Google OIDC: start, callback, signout
+│   ├── me.js               #   the one request the UI hydrates from
+│   └── account.js          #   PATCH settings, DELETE account
+├── db/001_accounts.sql     # run once against Supabase; later phases append
+├── package.json            # server-side dependencies only; the site has no build step
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
@@ -227,6 +274,7 @@ whataifound/
 │   ├── pr-report.py        #   summarises a PR's entry changes for the CI comment
 │   └── serve.py            #   local preview server
 └── docs/
+    ├── SETUP.md            #   turning accounts on: Google OAuth, Supabase, secrets
     ├── SCHEMA.md           #   field definitions + editorial rules
     ├── entry.schema.json   #   generated JSON Schema for editor autocomplete
     └── CONTRIBUTING.md     #   how to add an entry, and how to review one
