@@ -12,7 +12,7 @@ import path from "node:path";
 import { fileURLToPath } from "node:url";
 
 const ROOT = path.resolve(path.dirname(fileURLToPath(import.meta.url)), "../..");
-const SRC = fs.readFileSync(path.join(ROOT, "account.js"), "utf8");
+const SRC = fs.readFileSync(path.join(ROOT, "js", "account.js"), "utf8");
 
 const slice = SRC.match(/const PR_PREFIX = [\s\S]*?\n  }\n/);
 assert.ok(slice, "could not find prLink() in account.js; has it been renamed?");

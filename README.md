@@ -141,8 +141,8 @@ entries. The stats lead with *accepted* work and an acceptance rate rather than 
 because the same document says the bar "is not a reward for volume". There are no badges
 and no leaderboard, for the same reason.
 
-Turning any of it on needs a Google OAuth client, a Supabase project and three secrets:
-[docs/SETUP.md](docs/SETUP.md).
+Turning any of it on needs a Google OAuth client, a Postgres database and a handful of
+environment variables, all of them server-side: [docs/SETUP.md](docs/SETUP.md).
 
 ### Contributing from the UI, without git becoming a second source of truth
 
@@ -200,6 +200,7 @@ and each finding also has its own URL for citation.
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
 | `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` under Node and diffs each against the pre-rendered markup |
+| `verify-doors.py` | Diffs the GitHub issue templates against the `/contribute` form, so the same contribution asks the same questions on both routes |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
@@ -267,13 +268,15 @@ whataifound/
 ├── visuals.html            # charts page (renders data/entries.json via app.js)
 ├── 404.html                # styled not-found page (self-contained; own inline CSS)
 ├── styles.css              # all styles
-├── chrome.js               # every page (~7 KB): theme switcher, account control, identicon
-├── account.js              # /account only: the profile dashboard and its settings form
-├── app.js                  # registry page: URL state, search, filters, sort, table view, charts
-├── entry.js                # finding pages only (~2 KB): the citation copy buttons
-├── signals.js              # finding pages + /review: the three triage buttons, queue counts
-├── contribute.js           # /contribute only: the four submission forms and the entry wizard
-├── admin.js                # /admin only: the maintainer's triage console
+├── js/                     # every browser script; nothing here is bundled or minified
+│   ├── chrome.js           #   every page (~8 KB): theme switcher, account control, identicon,
+│   │                       #   and the esc/show/label helpers the other page scripts share
+│   ├── app.js              #   registry page: URL state, search, filters, sort, table view, charts
+│   ├── entry.js            #   finding pages only (~2 KB): the citation copy buttons
+│   ├── signals.js          #   finding pages + /review: the three triage buttons, queue counts
+│   ├── account.js          #   /account only: the profile dashboard and its settings form
+│   ├── contribute.js       #   /contribute only: the four submission forms and the entry wizard
+│   └── admin.js            #   /admin only: the maintainer's triage console
 ├── account.html            # your profile: handle, stats, settings (signed in)
 ├── contribute.html         # submit a check, a challenge, a correction or an entry
 ├── admin.html              # maintainer queue (404s for everyone else)
@@ -294,6 +297,7 @@ whataifound/
 │   ├── 002_signals.sql     #   triage signals
 │   └── 003_proposals.sql   #   submissions, and the account_stats view
 ├── package.json            # server-side dependencies only; the site has no build step
+├── package-lock.json       # committed on purpose: Vercel installs api/'s deps on every build
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)

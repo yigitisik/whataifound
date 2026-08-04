@@ -13,13 +13,17 @@
 *.swo
 *~
 
-# ---- Node (only present if tooling is added later; app itself has no build) ----
+# ---- Node (server-side only: the functions under api/, never the site itself) ----
 node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
-package-lock.json
+# package-lock.json is deliberately NOT ignored. Vercel installs the api/ dependencies
+# on every build, so without a lockfile it re-resolves them each time and a new release
+# of a dependency can change what runs in production with no commit and no diff. This
+# repo's whole premise is that CI rebuilds and fails on any drift; the lockfile is what
+# extends that to the one thing the build does not generate itself.
 yarn.lock
 pnpm-lock.yaml
 

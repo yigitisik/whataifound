@@ -32,15 +32,16 @@ body:
     validations:
       required: true
 
-  - type: dropdown
+  - type: input
     id: outcome
     attributes:
       label: Outcome
-      options:
-        - Confirmed
-        - Confirmed with caveats
-        - Could not reproduce
-        - Refuted
+      description: >
+        One line, and the one that goes on the entry verbatim, so write it as the record
+        rather than as a verdict. Lead with what you found and add the detail that makes
+        it checkable. This was a four-option dropdown until it turned out that none of
+        the outcomes already in the registry fit any of the four.
+      placeholder: "confirmed; the 1,076-line Lean proof compiles in under five minutes"
     validations:
       required: true
 
@@ -57,6 +58,18 @@ body:
         the entry claims. Notes: https://gist.github.com/...
     validations:
       required: true
+
+  - type: input
+    id: url
+    attributes:
+      label: Link
+      description: >
+        Optional. A notebook, a thread, a write-up: anything a reader can follow. An
+        in-house recomputation has nothing to link to, and that is fine. Stored on the
+        entry as the check's `url`.
+      placeholder: https://gist.github.com/...
+    validations:
+      required: false
 
   - type: textarea
     id: coi

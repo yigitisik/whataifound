@@ -139,8 +139,13 @@ function validateChallenge(p, entry) {
   if (label.error) return label;
   const why = text(p.why, "why", { min: 40, max: 3000, multiline: true });
   if (why.error) return why;
+  // Same question the GitHub template asks under "Anything else", and asked here for
+  // the same reason: a conflict declared up front is context, and one found afterwards
+  // discredits the challenge. Never published; it rides in the pull request body.
+  const coi = p.coi ? text(p.coi, "coi", { max: 1000, multiline: true }) : { value: "" };
+  if (coi.error) return coi;
   return { value: { axis, proposed, citation: citation.value,
-                    citationLabel: label.value, why: why.value } };
+                    citationLabel: label.value, why: why.value, coi: coi.value } };
 }
 
 const CORRECTION_TARGETS = ["year_posed", "source", "discussion"];
@@ -433,7 +438,8 @@ export function proposalBody({ kind, entryId, payload }, author, siteOrigin) {
   } else if (kind === "challenge") {
     lines.push(`**Grade challenge on \`${entryId}\`**`, "",
       `**Axis:** ${payload.axis}`, `**Proposed:** ${payload.proposed}`,
-      `**Citation:** ${payload.citation}`, "", "**Argument**", "", payload.why);
+      `**Citation:** ${payload.citation}`, "", "**Argument**", "", payload.why, "",
+      `**Conflicts of interest:** ${payload.coi || "none stated"}`);
   } else if (kind === "correction") {
     lines.push(`**Correction to \`${entryId}\`**`, "",
       `**What:** ${payload.target}`,

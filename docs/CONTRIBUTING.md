@@ -138,18 +138,25 @@ next build, and CI will fail. Edit `data/entries.json` instead.
 
 ## Code
 
-Static files at the root: [index.html](../index.html), [methodology.html](../methodology.html),
-[review.html](../review.html), [contributors.html](../contributors.html),
-[visuals.html](../visuals.html), [account.html](../account.html),
-[privacy.html](../privacy.html), [404.html](../404.html), [styles.css](../styles.css),
-[chrome.js](../chrome.js), [app.js](../app.js), [account.js](../account.js),
-[entry.js](../entry.js). Server-side code lives under [api/](../api/) and is never sent to
-a browser. Constraints:
+Pages are static files at the root: [index.html](../index.html),
+[methodology.html](../methodology.html), [review.html](../review.html),
+[contributors.html](../contributors.html), [visuals.html](../visuals.html),
+[account.html](../account.html), [contribute.html](../contribute.html),
+[admin.html](../admin.html), [privacy.html](../privacy.html), [404.html](../404.html),
+[styles.css](../styles.css). Browser scripts live in [js/](../js/):
+[chrome.js](../js/chrome.js), [app.js](../js/app.js), [account.js](../js/account.js),
+[entry.js](../js/entry.js), [signals.js](../js/signals.js),
+[contribute.js](../js/contribute.js), [admin.js](../js/admin.js). Server-side code lives
+under [api/](../api/) and is never sent to a browser. Constraints:
 
 - **No em dashes**, anywhere: prose, code comments, UI copy, commit messages. `check-integrity.py`
   fails the build and names the file and line. Use a colon, comma, semicolon or parentheses,
   whichever the sentence wants. En dashes are fine and are used correctly throughout the registry
   (`Navier-Stokes`, `2000-2022`, `protein-ligand`), so do not sweep those.
+- **No literal control characters** in a source file. Write them as escapes (`\u0000`), which
+  behaves identically and stays readable. A real NUL byte runs fine but makes `grep` classify
+  the whole file as binary and print nothing, so a search for a symbol in it silently returns
+  no hits. `check-integrity.py` sweeps for these alongside the em dashes.
 - No runtime external requests. A new external resource also needs its CSP directive in
   [vercel.json](../vercel.json) widened.
 - No inline event handlers (`onclick=` and friends). CSP sets `script-src-attr 'none'`, and
@@ -194,7 +201,7 @@ control, or immediately when the URL carries a filter. **If you add something to
 needs the registry, it will silently do nothing on a cold load.** `render()` returns early while
 `ALL` is empty, which is what stops the list being blanked in the meantime.
 
-`card()` exists twice: in [app.js](../app.js) and ported to
+`card()` exists twice: in [app.js](../js/app.js) and ported to
 [scripts/build-site.py](../scripts/build-site.py). **Change one, change the other, in the same PR.**
 `verify-parity.py` runs the real `card()` under Node and diffs it against the pre-rendered markup,
 so drift fails the build; the markup would otherwise visibly change the first time a visitor
@@ -299,7 +306,8 @@ CI runs on every PR:
 
 | Check | Fails when |
 |---|---|
-| `check-integrity.py` | The committed HTML contains unexpected inline scripts, off-allowlist script or frame origins, inline event handlers, `javascript:`/`data:` URLs, or `<base>`/`<object>`/`<embed>`/`<form>` |
+| `verify-doors.py` | An issue template and the matching `/contribute` form stopped asking the same questions: a field on one door and not the other, or a fixed vocabulary on one and free text on the other |
+| `check-integrity.py` | The committed HTML contains unexpected inline scripts, off-allowlist script or frame origins, inline event handlers, `javascript:`/`data:` URLs, `<base>`/`<object>`/`<embed>`/`<form>`, an em dash, or a literal control character |
 | `build.py` | The data is invalid, an entry graded above `claimed` links no `research` source, or `card()` has drifted between `app.js` and `build-site.py` |
 | rebuild-and-diff | The committed output doesn't match what `data/entries.json` produces (a forgotten rebuild, or a hand-edit inside the markers) |
 | `check-links.py` | A URL your branch added returns 404 or 410. Runs as its own `links` workflow so a publisher outage never blocks a merge; paywalls, rate limits and 5xx are reported but do not fail |

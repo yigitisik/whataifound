@@ -38,7 +38,7 @@ export default async function handler(req, res) {
 }
 
 /** The shape /account and /u/<handle> render. Never includes another account's rows. */
-export function publicRow(r) {
+function publicRow(r) {
   return {
     id: r.id,
     kind: r.kind,

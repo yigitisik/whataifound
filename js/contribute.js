@@ -181,12 +181,9 @@ const TITLE_BY_ID = {
 
   const $ = sel => document.querySelector(sel);
   const $$ = sel => [...document.querySelectorAll(sel)];
-  const esc = s => String(s ?? '').replace(/[&<>"]/g,
-    c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
+  const esc = window.wafEsc;
 
-  const show = which => $$('.c-state').forEach(el => {
-    el.hidden = el.dataset.state !== which;
-  });
+  const show = window.wafShow;
 
   const form = $('[data-form]');
   if (!form) return;
@@ -414,7 +411,7 @@ const TITLE_BY_ID = {
     if (k === 'challenge') {
       return { axis: $('#f-axis').value, proposed: $('[data-proposed]').value,
                citation: val('#f-citation'), citationLabel: val('#f-citationLabel'),
-               why: val('#f-why') };
+               why: val('#f-why'), coi: val('#f-challengeCoi') };
     }
     if (k === 'correction') {
       const target = $('#f-target').value;

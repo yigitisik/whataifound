@@ -1444,9 +1444,9 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 
 {site_footer()}
 </div>
-<script src="/chrome.js" defer></script>
-<script src="/entry.js" defer></script>
-<script src="/signals.js" defer></script>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
 </body>
 </html>
 '''
@@ -1558,7 +1558,7 @@ def build_app_js():
     load time. Generating the two tables here keeps its copy from drifting from the
     Python one without introducing a module loader or a build step for the client.
     """
-    path = os.path.join(ROOT, "app.js")
+    path = os.path.join(ROOT, "js", "app.js")
     with open(path) as f:
         src = f.read()
 
@@ -1583,7 +1583,7 @@ def build_app_js():
                + table("SRC_LABEL", SRC) + "\n" + chips("SRC_CHIP", SRC) + "\n"
                + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                 "vocabulary tables", "app.js")
+                 "vocabulary tables", "js/app.js")
 
     with open(path, "w") as f:
         f.write(src)
@@ -1634,7 +1634,7 @@ def build_contribute(entries):
 
     # The JavaScript side: labels and definitions for the two grade axes, plus the
     # current grades per entry so the challenge form can show what it is arguing against.
-    js_path = os.path.join(ROOT, "contribute.js")
+    js_path = os.path.join(ROOT, "js", "contribute.js")
     with open(js_path) as f:
         js = f.read()
 
@@ -1661,7 +1661,7 @@ def build_contribute(entries):
                f"const ID_BY_TITLE = {{{ids}\n}};\n"
                f"const TITLE_BY_ID = {{{titles}\n}};\n")
     js = inject(js, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                "vocabulary tables", "contribute.js")
+                "vocabulary tables", "js/contribute.js")
     with open(js_path, "w") as f:
         f.write(js)
 

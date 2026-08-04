@@ -35,10 +35,13 @@ body:
     id: axis
     attributes:
       label: Which grade is wrong?
+      description: >
+        One axis per challenge. If both grades are wrong, file two: each moves on its own
+        evidence and is recorded as its own revision, and a single challenge arguing both
+        leaves a record that cannot say which citation moved which grade.
       options:
         - Verification (how solid the result is)
         - Autonomy (how much the AI did)
-        - Both
     validations:
       required: true
 

@@ -240,7 +240,7 @@ ${body}
 </main>
 ${FOOTER}
 </div>
-<script src="/chrome.js" defer></script>
+<script src="/js/chrome.js" defer></script>
 </body>
 </html>
 `;
