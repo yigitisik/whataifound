@@ -164,6 +164,31 @@ cannot tell whether `SESSION_SECRET` is set. If it is missing or shorter than 32
 characters, `api/_lib/session.js` throws and sign-in fails with a 500 at the callback
 instead. Confirm all five together rather than one at a time.
 
+**`/api/health` answers this directly.** It reports which variables the running
+deployment actually received, as booleans, never values:
+
+```bash
+curl -s https://<your-domain>/api/health
+```
+
+```json
+{
+  "signInReady": false,
+  "present": {
+    "GOOGLE_CLIENT_ID": false,
+    "GOOGLE_CLIENT_SECRET": true,
+    "DATABASE_URL": true,
+    "SESSION_SECRET": true
+  },
+  "sessionSecretLongEnough": true,
+  "redirectUri": "https://whataifound.org/api/auth/callback"
+}
+```
+
+A `false` next to a variable you know you set is the redeploy case above: the dashboard
+and the deployment disagree. `redirectUri` is the value to register with Google, built
+the same way `api/auth/start.js` builds it, so it is authoritative.
+
 **Other endpoints tell you which variables did arrive**, without exposing any of them:
 
 ```bash
