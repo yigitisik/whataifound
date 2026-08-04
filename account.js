@@ -103,6 +103,13 @@
     pending: 'Pending', pr_open: 'PR open', merged: 'Merged',
     rejected: 'Not accepted', needs_info: 'Needs info',
   };
+  // What was submitted, as distinct from what happened to it. Both are looked up
+  // through Object.hasOwn rather than indexed directly: one of these becomes part of a
+  // class name, and esc() escapes quotes and angle brackets but not spaces.
+  const KIND_LABEL = {
+    check: 'Independent check', challenge: 'Grade challenge',
+    entry: 'New entry', correction: 'Correction',
+  };
 
   // A pull request link, or null.
   //
@@ -143,12 +150,19 @@
       const status = Object.hasOwn(STATUS_LABEL, r.status) ? r.status : 'pending';
       const label = STATUS_LABEL[status];
       const link = prLink(r);
+      // A proposal for a new entry has nothing to link to until it is merged, so the
+      // title is plain text rather than a link to a page that would 404.
+      const title = r.entryId
+        ? `<a class="feed-title" href="/finding/${esc(r.entryId)}" title="${esc(r.title)}">${esc(r.title)}</a>`
+        : `<span class="feed-title" title="${esc(r.title)}">${esc(r.title)}</span>`;
+      const kind = Object.hasOwn(KIND_LABEL, r.kind) ? KIND_LABEL[r.kind] : '';
       return `<li class="feed-row">`
         + `<span class="feed-meta">`
         + `<time class="feed-date" datetime="${esc(r.date)}">${esc(r.date)}</time>`
         + `<span class="pill r r-${status}">${esc(label)}</span></span>`
-        + `<a class="feed-title" href="/finding/${esc(r.entryId)}" title="${esc(r.title)}">${esc(r.title)}</a>`
-        + `<span class="feed-note">${esc(r.note || '')}${link}</span>`
+        + title
+        + `<span class="feed-note">${esc(kind)}${kind && r.note ? ': ' : ''}`
+        + `${esc(r.note || '')}${link}</span>`
         + `</li>`;
     }).join('');
   }

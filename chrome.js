@@ -160,6 +160,16 @@
   window.wafSession = session;
   window.wafIdenticon = identicon;
 
+  // Any element that wants an avatar for a handle, filled here rather than by the page
+  // that asked for one. /u/<handle> is rendered by a Vercel function and cannot run the
+  // identicon itself without shipping a second copy of it; this is the same seed and
+  // the same drawing, so a person's mark is identical in the header, on /account and on
+  // their public profile.
+  document.querySelectorAll('[data-identicon]').forEach(el => {
+    const size = Number(el.dataset.size) || 72;
+    el.innerHTML = identicon(el.dataset.identicon, size);
+  });
+
   // ---------- Citation year in the footer ----------
   // The footer is now on every page, so this moves here from app.js's bootData(), which
   // only ran on two of them. The printed year is the retrieval date of a citation, so it

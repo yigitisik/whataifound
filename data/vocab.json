@@ -197,6 +197,29 @@
       "definition": "A factual correction that did not move either grade: a wrong date, a misattributed lab, a broken or superseded link, a claim sentence that overstated the result. Small, but recorded, because a registry that quietly edits itself is worth less than one that does not."
     }
   ],
+  "signal_kinds": [
+    {
+      "slug": "needs-check",
+      "label": "Needs a check",
+      "chip": "Check",
+      "short": "nobody outside the lab has confirmed this",
+      "definition": "Someone should read the primary source closely enough to say whether it supports the claim. The most common and least demanding signal: it asserts nothing about whether the entry is right, only that the question is open."
+    },
+    {
+      "slug": "looks-wrong",
+      "label": "Looks wrong",
+      "chip": "Wrong",
+      "short": "the claim or a grade looks mistaken",
+      "definition": "The claim, a grade, or a piece of the detail looks mistaken. This is a pointer for a maintainer, not a verdict: a grade only moves on a cited challenge, so acting on this means opening the entry and finding evidence, not counting clicks."
+    },
+    {
+      "slug": "dead-link",
+      "label": "Dead link",
+      "chip": "Link",
+      "short": "a source no longer resolves",
+      "definition": "One of the entry's sources no longer resolves, or now points somewhere else. The link checker in CI catches most of these; this catches the ones it cannot, such as a URL that still returns 200 while serving different content."
+    }
+  ],
   "fields": {
     "mathematics": "Mathematics",
     "computer-science": "Computer science",

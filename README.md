@@ -144,6 +144,44 @@ and no leaderboard, for the same reason.
 Turning any of it on needs a Google OAuth client, a Supabase project and three secrets:
 [docs/SETUP.md](docs/SETUP.md).
 
+### Contributing from the UI, without git becoming a second source of truth
+
+[/contribute](https://whataifound.org/contribute) takes an independent check, a grade
+challenge, a correction or a whole new entry, and asks the same questions the GitHub issue
+templates ask, field for field. What it does **not** do is write to the registry.
+
+```
+submitted in the UI  ->  a pending row in Postgres
+                          (nothing public, nothing in git)
+maintainer approves  ->  a GitHub App pushes submission/<uuid>
+                          diff: data/entries.json, and nothing else
+                     ->  rebuild-bot.yml regenerates the site on that branch
+maintainer merges    ->  the registry changes, exactly as for any pull request
+```
+
+Three properties hold this together.
+
+**Git stays canonical.** Postgres holds accounts, triage signals and pending work.
+Nothing in it is load-bearing for what a reader sees: delete the database and the site is
+what it was, minus the sign-in button.
+
+**Approval, not submission, is what touches the repository.** A Gmail address is free and
+unlimited, so an endpoint that pushed a branch on submit would hand anyone one the ability
+to write here. A maintainer's click is the gate, and the queue is capped per account.
+
+**The bot's reach is bounded twice.** The GitHub App holds Contents and Pull requests and
+nothing else, so it cannot edit workflows;
+[`rebuild-bot.yml`](.github/workflows/rebuild-bot.yml) then refuses any `submission/**`
+branch whose diff touches a file other than `data/entries.json`. The first limit is
+configuration, the second is code a reviewer can read in the repository. `scripts/`,
+`app.js` and `.github/` are unreachable from the UI path by construction.
+
+Triage signals are the one thing readers can do with a single click, and they are
+deliberately inert: they order the [review queue](https://whataifound.org/review) and do
+nothing else. They never enter `data/entries.json`, never render as a score on an entry,
+and never move a grade, which keeps [GOVERNANCE.md](GOVERNANCE.md)'s "grades move on
+evidence, never on opinion" literally true and stops a click from triggering a rebuild.
+
 ### Why the site is pre-rendered
 
 The AI crawlers `robots.txt` invites (GPTBot, ClaudeBot, PerplexityBot, CCBot) largely do not
@@ -233,14 +271,28 @@ whataifound/
 ├── account.js              # /account only: the profile dashboard and its settings form
 ├── app.js                  # registry page: URL state, search, filters, sort, table view, charts
 ├── entry.js                # finding pages only (~2 KB): the citation copy buttons
+├── signals.js              # finding pages + /review: the three triage buttons, queue counts
+├── contribute.js           # /contribute only: the four submission forms and the entry wizard
+├── admin.js                # /admin only: the maintainer's triage console
 ├── account.html            # your profile: handle, stats, settings (signed in)
+├── contribute.html         # submit a check, a challenge, a correction or an entry
+├── admin.html              # maintainer queue (404s for everyone else)
 ├── privacy.html            # what is stored when you sign in, and how to delete it
-├── api/                    # Vercel functions: auth, session, account. Server-side only
-│   ├── _lib/               #   session cookie, handle generation, db, http helpers
+├── api/                    # Vercel functions. Server-side only, never sent to a browser
+│   ├── _lib/               #   session, handles, db, http, roles, github, proposal rules
+│   │   ├── registry.js     #     GENERATED: entry ids, grades, titles, vocabulary
+│   │   └── shell.js        #     GENERATED: the header and footer, for /u/<handle>
 │   ├── auth/               #   Google OIDC: start, callback, signout
+│   ├── u/[handle].js       #   public profile, server-rendered for link previews
+│   ├── admin/proposals.js  #   the maintainer queue; approving opens the pull request
 │   ├── me.js               #   the one request the UI hydrates from
+│   ├── signals.js          #   triage signal counts, and the toggle
+│   ├── proposals.js        #   submit a contribution, list your own
 │   └── account.js          #   PATCH settings, DELETE account
-├── db/001_accounts.sql     # run once against Supabase; later phases append
+├── db/                     # run in number order against Postgres; each is idempotent
+│   ├── 001_accounts.sql    #   accounts. Sign-in needs this and nothing else
+│   ├── 002_signals.sql     #   triage signals
+│   └── 003_proposals.sql   #   submissions, and the account_stats view
 ├── package.json            # server-side dependencies only; the site has no build step
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it

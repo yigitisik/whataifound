@@ -47,7 +47,8 @@ ALLOWED_SRC_HOSTS = ("https://va.vercel-scripts.com",)
 ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.com")
 
 DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
-                 "contributors.html", "account.html", "privacy.html", "404.html"]
+                 "contributors.html", "account.html", "privacy.html",
+                 "contribute.html", "admin.html", "404.html"]
 
 # Directories the em dash sweep never descends into: version control, build caches, and
 # anything a local tool dropped in. All are either untracked or not prose.

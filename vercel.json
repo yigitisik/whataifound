@@ -3,6 +3,12 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
+  "rewrites": [
+    {
+      "source": "/u/:handle",
+      "destination": "/api/u/[handle]"
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",
@@ -114,11 +120,20 @@
       ]
     },
     {
-      "source": "/account",
+      "source": "/(account|admin)",
       "headers": [
         {
           "key": "Cache-Control",
           "value": "no-store, max-age=0"
+        }
+      ]
+    },
+    {
+      "source": "/u/(.*)",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
         }
       ]
     }

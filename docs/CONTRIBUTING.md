@@ -5,10 +5,26 @@ Two kinds of change, both via pull request. No direct pushes to `main`.
 - **Entries**: add, correct, or challenge a finding in `data/entries.json`.
 - **Code**: site markup, styles, behaviour, build scripts.
 
-There is now also a third route that is not a pull request: signing in with Google on the
-site itself. That is for people contributing evidence rather than code, and it is
-documented on the site. Everything below is the pull request path, which remains the only
-way to change code, docs or the build.
+There is now also a third route that is not a pull request: **[/contribute](https://whataifound.org/contribute)**,
+after signing in with Google. It asks the same questions as the issue templates, and it
+ends at the same place: a maintainer approves it, a bot opens a pull request against
+`data/entries.json`, and a maintainer reviews and merges that pull request. Nothing is
+published without one.
+
+Which route to use:
+
+| You want to | Use |
+|---|---|
+| Submit a check, challenge a grade, fix a link, propose an entry | [/contribute](https://whataifound.org/contribute). No GitHub account, no fork. |
+| Change several entries at once, or shape a diff yourself | A pull request, as below. |
+| Change code, styles, scripts, docs or CI | A pull request. The in-UI route cannot touch these, by design. |
+
+The two doors ask the same questions field for field, so neither is the "real" one. The
+bot path is deliberately the narrower of the two: the branch it pushes may contain a
+change to `data/entries.json` and nothing else, and
+[`.github/workflows/rebuild-bot.yml`](../.github/workflows/rebuild-bot.yml) fails the
+build if that is not what arrived. Everything below is the pull request path, which
+remains the only way to change code, docs or the build.
 
 ## Setup
 

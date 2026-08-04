@@ -59,13 +59,38 @@ Co-ownership is not real while one person holds every key. Current state and int
 | **Google OAuth client** | Single account | At least two people able to rotate the client secret |
 | **Supabase project** | Single account | At least two people with access; the account table is the only personal data the project holds |
 | **`SESSION_SECRET`** | Single holder | Two holders. Rotating it signs every reader out, which is the intended emergency lever |
+| **GitHub App key** | Single holder | Two holders. This is the credential that can push a branch to this repository |
 
-The last three arrived with accounts, and they change what this section is for. Until then
+The last four arrived with accounts, and they change what this section is for. Until then
 every asset above was a convenience: losing access delayed a deploy. A database of reader
 identities is different. **One person must not be the only one who can rotate a leaked
 secret or answer a deletion request**, and a maintainer who cannot do either is a
 maintainer in name only. Treat granting these as part of the maintainer role, not as an
 afterthought once someone has been in it a while.
+
+The GitHub App deserves naming separately, because it is the one credential that can
+write to this repository without a human. What limits it is not trust but scope, in two
+places that are both worth keeping:
+
+- The App holds **Contents** and **Pull requests** and nothing else. It has no Actions or
+  Workflows permission, so it cannot edit the check that constrains it.
+- `.github/workflows/rebuild-bot.yml` refuses any `submission/**` branch whose diff
+  touches a file other than `data/entries.json`.
+
+Neither is sufficient alone; the second is the one a reviewer can read. If the App's key
+leaks, the worst an attacker can do is open pull requests that a maintainer still has to
+merge, and they cannot reach `scripts/`, `app.js` or `.github/` at all.
+
+## Who can decide what
+
+Approving a submission in `/admin` opens a pull request. It does not merge one, and it is
+not an editorial decision: the decision is still made on the diff, under the same rules as
+a pull request that arrived from a fork. Nothing about the in-UI contribution path changes
+who may merge, and nothing in it can move a grade without a citation.
+
+`accounts.role` is written by a direct SQL statement and by nothing else. There is no API
+that grants a role, deliberately, so the ladder in this document cannot be climbed by
+anything a browser can send.
 
 Personal data carries obligations the rest of the project does not have: what is stored,
 why, and how to erase it are set out on [/privacy](https://whataifound.org/privacy), and

@@ -31,8 +31,18 @@ Keep the **client ID** and **client secret**.
 
 [supabase.com](https://supabase.com) → New project. Then:
 
-**a. Create the table.** SQL Editor → paste [`db/001_accounts.sql`](../db/001_accounts.sql)
-→ Run. It is idempotent, so re-running it is safe.
+**a. Create the tables.** SQL Editor → paste each file in [`db/`](../db/) in number order
+and run it. All of them are idempotent, so re-running one is safe.
+
+| File | What it adds |
+|---|---|
+| `001_accounts.sql` | Accounts. Sign-in needs this and nothing else. |
+| `002_signals.sql` | The three triage signals on a finding page. |
+| `003_proposals.sql` | Submissions, and the `account_stats` view the profile reads. |
+
+Running only 001 gives you a working sign-in; the signal buttons and the contribution
+list stay empty rather than erroring, because the endpoints that read those tables
+degrade instead of failing.
 
 **b. Get the connection string.** Project Settings → Database → Connection string →
 **Transaction pooler** (port 6543).
@@ -54,27 +64,72 @@ Rotating this signs every existing session out, which is the intended emergency 
 
 ---
 
+## 4. GitHub App, for the submission bot
+
+**Optional.** Skip it and everything still works except one thing: approving a submission
+in `/admin` cannot open a pull request, and the page says so at the top rather than
+failing at the click. Signing in, signals, submitting and rejecting all work without it.
+
+[github.com/settings/apps](https://github.com/settings/apps) → **New GitHub App**.
+
+- Homepage URL: `https://whataifound.org`
+- Webhook: **uncheck Active**. The site polls pull request state when a maintainer opens
+  the queue; a webhook would be a second public endpoint to authenticate for a status
+  that changes a few times a week.
+- Repository permissions, and only these two:
+
+| Permission | Access | Why |
+|---|---|---|
+| Contents | Read and write | Push the `submission/<id>` branch |
+| Pull requests | Read and write | Open the pull request, read whether it merged |
+
+> Do **not** grant Actions, Workflows or Administration. The branch this App pushes is
+> rebuilt by [`.github/workflows/rebuild-bot.yml`](../.github/workflows/rebuild-bot.yml),
+> which refuses a submission branch that touches anything but `data/entries.json`. An App
+> that could edit workflows could rewrite the check that constrains it.
+
+Then: **Generate a private key** (downloads a `.pem`), and **Install App** on this
+repository only. The installation id is the number at the end of the URL you land on.
+
+---
+
 ## Wiring it up
 
-Locally, copy `.env.example` to `.env.local` and fill in the four values. `.env*` is
-gitignored apart from the example.
+Locally, copy `.env.example` to `.env.local` and fill it in. `.env*` is gitignored apart
+from the example.
 
 ```bash
 npm install
 npm run dev          # vercel dev: static site plus /api on one origin
-npm test             # the pure logic: session signing, handles, redirect safety
+npm test             # the pure logic: session signing, handles, payload rules, redirect safety
 ```
 
-On Vercel, Project Settings → Environment Variables, the same four names, set for
-Production and Preview:
+On Vercel, Project Settings → Environment Variables, set for Production and Preview:
 
-| Name | From |
-|---|---|
-| `GOOGLE_CLIENT_ID` | step 1 |
-| `GOOGLE_CLIENT_SECRET` | step 1 |
-| `DATABASE_URL` | step 2b, the pooler URL |
-| `SESSION_SECRET` | step 3 |
-| `SITE_ORIGIN` | `https://whataifound.org` (omit on preview to use the preview's own origin) |
+| Name | From | Required |
+|---|---|---|
+| `GOOGLE_CLIENT_ID` | step 1 | yes |
+| `GOOGLE_CLIENT_SECRET` | step 1 | yes |
+| `DATABASE_URL` | step 2b, the pooler URL | yes |
+| `SESSION_SECRET` | step 3 | yes |
+| `SITE_ORIGIN` | `https://whataifound.org` (omit on preview to use the preview's own origin) | yes |
+| `GH_APP_ID` | step 4 | no |
+| `GH_APP_PRIVATE_KEY` | step 4, the whole `.pem` | no |
+| `GH_INSTALLATION_ID` | step 4 | no |
+| `GH_REPO` | `yigitisik/whataifound` | no |
+
+## Making yourself a maintainer
+
+`/admin` is maintainer-only, and nothing user-facing writes `accounts.role`: there is no
+API to grant a role, deliberately. Sign in once so the row exists, then in the SQL editor:
+
+```sql
+update accounts set role = 'maintainer' where handle = 'your-handle';
+```
+
+The same statement is how anyone else is promoted, which is what GOVERNANCE.md's ladder
+describes. A `reader` who guesses the `/admin` URL gets a 404, not a 403, so the page
+cannot be used to find out who holds which role.
 
 ---
 
@@ -93,10 +148,38 @@ Production and Preview:
    because renames are limited to one per 30 days.
 7. Delete the account. The row goes; you are signed out and returned to the registry.
 
-## What is not built yet
+## Checking the contribution path
 
-`/account` renders its stats and contributions from `/api/me`, which returns zeroes and an
-empty list until Phases 2 and 3 land (signals, and proposals that become pull requests).
-The shape is there so the page does not have to be rebuilt when the data arrives.
-`/u/<handle>` is Phase 5; the `is_public` switch on the settings form stores the reader's
-choice now so that nobody has to be asked twice later.
+With the GitHub App configured, end to end:
+
+1. Sign in as a non-maintainer and open `/contribute?kind=check&entry=<any entry id>`.
+   Submit a check. `/account` shows it as **Pending**.
+2. As a maintainer, open `/admin`. The submission is there with the submitter's track
+   record beside it. Approve it.
+3. A pull request opens on a `submission/<uuid>` branch. Confirm its diff touches
+   **only** `data/entries.json`, and that `rebuild-bot.yml` then commits the regenerated
+   files onto the same branch.
+4. Merge it. Reopen `/admin`; the row flips to **Merged**, and the contributor appears on
+   `/contributors` and on the entry.
+
+And the guard that makes the bot path safe, which is worth testing once by hand:
+
+```bash
+git checkout -b submission/test-guard
+echo "// not allowed" >> app.js
+git commit -am "should be refused" && git push origin submission/test-guard
+```
+
+The workflow must **fail** with "A submission branch may only change data/entries.json".
+Delete the branch afterwards.
+
+## Turning parts off
+
+Every external dependency degrades rather than breaking the site:
+
+| Missing | What happens |
+|---|---|
+| Everything | The static site is exactly what it was. The header shows "Sign in", which reports that accounts are not configured. |
+| `db/002` | Signal buttons stay hidden. The review queue is its ordinary evidence-ordered list. |
+| `db/003` | `/account` shows zeroes and no contributions. Submitting reports the queue is unavailable. |
+| GitHub App | `/admin` works, and says approving cannot open a pull request. |
