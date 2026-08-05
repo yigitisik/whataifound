@@ -19,7 +19,16 @@ Which route to use:
 | Change several entries at once, or shape a diff yourself | A pull request, as below. |
 | Change code, styles, scripts, docs or CI | A pull request. The in-UI route cannot touch these, by design. |
 
-The two doors ask the same questions field for field, so neither is the "real" one. The
+The two doors ask the same questions field for field, so neither is the "real" one. All
+four kinds of contribution exist on both: an
+[independent check](../.github/ISSUE_TEMPLATE/independent-check.yml), a
+[grade challenge](../.github/ISSUE_TEMPLATE/grade-challenge.yml), a
+[correction](../.github/ISSUE_TEMPLATE/correction.yml) and a
+[new entry](../.github/ISSUE_TEMPLATE/new-entry.yml), matching the four tabs on
+`/contribute`. `verify-doors.py` fails the build if any of them stops matching, and the
+grade, autonomy, field and source-kind lists in the issue forms are generated from
+`data/vocab.json` by `build-site.py`, so a vocabulary change cannot reach one door and
+not the other. The
 bot path is deliberately the narrower of the two: the branch it pushes may contain a
 change to `data/entries.json` and nothing else, and
 [`.github/workflows/rebuild-bot.yml`](../.github/workflows/rebuild-bot.yml) fails the

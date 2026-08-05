@@ -48,10 +48,13 @@ def parse_template(name):
         if not m:
             continue          # a markdown block: guidance, not a question
         opts = []
-        om = re.search(r"^\s*options:\n((?:\s*-\s.*\n)+)", chunk, re.M)
+        # Comment lines are allowed inside the block: two of these templates carry the
+        # generated-region markers there, so a run of `- ` lines is not contiguous.
+        om = re.search(r"^\s*options:\n((?:\s*(?:-\s|#).*\n)+)", chunk, re.M)
         if om:
-            opts = [re.sub(r"^\s*-\s*", "", ln).strip()
-                    for ln in om.group(1).splitlines() if ln.strip()]
+            opts = [re.sub(r"^\s*-\s*", "", ln).strip().strip('"')
+                    for ln in om.group(1).splitlines()
+                    if ln.strip() and not ln.strip().startswith("#")]
         fields[m.group(1)] = {
             "required": bool(re.search(r"required:\s*true", chunk)),
             "options": opts,
@@ -86,7 +89,47 @@ def web_fields(kind):
     optional = set(re.findall(r'\bp\.(\w+),\s*"[^"]+",\s*\{\s*required:\s*false', body))
     optional |= set(re.findall(r"p\.(\w+)\s*\?\s*text\(", body))   # the `p.coi ? ...` form
     read = set(re.findall(r"\bp\.(\w+)", body))
+    # validateEntry() reads most of its fields through `p[field]` inside a loop over a
+    # table of names rather than as p.title, p.claim and so on. Without these two the
+    # entry door would look as though it asked four questions.
+    read |= set(re.findall(r'\["(\w+)",\s*\d+\]', body))          # [["title", 200], ...]
+    for table in re.findall(r"for \(const \w+ of \[([^\]]+)\]", body):
+        read |= set(re.findall(r'"(\w+)"', table))                # ["date", "added"]
     return {"present": present, "read": read, "optional": optional}, None
+
+
+CONTRIBUTE = open(os.path.join(ROOT, "contribute.html"), encoding="utf-8").read()
+
+
+def between(src, marker):
+    """The generated region between a pair of <!--NAME:START--> / :END--> markers."""
+    start, end = f"<!--{marker}:START-->", f"<!--{marker}:END-->"
+    i, j = src.find(start), src.find(end)
+    if i == -1 or j == -1:
+        sys.exit(f"verify-doors: contribute.html is missing the {marker} markers.")
+    return src[i + len(start):j]
+
+
+def canon(name):
+    """One spelling for a field asked under three of them.
+
+    A control is `id="f-yearposed"` in the markup, `year_posed` in the payload and
+    `yearposed` in the issue form. Those are the same question, and a check that treated
+    them as three would be noise rather than a guard.
+    """
+    return name.lower().replace("_", "").replace("-", "")
+
+
+def compare(kind, gh, web, problems, ignore=frozenset(), alias=None):
+    """Diff one kind's field set across the two doors, by concept rather than by name."""
+    alias = alias or {}
+    gh_asked = {canon(alias.get(f, f)) for f in gh} - {canon(i) for i in ignore}
+    web_asked = {canon(f) for f in (web["present"] | web["read"])}
+    for missing in sorted(gh_asked - web_asked):
+        problems.append(f"{kind}: GitHub asks '{missing}', /contribute does not")
+    for missing in sorted(web_asked - gh_asked - {canon(i) for i in ignore}):
+        problems.append(f"{kind}: /contribute asks '{missing}', "
+                        f"the GitHub template does not")
 
 
 def main():
@@ -145,6 +188,42 @@ def main():
             problems.append(
                 f"challenge: the GitHub template offers axis '{extra}' which /contribute "
                 f"cannot express. Every axis must exist on both doors.")
+
+    # ---- correction --------------------------------------------------------
+    gh = parse_template("correction.yml")
+    web, err = web_fields("correction")
+    if err:
+        problems.append(err)
+    else:
+        # `entry` is the picker outside the fieldset on the web and a prefilled input on
+        # GitHub, the same split the check block describes. `corrurl` is the markup's id
+        # for the payload's `url`, which the validator supplies, so it is not a question
+        # of its own.
+        compare("correction", gh, web, problems, ignore={"entry", "corrurl"})
+
+    # ---- new entry ---------------------------------------------------------
+    gh = parse_template("new-entry.yml")
+    web, err = web_fields("entry")
+    if err:
+        problems.append(err)
+    else:
+        # `added` is the build's, never a submitter's: api/_lib/proposals.js defaults it
+        # from `date` and docs/SCHEMA.md reserves it, so neither door should ask.
+        # `novelty_check` is the payload's name for the control both doors call `novelty`.
+        compare("entry", gh, web, problems, ignore={"added", "novelty_check"})
+        # The two graded axes and the field list are vocabularies, so an option on one
+        # door that the other cannot express is a submission that depends on the route.
+        # build_issue_templates() generates the GitHub side from data/vocab.json and
+        # build_contribute() generates the web side; this is what proves it stayed true.
+        for fid, marker in (("verification", "VERSEL"), ("autonomy", "AUTSEL"),
+                            ("field", "FIELDSEL")):
+            gh_slugs = {o.split(":")[0].strip().strip('"') for o in gh[fid]["options"]}
+            web_slugs = set(re.findall(r'<option value="([^"]+)"',
+                                       between(CONTRIBUTE, marker)))
+            for extra in sorted(gh_slugs ^ web_slugs):
+                problems.append(
+                    f"entry: '{extra}' is offered as a {fid} on one door and not the "
+                    f"other. Both lists come from data/vocab.json; re-run build.py.")
 
     if problems:
         print(f"Door parity failed with {len(problems)} mismatch(es):", file=sys.stderr)

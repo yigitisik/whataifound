@@ -30,10 +30,13 @@ pnpm-lock.yaml
 # ---- Vercel ----
 .vercel/
 .vercel.json.local
+.vercel
 
 # ---- Environment / secrets ----
+secrets.*
 .env
 .env.*
+.env*
 !.env.example
 
 # ---- Stray local-preview symlinks (serve.py needs none; guard against old ones) ----

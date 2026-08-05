@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
-  - name: Add or correct an entry
+  - name: Send a pull request instead
     url: https://github.com/yigitisik/whataifound/blob/main/docs/CONTRIBUTING.md
-    about: Entries are added by pull request against data/entries.json. Start here.
+    about: Every form above ends in a pull request against data/entries.json. Write it yourself and skip the transcription.
   - name: Grading scales and editorial rules
     url: https://whataifound.org/methodology
     about: What each verification and autonomy grade means before you argue one is wrong.

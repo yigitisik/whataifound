@@ -284,6 +284,13 @@
      entry card have to stay above the fold on a 900px window, and the matrix below costs
      ~330px. Type is sized to that budget, not the other way round. */
   h1{font-size:clamp(1.65rem,4.6vw,2rem);margin:0 0 8px;letter-spacing:-.021em;font-weight:600;line-height:1.06;max-width:19ch}
+  /* The sub-page title, matched to the registry's h1 so every page reads as one
+     publication. Lived in a page-scoped <style> block on three pages and was overridden
+     on a fourth, which is how /privacy, /account, /admin, /contribute and the
+     server-rendered /u/<handle> ended up on the bare h1 rule above instead. One rule, so
+     a page cannot opt out of the masthead by forgetting to copy it. */
+  .meth-title{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 10px;letter-spacing:-.021em;
+    font-weight:600;line-height:1.06}
   .lede{color:var(--muted);font-size:.97rem;line-height:1.46;max-width:96ch;margin:0 0 12px}
   .lede strong{color:var(--ink);font-weight:600}
 
@@ -362,6 +369,26 @@
     text-decoration:none;transition:filter .16s var(--ease)}
   .feed-foot:hover{filter:brightness(1.04)}
   .feed-foot b{color:var(--ink);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+
+  /* The history of one entry, on its finding page. Deliberately not .feed-*: those rows
+     are clipped to one line each to hold a fixed-height hero column, and here the note is
+     the content. It wraps, and the row grows. */
+  .hist{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:0}
+  .hist-row{display:grid;grid-template-columns:auto auto 1fr;column-gap:10px;
+    align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+  .hist-row:last-child{border-bottom:none}
+  .hist-date{font-family:var(--serif);font-size:.68rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+  .hist-note{font-size:.88rem;line-height:1.5;color:var(--ink);text-wrap:pretty}
+  .hist-src{margin-left:4px;color:var(--accent);text-decoration:none;white-space:nowrap}
+  .hist-src:hover{text-decoration:underline;text-underline-offset:2px}
+  .hist-foot{font-family:var(--serif);font-size:.74rem;color:var(--muted);margin:0 0 4px}
+  /* Below 560px three columns leave the note about twelve characters wide. Stack the
+     date and pill onto their own row and give the note the full width. */
+  @media(max-width:560px){
+    .hist-row{grid-template-columns:auto 1fr;row-gap:5px}
+    .hist-note{grid-column:1 / -1}
+  }
   .feed-foot-cta{display:block;margin-top:3px;color:var(--accent);font-weight:600;font-size:.72rem}
 
   .hero-links{display:flex;gap:9px;margin:0;font-family:var(--serif);flex-wrap:wrap}
@@ -911,6 +938,12 @@
   .vbar-x{font-family:var(--serif);font-size:.6rem;color:var(--muted)}
   /* A chart card that closes an odd row by taking the full grid width. */
   .qv-wide{grid-column:1 / -1}
+  /* The standing list is a column of short rows, so at full width it would run down the
+     left edge with two thirds of the card empty. Two columns give the titles the room
+     they wanted without leaving a void beside them. */
+  .qv-wide .standing{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:28px;row-gap:9px}
+  @media(max-width:640px){.qv-wide .standing{grid-template-columns:1fr}}
   /* Shared plot chrome: wrapper, SVG sizing, axis labels and the tooltip below. Named
      .sc-* from when a scatter chart used them too; the evidence/autonomy matrix is the
      only plot now, and a second one would reuse these rather than add its own. */
@@ -1173,6 +1206,24 @@
   .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem}
   .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
   @media(max-width:640px){.labgrid{grid-template-columns:1fr}}
+  /* Topic row above the lab grid: chips rather than cards, because there are eleven of
+     them and they are internal links to a derived page, not outbound links to a lab. */
+  .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+  .topiclink{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;
+    border:1px solid var(--line-strong);border-radius:11px;background:var(--panel);
+    font-family:var(--serif);font-size:.8rem;color:var(--ink);text-decoration:none;
+    transition:border-color .16s var(--ease),transform .16s var(--ease)}
+  .topiclink:hover{border-color:var(--accent);transform:translateY(-1px)}
+  .topiclink span{font-size:.72rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums}
+
+  /* The summary cards at the top of a hub page. Same grid as /visuals uses, but two cards
+     wide at most, so it does not read as a chart page. A hub whose entries record no
+     posed year has only the grade card, and a lone half-width card beside an empty column
+     reads as a missing one, so it takes the row. */
+  .hub-grid{margin:0 0 22px}
+  .hub-grid:has(.qv-card:only-child){grid-template-columns:1fr}
+  @media(max-width:640px){.hub-grid{grid-template-columns:1fr}}
 
   footer{border:1px solid var(--line-strong);margin-top:56px;padding:32px 40px 34px;
     color:var(--muted);font-size:.94rem;background:var(--panel);border-radius:16px;box-shadow:var(--shadow)}

@@ -64,11 +64,14 @@ def html_files():
         p = os.path.join(ROOT, name)
         if os.path.exists(p):
             yield p
-    fdir = os.path.join(ROOT, "finding")
-    if os.path.isdir(fdir):
-        for name in sorted(os.listdir(fdir)):
-            if name.endswith(".html"):
-                yield os.path.join(fdir, name)
+    # Every generated directory, not just finding/. A page that ships unswept is a page
+    # this check does not cover, which is the whole point of the check.
+    for sub in ("finding", "topic", "lab"):
+        d = os.path.join(ROOT, sub)
+        if os.path.isdir(d):
+            for name in sorted(os.listdir(d)):
+                if name.endswith(".html"):
+                    yield os.path.join(d, name)
 
 
 def text_files():

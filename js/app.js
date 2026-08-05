@@ -326,27 +326,30 @@ function renderCharts(){
       `${rest.length} further organisations with one finding each: `+
       rest.map(([l])=>l).join(', '), 'is-rollup']] : [])
   ];
-  const GORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
-  const GVAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
-    claimed:'--claimed',disputed:'--disputed',known:'--known',refuted:'--refuted'};
-  const GSHORT = {formal:'Formal',independent:'Independent','peer-reviewed':'Peer reviewed',
-    'author-verified':'Author',claimed:'Claimed',disputed:'Disputed',known:'Already known',refuted:'Refuted'};
   const gm = tally(e=>e.verification);
-  const byGrade = GORDER.filter(g=>gm[g]).map(g=>[GSHORT[g]||g, gm[g], `var(${GVAR[g]})`]);
+  const byGrade = GRADE_ORDER.filter(g=>gm[g]).map(g=>[GRADE_SHORT[g]||g, gm[g], `var(${GRADE_VAR[g]})`]);
 
   // Order matters, and a grid row is as tall as its tallest card, so row-mates are paired
-  // by similar height: fixed-height year bars with the 7-row grade breakdown, then the two
-  // capped category lists together. The evidence/autonomy matrix is the analytical
-  // centrepiece, so it comes third (one grid row down, inside the opening view) rather
-  // than below three cards, where reaching it took a deliberate scroll.
+  // by similar height: the fixed-height year bars with the grade breakdown, the matrix
+  // with the five-row evidence chain, then the two long category lists together. The
+  // evidence/autonomy matrix is the analytical centrepiece, so it stays in the second row
+  // rather than below the whole strip, where reaching it took a deliberate scroll.
+  //
+  // The count has to stay even, or the last half-width card is orphaned beside dead space.
+  // Eight half-width cards fill four rows exactly; the two list cards that want the room
+  // take the full width and close the page.
   el.innerHTML =
     yearCard()+
     `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
     matrixCard()+
+    evidenceCard()+
     `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
-    // Five cards in a two-column grid leaves the last one orphaned beside dead space, so
-    // the longest list takes the full width and closes the row. Was six cards while the
-    // notability scatter existed, which spanned both columns for its own reasons.
+    modelCard()+
+    coverageCard()+
+    spanCard()+
+    // 8 rather than the home page's 4, and full width: these rows carry a title, and a
+    // half-width column clamps most of them to two lines.
+    standingCard(8, 'qv-wide')+
     // 0 = no cap: this page has the width for all of them, the home page does not.
     topicCard(0, 'qv-wide');
   renderInsights();
@@ -387,6 +390,16 @@ function renderInsights(){
     `<div class="ins"><b>${esc(big)}</b><span class="ins-l">${esc(label)}</span>`+
     `<span class="ins-n">${esc(note)}</span></div>`).join('');
 }
+
+// The verification vocabulary as chart furniture: display order, colour variable and the
+// short label a 138px label column can hold. Module scope rather than local to
+// renderCharts(), because the grade breakdown and the coverage card both read them and a
+// second copy is a second thing to keep in step with data/vocab.json.
+const GRADE_ORDER = ['formal','independent','peer-reviewed','author-verified','claimed','disputed','known','refuted'];
+const GRADE_VAR = {formal:'--formal',independent:'--independent','peer-reviewed':'--peer','author-verified':'--author',
+  claimed:'--claimed',disputed:'--disputed',known:'--known',refuted:'--refuted'};
+const GRADE_SHORT = {formal:'Formal',independent:'Independent','peer-reviewed':'Peer reviewed',
+  'author-verified':'Author',claimed:'Claimed',disputed:'Disputed',known:'Already known',refuted:'Refuted'};
 
 // Autonomy is the axis this registry owns, so it is the colour key of the matrix and of
 // the tinted pills on every card, which is what keeps the chart and the cards agreeing.
@@ -567,6 +580,166 @@ function topicCard(max, cls){
     `${rest.length} further topics: ` + rest.map(([l,c])=>`${l} (${c})`).join(', '), 'is-rollup']);
   return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">By topic area</h3>`+
     hbarsHtml(out, 'By topic area') + `</div>`;
+}
+
+// The evidence chain: how many entries link each kind of source.
+//
+// Scaled to the registry, not to the tallest row the way hbarsHtml() is. This is
+// coverage, so a bar is the share of entries carrying that kind of link at all: 48 of 52
+// has to read as nearly full and 8 of 52 as nearly empty. Max-scaling would draw the
+// first at 100% and the second at 17%, which states the wrong thing about both. Counted
+// once per entry per kind: one paper cited twice is not two papers.
+//
+// Rows follow vocabulary order (original work, claim, pushback), not count order, because
+// that sequence is the point the card is making, and use the short SRC_CHIP form because
+// the label column on the home page's quarter-width copy cannot hold the long one.
+function evidenceCard(){
+  const n = ALL.length;
+  const perKind = {};
+  SRC_ORDER.forEach(k => { perKind[k] = 0; });
+  ALL.forEach(e => {
+    new Set((e.sources||[]).map(s => s.kind)).forEach(k => {
+      if (k in perKind) perKind[k]++;
+    });
+  });
+  const label = `Entries linking each kind of source, out of ${n}. `+
+    SRC_ORDER.map(k => `${SRC_LABEL[k]}: ${perKind[k]}`).join('; ');
+  const bars = `<div class="hbars" role="img" aria-label="${esc(label)}">` +
+    SRC_ORDER.map(k => {
+      const c = perKind[k];
+      return `<div class="hbar" title="${esc(SRC_LABEL[k])}: ${c} of ${n} entries">`+
+        `<span class="hbar-label">`+
+        `<i class="sw" style="background:var(--src-${esc(k)})"></i>`+
+        `${esc(SRC_CHIP[k])}</span>`+
+        `<span class="hbar-track"><span class="hbar-fill"`+
+        ` style="width:${Math.round(c/n*100)}%"></span></span>`+
+        `<span class="hbar-val">${c}</span></div>`;
+    }).join('') + `</div>`;
+  const noChallenge = n - (perKind.challenge || 0);
+  return `<div class="qv-card"><h3 class="qv-title">Evidence chain</h3>${bars}`+
+    `<p class="qv-foot">Of ${n} entries. `+
+    `<a href="/review">${noChallenge} link no counterargument</a>: `+
+    `a gap, not a consensus.</p></div>`;
+}
+
+// How long each problem had stood before it fell: the one place the registry can say
+// something about the problems rather than about the systems that closed them.
+//
+// Longest first, then newest result, then id. The tiebreak is load-bearing rather than
+// cosmetic, the same way the activity feed's is: build-site.py renders this card into
+// index.html, CI diffs those bytes, and an unstable order would fail the build on an
+// unrelated change. Compared with < and > rather than localeCompare so the ordering is
+// code-point ordering, which is what Python's sorted() does on the other side.
+function standingCard(max, cls){
+  const standing = ALL.filter(e => yearsOpen(e) != null)
+    .map(e => [yearsOpen(e), e])
+    .sort((a,b) => b[0]-a[0]
+      || cmpDesc(a[1].date||'', b[1].date||'')
+      || cmpDesc(a[1].id||'', b[1].id||''));
+  const rows = standing.slice(0, max).map(([yrs,e]) =>
+    `<li><a href="/finding/${esc(e.id)}">`+
+    `<b>${yrs} yr</b><span>${esc(e.title)}</span>`+
+    `<em>posed ${e.year_posed} · ${esc(e.model || 'Unknown')}</em>`+
+    `</a></li>`).join('');
+  return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">Open longest before falling</h3>`+
+    `<ol class="standing">${rows}</ol>`+
+    `<p class="qv-foot">From the ${standing.length} of ${ALL.length} entries `+
+    `recording a posed year. <a href="/review">Add a missing one</a>.</p></div>`;
+}
+
+/** Descending string compare by code point, for the sort tiebreaks above. */
+function cmpDesc(a, b){ return b > a ? 1 : b < a ? -1 : 0; }
+
+// ---------- Charts /visuals mounts and the home page does not ----------
+// These three have no port in build-site.py and no parity row, because nothing
+// pre-renders them: /visuals is the only page that shows them, and it fetches the
+// registry and renders client side. Keep it that way. A card that ever needs to appear
+// on the home page has to be ported first, like the five above.
+
+// `model` is deliberately precise about what ran, so 52 entries carry 47 distinct
+// strings and a raw tally is a list of ones. Group on the system rather than the release:
+// the question the card answers is which systems produce findings, not which point
+// version did. Same shape as LAB_SHORT above, and an unlisted model still renders, it
+// just counts as its own row until it is named here.
+const MODEL_FAMILY = [
+  [/^AlphaEvolve/i, 'AlphaEvolve'],
+  [/^FunSearch/i, 'FunSearch'],
+  [/^AlphaFold/i, 'AlphaFold'],
+  [/^AlphaProof|^AlphaGeometry/i, 'AlphaProof / AlphaGeometry'],
+  [/^AlphaTensor|^AlphaDev|^AlphaQubit|^AlphaMissense/i, 'AlphaZero-line systems'],
+  [/\bGPT-5|\bGPT-4/i, 'GPT-5 family'],
+  [/^Claude|\bClaude Fable/i, 'Claude'],
+  [/^Gemini|Deep Think/i, 'Gemini'],
+  [/^Aristotle|^Gauss\b|^Harmonic/i, 'Formal-proof agents'],
+  [/neural network|graph neural|Chemprop|convolutional|segmentation|networks/i,
+   'Purpose-built neural networks'],
+  [/reinforcement learning|RL controller/i, 'RL controllers'],
+  [/multi-agent|Co-Scientist|Coscientist|AI Scientist|Robin/i, 'Agent systems'],
+];
+function modelFamily(model){
+  const s = String(model || '');
+  const hit = MODEL_FAMILY.find(([re]) => re.test(s));
+  return hit ? hit[1] : s;
+}
+
+// Findings by AI system, grouped into families. Same long-tail handling as the lab card:
+// the singles aggregate into one labelled row rather than being dropped, so the column
+// still sums to the registry.
+function modelCard(cls){
+  const m = {};
+  ALL.forEach(e => { const k = modelFamily(e.model); if (k) m[k] = (m[k]||0)+1; });
+  const rows = Object.entries(m).sort((a,b)=>b[1]-a[1]);
+  const ranked = rows.filter(([,c]) => c > 1);
+  const singles = rows.filter(([,c]) => c <= 1);
+  const out = ranked.slice();
+  if (singles.length) out.push([`+${singles.length} more, 1 each`, singles.length, null,
+    `${singles.length} further systems with one finding each: `+
+    singles.map(([l])=>l).join(', '), 'is-rollup']);
+  return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">By AI system</h3>`+
+    hbarsHtml(out, 'By AI system')+
+    `<p class="qv-foot">Grouped by system, not by release: GPT-5 Pro and GPT-5.6 Pro `+
+    `count together. Purpose-built networks are models trained for one problem, as `+
+    `against a general model prompted at it.</p></div>`;
+}
+
+// How long the problems stood. The insight strip states the median; this is the shape
+// behind it, and the shape is the part worth seeing: of the entries recording a posed
+// year, most had stood fifty years or more, and none closed a problem posed in the last
+// five. Empty buckets are drawn rather than dropped, for the same reason yearCard() draws
+// its quiet years: a gap in the middle of the range is a fact about the registry.
+const SPAN_BUCKETS = [
+  [0, 4, 'Under 5 yrs'], [5, 9, '5 to 9 yrs'], [10, 24, '10 to 24 yrs'],
+  [25, 49, '25 to 49 yrs'], [50, Infinity, '50 yrs or more'],
+];
+function spanCard(){
+  const spans = ALL.map(yearsOpen).filter(v => v != null);
+  const rows = SPAN_BUCKETS.map(([lo,hi,label]) =>
+    [label, spans.filter(v => v >= lo && v <= hi).length]);
+  return `<div class="qv-card"><h3 class="qv-title">How long the problem stood</h3>`+
+    hbarsHtml(rows, 'How long the problem stood')+
+    `<p class="qv-foot">From the ${spans.length} of ${ALL.length} entries recording a `+
+    `posed year. <a href="/review">Add a missing one</a>.</p></div>`;
+}
+
+// Who has actually looked. An entry with no independent_checks has been read by nobody
+// outside the lab that announced it, which is the number /review exists to move, so the
+// card splits by grade rather than giving one total: an unchecked 'formal' and an
+// unchecked 'claimed' are not the same problem.
+function coverageCard(cls){
+  const checked = ALL.filter(e => (e.independent_checks||[]).length).length;
+  const rows = GRADE_ORDER.filter(g => ALL.some(e => e.verification === g))
+    .map(g => {
+      const of = ALL.filter(e => e.verification === g);
+      const without = of.filter(e => !(e.independent_checks||[]).length).length;
+      return [GRADE_SHORT[g]||g, without, `var(${GRADE_VAR[g]})`,
+        `${GRADE_SHORT[g]||g}: ${without} of ${of.length} still unchecked`];
+    });
+  return `<div class="qv-card${cls?' '+cls:''}">`+
+    `<h3 class="qv-title">Still unchecked, by grade</h3>`+
+    hbarsHtml(rows, 'Entries with no independent check, by verification grade')+
+    `<p class="qv-foot">${ALL.length - checked} of ${ALL.length} entries have never been `+
+    `checked outside the lab that announced them. `+
+    `<a href="/review">Open the review queue</a>.</p></div>`;
 }
 
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside

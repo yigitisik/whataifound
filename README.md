@@ -34,16 +34,27 @@ ever edited by hand.
 data/entries.json ──► build.py ──► index.html (entries, activity feed, reports, filters,
                                                stats, FAQ tallies)
                                    finding/<id>.html   one page per entry
+                                   topic/<field>.html  one page per topic area
+                                   lab/<slug>.html     one page per lab, above a threshold
                                    review.html         the open review queue
                                    contributors.html   the contributor roll
                                    llms.txt  sitemap.xml  feed.xml  feed.json
 
 data/vocab.json   ──► build.py ──► app.js label tables
                                    methodology.html    the two grade lists + source kinds
+                                   contribute.html     the four submission forms
+                                   .github/ISSUE_TEMPLATE/*.yml   the same four, on GitHub
                                    llms.txt            the grading scales
                                    docs/entry.schema.json
                                    ClaimReview ratings on every finding page
 ```
+
+`/topic/<field>` and `/lab/<slug>` are derived index pages: the entries in one area, their
+grade breakdown, and how many carry an independent check. Topics get a page each. **Labs need
+`HUB_MIN_ENTRIES` (3) before they get one**, because 16 of the 22 organisations on record hold a
+single entry and a page each would be sixteen near-identical pages carrying one row. Everything
+below the bar stays reachable through the filtered registry (`/?lab=...`) and gets a page on its
+own as the registry grows.
 
 `/review` and `/contributors` are derived, not curated. The queue is every entry with no
 `independent_checks`, so an entry leaves it the moment a check lands; the roll is built from the
@@ -99,13 +110,20 @@ revisions as well as additions.
 Under the hero sits a strip of four small cards. **Evidence chain** counts how many entries
 link each kind of source, which is the site's own thesis made visible: 48 of 52 rest on
 original work, and only 8 link a counterargument. **Open longest before falling** ranks the
-problems by how long they stood. The other two, findings per year and by topic area, are
-the same charts `/visuals` shows, pre-rendered here from the same functions.
+problems by how long they stood. The other two are findings per year and by topic area. All
+four are the same charts `/visuals` shows, pre-rendered here from the same functions;
+`/visuals` adds five more it alone renders, including by AI system and how many entries are
+still unchecked, by grade.
 
-Every finding page carries two prefilled issue links: **Submit a check** and **Challenge the
-grade**. An entry nobody has checked leads with the check, since the open question is whether
-anyone has looked; once a check exists it leads with the challenge. Neither requires forking the
-repo, only a citation. The fix is still a pull request; the issue is where it starts.
+Every finding page carries prefilled links to **Submit a check**, **Challenge the grade** and
+**Send a correction**. An entry nobody has checked leads with the check, since the open question
+is whether anyone has looked; once a check exists it leads with the challenge. None requires
+forking the repo, only a citation. The fix is still a pull request; the issue is where it starts.
+
+Each page also carries **History of this entry**: when it entered the registry and every
+recorded change since, newest first. That is editorial rule 2 made checkable on the page a
+reader actually lands on. It is derived from the same `revisions` the home page's activity feed
+reads, so the two cannot disagree, and every entry has at least the row saying it arrived.
 
 ### Accounts, and why the CSP did not have to move
 
@@ -199,8 +217,8 @@ and each finding also has its own URL for citation.
 | `build-site.py` | Validates the data, then writes `index.html`, `finding/`, `review.html`, `contributors.html`, the shared header and footer, `llms.txt`, `sitemap.xml` |
 | `build-feed.py` | Regenerates `feed.xml` and `feed.json` |
 | `build-schema.py` | Regenerates `docs/entry.schema.json` from `data/vocab.json`, so the editor schema cannot fall behind the grades |
-| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` under Node and diffs each against the pre-rendered markup |
-| `verify-doors.py` | Diffs the GitHub issue templates against the `/contribute` form, so the same contribution asks the same questions on both routes |
+| `verify-parity.py` | Runs `app.js`'s real `card()`, `matrixCard()`, `tableView()`, `yearCard()`, `topicCard()`, `evidenceCard()` and `standingCard()` under Node and diffs each against the pre-rendered markup |
+| `verify-doors.py` | Diffs all four GitHub issue templates against the matching `/contribute` form, so the same contribution asks the same questions on both routes |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
@@ -225,13 +243,14 @@ overwrite tampering in a fully generated file and hide it.
 
 `card()` exists twice: in `app.js` and ported to `build-site.py`. They must stay in step or the
 markup visibly changes the first time a visitor filters; `verify-parity.py` is what enforces that.
-`matrixCard()`, `tableView()`, `yearCard()` and `topicCard()` are ported the same way, so all five
-pre-rendered surfaces are diffed byte for byte against the real functions on every build. The last
-two are the charts the home page's reports strip shares with `/visuals`; they were hoisted out of
-`renderCharts()` into module scope precisely so a parity check could call them, since a closure
-inside a function that writes to the DOM cannot be called from one. `topicCard()` takes a row cap,
-and both call sites are checked: `/visuals` shows every topic, the home page rolls the tail into one
-labelled row so the column still sums to the registry.
+`matrixCard()`, `tableView()`, `yearCard()`, `topicCard()`, `evidenceCard()` and `standingCard()`
+are ported the same way, so all seven pre-rendered surfaces are diffed byte for byte against the
+real functions on every build. The last four are the charts the home page's reports strip shares
+with `/visuals`; they were hoisted out of `renderCharts()` into module scope precisely so a parity
+check could call them, since a closure inside a function that writes to the DOM cannot be called
+from one. `topicCard()` and `standingCard()` take a row cap, and both call sites are checked:
+`/visuals` has the width for the full list, the home page rolls the tail into one labelled row so
+the column still sums to the registry.
 The `DOMAIN_NAME` and `FIELD_SHORT` tables are duplicated the same way and for the same reason: the
 labelled source rows on a card show a publisher name rather than a link title, so a source from a
 host with no entry in that table renders as a bare domain, and a chart label column 86px wide cannot
@@ -248,9 +267,10 @@ renderer the rest of the toolchain does not:
 
 ### Generated files: never hand-edit
 
-`finding/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`, `docs/entry.schema.json`, and
-anything between `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`,
-`contributors.html`, `methodology.html` or `visuals.html`. Edit `data/entries.json` and rebuild.
+`finding/`, `topic/`, `lab/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`,
+`docs/entry.schema.json`, and anything between `<!--…:START-->` / `<!--…:END-->` markers in
+`index.html`, `review.html`, `contributors.html`, `methodology.html`, `visuals.html`,
+`contribute.html` or the GitHub issue templates. Edit `data/entries.json` and rebuild.
 
 That now includes the whole masthead and footer: `HEADER` and `FOOTER` are written into all
 five pages from `site_header()` and `site_footer()` in `build-site.py`, and the same two
@@ -301,6 +321,8 @@ whataifound/
 ├── data/entries.json       # the registry, the only file you edit by hand
 ├── data/vocab.json         # grading vocabulary + source kinds; all generated from it
 ├── finding/                # one page per entry, generated (ClaimReview JSON-LD)
+├── topic/                  # one page per topic area, generated (CollectionPage JSON-LD)
+├── lab/                    # one page per lab with >= HUB_MIN_ENTRIES entries, generated
 ├── llms.txt                # markdown map of the registry for LLM crawlers, generated
 ├── sitemap.xml             # generated
 ├── feed.xml / feed.json    # RSS 2.0 + JSON Feed 1.1, generated
@@ -317,10 +339,10 @@ whataifound/
 ├── CODE_OF_CONDUCT.md      # participation rules
 ├── SECURITY.md             # how to report a vulnerability
 ├── .github/workflows/      # CI: integrity, rebuild, drift, link rot, PR entry report
-├── .github/ISSUE_TEMPLATE/ # prefilled forms: independent check, grade challenge
+├── .github/ISSUE_TEMPLATE/ # prefilled forms, one per submission kind; dropdowns generated
 ├── scripts/                # authoring toolchain (not deployed)
 │   ├── build.py            #   ← run this; validates + regenerates everything
-│   ├── build-site.py       #   pre-renders index.html; writes finding/, /review, /contributors, llms.txt, sitemap.xml
+│   ├── build-site.py       #   pre-renders index.html; writes finding/, topic/, lab/, /review, /contributors, llms.txt, sitemap.xml
 │   ├── build-feed.py       #   regenerates the feeds
 │   ├── build-schema.py     #   regenerates docs/entry.schema.json from vocab.json
 │   ├── build-icons.py      #   rasterises the icons + og.png (run deliberately)
