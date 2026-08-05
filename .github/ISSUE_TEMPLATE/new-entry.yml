@@ -1,0 +1,210 @@
+name: Propose a new entry
+description: A finding the registry does not have yet.
+title: "New entry: "
+labels: ["new-entry"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        This asks exactly what [the form on the site](https://whataifound.org/contribute?kind=entry)
+        asks, and both end at the same review. If you would rather write the JSON
+        yourself, a pull request against `data/entries.json` is welcome and skips the
+        transcription step; see
+        [docs/CONTRIBUTING.md](https://github.com/yigitisik/whataifound/blob/main/docs/CONTRIBUTING.md).
+
+        Two rules the build enforces, so it is worth knowing them before you fill this in:
+        an entry graded above `claimed` must link at least one original-work source, and
+        every entry needs a novelty check, including one that comes back clean.
+
+  - type: input
+    id: title
+    attributes:
+      label: Title
+      description: What was found, as a noun phrase. Not a headline.
+      placeholder: Counterexample to the Dinitz-Garg-Goemans conjecture
+    validations:
+      required: true
+
+  - type: textarea
+    id: claim
+    attributes:
+      label: The claim, in one sentence
+      description: >
+        Stated so a reader can tell what would have to be true for it to hold. This is
+        the line that gets quoted, so write it as the record.
+    validations:
+      required: true
+
+  - type: textarea
+    id: detail
+    attributes:
+      label: What was found
+      description: >
+        Optional. The longer version, with the construction, the method and the numbers.
+    validations:
+      required: false
+
+  - type: dropdown
+    id: field
+    attributes:
+      label: Field
+      # Generated from data/vocab.json by build-site.py. Do not hand-edit between the
+      # markers, and see verify-doors.py: this list and the one on /contribute must match.
+      options:
+        # FIELDS:START
+        - archaeology
+        - astronomy
+        - biology
+        - chemistry
+        - climate
+        - computer-science
+        - economics
+        - engineering
+        - materials
+        - mathematics
+        - medicine
+        - neuroscience
+        - physics
+        # FIELDS:END
+    validations:
+      required: true
+
+  - type: input
+    id: date
+    attributes:
+      label: Date it became public
+      description: ISO format. The day the result was announced, not the day you found it.
+      placeholder: "2026-07-22"
+    validations:
+      required: true
+
+  - type: input
+    id: lab
+    attributes:
+      label: Lab
+      description: >
+        Who did the work. Precise rather than tidy: "Google DeepMind (with Oxford and
+        Sydney)" beats "DeepMind". Use "Independent" if it was nobody's institution.
+      placeholder: Google DeepMind
+    validations:
+      required: true
+
+  - type: input
+    id: model
+    attributes:
+      label: Model
+      description: The system that did it, named as specifically as the source allows.
+      placeholder: GPT-5.6 Pro
+    validations:
+      required: true
+
+  - type: dropdown
+    id: verification
+    attributes:
+      label: Verification
+      description: >
+        How solid the result is, not how impressive. Definitions are on
+        https://whataifound.org/methodology and everything enters as claimed unless the
+        evidence for a higher grade is linked.
+      options:
+        # VERIFICATION:START
+        - "formal: machine-checked proof (e.g. Lean)"
+        - "independent: checked by third parties who were not the authors"
+        - "peer-reviewed: published after peer review"
+        - "author-verified: verified only by the people who produced it"
+        - "claimed: announced, not independently verified"
+        - "disputed: substantive public challenge to the result"
+        - "known: correct, but the result already existed in the literature"
+        - "refuted: shown to be wrong"
+        # VERIFICATION:END
+    validations:
+      required: true
+
+  - type: dropdown
+    id: autonomy
+    attributes:
+      label: Autonomy
+      description: How much the AI did, as against the humans around it.
+      options:
+        # AUTONOMY:START
+        - "autonomous: the AI did it without human problem-setting or steering"
+        - "ai-led: the AI produced the core idea; humans framed or checked it"
+        - "collaborative: genuine back-and-forth between AI and human"
+        - "ai-assisted: humans led; the AI helped with parts"
+        - "search-scaffold: a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside"
+        - "retrieval: the AI located an existing result rather than producing a new one"
+        # AUTONOMY:END
+    validations:
+      required: true
+
+  - type: input
+    id: humans
+    attributes:
+      label: Human collaborators
+      description: Optional. Comma separated, as they should be credited.
+      placeholder: Dmitry Rybin
+    validations:
+      required: false
+
+  - type: input
+    id: yearposed
+    attributes:
+      label: Year the problem was posed
+      description: Optional, and only if the source says. Do not guess.
+      placeholder: "1999"
+    validations:
+      required: false
+
+  - type: textarea
+    id: sources
+    attributes:
+      label: Sources
+      description: >
+        One per line as `kind | label | url`, where kind is research, announcement,
+        coverage, commentary or challenge. At least one is required, and an entry graded
+        above claimed needs at least one research source or the build rejects it.
+      placeholder: |
+        research | Preprint (arXiv) | https://arxiv.org/abs/...
+        announcement | Author thread (X) | https://x.com/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: novelty
+    attributes:
+      label: Novelty check
+      description: >
+        What you searched to confirm this is not already in the literature, and what you
+        found. A check that comes back clean is still a check, and saying so is the point.
+    validations:
+      required: true
+
+  - type: textarea
+    id: caveats
+    attributes:
+      label: Caveats
+      description: >
+        Optional but rarely absent. What has not been checked, what the result does not
+        show, and anything that would justify a lower grade later.
+    validations:
+      required: false
+
+  - type: input
+    id: tags
+    attributes:
+      label: Tags
+      description: Optional. Comma separated.
+      placeholder: combinatorics, counterexample
+    validations:
+      required: false
+
+  - type: input
+    id: id
+    attributes:
+      label: Entry id
+      description: >
+        Date first, then a short slug: lowercase, digits and hyphens. Must not already
+        exist in the registry.
+      placeholder: 2026-07-22-dinitz-garg-goemans
+    validations:
+      required: true

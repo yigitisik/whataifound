@@ -14,6 +14,9 @@ No HTML is ever edited by hand. This runs, in order:
                         same questions, so a contribution does not depend on route
     check-integrity.py  asserts the deployed HTML contains no smuggled scripts,
                         handlers, origins or executable URL schemes
+    check-mobile.py     asserts the site still behaves on a phone: hover states that
+                        do not stick to a tap, 44px touch targets, safe areas, and
+                        nothing that overflows a 375px screen
 
 Any step failing stops the run, so a bad entry never reaches a commit. verify-parity
 needs Node; if it is missing the build still succeeds and the check is reported as
@@ -34,6 +37,9 @@ STEPS = [
     ("verify-parity.py", "verify render parity", False),
     ("verify-doors.py", "verify both contribution doors match", False),
     ("check-integrity.py", "check for smuggled markup", False),
+    # Last, and on the same footing as the other two verifiers: a mobile regression is
+    # invisible to whoever introduces it, because the site is written on a desktop.
+    ("check-mobile.py", "check mobile ergonomics", False),
 ]
 
 

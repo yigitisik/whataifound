@@ -337,11 +337,14 @@ def page_nav(current):
     `current` is the path of the page being built, or None on finding pages, which are
     below all of these rather than beside them.
     """
-    items = ""
-    for path, label, _, _ in PAGES:
-        here = ' aria-current="page"' if path == current else ""
-        items += f'<a href="{path}"{here}>{esc(label)}</a>'
-    return f'<nav class="pagenav" aria-label="Site">{items}</nav>'
+    # One link per line: .pagenav is inline-flex, so the whitespace is not rendered, and
+    # adding or renaming a destination shows as one line rather than as the whole nav.
+    items = [f'<a href="{path}"'
+             + (' aria-current="page"' if path == current else "")
+             + f'>{esc(label)}</a>'
+             for path, label, _, _ in PAGES]
+    return (f'<nav class="pagenav" aria-label="Site">{NL}'
+            + NL.join(items) + f'{NL}</nav>')
 
 
 # ------------------------------------------------------------------ shared chrome
@@ -356,24 +359,61 @@ def page_nav(current):
 # pages from scratch. 404.html is the documented exception and carries its own inlined
 # copy, because it is self-contained by design so it still renders if styles.css fails.
 
+# The shared chrome is emitted one element per line rather than as one long string, and
+# that is load-bearing rather than cosmetic. It used to be a single unbroken line per
+# function, so a one-word change to the footer showed up in git as a 3.5 KB line deleted
+# and a 3.5 KB line added, on all 74 generated pages at once, with no way to see what
+# actually moved. Broken up, the same change is a few short readable lines.
+#
+# THE RULE, if you add to the chrome: break only between children of a flex container, a
+# grid container, or a block-level element. Never between inline children. Whitespace-only
+# text nodes are dropped between flex and grid items and collapse away between block
+# siblings, but between inline elements a newline renders as a space and moves the layout.
+# `.updated` and the interior of any <p> are the places that bite; both are left on one
+# line on purpose, and each says so where it is written.
+#
+# Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
+# .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
+# .about-links flex, .about-foot flex, footer and .about-cell block.
+NL = "\n"
+
 # The gradient id has to be unique within a page (a duplicate collides and the second
 # mark renders blank), so this is the only place a page gets one.
-BRAND_MARK = (
-    '<svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">'
+# Broken per element: whitespace outside <text> is not rendered in SVG, so a change to one
+# path shows as one line rather than swapping the whole 830-byte mark.
+BRAND_MARK = NL.join([
+    '<svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">',
     '<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1">'
     '<stop offset="0" stop-color="#5aa9e6"/>'
     '<stop offset="0.5" stop-color="#7c6cf0"/>'
     '<stop offset="1" stop-color="#d98a4a"/>'
-    '</linearGradient></defs>'
+    '</linearGradient></defs>',
     '<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)"'
-    ' stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    ' stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>',
     '<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor"'
-    ' stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    ' stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>',
     '<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)"'
-    ' fill-opacity="0.75"/>'
+    ' fill-opacity="0.75"/>',
     '<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4'
-    ' h-1.35 z" fill="url(#mk-i)"/>'
-    '</svg>')
+    ' h-1.35 z" fill="url(#mk-i)"/>',
+    '</svg>',
+])
+
+# The four-colour G, the only form Google's branding guidelines permit on a sign-in
+# control. It is the one place on the site where a mark is not drawn in currentColor, and
+# that is the point: it names the provider before the click rather than after it. Same
+# geometry as assets/external-logos/google.svg, which the registry uses for Google as a
+# lab; here it is doing the other job the mark does, and the two never appear together.
+GOOGLE_MARK = (
+    '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">'
+    '<path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04'
+    ' 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>'
+    '<path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23'
+    ' 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>'
+    '<path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18'
+    'C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>'
+    '<path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12'
+    ' 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>')
 
 GH_MARK = (
     '<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor"'
@@ -388,47 +428,61 @@ GH_MARK = (
 # Light / System / Dark. Wired by chrome.js, which loads on every page: app.js owns 47 KB
 # of filtering and charts and is not on the sub-pages, which is exactly why the switcher
 # used to be missing from them.
-THEME_SEG = (
-    '<span class="theme-seg" role="group" aria-label="Colour theme">'
+THEME_SEG = NL.join([
+    '<span class="theme-seg" role="group" aria-label="Colour theme">',
     '<button type="button" class="th" data-mode="light" aria-label="Light theme"'
     ' aria-pressed="false" title="Light">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/>'
     '<path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3'
-    'M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>'
+    'M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>',
     '<button type="button" class="th" data-mode="system" aria-label="System theme"'
     ' aria-pressed="false" title="System">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
     '<rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/>'
-    '</svg></button>'
+    '</svg></button>',
     '<button type="button" class="th" data-mode="dark" aria-label="Dark theme"'
     ' aria-pressed="false" title="Dark">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    '<path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>'
-    '</span>')
+    '<path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>',
+    '</span>',
+])
 
 
-# Signed out, the account slot is an icon the same 26px as the identicon that replaces
-# it, so the masthead is exactly as wide before and after the session resolves and the
-# row never reflows. It is an icon rather than a "Sign in" pill because the eyebrow
-# already carries the brand, the five-item nav, the GitHub link, a three-button theme
-# switcher and the updated stamp: a fourth text control tipped the row onto two lines at
-# every width the site supports. The label survives for anyone who needs it, on
-# aria-label and title.
-# The signed-out account control, and the one thing in the eyebrow that is an action
-# rather than a utility. It carries the word because a bare person glyph sitting between
-# a GitHub mark and a theme switcher reads as a third toggle: three outlined icons of the
-# same weight, and the only one that does anything consequential is the one nobody
-# notices. Filled with the accent so it is the single filled element in the row.
+# The two doors, in one control.
+#
+# CONTRIBUTING.md's whole framing is that there are two equal ways in: a pull request, and
+# signing in to submit through the UI. The eyebrow used to contradict that. The GitHub mark
+# was a bare 26px glyph reading as a utility, and beside it sat a filled accent "Sign in"
+# pill, so the two doors were rendered at wildly different weights and only one looked like
+# an offer at all.
+#
+# They are one segment now, bordered like the theme switcher, which makes them read as a
+# pair of alternatives rather than as two unrelated controls that happen to be adjacent.
+# Both are 26px, so the row is the same width signed in or out: chrome.js swaps the Google
+# mark for the identicon in place, and nothing reflows when the session resolves.
+#
+# Neither carries a visible word. That was tried and reverted once (a bare person glyph
+# among outlined icons did read as a third toggle), but the objection was to a *neutral*
+# glyph: these are two of the most recognisable marks on the web, and the border now says
+# they are actions. The labels survive on aria-label and title.
 SIGNIN_LINK = (
-    '<a class="acct-in" href="/api/auth/start" data-signin title="Sign in">'
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"'
-    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    '<circle cx="12" cy="8.2" r="3.6"/>'
-    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg>'
-    '<span class="acct-in-t">Sign in</span></a>')
+    '<a class="door door-in" href="/api/auth/start" data-signin'
+    ' aria-label="Sign in with Google" title="Sign in with Google">'
+    f'{GOOGLE_MARK}</a>')
+
+DOORS_SEG = NL.join([
+    '<span class="doors" role="group" aria-label="Ways to contribute">',
+    f'<a class="door" href="{REPO}" target="_blank" rel="noopener"'
+    ' aria-label="Source and pull requests on GitHub" title="Source on GitHub">'
+    f'{GH_MARK}</a>',
+    # chrome.js replaces the contents of this span with the account menu once /api/me
+    # answers, so the identicon lands inside the segment where the G was.
+    f'<span class="acct" data-acct>{SIGNIN_LINK}</span>',
+    '</span>',
+])
 
 
 def site_header(current, updated, extra_class=""):
@@ -438,30 +492,32 @@ def site_header(current, updated, extra_class=""):
     rather than beside it. `extra_class` carries the home page's intro animation hooks.
     """
     cls = ("eyebrow " + extra_class).strip()
-    return (
-        f'<div class="{esc(cls)}">'
-        f'<a class="brand" href="/" aria-label="whataifound.org home">{BRAND_MARK}'
-        f'<span class="wm">what<span class="ai">ai</span>found.org</span></a>'
-        f'{page_nav(current)}'
-        f'<span class="eyebrow-right">'
-        f'<a class="gh-icon" href="{REPO}" target="_blank" rel="noopener"'
-        f' aria-label="Source code on GitHub" title="Source on GitHub">{GH_MARK}</a>'
-        f'{THEME_SEG}'
-        # Pre-rendered in the signed-out state, which is what a crawler and a reader
-        # with no session both see. chrome.js replaces the inner markup once /api/me
-        # answers; the outer span keeps its size either way, so the row does not jump
-        # when the session resolves. `return_to` is filled in by chrome.js from the
-        # current URL, so signing in from a finding page comes back to that page.
-        f'<span class="acct" data-acct>{SIGNIN_LINK}</span>'
+    return NL.join([
+        f'<div class="{esc(cls)}">',
+        f'<a class="brand" href="/" aria-label="whataifound.org home">{BRAND_MARK}',
+        f'<span class="wm">what<span class="ai">ai</span>found.org</span></a>',
+        f'{page_nav(current)}',
+        f'<span class="eyebrow-right">',
+        # The two contribution doors, then the theme switcher, then the stamp: three
+        # controls of falling consequence, left to right. Pre-rendered signed out, which
+        # is what a crawler and a reader with no session both see. `return_to` is filled
+        # in by chrome.js from the current URL, so signing in from a finding page comes
+        # back to that page.
+        f'{DOORS_SEG}',
+        f'{THEME_SEG}',
         # The word "Updated" is dropped from the visible badge and kept for screen
         # readers. It cost about seventy pixels of the eyebrow, which is the only row on
         # the site with no slack, and it was spending them on a label the pulse dot and
-        # an ISO date already imply. Those pixels now carry the word "Sign in", which is
-        # an action a reader can take rather than a status they can only read.
+        # an ISO date already imply.
+        #
+        # This one stays on a single line. .updated has no display of its own, so its
+        # children are inline and a newline between them would render as a space: the
+        # pulse dot would drift off the date. See the note on NL above.
         f'<span class="updated" title="Registry last updated"><span class="pulse"></span>'
         f'<span class="vh">Registry last updated </span>'
-        f'<b id="updated">{esc(updated)}</b></span>'
-        f'</span></div>')
+        f'<b id="updated">{esc(updated)}</b></span>',
+        f'</span></div>',
+    ])
 
 
 def site_footer():
@@ -472,64 +528,92 @@ def site_footer():
     costs about 3 KB, which is the right trade on a leaf page that until now offered no
     way back into the site at all.
     """
-    return (
-        '<footer id="about">'
-        '<div class="about-grid">'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Editorial policy</h2>'
+    # One line per element, per the rule on NL above. The cells are grid items and the
+    # .about-links rows are flex containers, so every break here falls between flex, grid
+    # or block children and none of them renders as a space. The prose paragraphs stay
+    # whole: their content is inline, and breaking inside one would show up on the page.
+    return NL.join([
+        '<footer id="about">',
+        '<div class="about-grid">',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Editorial policy</h2>',
         '<p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is '
         'ever deleted: entries are downgraded and annotated, and the history stays public. '
-        'Every entry carries a novelty check, including when it comes back clean.</p>'
-        '<p class="about-links"><a href="/methodology">Full rules →</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Use the data</h2>'
+        'Every entry carries a novelty check, including when it comes back clean.</p>',
+        '<p class="about-links"><a href="/methodology">Full rules →</a></p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Use the data</h2>',
         '<p>The whole registry is one open file under '
         '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
         ' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with '
-        'attribution.</p>'
-        '<p class="about-links"><a href="/data/entries.json" download>Download JSON</a>'
-        '<a href="/feed.xml">RSS</a><a href="/feed.json">JSON Feed</a>'
-        f'<a href="{SITE}/LICENSE">License</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Contribute</h2>'
+        'attribution.</p>',
+        '<p class="about-links">',
+        '<a href="/data/entries.json" download>Download JSON</a>',
+        '<a href="/feed.xml">RSS</a>',
+        '<a href="/feed.json">JSON Feed</a>',
+        f'<a href="{SITE}/LICENSE">License</a>',
+        '</p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Contribute</h2>',
         '<p>Most entries have never been checked outside the lab that announced them. A check '
         'takes one form to submit, needs no GitHub account, and is credited on the entry '
-        'and on the contributors page.</p>'
-        '<p class="about-links"><a href="/contribute">Contribute →</a>'
-        '<a href="/review">Review queue</a>'
-        '<a href="/contributors">Contributors</a>'
-        f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Source</h2>'
+        'and on the contributors page.</p>',
+        '<p class="about-links">',
+        '<a href="/contribute">Contribute →</a>',
+        '<a href="/review">Review queue</a>',
+        '<a href="/contributors">Contributors</a>',
+        f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>',
+        '</p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Source</h2>',
         '<p>Site and registry are open on GitHub. Corrections and new entries are welcome by '
-        'pull request.</p>'
-        '<p class="about-links">'
-        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}'
-        'Repository</a>'
+        'pull request.</p>',
+        '<p class="about-links">',
+        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}Repository</a>',
+        # The only route to /privacy from a page that is not /account or /contribute.
+        # It is a footer link by design (see CHROME_PAGES) and was not actually in the
+        # footer, so a reader on the registry had no way to reach it at all.
+        '<a href="/privacy">Privacy</a>',
         '<a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"'
-        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>'
-        '</p></section>'
-        '</div>'
-        '<section class="about-note">'
-        '<h2 class="lbl">Disclaimer</h2>'
+        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>',
+        '</p>',
+        '</section>',
+
+        '</div>',
+
+        '<section class="about-note">',
+        '<h2 class="lbl">Disclaimer</h2>',
         '<p>We run whataifound.org as an independent editorial project, as volunteer work. '
         'Verification and autonomy grades are our good-faith judgments from public '
         'information, provided "as is" without warranty, and may change as new evidence '
         'emerges. Nothing here is scientific, legal, or investment advice. We are not '
         'affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; '
         'logos and names are trademarks of their owners and appear for identification only. '
-        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>'
-        '</section>'
-        '<div class="about-foot">'
+        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>',
+        '</section>',
+
+        '<div class="about-foot">',
         '<p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI '
         'Scientific and Mathematical Discoveries.</em> Retrieved '
-        f'<span id="cite-date">2026</span> from {SITE}/</p>'
-        '<p class="colophon">© 2026 Isik &amp; Co.</p>'
-        '</div>'
-        '</footer>')
+        f'<span id="cite-date">2026</span> from {SITE}/</p>',
+        '<p class="colophon">© 2026 Isik &amp; Co.</p>',
+        '</div>',
+
+        # Where a colophon note belongs, and the only place the mascot is named. He is
+        # decorative and says nothing the page does not, so the explanation is a footnote
+        # rather than a feature: a reader who never sees him loses nothing by reading this.
+        '<p class="mascot-note"><b>Duru</b> is the badger digging along the bottom of the '
+        'page: a guru, with a <em>d</em> for discovery, data and diligence. A badger keeps '
+        'digging at one spot, which is rather the point here.</p>',
+        '</footer>',
+    ])
 
 
 HANDLE_RE = r"[a-z0-9]+(?:-[a-z0-9]+)*"
@@ -586,6 +670,50 @@ def credit_block(e):
     if not rows:
         return ""
     return (f'<h2 class="lbl">Credit</h2><div class="credit">{rows}</div>')
+
+
+def history_block(e):
+    """This entry's own history: when it arrived, and everything that moved since.
+
+    Editorial rule 2 says an entry is never deleted, it is downgraded and annotated and
+    the history stays public. The home page's activity feed showed that across the whole
+    registry, but the finding page, which is the citable record and the page a reader
+    actually lands on, said nothing about its own past. A reader looking at a downgraded
+    entry could not tell it had been downgraded.
+
+    Same merge and the same tiebreak as build_activity(), scoped to one entry: the
+    authored `revisions` plus the single synthesised `added` event, newest first. Every
+    entry therefore has at least one row, so this section is never empty and never has to
+    be conditionally hidden.
+
+    Dates are absolute, never relative, for the reason at the top of this file: there is
+    no clock in this script and the output is committed, so "3 days ago" would rot.
+    """
+    events = [(r["date"], r["kind"], r.get("note", ""), r.get("url"))
+              for r in (e.get("revisions") or [])]
+    if e.get("added"):
+        events.append((e["added"], REV_KIND_BUILD_OWNED,
+                       f'Entered the registry graded '
+                       f'{VER_LABEL.get(e["verification"], e["verification"])} and '
+                       f'{AUT_LABEL.get(e["autonomy"], e["autonomy"])}.', None))
+    if not events:
+        return ""
+    # Newest first, then by kind so a same-day pair is ordered deterministically: CI
+    # rebuilds this file and diffs the bytes, so ties must not float.
+    events.sort(key=lambda ev: (ev[0], ev[1]), reverse=True)
+
+    rows = ""
+    for date, kind, note, url in events:
+        link = (f' <a class="hist-src" href="{esc(url)}" target="_blank" rel="noopener">'
+                f'source ↗</a>') if url else ""
+        rows += (f'\n    <li class="hist-row">'
+                 f'<time class="hist-date" datetime="{esc(date)}">{esc(date)}</time>'
+                 f'<span class="pill r r-{esc(kind)}">{esc(REV_CHIP.get(kind, kind))}</span>'
+                 f'<span class="hist-note">{esc(note)}{link}</span></li>')
+    return (f'\n  <h2 class="lbl">History of this entry</h2>'
+            f'\n  <ol class="hist">{rows}\n  </ol>'
+            f'\n  <p class="hist-foot">Entries are never deleted. A grade that does not '
+            f'hold up is downgraded on the record, with the reason beside it.</p>')
 
 
 def years_open(e):
@@ -703,11 +831,18 @@ TABLE_COLS = [
 ]
 
 
-def table_view(entries, sort="date-desc"):
-    """Port of tableView() in app.js. Output must match it character for character."""
+def table_view(entries, sort="date-desc", sortable=True):
+    """Port of tableView() in app.js. Output must match it character for character.
+
+    `sortable` is a hub-page concession and must stay default-true, or verify-parity.py
+    starts comparing this against a tableView() that does not have the flag. The hub pages
+    do not load app.js, so a sort button there is a control that looks live and is not;
+    they render plain headers and leave sorting to the registry, which is the page that
+    actually has the machinery.
+    """
     head = ""
     for c in TABLE_COLS:
-        if not c.get("sort"):
+        if not c.get("sort") or not sortable:
             head += f'<th scope="col">{c["label"]}</th>'
             continue
         active = sort == c["sort"] or (c.get("alt") and sort == c.get("alt"))
@@ -998,6 +1133,85 @@ def years_open(e):
     return n if n >= 0 else None
 
 
+def evidence_card(entries):
+    """The evidence chain: how many entries link each kind of source.
+
+    The registry's whole thesis is that a result and the claim made about it are
+    different things, and `kind` is what encodes that per link. Counted per entry rather
+    than per link: "how many findings have an original work behind them" is the question,
+    and one paper cited twice is not two papers.
+
+    Scaled to the registry, not to the tallest row, which is what hbars_html does and is
+    right for a ranking. This is coverage: a bar is the share of entries that have that
+    kind of link at all, so 48 of 52 has to read as nearly full and 8 of 52 as nearly
+    empty. Max-scaling would draw the first at 100% and the second at 17%, which states
+    the wrong thing about both. Same markup and classes, so it still looks like the charts
+    beside it. Rows follow vocabulary order (original work, claim, pushback), not count
+    order, because that sequence is the point the card is making.
+
+    Rows use the short `chip` form, not `label`: the label column is 86px in the home
+    page's strip and "Independent commentary" ellipsises to "Independent co...". The long
+    form stays in the tooltip and in the aria-label, so nothing is lost to a reader or a
+    screen reader, only to the visible column that cannot hold it.
+
+    Ported in app.js as evidenceCard(); verify-parity.py diffs the two.
+    """
+    n = len(entries)
+    per_kind = {k: 0 for k in SRC_ORDER}
+    for e in entries:
+        for kind in {s.get("kind") for s in (e.get("sources") or [])}:
+            if kind in per_kind:
+                per_kind[kind] += 1
+    label = ("Entries linking each kind of source, out of " + str(n) + ". "
+             + "; ".join(f"{SRC_LABEL[k]}: {per_kind[k]}" for k in SRC_ORDER))
+    bars = f'<div class="hbars" role="img" aria-label="{esc(label)}">'
+    for k in SRC_ORDER:
+        c = per_kind[k]
+        bars += (f'<div class="hbar" title="{esc(SRC_LABEL[k])}: {c} of {n} entries">'
+                 f'<span class="hbar-label">'
+                 f'<i class="sw" style="background:var(--src-{esc(k)})"></i>'
+                 f'{esc(SRC_CHIP[k])}</span>'
+                 f'<span class="hbar-track"><span class="hbar-fill"'
+                 f' style="width:{js_round(c / n * 100)}%"></span></span>'
+                 f'<span class="hbar-val">{c}</span></div>')
+    bars += "</div>"
+    no_challenge = n - per_kind.get("challenge", 0)
+    return ('<div class="qv-card"><h3 class="qv-title">Evidence chain</h3>' + bars
+            + f'<p class="qv-foot">Of {n} entries. '
+              f'<a href="/review">{no_challenge} link no counterargument</a>: '
+              f'a gap, not a consensus.</p></div>')
+
+
+def standing_card(entries, cap, cls=""):
+    """How long each problem had stood before it fell.
+
+    The one place the registry can say something about the problems rather than about the
+    systems that closed them. Longest first, then newest result, then id: the same
+    deterministic shape as the activity feed, and for the same reason (CI diffs these
+    bytes and ties must not float).
+
+    `cap` is a height budget like topic_card()'s: the home page shows four in a
+    quarter-width card, /visuals shows more across the full row. `cls` is unused here for
+    the same reason topic_card()'s is: nothing pre-renders the wide variant, but the two
+    implementations have to read as the same function or the parity check stops being
+    obvious to whoever edits one of them.
+    """
+    spans = [(years_open(e), e) for e in entries if years_open(e) is not None]
+    standing = sorted(spans, key=lambda p: (p[0], p[1].get("date", ""), p[1].get("id", "")),
+                      reverse=True)
+    rows = ""
+    for yrs, e in standing[:cap]:
+        rows += (f'<li><a href="/finding/{esc(e["id"])}">'
+                 f'<b>{yrs} yr</b><span>{esc(e["title"])}</span>'
+                 f'<em>posed {e["year_posed"]} · {esc(e.get("model") or "Unknown")}</em>'
+                 f'</a></li>')
+    return (f'<div class="qv-card{" " + cls if cls else ""}">'
+            '<h3 class="qv-title">Open longest before falling</h3>'
+            f'<ol class="standing">{rows}</ol>'
+            f'<p class="qv-foot">From the {len(standing)} of {len(entries)} entries '
+            f'recording a posed year. <a href="/review">Add a missing one</a>.</p></div>')
+
+
 # ------------------------------------------------------------------ structured data
 def claim_review(e, url):
     """ClaimReview: the schema.org type for rating a claim's truthfulness.
@@ -1081,9 +1295,14 @@ def entry_jsonld(e, url):
             claim_review(e, url),
             {
                 "@type": "BreadcrumbList",
+                # Mirrors the visible crumb, topic page included. The two disagreeing is
+                # the one thing a breadcrumb rich result is checked for.
                 "itemListElement": [
                     {"@type": "ListItem", "position": 1, "name": "Registry", "item": f"{SITE}/"},
-                    {"@type": "ListItem", "position": 2, "name": e["title"], "item": url},
+                    {"@type": "ListItem", "position": 2,
+                     "name": FIELD_LABEL.get(e.get("field"), e.get("field")),
+                     "item": f"{SITE}/topic/{e.get('field')}"},
+                    {"@type": "ListItem", "position": 3, "name": e["title"], "item": url},
                 ],
             },
         ],
@@ -1266,6 +1485,7 @@ def entry_page(e, entries, updated):
     challenge = issue_url("grade-challenge.yml", f"Grade challenge: {e['id']}",
                           "current=" + enc_uri_component(grades))
     check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
+    correction = issue_url("correction.yml", f"Correction: {e['id']}")
 
     # The in-UI route, which is now the primary one. Same questions as the issue
     # templates above, same review at the end; the difference is that this one does not
@@ -1405,7 +1625,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <header>{site_header(None, updated)}</header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
-  <a href="/#e-{esc(e["id"])}">{esc(FIELD_LABEL.get(e.get("field"), e.get("field")))}</a>
+  <a href="/topic/{esc(e.get("field"))}">{esc(FIELD_LABEL.get(e.get("field"), e.get("field")))}</a>
   <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
@@ -1430,14 +1650,15 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
       <a class="btn challenge-b" href="{esc(ui_challenge if unchecked else ui_check)}">{"Challenge the grade" if unchecked else "Submit a check"}</a>
       {discuss}
     </div>
-    <p class="challenge-gh">Or do it on GitHub:
+    <p class="challenge-gh">{GH_MARK}<span class="challenge-gh-t">Or on GitHub:</span>
       <a href="{esc(check)}" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
       <a href="{esc(challenge)}" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="{esc(correction)}" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
       <a href="{esc(REPO)}/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
     </p>
   {signal_block(e)}
   </div>
-{section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{sources}{discussion}
+{section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{history_block(e)}{sources}{discussion}
 
   <h2 class="lbl">How this is graded</h2>
   <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
@@ -1449,7 +1670,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 {citation_block(e, url)}
 {nav_html}
 
-  <p class="finding-back"><a href="/#e-{esc(e["id"])}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
+  <p class="finding-back"><a href="/topic/{esc(e.get("field"))}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
   .lower()} findings in the registry</a></p>
 </article>
 
@@ -1458,6 +1679,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <script src="/js/chrome.js" defer></script>
 <script src="/js/entry.js" defer></script>
 <script src="/js/signals.js" defer></script>
+<script src="/js/duru.js" defer></script>
 </body>
 </html>
 '''
@@ -1516,6 +1738,10 @@ def build_llms_txt(entries):
     for field in sorted(by_field, key=lambda k: FIELD_LABEL.get(k, k)):
         lines.append(f"### {FIELD_LABEL.get(field, field)}")
         lines.append("")
+        # The index page for this field, so a crawler that wants the group rather than
+        # the individual results has a URL to cite for it.
+        lines.append(f"All {len(by_field[field])} in one page: {SITE}/topic/{field}")
+        lines.append("")
         for e in sorted(by_field[field], key=lambda x: x.get("date", ""), reverse=True):
             ver = VER_LABEL.get(e["verification"], e["verification"])
             aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
@@ -1528,7 +1754,7 @@ def build_llms_txt(entries):
 
 
 # ------------------------------------------------------------------ sitemap
-def build_sitemap(entries, updated):
+def build_sitemap(entries, updated, hubs=None):
     """Build the sitemap with content-derived lastmod dates.
 
     `lastmod` must come from the data, never from date.today(): the build output is
@@ -1540,6 +1766,7 @@ def build_sitemap(entries, updated):
     urls = [(SITE + path, updated, freq, pri) for path, _, freq, pri in PAGES]
     urls += [(SITE + path, updated, freq, pri)
              for path, listed, freq, pri in CHROME_PAGES if listed]
+    urls += sorted(hubs or [])
     for e in sorted(entries, key=lambda x: x.get("date", ""), reverse=True):
         lastmod = (e.get("added") or e.get("date") or updated)[:10]
         urls.append((f"{SITE}/finding/{e['id']}", lastmod, "monthly", "0.8"))
@@ -1675,6 +1902,51 @@ def build_contribute(entries):
                 "vocabulary tables", "js/contribute.js")
     with open(js_path, "w") as f:
         f.write(js)
+
+
+def build_issue_templates():
+    """Fill the GitHub issue forms' dropdowns from data/vocab.json.
+
+    Same argument as build_contribute(): a contributor's choices are a property of the
+    registry, not of the door they walked through. The two hand-written templates predate
+    this and drifted anyway (see the header of verify-doors.py), so both the new ones
+    generate their vocabularies rather than restating them.
+
+    YAML, so the payload is a list of `- slug (short)` lines at a fixed indent rather than
+    <option> tags. The `(short)` half is what makes a dropdown readable; the slug stays
+    first because that is what a maintainer transcribes into data/entries.json.
+    """
+    def opts(items, indent=8):
+        # "slug: short" rather than "slug (short)": three of the vocabulary's `short`
+        # forms contain parentheses of their own, and nesting them reads as a typo.
+        # Quoted, because a bare YAML scalar containing ": " parses as a mapping.
+        pad = " " * indent
+        return "\n" + "\n".join(
+            pad + "- " + json.dumps(f"{i['slug']}: {i['short']}" if i.get("short")
+                                    else i["slug"])
+            for i in items) + "\n" + pad
+
+    def slugs(values, indent=8):
+        pad = " " * indent
+        return "\n" + "\n".join(pad + "- " + v for v in values) + "\n" + pad
+
+    path = os.path.join(ROOT, ".github", "ISSUE_TEMPLATE", "correction.yml")
+    src = open(path).read()
+    src = inject(src, "# SRCKINDS:START", "# SRCKINDS:END", opts(SRC),
+                 "source kind options", "correction.yml")
+    with open(path, "w") as f:
+        f.write(src)
+
+    path = os.path.join(ROOT, ".github", "ISSUE_TEMPLATE", "new-entry.yml")
+    src = open(path).read()
+    src = inject(src, "# VERIFICATION:START", "# VERIFICATION:END", opts(VER),
+                 "verification options", "new-entry.yml")
+    src = inject(src, "# AUTONOMY:START", "# AUTONOMY:END", opts(AUT),
+                 "autonomy options", "new-entry.yml")
+    src = inject(src, "# FIELDS:START", "# FIELDS:END", slugs(sorted(FIELD_LABEL)),
+                 "field options", "new-entry.yml")
+    with open(path, "w") as f:
+        f.write(src)
 
 
 def build_api_shell(updated):
@@ -1820,6 +2092,23 @@ def hub_mark(org):
             f'{esc((first + second).upper())}</span>')
 
 
+def build_topic_hub(entries):
+    """The topic row of the #sources hub: one link per field, into its derived page.
+
+    This is what keeps topic/ from being a set of orphans: every one of those pages is
+    reachable from the registry in one click, as well as from the breadcrumb on each
+    finding page that belongs to it.
+    """
+    counts = {}
+    for e in entries:
+        if e.get("field"):
+            counts[e["field"]] = counts.get(e["field"], 0) + 1
+    return "".join(
+        f'<a class="topiclink" href="/topic/{esc(f)}">'
+        f'{esc(FIELD_LABEL.get(f, f))}<span>{c}</span></a>'
+        for f, c in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
+
+
 def build_lab_hub(entries):
     """Regenerate the lab row of the #sources hub from the registry itself."""
     counts = {}
@@ -1849,6 +2138,210 @@ def build_lab_hub(entries):
             f'<span>{n} {"entry" if n == 1 else "entries"}</span></span>'
             f'<span class="labcard-go" aria-hidden="true">↗</span></a>')
     return cards
+
+
+# ------------------------------------------------------------------ hub pages
+# A lab needs this many entries before it gets its own page. The registry has 22
+# organisations after hub_org() normalisation and 16 of them hold exactly one entry, so
+# generating a page each would mean sixteen near-identical pages carrying one row: thin
+# for a reader and thin in the eyes of a search engine, which is the opposite of what
+# these are for. Everything below the bar is still reachable through the filtered
+# registry (/?lab=...), and fills in on its own as the registry grows.
+#
+# Fields are not thresholded: there are eleven, every one carries a vocabulary definition
+# worth reading, and "what has AI found in chemistry" is a question the page answers even
+# at one entry.
+HUB_MIN_ENTRIES = 3
+
+
+def slugify(s):
+    """A URL segment from an organisation name. Not reversible, and does not need to be."""
+    out = re.sub(r"[^a-z0-9]+", "-", str(s).lower()).strip("-")
+    return out or "unknown"
+
+
+def hub_page(title, lede, entries, all_entries, url, updated, back):
+    """One derived index page: a heading, a grade breakdown, and the table of entries.
+
+    Assembled from the same renderers the rest of the site uses (hbars_html, table_view,
+    site_header, site_footer) rather than a template of its own, so a change to how the
+    registry looks reaches these pages too.
+    """
+    n = len(entries)
+    gm = {}
+    for e in entries:
+        gm[e["verification"]] = gm.get(e["verification"], 0) + 1
+    # VER is in display order, strongest first. The colour variable matches the pill's,
+    # with the one abbreviation styles.css uses for it.
+    rows = [(v["label"], gm[v["slug"]],
+             f"var(--{'peer' if v['slug'] == 'peer-reviewed' else v['slug']})")
+            for v in VER if gm.get(v["slug"])]
+    checked = sum(1 for e in entries if e.get("independent_checks"))
+
+    desc = (f"{n} {'finding' if n == 1 else 'findings'} in the whataifound.org registry: "
+            f"{lede}")[:300]
+    ld = json_ld({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": f"{url}#page",
+        "name": title,
+        "description": desc,
+        "url": url,
+        "inLanguage": "en",
+        "isPartOf": {"@id": f"{SITE}/#website"},
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": n,
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1,
+                 "url": f"{SITE}/finding/{e['id']}", "name": e["title"]}
+                for i, e in enumerate(entries)],
+        },
+    })
+
+    # Only worth a card if it has rows. A hub whose entries record no posed year would
+    # otherwise carry an empty list under a heading promising one, which is worse than
+    # not asking the question here.
+    standing = (standing_card(entries, 4)
+                if any(years_open(e) is not None for e in entries) else "")
+
+    return f'''<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>{esc(title)} | whataifound.org</title>
+<meta name="description" content="{attr(desc)}">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="canonical" href="{url}">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="{attr(title)}">
+<meta property="og:description" content="{attr(desc)}">
+<meta property="og:url" content="{url}">
+<meta property="og:image" content="{SITE}/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{attr(title)}">
+<meta name="twitter:description" content="{attr(desc)}">
+<meta name="twitter:image" content="{SITE}/assets/brand/og.png">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+
+<script type="application/ld+json">
+{ld}
+</script>
+
+<script>try{{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}}}catch(e){{}}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header>{site_header(None, updated)}
+  <h1 class="meth-title">{esc(title)}</h1>
+  <p class="lede">{esc(lede)}</p>
+</header>
+
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span> <span>{esc(back)}</span>
+</nav>
+
+<main id="main">
+  <div class="qv-grid hub-grid">
+    <div class="qv-card"><h3 class="qv-title">By verification grade</h3>
+      {hbars_html(rows, "By verification grade")}
+      <p class="qv-foot">{checked} of {n} carry an independent check.
+      <a href="/review">Open the review queue</a>.</p></div>
+    {standing}
+  </div>
+
+  {table_view(entries, sortable=False)}
+
+  <p class="finding-back"><a href="/">← The whole registry, {len(all_entries)} findings</a></p>
+</main>
+
+{site_footer()}
+</div>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/duru.js" defer></script>
+</body>
+</html>
+'''
+
+
+def build_hubs(entries, updated):
+    """Write topic/<field>.html and lab/<slug>.html, and return their URLs for the sitemap.
+
+    Derived, not curated: an entry joins a hub the moment its `field` or `lab` says so,
+    with no list to keep in step by hand. Same prune-then-write as finding/, so a hub that
+    empties out stops being served rather than lingering as a stale page.
+    """
+    urls = []
+    groups = []
+
+    by_field = {}
+    for e in entries:
+        by_field.setdefault(e.get("field"), []).append(e)
+    for field, of in by_field.items():
+        if not field:
+            continue
+        label = FIELD_LABEL.get(field, field)
+        groups.append((
+            "topic", field, f"AI findings in {label.lower()}",
+            f"Every finding in the registry filed under {label.lower()}, with what each "
+            f"one claims and how solid the evidence is.", of, label))
+
+    by_lab = {}
+    for e in entries:
+        org = hub_org(e.get("lab"))
+        if org and org not in LAB_HUB_SKIP:
+            by_lab.setdefault(org, []).append(e)
+    for org, of in sorted(by_lab.items()):
+        if len(of) < HUB_MIN_ENTRIES:
+            continue
+        groups.append((
+            "lab", slugify(org), f"AI findings from {org}",
+            f"Every finding in the registry credited to {org}, with what each one claims "
+            f"and how solid the evidence is.", of, org))
+
+    for kind in ("topic", "lab"):
+        out_dir = os.path.join(ROOT, kind)
+        os.makedirs(out_dir, exist_ok=True)
+        keep = {f"{slug}.html" for k, slug, *_ in groups if k == kind}
+        for stale in set(os.listdir(out_dir)) - keep:
+            if stale.endswith(".html"):
+                os.remove(os.path.join(out_dir, stale))
+
+    for kind, slug, title, lede, of, back in groups:
+        url = f"{SITE}/{kind}/{slug}"
+        # Newest first, the order the registry itself uses.
+        of = sorted(of, key=lambda e: e.get("date", ""), reverse=True)
+        page = hub_page(title, lede, of, entries, url, updated, back)
+        with open(os.path.join(ROOT, kind, f"{slug}.html"), "w") as f:
+            f.write(page)
+        urls.append((url, max((e.get("added") or e.get("date") or updated)[:10]
+                              for e in of), "monthly", "0.6"))
+    return urls
 
 
 # How many feed rows the hero column holds. The chart beside it is a fixed 392px and the
@@ -1930,74 +2423,16 @@ def build_activity(entries):
 def build_reports(entries):
     """The four small cards between the hero and the registry, one per marker.
 
-    Returns them separately rather than concatenated because the last two are ports of
-    charts app.js owns for /visuals, and verify-parity.py diffs the bytes between a pair
-    of markers. Pre-rendered like everything else on this page: the crawlers robots.txt
+    Returns them separately rather than concatenated because all four are ports of charts
+    app.js owns for /visuals, and verify-parity.py diffs the bytes between a pair of
+    markers. Pre-rendered like everything else on this page: the crawlers robots.txt
     invites do not run JavaScript.
+
+    The caps are width budgets: these cards are a quarter of the row here against half a
+    page on /visuals, which passes its own.
     """
-    n = len(entries)
-
-    # 1. Evidence chain. The registry's whole thesis is that a result and the claim made
-    # about it are different things, and `kind` is what encodes that per link. Counted
-    # per entry rather than per link: "how many findings have an original work behind
-    # them" is the question, and one paper cited twice is not two papers.
-    per_kind = {k: 0 for k in SRC_ORDER}
-    for e in entries:
-        for kind in {s.get("kind") for s in (e.get("sources") or [])}:
-            if kind in per_kind:
-                per_kind[kind] += 1
-    # Scaled to the registry, not to the tallest row, which is what hbars_html does and is
-    # right for a ranking. This is coverage: a bar is the share of entries that have that
-    # kind of link at all, so 48 of 52 has to read as nearly full and 8 of 52 as nearly
-    # empty. Max-scaling would draw the first at 100% and the second at 17%, which states
-    # the wrong thing about both. Same markup and classes, so it still looks like the
-    # charts beside it. Rows follow vocabulary order (original work, claim, pushback),
-    # not count order, because that sequence is the point the card is making.
-    # Rows use the short `chip` form, not `label`: the label column is 86px in this strip
-    # and "Independent commentary" ellipsises to "Independent co...". The long form stays
-    # in the tooltip and in the aria-label, so nothing is lost to a reader or a screen
-    # reader, only to the visible column that cannot hold it.
-    label = ("Entries linking each kind of source, out of " + str(n) + ". "
-             + "; ".join(f"{SRC_LABEL[k]}: {per_kind[k]}" for k in SRC_ORDER))
-    bars = f'<div class="hbars" role="img" aria-label="{esc(label)}">'
-    for k in SRC_ORDER:
-        c = per_kind[k]
-        bars += (f'<div class="hbar" title="{esc(SRC_LABEL[k])}: {c} of {n} entries">'
-                 f'<span class="hbar-label">'
-                 f'<i class="sw" style="background:var(--src-{esc(k)})"></i>'
-                 f'{esc(SRC_CHIP[k])}</span>'
-                 f'<span class="hbar-track"><span class="hbar-fill"'
-                 f' style="width:{js_round(c / n * 100)}%"></span></span>'
-                 f'<span class="hbar-val">{c}</span></div>')
-    bars += "</div>"
-    no_challenge = n - per_kind.get("challenge", 0)
-    chain = ('<div class="qv-card"><h3 class="qv-title">Evidence chain</h3>' + bars
-             + f'<p class="qv-foot">Of {n} entries. '
-               f'<a href="/review">{no_challenge} link no counterargument</a>: '
-               f'a gap, not a consensus.</p></div>')
-
-    # 2. How long each problem had stood. The one place the registry can say something
-    # about the problems rather than about the systems that closed them.
-    # Longest first, then newest result, then id: same deterministic shape as the feed,
-    # and for the same reason (CI diffs these bytes).
-    spans = [(years_open(e), e) for e in entries if years_open(e) is not None]
-    standing = sorted(spans, key=lambda p: (p[0], p[1].get("date", ""), p[1].get("id", "")),
-                      reverse=True)
-    posed = len(standing)
-    rows = ""
-    for yrs, e in standing[:STANDING_ROWS]:
-        rows += (f'<li><a href="/finding/{esc(e["id"])}">'
-                 f'<b>{yrs} yr</b><span>{esc(e["title"])}</span>'
-                 f'<em>posed {e["year_posed"]} · {esc(e.get("model") or "Unknown")}</em>'
-                 f'</a></li>')
-    longest = ('<div class="qv-card"><h3 class="qv-title">Open longest before falling</h3>'
-               f'<ol class="standing">{rows}</ol>'
-               f'<p class="qv-foot">From the {posed} of {n} entries recording a posed '
-               f'year. <a href="/review">Add a missing one</a>.</p></div>')
-
-    # 3 and 4 are app.js's, ported. The topic cap is a width budget: this card is a
-    # quarter of the row here against half a page on /visuals.
-    return chain, longest, year_card(entries), topic_card(entries, TOPIC_ROWS)
+    return (evidence_card(entries), standing_card(entries, STANDING_ROWS),
+            year_card(entries), topic_card(entries, TOPIC_ROWS))
 
 
 def build_review(entries):
@@ -2333,6 +2768,8 @@ def build_index(entries, updated):
                                   ("RYEAR", year, "findings per year card"),
                                   ("RTOPIC", topic, "topic area card")):
         src = inject(src, f"<!--{marker}:START-->", f"<!--{marker}:END-->", payload, what)
+    src = inject(src, "<!--TOPICHUB:START-->", "<!--TOPICHUB:END-->",
+                 build_topic_hub(entries), "topic hub")
     src = inject(src, "<!--LABHUB:START-->", "<!--LABHUB:END-->", build_lab_hub(entries),
                  "lab hub")
 
@@ -2665,6 +3102,7 @@ def main():
     queued = build_review(entries)
     build_contributors(entries)
     build_contribute(entries)
+    build_issue_templates()
     # After the page builders, so every shell has been written before the shared header
     # and footer go into it. One definition, five pages, no hand-maintained copies.
     build_chrome(updated)
@@ -2681,14 +3119,17 @@ def main():
         with open(os.path.join(out_dir, f"{e['id']}.html"), "w") as f:
             f.write(entry_page(e, entries, updated))
 
+    hubs = build_hubs(entries, updated)
+
     with open(os.path.join(ROOT, "llms.txt"), "w") as f:
         f.write(build_llms_txt(entries))
     with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
-        f.write(build_sitemap(entries, updated))
+        f.write(build_sitemap(entries, updated, hubs))
 
     print(f"Pre-rendered {len(entries)} entries into index.html")
-    print(f"Wrote finding/ ({len(entries)} pages), llms.txt, sitemap.xml "
-          f"({build_sitemap(entries, updated).count('<loc>')} URLs).")
+    print(f"Wrote finding/ ({len(entries)} pages), topic/ and lab/ ({len(hubs)} hub "
+          f"pages), llms.txt, sitemap.xml "
+          f"({build_sitemap(entries, updated, hubs).count('<loc>')} URLs).")
     print(f"Review queue: {queued} of {len(entries)} entries need work.")
 
 

@@ -47,13 +47,19 @@ Autonomy, most to least AI-driven:
 
 ### Archaeology
 
+All 1 in one page: https://whataifound.org/topic/archaeology
+
 - [First Herculaneum scroll read end to end without unrolling it](https://whataifound.org/finding/2026-06-25-herculaneum-scroll-read): PHerc. 1667 was virtually unwrapped and read in full from X-ray scans using learned ink detection: about 1.4 metres of papyrus across roughly 22 columns of Greek, identified as Philodemus, On Gods, Book 8. (Vesuvius Challenge, Community-developed ink-detection neural networks, 2026-06-25; verification: Author verified; autonomy: AI-assisted)
 
 ### Astronomy
 
+All 1 in one page: https://whataifound.org/topic/astronomy
+
 - [An eighth planet around Kepler-90 found by a neural network](https://whataifound.org/finding/2017-12-14-kepler-90i): A convolutional network re-examining Kepler light curves recovered transit signals the standard pipeline had ranked below threshold, yielding Kepler-90i and making Kepler-90 the first star besides the Sun known to host eight planets. (Google Brain / University of Texas at Austin, Convolutional neural network (AstroNet), 2017-12-14; verification: Peer reviewed; autonomy: Search scaffold)
 
 ### Biology
+
+All 6 in one page: https://whataifound.org/topic/biology
 
 - [AI-generated bacteriophage genomes that replicate and kill bacteria](https://whataifound.org/finding/2025-09-17-evo-phage-genomes): Genome language models wrote complete ΦX174-like bacteriophage genomes from scratch; of 285 designs that could be built, 16 produced viable infectious phages, several with faster lysis than the natural virus. (Arc Institute / Stanford University, Evo 1 and Evo 2, 2025-09-17; verification: Author verified; autonomy: AI-led)
 - [Candidate treatment for dry age-related macular degeneration](https://whataifound.org/finding/2025-robin-macular): The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD. (FutureHouse, Robin (multi-agent), 2025-05-01; verification: Claimed; autonomy: AI-led)
@@ -64,15 +70,21 @@ Autonomy, most to least AI-driven:
 
 ### Chemistry
 
+All 3 in one page: https://whataifound.org/topic/chemistry
+
 - [Enzymes with working catalytic machinery designed from scratch](https://whataifound.org/finding/2025-02-13-designed-serine-hydrolases): Diffusion-based protein design produced serine hydrolases with catalytic efficiencies up to 2.2 × 10⁵ M⁻¹s⁻¹ on five folds unlike any natural serine hydrolase, with crystal structures matching the design models to under 1 Å. (Institute for Protein Design, University of Washington, RFdiffusion with PLACER ensemble scoring, 2025-02-13; verification: Peer reviewed; autonomy: Search scaffold)
 - [A language-model agent that planned and ran chemistry experiments on lab robots](https://whataifound.org/finding/2023-12-20-coscientist): Coscientist, driven by GPT-4 with web search, documentation search, code execution and lab automation, designed and executed palladium-catalysed cross-coupling reactions on real robotic hardware from a one-line goal. (Carnegie Mellon University, GPT-4 (Coscientist agent), 2023-12-20; verification: Peer reviewed; autonomy: AI-led)
 - [A new structural class of antibiotic candidates against MRSA](https://whataifound.org/finding/2023-12-20-antibiotic-structural-class): Graph neural networks trained on 39,312 assayed compounds and applied to 12 million molecules surfaced a chemical class active against MRSA in mice, with the substructures driving each prediction made explicit rather than left opaque. (MIT / Broad Institute / Harvard, Ensembles of graph neural networks with substructure attribution, 2023-12-20; verification: Peer reviewed; autonomy: Search scaffold)
 
 ### Climate science
 
+All 1 in one page: https://whataifound.org/topic/climate
+
 - [Medium-range weather forecasts from a graph neural network beat the operational physics model](https://whataifound.org/finding/2023-11-14-graphcast): GraphCast produced more accurate 10-day forecasts than ECMWF's HRES on roughly 90% of the evaluated variable and lead-time combinations, in under a minute on a single TPU against hours on a supercomputer. (Google DeepMind, GraphCast, 2023-11-14; verification: Peer reviewed; autonomy: AI-led)
 
 ### Computer science
+
+All 8 in one page: https://whataifound.org/topic/computer-science
 
 - [Counterexample to the Dinitz–Garg–Goemans conjecture](https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans): An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s. (Independent, GPT-5.6 Pro, 2026-07-22; verification: Claimed; autonomy: AI-led)
 - [Early science acceleration experiments with GPT-5](https://whataifound.org/finding/2025-11-gpt5-science-acceleration): A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science. (OpenAI, GPT-5, 2025-11-20; verification: Peer reviewed; autonomy: AI-assisted)
@@ -85,11 +97,15 @@ Autonomy, most to least AI-driven:
 
 ### Materials science
 
+All 3 in one page: https://whataifound.org/topic/materials
+
 - [Generative model designs crystals to order; its flagship synthesis turned out to be a known compound](https://whataifound.org/finding/2025-01-16-mattergen): MatterGen generates crystal structures conditioned on target properties, and its headline experimental validation was later shown to match a compound reported in 1972 that sits in the model's own training data. (Microsoft Research, MatterGen, 2025-01-16; verification: Disputed; autonomy: Search scaffold)
 - [Large-scale prediction of new stable crystalline materials (GNoME)](https://whataifound.org/finding/2023-11-29-gnome): GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials. (Google DeepMind, GNoME (graph neural network), 2023-11-29; verification: Disputed; autonomy: Search scaffold)
 - [Autonomous laboratory reports solid-state synthesis of new inorganic compounds](https://whataifound.org/finding/2023-11-29-a-lab-synthesis): Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention. (Lawrence Berkeley National Laboratory, A-Lab (ML planning + robotics), 2023-11-29; verification: Disputed; autonomy: AI-led)
 
 ### Mathematics
+
+All 22 in one page: https://whataifound.org/topic/mathematics
 
 - [Counterexamples to the Gaussian moments conjecture](https://whataifound.org/finding/2026-07-20-gaussian-moments): Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved. (Independent, GPT-5.6 Sol Pro + Claude Fable 5, 2026-07-20; verification: Author verified; autonomy: AI-led)
 - [Counterexample to the Jacobian conjecture in dimension three](https://whataifound.org/finding/2026-07-19-jacobian-conjecture): An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939. (Anthropic, Claude Fable 5, 2026-07-19; verification: Formally verified; autonomy: Collaborative)
@@ -116,15 +132,21 @@ Autonomy, most to least AI-driven:
 
 ### Medicine
 
+All 3 in one page: https://whataifound.org/topic/medicine
+
 - [Phase 2a results for a drug whose target and molecule both came from AI](https://whataifound.org/finding/2025-06-03-rentosertib-phase2a): Rentosertib, a TNIK inhibitor whose target was picked by one AI system and whose molecule was generated by another, improved forced vital capacity by 98.4 mL at the top dose against a 20.3 mL decline on placebo in a 71-patient randomised trial. (Insilico Medicine, PandaOmics (target) + Chemistry42 (molecule), 2025-06-03; verification: Peer reviewed; autonomy: Search scaffold)
 - [Pathogenicity predictions for 71 million human missense variants](https://whataifound.org/finding/2023-09-19-alphamissense): An AlphaFold-derived model classified 89% of all 71 million possible human missense variants as likely benign or likely pathogenic, against the roughly 0.1% that carry a clinical classification today. (Google DeepMind, AlphaMissense, 2023-09-19; verification: Peer reviewed; autonomy: AI-led)
 - [Halicin, an antibiotic found by a neural network screening a compound library](https://whataifound.org/finding/2020-02-20-halicin): A graph neural network trained on 2,335 molecules picked halicin out of a repurposing library; it killed multidrug-resistant bacteria including Acinetobacter baumannii and Mycobacterium tuberculosis in vitro and cleared infections in mice. (MIT / Broad Institute, Directed message-passing graph neural network (Chemprop), 2020-02-20; verification: Peer reviewed; autonomy: Search scaffold)
 
 ### Neuroscience
 
+All 1 in one page: https://whataifound.org/topic/neuroscience
+
 - [Complete wiring diagram of an adult fruit-fly brain](https://whataifound.org/finding/2024-10-02-flywire-connectome): Machine segmentation of an electron-microscopy volume, corrected by a large community of proofreaders, produced the first synapse-level map of an entire adult brain: 139,255 neurons and roughly 50 million synapses. (FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont), Automated electron-microscopy segmentation networks, 2024-10-02; verification: Peer reviewed; autonomy: AI-assisted)
 
 ### Physics
+
+All 3 in one page: https://whataifound.org/topic/physics
 
 - [A neural decoder that identifies quantum errors more accurately than hand-designed methods](https://whataifound.org/finding/2024-11-20-alphaqubit): A transformer trained on Google's Sycamore surface-code data cut decoding errors by 6% against tensor-network decoding and 30% against correlated matching, the best reported accuracy at the time. (Google DeepMind / Google Quantum AI, AlphaQubit, 2024-11-20; verification: Peer reviewed; autonomy: AI-led)
 - [Reinforcement learning steers a tokamak away from tearing instabilities](https://whataifound.org/finding/2024-02-21-tearing-mode-avoidance): A controller trained on past DIII-D shots forecast tearing-mode instabilities up to 300 ms ahead and adjusted the plasma in real time to avoid them, holding high-performance conditions that would otherwise have collapsed. (Princeton University / PPPL / DIII-D National Fusion Facility, Deep reinforcement learning controller over a learned plasma model, 2024-02-21; verification: Peer reviewed; autonomy: Search scaffold)

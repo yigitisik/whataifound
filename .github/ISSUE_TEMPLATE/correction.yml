@@ -1,0 +1,99 @@
+name: Send a correction
+description: A small factual fix to an entry that leaves both grades alone.
+title: "Correction: "
+labels: ["correction"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Small factual fixes only: a missing link, a wrong posed year. Anything that would
+        move a grade is a
+        [grade challenge](https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml),
+        and anything larger is better sent as a pull request where the whole diff is
+        visible.
+
+        This asks exactly what [the form on the site](https://whataifound.org/contribute?kind=correction)
+        asks. Use whichever door you prefer; the review is the same either way.
+
+  - type: input
+    id: entry
+    attributes:
+      label: Entry ID
+      description: Prefilled from the finding page. Leave as-is.
+      placeholder: 2026-07-22-dinitz-garg-goemans
+    validations:
+      required: true
+
+  - type: dropdown
+    id: target
+    attributes:
+      label: What needs fixing
+      options:
+        # Order and wording match the picker on /contribute. Slugs, not prose, because
+        # api/_lib/proposals.js validates against these three exact values.
+        - "source: add a source link"
+        - "discussion: add a discussion link"
+        - "year_posed: the year the problem was posed"
+    validations:
+      required: true
+
+  - type: input
+    id: year
+    attributes:
+      label: Year posed
+      description: Only for a year_posed correction. Leave blank otherwise.
+      placeholder: "1999"
+    validations:
+      required: false
+
+  - type: input
+    id: url
+    attributes:
+      label: Link
+      description: Only for a source or discussion correction. Leave blank otherwise.
+      placeholder: https://
+    validations:
+      required: false
+
+  - type: input
+    id: label
+    attributes:
+      label: What to call it
+      description: >
+        How the link should read on the entry. Only for a source or discussion
+        correction.
+      placeholder: Nature (2026)
+    validations:
+      required: false
+
+  - type: dropdown
+    id: sourceKind
+    attributes:
+      label: What kind of source
+      description: >
+        Only for a source correction. The kind describes what a link does, never who
+        published it: a lone researcher announcing their own result is an announcement
+        exactly as a corporate press release is.
+      # Generated from data/vocab.json by build-site.py. Do not hand-edit between the
+      # markers: the build overwrites them, and verify-doors.py fails if this list and
+      # the one on /contribute disagree.
+      options:
+        # SRCKINDS:START
+        - "research: the paper, proof, code or data itself"
+        - "announcement: the claim as first made public, by whoever made it"
+        - "coverage: news and press reporting on the claim"
+        - "commentary: analysis by someone not involved"
+        - "challenge: the case against the claim"
+        # SRCKINDS:END
+    validations:
+      required: false
+
+  - type: textarea
+    id: note
+    attributes:
+      label: What is wrong, and how you know
+      description: >
+        Recorded on the entry as a correction, because a registry that quietly edits
+        itself is worth less than one that does not.
+    validations:
+      required: true

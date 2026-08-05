@@ -6,6 +6,11 @@
 .Spotlight-V100
 .Trashes
 
+# ---- Windows ----
+Thumbs.db
+ehthumbs.db
+desktop.ini
+
 # ---- Editor / IDE ----
 .vscode/
 .idea/
@@ -28,13 +33,14 @@ yarn.lock
 pnpm-lock.yaml
 
 # ---- Vercel ----
-.vercel/
+.vercel
 .vercel.json.local
 
 # ---- Environment / secrets ----
-.env
-.env.*
-!.env.example
+# .env* covers .env, .env.local and .env.production alike. The negation has to stay last:
+# git only reconsiders an excluded path if a later rule re-includes it.
+secrets.*
+.env*
 
 # ---- Stray local-preview symlinks (serve.py needs none; guard against old ones) ----
 app/assets

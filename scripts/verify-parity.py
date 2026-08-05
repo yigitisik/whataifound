@@ -10,11 +10,13 @@ Several renderers in build-site.py are hand-ports of functions in app.js:
                   visuals.html mounts; a drift shows as two different charts of the same
                   data on two pages of the same site.
     table_view()  the sortable table, which is the default view.
-    year_card()   findings per year, and
-    topic_card()  findings by topic area: two of the four cards in the home page's
-                  reports strip, and two of the five on /visuals. Same drift risk as the
-                  matrix, and the topic card additionally has to agree at two different
-                  row caps, so both call sites are checked.
+    year_card()      findings per year,
+    topic_card()     findings by topic area,
+    evidence_card()  the evidence chain, and
+    standing_card()  the problems that stood longest: all four cards in the home page's
+                  reports strip, and four of the nine on /visuals. Same drift risk as the
+                  matrix. The topic and standing cards additionally have to agree at two
+                  different row caps, so both call sites are checked.
 
 This runs the real app.js functions under Node against the real data and diffs them
 against what build-site.py wrote.
@@ -80,19 +82,27 @@ def rendered(start, end):
 # so a failure in either is reported against the right renderer.
 SPLIT = "@@PARITY-SPLIT@@"
 
-# The row cap the home page's copy of the topic chart uses. Read out of build-site.py
-# rather than repeated here, so raising the cap there cannot leave this check silently
-# comparing the wrong two things.
+# The row caps the home page's copies of the topic and standing cards use. Read out of
+# build-site.py rather than repeated here, so raising a cap there cannot leave this check
+# silently comparing the wrong two things.
 _bs = open(os.path.join(ROOT, "scripts", "build-site.py")).read()
-_m = re.search(r"^TOPIC_ROWS = (\d+)$", _bs, re.M)
-if not _m:
-    sys.exit("verify-parity: could not find TOPIC_ROWS in build-site.py")
-TOPIC_ROWS = int(_m.group(1))
+
+
+def cap(name):
+    m = re.search(rf"^{name} = (\d+)$", _bs, re.M)
+    if not m:
+        sys.exit(f"verify-parity: could not find {name} in build-site.py")
+    return int(m.group(1))
+
+
+TOPIC_ROWS = cap("TOPIC_ROWS")
+STANDING_ROWS = cap("STANDING_ROWS")
 
 script = (head + "\nconst DATA = " + json.dumps(entries) + ";\n"
           + "ALL = DATA;\n"
           + "process.stdout.write([DATA.map(card).join('\\n'), matrixCard(), tableView(DATA),"
-          + f" yearCard(), topicCard({TOPIC_ROWS})].join(" + json.dumps(SPLIT) + "));\n")
+          + f" yearCard(), topicCard({TOPIC_ROWS}), evidenceCard(),"
+          + f" standingCard({STANDING_ROWS})].join(" + json.dumps(SPLIT) + "));\n")
 
 # Delivered on stdin rather than as `node -e <script>`: the script embeds the whole
 # registry, and Linux caps a single argv entry at 128 KiB (MAX_ARG_STRLEN) regardless of
@@ -106,7 +116,8 @@ except FileNotFoundError:
 except subprocess.CalledProcessError as exc:
     sys.exit(f"verify-parity: app.js failed to run:\n{exc.stderr}")
 
-js_cards, js_matrix, js_table, js_year, js_topic = js.split(SPLIT)
+(js_cards, js_matrix, js_table, js_year, js_topic,
+ js_evidence, js_standing) = js.split(SPLIT)
 
 checks = [
     ("cards", rendered("<!--ENTRIES:START-->", "<!--ENTRIES:END-->"), js_cards,
@@ -119,6 +130,10 @@ checks = [
      "pre-rendered findings-per-year card matches app.js yearCard() exactly"),
     ("topic", rendered("<!--RTOPIC:START-->", "<!--RTOPIC:END-->"), js_topic,
      f"pre-rendered topic card matches app.js topicCard({TOPIC_ROWS}) exactly"),
+    ("evidence", rendered("<!--RCHAIN:START-->", "<!--RCHAIN:END-->"), js_evidence,
+     "pre-rendered evidence chain card matches app.js evidenceCard() exactly"),
+    ("standing", rendered("<!--RSTANDING:START-->", "<!--RSTANDING:END-->"), js_standing,
+     f"pre-rendered standing card matches app.js standingCard({STANDING_ROWS}) exactly"),
 ]
 
 failed = False

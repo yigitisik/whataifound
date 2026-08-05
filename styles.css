@@ -99,7 +99,7 @@
   #top,#sources,#about{scroll-margin-top:16px}
   ::selection{background:var(--accent);color:var(--bg)}
   a{color:var(--accent)}
-  .wrap{max-width:1120px;margin:0 auto;padding-bottom:72px;
+  .wrap{max-width:1120px;margin:0 auto;padding-bottom:max(72px,calc(48px + env(safe-area-inset-bottom)));
     padding-left:max(32px,env(safe-area-inset-left));padding-right:max(32px,env(safe-area-inset-right))}
 
   /* ---------- Accessibility ---------- */
@@ -167,7 +167,11 @@
     font-family:var(--serif);font-size:.66rem;font-weight:600;letter-spacing:.11em;text-transform:uppercase;
     color:var(--muted);white-space:nowrap;opacity:0;pointer-events:none;
     transition:opacity .18s var(--ease),transform .18s var(--ease),color .2s}
-  .sitenav a:hover .sitenav-label,.sitenav a:focus-visible .sitenav-label{opacity:1;transform:translate(0,-50%)}
+  /* Split: focus-visible is keyboard, not pointer, and an iPad with a keyboard needs it. */
+  .sitenav a:focus-visible .sitenav-label{opacity:1;transform:translate(0,-50%)}
+  @media(hover:hover){
+    .sitenav a:hover .sitenav-label{opacity:1;transform:translate(0,-50%)}
+  }
   .sitenav a:hover .sitenav-dot,.sitenav a:focus-visible .sitenav-dot{width:22px;background:var(--ink)}
   .sitenav a:focus-visible{outline:none}
   .sitenav a:focus-visible .sitenav-dot{outline:2px solid var(--accent);outline-offset:3px}
@@ -222,10 +226,28 @@
     .pagenav::-webkit-scrollbar{display:none}
     .pagenav a{padding:6px 9px}
   }
-  .gh-icon{display:inline-grid;place-items:center;width:26px;height:26px;color:var(--muted);
-    transition:color .2s var(--ease)}
-  .gh-icon:hover,.gh-icon:focus-visible{color:var(--ink)}
-  .gh-icon svg{display:block}
+  /* The two contribution doors, in one segment. Same construction as .theme-seg on
+     purpose: a bordered group reads as one control containing alternatives, which is what
+     these are (a pull request, or signing in to submit through the UI). Rendered loose and
+     at different weights they read as two unrelated utilities, and the heavier one wins. */
+  /* No overflow:hidden here, unlike .theme-seg: the right-hand door becomes an account
+     menu once a session resolves, and its dropdown is absolutely positioned inside it.
+     Clipping the segment would clip the menu away. The corners are rounded per cell
+     instead, one radius less than the container so the two curves nest. */
+  .doors{display:inline-flex;border:1px solid var(--line-strong);border-radius:12px}
+  .door{display:grid;place-items:center;width:31px;height:26px;color:var(--muted);
+    text-decoration:none;transition:color .2s var(--ease),background-color .2s var(--ease)}
+  .doors>.door{border-right:1px solid var(--line-strong);border-radius:11px 0 0 11px}
+  .acct .door{border-radius:0 11px 11px 0}
+  .door:hover,.door:focus-visible{color:var(--ink);background:var(--panel-2)}
+  .door svg{display:block}
+  /* The Google mark is the one thing here that is not currentColor, so it cannot dim on
+     rest and brighten on hover the way its neighbour does. Desaturating it slightly at
+     rest is what keeps the pair balanced; hover restores it. */
+  .door-in svg{filter:saturate(.82);transition:filter .2s var(--ease)}
+  .door-in:hover svg,.door-in:focus-visible svg{filter:saturate(1)}
+  /* The footer's labelled repository link, which is a different thing: it has room for a
+     word, so it keeps one. */
   .gh-link{display:inline-flex;align-items:center;gap:6px}
   .gh-link svg{flex:none}
   .eyebrow .brand{color:var(--accent);font-weight:600;display:inline-flex;align-items:center;
@@ -241,7 +263,12 @@
      between the two centres at this size. */
   .brand .mark{overflow:visible;width:26px;height:26px;flex:none;
     transform:translateY(-1.5px);transition:transform .55s var(--ease)}
-  .brand:hover .mark{transform:translateY(-1.5px) rotate(90deg)}
+  /* Movement on hover, desktop only. iOS applies :hover on tap and keeps it until you
+     tap something else, so an unguarded lift leaves the card sitting 2px high. Colour-only
+     hovers elsewhere are deliberately left alone: on a phone they read as tap feedback. */
+  @media(hover:hover){
+    .brand:hover .mark{transform:translateY(-1.5px) rotate(90deg)}
+  }
   /* The mark assembles itself on load: the two chevrons draw from the shared left vertex
      outward, then the crossbar that turns them into an A fades in, then the serif I.
      Each chevron path is 26.6 units long (two 13.3 legs), so one dash of 27 hides it
@@ -284,6 +311,13 @@
      entry card have to stay above the fold on a 900px window, and the matrix below costs
      ~330px. Type is sized to that budget, not the other way round. */
   h1{font-size:clamp(1.65rem,4.6vw,2rem);margin:0 0 8px;letter-spacing:-.021em;font-weight:600;line-height:1.06;max-width:19ch}
+  /* The sub-page title, matched to the registry's h1 so every page reads as one
+     publication. Lived in a page-scoped <style> block on three pages and was overridden
+     on a fourth, which is how /privacy, /account, /admin, /contribute and the
+     server-rendered /u/<handle> ended up on the bare h1 rule above instead. One rule, so
+     a page cannot opt out of the masthead by forgetting to copy it. */
+  .meth-title{font-size:clamp(1.75rem,5.2vw,2.4rem);margin:0 0 10px;letter-spacing:-.021em;
+    font-weight:600;line-height:1.06}
   .lede{color:var(--muted);font-size:.97rem;line-height:1.46;max-width:96ch;margin:0 0 12px}
   .lede strong{color:var(--ink);font-weight:600}
 
@@ -291,11 +325,24 @@
   .btn{display:inline-flex;align-items:center;gap:7px;padding:10px 17px;border-radius:11px;
     border:1px solid var(--line-strong);background:var(--panel);color:var(--ink);text-decoration:none;
     font-size:.8rem;font-weight:500;letter-spacing:.01em;transition:transform .16s var(--ease),border-color .16s,background .16s,box-shadow .16s}
-  .btn:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+  @media(hover:hover){
+    .btn:hover{border-color:var(--accent);transform:translateY(-1px);box-shadow:var(--shadow)}
+  }
   .btn:active{transform:translateY(0)}
   .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--bg);font-weight:600}
   .btn.primary:hover{filter:brightness(1.06)}
   .btn[aria-expanded="true"]{border-color:var(--accent);color:var(--accent)}
+  /* A provider mark inside a button. flex:none so a long label never squashes it. */
+  .btn>svg{flex:none;display:block}
+  /* Two doors, side by side and the same size, wherever the choice is offered. The
+     masthead makes the same pair as one bordered segment; here there is room for the
+     words, so they are two buttons instead. Both wrap to full width on a narrow screen
+     rather than shrinking, so neither ever reads as the lesser option. */
+  .door-pair{display:flex;flex-wrap:wrap;gap:10px;margin:14px 0}
+  .door-pair .btn{flex:1 1 auto;justify-content:center}
+  @media(max-width:560px){
+    .door-pair .btn{flex:1 1 100%}
+  }
 
   /* ---------- Hero data band ---------- */
   /* Chart left, counts right. The chart gets the wider column because it carries the whole
@@ -362,6 +409,26 @@
     text-decoration:none;transition:filter .16s var(--ease)}
   .feed-foot:hover{filter:brightness(1.04)}
   .feed-foot b{color:var(--ink);font-weight:600;font-variant-numeric:lining-nums tabular-nums}
+
+  /* The history of one entry, on its finding page. Deliberately not .feed-*: those rows
+     are clipped to one line each to hold a fixed-height hero column, and here the note is
+     the content. It wraps, and the row grows. */
+  .hist{list-style:none;margin:0 0 10px;padding:0;display:flex;flex-direction:column;gap:0}
+  .hist-row{display:grid;grid-template-columns:auto auto 1fr;column-gap:10px;
+    align-items:baseline;padding:9px 0;border-bottom:1px solid var(--line)}
+  .hist-row:last-child{border-bottom:none}
+  .hist-date{font-family:var(--serif);font-size:.68rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+  .hist-note{font-size:.88rem;line-height:1.5;color:var(--ink);text-wrap:pretty}
+  .hist-src{margin-left:4px;color:var(--accent);text-decoration:none;white-space:nowrap}
+  .hist-src:hover{text-decoration:underline;text-underline-offset:2px}
+  .hist-foot{font-family:var(--serif);font-size:.74rem;color:var(--muted);margin:0 0 4px}
+  /* Below 560px three columns leave the note about twelve characters wide. Stack the
+     date and pill onto their own row and give the note the full width. */
+  @media(max-width:560px){
+    .hist-row{grid-template-columns:auto 1fr;row-gap:5px}
+    .hist-note{grid-column:1 / -1}
+  }
   .feed-foot-cta{display:block;margin-top:3px;color:var(--accent);font-weight:600;font-size:.72rem}
 
   .hero-links{display:flex;gap:9px;margin:0;font-family:var(--serif);flex-wrap:wrap}
@@ -381,7 +448,9 @@
   .stat{background:var(--panel);padding:19px 20px 17px;position:relative;overflow:hidden;
     border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow);
     transition:transform .2s var(--ease),box-shadow .2s var(--ease),border-color .2s}
-  .stat:hover{transform:translateY(-2px);box-shadow:var(--shadow-card);border-color:var(--line-strong)}
+  @media(hover:hover){
+    .stat:hover{transform:translateY(-2px);box-shadow:var(--shadow-card);border-color:var(--line-strong)}
+  }
   .stat:before{content:"";position:absolute;top:0;left:0;width:34px;height:2px;background:var(--accent);
     transform:scaleX(0);transform-origin:left;animation:barIn .7s var(--ease) .2s forwards}
   .stat b{display:block;font-family:var(--serif);font-size:2rem;font-weight:600;line-height:1;
@@ -396,31 +465,10 @@
      where the shared chrome put a slot for it. Pre-rendered signed-out and swapped by
      chrome.js once /api/me answers; both states are the same height, so the row does
      not move when the session resolves. */
-  /* The slot is sized for the WIDER of its two states, and the identicon that replaces
-     the button is right-aligned inside it. Without the reservation the masthead jumps
-     leftward on every load for a signed-in reader, once /api/me answers and a labelled
-     button becomes a 26px avatar. */
-  .acct{display:inline-flex;align-items:center;justify-content:flex-end;
-    min-height:26px;min-width:83px}
-  /* The one filled element in the eyebrow, and deliberately so: it sits beside the
-     GitHub mark and the theme switcher, and as another outlined glyph it was read as a
-     third toggle rather than as the way in. */
-  .acct-in{display:inline-flex;align-items:center;gap:6px;height:26px;padding:0 10px 0 8px;
-    border-radius:999px;font-family:var(--serif);font-size:.72rem;font-weight:600;
-    letter-spacing:.02em;text-decoration:none;white-space:nowrap;
-    color:var(--bg);background:var(--accent);
-    transition:filter .16s var(--ease),box-shadow .16s var(--ease),transform .16s var(--ease)}
-  .acct-in svg{width:14px;height:14px;display:block;flex:0 0 auto}
-  .acct-in:hover{filter:brightness(1.08);transform:translateY(-1px)}
-  .acct-in:focus-visible{outline:none;box-shadow:0 0 0 3px var(--accent-soft)}
-  /* Under ~420px the eyebrow is carrying the brand and three controls on one line, so
-     the label is the first thing to go. The button stays filled, which is the part that
-     made it findable in the first place. */
-  @media(max-width:420px){
-    .acct{min-width:26px}
-    .acct-in{gap:0;padding:0;width:26px;justify-content:center}
-    .acct-in-t{display:none}
-  }
+  /* Both states are the same 26px now (the Google mark signed out, the identicon signed
+     in), so the slot needs no width reservation: there is nothing for the row to jump by
+     when /api/me answers. It used to reserve 83px for a labelled button. */
+  .acct{display:inline-flex;align-items:center;justify-content:center;min-height:26px}
 
   /* A <details> rather than a scripted popover: it opens on click and closes on Escape
      with no code, and it still works if chrome.js fails after rendering. */
@@ -450,7 +498,23 @@
   .acct-menu>summary>svg{display:block;width:26px;height:26px}
   /* The same global rule puts a top border and margin on every <details>. */
   .acct-menu{margin:0;border-top:0;padding-top:0}
-  .acct-menu>summary:hover,.acct-menu[open]>summary{box-shadow:0 0 0 2px var(--accent)}
+  /* Split: the [open] ring is state, not hover, and must survive on a touch screen. */
+  .acct-menu[open]>summary{box-shadow:0 0 0 2px var(--accent)}
+  @media(hover:hover){
+    .acct-menu>summary:hover{box-shadow:0 0 0 2px var(--accent)}
+  }
+  /* Signed in, the identicon takes over the right-hand door cell, so it has to be shaped
+     like one rather than like a free-standing 26px avatar: full cell width, the segment's
+     own right-hand radius, and no ring (a box-shadow ring would sit outside the segment
+     border and read as a second outline). Hover matches the other door instead. The
+     identicon shrinks to 20px so it has the same breathing room in the cell as the 18px
+     GitHub mark beside it. display:grid, not block, still drops the list-item marker. */
+  .acct .acct-menu>summary{display:grid;place-items:center;width:31px;height:26px;
+    border-radius:0 11px 11px 0;box-shadow:none;
+    transition:background-color .2s var(--ease)}
+  .acct .acct-menu>summary>svg{width:20px;height:20px;border-radius:5px}
+  .acct .acct-menu>summary:hover,.acct .acct-menu[open]>summary{
+    box-shadow:none;background:var(--panel-2)}
   .acct-pop{position:absolute;right:0;top:calc(100% + 8px);z-index:40;min-width:190px;
     display:flex;flex-direction:column;padding:6px;border-radius:13px;
     background:var(--panel);border:1px solid var(--line-strong);box-shadow:var(--shadow-card)}
@@ -708,8 +772,11 @@
   /* ---------- Table view ----------
      All 52 entries on one screen. Scrolls inside its own wrapper rather than pushing the
      page sideways, which is the failure mode of a wide table on a phone. */
-  .tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;
-    background:var(--panel)}
+  /* overscroll-behavior-x:contain stops a sideways flick at the end of the table from
+     being handed to the browser as a back-navigation gesture, which on iOS Safari takes
+     the reader off the page they were scanning. */
+  .tablewrap{overflow-x:auto;overscroll-behavior-x:contain;
+    border:1px solid var(--line);border-radius:14px;background:var(--panel)}
   /* table-layout:fixed, and every column sized: with auto layout the Model column grew
      to fit "OpenAI Sol (construction); Claude Fable (Lean formalisation)" and pushed the
      two grade columns, which are the point of the registry, off the right edge. */
@@ -791,8 +858,10 @@
   .rel-card{display:flex;flex-direction:column;gap:7px;padding:14px 15px;
     border:1px solid var(--line);border-radius:13px;background:var(--panel);
     text-decoration:none;transition:border-color .15s,transform .15s,box-shadow .15s}
-  .rel-card:hover{border-color:var(--line-strong);transform:translateY(-2px);
-    box-shadow:var(--shadow-card)}
+  @media(hover:hover){
+    .rel-card:hover{border-color:var(--line-strong);transform:translateY(-2px);
+      box-shadow:var(--shadow-card)}
+  }
   .rel-grade{align-self:flex-start;font-size:.55rem}
   .rel-title{font-family:var(--serif);font-size:.84rem;line-height:1.4;color:var(--ink)}
   .rel-meta{font-family:var(--serif);font-size:.68rem;color:var(--muted)}
@@ -815,17 +884,104 @@
   }
 
   /* ---------- Back to top ---------- */
-  .totop{position:fixed;right:18px;bottom:18px;z-index:30;width:42px;height:42px;
+  /* bottom is max()'d against the home-indicator inset: at bottom:18px this button sat
+     inside the iPhone gesture strip, where a tap is as likely to dismiss the app as to
+     press it. right likewise, for landscape with the notch on that side. */
+  .totop{position:fixed;right:max(18px,env(safe-area-inset-right));
+    bottom:max(18px,env(safe-area-inset-bottom));z-index:30;width:42px;height:42px;
     display:grid;place-items:center;border:1px solid var(--line-strong);border-radius:50%;
     background:var(--panel);color:var(--muted);cursor:pointer;box-shadow:var(--shadow-card);
     transition:color .15s,border-color .15s,transform .15s}
-  .totop:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
+  @media(hover:hover){
+    .totop:hover{color:var(--ink);border-color:var(--accent);transform:translateY(-2px)}
+  }
   .totop svg{width:17px;height:17px}
   .totop[hidden]{display:none}
+
+  /* ---------- Duru, the mascot ----------
+     A 22x18 pixel badger walking the foot of the page as a read-position indicator. The
+     whole layer is built by js/duru.js and never appears in markup, so nothing here has a
+     counterpart in a generated file. It is pointer-events: none throughout: he is never in
+     the way of a link, and he never carries information the page does not already state.
+
+     Sprites show at exactly 2x native size. Set width only. Giving both dimensions shears
+     the pixel art, and any fractional scale destroys it outright.
+
+     z-index sits below .totop, which shares the bottom-right corner: at full scroll he
+     passes behind the button rather than over it. */
+  .duru-layer{position:fixed;left:0;right:0;bottom:0;height:53px;z-index:20;
+    pointer-events:none}
+  /* He walks out of a gradient rather than off a hard edge. The hairline is the same rule
+     the rest of the site draws, so the strip reads as page chrome and not as a panel. */
+  .duru-fade{position:absolute;left:0;right:0;bottom:0;height:52px;
+    background:linear-gradient(to top,var(--bg) 62%,transparent);
+    border-top:1px solid var(--line)}
+  .duru-track{position:absolute;left:22px;bottom:9px;height:44px;width:calc(100% - 44px)}
+  .duru-stage{position:absolute;left:0;bottom:0;width:56px;height:44px}
+  .duru-img{position:absolute;left:0;bottom:0;image-rendering:pixelated}
+
+  /* Dirt, while digging only. Two puffs on separate loops so they do not pulse in step. */
+  .duru-dirt{position:absolute;opacity:0}
+  .duru-layer.is-dig .duru-dirt{opacity:1}
+  .duru-dirt1{left:34px;bottom:5px;width:4px;height:4px;background:#8f8d82;
+    animation:duru-puff .34s linear infinite}
+  .duru-dirt2{left:36px;bottom:11px;width:3px;height:3px;background:#5b5f57;
+    animation:duru-puff2 .46s linear infinite}
+  @keyframes duru-puff{0%{opacity:.85;transform:translate(0,0) scale(1)}
+    100%{opacity:0;transform:translate(16px,-13px) scale(.4)}}
+  @keyframes duru-puff2{0%{opacity:.7;transform:translate(0,0) scale(1)}
+    100%{opacity:0;transform:translate(21px,-4px) scale(.4)}}
+
+  /* Speech. Rides the sprite's x plus 30px, and holds a non-breaking space when empty so
+     the box keeps its height through the fade instead of collapsing halfway. */
+  .duru-bubble{position:absolute;left:0;bottom:38px;padding:4px 10px;
+    font-family:var(--serif);font-size:.8rem;color:var(--muted);white-space:nowrap;
+    background:var(--panel);border:1px solid var(--line-strong);border-radius:9px;
+    opacity:0;transition:opacity .18s}
+  .duru-layer.is-saying .duru-bubble{opacity:1}
+
+  /* The peek: head only, rising from behind the top edge of whichever caveats disclosure
+     is open. One element, moved between cards by duru.js. The 28px window with
+     overflow:hidden is the edge he rises from, so he is clipped rather than floating. */
+  .entry details{position:relative}
+  .duru-peek{position:absolute;right:22px;top:-28px;width:32px;height:28px;z-index:1;
+    overflow:hidden;pointer-events:none}
+  .duru-peek-img{position:absolute;left:0;bottom:0;width:32px;image-rendering:pixelated;
+    transform:translateY(30px);transition:transform .42s var(--ease)}
+  .duru-peek.is-up .duru-peek-img{transform:translateY(0)}
+
+  /* The sprites are coloured off the real animal against a dark page: sandy grizzled fur
+     on near black. On the light theme that fur lands at nearly the page's own value and he
+     washes out, so the whole sprite is darkened. The filter sits on the stage rather than
+     the image so the dirt goes with it, and it moves every colour together, which keeps
+     the ivory blaze lighter than the body instead of flattening the face.
+
+     Three blocks for the same reason the palette above needs three: a media query and an
+     attribute selector cannot share one rule. Keep in sync. */
+  :root .duru-stage,
+  :root .duru-peek-img{filter:brightness(.58) contrast(1.12) saturate(1.05)}
+  @media (prefers-color-scheme: dark){
+    :root:not([data-theme]) .duru-stage,
+    :root:not([data-theme]) .duru-peek-img{filter:none}
+  }
+  :root[data-theme="dark"] .duru-stage,
+  :root[data-theme="dark"] .duru-peek-img{filter:none}
+
+  /* The global reduce block kills the puff animation but not the opacity that reveals it,
+     which would leave two static grey squares parked beside him. */
+  @media(prefers-reduced-motion:reduce){
+    .duru-layer.is-dig .duru-dirt{opacity:0}
+  }
+  /* He needs track width to mean anything, and digging is driven by hover, which a touch
+     screen does not have. */
+  @media(max-width:860px),(pointer:coarse){
+    .duru-layer,.duru-peek{display:none}
+  }
 
   /* ---------- Keyboard shortcuts dialog ---------- */
   .keys{border:1px solid var(--line-strong);border-radius:16px;background:var(--panel);
     color:var(--ink);padding:24px 26px;max-width:min(430px,92vw);font-family:var(--serif)}
+  .keys{overscroll-behavior:contain}
   .keys::backdrop{background:rgba(0,0,0,.55)}
   .keys h2{margin:0 0 14px;font-size:1rem}
   .keys dl{margin:0 0 14px;display:grid;gap:8px}
@@ -858,7 +1014,9 @@
   .ins{background:var(--panel);border:1px solid var(--line);border-radius:13px;
     padding:13px 15px 12px;box-shadow:var(--shadow);position:relative;overflow:hidden;
     transition:transform .18s var(--ease),border-color .18s,box-shadow .18s}
-  .ins:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow-card)}
+  @media(hover:hover){
+    .ins:hover{transform:translateY(-2px);border-color:var(--line-strong);box-shadow:var(--shadow-card)}
+  }
   .ins:before{content:"";position:absolute;top:0;left:0;width:28px;height:2px;background:var(--accent)}
   .ins b{display:block;font-family:var(--serif);font-size:1.55rem;font-weight:600;line-height:1;
     letter-spacing:-.02em;color:var(--ink);font-variant-numeric:lining-nums tabular-nums}
@@ -911,6 +1069,12 @@
   .vbar-x{font-family:var(--serif);font-size:.6rem;color:var(--muted)}
   /* A chart card that closes an odd row by taking the full grid width. */
   .qv-wide{grid-column:1 / -1}
+  /* The standing list is a column of short rows, so at full width it would run down the
+     left edge with two thirds of the card empty. Two columns give the titles the room
+     they wanted without leaving a void beside them. */
+  .qv-wide .standing{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));
+    column-gap:28px;row-gap:9px}
+  @media(max-width:640px){.qv-wide .standing{grid-template-columns:1fr}}
   /* Shared plot chrome: wrapper, SVG sizing, axis labels and the tooltip below. Named
      .sc-* from when a scatter chart used them too; the evidence/autonomy matrix is the
      only plot now, and a second one would reuse these rather than add its own. */
@@ -959,10 +1123,12 @@
     background:var(--panel);border:1px solid var(--line);border-left:3px solid var(--vc,var(--line-strong));
     border-radius:16px;padding:24px 28px;margin-bottom:16px;box-shadow:var(--shadow);
     transition:transform .18s var(--ease),border-color .18s,box-shadow .18s,background .18s}
-  .entry:hover{transform:translateY(-2px);
-    box-shadow:0 2px 4px rgba(30,28,24,.05),0 16px 40px rgba(30,28,24,.10);
-    border-color:var(--vc,var(--line-strong));
-    background:color-mix(in srgb,var(--vc,var(--line-strong)) 7%,var(--panel))}
+  @media(hover:hover){
+    .entry:hover{transform:translateY(-2px);
+      box-shadow:0 2px 4px rgba(30,28,24,.05),0 16px 40px rgba(30,28,24,.10);
+      border-color:var(--vc,var(--line-strong));
+      background:color-mix(in srgb,var(--vc,var(--line-strong)) 7%,var(--panel))}
+  }
   .entry[data-ver="formal"]{--vc:var(--formal)} .entry[data-ver="independent"]{--vc:var(--independent)}
   .entry[data-ver="peer-reviewed"]{--vc:var(--peer)} .entry[data-ver="author-verified"]{--vc:var(--author)}
   .entry[data-ver="claimed"]{--vc:var(--claimed)} .entry[data-ver="disputed"]{--vc:var(--disputed)}
@@ -1127,7 +1293,9 @@
   .vid-play{flex:0 0 auto;width:38px;height:27px;border:none;border-radius:9px;background:var(--accent);
     color:var(--bg);cursor:pointer;display:grid;place-items:center;font-size:.7rem;
     transition:transform .15s var(--ease),filter .15s}
-  .vid-play:hover{transform:scale(1.08);filter:brightness(1.1)}
+  @media(hover:hover){
+    .vid-play:hover{transform:scale(1.08);filter:brightness(1.1)}
+  }
   .vid-meta{flex:1;display:flex;flex-direction:column;gap:1px;min-width:0}
   .vid-t{font-family:var(--serif);font-size:.77rem;line-height:1.4;color:var(--ink)}
   .vid-ch{font-family:var(--serif);font-size:.66rem;color:var(--muted)}
@@ -1156,8 +1324,10 @@
   .labcard{display:flex;align-items:center;gap:14px;padding:18px 20px;min-width:0;border:1px solid var(--line-strong);
     border-radius:15px;background:var(--panel-2);text-decoration:none;box-shadow:var(--shadow);
     transition:transform .16s var(--ease),border-color .16s,box-shadow .16s}
-  .labcard:hover{transform:translateY(-2px);border-color:var(--accent);
-    box-shadow:0 2px 4px rgba(30,28,24,.05),0 14px 34px rgba(30,28,24,.10)}
+  @media(hover:hover){
+    .labcard:hover{transform:translateY(-2px);border-color:var(--accent);
+      box-shadow:0 2px 4px rgba(30,28,24,.05),0 14px 34px rgba(30,28,24,.10)}
+  }
   .labcard-logo{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:#fff;
     display:grid;place-items:center;padding:6px;box-shadow:inset 0 0 0 1px var(--line)}
   .labcard-logo img{width:100%;height:100%;object-fit:contain;display:block}
@@ -1173,6 +1343,26 @@
   .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem}
   .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
   @media(max-width:640px){.labgrid{grid-template-columns:1fr}}
+  /* Topic row above the lab grid: chips rather than cards, because there are eleven of
+     them and they are internal links to a derived page, not outbound links to a lab. */
+  .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
+  .topiclink{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;
+    border:1px solid var(--line-strong);border-radius:11px;background:var(--panel);
+    font-family:var(--serif);font-size:.8rem;color:var(--ink);text-decoration:none;
+    transition:border-color .16s var(--ease),transform .16s var(--ease)}
+  @media(hover:hover){
+    .topiclink:hover{border-color:var(--accent);transform:translateY(-1px)}
+  }
+  .topiclink span{font-size:.72rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums}
+
+  /* The summary cards at the top of a hub page. Same grid as /visuals uses, but two cards
+     wide at most, so it does not read as a chart page. A hub whose entries record no
+     posed year has only the grade card, and a lone half-width card beside an empty column
+     reads as a missing one, so it takes the row. */
+  .hub-grid{margin:0 0 22px}
+  .hub-grid:has(.qv-card:only-child){grid-template-columns:1fr}
+  @media(max-width:640px){.hub-grid{grid-template-columns:1fr}}
 
   footer{border:1px solid var(--line-strong);margin-top:56px;padding:32px 40px 34px;
     color:var(--muted);font-size:.94rem;background:var(--panel);border-radius:16px;box-shadow:var(--shadow)}
@@ -1201,6 +1391,9 @@
     background:var(--panel-2);border:1px solid var(--line);border-radius:11px;
     padding:11px 14px;word-break:break-word;margin:0}
   .colophon{flex:0 0 auto;font-family:var(--serif);font-size:.7rem;letter-spacing:.04em;margin:0}
+  /* The mascot footnote. Quietest thing in the footer, and the last line on the page. */
+  .mascot-note{font-family:var(--serif);font-size:.72rem;line-height:1.55;color:var(--muted);
+    margin:14px 0 0;max-width:72ch}
   @media(max-width:720px){
     .about-grid{grid-template-columns:1fr}
     .about-foot{flex-direction:column;align-items:flex-start}
@@ -1308,7 +1501,9 @@
   .c-kind{display:block;text-align:left;padding:13px 15px;font:inherit;cursor:pointer;
     background:var(--panel);border:1px solid var(--line);border-radius:11px;
     transition:all .18s var(--ease)}
-  .c-kind:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  @media(hover:hover){
+    .c-kind:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  }
   .c-kind[aria-pressed=true]{border-color:var(--accent);background:var(--accent-soft)}
   .c-kind b{display:block;font-family:var(--serif);font-size:.92rem;font-weight:600;
     color:var(--ink);margin-bottom:4px}
@@ -1413,8 +1608,15 @@
 
   /* The GitHub route, kept and made quieter. Someone who already contributes there
      should not be pushed through a form; someone who does not should not have to. */
-  .challenge-gh{display:flex;flex-wrap:wrap;gap:4px 14px;font-size:.74rem;
-    color:var(--muted);margin:11px 0 0}
+  /* The second door, on a finding page. The two buttons above it are the signed-in route
+     and this is the pull-request route, which is the same pair the masthead segment
+     offers. It was four anonymous text links reading as fine print; the mark is what ties
+     it to the door in the eyebrow, so the choice looks like a choice. It stays quieter
+     than the buttons on purpose: this route asks for a GitHub account. */
+  .challenge-gh{display:flex;flex-wrap:wrap;align-items:center;gap:4px 14px;font-size:.74rem;
+    color:var(--muted);margin:13px 0 0;padding-top:12px;border-top:1px solid var(--line)}
+  .challenge-gh>svg{flex:none;width:15px;height:15px;display:block;margin-right:-6px}
+  .challenge-gh-t{font-weight:600}
   .finding a.challenge-gh-link,.challenge-gh a{color:var(--muted);text-decoration:none}
   .challenge-gh a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
@@ -1497,7 +1699,9 @@
   .q-row{display:flex;align-items:center;gap:18px;padding:14px 16px;background:var(--panel);
     border:1px solid var(--line);border-radius:12px;margin-bottom:8px;
     transition:border-color .16s var(--ease),transform .16s var(--ease)}
-  .q-row:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  @media(hover:hover){
+    .q-row:hover{border-color:var(--line-strong);transform:translateY(-1px)}
+  }
   .q-main{flex:1;min-width:0}
   .q-title{display:block;font-weight:600;color:var(--ink);text-decoration:none;
     line-height:1.35;margin-bottom:7px}
@@ -1588,13 +1792,55 @@
     .labs-hub{padding:24px 18px}
     footer{padding:26px 20px 30px}
   }
+  /* ---------- Touch ----------
+     Apple's HIG asks for 44x44pt, Material for 48x48dp. Two ways to get there, and which
+     one applies is a layout question, not a preference.
+
+     Controls with room simply grow. The eyebrow has none: brand, nav, the doors segment,
+     the theme switcher and the updated stamp share one row that already has no slack at
+     phone width, so growing those would wrap it. Those get a transparent ::after instead,
+     which reaches 44px while the painted control keeps its size. The finger gets the
+     target the eye does not need to see. */
   @media(pointer:coarse){
     .controls input,.controls select{font-size:16px}   /* stop iOS/iPadOS zoom-on-focus */
-    .theme-seg .th{width:40px;height:34px}
     .btn{padding:12px 18px}
     summary{padding-top:13px;padding-bottom:11px}
-    .vid-play{width:46px;height:32px}
     .labcard{padding:18px}
+
+    /* Room to grow: take the real 44px. */
+    .totop{width:44px;height:44px}
+    .vid-play{width:46px;height:44px}
+    .sig-b{padding:11px 14px}
+    .empty-act{padding:12px 18px}
+    .csv-btn{padding:12px 16px}
+    .th-sort{padding:14px 13px}
+    .cite-copy{padding:11px 14px}
+
+    /* Segmented controls: 44px of HEIGHT, 40px of width. In a horizontal strip the
+       vertical miss is the one people make, and adjacent segments cannot be given
+       overlapping hit areas without handing the tap to the wrong segment. Three 44px-wide
+       theme buttons plus two doors would also be 220px of a 375px row, which is more of
+       the masthead than a colour switcher has earned. */
+    .theme-seg .th{width:40px;height:44px}
+    .door{width:40px;height:44px}
+    .acct .acct-menu>summary{width:40px;height:44px}
+
+    /* No room, and no neighbour to collide with: expand the hit area, not the paint.
+       Vertical only, bounded by the element's own width, so links sitting side by side in
+       a wrapped row never steal each other's taps. */
+    .tag-chip,.chip,.pagenav a,.about-links a,.q-sortb{position:relative}
+    .tag-chip::after,.chip::after,
+    .pagenav a::after,.about-links a::after,.q-sortb::after{
+      content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
+      height:44px;min-height:100%}
+    /* The permalink is a lone glyph with nothing beside it, so it can expand both ways. */
+    .permalink{position:relative}
+    .permalink::after{content:"";position:absolute;top:50%;left:50%;
+      transform:translate(-50%,-50%);width:44px;height:44px}
+    /* The tag row and the footer link rows wrap, so their expanded targets would overlap
+       into each other's rows. Give the rows the vertical room the targets need. */
+    .tags{gap:10px 6px}
+    .about-links{gap:10px 14px}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -1622,9 +1868,10 @@
     /* !important, and after the reset above: the * rule would otherwise leave the page
        canvas transparent and the dark theme would print through it. */
     html,body{background:#fff!important}
-    .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.totop,.keys,.listfoot,
+    .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.doors,.totop,.keys,.listfoot,
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
-    .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
+    .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb,
+    .duru-layer,.duru-peek{display:none!important}
     a{text-decoration:underline}
     /* Open every disclosure: a printed page cannot be expanded. */
     details{display:block!important}
