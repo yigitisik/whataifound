@@ -1,13 +1,8 @@
 # Setting up accounts
 
-The static site needs none of this. It builds, deploys and serves exactly as it did
-before; the account control in the header simply stays on "Sign in" and the sign-in link
-returns a plain "not configured" message. Everything below is only for turning accounts on.
-
-Three external things have to exist, and all three need someone with the project's
-accounts to create them. There is no way to script this.
-
----
+The static site needs none of this. Without it the header keeps showing the Google door
+and it returns a plain "not configured" message. Everything below is only for
+turning accounts on, and all of it needs someone with the project's accounts.
 
 ## 1. Google OAuth client
 
@@ -24,8 +19,6 @@ On the OAuth consent screen, request only `openid`, `email` and `profile`. Those
 need no Google verification review. Anything more does, and the site does not use it.
 
 Keep the **client ID** and **client secret**.
-
----
 
 ## 2. Supabase project
 
@@ -52,8 +45,6 @@ degrade instead of failing.
 > becomes interesting. `api/_lib/db.js` also sets `prepare: false`, which the transaction
 > pooler requires.
 
----
-
 ## 3. Session secret
 
 ```bash
@@ -61,8 +52,6 @@ node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
 ```
 
 Rotating this signs every existing session out, which is the intended emergency lever.
-
----
 
 ## 4. GitHub App, for the submission bot
 
@@ -90,8 +79,6 @@ failing at the click. Signing in, signals, submitting and rejecting all work wit
 
 Then: **Generate a private key** (downloads a `.pem`), and **Install App** on this
 repository only. The installation id is the number at the end of the URL you land on.
-
----
 
 ## Wiring it up
 
@@ -127,21 +114,19 @@ API to grant a role, deliberately. Sign in once so the row exists, then in the S
 update accounts set role = 'maintainer' where handle = 'your-handle';
 ```
 
-The same statement is how anyone else is promoted, which is what GOVERNANCE.md's ladder
-describes. A `reader` who guesses the `/admin` URL gets a 404, not a 403, so the page
-cannot be used to find out who holds which role.
-
----
+The same statement promotes anyone else, which is what GOVERNANCE.md's ladder describes.
+A `reader` who guesses the `/admin` URL gets a 404, not a 403, so the page cannot be used to
+find out who holds which role.
 
 ## "Sign-in is not configured on this deployment."
 
 The first thing most people hit. `/api/auth/start` returns this 503 when
-`GOOGLE_CLIENT_ID` is not set **in the deployment that is currently serving the domain**,
-which is not the same question as whether it is set in the project settings.
+`GOOGLE_CLIENT_ID` is not set **in the deployment currently serving the domain**, which is
+not the same question as whether it is set in the project settings.
 
-**Vercel injects environment variables at deploy time. Adding one does not redeploy.**
-The production domain keeps serving the deployment built before you added it, so a
-correctly-set variable still reads as absent until you redeploy:
+**Vercel injects environment variables at deploy time. Adding one does not redeploy.** The
+domain keeps serving the deployment built before you added it, so a correctly-set variable
+reads as absent until you redeploy:
 
 ```bash
 vercel env ls        # confirm the name, and the Environment column
@@ -156,16 +141,12 @@ If it persists, work down this list:
 | Named exactly `GOOGLE_CLIENT_ID` | no `NEXT_PUBLIC_` prefix, no trailing space |
 | The redirect URI is registered with Google | must be exactly `https://<your-domain>/api/auth/callback` |
 
-Two things worth knowing while you debug.
-
 **The check is ordered, so one missing variable can mask another.** `api/auth/start.js`
-tests `GOOGLE_CLIENT_ID` before it signs the flow cookie, so while that 503 is showing you
-cannot tell whether `SESSION_SECRET` is set. If it is missing or shorter than 32
-characters, `api/_lib/session.js` throws and sign-in fails with a 500 at the callback
-instead. Confirm all five together rather than one at a time.
+tests `GOOGLE_CLIENT_ID` before signing the flow cookie, so while that 503 shows you cannot
+tell whether `SESSION_SECRET` is set. Confirm all five together, not one at a time.
 
-**`/api/health` answers this directly.** It reports which variables the running
-deployment actually received, as booleans, never values:
+**`/api/health` answers this directly**, reporting which variables the running deployment
+received, as booleans, never values:
 
 ```bash
 curl -s https://<your-domain>/api/health
@@ -185,11 +166,10 @@ curl -s https://<your-domain>/api/health
 }
 ```
 
-A `false` next to a variable you know you set is the redeploy case above: the dashboard
-and the deployment disagree. `redirectUri` is the value to register with Google, built
-the same way `api/auth/start.js` builds it, so it is authoritative.
+A `false` next to a variable you know you set is the redeploy case above. `redirectUri`
+is the value to register with Google, built the way `api/auth/start.js` builds it.
 
-**Other endpoints tell you which variables did arrive**, without exposing any of them:
+**Other endpoints narrow it further**, without exposing any value:
 
 ```bash
 curl -s https://<your-domain>/api/me        # {"signedIn":false}  -> functions run at all
@@ -198,16 +178,14 @@ curl -so /dev/null -w '%{http_code}\n' \
      "https://<your-domain>/api/auth/start" # 302 -> fixed;  503 -> still missing
 ```
 
-`/api/signals` answering with `"degraded": true` means the database is unreachable;
-answering without it means the query succeeded.
-
----
+`/api/signals` answering with `"degraded": true` means the database is unreachable.
 
 ## Checking it works
 
-1. Load any page. The header shows a person icon at the far right of the masthead.
-2. Click it. You should land on Google's account chooser, then come back to the page you
-   started on, with an identicon in place of the icon.
+1. Load any page. The masthead carries one bordered segment holding two marks: GitHub,
+   then the Google G.
+2. Click the G. You should land on Google's account chooser, then come back to the page
+   you started on, with your identicon in place of the G, in the same cell.
 3. Open `/account`. Your generated handle is two words, something like `patient-lemma`.
 4. In the browser console, `document.cookie` must **not** contain `waf_session` or
    `waf_oauth`: both are `HttpOnly`, and if you can see either, something is wrong.
@@ -232,7 +210,7 @@ With the GitHub App configured, end to end:
 4. Merge it. Reopen `/admin`; the row flips to **Merged**, and the contributor appears on
    `/contributors` and on the entry.
 
-And the guard that makes the bot path safe, which is worth testing once by hand:
+The guard that makes the bot path safe, worth testing once by hand:
 
 ```bash
 git checkout -b submission/test-guard
@@ -249,7 +227,7 @@ Every external dependency degrades rather than breaking the site:
 
 | Missing | What happens |
 |---|---|
-| Everything | The static site is exactly what it was. The header shows "Sign in", which reports that accounts are not configured. |
+| Everything | The static site is exactly what it was. The Google door in the header reports that accounts are not configured. |
 | `db/002` | Signal buttons stay hidden. The review queue is its ordinary evidence-ordered list. |
 | `db/003` | `/account` shows zeroes and no contributions. Submitting reports the queue is unavailable. |
 | GitHub App | `/admin` works, and says approving cannot open a pull request. |

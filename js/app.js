@@ -853,15 +853,34 @@ function score(e, q){
 // cards is one long scroll. A preference rather than a property of the link, so it is
 // remembered the way the theme is, and a URL without ?view= opens the way this visitor
 // last left it. An explicit ?view= in a link still wins for that visit.
+// Nothing stored is NOT the same answer as "table" stored, which is why this no longer
+// collapses both to 'table'. With no preference the viewport decides: .regtable is
+// min-width:1040px, so on a phone the table view opens as a sideways scroll of a page
+// that is supposed to be read. The viewport answer is a default and never a preference,
+// so it is not written back: only the view toggle writes localStorage (see the click
+// handler below), and one link opened on a phone must not put a desktop into cards.
+//
+// The pre-paint script in index.html resolves this identically, so the layout is already
+// correct before this file runs. Change one, change both.
 function storedView(){
-  try { return localStorage.getItem('view') === 'cards' ? 'cards' : 'table'; }
+  try {
+    const v = localStorage.getItem('view');
+    if (v === 'cards' || v === 'table') return v;
+  } catch (e){}
+  try { return matchMedia('(max-width: 720px)').matches ? 'cards' : 'table'; }
   catch (e){ return 'table'; }
 }
 
 function readState(){
   const p = new URLSearchParams(location.search);
   for (const k of PARAMS) STATE[k] = p.get(k) ?? DEFAULTS[k];
-  if (!p.has('view')) STATE.view = storedView();
+  // Only an exact cards|table counts as the link asking for a layout. A present but
+  // malformed ?view= falls through to the preference and then the viewport, which is
+  // what the pre-paint script in index.html does: it matches view=(cards|table) or
+  // nothing at all. Treating a bad value as "table" here instead would put a phone into
+  // the 1040px table off a mistyped URL, and would disagree with the markup already painted.
+  const qv = p.get('view');
+  if (qv !== 'cards' && qv !== 'table') STATE.view = storedView();
   // A hand-edited or truncated URL should degrade to the default rather than render an
   // empty list the visitor has no way to explain.
   if (!SORTS[STATE.sort]) STATE.sort = DEFAULTS.sort;

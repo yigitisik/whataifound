@@ -1,0 +1,36 @@
+# Generated output, committed on purpose.
+#
+# The site is served from the committed files, and check-integrity.py runs on those bytes
+# *before* CI rebuilds them, so committing the output is what makes that check mean
+# anything (see docs/ARCHITECTURE.md). The cost is that a change to the shared header or
+# footer touches every generated page at once, and a reviewer has to find the nine files
+# that were actually written by hand among the seventy-four that were not.
+#
+# linguist-generated collapses these behind "Load diff" in a pull request and drops them
+# from the language statistics. They stay in the diff, one click away, which is the point:
+# hidden by default, never unavailable.
+finding/**                 linguist-generated=true
+topic/**                   linguist-generated=true
+lab/**                     linguist-generated=true
+feed.xml                   linguist-generated=true
+feed.json                  linguist-generated=true
+sitemap.xml                linguist-generated=true
+llms.txt                   linguist-generated=true
+docs/entry.schema.json     linguist-generated=true
+
+# Deliberately absent from the list above:
+#
+#   index.html and the other root pages, which are part generated and part hand-written.
+#   About a quarter of index.html sits outside the <!--...:START/END--> markers and is
+#   never regenerated, which is exactly the region a smuggled payload would live in.
+#   Collapsing it by default would hide the half that most needs reading.
+#
+#   api/_lib/registry.js and api/_lib/shell.js, which are generated but short, and carry
+#   the shared chrome that /u/<handle> renders at request time.
+
+# Normalise line endings so a contributor on Windows cannot rewrite every generated file
+# by opening it. The build writes LF and CI diffs the bytes.
+* text=auto eol=lf
+*.png binary
+*.ico binary
+*.woff2 binary

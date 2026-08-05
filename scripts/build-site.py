@@ -337,11 +337,14 @@ def page_nav(current):
     `current` is the path of the page being built, or None on finding pages, which are
     below all of these rather than beside them.
     """
-    items = ""
-    for path, label, _, _ in PAGES:
-        here = ' aria-current="page"' if path == current else ""
-        items += f'<a href="{path}"{here}>{esc(label)}</a>'
-    return f'<nav class="pagenav" aria-label="Site">{items}</nav>'
+    # One link per line: .pagenav is inline-flex, so the whitespace is not rendered, and
+    # adding or renaming a destination shows as one line rather than as the whole nav.
+    items = [f'<a href="{path}"'
+             + (' aria-current="page"' if path == current else "")
+             + f'>{esc(label)}</a>'
+             for path, label, _, _ in PAGES]
+    return (f'<nav class="pagenav" aria-label="Site">{NL}'
+            + NL.join(items) + f'{NL}</nav>')
 
 
 # ------------------------------------------------------------------ shared chrome
@@ -356,24 +359,61 @@ def page_nav(current):
 # pages from scratch. 404.html is the documented exception and carries its own inlined
 # copy, because it is self-contained by design so it still renders if styles.css fails.
 
+# The shared chrome is emitted one element per line rather than as one long string, and
+# that is load-bearing rather than cosmetic. It used to be a single unbroken line per
+# function, so a one-word change to the footer showed up in git as a 3.5 KB line deleted
+# and a 3.5 KB line added, on all 74 generated pages at once, with no way to see what
+# actually moved. Broken up, the same change is a few short readable lines.
+#
+# THE RULE, if you add to the chrome: break only between children of a flex container, a
+# grid container, or a block-level element. Never between inline children. Whitespace-only
+# text nodes are dropped between flex and grid items and collapse away between block
+# siblings, but between inline elements a newline renders as a space and moves the layout.
+# `.updated` and the interior of any <p> are the places that bite; both are left on one
+# line on purpose, and each says so where it is written.
+#
+# Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
+# .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
+# .about-links flex, .about-foot flex, footer and .about-cell block.
+NL = "\n"
+
 # The gradient id has to be unique within a page (a duplicate collides and the second
 # mark renders blank), so this is the only place a page gets one.
-BRAND_MARK = (
-    '<svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">'
+# Broken per element: whitespace outside <text> is not rendered in SVG, so a change to one
+# path shows as one line rather than swapping the whole 830-byte mark.
+BRAND_MARK = NL.join([
+    '<svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">',
     '<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1">'
     '<stop offset="0" stop-color="#5aa9e6"/>'
     '<stop offset="0.5" stop-color="#7c6cf0"/>'
     '<stop offset="1" stop-color="#d98a4a"/>'
-    '</linearGradient></defs>'
+    '</linearGradient></defs>',
     '<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)"'
-    ' stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    ' stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>',
     '<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor"'
-    ' stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>'
+    ' stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>',
     '<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)"'
-    ' fill-opacity="0.75"/>'
+    ' fill-opacity="0.75"/>',
     '<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4'
-    ' h-1.35 z" fill="url(#mk-i)"/>'
-    '</svg>')
+    ' h-1.35 z" fill="url(#mk-i)"/>',
+    '</svg>',
+])
+
+# The four-colour G, the only form Google's branding guidelines permit on a sign-in
+# control. It is the one place on the site where a mark is not drawn in currentColor, and
+# that is the point: it names the provider before the click rather than after it. Same
+# geometry as assets/external-logos/google.svg, which the registry uses for Google as a
+# lab; here it is doing the other job the mark does, and the two never appear together.
+GOOGLE_MARK = (
+    '<svg viewBox="0 0 24 24" width="17" height="17" aria-hidden="true">'
+    '<path fill="#4285F4" d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04'
+    ' 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"/>'
+    '<path fill="#34A853" d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23'
+    ' 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z"/>'
+    '<path fill="#FBBC05" d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18'
+    'C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z"/>'
+    '<path fill="#EA4335" d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12'
+    ' 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z"/></svg>')
 
 GH_MARK = (
     '<svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor"'
@@ -388,47 +428,61 @@ GH_MARK = (
 # Light / System / Dark. Wired by chrome.js, which loads on every page: app.js owns 47 KB
 # of filtering and charts and is not on the sub-pages, which is exactly why the switcher
 # used to be missing from them.
-THEME_SEG = (
-    '<span class="theme-seg" role="group" aria-label="Colour theme">'
+THEME_SEG = NL.join([
+    '<span class="theme-seg" role="group" aria-label="Colour theme">',
     '<button type="button" class="th" data-mode="light" aria-label="Light theme"'
     ' aria-pressed="false" title="Light">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/>'
     '<path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3'
-    'M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>'
+    'M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>',
     '<button type="button" class="th" data-mode="system" aria-label="System theme"'
     ' aria-pressed="false" title="System">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
     '<rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/>'
-    '</svg></button>'
+    '</svg></button>',
     '<button type="button" class="th" data-mode="dark" aria-label="Dark theme"'
     ' aria-pressed="false" title="Dark">'
     '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"'
     ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    '<path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>'
-    '</span>')
+    '<path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>',
+    '</span>',
+])
 
 
-# Signed out, the account slot is an icon the same 26px as the identicon that replaces
-# it, so the masthead is exactly as wide before and after the session resolves and the
-# row never reflows. It is an icon rather than a "Sign in" pill because the eyebrow
-# already carries the brand, the five-item nav, the GitHub link, a three-button theme
-# switcher and the updated stamp: a fourth text control tipped the row onto two lines at
-# every width the site supports. The label survives for anyone who needs it, on
-# aria-label and title.
-# The signed-out account control, and the one thing in the eyebrow that is an action
-# rather than a utility. It carries the word because a bare person glyph sitting between
-# a GitHub mark and a theme switcher reads as a third toggle: three outlined icons of the
-# same weight, and the only one that does anything consequential is the one nobody
-# notices. Filled with the accent so it is the single filled element in the row.
+# The two doors, in one control.
+#
+# CONTRIBUTING.md's whole framing is that there are two equal ways in: a pull request, and
+# signing in to submit through the UI. The eyebrow used to contradict that. The GitHub mark
+# was a bare 26px glyph reading as a utility, and beside it sat a filled accent "Sign in"
+# pill, so the two doors were rendered at wildly different weights and only one looked like
+# an offer at all.
+#
+# They are one segment now, bordered like the theme switcher, which makes them read as a
+# pair of alternatives rather than as two unrelated controls that happen to be adjacent.
+# Both are 26px, so the row is the same width signed in or out: chrome.js swaps the Google
+# mark for the identicon in place, and nothing reflows when the session resolves.
+#
+# Neither carries a visible word. That was tried and reverted once (a bare person glyph
+# among outlined icons did read as a third toggle), but the objection was to a *neutral*
+# glyph: these are two of the most recognisable marks on the web, and the border now says
+# they are actions. The labels survive on aria-label and title.
 SIGNIN_LINK = (
-    '<a class="acct-in" href="/api/auth/start" data-signin title="Sign in">'
-    '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9"'
-    ' stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">'
-    '<circle cx="12" cy="8.2" r="3.6"/>'
-    '<path d="M4.8 20.2a7.4 7.4 0 0 1 14.4 0"/></svg>'
-    '<span class="acct-in-t">Sign in</span></a>')
+    '<a class="door door-in" href="/api/auth/start" data-signin'
+    ' aria-label="Sign in with Google" title="Sign in with Google">'
+    f'{GOOGLE_MARK}</a>')
+
+DOORS_SEG = NL.join([
+    '<span class="doors" role="group" aria-label="Ways to contribute">',
+    f'<a class="door" href="{REPO}" target="_blank" rel="noopener"'
+    ' aria-label="Source and pull requests on GitHub" title="Source on GitHub">'
+    f'{GH_MARK}</a>',
+    # chrome.js replaces the contents of this span with the account menu once /api/me
+    # answers, so the identicon lands inside the segment where the G was.
+    f'<span class="acct" data-acct>{SIGNIN_LINK}</span>',
+    '</span>',
+])
 
 
 def site_header(current, updated, extra_class=""):
@@ -438,30 +492,32 @@ def site_header(current, updated, extra_class=""):
     rather than beside it. `extra_class` carries the home page's intro animation hooks.
     """
     cls = ("eyebrow " + extra_class).strip()
-    return (
-        f'<div class="{esc(cls)}">'
-        f'<a class="brand" href="/" aria-label="whataifound.org home">{BRAND_MARK}'
-        f'<span class="wm">what<span class="ai">ai</span>found.org</span></a>'
-        f'{page_nav(current)}'
-        f'<span class="eyebrow-right">'
-        f'<a class="gh-icon" href="{REPO}" target="_blank" rel="noopener"'
-        f' aria-label="Source code on GitHub" title="Source on GitHub">{GH_MARK}</a>'
-        f'{THEME_SEG}'
-        # Pre-rendered in the signed-out state, which is what a crawler and a reader
-        # with no session both see. chrome.js replaces the inner markup once /api/me
-        # answers; the outer span keeps its size either way, so the row does not jump
-        # when the session resolves. `return_to` is filled in by chrome.js from the
-        # current URL, so signing in from a finding page comes back to that page.
-        f'<span class="acct" data-acct>{SIGNIN_LINK}</span>'
+    return NL.join([
+        f'<div class="{esc(cls)}">',
+        f'<a class="brand" href="/" aria-label="whataifound.org home">{BRAND_MARK}',
+        f'<span class="wm">what<span class="ai">ai</span>found.org</span></a>',
+        f'{page_nav(current)}',
+        f'<span class="eyebrow-right">',
+        # The two contribution doors, then the theme switcher, then the stamp: three
+        # controls of falling consequence, left to right. Pre-rendered signed out, which
+        # is what a crawler and a reader with no session both see. `return_to` is filled
+        # in by chrome.js from the current URL, so signing in from a finding page comes
+        # back to that page.
+        f'{DOORS_SEG}',
+        f'{THEME_SEG}',
         # The word "Updated" is dropped from the visible badge and kept for screen
         # readers. It cost about seventy pixels of the eyebrow, which is the only row on
         # the site with no slack, and it was spending them on a label the pulse dot and
-        # an ISO date already imply. Those pixels now carry the word "Sign in", which is
-        # an action a reader can take rather than a status they can only read.
+        # an ISO date already imply.
+        #
+        # This one stays on a single line. .updated has no display of its own, so its
+        # children are inline and a newline between them would render as a space: the
+        # pulse dot would drift off the date. See the note on NL above.
         f'<span class="updated" title="Registry last updated"><span class="pulse"></span>'
         f'<span class="vh">Registry last updated </span>'
-        f'<b id="updated">{esc(updated)}</b></span>'
-        f'</span></div>')
+        f'<b id="updated">{esc(updated)}</b></span>',
+        f'</span></div>',
+    ])
 
 
 def site_footer():
@@ -472,68 +528,92 @@ def site_footer():
     costs about 3 KB, which is the right trade on a leaf page that until now offered no
     way back into the site at all.
     """
-    return (
-        '<footer id="about">'
-        '<div class="about-grid">'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Editorial policy</h2>'
+    # One line per element, per the rule on NL above. The cells are grid items and the
+    # .about-links rows are flex containers, so every break here falls between flex, grid
+    # or block children and none of them renders as a space. The prose paragraphs stay
+    # whole: their content is inline, and breaking inside one would show up on the page.
+    return NL.join([
+        '<footer id="about">',
+        '<div class="about-grid">',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Editorial policy</h2>',
         '<p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is '
         'ever deleted: entries are downgraded and annotated, and the history stays public. '
-        'Every entry carries a novelty check, including when it comes back clean.</p>'
-        '<p class="about-links"><a href="/methodology">Full rules →</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Use the data</h2>'
+        'Every entry carries a novelty check, including when it comes back clean.</p>',
+        '<p class="about-links"><a href="/methodology">Full rules →</a></p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Use the data</h2>',
         '<p>The whole registry is one open file under '
         '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
         ' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with '
-        'attribution.</p>'
-        '<p class="about-links"><a href="/data/entries.json" download>Download JSON</a>'
-        '<a href="/feed.xml">RSS</a><a href="/feed.json">JSON Feed</a>'
-        f'<a href="{SITE}/LICENSE">License</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Contribute</h2>'
+        'attribution.</p>',
+        '<p class="about-links">',
+        '<a href="/data/entries.json" download>Download JSON</a>',
+        '<a href="/feed.xml">RSS</a>',
+        '<a href="/feed.json">JSON Feed</a>',
+        f'<a href="{SITE}/LICENSE">License</a>',
+        '</p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Contribute</h2>',
         '<p>Most entries have never been checked outside the lab that announced them. A check '
         'takes one form to submit, needs no GitHub account, and is credited on the entry '
-        'and on the contributors page.</p>'
-        '<p class="about-links"><a href="/contribute">Contribute →</a>'
-        '<a href="/review">Review queue</a>'
-        '<a href="/contributors">Contributors</a>'
-        f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a></p>'
-        '</section>'
-        '<section class="about-cell">'
-        '<h2 class="lbl">Source</h2>'
+        'and on the contributors page.</p>',
+        '<p class="about-links">',
+        '<a href="/contribute">Contribute →</a>',
+        '<a href="/review">Review queue</a>',
+        '<a href="/contributors">Contributors</a>',
+        f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>',
+        '</p>',
+        '</section>',
+
+        '<section class="about-cell">',
+        '<h2 class="lbl">Source</h2>',
         '<p>Site and registry are open on GitHub. Corrections and new entries are welcome by '
-        'pull request.</p>'
-        '<p class="about-links">'
-        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}'
-        'Repository</a>'
+        'pull request.</p>',
+        '<p class="about-links">',
+        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}Repository</a>',
         # The only route to /privacy from a page that is not /account or /contribute.
         # It is a footer link by design (see CHROME_PAGES) and was not actually in the
         # footer, so a reader on the registry had no way to reach it at all.
-        '<a href="/privacy">Privacy</a>'
+        '<a href="/privacy">Privacy</a>',
         '<a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"'
-        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>'
-        '</p></section>'
-        '</div>'
-        '<section class="about-note">'
-        '<h2 class="lbl">Disclaimer</h2>'
+        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>',
+        '</p>',
+        '</section>',
+
+        '</div>',
+
+        '<section class="about-note">',
+        '<h2 class="lbl">Disclaimer</h2>',
         '<p>We run whataifound.org as an independent editorial project, as volunteer work. '
         'Verification and autonomy grades are our good-faith judgments from public '
         'information, provided "as is" without warranty, and may change as new evidence '
         'emerges. Nothing here is scientific, legal, or investment advice. We are not '
         'affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; '
         'logos and names are trademarks of their owners and appear for identification only. '
-        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>'
-        '</section>'
-        '<div class="about-foot">'
+        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>',
+        '</section>',
+
+        '<div class="about-foot">',
         '<p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI '
         'Scientific and Mathematical Discoveries.</em> Retrieved '
-        f'<span id="cite-date">2026</span> from {SITE}/</p>'
-        '<p class="colophon">© 2026 Isik &amp; Co.</p>'
-        '</div>'
-        '</footer>')
+        f'<span id="cite-date">2026</span> from {SITE}/</p>',
+        '<p class="colophon">© 2026 Isik &amp; Co.</p>',
+        '</div>',
+
+        # Where a colophon note belongs, and the only place the mascot is named. He is
+        # decorative and says nothing the page does not, so the explanation is a footnote
+        # rather than a feature: a reader who never sees him loses nothing by reading this.
+        '<p class="mascot-note"><b>Duru</b> is the badger digging along the bottom of the '
+        'page: a guru, with a <em>d</em> for discovery, data and diligence. A badger keeps '
+        'digging at one spot, which is rather the point here.</p>',
+        '</footer>',
+    ])
 
 
 HANDLE_RE = r"[a-z0-9]+(?:-[a-z0-9]+)*"
@@ -1570,7 +1650,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
       <a class="btn challenge-b" href="{esc(ui_challenge if unchecked else ui_check)}">{"Challenge the grade" if unchecked else "Submit a check"}</a>
       {discuss}
     </div>
-    <p class="challenge-gh">Or do it on GitHub:
+    <p class="challenge-gh">{GH_MARK}<span class="challenge-gh-t">Or on GitHub:</span>
       <a href="{esc(check)}" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
       <a href="{esc(challenge)}" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
       <a href="{esc(correction)}" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
@@ -1599,6 +1679,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <script src="/js/chrome.js" defer></script>
 <script src="/js/entry.js" defer></script>
 <script src="/js/signals.js" defer></script>
+<script src="/js/duru.js" defer></script>
 </body>
 </html>
 '''
@@ -2202,6 +2283,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 {site_footer()}
 </div>
 <script src="/js/chrome.js" defer></script>
+<script src="/js/duru.js" defer></script>
 </body>
 </html>
 '''
