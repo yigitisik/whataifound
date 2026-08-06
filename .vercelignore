@@ -2,7 +2,17 @@
 # and every generated file (index.html's entries, finding/, llms.txt, sitemap.xml, the
 # feeds) is built locally and committed. Keeping these out keeps the CDN bundle to
 # exactly what is served.
-scripts/
+#
+# `scripts/*` rather than `scripts/`, and the difference is load-bearing: an excluded
+# *directory* is never descended into, so a later negation inside it can never match and
+# fails silently. Excluding the contents keeps the directory walkable, which is what lets
+# the one exception below actually take effect.
+scripts/*
+
+# That exception: vercel.json's ignoreCommand runs this before a build to decide whether
+# the push changed anything that is actually served, so it has to survive the line above
+# and be on disk when Vercel looks for it.
+!scripts/vercel-ignore-build.sh
 
 # CI runs on GitHub, not Vercel.
 .github/

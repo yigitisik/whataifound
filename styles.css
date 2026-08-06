@@ -221,10 +221,39 @@
   .pagenav a[aria-current="page"]{color:var(--accent);background:var(--accent-soft);font-weight:600;
     box-shadow:inset 0 0 0 1px var(--accent),0 1px 2px rgba(0,0,0,.10)}
   @media(max-width:720px){
-    .pagenav{width:100%;order:3;gap:0;margin-top:2px;
-      overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+    /* Its own row, under the control cluster. margin-top was 2px, tuned when that cluster
+       was 26px tall; at coarse pointer those cells become 44px and the two rows read as
+       colliding rather than as two rows.
+
+       min-height is the load-bearing one. overflow-x:auto computes overflow-y to auto as
+       well (there is no way to scroll one axis and let the other visibly overflow), so the
+       ::after hit-area expanders the coarse block puts on .pagenav a were cropped by a
+       36px tray: the touch contract was satisfied in the stylesheet and clipped on the
+       device. Sizing the tray to the target instead of fighting the clip is what makes the
+       two agree, and the links stretch to fill it so the painted target and the touch
+       target are one rectangle. 46px, not 44: the tray's own hairline sits inside the
+       height, and the vertical padding goes to zero, or the links stretch to 44 minus
+       both and the row is short again.
+
+       The tray scrolls with no scrollbar, so the only thing that can say the row continues
+       is the content dissolving at the edge. A mask, not an overlay: an overlay would have
+       to be painted in --panel and would go wrong the moment the tray sits on another
+       surface. It fades .pagenav:after with the links, which is right, the highlight
+       should end where the tray appears to. scroll-padding-inline holds a tab clear of the
+       fade when the row is scrolled to either end. */
+    .pagenav{width:100%;order:3;gap:0;margin-top:10px;min-height:46px;
+      padding:0 3px;
+      overflow-x:auto;flex-wrap:nowrap;scrollbar-width:none;-webkit-overflow-scrolling:touch;
+      scroll-padding-inline:10px;
+      -webkit-mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%);
+      mask-image:linear-gradient(90deg,transparent 0,#000 18px,#000 calc(100% - 18px),transparent 100%)}
     .pagenav::-webkit-scrollbar{display:none}
-    .pagenav a{padding:6px 9px}
+    /* align-self:stretch, not just align-items on the tray: the links are flex items in a
+       row whose default alignment leaves them at content height, so a 44px tray held 32px
+       links and the extra 12px belonged to no target at all. Stretched, the painted tab
+       and the tappable tab are the same rectangle, which is also what lets the coarse
+       block's expander resolve against something real. */
+    .pagenav a{padding:6px 11px;display:flex;align-items:center;align-self:stretch}
   }
   /* The two contribution doors, in one segment. Same construction as .theme-seg on
      purpose: a bordered group reads as one control containing alternatives, which is what
@@ -1396,7 +1425,13 @@
     margin:14px 0 0;max-width:72ch}
   @media(max-width:720px){
     .about-grid{grid-template-columns:1fr}
+    /* Column flips the main axis, which turns .cite's 460px flex-basis into a 460px MIN
+       HEIGHT: the citation is three lines, so the footer rendered about 400px of empty
+       card between the disclaimer and the colophon. Basis back to auto, the same reset
+       .rc-k takes when .rc-row stacks. width:100% keeps the card full-bleed, which is
+       what the 460px basis was buying on the row. */
     .about-foot{flex-direction:column;align-items:flex-start}
+    .cite{flex:0 1 auto;width:100%}
   }
   .empty{text-align:center;color:var(--muted);padding:56px;font-family:var(--serif);font-size:.86rem;
     background:var(--panel);border:1px solid var(--line);border-radius:16px}
@@ -1756,8 +1791,13 @@
   /* ---------- Responsive: tablet & phone ---------- */
   @media(max-width:720px){
     .wrap{padding-left:max(20px,env(safe-area-inset-left));padding-right:max(20px,env(safe-area-inset-right))}
-    /* Narrower gutters: stop the masthead bleeding past them, and tighten its inner padding. */
-    header{margin:12px -8px 24px;padding:30px 22px 26px;border-radius:16px}
+    /* Desktop bleeds the card 24px past the text column for optical alignment. At phone
+       width the gutter is only 20px, so a bleed of any size puts the card's edge between
+       the type and the viewport edge: aligned to neither, which is what made the tab row
+       inside it read as clipped by accident. Margin 0 aligns the card to the gutter at
+       every width below 720, and the inner padding tightens to pay for the taller
+       touch-sized controls. */
+    header{margin:12px 0 24px;padding:26px 20px 22px;border-radius:16px}
     header:after{border-radius:16px 16px 0 0}
     .entry{grid-template-columns:1fr;gap:16px;padding:20px}
     .rail{border-right:none;border-bottom:1px solid var(--line);padding-right:0;padding-bottom:16px;
@@ -1769,11 +1809,19 @@
     .rc-k{flex-basis:84px}
   }
   @media(max-width:560px){
-    header{margin:8px 0 20px;padding:24px 18px 22px;border-radius:14px}
+    header{margin:8px 0 20px;padding:22px 18px 18px;border-radius:14px}
     header:after{border-radius:14px 14px 0 0}
     .stats{gap:9px}
-    .eyebrow{gap:12px 14px}
+    /* Column gap only. The pagenav carries its own top margin now, and it is the one item
+       here that takes a full row, so a row gap on top of that spends two spacings on one
+       break. */
+    .eyebrow{gap:0 14px}
     .eyebrow-right{width:100%;justify-content:flex-start;gap:10px 12px}
+    /* Four items in a cluster whose first three are 44px tall at touch: the stamp wrapped
+       onto its own line and bought about 26px of masthead to restate a date the footer
+       citation already carries. display:none rather than visibility, so it costs no
+       layout; the date stays in the markup, and .vh keeps its label for a screen reader. */
+    .eyebrow .updated{display:none}
     .lede{font-size:1rem}
     .stat{padding:16px 16px 14px} .stat b{font-size:1.7rem}
     .controls{position:static;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 0 16px}
@@ -1833,6 +1881,15 @@
     .pagenav a::after,.about-links a::after,.q-sortb::after{
       content:"";position:absolute;left:0;right:0;top:50%;transform:translateY(-50%);
       height:44px;min-height:100%}
+    /* .pagenav is the one member of that list living inside a scroller, and a scroller
+       clips both axes, so the 44px above was cropped to the tray and the real target was
+       smaller than the stylesheet claimed. Sized from the other direction instead: the
+       720px block gives the tray 46px, a 44px interior once its own hairline is counted,
+       and stretches the links to fill it, so the target is the tab itself and needs no
+       expansion past a boundary that would clip it.
+       auto rather than a length, because any fixed height here is either short of the
+       tray or clipped by it. */
+    .pagenav a::after{height:auto;top:0;bottom:0;transform:none}
     /* The permalink is a lone glyph with nothing beside it, so it can expand both ways. */
     .permalink{position:relative}
     .permalink::after{content:"";position:absolute;top:50%;left:50%;

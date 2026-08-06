@@ -3,6 +3,7 @@
   "framework": null,
   "cleanUrls": true,
   "trailingSlash": false,
+  "ignoreCommand": "bash scripts/vercel-ignore-build.sh",
   "rewrites": [
     {
       "source": "/u/:handle",
