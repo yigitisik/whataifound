@@ -623,13 +623,6 @@ def site_footer():
         f'<span id="cite-date">2026</span> from {SITE}/</p>',
         '<p class="colophon">© 2026 Isik &amp; Co.</p>',
         '</div>',
-
-        # Where a colophon note belongs, and the only place the mascot is named. He is
-        # decorative and says nothing the page does not, so the explanation is a footnote
-        # rather than a feature: a reader who never sees him loses nothing by reading this.
-        '<p class="mascot-note"><b>Duru</b> is the badger digging along the bottom of the '
-        'page: a guru, with a <em>d</em> for discovery, data and diligence. A badger keeps '
-        'digging at one spot, which is rather the point here.</p>',
         '</footer>',
     ])
 
@@ -1697,7 +1690,6 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <script src="/js/chrome.js" defer></script>
 <script src="/js/entry.js" defer></script>
 <script src="/js/signals.js" defer></script>
-<script src="/js/duru.js" defer></script>
 </body>
 </html>
 '''
@@ -2345,7 +2337,6 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 {site_footer()}
 </div>
 <script src="/js/chrome.js" defer></script>
-<script src="/js/duru.js" defer></script>
 </body>
 </html>
 '''

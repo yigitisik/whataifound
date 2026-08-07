@@ -944,86 +944,6 @@
   .totop svg{width:17px;height:17px}
   .totop[hidden]{display:none}
 
-  /* ---------- Duru, the mascot ----------
-     A 22x18 pixel badger walking the foot of the page as a read-position indicator. The
-     whole layer is built by js/duru.js and never appears in markup, so nothing here has a
-     counterpart in a generated file. It is pointer-events: none throughout: he is never in
-     the way of a link, and he never carries information the page does not already state.
-
-     Sprites show at exactly 2x native size. Set width only. Giving both dimensions shears
-     the pixel art, and any fractional scale destroys it outright.
-
-     z-index sits below .totop, which shares the bottom-right corner: at full scroll he
-     passes behind the button rather than over it. */
-  .duru-layer{position:fixed;left:0;right:0;bottom:0;height:53px;z-index:20;
-    pointer-events:none}
-  /* He walks out of a gradient rather than off a hard edge. The hairline is the same rule
-     the rest of the site draws, so the strip reads as page chrome and not as a panel. */
-  .duru-fade{position:absolute;left:0;right:0;bottom:0;height:52px;
-    background:linear-gradient(to top,var(--bg) 62%,transparent);
-    border-top:1px solid var(--line)}
-  .duru-track{position:absolute;left:22px;bottom:9px;height:44px;width:calc(100% - 44px)}
-  .duru-stage{position:absolute;left:0;bottom:0;width:56px;height:44px}
-  .duru-img{position:absolute;left:0;bottom:0;image-rendering:pixelated}
-
-  /* Dirt, while digging only. Two puffs on separate loops so they do not pulse in step. */
-  .duru-dirt{position:absolute;opacity:0}
-  .duru-layer.is-dig .duru-dirt{opacity:1}
-  .duru-dirt1{left:34px;bottom:5px;width:4px;height:4px;background:#8f8d82;
-    animation:duru-puff .34s linear infinite}
-  .duru-dirt2{left:36px;bottom:11px;width:3px;height:3px;background:#5b5f57;
-    animation:duru-puff2 .46s linear infinite}
-  @keyframes duru-puff{0%{opacity:.85;transform:translate(0,0) scale(1)}
-    100%{opacity:0;transform:translate(16px,-13px) scale(.4)}}
-  @keyframes duru-puff2{0%{opacity:.7;transform:translate(0,0) scale(1)}
-    100%{opacity:0;transform:translate(21px,-4px) scale(.4)}}
-
-  /* Speech. Rides the sprite's x plus 30px, and holds a non-breaking space when empty so
-     the box keeps its height through the fade instead of collapsing halfway. */
-  .duru-bubble{position:absolute;left:0;bottom:38px;padding:4px 10px;
-    font-family:var(--serif);font-size:.8rem;color:var(--muted);white-space:nowrap;
-    background:var(--panel);border:1px solid var(--line-strong);border-radius:9px;
-    opacity:0;transition:opacity .18s}
-  .duru-layer.is-saying .duru-bubble{opacity:1}
-
-  /* The peek: head only, rising from behind the top edge of whichever caveats disclosure
-     is open. One element, moved between cards by duru.js. The 28px window with
-     overflow:hidden is the edge he rises from, so he is clipped rather than floating. */
-  .entry details{position:relative}
-  .duru-peek{position:absolute;right:22px;top:-28px;width:32px;height:28px;z-index:1;
-    overflow:hidden;pointer-events:none}
-  .duru-peek-img{position:absolute;left:0;bottom:0;width:32px;image-rendering:pixelated;
-    transform:translateY(30px);transition:transform .42s var(--ease)}
-  .duru-peek.is-up .duru-peek-img{transform:translateY(0)}
-
-  /* The sprites are coloured off the real animal against a dark page: sandy grizzled fur
-     on near black. On the light theme that fur lands at nearly the page's own value and he
-     washes out, so the whole sprite is darkened. The filter sits on the stage rather than
-     the image so the dirt goes with it, and it moves every colour together, which keeps
-     the ivory blaze lighter than the body instead of flattening the face.
-
-     Three blocks for the same reason the palette above needs three: a media query and an
-     attribute selector cannot share one rule. Keep in sync. */
-  :root .duru-stage,
-  :root .duru-peek-img{filter:brightness(.58) contrast(1.12) saturate(1.05)}
-  @media (prefers-color-scheme: dark){
-    :root:not([data-theme]) .duru-stage,
-    :root:not([data-theme]) .duru-peek-img{filter:none}
-  }
-  :root[data-theme="dark"] .duru-stage,
-  :root[data-theme="dark"] .duru-peek-img{filter:none}
-
-  /* The global reduce block kills the puff animation but not the opacity that reveals it,
-     which would leave two static grey squares parked beside him. */
-  @media(prefers-reduced-motion:reduce){
-    .duru-layer.is-dig .duru-dirt{opacity:0}
-  }
-  /* He needs track width to mean anything, and digging is driven by hover, which a touch
-     screen does not have. */
-  @media(max-width:860px),(pointer:coarse){
-    .duru-layer,.duru-peek{display:none}
-  }
-
   /* ---------- Keyboard shortcuts dialog ---------- */
   .keys{border:1px solid var(--line-strong);border-radius:16px;background:var(--panel);
     color:var(--ink);padding:24px 26px;max-width:min(430px,92vw);font-family:var(--serif)}
@@ -1437,9 +1357,6 @@
     background:var(--panel-2);border:1px solid var(--line);border-radius:11px;
     padding:11px 14px;word-break:break-word;margin:0}
   .colophon{flex:0 0 auto;font-family:var(--serif);font-size:.7rem;letter-spacing:.04em;margin:0}
-  /* The mascot footnote. Quietest thing in the footer, and the last line on the page. */
-  .mascot-note{font-family:var(--serif);font-size:.72rem;line-height:1.55;color:var(--muted);
-    margin:14px 0 0;max-width:72ch}
   @media(max-width:720px){
     .about-grid{grid-template-columns:1fr}
     /* Column flips the main axis, which turns .cite's 460px flex-basis into a 460px MIN
@@ -2006,8 +1923,7 @@
     html,body{background:#fff!important}
     .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.doors,.totop,.keys,.listfoot,
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
-    .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb,
-    .duru-layer,.duru-peek{display:none!important}
+    .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
     a{text-decoration:underline}
     /* Open every disclosure: a printed page cannot be expanded. */
     details{display:block!important}

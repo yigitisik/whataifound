@@ -180,7 +180,7 @@ def check_safe_area(css, problems):
         if not bottom:
             continue
         val = bottom.group(1)
-        # bottom:0 is flush with the edge by intent (the mascot strip, a full-bleed bar);
+        # bottom:0 is flush with the edge by intent (a full-bleed bar);
         # a positive offset is a control placed by hand and has to respect the inset.
         if val.strip() in ("0", "0px"):
             continue

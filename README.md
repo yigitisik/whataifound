@@ -116,7 +116,6 @@ whataifound/
 │   ├── app.js              #   / and /visuals: URL state, search, filters, sort, charts
 │   ├── entry.js            #   finding pages: citation copy buttons
 │   ├── signals.js          #   finding pages + /review: triage buttons, queue counts
-│   ├── duru.js             #   the mascot (see Front end)
 │   └── account|contribute|admin.js
 ├── api/                    # Vercel functions. Server-side only, never sent to a browser
 │   ├── _lib/               #   session, handles, db, http, roles, github, proposal rules
@@ -126,7 +125,7 @@ whataifound/
 ├── db/                     # run in number order against Postgres; each is idempotent
 ├── data/                   # entries.json (the registry) + vocab.json (the grades)
 ├── finding/ topic/ lab/    # one page each, generated (ClaimReview / CollectionPage JSON-LD)
-├── assets/                 # brand/ · duru/ (mascot sprites) · fonts/ · external-logos/
+├── assets/                 # brand/ · fonts/ · external-logos/
 ├── scripts/                # authoring toolchain, not deployed. build.py runs the rest
 ├── docs/                   # SCHEMA · ARCHITECTURE · CONTRIBUTING · SETUP · entry.schema.json
 ├── .github/                # workflows (integrity, rebuild, drift, link rot) + issue templates
@@ -146,7 +145,6 @@ No bundler, no runtime external requests. `styles.css` plus one script per page 
 | `app.js` | `/` and `/visuals` | URL state, search, filters, sort, table view, charts |
 | `entry.js` | finding pages | citation copy buttons |
 | `signals.js` | finding pages, `/review` | triage buttons, queue counts |
-| `duru.js` | every page but `/404` | the mascot |
 | `account.js` `contribute.js` `admin.js` | their own page | forms and dashboards |
 
 The split is by what a page actually needs. The theme switcher used to live in `app.js`, which
@@ -173,30 +171,17 @@ it. That is why `chrome.js` exists.
 - **Responsive from 320px**, breaking at 560, 640, 720, 860 and 1180. `pointer: coarse` enlarges tap
   targets and forces 16px inputs to stop iOS zoom-on-focus. Print drops every control and forces
   disclosures open, so a finding page saves to PDF as a citable document.
-- **Performance:** `index.html` already contains all 52 entries, so `data/entries.json` is fetched on
+- **Performance:** `index.html` already contains every entry, so `data/entries.json` is fetched on
   idle rather than on the critical path. `content-visibility` skips layout for off-screen cards.
 - **WCAG 2.1 AA:** skip link, `role="search"`, live result count, `role="img"` chart labels,
   `aria-sort` on table headers, focus rings, `prefers-contrast` and `prefers-reduced-motion` honoured.
-
-### Duru
-
-A pixel badger who walks the foot of the page as a read-position indicator, digs when you hover a
-grade pill, peeks over an open caveats disclosure, and shrugs when a search finds nothing. A guru,
-with a `d` for discovery, data and diligence.
-
-`js/duru.js` builds its own layer at runtime and touches no markup, so the parity check is
-unaffected and a reader with scripting off sees the site exactly as it was. Sprites live in
-`assets/duru/` at 22x18 px and are shown at exactly 2x: set `width` only, since giving both
-dimensions shears the pixel art. He is decorative and duplicates no information. Under
-`prefers-reduced-motion` he holds one frame and drops the dirt; below 860px, on touch, and in print
-he does not appear at all.
 
 ## Deployment (Vercel)
 
 Static, no build command: the generated files are committed, so a deploy just serves them. Push to
 `main` deploys production; each PR gets a preview.
 
-- Caching: fonts immutable for a year; brand and mascot assets a day; `data/entries.json` and
+- Caching: fonts immutable for a year; brand assets a day; `data/entries.json` and
   `finding/` `must-revalidate`; feeds and `llms.txt` 30 min.
 - Security headers on every response: CSP (including `script-src-attr 'none'` and `object-src
   'none'`), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,

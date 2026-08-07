@@ -112,7 +112,7 @@ overwritten on the next build, and CI will fail. Edit `data/entries.json` instea
 ## Code
 
 Pages are static files at the root; browser scripts live in [js/](../js/) (`chrome.js`,
-`app.js`, `entry.js`, `signals.js`, `duru.js`, `account.js`, `contribute.js`, `admin.js`).
+`app.js`, `entry.js`, `signals.js`, `account.js`, `contribute.js`, `admin.js`).
 Server-side code lives under [api/](../api/) and is never sent to a browser. How the pieces fit
 together is in [ARCHITECTURE.md](ARCHITECTURE.md). Constraints:
 
@@ -178,7 +178,7 @@ tinted pill for autonomy, a coloured dot for source kinds.
 A new lab also needs a line in `LAB_HUB` in [build-site.py](../scripts/build-site.py). The build
 prints a note naming any organisation missing one; it does not fail.
 
-### Brand and mascot assets
+### Brand assets
 
 `assets/brand/` holds the sources and their generated rasters: `favicon.svg` (the mark on its
 plate, source for every raster), `mark.svg`, `mark-mono.svg`, `lockup.svg`, `og.svg` → `og.png`
@@ -196,10 +196,6 @@ with anything smaller**; 16x16 is the size Google's documentation rejects outrig
 
 The header mark is inlined in five pages plus `404.html`. Change the shape and all six need the
 same edit. Each inline copy needs its own gradient `id`; duplicates across a page collide.
-
-`assets/duru/` holds the mascot sprites: hand-placed pixel art at 22x18 (26x19 digging). Do not
-re-export, re-scale or re-encode them, and never display them at a fractional multiple of native
-size. Set `width` only in CSS; giving both dimensions shears the art.
 
 ### Changing the domain
 
