@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 52 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 56 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## How entries are graded
 
@@ -97,17 +97,20 @@ All 8 in one page: https://whataifound.org/topic/computer-science
 
 ### Materials science
 
-All 3 in one page: https://whataifound.org/topic/materials
+All 4 in one page: https://whataifound.org/topic/materials
 
+- [Two kagome superconductors predicted by machine learning and confirmed in the lab](https://whataifound.org/finding/2026-06-17-kagome-superconductors): A screening pipeline that narrowed over 1.3 million candidate structures picked out YRu3B2 and LuRu3B2, which were then synthesized and measured to superconduct at 0.81 K and 0.95 K. (Aalto University / Rice University, Unknown, 2026-06-17; verification: Peer reviewed; autonomy: Search scaffold)
 - [Generative model designs crystals to order; its flagship synthesis turned out to be a known compound](https://whataifound.org/finding/2025-01-16-mattergen): MatterGen generates crystal structures conditioned on target properties, and its headline experimental validation was later shown to match a compound reported in 1972 that sits in the model's own training data. (Microsoft Research, MatterGen, 2025-01-16; verification: Disputed; autonomy: Search scaffold)
 - [Large-scale prediction of new stable crystalline materials (GNoME)](https://whataifound.org/finding/2023-11-29-gnome): GNoME predicted about 2.2 million new inorganic crystal structures, roughly 380,000 of them flagged as thermodynamically stable, presented as an order-of-magnitude expansion of known stable materials. (Google DeepMind, GNoME (graph neural network), 2023-11-29; verification: Disputed; autonomy: Search scaffold)
 - [Autonomous laboratory reports solid-state synthesis of new inorganic compounds](https://whataifound.org/finding/2023-11-29-a-lab-synthesis): Berkeley's A-Lab, an AI-driven autonomous laboratory, reported synthesising 41 novel inorganic compounds out of 58 targets over 17 days with minimal human intervention. (Lawrence Berkeley National Laboratory, A-Lab (ML planning + robotics), 2023-11-29; verification: Disputed; autonomy: AI-led)
 
 ### Mathematics
 
-All 22 in one page: https://whataifound.org/topic/mathematics
+All 24 in one page: https://whataifound.org/topic/mathematics
 
+- [Ten results in mathematics and theoretical computer science with Lean certificates](https://whataifound.org/finding/2026-08-01-astra-ten-advances): An unreleased OpenAI model produced ten results including the first explicit non-sofic group and a disproof of Connes's rigidity conjecture, each published with a machine-checkable Lean 4 proof. (OpenAI, Astra, 2026-08-01; verification: Formally verified; autonomy: AI-led)
 - [Counterexamples to the Gaussian moments conjecture](https://whataifound.org/finding/2026-07-20-gaussian-moments): Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved. (Independent, GPT-5.6 Sol Pro + Claude Fable 5, 2026-07-20; verification: Author verified; autonomy: AI-led)
+- [Eight problems from the Kourovka Notebook solved and formalized in Lean](https://whataifound.org/finding/2026-07-20-kourovka-notebook): A formal reasoning agent developed the proof strategies for eight open problems in group theory without human guidance on which mathematical steps to take, and machine-checked every one in Lean 4. (Harmonic, Aristotle, 2026-07-20; verification: Formally verified; autonomy: Autonomous)
 - [Counterexample to the Jacobian conjecture in dimension three](https://whataifound.org/finding/2026-07-19-jacobian-conjecture): An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939. (Anthropic, Claude Fable 5, 2026-07-19; verification: Formally verified; autonomy: Collaborative)
 - [Near-quadratic lower bound for derivative-free convex optimization](https://whataifound.org/finding/2026-07-14-zeroth-order-oracle-bound): A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal. (Independent, GPT-5.6 Sol Pro, 2026-07-14; verification: Formally verified; autonomy: AI-led)
 - [Counterexample to Grothendieck's question on finite flat group schemes](https://whataifound.org/finding/2026-07-11-grothendieck-group-schemes): A finite locally free group scheme of order four whose fourth power map is not trivial, answering a question Grothendieck raised in the 1960s; one model produced the construction and another formalised it in Lean. (Independent, OpenAI Sol (construction); Claude Fable (Lean formalisation), 2026-07-11; verification: Formally verified; autonomy: Collaborative)
@@ -132,8 +135,9 @@ All 22 in one page: https://whataifound.org/topic/mathematics
 
 ### Medicine
 
-All 3 in one page: https://whataifound.org/topic/medicine
+All 4 in one page: https://whataifound.org/topic/medicine
 
+- [Phase 1 trial of a computationally designed pan-sarbecovirus vaccine](https://whataifound.org/finding/2026-05-18-pevac-ps-sarbecovirus): A vaccine whose antigen was designed entirely in silico from sarbecovirus sequence data was safe in 39 healthy volunteers and raised immune responses against SARS-CoV-2, SARS, and bat viruses that have never infected humans. (University of Cambridge / DIOSynVax, Unknown, 2026-05-18; verification: Peer reviewed; autonomy: AI-assisted)
 - [Phase 2a results for a drug whose target and molecule both came from AI](https://whataifound.org/finding/2025-06-03-rentosertib-phase2a): Rentosertib, a TNIK inhibitor whose target was picked by one AI system and whose molecule was generated by another, improved forced vital capacity by 98.4 mL at the top dose against a 20.3 mL decline on placebo in a 71-patient randomised trial. (Insilico Medicine, PandaOmics (target) + Chemistry42 (molecule), 2025-06-03; verification: Peer reviewed; autonomy: Search scaffold)
 - [Pathogenicity predictions for 71 million human missense variants](https://whataifound.org/finding/2023-09-19-alphamissense): An AlphaFold-derived model classified 89% of all 71 million possible human missense variants as likely benign or likely pathogenic, against the roughly 0.1% that carry a clinical classification today. (Google DeepMind, AlphaMissense, 2023-09-19; verification: Peer reviewed; autonomy: AI-led)
 - [Halicin, an antibiotic found by a neural network screening a compound library](https://whataifound.org/finding/2020-02-20-halicin): A graph neural network trained on 2,335 molecules picked halicin out of a repurposing library; it killed multidrug-resistant bacteria including Acinetobacter baumannii and Mycobacterium tuberculosis in vitro and cleared infections in mice. (MIT / Broad Institute, Directed message-passing graph neural network (Chemprop), 2020-02-20; verification: Peer reviewed; autonomy: Search scaffold)

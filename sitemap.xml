@@ -56,7 +56,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/lab/openai</loc>
-    <lastmod>2026-07-20</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -98,19 +98,19 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/materials</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://whataifound.org/topic/mathematics</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://whataifound.org/topic/medicine</loc>
-    <lastmod>2026-07-29</lastmod>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -127,6 +127,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-08-01-astra-ten-advances</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans</loc>
     <lastmod>2026-07-24</lastmod>
     <changefreq>monthly</changefreq>
@@ -135,6 +141,12 @@
   <url>
     <loc>https://whataifound.org/finding/2026-07-20-gaussian-moments</loc>
     <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-07-20-kourovka-notebook</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -163,6 +175,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-06-17-kagome-superconductors</loc>
+    <lastmod>2026-08-06</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-05-21-alphaproof-nexus</loc>
     <lastmod>2026-07-27</lastmod>
     <changefreq>monthly</changefreq>
@@ -171,6 +189,12 @@
   <url>
     <loc>https://whataifound.org/finding/2026-05-erdos-unit-distance</loc>
     <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-05-18-pevac-ps-sarbecovirus</loc>
+    <lastmod>2026-08-06</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

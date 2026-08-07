@@ -2114,6 +2114,8 @@ LAB_HUB = {
     "Tel Aviv University": "https://english.tau.ac.il/",
     "UT Austin": "https://cs.utexas.edu/",
     "FlyWire Consortium": "https://flywire.ai/",
+    "Aalto University": "https://www.aalto.fi/en/news",
+    "University of Cambridge": "https://www.cam.ac.uk/research",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

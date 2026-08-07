@@ -2306,5 +2306,166 @@
       "ancient-texts"
     ],
     "added": "2026-07-29"
+  },
+  {
+    "id": "2026-07-20-kourovka-notebook",
+    "title": "Eight problems from the Kourovka Notebook solved and formalized in Lean",
+    "claim": "A formal reasoning agent developed the proof strategies for eight open problems in group theory without human guidance on which mathematical steps to take, and machine-checked every one in Lean 4.",
+    "field": "mathematics",
+    "date": "2026-07-20",
+    "lab": "Harmonic",
+    "model": "Aristotle",
+    "humans": [
+      "Wouter van Doorn",
+      "Elias Judin",
+      "Pietro Monticone",
+      "Daniel Morrison"
+    ],
+    "year_posed": 1969,
+    "verification": "formal",
+    "autonomy": "autonomous",
+    "detail": "The Kourovka Notebook has collected open problems in group theory since 1965, with a new issue every two to four years. Aristotle solved eight of them: 3.46 (a group with exactly two maximal locally soluble normal subgroups), 18.50, 19.25, 20.125 (a surjective non-injective Rota-Baxter operator on a non-abelian group), 21.8, 21.24, 21.147 and 21.150. The oldest first appeared in the third issue in 1969. Solutions take the form of proofs, counterexamples and constructions, each formalized in Lean 4 and published in a companion repository. The authors then informalized the Lean proofs into conventional prose and submitted both to the Notebook editors and the original problem proposers, who accepted them before publication.",
+    "novelty_check": "The Kourovka Notebook is itself the authoritative open-problems register for group theory, and each of the eight is recorded there as open with a named proposer, so novelty is established by the source of record rather than by a literature search. The authors submitted solutions to the Notebook editors and the problem proposers for acceptance before publishing, and the initial submissions remain in the Notebook's own preprint repository. Problem 3.46 traces to Plotkin's survey question on products of locally soluble normal subgroups, which Baumslag, Kovács and Neumann had partly addressed in the negative.",
+    "caveats": "Not peer reviewed as a journal article, though the individual solutions were accepted by the Kourovka Notebook editors and the problem proposers, which is the relevant gatekeeping for this venue. The autonomy grade rests on the authors' own disclosure: they state Aristotle developed the proof strategies without human guidance about which steps to take, while they monitored its work, intervened when clarifications were needed, and built a library of relevant concepts with it. That library work and the final canonisation for Mathlib upstreaming were done partly by hand. The Lean certificates are the load-bearing evidence and anyone can rerun them; the claim about how the arguments were found rests on the authors' account.",
+    "sources": [
+      {
+        "label": "arXiv: On Some Problems from the Kourovka Notebook",
+        "url": "https://arxiv.org/abs/2607.17477",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalizations of all eight solutions",
+        "url": "https://github.com/pitmonticone/Kourovka",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "lean",
+      "formalization",
+      "kourovka-notebook",
+      "autonomous-discovery"
+    ],
+    "added": "2026-08-06"
+  },
+  {
+    "id": "2026-08-01-astra-ten-advances",
+    "title": "Ten results in mathematics and theoretical computer science with Lean certificates",
+    "claim": "An unreleased OpenAI model produced ten results including the first explicit non-sofic group and a disproof of Connes's rigidity conjecture, each published with a machine-checkable Lean 4 proof.",
+    "field": "mathematics",
+    "date": "2026-08-01",
+    "lab": "OpenAI",
+    "model": "Astra",
+    "year_posed": 1999,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The ten cover high-dimensional sphere packing, binary and spherical codes, non-sofic groups, Connes's rigidity conjecture, arithmetic circuit complexity, quantum parallel repetition, the closest vector problem, Ehrhart's volume conjecture, multicolor Ramsey numbers and extremal number conjectures. Soficity was introduced by Gromov in 1999 and whether a non-sofic group exists had stood open since; Connes posed his rigidity conjecture in 1980, and the disproof constructs infinitely many non-isomorphic property (T) groups sharing a von Neumann algebra. Humans used the same model to prepare the manuscripts and then to formalize each argument in Lean 4.32.0. OpenAI put the token cost of finding all ten at roughly $2,000 at Sol API rates.",
+    "novelty_check": "Each of the ten is a named open problem with a documented origin: soficity from Gromov 1999, Connes rigidity from 1980, and the sphere-packing exponent improvement is the first on the general bound since 1978. The Lean repository states which prior bound each result improves. Thomas Bloom, who maintains erdosproblems.com and publicly corrected OpenAI's 2025 Erdős retrieval episode, called these results big news, which is meaningful given that he is the person who caught the previous overclaim.",
+    "caveats": "The certificates are checkable and the claim that the theorems hold is as solid as Lean makes it. The claim about provenance is not checkable: Astra is unreleased, so no outside party can test whether the model produces these results, and the account of how they were found rests entirely on OpenAI. Grading verification as formal reflects the proofs, not the provenance; a reader who cares only about who found it should read this as claimed. Specialist review of the mathematical significance is still pending in several cases. Noam Brown noted there are no Millennium Prize problems here. Press summaries of the ten disagree with the repository's own list, some substituting specific Erdős problem numbers that do not appear in it; the list above follows the repository.",
+    "sources": [
+      {
+        "label": "Lean 4 certificates for all ten results",
+        "url": "https://github.com/openai/ten-proofs",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Ten advances in mathematics and theoretical computer science",
+        "url": "https://openai.com/index/ten-advances-in-mathematics/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "lean",
+      "formalization",
+      "sphere-packing",
+      "quantum-complexity"
+    ],
+    "added": "2026-08-06"
+  },
+  {
+    "id": "2026-05-18-pevac-ps-sarbecovirus",
+    "title": "Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
+    "claim": "A vaccine whose antigen was designed entirely in silico from sarbecovirus sequence data was safe in 39 healthy volunteers and raised immune responses against SARS-CoV-2, SARS, and bat viruses that have never infected humans.",
+    "field": "medicine",
+    "date": "2026-05-18",
+    "lab": "University of Cambridge / DIOSynVax",
+    "model": "Unknown",
+    "humans": [
+      "Alasdair P. S. Munro",
+      "Jonathan L. Heeney",
+      "Saul N. Faust"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Rather than target one strain, the team analysed sarbecovirus genetic data to compute a single synthetic antigen capturing structural features shared across the subgenus, on the theory that a vaccine aimed at what the family has in common survives the evolution of any one member. The candidate, pEVAC-PS, is a DNA vaccine delivered needle-free by micro fluid jet. The phase 1 dose-escalation trial ran in 39 healthy volunteers aged 18 to 50, sponsored by University Hospital Southampton NHS Foundation Trust, and reported no significant side effects.",
+    "novelty_check": "Computationally designed and consensus or mosaic antigens have a long history in HIV and influenza vaccine work, and broad sarbecovirus vaccine candidates were pursued by several groups after 2020. What is new here is a first-in-human safety and immunogenicity readout for an antigen with no natural sequence, generated computationally rather than selected from circulating strains. Searched PubMed for prior phase 1 results on pan-sarbecovirus immunogens; earlier candidates in this class were preclinical at the time of publication.",
+    "caveats": "Phase 1: safety, tolerability and immunogenicity only. No efficacy claim, and immune response is not protection. n=39, healthy adults 18 to 50, so nothing follows about older or immunocompromised populations. Approval is years away and a phase 2 is planned. The autonomy grade is deliberately conservative because the public record is thin on what the computational method actually was: the reporting says artificial intelligence and machine learning without naming a model, architecture or developer, so model is recorded as Unknown rather than inferred. The bat-virus immunogenicity result is a laboratory assay against viruses that have not infected humans, not evidence of protection against a future outbreak.",
+    "sources": [
+      {
+        "label": "Journal of Infection: A phase I, needle free, dose escalation clinical trial of pEVAC-PS, a candidate pan-Sarbecovirus vaccine",
+        "url": "https://www.journalofinfection.com/article/S0163-4453(26)00084-8/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "University of Cambridge: New universal vaccine technology could protect us from future virus outbreaks",
+        "url": "https://www.cam.ac.uk/research/news/new-universal-vaccine-technology-could-protect-us-from-future-virus-outbreaks",
+        "kind": "announcement"
+      },
+      {
+        "label": "ScienceDaily: AI-designed universal coronavirus vaccine passes first human trial",
+        "url": "https://www.sciencedaily.com/releases/2026/06/260605023357.htm",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "vaccine-design",
+      "clinical-trial",
+      "coronavirus",
+      "antigen-design",
+      "phase-1"
+    ],
+    "added": "2026-08-06"
+  },
+  {
+    "id": "2026-06-17-kagome-superconductors",
+    "title": "Two kagome superconductors predicted by machine learning and confirmed in the lab",
+    "claim": "A screening pipeline that narrowed over 1.3 million candidate structures picked out YRu3B2 and LuRu3B2, which were then synthesized and measured to superconduct at 0.81 K and 0.95 K.",
+    "field": "materials",
+    "date": "2026-06-17",
+    "lab": "Aalto University / Rice University",
+    "model": "Unknown",
+    "humans": [
+      "Rose Albu Mustaf",
+      "Päivi Törmä",
+      "Emilia Morosan",
+      "B. Andrei Bernevig",
+      "Miguel A. L. Marques"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "search-scaffold",
+    "detail": "The SuperC consortium used machine-learning pre-screening to cut a very large chemical space down to a tractable candidate list, then ran first-principles calculations on what survived, arriving at 741 dynamically and thermodynamically stable compounds with DFT-predicted Tc above 5 K. Morosan's group at Rice synthesized two of them and confirmed bulk superconductivity by magnetization and specific heat measurement. Both compounds carry a kagome lattice, in which electrons form flat bands.",
+    "novelty_check": "Machine-learning screening of superconductor candidates is an established and crowded field, and the JHU APL work on novel superconductors predates this. What is claimed as new is the end-to-end path: candidates identified from scratch by a machine-learning-guided pipeline, then synthesized and experimentally confirmed, rather than screening validated only against already-known superconductors. YRu3B2 and LuRu3B2 were not previously reported as superconductors. Whether this is the first such end-to-end confirmation is the consortium's framing and is not independently adjudicated here.",
+    "caveats": "The gap between prediction and measurement is the story the coverage mostly buries: the screen selected for DFT-predicted Tc above 5 K, and the two compounds actually measured at 0.81 K and 0.95 K, roughly a factor of five to six low. These are sub-1-kelvin superconductors, nowhere near room temperature, and the consortium's stated goal of a room-temperature superconductor by 2033 is a research programme, not a result. Two confirmed compounds out of 741 stable candidates is also not a hit rate the paper establishes as generalizable. The specific machine-learning method is not named in the coverage consulted, so model is recorded as Unknown.",
+    "sources": [
+      {
+        "label": "arXiv: Machine Learning-Guided Discovery of Kagome Superconductors YRu3B2 and LuRu3B2",
+        "url": "https://arxiv.org/abs/2512.16945",
+        "kind": "research"
+      },
+      {
+        "label": "ScienceDaily: AI just supercharged the race to find room temperature superconductors",
+        "url": "https://www.sciencedaily.com/releases/2026/07/260701205006.htm",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "superconductivity",
+      "kagome",
+      "high-throughput-screening",
+      "dft",
+      "experimental-confirmation"
+    ],
+    "added": "2026-08-06"
   }
 ]

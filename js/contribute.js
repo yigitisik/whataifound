@@ -60,14 +60,18 @@ const GRADES = {
   "2025-robin-macular":["claimed","ai-led"],
   "2026-01-alphaevolve-bruhat":["independent","search-scaffold"],
   "2026-01-erdos-728":["formal","autonomous"],
+  "2026-05-18-pevac-ps-sarbecovirus":["peer-reviewed","ai-assisted"],
   "2026-05-21-alphaproof-nexus":["formal","search-scaffold"],
   "2026-05-erdos-unit-distance":["independent","ai-led"],
+  "2026-06-17-kagome-superconductors":["peer-reviewed","search-scaffold"],
   "2026-06-25-herculaneum-scroll-read":["author-verified","ai-assisted"],
   "2026-07-11-grothendieck-group-schemes":["formal","collaborative"],
   "2026-07-14-zeroth-order-oracle-bound":["formal","ai-led"],
   "2026-07-19-jacobian-conjecture":["formal","collaborative"],
   "2026-07-20-gaussian-moments":["author-verified","ai-led"],
-  "2026-07-22-dinitz-garg-goemans":["claimed","ai-led"]
+  "2026-07-20-kourovka-notebook":["formal","autonomous"],
+  "2026-07-22-dinitz-garg-goemans":["claimed","ai-led"],
+  "2026-08-01-astra-ten-advances":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -114,14 +118,18 @@ const ID_BY_TITLE = {
   "candidate treatment for dry age-related macular degeneration":"2025-robin-macular",
   "structure in bruhat intervals of permutation groups":"2026-01-alphaevolve-bruhat",
   "erd\u0151s problem #728 resolved and formalized in lean":"2026-01-erdos-728",
+  "phase 1 trial of a computationally designed pan-sarbecovirus vaccine":"2026-05-18-pevac-ps-sarbecovirus",
   "nine erd\u0151s problems and 44 oeis conjectures proved with machine-checked proofs":"2026-05-21-alphaproof-nexus",
   "disproof of the erd\u0151s unit-distance conjecture":"2026-05-erdos-unit-distance",
+  "two kagome superconductors predicted by machine learning and confirmed in the lab":"2026-06-17-kagome-superconductors",
   "first herculaneum scroll read end to end without unrolling it":"2026-06-25-herculaneum-scroll-read",
   "counterexample to grothendieck's question on finite flat group schemes":"2026-07-11-grothendieck-group-schemes",
   "near-quadratic lower bound for derivative-free convex optimization":"2026-07-14-zeroth-order-oracle-bound",
   "counterexample to the jacobian conjecture in dimension three":"2026-07-19-jacobian-conjecture",
   "counterexamples to the gaussian moments conjecture":"2026-07-20-gaussian-moments",
-  "counterexample to the dinitz\u2013garg\u2013goemans conjecture":"2026-07-22-dinitz-garg-goemans"
+  "eight problems from the kourovka notebook solved and formalized in lean":"2026-07-20-kourovka-notebook",
+  "counterexample to the dinitz\u2013garg\u2013goemans conjecture":"2026-07-22-dinitz-garg-goemans",
+  "ten results in mathematics and theoretical computer science with lean certificates":"2026-08-01-astra-ten-advances"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -168,14 +176,18 @@ const TITLE_BY_ID = {
   "2025-robin-macular":"Candidate treatment for dry age-related macular degeneration",
   "2026-01-alphaevolve-bruhat":"Structure in Bruhat intervals of permutation groups",
   "2026-01-erdos-728":"Erd\u0151s problem #728 resolved and formalized in Lean",
+  "2026-05-18-pevac-ps-sarbecovirus":"Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
   "2026-05-21-alphaproof-nexus":"Nine Erd\u0151s problems and 44 OEIS conjectures proved with machine-checked proofs",
   "2026-05-erdos-unit-distance":"Disproof of the Erd\u0151s unit-distance conjecture",
+  "2026-06-17-kagome-superconductors":"Two kagome superconductors predicted by machine learning and confirmed in the lab",
   "2026-06-25-herculaneum-scroll-read":"First Herculaneum scroll read end to end without unrolling it",
   "2026-07-11-grothendieck-group-schemes":"Counterexample to Grothendieck's question on finite flat group schemes",
   "2026-07-14-zeroth-order-oracle-bound":"Near-quadratic lower bound for derivative-free convex optimization",
   "2026-07-19-jacobian-conjecture":"Counterexample to the Jacobian conjecture in dimension three",
   "2026-07-20-gaussian-moments":"Counterexamples to the Gaussian moments conjecture",
-  "2026-07-22-dinitz-garg-goemans":"Counterexample to the Dinitz\u2013Garg\u2013Goemans conjecture"
+  "2026-07-20-kourovka-notebook":"Eight problems from the Kourovka Notebook solved and formalized in Lean",
+  "2026-07-22-dinitz-garg-goemans":"Counterexample to the Dinitz\u2013Garg\u2013Goemans conjecture",
+  "2026-08-01-astra-ten-advances":"Ten results in mathematics and theoretical computer science with Lean certificates"
 };
 /*VOCAB:END*/
 

@@ -9,6 +9,66 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
+      "url": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
+      "title": "Ten results in mathematics and theoretical computer science with Lean certificates",
+      "content_text": "An unreleased OpenAI model produced ten results including the first explicit non-sofic group and a disproof of Connes's rigidity conjecture, each published with a machine-checkable Lean 4 proof.  The ten cover high-dimensional sphere packing, binary and spherical codes, non-sofic groups, Connes's rigidity conjecture, arithmetic circuit complexity, quantum parallel repetition, the closest vector problem, Ehrhart's volume conjecture, multicolor Ramsey numbers and extremal number conjectures. Soficity was introduced by Gromov in 1999 and whether a non-sofic group exists had stood open since; Connes posed his rigidity conjecture in 1980, and the disproof constructs infinitely many non-isomorphic property (T) groups sharing a von Neumann algebra. Humans used the same model to prepare the manuscripts and then to formalize each argument in Lean 4.32.0. OpenAI put the token cost of finding all ten at roughly $2,000 at Sol API rates.  Lab: OpenAI. Model: Astra. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-08-01T00:00:00+00:00",
+      "date_modified": "2026-08-06T00:00:00+00:00",
+      "tags": [
+        "group-theory",
+        "lean",
+        "formalization",
+        "sphere-packing",
+        "quantum-complexity"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-20-kourovka-notebook",
+      "url": "https://whataifound.org/finding/2026-07-20-kourovka-notebook",
+      "title": "Eight problems from the Kourovka Notebook solved and formalized in Lean",
+      "content_text": "A formal reasoning agent developed the proof strategies for eight open problems in group theory without human guidance on which mathematical steps to take, and machine-checked every one in Lean 4.  The Kourovka Notebook has collected open problems in group theory since 1965, with a new issue every two to four years. Aristotle solved eight of them: 3.46 (a group with exactly two maximal locally soluble normal subgroups), 18.50, 19.25, 20.125 (a surjective non-injective Rota-Baxter operator on a non-abelian group), 21.8, 21.24, 21.147 and 21.150. The oldest first appeared in the third issue in 1969. Solutions take the form of proofs, counterexamples and constructions, each formalized in Lean 4 and published in a companion repository. The authors then informalized the Lean proofs into conventional prose and submitted both to the Notebook editors and the original problem proposers, who accepted them before publication.  Lab: Harmonic. Model: Aristotle. Verification: Formally verified. Autonomy: Autonomous.",
+      "date_published": "2026-07-20T00:00:00+00:00",
+      "date_modified": "2026-08-06T00:00:00+00:00",
+      "tags": [
+        "group-theory",
+        "lean",
+        "formalization",
+        "kourovka-notebook",
+        "autonomous-discovery"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-06-17-kagome-superconductors",
+      "url": "https://whataifound.org/finding/2026-06-17-kagome-superconductors",
+      "title": "Two kagome superconductors predicted by machine learning and confirmed in the lab",
+      "content_text": "A screening pipeline that narrowed over 1.3 million candidate structures picked out YRu3B2 and LuRu3B2, which were then synthesized and measured to superconduct at 0.81 K and 0.95 K.  The SuperC consortium used machine-learning pre-screening to cut a very large chemical space down to a tractable candidate list, then ran first-principles calculations on what survived, arriving at 741 dynamically and thermodynamically stable compounds with DFT-predicted Tc above 5 K. Morosan's group at Rice synthesized two of them and confirmed bulk superconductivity by magnetization and specific heat measurement. Both compounds carry a kagome lattice, in which electrons form flat bands.  Lab: Aalto University / Rice University. Model: Unknown. Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2026-06-17T00:00:00+00:00",
+      "date_modified": "2026-08-06T00:00:00+00:00",
+      "tags": [
+        "superconductivity",
+        "kagome",
+        "high-throughput-screening",
+        "dft",
+        "experimental-confirmation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-05-18-pevac-ps-sarbecovirus",
+      "url": "https://whataifound.org/finding/2026-05-18-pevac-ps-sarbecovirus",
+      "title": "Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
+      "content_text": "A vaccine whose antigen was designed entirely in silico from sarbecovirus sequence data was safe in 39 healthy volunteers and raised immune responses against SARS-CoV-2, SARS, and bat viruses that have never infected humans.  Rather than target one strain, the team analysed sarbecovirus genetic data to compute a single synthetic antigen capturing structural features shared across the subgenus, on the theory that a vaccine aimed at what the family has in common survives the evolution of any one member. The candidate, pEVAC-PS, is a DNA vaccine delivered needle-free by micro fluid jet. The phase 1 dose-escalation trial ran in 39 healthy volunteers aged 18 to 50, sponsored by University Hospital Southampton NHS Foundation Trust, and reported no significant side effects.  Lab: University of Cambridge / DIOSynVax. Model: Unknown. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-05-18T00:00:00+00:00",
+      "date_modified": "2026-08-06T00:00:00+00:00",
+      "tags": [
+        "vaccine-design",
+        "clinical-trial",
+        "coronavirus",
+        "antigen-design",
+        "phase-1"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-07-11-grothendieck-group-schemes",
       "url": "https://whataifound.org/finding/2026-07-11-grothendieck-group-schemes",
       "title": "Counterexample to Grothendieck's question on finite flat group schemes",
