@@ -75,6 +75,11 @@ CHROME_PAGES = [
     # Indexable, and deliberately so: this is the page that answers "how do I contribute
     # without a GitHub account", which is the question the whole in-UI path exists for.
     ("/contribute", True, "monthly", "0.6"),
+    # The door itself. Indexable for the same reason /contribute is: "how do I get an
+    # account here" is a question worth answering from a search result. Not in PAGES,
+    # because the nav is already tight at 1180px and this is reached from the header
+    # control that sits four pixels away from where the nav would put it.
+    ("/signin", True, "monthly", "0.3"),
     # Maintainers only. Every row on it comes from a session-authenticated request, so an
     # indexed copy would be an empty shell in search results.
     ("/admin", False, None, None),
@@ -461,17 +466,29 @@ THEME_SEG = NL.join([
 #
 # They are one segment now, bordered like the theme switcher, which makes them read as a
 # pair of alternatives rather than as two unrelated controls that happen to be adjacent.
-# Both are 26px, so the row is the same width signed in or out: chrome.js swaps the Google
-# mark for the identicon in place, and nothing reflows when the session resolves.
 #
-# Neither carries a visible word. That was tried and reverted once (a bare person glyph
-# among outlined icons did read as a third toggle), but the objection was to a *neutral*
-# glyph: these are two of the most recognisable marks on the web, and the border now says
-# they are actions. The labels survive on aria-label and title.
+# The sign-in half carries the word. An earlier revision had both doors as bare 26px marks
+# on the argument that the border already said they were actions, and that a filled pill
+# beside a glyph rendered the two doors at wildly different weights. The first half of that
+# did not survive contact: a vendor logo the same size and weight as the GitHub glyph next
+# to it reads as a second utility, not as the way in, and the one thing a masthead control
+# has to say is what happens when you press it. The second half is still respected. This is
+# an accent *edge*, the same language .pagenav a[aria-current] uses, not a filled pill, so
+# the GitHub door keeps its footing beside it.
+#
+# No Google mark on the button. Which provider signs you in is a property of the next
+# screen, and putting it here spends width on the one row that has none while promising a
+# vendor before the reader has asked. It points at /signin rather than straight at Google
+# for the same reason: a door should show you the room.
+#
+# The row is still the same width signed in and out, which the earlier version of this
+# note claimed and this one keeps true by a different means: the word is wider than the
+# identicon that replaces it, so .acct carries a min-width equal to the button's own width
+# and the slot measures the same in both states. Nothing reflows when the session resolves.
 SIGNIN_LINK = (
-    '<a class="door door-in" href="/api/auth/start" data-signin'
-    ' aria-label="Sign in with Google" title="Sign in with Google">'
-    f'{GOOGLE_MARK}</a>')
+    '<a class="door door-in" href="/signin" data-signin'
+    ' aria-label="Sign in" title="Sign in">'
+    '<span>Sign in</span></a>')
 
 DOORS_SEG = NL.join([
     '<span class="doors" role="group" aria-label="Ways to contribute">',
@@ -1904,6 +1921,48 @@ def build_contribute(entries):
         f.write(js)
 
 
+def build_signin():
+    """Fill /signin's pull-request column from the issue forms that actually exist.
+
+    The four templates are the GitHub half of the two doors, and the reason they are
+    generated here rather than typed into signin.html is the reason verify-doors.py exists
+    at all: two hand-maintained copies of the same route drift, and the drift is silent
+    because a wrong template name still produces a working GitHub URL, just one that opens
+    a blank issue instead of the form. Naming them once means a renamed template breaks the
+    build rather than the page.
+
+    The order is the order a contributor meets them: propose something new, check something
+    that exists, fix something wrong, argue with a grade.
+    """
+    forms = [
+        ("new-entry", "Propose an entry", "A discovery the registry does not have yet"),
+        ("independent-check", "Submit a check", "Verify a finding nobody outside the lab has"),
+        ("correction", "Send a correction", "A fact, a link or a citation that is wrong"),
+        ("grade-challenge", "Challenge a grade", "Argue a verification or autonomy grade"),
+    ]
+
+    # Every template is a file on disk; if one is renamed, say so here rather than shipping
+    # a link that opens an empty issue form.
+    missing = [t for t, _, _ in forms
+               if not os.path.exists(os.path.join(ROOT, ".github", "ISSUE_TEMPLATE", t + ".yml"))]
+    if missing:
+        raise SystemExit("signin.html references issue templates that do not exist: "
+                         + ", ".join(m + ".yml" for m in missing))
+
+    rows = "".join(
+        f'<a class="pr-form" href="{attr(REPO)}/issues/new?template={attr(t)}.yml"'
+        f' target="_blank" rel="noopener">'
+        f'<b>{esc(label)}</b><span>{esc(hint)}</span></a>'
+        for t, label, hint in forms)
+
+    path = os.path.join(ROOT, "signin.html")
+    src = open(path).read()
+    src = inject(src, "<!--PRFORMS:START-->", "<!--PRFORMS:END-->", rows,
+                 "pull request forms", "signin.html")
+    with open(path, "w") as f:
+        f.write(src)
+
+
 def build_issue_templates():
     """Fill the GitHub issue forms' dropdowns from data/vocab.json.
 
@@ -3102,6 +3161,7 @@ def main():
     queued = build_review(entries)
     build_contributors(entries)
     build_contribute(entries)
+    build_signin()
     build_issue_templates()
     # After the page builders, so every shell has been written before the shared header
     # and footer go into it. One definition, five pages, no hand-maintained copies.

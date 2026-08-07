@@ -159,9 +159,20 @@
   // from a finding page returns to that finding page, not to the home page.
   const here = () => location.pathname + location.search + location.hash;
 
+  // The header control points at /signin, not at the OAuth endpoint, so the return
+  // address has to survive one extra hop: it rides to /signin as a query param and that
+  // page's own provider button forwards it to /api/auth/start. Skipped when we are
+  // already on /signin, where the page has its own copy and pointing the header link
+  // back at the page the reader is standing on would return them to it after signing in.
+  //
+  // Matched with a pattern rather than against the literal '/signin', because the same
+  // page answers on three paths: '/signin' (what cleanUrls serves in production),
+  // '/signin.html' (the file, which is what a local preview and a direct link hit) and
+  // a trailing-slash variant. A string compare would silently miss two of them.
+  const onSignin = /^\/signin(\.html)?\/?$/.test(location.pathname);
   const signInLink = slot && slot.querySelector('[data-signin]');
-  if (signInLink) {
-    signInLink.href = '/api/auth/start?return_to=' + encodeURIComponent(here());
+  if (signInLink && !onSignin) {
+    signInLink.href = '/signin?return_to=' + encodeURIComponent(here());
   }
 
   function renderSignedIn(acct) {

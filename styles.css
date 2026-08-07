@@ -270,11 +270,28 @@
   .acct .door{border-radius:0 11px 11px 0}
   .door:hover,.door:focus-visible{color:var(--ink);background:var(--panel-2)}
   .door svg{display:block}
-  /* The Google mark is the one thing here that is not currentColor, so it cannot dim on
-     rest and brighten on hover the way its neighbour does. Desaturating it slightly at
-     rest is what keeps the pair balanced; hover restores it. */
-  .door-in svg{filter:saturate(.82);transition:filter .2s var(--ease)}
-  .door-in:hover svg,.door-in:focus-visible svg{filter:saturate(1)}
+  /* The sign-in half carries a word, so it is sized by its text rather than by the 31px
+     icon cell its neighbour uses. The accent edge is the same device .pagenav a[aria-current]
+     uses for the live tab: an inset ring rather than a fill, which states that this is the
+     action without turning it into a pill that outweighs the GitHub door beside it. */
+  .door-in{width:auto;padding:0 11px;font-family:var(--serif);font-size:.72rem;font-weight:600;
+    letter-spacing:.02em;text-transform:none;white-space:nowrap;color:var(--accent);
+    background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);
+    transition:color .2s var(--ease),background-color .2s var(--ease),
+      box-shadow .2s var(--ease)}
+  /* Guarded, like every other lift on the site: iOS holds :hover after a tap, so an
+     unguarded ring thickening would stay thick until the reader touched something else.
+     focus-visible is keyboard and belongs outside the query. */
+  .door-in:focus-visible{color:var(--accent);background:var(--accent-soft)}
+  @media(hover:hover){
+    .door-in:hover{color:var(--accent);background:var(--accent-soft);
+      box-shadow:inset 0 0 0 1.5px var(--accent)}
+  }
+  /* The identicon that replaces this control once a session resolves is narrower than the
+     word it replaces, so without a floor the eyebrow would shift when /api/me answers.
+     62px is the signed-out button's own width, which makes the slot the same size in both
+     states and the swap invisible: measured at 62px signed out and 62px signed in. */
+  .acct{min-width:62px}
   /* The footer's labelled repository link, which is a different thing: it has room for a
      word, so it keeps one. */
   .gh-link{display:inline-flex;align-items:center;gap:6px}
@@ -1433,6 +1450,64 @@
     .about-foot{flex-direction:column;align-items:flex-start}
     .cite{flex:0 1 auto;width:100%}
   }
+  /* ---------- /signin ----------
+     Two doors, side by side, deliberately the same size and weight. CONTRIBUTING.md's
+     framing is that a pull request and an in-UI submission are alternatives, not a route
+     and its fallback, so styling one as primary would contradict the page's own sentence.
+     Equal columns are the cheapest way to say that and the hardest to drift from. */
+  /* Stretch, not start: two doors of equal standing should be two cards of equal height.
+     The columns hold different amounts of content (one button against four form rows), so
+     letting each size to its own contents makes the shorter one read as the lesser offer,
+     which is the one thing this layout exists to avoid. */
+  .doors-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:14px;
+    margin:20px 0 18px;align-items:stretch}
+  .door-card{background:var(--panel);border:1px solid var(--line);border-radius:16px;
+    padding:20px 20px 18px;box-shadow:var(--shadow-card);display:flex;flex-direction:column}
+  .door-card>.lbl{margin:0 0 7px}
+  .door-card>p{margin:0 0 14px;font-size:.88rem;line-height:1.55;color:var(--muted);max-width:44ch}
+  /* The provider button. Full width of its card and 44px tall, which is the touch floor
+     and also simply what a single decisive action on a page like this should look like. */
+  .provider-b{display:flex;align-items:center;justify-content:center;gap:9px;
+    min-height:44px;padding:11px 16px;border-radius:12px;text-decoration:none;
+    font-family:var(--serif);font-size:.9rem;font-weight:600;color:var(--accent);
+    background:var(--accent-soft);box-shadow:inset 0 0 0 1px var(--accent);
+    transition:background-color .2s var(--ease),box-shadow .2s var(--ease)}
+  .provider-b svg{flex:none;display:block}
+  @media(hover:hover){
+    .provider-b:hover{box-shadow:inset 0 0 0 1.5px var(--accent)}
+  }
+  /* The four prefilled forms, as rows rather than a bulleted list: each is a destination
+     with a name and a reason, and a list of bare links makes the reader open one to find
+     out which. Generated from the templates on disk by build_signin(). */
+  .pr-form{display:block;padding:9px 12px;border:1px solid var(--line);border-radius:11px;
+    text-decoration:none;background:var(--panel-2);margin-bottom:7px;
+    transition:border-color .2s var(--ease)}
+  .pr-form:last-of-type{margin-bottom:0}
+  .pr-form b{display:block;font-family:var(--serif);font-size:.84rem;font-weight:600;
+    color:var(--ink)}
+  .pr-form span{display:block;font-size:.76rem;line-height:1.45;color:var(--muted);margin-top:1px}
+  @media(hover:hover){
+    .pr-form:hover{border-color:var(--accent)}
+    .pr-form:hover b{color:var(--accent)}
+  }
+  /* The quiet line under each card: the scopes on one side, the pointer to /contribute on
+     the other. It follows its content rather than being pinned to the card's bottom edge:
+     the two columns hold different amounts (one button against four rows), so pinning it
+     opened a few hundred pixels of empty card under the shorter one, which is the same
+     dead space the footer citation used to have and just as hard to justify. The cards
+     still match in height; only the print inside them stops being forced to a line. */
+  .door-fine{margin:12px 0 0;padding-top:11px;border-top:1px solid var(--line);
+    font-size:.76rem;line-height:1.5;color:var(--muted)}
+  .door-fine code{background:var(--panel-2);padding:1px 6px;border-radius:6px;font-size:.92em}
+  .signin-foot{font-family:var(--serif);font-size:.8rem;line-height:1.55;color:var(--muted);
+    max-width:72ch;margin:0}
+  /* One column below 640: two cards of this density side by side stop being readable
+     before the grid stops fitting, and a two-up row of half-width cards reads as a
+     comparison table rather than as two doors. */
+  @media(max-width:640px){
+    .doors-grid{grid-template-columns:1fr;gap:12px}
+  }
+
   .empty{text-align:center;color:var(--muted);padding:56px;font-family:var(--serif);font-size:.86rem;
     background:var(--panel);border:1px solid var(--line);border-radius:16px}
   .empty code{background:var(--panel-2);padding:2px 7px;border-radius:7px}
@@ -1871,6 +1946,10 @@
        the masthead than a colour switcher has earned. */
     .theme-seg .th{width:40px;height:44px}
     .door{width:40px;height:44px}
+    /* The sign-in door is the exception: it holds a word, so a 40px width would clip it.
+       It takes the same 44px height and lets its text set the width, which is already
+       wider than the 44px minimum in either direction. */
+    .door-in{width:auto;min-width:44px;height:44px}
     .acct .acct-menu>summary{width:40px;height:44px}
 
     /* No room, and no neighbour to collide with: expand the hit area, not the paint.

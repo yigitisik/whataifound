@@ -1,47 +1,57 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630">
   <defs>
-    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#0b0d10"/>
-      <stop offset="1" stop-color="#12161b"/>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="0">
+      <stop offset="0" stop-color="#5aa9e6"></stop>
+      <stop offset="0.48" stop-color="#7c6cf0"></stop>
+      <stop offset="1" stop-color="#d98a4a"></stop>
     </linearGradient>
-    <linearGradient id="grad" x1="0" y1="0" x2="1" y2="0">
-      <stop offset="0" stop-color="#5aa9e6"/>
-      <stop offset="0.5" stop-color="#7c6cf0"/>
-      <stop offset="1" stop-color="#d98a4a"/>
+    <linearGradient id="mark" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#5aa9e6"></stop>
+      <stop offset="0.5" stop-color="#7c6cf0"></stop>
+      <stop offset="1" stop-color="#d98a4a"></stop>
     </linearGradient>
-    <!-- The mark's own gradient runs on the diagonal, matching mark.svg exactly. -->
-    <linearGradient id="markgrad" x1="0" y1="0" x2="1" y2="1">
-      <stop offset="0" stop-color="#5aa9e6"/>
-      <stop offset="0.5" stop-color="#7c6cf0"/>
-      <stop offset="1" stop-color="#d98a4a"/>
+    <linearGradient id="ai" gradientUnits="userSpaceOnUse" x1="470" y1="80" x2="510" y2="112">
+      <stop offset="0" stop-color="#5aa9e6"></stop>
+      <stop offset="0.55" stop-color="#7c6cf0"></stop>
+      <stop offset="1" stop-color="#d98a4a"></stop>
     </linearGradient>
-    <!-- The "ai" ramp, in the wordmark group's own coordinates (it is inside the
-         translate(80,90) g), so it sweeps both glyphs as one run rather than
-         restarting per letter. Coordinates are the measured glyph box. -->
-    <linearGradient id="ai" gradientUnits="userSpaceOnUse" x1="155" y1="16" x2="180" y2="42">
-      <stop offset="0" stop-color="#5aa9e6"/>
-      <stop offset="0.55" stop-color="#7c6cf0"/>
-      <stop offset="1" stop-color="#d98a4a"/>
+    <linearGradient id="card" x1="0" y1="0" x2="0.6" y2="1">
+      <stop offset="0" stop-color="#101A1F"></stop>
+      <stop offset="0.55" stop-color="#0D1317"></stop>
+      <stop offset="1" stop-color="#14100E"></stop>
     </linearGradient>
+    <radialGradient id="glow" cx="0.5" cy="1" r="0.75">
+      <stop offset="0" stop-color="#C9714B" stop-opacity="0.20"></stop>
+      <stop offset="1" stop-color="#0A0F12" stop-opacity="0"></stop>
+    </radialGradient>
+    <clipPath id="cardClip"><rect x="30" y="30" width="1140" height="570"></rect></clipPath>
+    
   </defs>
-  <rect width="1200" height="630" fill="url(#bg)"/>
-  <rect x="0" y="0" width="1200" height="6" fill="url(#grad)"/>
-  <!-- Brand lockup: the 24x24 mark scaled 2.5x, then the wordmark, per lockup.svg. -->
-  <g transform="translate(80,90)">
-    <g transform="scale(2.5)">
-      <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#markgrad)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="#e6e8ea" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
-      <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#markgrad)" fill-opacity="0.75"/>
-      <path d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#markgrad)"/>
-    </g>
-    <text x="78" y="41" font-family="Georgia, 'Times New Roman', serif" font-size="34" letter-spacing="0.6" fill="#e6e8ea">what<tspan fill="url(#ai)">ai</tspan>found<tspan fill="#6b7580">.org</tspan></text>
+
+  <rect width="1200" height="630" fill="#080A0C"></rect>
+  <rect x="30" y="30" width="1140" height="570" fill="url(#card)"></rect>
+  <g clip-path="url(#cardClip)">
+    <ellipse cx="600" cy="640" rx="410" ry="320" fill="url(#glow)"></ellipse>
   </g>
-  <text x="1120" y="128" text-anchor="end" font-family="Georgia, 'Times New Roman', serif" font-size="20" letter-spacing="1" fill="#6b7580">Isik &amp; Co.</text>
-  <text x="80" y="290" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="600" fill="#f2f4f6">What AI has</text>
-  <text x="80" y="372" font-family="Georgia, 'Times New Roman', serif" font-size="72" font-weight="600" fill="url(#grad)">actually discovered</text>
-  <text x="80" y="452" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#9aa4ae">A curated registry of scientific and mathematical results found</text>
-  <text x="80" y="494" font-family="Georgia, 'Times New Roman', serif" font-size="30" fill="#9aa4ae">by AI, graded on how they were verified and how much the AI did.</text>
-  <g font-family="Georgia, serif" font-size="22" fill="#c4ccd4">
-    <text x="80" y="580">Formally verified · Independently checked · Peer reviewed · Claimed · Disputed · Refuted</text>
+  <rect x="30.5" y="30.5" width="1139" height="569" fill="none" stroke="#C9714B" stroke-opacity="0.35"></rect>
+
+  <g transform="translate(394,79) scale(1.25)">
+    <path d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mark)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="#e6e8ea" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"></path>
+    <path d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mark)" fill-opacity="0.75"></path>
+    <path d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mark)"></path>
   </g>
+  <text class="sg" x="440" y="105" font-size="24" font-weight="600" letter-spacing="-0.3" fill="#e6e8ea">what<tspan fill="url(#ai)">ai</tspan>found<tspan fill="#6b7580" font-weight="400">.org</tspan></text>
+  <rect x="655" y="86" width="1" height="20" fill="#ffffff" fill-opacity="0.14"></rect>
+  <text class="mono" x="676" y="103" font-size="13" letter-spacing="2.3" fill="#6b7580">ISIK &amp; CO.</text>
+
+  <text class="sg" x="600" y="255" text-anchor="middle" font-size="70" font-weight="600" letter-spacing="-2.4" fill="#F2EFE7">What AI has</text>
+  <text class="serif" x="600" y="345" text-anchor="middle" font-size="80" letter-spacing="-0.8" fill="url(#brand)">actually discovered</text>
+
+  <text class="sg" x="600" y="415" text-anchor="middle" font-size="23" fill="#9aa4ae">A curated registry of scientific and mathematical results found</text>
+  <text class="sg" x="600" y="450" text-anchor="middle" font-size="23" fill="#9aa4ae">by AI, graded on how they were verified and how much the AI did.</text>
+
+  <text class="mono" x="600" y="549" text-anchor="middle" font-size="14" letter-spacing="0.85">
+    <tspan fill="#8FC3D4">Formally verified</tspan><tspan fill="#7C868A">   </tspan><tspan fill="#A9C08F">Independently checked</tspan><tspan fill="#7C868A">   </tspan><tspan fill="#E0A458">Peer reviewed</tspan><tspan fill="#7C868A">   </tspan><tspan fill="#C9714B">Claimed</tspan><tspan fill="#7C868A">   Disputed   Refuted</tspan>
+  </text>
 </svg>
