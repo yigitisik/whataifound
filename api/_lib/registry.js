@@ -104,7 +104,7 @@ export const ENTRY_GRADES = {
   "2025-07-28-aristotle-imo-lean": ["formal", "ai-led"],
   "2025-08-gpt5-convex-bound": ["known", "ai-assisted"],
   "2025-09-11-gauss-strong-pnt": ["author-verified", "ai-assisted"],
-  "2025-09-17-evo-phage-genomes": ["author-verified", "ai-led"],
+  "2025-09-17-evo-phage-genomes": ["peer-reviewed", "ai-led"],
   "2025-09-17-unstable-singularities": ["author-verified", "search-scaffold"],
   "2025-09-25-qma-amplification-limits": ["author-verified", "ai-assisted"],
   "2025-10-19-gpt5-erdos-retrieval": ["known", "retrieval"],

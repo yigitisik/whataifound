@@ -104,7 +104,8 @@ const DOMAIN_NAME = {
   'officechai.com':'OfficeChai','x.com':'X','scottaaronson.blog':'Scott Aaronson',
   'terrytao.wordpress.com':'Terence Tao','xenaproject.wordpress.com':'Kevin Buzzard',
   'simonwillison.net':'Simon Willison','alexisgallagher.com':'Alexis Gallagher',
-  'jacobianfun.org':'jacobianfun.org'
+  'jacobianfun.org':'jacobianfun.org','openai.com':'OpenAI',
+  'journalofinfection.com':'Journal of Infection','cam.ac.uk':'Cambridge'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }

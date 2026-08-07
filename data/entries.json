@@ -1699,12 +1699,17 @@
       "Samuel King",
       "Brian Hie"
     ],
-    "verification": "author-verified",
+    "verification": "peer-reviewed",
     "autonomy": "ai-led",
     "detail": "The team fine-tuned Evo 1 and Evo 2 on a cleaned set of nearly 15,000 Microviridae genomes, generated 302 candidate genomes with ΦX174-like architecture, chemically synthesised the 285 that could be assembled, and tested them for plaque formation in E. coli. Sixteen were viable, with substantial sequence divergence from the template. Several generated phages outcompeted wild-type ΦX174 in growth and lysis kinetics, and a cocktail of them cleared three ΦX174-resistant E. coli strains. The authors frame it as the first generative design of a complete functional genome.",
     "novelty_check": "Synthetic phage genomes assembled from natural sequence date to Venter's 2003 ΦX174 reconstruction, and generative design of individual proteins was well established. Generating an entire genome that yields a working organism had not been demonstrated. The claim is bounded to bacteriophages, which infect bacteria only.",
-    "caveats": "A bioRxiv preprint, not peer reviewed at the time of this entry, with no independent replication logged. The designs are variants within one small, exceptionally well-characterised template (ΦX174, 5,386 bp), not free-form genomes, and 269 of the 285 that were built did not work. On biosafety, the authors excluded eukaryotic and human-infecting viruses from training and confine the work to phages; the result has nonetheless become a reference point in biosecurity debate, which is context this entry records rather than adjudicates.",
+    "caveats": "Peer review does not replicate: no independent group has rebuilt these genomes, and the 16 viable designs remain the authors' own result. The designs are variants within one small, exceptionally well-characterised template (ΦX174, 5,386 bp), not free-form genomes, and 269 of the 285 that were built did not work. On biosafety, the authors excluded eukaryotic and human-infecting viruses from training and confine the work to phages; the result has nonetheless become a reference point in biosecurity debate, which is context this entry records rather than adjudicates. Science published a biosecurity perspective alongside the paper arguing for legally required screening of synthetic DNA orders. Note that some press coverage of the Science paper misattributes the work to OpenAI; the collaboration is Arc Institute and Stanford.",
     "sources": [
+      {
+        "label": "Science: Generative design of bacteriophages with genome language models",
+        "url": "https://www.science.org/doi/10.1126/science.aec2657",
+        "kind": "research"
+      },
       {
         "label": "bioRxiv: Generative design of novel bacteriophages with genome language models",
         "url": "https://www.biorxiv.org/content/10.1101/2025.09.12.675911v1",
@@ -1719,6 +1724,19 @@
         "label": "Asimov Press: AI-designed phages",
         "url": "https://www.asimov.press/p/ai-phages",
         "kind": "coverage"
+      },
+      {
+        "label": "Inglesby and Hanke: Guarding against the misuse of AI-designed viruses",
+        "url": "https://www.science.org/doi/10.1126/science.aej8512",
+        "kind": "commentary"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-08-06",
+        "kind": "regraded",
+        "note": "Upgraded from author verified to peer reviewed: the preprint was published in Science, alongside a biosecurity perspective calling for mandatory screening of synthetic DNA orders.",
+        "url": "https://www.science.org/doi/10.1126/science.aec2657"
       }
     ],
     "tags": [
