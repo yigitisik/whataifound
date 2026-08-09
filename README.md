@@ -105,7 +105,7 @@ deliberately; outputs are committed).
 `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`, `contributors.html`,
 `methodology.html`, `visuals.html`, `contribute.html` or the GitHub issue templates. That includes
 the masthead and footer on every page: change the chrome in `site_header()` / `site_footer()`, not
-in seventy-five files. Edit `data/entries.json` and rebuild.
+in every generated file. Edit `data/entries.json` and rebuild.
 
 ## Structure
 
@@ -207,21 +207,34 @@ would have to download the whole of it to answer.
 Static, no build command: the generated files are committed, so a deploy just serves them. Push to
 `main` deploys production; each PR gets a preview.
 
-- Caching: fonts immutable for a year; brand assets a day; `data/entries.json` and
-  `finding/` `must-revalidate`; feeds and `llms.txt` 30 min.
+- Caching: fonts immutable for a year; brand assets a day; the root pages, `data/entries.json`
+  and `finding/` `must-revalidate`; feeds and `llms.txt` 30 min.
 - Security headers on every response: CSP (including `script-src-attr 'none'` and `object-src
   'none'`), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
   `Strict-Transport-Security`, `Permissions-Policy`. A new external resource needs its CSP directive
   in `vercel.json` widened, or it is blocked.
+- Deployment records: the Vercel integration opens one per push and never closes them, so
+  `cleanup-deployments.yml` prunes both environments weekly. It keeps the newest record in each
+  (for Production that is the live site) and drops the rest after 90 days. Nothing it deletes is
+  unrecoverable: the record holds a sha that is already in git, and the deploy log and rollback
+  live in Vercel.
 
 ## Discovery
 
 - Canonical URLs on every page, clean-URL form.
-- JSON-LD: `WebSite` + `SearchAction`, `Dataset` for `data/entries.json`, and an eight-question
-  `FAQPage` on the home page (its tallies are regenerated, so they cannot go stale); `TechArticle`
-  on methodology; `ScholarlyArticle` + `ClaimReview` + `BreadcrumbList` on every finding page.
-  `ClaimReview` maps the verification grade to a 1-5 rating, so an answer engine reads the verdict
-  rather than parsing prose.
+- JSON-LD: `WebSite` + `SearchAction`, `Dataset` for `data/entries.json`, an eight-question
+  `FAQPage` on the home page, plus a generated `CollectionPage` listing every entry (its tallies and
+  that list are regenerated, so neither can go stale); `TechArticle` on methodology;
+  `CollectionPage` (listing its own entries) + `BreadcrumbList` on each topic and lab hub;
+  `ScholarlyArticle` + `ClaimReview` + `BreadcrumbList` on every finding page. `ClaimReview` maps
+  the verification grade to a 1-5 rating, so an answer engine reads the verdict rather than
+  parsing prose.
+- `robots.txt` excludes query-string URLs from the general crawl. Tag chips and prefilled
+  contribute links are real URLs by design, but the filtering is client-side, so `/?tag=lean`
+  serves the same page as `/`. They outnumber the real pages several times over and grow with the
+  registry; every one already carries a canonical, so this is a crawl budget question rather than a
+  duplicate content one. The `SearchAction` target `/?q=` is allowed back in by a longer, and
+  therefore winning, rule. The AI crawler groups are deliberately left unrestricted.
 - `llms.txt` gives LLM crawlers a markdown map: what the registry is, both grading scales, the data
   files, and every finding with its grades.
 - `robots.txt` allows AI crawlers and points at `sitemap.xml` and `llms.txt`.

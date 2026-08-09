@@ -34,10 +34,15 @@ obligation: a source from a host missing from that table renders as a bare domai
 
 ## What `check-integrity.py` guards
 
-About a quarter of `index.html` (the `<head>`, the JSON-LD, the nav, the footer, the script
-tags) sits *outside* the `<!--…:START/END-->` markers and is never regenerated. A payload
-placed there survives every rebuild and leaves a clean `git diff`, so a check that only
-compares against a rebuild would not see it.
+About a quarter of `index.html` (the `<head>`, most of the JSON-LD, the nav, the footer, the
+script tags) sits *outside* the `<!--…:START/END-->` markers and is never regenerated. A
+payload placed there survives every rebuild and leaves a clean `git diff`, so a check that
+only compares against a rebuild would not see it.
+
+The one JSON-LD block that *is* generated is the registry `ItemList`, between
+`<!--HOMELD:START/END-->`. It is a mechanical projection of `data/entries.json` and has to be
+rewritten whenever an entry is added, so it cannot live in the hand-written graph beside the
+Organization, WebSite, Dataset and FAQPage nodes, which change by hand.
 
 So the script asserts properties of the content instead: no unexpected inline scripts, no
 script or frame origins outside the CSP, no inline event handlers, no executable URL schemes,
@@ -63,13 +68,13 @@ exist. `.github/workflows/build.yml` orders the two steps that way deliberately.
 Two consequences follow, and both are handled rather than lived with.
 
 **Every chrome change touches every page.** A one-word edit to the footer rewrites that
-region on all 74 generated pages. That is inherent: there is no include mechanism in plain
-static HTML, and the alternatives do not fit.
+region on every page that carries it, which is every page the build writes. That is inherent:
+there is no include mechanism in plain static HTML, and the alternatives do not fit.
 
 - *Building on deploy* would remove the diff but break the integrity model above.
 - *A separate `deploy` branch* is structurally impossible: `index.html` is simultaneously
-  hand-written (the `<head>`, JSON-LD, nav, script tags) and generated (the marker regions).
-  Source and output are the same file, so no branch split can separate them.
+  hand-written (the `<head>`, the editorial JSON-LD, nav, script tags) and generated (the
+  marker regions). Source and output are the same file, so no branch split can separate them.
 - *Hoisting the inline SVGs into a sprite* would cut the header by two thirds, but the brand
   mark is CSS-animated per page and inherits `currentColor`. Both need in-document SVG.
 
@@ -83,9 +88,9 @@ live in.
 
 And the shared chrome is emitted **one element per line**. It used to be one unbroken
 string per function, so a one-word footer change showed as a 3,725-character line deleted
-and another added, on 65 pages, with no way to see what moved. Broken up, the same change
-is two lines about forty characters wide. The widest line in a finding page went from 4,346
-characters to 977.
+and another added, on every generated page, with no way to see what moved. Broken up, the
+same change is two lines about forty characters wide. The widest line in a finding page went
+from 4,346 characters to 977.
 
 ### The rule, if you add to the header or footer
 
@@ -150,8 +155,9 @@ reserved for the build, so an entry cannot backdate its own arrival.
 **Dates in the feed are absolute, never relative.** `build-site.py` imports no clock on
 purpose: the generated files are committed, and CI rebuilds them and diffs the bytes, so "3
 days ago" would rot the moment nobody touched the registry for a week. For the same reason the
-sort carries an explicit tiebreak (date, then the entry's own date, then id): 25 entries share
-a single `added` date, and an unstable order would fail CI on an unrelated pull request.
+sort carries an explicit tiebreak (date, then the entry's own date, then id): a backfill gives
+many entries the same `added` date, and an unstable order would fail CI on an unrelated pull
+request.
 
 ## Accounts, and why the CSP did not have to move
 
