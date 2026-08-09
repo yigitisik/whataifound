@@ -131,6 +131,8 @@ def check_tap_targets(css, problems):
         (".sig-b", "grow", None, "triage buttons, sized by padding"),
         (".empty-act", "grow", None, "clear-filters button"),
         (".csv-btn", "grow", None, "export button"),
+        (".keycap", "grow", "height",
+         "the palette and shortcut buttons: small text, so padding alone lands at 42px"),
         (".th-sort", "grow", None, "table column sort"),
         (".cite-copy", "grow", None, "citation copy"),
         (".permalink", "expand", None, "lone glyph, expands both ways"),
@@ -158,7 +160,12 @@ def check_tap_targets(css, problems):
             if not re.search(r"padding\s*:", rule.group(1)):
                 problems.append(f"styles.css: '{sel}' has no padding at coarse pointer ({why})")
             continue
-        v = re.search(rf"(?<![-a-z]){dim}\s*:\s*(\d+)px", rule.group(1))
+        # min-height counts as much as height: a text control that grows with its content
+        # is sized correctly by a floor, and demanding a fixed height would force a wrong
+        # answer. The lookbehind excludes min- and max- so the two are matched separately
+        # rather than by loosening it, which would also let max-height satisfy this.
+        v = (re.search(rf"(?<![-a-z]){dim}\s*:\s*(\d+)px", rule.group(1))
+             or re.search(rf"(?<![-a-z])min-{dim}\s*:\s*(\d+)px", rule.group(1)))
         if not v:
             problems.append(f"styles.css: '{sel}' sets no {dim} at coarse pointer ({why})")
         elif int(v.group(1)) < MIN_TARGET:

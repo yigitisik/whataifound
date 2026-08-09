@@ -17,15 +17,18 @@
 <meta property="og:description" content="8 findings in the whataifound.org registry: Every finding in the registry filed under computer science, with what each one claims and how solid the evidence is.">
 <meta property="og:url" content="https://whataifound.org/topic/computer-science">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI findings in computer science">
 <meta name="twitter:description" content="8 findings in the whataifound.org registry: Every finding in the registry filed under computer science, with what each one claims and how solid the evidence is.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -38,69 +41,91 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": "https://whataifound.org/topic/computer-science#page",
-  "name": "AI findings in computer science",
-  "description": "8 findings in the whataifound.org registry: Every finding in the registry filed under computer science, with what each one claims and how solid the evidence is.",
-  "url": "https://whataifound.org/topic/computer-science",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://whataifound.org/#website"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "numberOfItems": 8,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "url": "https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans",
-        "name": "Counterexample to the Dinitz–Garg–Goemans conjecture"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://whataifound.org/topic/computer-science#page",
+      "name": "AI findings in computer science",
+      "description": "8 findings in the whataifound.org registry: Every finding in the registry filed under computer science, with what each one claims and how solid the evidence is.",
+      "url": "https://whataifound.org/topic/computer-science",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#website"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "url": "https://whataifound.org/finding/2025-11-gpt5-science-acceleration",
-        "name": "Early science acceleration experiments with GPT-5"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "url": "https://whataifound.org/finding/2025-09-25-qma-amplification-limits",
-        "name": "Limits to black-box amplification in QMA, with the key step written by GPT-5"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "url": "https://whataifound.org/finding/2025-05-alphaevolve-matmul",
-        "name": "4×4 complex matrix multiplication in 48 scalar multiplications"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "url": "https://whataifound.org/finding/2025-03-12-ai-scientist-workshop-paper",
-        "name": "A fully machine-generated paper passed workshop peer review"
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "url": "https://whataifound.org/finding/2023-12-funsearch-binpacking",
-        "name": "Improved heuristics for online bin packing"
-      },
-      {
-        "@type": "ListItem",
-        "position": 7,
-        "url": "https://whataifound.org/finding/2023-06-07-alphadev",
-        "name": "Faster sorting routines discovered and merged into the LLVM C++ library"
-      },
-      {
-        "@type": "ListItem",
-        "position": 8,
-        "url": "https://whataifound.org/finding/2022-10-05-alphatensor",
-        "name": "Faster matrix-multiplication algorithms found by reinforcement learning"
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 8,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans",
+            "name": "Counterexample to the Dinitz–Garg–Goemans conjecture"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://whataifound.org/finding/2025-11-gpt5-science-acceleration",
+            "name": "Early science acceleration experiments with GPT-5"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://whataifound.org/finding/2025-09-25-qma-amplification-limits",
+            "name": "Limits to black-box amplification in QMA, with the key step written by GPT-5"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://whataifound.org/finding/2025-05-alphaevolve-matmul",
+            "name": "4×4 complex matrix multiplication in 48 scalar multiplications"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://whataifound.org/finding/2025-03-12-ai-scientist-workshop-paper",
+            "name": "A fully machine-generated paper passed workshop peer review"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://whataifound.org/finding/2023-12-funsearch-binpacking",
+            "name": "Improved heuristics for online bin packing"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://whataifound.org/finding/2023-06-07-alphadev",
+            "name": "Faster sorting routines discovered and merged into the LLVM C++ library"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "url": "https://whataifound.org/finding/2022-10-05-alphatensor",
+            "name": "Faster matrix-multiplication algorithms found by reinforcement learning"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://whataifound.org/topic/computer-science#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI findings in computer science",
+          "item": "https://whataifound.org/topic/computer-science"
+        }
+      ]
+    }
+  ]
 }
 </script>
 

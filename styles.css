@@ -872,14 +872,45 @@
   html[data-view="table"] #list > .v-cards{display:none}
   html:not([data-view="table"]) #list > .v-table{display:none}
 
-  /* ---------- Export ---------- */
-  .listfoot{margin:18px 0 0;text-align:right}
+  /* ---------- Export and share ---------- */
+  /* Two buttons, right aligned, wrapping to their own lines rather than overflowing when
+     the column is narrow. flex-end reproduces what text-align:right did for the single
+     button this used to hold. */
+  .listfoot{margin:18px 0 0;display:flex;flex-wrap:wrap;justify-content:flex-end;gap:8px}
   .csv-btn{padding:9px 15px;border:1px solid var(--line-strong);border-radius:11px;
     background:var(--panel);color:var(--muted);font-family:var(--serif);font-size:.75rem;
     cursor:pointer;transition:color .15s,border-color .15s,background .15s}
   .csv-btn:hover{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
   .csv-btn:disabled{opacity:.45;cursor:default}
   .csv-btn:disabled:hover{color:var(--muted);border-color:var(--line-strong);background:var(--panel)}
+  /* Export is the primary action under the list; share is the quieter one beside it, so
+     it drops to the hairline border until hovered. Colour only, no transform or shadow,
+     which is what lets these hover rules sit outside @media(hover:hover). */
+  .share-btn{border-color:var(--line)}
+
+  /* The way in to the palette and the shortcut sheet, directly under the toolbar. These
+     are the only controls on the page nothing else points at, so unlike the rest of the
+     chrome they are drawn to be noticed: the first is a filled accent pill naming what it
+     does, the second a quieter outline beside it. Labels say the action, not the key,
+     because "commands" told nobody what would happen. */
+  .keyhint{margin:-14px 0 14px;display:flex;flex-wrap:wrap;align-items:center;gap:10px}
+  .keycap{display:inline-flex;align-items:center;gap:8px;padding:8px 12px;
+    border:1px solid var(--line-strong);border-radius:11px;background:var(--panel);
+    color:var(--muted);font-family:var(--serif);font-size:.76rem;cursor:pointer;
+    transition:color .15s,border-color .15s,background .15s}
+  .keycap:hover{color:var(--ink);border-color:var(--accent);background:var(--accent-soft)}
+  /* The primary of the two: accent on accent-soft, so it reads as the one to press. */
+  .keycap-lead{color:var(--accent);border-color:var(--accent);background:var(--accent-soft);
+    font-weight:600}
+  .keycap-lead:hover{color:var(--accent);border-color:var(--accent)}
+  .keycap svg{width:14px;height:14px;flex:0 0 auto}
+  .keycap kbd{display:inline-block;min-width:20px;text-align:center;padding:2px 6px;
+    border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:6px;
+    background:var(--panel-2);font-family:var(--mono,ui-monospace,monospace);font-size:.68rem;
+    color:var(--ink)}
+  /* The key cap on the filled pill sits on accent-soft, so it needs the accent border to
+     stay legible against it rather than the neutral line colour. */
+  .keycap-lead kbd{border-color:var(--accent);color:var(--accent);background:var(--panel)}
 
   /* ---------- Citation blocks (finding pages) ---------- */
   .cites{display:grid;gap:12px;margin:0 0 6px}
@@ -958,6 +989,33 @@
     border:1px solid var(--line-strong);border-bottom-width:2px;border-radius:7px;
     background:var(--panel-2);font-family:var(--mono,ui-monospace,monospace);font-size:.72rem}
   .keys-note{margin:0 0 18px;font-size:.76rem;color:var(--muted);line-height:1.55}
+
+  /* ---------- Command palette ---------- */
+  /* Near the top rather than centred: the list grows downward as you type, and a centred
+     dialog would move the row under the cursor every keystroke. Same tokens as the
+     shortcut sheet above, so there is no new colour to add to the three palettes. */
+  .cmdk{border:1px solid var(--line-strong);border-radius:16px;background:var(--panel);
+    color:var(--ink);padding:16px;width:min(560px,94vw);max-width:none;
+    margin-top:10vh;font-family:var(--serif);overscroll-behavior:contain}
+  .cmdk::backdrop{background:rgba(0,0,0,.55)}
+  .cmdk-q{width:100%;box-sizing:border-box;padding:11px 13px;border:1px solid var(--line-strong);
+    border-radius:11px;background:var(--panel-2);color:var(--ink);font-family:var(--serif);
+    font-size:.9rem}
+  .cmdk-list{list-style:none;margin:12px 0 0;padding:0;max-height:min(46vh,340px);overflow-y:auto;
+    overscroll-behavior:contain}
+  /* 44px on every pointer, not just coarse: these are list rows, so the height costs
+     nothing visually and the target is right everywhere. */
+  .cmdk-row{display:flex;align-items:center;justify-content:space-between;gap:12px;
+    min-height:44px;padding:6px 11px;border-radius:9px;cursor:pointer;font-size:.85rem}
+  /* The active row is a class, never :hover. Arrow keys and the pointer both set it, and
+     a :hover rule would fight the keyboard on touch. Colour only, so it needs no
+     @media(hover:hover) guard. */
+  .cmdk-row.is-active{background:var(--accent-soft);color:var(--accent)}
+  .cmdk-label{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+  .cmdk-hint{flex:0 0 auto;font-size:.7rem;color:var(--muted);letter-spacing:.03em}
+  .cmdk-row.is-active .cmdk-hint{color:var(--accent)}
+  .cmdk-empty{padding:12px 11px;font-size:.82rem;color:var(--muted)}
+  .cmdk-note{margin:12px 0 14px}
 
   /* Wide enough for search, five controls and the count on one line, which drops the
      sticky bar from two rows to one and hands ~46px back to every screen. Placed after
@@ -1167,11 +1225,16 @@
     position:relative;top:-.02em}
   .entry:hover .permalink,.permalink:focus-visible{opacity:.55}
   .permalink:hover{opacity:1;color:var(--accent)}
-  .permalink.copied{opacity:1;color:var(--accent)}
-  .permalink.copied::after{content:"Link copied";position:absolute;left:50%;top:-1.9em;
+  .permalink.copied,.permalink.selected{opacity:1;color:var(--accent)}
+  /* Two messages, one tooltip. `selected` is the honest answer when the clipboard is
+     unavailable: the click still put the link in the address bar, so it says so rather
+     than claiming a copy that did not happen. */
+  .permalink.copied::after,.permalink.selected::after{position:absolute;left:50%;top:-1.9em;
     transform:translateX(-50%);white-space:nowrap;font-family:var(--serif);font-size:.62rem;
     letter-spacing:.03em;color:var(--accent);background:var(--accent-soft);
     border-radius:7px;padding:3px 8px;pointer-events:none}
+  .permalink.copied::after{content:"Link copied"}
+  .permalink.selected::after{content:"Link is in the address bar"}
   @media (pointer:coarse){ .permalink{opacity:.4} }
   .entry-focus{border-color:var(--accent)!important;
     box-shadow:0 0 0 1px var(--accent),0 16px 40px rgba(30,28,24,.12)!important}
@@ -1853,6 +1916,10 @@
     .sig-b{padding:11px 14px}
     .empty-act{padding:12px 18px}
     .csv-btn{padding:12px 16px}
+    /* min-height as well as padding: at .76rem the line box is ~18px, so padding alone
+       reaches 42px and lands just under the floor. The explicit height is what makes the
+       target correct rather than nearly correct. */
+    .keycap{padding:12px 14px;min-height:44px}
     .th-sort{padding:14px 13px}
     .cite-copy{padding:11px 14px}
 
@@ -1921,7 +1988,7 @@
     /* !important, and after the reset above: the * rule would otherwise leave the page
        canvas transparent and the dark theme would print through it. */
     html,body{background:#fff!important}
-    .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.doors,.totop,.keys,.listfoot,
+    .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.doors,.totop,.keys,.cmdk,.listfoot,.keyhint,
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
     .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
     a{text-decoration:underline}

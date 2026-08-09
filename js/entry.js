@@ -22,26 +22,12 @@
     if (!btn) return;
     const pre = btn.closest('.cite-block')?.querySelector('.cite-pre');
     if (!pre) return;
-    const text = pre.textContent;
-    // clipboard.writeText needs a secure context. On plain http (a local preview, or a
-    // reader behind a proxy that strips TLS) it is simply absent, so fall back to
-    // selecting the text: the reader still gets it with one keystroke rather than a
-    // button that silently does nothing.
-    if (navigator.clipboard?.writeText) {
-      navigator.clipboard.writeText(text).then(
-        () => label(btn, 'Copied'),
-        () => selectFallback(pre, btn));
-    } else {
-      selectFallback(pre, btn);
-    }
+    // The copy itself, including the insecure-context fallback that selects the block,
+    // lives in chrome.js: the home page needs the same thing for its permalinks, and one
+    // of the two copies used to claim success when nothing had been copied.
+    window.wafCopy(
+      pre.textContent, pre,
+      () => label(btn, 'Copied'),
+      () => label(btn, 'Selected, press copy'));
   });
-
-  function selectFallback(pre, btn) {
-    const range = document.createRange();
-    range.selectNodeContents(pre);
-    const sel = getSelection();
-    sel.removeAllRanges();
-    sel.addRange(range);
-    label(btn, 'Selected, press copy');
-  }
 })();

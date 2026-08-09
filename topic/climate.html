@@ -17,15 +17,18 @@
 <meta property="og:description" content="1 finding in the whataifound.org registry: Every finding in the registry filed under climate science, with what each one claims and how solid the evidence is.">
 <meta property="og:url" content="https://whataifound.org/topic/climate">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI findings in climate science">
 <meta name="twitter:description" content="1 finding in the whataifound.org registry: Every finding in the registry filed under climate science, with what each one claims and how solid the evidence is.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -38,27 +41,49 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": "https://whataifound.org/topic/climate#page",
-  "name": "AI findings in climate science",
-  "description": "1 finding in the whataifound.org registry: Every finding in the registry filed under climate science, with what each one claims and how solid the evidence is.",
-  "url": "https://whataifound.org/topic/climate",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://whataifound.org/#website"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "numberOfItems": 1,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "url": "https://whataifound.org/finding/2023-11-14-graphcast",
-        "name": "Medium-range weather forecasts from a graph neural network beat the operational physics model"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://whataifound.org/topic/climate#page",
+      "name": "AI findings in climate science",
+      "description": "1 finding in the whataifound.org registry: Every finding in the registry filed under climate science, with what each one claims and how solid the evidence is.",
+      "url": "https://whataifound.org/topic/climate",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#website"
+      },
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 1,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://whataifound.org/finding/2023-11-14-graphcast",
+            "name": "Medium-range weather forecasts from a graph neural network beat the operational physics model"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://whataifound.org/topic/climate#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI findings in climate science",
+          "item": "https://whataifound.org/topic/climate"
+        }
+      ]
+    }
+  ]
 }
 </script>
 

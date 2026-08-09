@@ -17,15 +17,18 @@
 <meta property="og:description" content="6 findings in the whataifound.org registry: Every finding in the registry credited to OpenAI, with what each one claims and how solid the evidence is.">
 <meta property="og:url" content="https://whataifound.org/lab/openai">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI findings from OpenAI">
 <meta name="twitter:description" content="6 findings in the whataifound.org registry: Every finding in the registry credited to OpenAI, with what each one claims and how solid the evidence is.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -38,57 +41,79 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": "https://whataifound.org/lab/openai#page",
-  "name": "AI findings from OpenAI",
-  "description": "6 findings in the whataifound.org registry: Every finding in the registry credited to OpenAI, with what each one claims and how solid the evidence is.",
-  "url": "https://whataifound.org/lab/openai",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://whataifound.org/#website"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "numberOfItems": 6,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "url": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
-        "name": "Ten results in mathematics and theoretical computer science with Lean certificates"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://whataifound.org/lab/openai#page",
+      "name": "AI findings from OpenAI",
+      "description": "6 findings in the whataifound.org registry: Every finding in the registry credited to OpenAI, with what each one claims and how solid the evidence is.",
+      "url": "https://whataifound.org/lab/openai",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#website"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "url": "https://whataifound.org/finding/2026-05-erdos-unit-distance",
-        "name": "Disproof of the Erdős unit-distance conjecture"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "url": "https://whataifound.org/finding/2026-01-erdos-728",
-        "name": "Erdős problem #728 resolved and formalized in Lean"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "url": "https://whataifound.org/finding/2025-11-gpt5-science-acceleration",
-        "name": "Early science acceleration experiments with GPT-5"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "url": "https://whataifound.org/finding/2025-10-19-gpt5-erdos-retrieval",
-        "name": "GPT-5 \"solved 10 Erdős problems\": it located existing solutions"
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "url": "https://whataifound.org/finding/2025-08-gpt5-convex-bound",
-        "name": "Improved step-size bound in smooth convex optimization"
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 6,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
+            "name": "Ten results in mathematics and theoretical computer science with Lean certificates"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://whataifound.org/finding/2026-05-erdos-unit-distance",
+            "name": "Disproof of the Erdős unit-distance conjecture"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://whataifound.org/finding/2026-01-erdos-728",
+            "name": "Erdős problem #728 resolved and formalized in Lean"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://whataifound.org/finding/2025-11-gpt5-science-acceleration",
+            "name": "Early science acceleration experiments with GPT-5"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://whataifound.org/finding/2025-10-19-gpt5-erdos-retrieval",
+            "name": "GPT-5 \"solved 10 Erdős problems\": it located existing solutions"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://whataifound.org/finding/2025-08-gpt5-convex-bound",
+            "name": "Improved step-size bound in smooth convex optimization"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://whataifound.org/lab/openai#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI findings from OpenAI",
+          "item": "https://whataifound.org/lab/openai"
+        }
+      ]
+    }
+  ]
 }
 </script>
 

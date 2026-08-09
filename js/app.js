@@ -78,7 +78,10 @@ const LAB_MARK = {
 };
 function labMark(lab){
   const src = LAB_LOGO[lab];
-  if (src) return `<span class="labchip img" aria-hidden="true"><img src="${esc(src)}" alt=""></span>`;
+  // 19x19: the chip is a fixed 27px box with 4px of padding on each side (styles.css).
+  // CSS already reserves the space, so this is for the crawlers and auditors that read
+  // the attributes rather than the stylesheet. Mirrored in build-site.py's lab_mark().
+  if (src) return `<span class="labchip img" aria-hidden="true"><img src="${esc(src)}" alt="" width="19" height="19" loading="lazy" decoding="async"></span>`;
   const m = LAB_MARK[lab] || {t:(lab||'?').trim().slice(0,1).toUpperCase(), c:'#7c7a72'};
   return `<span class="labchip" style="--lc:${m.c}" aria-hidden="true">${esc(m.t)}</span>`;
 }
@@ -1277,6 +1280,34 @@ function bootStatic(){
   // data is in hand.
   document.getElementById('csv')?.addEventListener('click',
     () => ensureData().then(exportCsv));
+  // The counterpart to export: the view itself rather than its rows. Needs no data, so
+  // unlike export it works before the registry has loaded.
+  document.getElementById('share')?.addEventListener('click', ev => {
+    const btn = ev.currentTarget;
+    // search, not hash: the hash names one entry, and this shares the view. Composed
+    // from location rather than writeState() so it is whatever the address bar says.
+    const url = location.origin + location.pathname + location.search;
+    const say = text => {
+      const was = btn.dataset.was || btn.textContent;
+      btn.dataset.was = was;
+      btn.textContent = text;
+      setTimeout(() => { btn.textContent = was; }, 1400);
+    };
+    const copy = () => window.wafCopy
+      ? window.wafCopy(url, null, () => say('Link copied'), () => say('Copy failed'))
+      : say('Copy failed');
+    // The share sheet is the better affordance on a phone and the wrong one on a desktop,
+    // where it opens an OS panel in front of someone who asked for a copy. Dismissing the
+    // sheet is a decision, not a failure, so AbortError falls through to nothing.
+    let coarse = false;
+    try { coarse = matchMedia('(pointer: coarse)').matches; } catch (e){}
+    if (navigator.share && coarse){
+      navigator.share({ title: document.title, url })
+        .catch(err => { if (err && err.name !== 'AbortError') copy(); });
+      return;
+    }
+    copy();
+  });
   document.querySelector('.view-seg')?.addEventListener('click', ev => {
     const b = ev.target.closest('.vw');
     if (!b) return;
@@ -1296,14 +1327,32 @@ function bootStatic(){
 
   // ---------- Keyboard ----------
   const keys = document.getElementById('keys');
+  const cmdk = document.getElementById('cmdk');
+  const openPalette = wirePalette();
   document.getElementById('keys-close')?.addEventListener('click', () => keys.close());
+  // The visible way in, for anyone who has not memorised the keys or has no keyboard to
+  // press them with. Same two dialogs, opened the same way.
+  document.querySelectorAll('.keycap').forEach(b => b.addEventListener('click', () => {
+    if (b.dataset.opens === 'cmdk'){ if (openPalette && !cmdk?.open) openPalette(); }
+    else if (!keys?.open) keys?.showModal();
+  }));
   addEventListener('keydown', ev => {
+    // Above the modifier guard below, and the only thing allowed up here: Cmd/Ctrl+K is
+    // the shortcut people try first, and the guard exists to stop "/" and "?" firing on
+    // browser chords. preventDefault matters, Ctrl+K being a browser binding of its own.
+    if ((ev.metaKey || ev.ctrlKey) && !ev.altKey && !ev.shiftKey && (ev.key === 'k' || ev.key === 'K')){
+      ev.preventDefault();
+      if (openPalette && !cmdk?.open) openPalette();
+      return;
+    }
     if (ev.metaKey || ev.ctrlKey || ev.altKey) return;
     const el = document.activeElement;
     const typing = el && (['INPUT','SELECT','TEXTAREA'].includes(el.tagName) || el.isContentEditable);
     if (ev.key === 'Escape'){
       // <dialog> closes itself on Escape, so only the search box needs handling here.
-      if (keys?.open || !typing) return;
+      // Both dialogs have to be named: the palette's input is a typing context, so
+      // without cmdk the Escape that closes it would also clear the search behind it.
+      if (keys?.open || cmdk?.open || !typing) return;
       if (STATE.q){
         STATE.q = '';
         if (STATE.sort === 'relevance') STATE.sort = DEFAULTS.sort;
@@ -1315,6 +1364,27 @@ function bootStatic(){
     if (typing) return;
     if (ev.key === '/'){ ev.preventDefault(); document.getElementById('q').focus(); }
     else if (ev.key === '?'){ ev.preventDefault(); keys?.showModal(); }
+    else if (ev.key === 'k'){ ev.preventDefault(); if (openPalette && !cmdk?.open) openPalette(); }
+    // v and t drive the two segmented controls by clicking them rather than reproducing
+    // what they do. The view toggle owns one localStorage write and the theme switcher
+    // lives in chrome.js with its own transition and theme-color tint; a second
+    // implementation of either is a second thing to keep in step.
+    else if (ev.key === 'v'){
+      ev.preventDefault();
+      const other = document.querySelector(`.view-seg .vw[data-view="${STATE.view === 'table' ? 'cards' : 'table'}"]`);
+      other?.click();
+    }
+    else if (ev.key === 't'){
+      ev.preventDefault();
+      const modes = ['light','system','dark'];
+      const btns = [...document.querySelectorAll('.theme-seg .th')];
+      const at = btns.findIndex(b => b.getAttribute('aria-pressed') === 'true');
+      // The pressed state is the rendered truth, so reading it needs no access to the
+      // stored value. Nothing pressed (a page without the control) is a no-op.
+      if (at < 0) return;
+      const next = modes[(modes.indexOf(btns[at].dataset.mode) + 1) % modes.length];
+      document.querySelector(`.theme-seg .th[data-mode="${next}"]`)?.click();
+    }
   });
 
   // ---------- Back to top ----------
@@ -1352,12 +1422,17 @@ function bootStatic(){
       ev.preventDefault();
       const id = link.dataset.permalink;
       const url = location.origin + location.pathname + '#' + id;
-      const flash = () => {
-        link.classList.add('copied');
-        setTimeout(() => link.classList.remove('copied'), 1100);
+      const flash = cls => {
+        link.classList.add(cls);
+        setTimeout(() => link.classList.remove(cls), 1400);
       };
-      if (navigator.clipboard?.writeText) navigator.clipboard.writeText(url).then(flash, flash);
-      else flash();
+      // The address bar is updated either way, so when the clipboard is unavailable the
+      // link is still one keystroke away and the tooltip says where it is. This used to
+      // report "Link copied" on both branches, including the one that copied nothing.
+      // There is no element holding this URL to select: it is composed, not rendered.
+      const copy = window.wafCopy;
+      if (copy) copy(url, null, () => flash('copied'), () => flash('selected'));
+      else flash('selected');
       history.replaceState(null, '', '#' + id);
       return;
     }
@@ -1404,6 +1479,174 @@ function bootStatic(){
   };
   revealFromHash();
   addEventListener('hashchange', revealFromHash);}
+
+// ---------- Command palette ----------
+// One keystroke to the thing you wanted, without learning where the site put it. Every
+// row is derived: entries come from the same haystack() and score() the list uses, and
+// the filter and sort rows are read off the toolbar's own <option> elements rather than
+// from a second list of labels that could drift from them.
+//
+// Registry page only, deliberately. What it is for is searching the registry, which needs
+// data/entries.json and this file's filtering; a finding page would have to download all
+// of both to answer. The shortcut sheet is registry-only for the same reason.
+//
+// Everything here runs after bootStatic(), so it is past every span verify-parity.py
+// slices out and evaluates in a bare Node process. Nothing above that point may touch
+// the DOM.
+function wirePalette(){
+  const dlg = document.getElementById('cmdk');
+  const input = document.getElementById('cmdk-q');
+  const list = document.getElementById('cmdk-list');
+  if (!dlg || !input || !list) return;
+
+  let rows = [];      // what is currently rendered, in order
+  let at = 0;         // the active row
+  let opener = null;  // focus to restore on close
+  let usePointer = false; // suppress hover-tracking until the pointer actually moves
+
+  // Reading the labels off the rendered <option>s means the palette says "Peer reviewed"
+  // and "Newest first" because the toolbar does, in every vocabulary, with no table here
+  // to keep in step.
+  const opts = id => [...(document.getElementById(id)?.options || [])]
+    .filter(o => o.value)
+    .map(o => ({ value: o.value, label: o.text }));
+
+  const setFilter = (key, value) => () => { STATE[key] = value; update('push'); };
+
+  function commands(){
+    const out = [];
+    for (const key of ['field','lab','ver','aut'])
+      for (const o of opts(key))
+        out.push({ label: o.label, hint: FILTER_NAME[key], keywords: key, run: setFilter(key, o.value) });
+    for (const o of opts('sort'))
+      out.push({ label: o.label, hint: 'Sort', keywords: 'sort order', run: () => { STATE.sort = o.value; update('push'); } });
+    out.push(
+      { label: 'Card view', hint: 'Layout', keywords: 'cards view layout',
+        run: () => document.querySelector('.view-seg .vw[data-view="cards"]')?.click() },
+      { label: 'Table view', hint: 'Layout', keywords: 'table view layout',
+        run: () => document.querySelector('.view-seg .vw[data-view="table"]')?.click() });
+    // Theme rows click the header control rather than writing localStorage here: chrome.js
+    // owns the transition and the browser-chrome tint, and one owner is the point.
+    for (const mode of ['light','system','dark'])
+      out.push({ label: `Theme: ${mode}`, hint: 'Theme', keywords: 'theme appearance dark light',
+                 run: () => document.querySelector(`.theme-seg .th[data-mode="${mode}"]`)?.click() });
+    out.push(
+      { label: 'Clear all filters', hint: 'Action', keywords: 'reset clear filters',
+        run: () => { for (const k of FILTERS) STATE[k] = DEFAULTS[k]; update('push'); } },
+      { label: 'Copy a link to this view', hint: 'Action', keywords: 'share link url',
+        run: () => document.getElementById('share')?.click() },
+      { label: 'Export this view as CSV', hint: 'Action', keywords: 'download export csv',
+        run: () => document.getElementById('csv')?.click() });
+    for (const [label, href] of [['Methodology','/methodology'], ['Review queue','/review'],
+                                 ['Contributors','/contributors'], ['Every chart','/visuals'],
+                                 ['Contribute','/contribute']])
+      out.push({ label, hint: 'Page', keywords: 'go to page ' + href, run: () => { location.href = href; } });
+    return out;
+  }
+
+  let COMMANDS = null;
+
+  function build(q){
+    if (!COMMANDS) COMMANDS = commands();
+    const n = q.trim().toLowerCase();
+    const cmds = (n
+      ? COMMANDS.filter(c => (c.label + ' ' + c.hint + ' ' + c.keywords).toLowerCase().includes(n))
+      : COMMANDS).slice(0, 8);
+    // Entries need the registry. Before it lands there is nothing to offer but commands,
+    // which is why ensureData() is called on open and this re-runs when it resolves.
+    const hits = n && ALL.length
+      ? ALL.filter(e => haystack(e).includes(n))
+           .sort((a, b) => score(b, n) - score(a, n) || b.date.localeCompare(a.date))
+           .slice(0, 7)
+           .map(e => ({ label: e.title, hint: e.lab, run: () => { location.href = '/finding/' + e.id; } }))
+      : [];
+    // With nothing typed there is nothing to match, so the commands are the whole answer.
+    //
+    // Once there is a query the entries lead, because the title someone half-remembers is
+    // the common case. The exception is a query that names a command: "Peer reviewed"
+    // otherwise ranked five entries that merely mention the phrase above the filter of
+    // that exact name, so typing a command in full ran an entry instead. A command whose
+    // label starts with the query goes first; anything less than that is a guess.
+    if (!n) return cmds;
+    const named = cmds.filter(c => c.label.toLowerCase().startsWith(n));
+    return named.concat(hits, cmds.filter(c => !named.includes(c)));
+  }
+
+  function draw(){
+    list.innerHTML = rows.length
+      ? rows.map((r, i) =>
+          `<li class="cmdk-row${i === at ? ' is-active' : ''}" role="option" id="cmdk-o-${i}"`
+          + ` aria-selected="${i === at ? 'true' : 'false'}">`
+          + `<span class="cmdk-label">${esc(r.label)}</span>`
+          + (r.hint ? `<span class="cmdk-hint">${esc(r.hint)}</span>` : '')
+          + `</li>`).join('')
+      : `<li class="cmdk-empty" role="presentation">Nothing matches</li>`;
+    input.setAttribute('aria-activedescendant', rows.length ? 'cmdk-o-' + at : '');
+    rows.length && list.children[at]?.scrollIntoView({ block: 'nearest' });
+  }
+
+  function refresh(){
+    rows = build(input.value);
+    at = 0;
+    draw();
+  }
+
+  function move(step){
+    if (!rows.length) return;
+    at = (at + step + rows.length) % rows.length;
+    usePointer = false;
+    draw();
+  }
+
+  function run(){
+    const row = rows[at];
+    if (!row) return;
+    dlg.close();
+    row.run();
+  }
+
+  function open(){
+    opener = document.activeElement;
+    input.value = '';
+    refresh();
+    dlg.showModal();
+    input.focus();
+    // The list is worth having the moment it arrives, so a palette opened on a cold page
+    // fills in behind the commands rather than making the visitor type again.
+    ensureData().then(() => { if (dlg.open) refresh(); });
+  }
+
+  input.addEventListener('input', refresh);
+  input.addEventListener('keydown', ev => {
+    if (ev.key === 'ArrowDown'){ ev.preventDefault(); move(1); }
+    else if (ev.key === 'ArrowUp'){ ev.preventDefault(); move(-1); }
+    else if (ev.key === 'Home'){ ev.preventDefault(); at = 0; usePointer = false; draw(); }
+    else if (ev.key === 'End'){ ev.preventDefault(); at = Math.max(0, rows.length - 1); usePointer = false; draw(); }
+    else if (ev.key === 'Enter'){ ev.preventDefault(); run(); }
+    // Escape is the dialog's own, and closing is all it should do here.
+  });
+  list.addEventListener('click', ev => {
+    const li = ev.target.closest('[role="option"]');
+    if (!li) return;
+    at = [...list.children].indexOf(li);
+    run();
+  });
+  // Without the pointermove gate, a cursor resting over the list steals the active row
+  // back from the arrow keys on the first repaint.
+  list.addEventListener('pointermove', ev => {
+    usePointer = true;
+    const li = ev.target.closest('[role="option"]');
+    if (!li || !usePointer) return;
+    const i = [...list.children].indexOf(li);
+    if (i !== at){ at = i; draw(); }
+  });
+  document.getElementById('cmdk-close')?.addEventListener('click', () => dlg.close());
+  // showModal() returns focus to whatever opened it, except when that was the body, which
+  // is exactly the keyboard-only case this exists for.
+  dlg.addEventListener('close', () => { opener?.focus?.(); opener = null; });
+
+  return open;
+}
 
 // ---------- Loading the registry ----------
 // data/entries.json is 143 KB, and index.html already ships every one of its 52 entries

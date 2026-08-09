@@ -2,8 +2,22 @@
 
 User-agent: *
 Allow: /
+# Tag chips and prefilled contribute links are real URLs by design (see the comment at
+# js/app.js:1411): they work without JavaScript and read as links to a crawler. But the
+# filtering itself happens client-side, so /?tag=lean serves the same 56 cards as /, and
+# there are 242 such URLs against 77 real pages. Every one of them already carries a
+# canonical back to the page it duplicates, so this is not a duplicate content problem;
+# it is a crawl budget one. Excluding them points Googlebot at the pages that differ.
+Disallow: /*?
+# One exception: the sitelinks SearchAction in index.html declares /?q= as its target, so
+# that parameter has to stay reachable. Google resolves a conflict by the longest matching
+# rule path, and this one is longer than the Disallow above, so it wins.
+Allow: /?q=
 
 # AI search / answer engines are explicitly welcome to index and cite this registry.
+# Deliberately unrestricted, including the parameter URLs excluded above: these crawlers
+# fetch on demand rather than on a budget, and a reader who follows a tag link from an
+# answer engine should reach a page it was allowed to read.
 User-agent: GPTBot
 Allow: /
 User-agent: OAI-SearchBot

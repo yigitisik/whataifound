@@ -114,6 +114,12 @@
   // exception and deliberately keeps its own esc(): it loads WITHOUT defer on the home
   // page, so it executes before this file, and its copy is diffed byte for byte against
   // the Python port in build-site.py by verify-parity.py. It must not move.
+  //
+  // The distinction that matters for anything added here is WHEN the helper is read, not
+  // which page reads it. esc() is called while app.js is still evaluating, so app.js
+  // cannot borrow this one. wafCopy is read inside a click handler, which cannot run
+  // before a human clicks, so app.js borrows that one safely. A helper hoisted from a
+  // handler to the top level of app.js would start returning undefined.
 
   /**
    * Show one of a page's pre-rendered states and hide the rest.
@@ -145,9 +151,41 @@
     },
   };
 
+  /**
+   * Copy text, and say truthfully whether it worked.
+   *
+   * clipboard.writeText needs a secure context. On plain http (a local preview, a reader
+   * behind a proxy that strips TLS) it is simply absent, and it can also reject when the
+   * document is not focused or permission is refused. Both paths land on `fail`, so a
+   * caller can never report a copy that did not happen.
+   *
+   * `node` is optional and is the element holding the same text. When there is one, the
+   * fallback selects it, which leaves the reader one keystroke from the copy they asked
+   * for. When there is not (a permalink is composed, not rendered), the caller says
+   * something else instead.
+   */
+  const copyText = (text, node, ok, fail) => {
+    const fallback = () => {
+      if (node) {
+        const range = document.createRange();
+        range.selectNodeContents(node);
+        const sel = getSelection();
+        sel.removeAllRanges();
+        sel.addRange(range);
+      }
+      fail();
+    };
+    if (!navigator.clipboard?.writeText) return fallback();
+    navigator.clipboard.writeText(text).then(ok, fallback);
+  };
+
   window.wafEsc = esc;
   window.wafShow = show;
   window.wafLabels = LABELS;
+  // Safe for app.js to use despite the load-order note above, because app.js reads it
+  // inside a click handler rather than at load: by the time anyone clicks, this file has
+  // long since run. Reading it at the top level of app.js would get undefined.
+  window.wafCopy = copyText;
 
   // ---------- Account control ----------
   // The header is pre-rendered signed-out. This swaps it once the session resolves,

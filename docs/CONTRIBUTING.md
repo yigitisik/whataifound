@@ -33,6 +33,13 @@ python3 scripts/serve.py          # http://localhost:8000  (--lan for phone test
 Entries are pre-rendered into `index.html`, so the page has content without a server, but
 search, filtering and charts read `data/entries.json` over fetch. Use the server, not `file://`.
 
+Changing anything under `api/` also means running its tests. The static site has none, because
+`build.py` regenerates it and CI fails on any difference.
+
+```bash
+npm ci && npm test
+```
+
 ## Adding an entry
 
 Read [SCHEMA.md](SCHEMA.md) first for field definitions and grade scales.
@@ -160,6 +167,17 @@ Adding an entry whose source is on a host the registry has not cited before mean
 host to `DOMAIN_NAME` in both files, or it renders as a bare domain like `pubs.rsc.org` where
 every neighbour reads `Nature`.
 
+**Assistants are fine to use; their working files are not part of the record.** Config
+directories, MCP settings, cached repository maps and transcripts all stay out of the repo:
+[.gitignore](../.gitignore) covers the common ones. If you use a tool that is not listed there,
+add it in the same PR. The one exception is `.claude/settings.json`, which is deliberately
+trackable, because shared project configuration belongs in review for the same reason the
+lockfile does.
+
+Nothing here is a rule about *whether* to use an assistant. The review standard does not change:
+a change is judged on what it does, and the checklist under [Reviewing a PR](#reviewing-a-pr)
+is the same either way.
+
 ### The grading vocabulary
 
 Grade labels and definitions live in [data/vocab.json](../data/vocab.json) and nowhere else.
@@ -209,6 +227,8 @@ Branch from `main`, push, open a PR. Vercel posts a preview URL. One entry or on
 per PR. Generated files are committed rather than built on deploy, so an entry PR carries its
 regenerated output with it.
 
+A PR carrying an assistant's working files gets those files removed, not rejected.
+
 CI runs on every PR:
 
 | Check | Fails when |
@@ -216,6 +236,8 @@ CI runs on every PR:
 | `verify-doors.py` | An issue template and the matching `/contribute` form stopped asking the same questions |
 | `check-integrity.py` | The committed HTML contains unexpected inline scripts, off-allowlist origins, inline event handlers, `javascript:`/`data:` URLs, `<base>`/`<object>`/`<embed>`/`<form action>`, an em dash, or a literal control character |
 | `build.py` | The data is invalid, an entry graded above `claimed` links no `research` source, or a renderer has drifted between `app.js` and `build-site.py` |
+| `check-mobile.py` | A hover state moves without `@media(hover:hover)`, a named control drops under 44px at a coarse pointer, a fixed control ignores the safe-area inset, or something overflows 375px |
+| `npm test` | A change under `api/` breaks the session, handle, HTTP, proposal or registry tests |
 | rebuild-and-diff | The committed output does not match what `data/entries.json` produces |
 | `check-links.py` | A URL your branch added returns 404 or 410. Its own workflow, so a publisher outage never blocks a merge; paywalls and 5xx are reported but do not fail |
 

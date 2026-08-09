@@ -3,17 +3,26 @@ name: cleanup deployments
 # The Vercel GitHub integration opens a deployment record for every push and never closes
 # them, so the repository's Deployments list grows without bound. This prunes it.
 #
-# Two environments, two policies, because they mean different things:
+# One policy, applied identically to both environments:
 #
-#   Preview     every record is per-PR noise the moment the PR closes. Delete all of them.
-#   Production  a record is a pointer to what shipped, so it is kept for RETENTION_DAYS
-#               and then dropped. It holds nothing unrecoverable: the sha is in git
-#               history, and the deploy log and rollback both live in Vercel, which this
-#               workflow cannot reach.
+#   Keep the newest record always, whatever its age. Delete the rest once they are older
+#   than RETENTION_DAYS.
 #
-# Why Production is done by hand rather than with the action below: that action takes an
-# environment and deletes everything in it, with no age filter of any kind. Pointing it at
-# Production would remove the live record along with the rest.
+# Keeping the newest means different things in each environment, and both matter. For
+# Production it is the live site, so this is a safety rule: the deployment currently
+# serving traffic can never be removed, even if the cutoff is misconfigured. For Preview it
+# is a convenience one: a recent preview stays reachable from the repository's Deployments
+# list, which is a route people actually use to open a Vercel preview.
+#
+# Nothing deleted here is unrecoverable. A record is a pointer holding a sha, which is
+# already in git history; the deploy log and rollback both live in Vercel, which this
+# workflow cannot reach.
+#
+# This used to call strumwolf/delete-deployment-environment for Preview. That action takes
+# an environment and deletes everything in it with no age filter, so it could not express a
+# retention window, and it pinned the job to a deprecated Node 20 runtime. Doing both
+# environments against the API directly removes the dependency and the warning together,
+# and leaves this workflow with no third-party actions at all.
 #
 # SECURITY: this holds a write-scoped token, so it follows the rule comment.yml sets out.
 # It checks out nothing and runs no code from any branch or pull request. Do not add
@@ -26,7 +35,7 @@ on:
   workflow_dispatch:
     inputs:
       retention_days:
-        description: 'Delete Production records older than this many days'
+        description: 'Delete deployment records older than this many days'
         required: false
         default: '90'
 
@@ -44,26 +53,13 @@ jobs:
     env:
       # 90 days matches GitHub's own default retention for Actions logs and artifacts,
       # which is the closest in-platform convention for CI metadata. Overridable on a
-      # manual run so the Production path can be exercised before it fires on its own.
+      # manual run so the delete path can be exercised before it fires on its own.
       RETENTION_DAYS: ${{ github.event.inputs.retention_days || '90' }}
     steps:
-      # Preview has no retention window: every record is disposable, and wiping the
-      # environment wholesale is what this action does well.
-      - name: Delete all Preview deployment records
-        uses: strumwolf/delete-deployment-environment@v2
-        with:
-          token: ${{ secrets.GITHUB_TOKEN }}
-          # Matched exactly, and Vercel capitalises it. 'preview' would match nothing.
-          environment: Preview
-          # Keep the environment itself; Vercel reuses it on the next preview deploy.
-          onlyRemoveDeployments: true
-
-      # Production is age-filtered, so it goes against the API directly. Two rules make it
-      # safe to run unattended:
+      # Two rules make this safe to run unattended:
       #   1. Only records strictly older than RETENTION_DAYS are candidates.
-      #   2. The newest Production record is never a candidate, whatever its age, so the
-      #      live deployment survives even if the cutoff is misconfigured.
-      - name: Delete Production records older than RETENTION_DAYS
+      #   2. The newest record in each environment is never a candidate, whatever its age.
+      - name: Prune deployment records older than RETENTION_DAYS
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
           REPO: ${{ github.repository }}
@@ -73,27 +69,40 @@ jobs:
           echo "Retention: ${RETENTION_DAYS} days"
           echo "Cutoff:    $(date -u -d "@${cutoff}" +%Y-%m-%dT%H:%M:%SZ)"
 
-          # Newest first, so .[1:] drops the current live record from the candidate list.
-          gh api --paginate "repos/${REPO}/deployments" \
-            --jq '[.[] | select(.environment=="Production")]
-                  | sort_by(.created_at) | reverse | .[1:]
-                  | .[] | "\(.id) \(.created_at)"' > candidates.txt
+          # Matched exactly, and Vercel capitalises both. 'preview' would match nothing.
+          for env_name in Preview Production; do
+            echo "--- ${env_name}"
 
-          kept=0
-          deleted=0
-          while read -r id created; do
-            [ -n "${id:-}" ] || continue
-            if [ "$(date -u -d "$created" +%s)" -ge "$cutoff" ]; then
-              kept=$((kept + 1))
-              continue
-            fi
-            # An active deployment cannot be deleted, so retire it first.
-            gh api --method POST "repos/${REPO}/deployments/${id}/statuses" \
-              -f state=inactive --silent
-            gh api --method DELETE "repos/${REPO}/deployments/${id}" --silent
-            echo "Deleted ${id} (${created})"
-            deleted=$((deleted + 1))
-          done < candidates.txt
+            # Newest first, so .[1:] drops the newest record from the candidate list.
+            #
+            # The environment name is interpolated into the filter rather than passed with
+            # --arg: `gh api --jq` takes exactly one argument and rejects --arg outright
+            # ("accepts 1 arg(s), received 4"). The values are two literals from the loop
+            # above, not input, so there is nothing here to inject.
+            gh api --paginate "repos/${REPO}/deployments" \
+              --jq "[.[] | select(.environment==\"${env_name}\")]
+                    | sort_by(.created_at) | reverse | .[1:]
+                    | .[] | \"\(.id) \(.created_at)\"" > candidates.txt
 
-          echo "Deleted ${deleted} Production record(s); kept ${kept} inside the window,"
-          echo "plus the newest record, which is never a candidate."
+            total=$(wc -l < candidates.txt | tr -d ' ')
+            echo "  ${total} candidate(s) (all ${env_name} records except the newest)"
+
+            kept=0
+            deleted=0
+            while read -r id created; do
+              [ -n "${id:-}" ] || continue
+              if [ "$(date -u -d "$created" +%s)" -ge "$cutoff" ]; then
+                kept=$((kept + 1))
+                continue
+              fi
+              # An active deployment cannot be deleted, so retire it first.
+              gh api --method POST "repos/${REPO}/deployments/${id}/statuses" \
+                -f state=inactive --silent
+              gh api --method DELETE "repos/${REPO}/deployments/${id}" --silent
+              echo "  deleted ${id} (${created})"
+              deleted=$((deleted + 1))
+            done < candidates.txt
+
+            echo "  ${env_name}: deleted ${deleted}, kept ${kept} in window, plus the"
+            echo "  newest record, which is never a candidate."
+          done

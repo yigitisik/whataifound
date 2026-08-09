@@ -260,7 +260,8 @@ def json_ld(obj):
 def lab_mark(lab):
     src = LAB_LOGO.get(lab)
     if src:
-        return f'<span class="labchip img" aria-hidden="true"><img src="{esc(src)}" alt=""></span>'
+        return (f'<span class="labchip img" aria-hidden="true"><img src="{esc(src)}" '
+                f'alt="" width="19" height="19" loading="lazy" decoding="async"></span>')
     if lab in LAB_MARK:
         t, c = LAB_MARK[lab]
     else:
@@ -1283,7 +1284,16 @@ def entry_jsonld(e, url):
         "dateModified": e.get("added") or e.get("date"),
         "inLanguage": "en",
         "isPartOf": {"@id": f"{SITE}/#dataset"},
+        # author is the lab that did the work, publisher is the registry that graded it.
+        # Google's Article guidance wants author present; contributor below still carries
+        # the full lab + humans credit, which is a different question from authorship.
+        "author": ({"@type": "Organization", "name": e["lab"]} if e.get("lab")
+                   else {"@type": "Organization", "name": "whataifound.org",
+                         "url": f"{SITE}/"}),
         "publisher": {"@type": "Organization", "name": "whataifound.org", "url": f"{SITE}/"},
+        # The shared card, not a per-entry image: rich results need an image property to
+        # pull, and generating 56 of them is repo weight for no editorial gain.
+        "image": f"{SITE}/assets/brand/og.png",
         "about": FIELD_LABEL.get(e.get("field"), e.get("field")),
         "keywords": (e.get("tags") or []) + [ver, aut],
         "license": "https://creativecommons.org/licenses/by/4.0/",
@@ -1599,9 +1609,11 @@ def entry_page(e, entries, updated):
 <meta property="og:description" content="{attr(meta_desc)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE}/assets/brand/og.png">
+<meta property="og:image:secure_url" content="{SITE}/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="article:published_time" content="{attr(e.get("date"))}">
 <meta property="og:locale" content="en_US">
 
@@ -1609,6 +1621,7 @@ def entry_page(e, entries, updated):
 <meta name="twitter:title" content="{attr(e["title"])}">
 <meta name="twitter:description" content="{attr(meta_desc)}">
 <meta name="twitter:image" content="{SITE}/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -1797,6 +1810,38 @@ def inject(src, start, end, payload, what, where="index.html"):
         raise SystemExit(f"{where}: missing {what} markers ({start} / {end}). "
                          "Restore them or re-run against a clean checkout.")
     return src[:i + len(start)] + payload + src[j:]
+
+
+def home_itemlist(entries):
+    """The homepage entry list as an ItemList, for the carousel-style rich result.
+
+    Kept in its own <script> block rather than folded into the hand-written @graph in
+    index.html's head, because the rest of that graph (Organization, WebSite, Dataset,
+    FAQPage) is editorial and changes by hand, while this is a mechanical projection of
+    data/entries.json and has to be regenerated on every entry. Mixing the two would mean
+    a generator rewriting a block a human also edits.
+
+    Shape follows hub_page()'s CollectionPage/ItemList exactly, so the homepage and the
+    topic hubs describe their listings the same way.
+    """
+    ld = json_ld({
+        "@context": "https://schema.org",
+        "@type": "CollectionPage",
+        "@id": f"{SITE}/#collection",
+        "url": f"{SITE}/",
+        "name": "What AI Has Actually Discovered",
+        "inLanguage": "en",
+        "isPartOf": {"@id": f"{SITE}/#website"},
+        "mainEntity": {
+            "@type": "ItemList",
+            "numberOfItems": len(entries),
+            "itemListElement": [
+                {"@type": "ListItem", "position": i + 1,
+                 "url": f"{SITE}/finding/{e['id']}", "name": e["title"]}
+                for i, e in enumerate(entries)],
+        },
+    })
+    return f'\n<script type="application/ld+json">\n{ld}\n</script>\n'
 
 
 def build_app_js():
@@ -2236,21 +2281,37 @@ def hub_page(title, lede, entries, all_entries, url, updated, back):
             f"{lede}")[:300]
     ld = json_ld({
         "@context": "https://schema.org",
-        "@type": "CollectionPage",
-        "@id": f"{url}#page",
-        "name": title,
-        "description": desc,
-        "url": url,
-        "inLanguage": "en",
-        "isPartOf": {"@id": f"{SITE}/#website"},
-        "mainEntity": {
-            "@type": "ItemList",
-            "numberOfItems": n,
-            "itemListElement": [
-                {"@type": "ListItem", "position": i + 1,
-                 "url": f"{SITE}/finding/{e['id']}", "name": e["title"]}
-                for i, e in enumerate(entries)],
-        },
+        "@graph": [
+            {
+                "@type": "CollectionPage",
+                "@id": f"{url}#page",
+                "name": title,
+                "description": desc,
+                "url": url,
+                "inLanguage": "en",
+                "isPartOf": {"@id": f"{SITE}/#website"},
+                "mainEntity": {
+                    "@type": "ItemList",
+                    "numberOfItems": n,
+                    "itemListElement": [
+                        {"@type": "ListItem", "position": i + 1,
+                         "url": f"{SITE}/finding/{e['id']}", "name": e["title"]}
+                        for i, e in enumerate(entries)],
+                },
+            },
+            {
+                # Two levels, mirroring the visible crumb above the heading: the registry
+                # root, then this hub. Finding pages carry a three-level version through
+                # their topic; a hub is that middle level, so it stops here.
+                "@type": "BreadcrumbList",
+                "@id": f"{url}#breadcrumb",
+                "itemListElement": [
+                    {"@type": "ListItem", "position": 1, "name": "Registry",
+                     "item": f"{SITE}/"},
+                    {"@type": "ListItem", "position": 2, "name": title, "item": url},
+                ],
+            },
+        ],
     })
 
     # Only worth a card if it has rows. A hub whose entries record no posed year would
@@ -2278,15 +2339,18 @@ def hub_page(title, lede, entries, all_entries, url, updated, back):
 <meta property="og:description" content="{attr(desc)}">
 <meta property="og:url" content="{url}">
 <meta property="og:image" content="{SITE}/assets/brand/og.png">
+<meta property="og:image:secure_url" content="{SITE}/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{attr(title)}">
 <meta name="twitter:description" content="{attr(desc)}">
 <meta name="twitter:image" content="{SITE}/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -2785,6 +2849,8 @@ def build_index(entries, updated):
     # own output, the same way it does the hero matrix.
     src = inject(src, "<!--TABLE:START-->", "<!--TABLE:END-->", table_view(entries),
                  "entry table")
+    src = inject(src, "<!--HOMELD:START-->", "<!--HOMELD:END-->",
+                 home_itemlist(entries), "homepage ItemList")
 
     strong = sum(1 for e in entries
                  if e["verification"] in ("formal", "independent", "peer-reviewed"))

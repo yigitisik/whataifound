@@ -17,15 +17,18 @@
 <meta property="og:description" content="22 findings in the whataifound.org registry: Every finding in the registry credited to Google DeepMind, with what each one claims and how solid the evidence is.">
 <meta property="og:url" content="https://whataifound.org/lab/google-deepmind">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI findings from Google DeepMind">
 <meta name="twitter:description" content="22 findings in the whataifound.org registry: Every finding in the registry credited to Google DeepMind, with what each one claims and how solid the evidence is.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -38,153 +41,175 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": "https://whataifound.org/lab/google-deepmind#page",
-  "name": "AI findings from Google DeepMind",
-  "description": "22 findings in the whataifound.org registry: Every finding in the registry credited to Google DeepMind, with what each one claims and how solid the evidence is.",
-  "url": "https://whataifound.org/lab/google-deepmind",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://whataifound.org/#website"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "numberOfItems": 22,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "url": "https://whataifound.org/finding/2026-05-21-alphaproof-nexus",
-        "name": "Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://whataifound.org/lab/google-deepmind#page",
+      "name": "AI findings from Google DeepMind",
+      "description": "22 findings in the whataifound.org registry: Every finding in the registry credited to Google DeepMind, with what each one claims and how solid the evidence is.",
+      "url": "https://whataifound.org/lab/google-deepmind",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#website"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "url": "https://whataifound.org/finding/2026-01-alphaevolve-bruhat",
-        "name": "Structure in Bruhat intervals of permutation groups"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "url": "https://whataifound.org/finding/2025-11-03-alphaevolve-at-scale",
-        "name": "AlphaEvolve across 67 problems: 20 improvements, 8 regressions"
-      },
-      {
-        "@type": "ListItem",
-        "position": 4,
-        "url": "https://whataifound.org/finding/2025-09-17-unstable-singularities",
-        "name": "New families of unstable singularities in fluid equations"
-      },
-      {
-        "@type": "ListItem",
-        "position": 5,
-        "url": "https://whataifound.org/finding/2025-07-21-gemini-deepthink-imo",
-        "name": "Gold-medal standard at the 2025 International Mathematical Olympiad"
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "url": "https://whataifound.org/finding/2025-05-alphaevolve-matmul",
-        "name": "4×4 complex matrix multiplication in 48 scalar multiplications"
-      },
-      {
-        "@type": "ListItem",
-        "position": 7,
-        "url": "https://whataifound.org/finding/2025-05-alphaevolve-kissing",
-        "name": "Improved lower bound for the 11-dimensional kissing number"
-      },
-      {
-        "@type": "ListItem",
-        "position": 8,
-        "url": "https://whataifound.org/finding/2025-05-alphaevolve-minimum-overlap",
-        "name": "Improved bound for the Erdős minimum-overlap problem"
-      },
-      {
-        "@type": "ListItem",
-        "position": 9,
-        "url": "https://whataifound.org/finding/2024-11-20-alphaqubit",
-        "name": "A neural decoder that identifies quantum errors more accurately than hand-designed methods"
-      },
-      {
-        "@type": "ListItem",
-        "position": 10,
-        "url": "https://whataifound.org/finding/2024-07-25-alphaproof-imo",
-        "name": "Silver-medal standard at the 2024 International Mathematical Olympiad"
-      },
-      {
-        "@type": "ListItem",
-        "position": 11,
-        "url": "https://whataifound.org/finding/2024-05-08-alphafold3",
-        "name": "Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)"
-      },
-      {
-        "@type": "ListItem",
-        "position": 12,
-        "url": "https://whataifound.org/finding/2024-01-17-alphageometry",
-        "name": "Olympiad geometry solved without human demonstrations"
-      },
-      {
-        "@type": "ListItem",
-        "position": 13,
-        "url": "https://whataifound.org/finding/2023-12-funsearch-capset",
-        "name": "New lower bound constructions for the cap set problem"
-      },
-      {
-        "@type": "ListItem",
-        "position": 14,
-        "url": "https://whataifound.org/finding/2023-12-funsearch-binpacking",
-        "name": "Improved heuristics for online bin packing"
-      },
-      {
-        "@type": "ListItem",
-        "position": 15,
-        "url": "https://whataifound.org/finding/2023-11-29-gnome",
-        "name": "Large-scale prediction of new stable crystalline materials (GNoME)"
-      },
-      {
-        "@type": "ListItem",
-        "position": 16,
-        "url": "https://whataifound.org/finding/2023-11-14-graphcast",
-        "name": "Medium-range weather forecasts from a graph neural network beat the operational physics model"
-      },
-      {
-        "@type": "ListItem",
-        "position": 17,
-        "url": "https://whataifound.org/finding/2023-09-19-alphamissense",
-        "name": "Pathogenicity predictions for 71 million human missense variants"
-      },
-      {
-        "@type": "ListItem",
-        "position": 18,
-        "url": "https://whataifound.org/finding/2023-06-07-alphadev",
-        "name": "Faster sorting routines discovered and merged into the LLVM C++ library"
-      },
-      {
-        "@type": "ListItem",
-        "position": 19,
-        "url": "https://whataifound.org/finding/2022-10-05-alphatensor",
-        "name": "Faster matrix-multiplication algorithms found by reinforcement learning"
-      },
-      {
-        "@type": "ListItem",
-        "position": 20,
-        "url": "https://whataifound.org/finding/2022-02-16-tokamak-plasma-control",
-        "name": "Deep reinforcement learning controls tokamak fusion plasma"
-      },
-      {
-        "@type": "ListItem",
-        "position": 21,
-        "url": "https://whataifound.org/finding/2021-12-01-knot-theory-intuition",
-        "name": "Two theorems found by machine pattern-spotting in knot theory and representation theory"
-      },
-      {
-        "@type": "ListItem",
-        "position": 22,
-        "url": "https://whataifound.org/finding/2021-07-15-alphafold2",
-        "name": "Accurate protein structure prediction across the known proteome (AlphaFold2)"
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 22,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://whataifound.org/finding/2026-05-21-alphaproof-nexus",
+            "name": "Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://whataifound.org/finding/2026-01-alphaevolve-bruhat",
+            "name": "Structure in Bruhat intervals of permutation groups"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://whataifound.org/finding/2025-11-03-alphaevolve-at-scale",
+            "name": "AlphaEvolve across 67 problems: 20 improvements, 8 regressions"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "url": "https://whataifound.org/finding/2025-09-17-unstable-singularities",
+            "name": "New families of unstable singularities in fluid equations"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "url": "https://whataifound.org/finding/2025-07-21-gemini-deepthink-imo",
+            "name": "Gold-medal standard at the 2025 International Mathematical Olympiad"
+          },
+          {
+            "@type": "ListItem",
+            "position": 6,
+            "url": "https://whataifound.org/finding/2025-05-alphaevolve-matmul",
+            "name": "4×4 complex matrix multiplication in 48 scalar multiplications"
+          },
+          {
+            "@type": "ListItem",
+            "position": 7,
+            "url": "https://whataifound.org/finding/2025-05-alphaevolve-kissing",
+            "name": "Improved lower bound for the 11-dimensional kissing number"
+          },
+          {
+            "@type": "ListItem",
+            "position": 8,
+            "url": "https://whataifound.org/finding/2025-05-alphaevolve-minimum-overlap",
+            "name": "Improved bound for the Erdős minimum-overlap problem"
+          },
+          {
+            "@type": "ListItem",
+            "position": 9,
+            "url": "https://whataifound.org/finding/2024-11-20-alphaqubit",
+            "name": "A neural decoder that identifies quantum errors more accurately than hand-designed methods"
+          },
+          {
+            "@type": "ListItem",
+            "position": 10,
+            "url": "https://whataifound.org/finding/2024-07-25-alphaproof-imo",
+            "name": "Silver-medal standard at the 2024 International Mathematical Olympiad"
+          },
+          {
+            "@type": "ListItem",
+            "position": 11,
+            "url": "https://whataifound.org/finding/2024-05-08-alphafold3",
+            "name": "Joint structure prediction for proteins, nucleic acids and ligands (AlphaFold 3)"
+          },
+          {
+            "@type": "ListItem",
+            "position": 12,
+            "url": "https://whataifound.org/finding/2024-01-17-alphageometry",
+            "name": "Olympiad geometry solved without human demonstrations"
+          },
+          {
+            "@type": "ListItem",
+            "position": 13,
+            "url": "https://whataifound.org/finding/2023-12-funsearch-capset",
+            "name": "New lower bound constructions for the cap set problem"
+          },
+          {
+            "@type": "ListItem",
+            "position": 14,
+            "url": "https://whataifound.org/finding/2023-12-funsearch-binpacking",
+            "name": "Improved heuristics for online bin packing"
+          },
+          {
+            "@type": "ListItem",
+            "position": 15,
+            "url": "https://whataifound.org/finding/2023-11-29-gnome",
+            "name": "Large-scale prediction of new stable crystalline materials (GNoME)"
+          },
+          {
+            "@type": "ListItem",
+            "position": 16,
+            "url": "https://whataifound.org/finding/2023-11-14-graphcast",
+            "name": "Medium-range weather forecasts from a graph neural network beat the operational physics model"
+          },
+          {
+            "@type": "ListItem",
+            "position": 17,
+            "url": "https://whataifound.org/finding/2023-09-19-alphamissense",
+            "name": "Pathogenicity predictions for 71 million human missense variants"
+          },
+          {
+            "@type": "ListItem",
+            "position": 18,
+            "url": "https://whataifound.org/finding/2023-06-07-alphadev",
+            "name": "Faster sorting routines discovered and merged into the LLVM C++ library"
+          },
+          {
+            "@type": "ListItem",
+            "position": 19,
+            "url": "https://whataifound.org/finding/2022-10-05-alphatensor",
+            "name": "Faster matrix-multiplication algorithms found by reinforcement learning"
+          },
+          {
+            "@type": "ListItem",
+            "position": 20,
+            "url": "https://whataifound.org/finding/2022-02-16-tokamak-plasma-control",
+            "name": "Deep reinforcement learning controls tokamak fusion plasma"
+          },
+          {
+            "@type": "ListItem",
+            "position": 21,
+            "url": "https://whataifound.org/finding/2021-12-01-knot-theory-intuition",
+            "name": "Two theorems found by machine pattern-spotting in knot theory and representation theory"
+          },
+          {
+            "@type": "ListItem",
+            "position": 22,
+            "url": "https://whataifound.org/finding/2021-07-15-alphafold2",
+            "name": "Accurate protein structure prediction across the known proteome (AlphaFold2)"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://whataifound.org/lab/google-deepmind#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI findings from Google DeepMind",
+          "item": "https://whataifound.org/lab/google-deepmind"
+        }
+      ]
+    }
+  ]
 }
 </script>
 

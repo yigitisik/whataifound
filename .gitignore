@@ -18,6 +18,43 @@ desktop.ini
 *.swo
 *~
 
+# ---- AI assistants and coding agents ----
+# Contributors use assistants; their configuration, caches and transcripts are working
+# files, not part of the record. Nothing here has ever been tracked, so this is a guard
+# rather than a cleanup. Using a tool that is not listed means adding it here in the
+# same PR.
+.claude/*
+# .claude/settings.json is deliberately NOT ignored, for the same reason as the lockfile
+# below: it is shared, reviewable project configuration, and this repo commits the things
+# that would otherwise change what runs with no diff. settings.local.json is personal and
+# stays out. The directory has to be written .claude/* for this negation to work at all:
+# git will not look inside an excluded directory to reconsider a path.
+!.claude/settings.json
+CLAUDE.local.md
+claude_mcp.json
+.cursor/
+.cursorrules
+.cursorignore
+.windsurf*
+.cline*
+.roo*
+.aider*
+.agent/
+.agents/
+.openai/
+.llmignore
+chatgpt.json
+openai.json
+gemini.json
+deepseek.json
+kimi.json
+tomb.json
+# Context packagers: a flattened copy of the repo, which goes stale the moment it is
+# written and is regenerated on demand anyway.
+repomix-output.txt
+llm-context.txt
+codebase-summary.md
+
 # ---- Node (server-side only: the functions under api/, never the site itself) ----
 node_modules/
 npm-debug.log*

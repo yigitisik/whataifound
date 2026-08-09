@@ -36,6 +36,7 @@ jobs:
       - uses: actions/setup-node@v5
         with:
           node-version: '20'
+          cache: 'npm'
 
       # Runs first and on the committed bytes: a payload in a fully generated file
       # would be erased by the rebuild below and never show up in a diff.
@@ -44,6 +45,15 @@ jobs:
 
       - name: Rebuild from data/entries.json
         run: python3 scripts/build.py
+
+      # The functions under api/ hold the session, the handle rules and the registry
+      # block the schema is checked against. They are the only code here the static
+      # build cannot verify by rebuilding, so they carry unit tests. Runs after the
+      # rebuild because registry.test.js reads the generated api/_lib/registry.js.
+      - name: Test the Vercel functions
+        run: |
+          npm ci
+          npm test
 
       - name: Fail if the committed site is out of date
         run: |
@@ -72,8 +82,10 @@ jobs:
           git fetch --no-tags --depth=1 origin "${{ github.base_ref }}"
           changed=$(git diff --name-only FETCH_HEAD HEAD)
           echo "Changed files:"; echo "$changed"
-          if echo "$changed" | grep -qE '^(scripts/|\.github/|app\.js|vercel\.json)'; then
-            echo "::warning::This PR touches build scripts, CI, app.js or vercel.json. Review as a code change, not an entry."
+          # js/, not app.js: the front end lives under js/, so an anchored ^app\.js
+          # could never match and every front-end PR went unlabelled.
+          if echo "$changed" | grep -qE '^(scripts/|\.github/|js/|api/|package(-lock)?\.json|vercel\.json)'; then
+            echo "::warning::This PR touches build scripts, CI, the front end, the API or dependencies. Review as a code change, not an entry."
           fi
 
       # Summarise the entry changes for the reviewer. Written to a file, never posted

@@ -1,5 +1,7 @@
 # whataifound.org
 
+[![build](https://github.com/yigitisik/whataifound/actions/workflows/build.yml/badge.svg)](https://github.com/yigitisik/whataifound/actions/workflows/build.yml)
+
 A registry of scientific and mathematical results produced by or with AI systems, graded on how
 each result was verified and how much the AI did. Refuted and already-known results stay on the
 record, marked as such.
@@ -7,7 +9,7 @@ record, marked as such.
 [Live site](https://whataifound.org) · [Methodology](https://whataifound.org/methodology) ·
 [Review queue](https://whataifound.org/review) · [Contributors](https://whataifound.org/contributors) ·
 [Schema](docs/SCHEMA.md) · [Architecture](docs/ARCHITECTURE.md) ·
-[Contributing](docs/CONTRIBUTING.md) · [Governance](GOVERNANCE.md) ·
+[Contributing](docs/CONTRIBUTING.md) · [Setup](docs/SETUP.md) · [Governance](GOVERNANCE.md) ·
 [RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json)
 
 ## Quick start
@@ -22,6 +24,14 @@ python3 scripts/serve.py          # http://localhost:8000  (--lan for phone test
 ```
 
 `serve.py` reproduces the clean URLs and 404 page Vercel serves in production.
+
+The site itself has no tests, because it has no build to get wrong: `build.py` regenerates it and
+CI fails on any difference. The tested code is the server side, the functions under `api/` that
+hold the session, the handle rules and the schema the registry block is checked against.
+
+```bash
+npm ci && npm test                # the api/ unit tests; needs Node 20
+```
 
 ## How it works
 
@@ -78,6 +88,7 @@ accounts and UI contributions stay off git's critical path: [docs/ARCHITECTURE.m
 | `verify-parity.py` | Runs `app.js`'s real render functions under Node and diffs each against the pre-rendered markup |
 | `verify-doors.py` | Diffs the GitHub issue templates against the matching `/contribute` form |
 | `check-integrity.py` | Asserts the deployed HTML contains nothing smuggled |
+| `check-mobile.py` | Asserts hover states do not stick to a tap, named controls reach 44px at a coarse pointer, safe areas are respected, and nothing overflows 375px |
 
 Validation stops the build rather than emitting a broken page: a missing required field, an unknown
 grade or source `kind`, a malformed date, a duplicate or non-URL-safe `id`, a bad `youtube_id`, a
@@ -161,9 +172,10 @@ it. That is why `chrome.js` exists.
 - **Two layouts, table by default.** Both are pre-rendered and CSS shows one, chosen before first
   paint, so neither flashes and neither needs the registry JSON to appear. With JavaScript off the
   cards show, which is the richer fallback.
-- **Keyboard and export.** `/` focuses search, `Esc` clears it, `?` opens a shortcut sheet. The CSV
-  button writes the current filtered view client-side via a `Blob`; finding pages carry BibTeX and
-  plain-text citations with copy buttons.
+- **Keyboard and export.** The registry is drivable from the keyboard; `?` opens the sheet listing
+  the bindings. The CSV button writes the current filtered view client-side via a `Blob`, and the
+  share button copies the view's own URL; finding pages carry BibTeX and plain-text citations with
+  copy buttons.
 - **Theme** is dark by default: Light / System / Dark in `localStorage`, switchable from every page,
   via the View Transitions API with an instant fallback under `prefers-reduced-motion`.
 - **Charts** are plain HTML/CSS/SVG, no library, pre-rendered so a crawler sees them. Type is
@@ -171,6 +183,20 @@ it. That is why `chrome.js` exists.
 - **Responsive from 320px**, breaking at 560, 640, 720, 860 and 1180. `pointer: coarse` enlarges tap
   targets and forces 16px inputs to stop iOS zoom-on-focus. Print drops every control and forces
   disclosures open, so a finding page saves to PDF as a citable document.
+
+Shortcuts, on the registry page:
+
+| Key | Does |
+|---|---|
+| <kbd>Cmd</kbd>/<kbd>Ctrl</kbd> <kbd>K</kbd>, or <kbd>k</kbd> | Command palette: entries, filters, sorts and pages |
+| <kbd>/</kbd> | Focus the search box |
+| <kbd>Esc</kbd> | Clear the search and leave the box |
+| <kbd>v</kbd> | Switch between cards and table |
+| <kbd>t</kbd> | Cycle the theme |
+| <kbd>?</kbd> | Open the shortcut sheet |
+
+The palette is deliberately not on finding pages: it searches the registry, and a finding page
+would have to download the whole of it to answer.
 - **Performance:** `index.html` already contains every entry, so `data/entries.json` is fetched on
   idle rather than on the critical path. `content-visibility` skips layout for off-screen cards.
 - **WCAG 2.1 AA:** skip link, `role="search"`, live result count, `role="img"` chart labels,

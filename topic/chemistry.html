@@ -17,15 +17,18 @@
 <meta property="og:description" content="3 findings in the whataifound.org registry: Every finding in the registry filed under chemistry, with what each one claims and how solid the evidence is.">
 <meta property="og:url" content="https://whataifound.org/topic/chemistry">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="AI findings in chemistry">
 <meta name="twitter:description" content="3 findings in the whataifound.org registry: Every finding in the registry filed under chemistry, with what each one claims and how solid the evidence is.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -38,39 +41,61 @@
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
-  "@type": "CollectionPage",
-  "@id": "https://whataifound.org/topic/chemistry#page",
-  "name": "AI findings in chemistry",
-  "description": "3 findings in the whataifound.org registry: Every finding in the registry filed under chemistry, with what each one claims and how solid the evidence is.",
-  "url": "https://whataifound.org/topic/chemistry",
-  "inLanguage": "en",
-  "isPartOf": {
-    "@id": "https://whataifound.org/#website"
-  },
-  "mainEntity": {
-    "@type": "ItemList",
-    "numberOfItems": 3,
-    "itemListElement": [
-      {
-        "@type": "ListItem",
-        "position": 1,
-        "url": "https://whataifound.org/finding/2025-02-13-designed-serine-hydrolases",
-        "name": "Enzymes with working catalytic machinery designed from scratch"
+  "@graph": [
+    {
+      "@type": "CollectionPage",
+      "@id": "https://whataifound.org/topic/chemistry#page",
+      "name": "AI findings in chemistry",
+      "description": "3 findings in the whataifound.org registry: Every finding in the registry filed under chemistry, with what each one claims and how solid the evidence is.",
+      "url": "https://whataifound.org/topic/chemistry",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#website"
       },
-      {
-        "@type": "ListItem",
-        "position": 2,
-        "url": "https://whataifound.org/finding/2023-12-20-coscientist",
-        "name": "A language-model agent that planned and ran chemistry experiments on lab robots"
-      },
-      {
-        "@type": "ListItem",
-        "position": 3,
-        "url": "https://whataifound.org/finding/2023-12-20-antibiotic-structural-class",
-        "name": "A new structural class of antibiotic candidates against MRSA"
+      "mainEntity": {
+        "@type": "ItemList",
+        "numberOfItems": 3,
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "url": "https://whataifound.org/finding/2025-02-13-designed-serine-hydrolases",
+            "name": "Enzymes with working catalytic machinery designed from scratch"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "url": "https://whataifound.org/finding/2023-12-20-coscientist",
+            "name": "A language-model agent that planned and ran chemistry experiments on lab robots"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "url": "https://whataifound.org/finding/2023-12-20-antibiotic-structural-class",
+            "name": "A new structural class of antibiotic candidates against MRSA"
+          }
+        ]
       }
-    ]
-  }
+    },
+    {
+      "@type": "BreadcrumbList",
+      "@id": "https://whataifound.org/topic/chemistry#breadcrumb",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "AI findings in chemistry",
+          "item": "https://whataifound.org/topic/chemistry"
+        }
+      ]
+    }
+  ]
 }
 </script>
 
