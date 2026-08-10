@@ -190,6 +190,25 @@
   header:after{content:"";position:absolute;inset:0 0 auto;height:1px;border-radius:20px 20px 0 0;
     background:linear-gradient(90deg,transparent,var(--edge-hi) 22%,var(--edge-hi) 78%,transparent);
     pointer-events:none}
+  /* The masthead claims a paint layer above the sticky filter bar (z-index 20), because the
+     account popup hangs out of the eyebrow and over whatever follows the header. The popup
+     carries z-index 40 of its own, which by the raw number should already win, but it never
+     gets the chance: on the home page the eyebrow renders as .eyebrow.intro, and the intro
+     animation runs cardIn with fill-mode both, which touches opacity and transform. That
+     makes the eyebrow a stacking context, and a filled animation keeps it alive long after
+     the .55s is over. The popup's 40 is then scoped inside an ancestor with no z-index of
+     its own, so the whole eyebrow subtree sorts against .controls in flow order and loses,
+     which swallows the clicks on the lower half of the menu. Raising the popup is no fix at
+     all: that number is resolved inside the trap. Lifting the masthead is, because it puts a
+     numbered layer outside it.
+     Nothing is lost the other way round. .controls is sticky, so it only pins to the viewport
+     top once its own flow position reaches y=0, and the masthead has scrolled off screen
+     entirely by then: the two are never both visible and overlapping except in the popup's
+     overhang, which is the case being fixed.
+     25 rather than a larger number, so the back-to-top button (30), the section rail (50),
+     the accent bar (60) and the skip link (100) all still pass over the masthead. The skip
+     link in particular lands at top:8px, inside this card, and has to stay reachable. */
+  header{z-index:25}
   .eyebrow{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap;
     font-family:var(--serif);font-size:.7rem;letter-spacing:.22em;text-transform:uppercase;
     color:var(--muted);padding-bottom:11px;margin-bottom:12px;border-bottom:1px solid var(--line)}
@@ -518,7 +537,13 @@
 
   /* A <details> rather than a scripted popover: it opens on click and closes on Escape
      with no code, and it still works if chrome.js fails after rendering. */
-  .acct-menu{position:relative}
+  /* isolation, so .acct-pop's z-index below is resolved in a context this file owns rather
+     than in whichever ancestor happens to be a stacking context that week. Today that
+     ancestor is .eyebrow.intro, made one by an animation whose keyframes touch opacity;
+     tomorrow it could be a filter or a will-change added three rules away. Pinning the
+     context here means the popup always sorts against its own siblings and then rides the
+     masthead's layer as a unit, which is the behaviour that z-index is written for. */
+  .acct-menu{position:relative;isolation:isolate}
   /* list-style:none alone is not enough: Safari draws the disclosure triangle from
      ::-webkit-details-marker, and Chrome renders a ::marker box that displaces the
      avatar inside the 26px circle and clips it. Both have to be removed explicitly. */
