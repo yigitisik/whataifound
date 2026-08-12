@@ -770,8 +770,8 @@
   }
 
   /* ---------- Controls (sticky toolbar) ---------- */
-  /* Two deliberate rows rather than six flex items wrapping wherever the widest lab
-     name pushes them: search and count on top, the four filters plus sort beneath.
+  /* Two deliberate rows rather than a pile of flex items wrapping wherever the widest
+     lab name pushes them: search and count on top, the five filters plus sort beneath.
      The bar is sticky, so an unpredictable third row would cost every visitor that
      height on every screen. */
   .controls{position:sticky;top:0;z-index:20;display:grid;grid-template-columns:minmax(0,1fr) auto;
@@ -790,13 +790,10 @@
   .controls input:focus,.controls select:focus{outline:none;border-color:var(--accent);
     box-shadow:0 0 0 3px var(--accent-soft)}
   /* A <select> sizes itself to its widest option, and the lab list contains
-     "Institute for Protein Design, University of Washington". Left alone, six controls
-     either blow the 1120px row out or shrink each other to unreadable stubs, and the
-     bar is sticky, so a second row costs every visitor that height on every screen.
-     The bounds keep all six on one line and clip the outlier instead. */
-  /* A <select> sizes itself to its widest option, and the lab list contains
      "Institute for Protein Design, University of Washington". The bounds stop that one
-     entry from setting the width of the whole row, and clip it instead. */
+     entry from setting the width of the whole row, and clip it instead. The row wraps
+     rather than overflowing, so a filter added later costs height only once the line is
+     genuinely full. */
   .controls select{cursor:pointer;flex:1 1 auto;min-width:8rem;max-width:14rem;
     overflow:hidden;text-overflow:ellipsis}
   .count{grid-area:1/2;justify-self:end;align-self:center;font-family:var(--serif);font-size:.72rem;
@@ -1042,15 +1039,21 @@
   .cmdk-empty{padding:12px 11px;font-size:.82rem;color:var(--muted)}
   .cmdk-note{margin:12px 0 14px}
 
-  /* Wide enough for search, five controls and the count on one line, which drops the
+  /* Wide enough for search, six controls and the count on one line, which drops the
      sticky bar from two rows to one and hands ~46px back to every screen. Placed after
      the rules it overrides: a media query adds no specificity, so source order decides. */
   @media(min-width:1180px){
     /* minmax(0,auto), not a bare auto: an auto track sizes to max-content and refuses to
        shrink, so the nowrap select row would overrun the count instead of letting the
-       selects flex down to their 8.5rem floor. */
+       selects flex down to their floor. */
     .controls{grid-template-columns:minmax(190px,1fr) minmax(0,auto) auto}
     .ctl-filters{grid-area:1/2;flex-wrap:nowrap;min-width:0}
+    /* The 8rem floor is what keeps six wrapped selects readable on a narrow screen, but
+       on this one line it is 112px more than the row has: six of them plus the search
+       box, the view toggle and the count overrun 1120px and push the count off the end.
+       Lifted here only. The two widest lists (labs, verification) already ellipsize, so
+       the row degrades by clipping a long option rather than by losing a control. */
+    .controls select{min-width:6.5rem}
     .ctl-filters #sort{margin-left:0}
     .count{grid-area:1/3}
     .chips{grid-area:2/1/auto/-1}
@@ -1534,24 +1537,69 @@
   .finding{max-width:72ch;margin:0 auto;padding:22px 0 40px}
   .finding-pills{display:flex;flex-wrap:wrap;gap:7px;margin-bottom:16px}
   .finding h1{font-size:clamp(1.7rem,4.4vw,2.5rem);line-height:1.15;margin:0 0 16px;letter-spacing:-.02em}
-  .finding .lede{font-size:1.05rem;margin-bottom:18px}
-  .finding .claim{font-size:1.02rem;margin-bottom:28px}
+  /* The claim is the definition, so it leads. What stood here was a synthesised sentence
+     restating the two pills above it, which cost the opening screen a paragraph to say
+     what the pills had already said. */
+  .finding .claim{font-size:1.12rem;line-height:1.5;margin:0 0 22px;max-width:66ch}
+  /* 30px of top margin, once per heading and ten headings to a page, was most of this
+     page's length. 22 still reads as a break at this type size. */
   .finding h2.lbl{font-weight:bold;font-family:var(--serif);font-size:.62rem;text-transform:uppercase;
-    letter-spacing:.13em;color:var(--muted);display:block;margin:30px 0 7px}
+    letter-spacing:.13em;color:var(--muted);display:block;margin:22px 0 6px}
+  .finding h3.lbl{font-weight:bold;font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted);display:block;margin:12px 0 4px}
   .finding p{line-height:1.6;color:var(--ink)}
   .finding a{color:var(--accent)}
   .finding .checks p{margin:0 0 6px}
-  .finding-facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:1px;
+  /* Claim, facts and every source in one screen. This page is a citation surface: what a
+     reader and an answer engine both need first is what was found and what backs it, not
+     the prose about it. Two columns because both halves are short rows, and stacked they
+     spend a screen each saying very little. */
+  .glance{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,9fr);gap:18px;
+    margin:0 0 26px}
+  /* Both columns start on the same line. The facts table is a bordered card and the
+     sources are not, so without this the heading sits a few pixels above the card's top
+     rule and the two columns read as misaligned rather than paired. */
+  .glance-src>h2.lbl{margin:0 0 8px}
+  .glance-facts{padding-top:19px}
+  .glance-src>h3.lbl:first-of-type{margin-top:0}
+  /* Tighter than a full-width ref row: this column is about 380px, so the domain gets
+     what it needs and the title takes the rest instead of a fixed gutter's worth of gap. */
+  .glance-src .ref{padding:5px 7px;gap:9px;align-items:baseline}
+  .glance-src .ref-dom{flex:0 0 auto;min-width:0;max-width:112px}
+  .glance-src .ref-t{flex:1 1 auto}
+  /* One column inside the band: the facts sit in about 230px here, where an auto-fit
+     minmax(180px) would try for two cells and clip the values. It goes back to auto-fit
+     below 720, where it has the whole measure again. */
+  .finding-facts{display:grid;grid-template-columns:1fr;gap:1px;
     background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0}
-  .finding-facts div{background:var(--panel);padding:11px 14px}
+  .finding-facts div{background:var(--panel);padding:9px 13px}
   .finding-facts dt{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
-    letter-spacing:.11em;color:var(--muted);margin-bottom:3px}
-  .finding-facts dd{margin:0;font-size:.9rem;color:var(--ink)}
-  /* Sits directly under the facts table, where the two grades have just been stated, rather
-     than down beside "Cite this entry" where it read as a second citation box: same panel
-     fill, same hairline border, same radius. Tinted with the accent and led by a real button
-     so it reads as an action on the grades above it, not another block of reference text. */
-  .challenge{margin:20px 0 0;padding:15px 17px 16px;background:var(--accent-soft);
+    letter-spacing:.11em;color:var(--muted);margin-bottom:2px}
+  .finding-facts dd{margin:0;font-size:.88rem;color:var(--ink);line-height:1.4}
+  /* Caveats, and a history whose only event is the day the entry arrived. Both stay in
+     the markup for a crawler that does not run scripts, and print expands them; a reader
+     who wants the objections opens one line. */
+  .finding details.fold{margin:22px 0 0;border-top:1px solid var(--line);padding-top:2px}
+  .finding details.fold>summary{font-size:.72rem;text-transform:uppercase;letter-spacing:.11em;
+    color:var(--muted);padding:10px 0 6px}
+  .finding details.fold>summary:hover{color:var(--accent)}
+  .finding details.fold[open]>summary{color:var(--accent)}
+  .finding details.fold p{margin:2px 0 8px}
+  .finding details.fold .hist{margin-top:4px}
+  /* The grades, said once more and quietly, where a reader who has read the entry might
+     want the definitions. This replaced a four-line block that restated both grades in
+     full for the third time on the page. */
+  .finding .gradenote{margin:26px 0 0;font-family:var(--serif);font-size:.82rem;
+    line-height:1.55;color:var(--muted)}
+  .finding .gradenote strong{color:var(--ink);font-weight:600}
+  .finding .findtags{display:flex;flex-wrap:wrap;gap:6px;margin:24px 0 0}
+  /* Below the evidence rather than above it: it is an action on the record, not part of
+     the record, and sitting under the facts it put a screen of contribute UI between the
+     reader and the finding. It stops here, after the checks, rather than continuing down
+     beside "Cite this entry", which was tried and read as a second citation box. The
+     accent tint and the rule down its left are what keep it from reading that way in a
+     column of reference blocks. */
+  .challenge{margin:26px 0 0;padding:14px 16px 15px;background:var(--accent-soft);
     border:1px solid transparent;border-left:3px solid var(--accent);border-radius:12px}
   .finding .challenge-t{font-family:var(--serif);font-size:.98rem;font-weight:600;
     color:var(--ink);margin:0 0 4px;line-height:1.35}
@@ -1887,6 +1935,21 @@
     .rmeta{flex-flow:row wrap;gap:8px 18px}
     .ref-dom{flex-basis:84px}
     .rc-k{flex-basis:84px}
+    /* One column, so the facts get the whole measure back and two cells to a row is
+       right again. The sources need their heading margin back: they are no longer a
+       column beside the table, they follow it. */
+    .glance{grid-template-columns:1fr;gap:16px;margin-bottom:22px}
+    .finding-facts{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
+    /* Stacked, so the heading no longer has a card beside it to line up with. */
+    .glance-facts{padding-top:0}
+    .glance-src>h2.lbl{margin-top:18px}
+    .glance-src .ref-dom{max-width:none;flex:0 0 84px}
+  }
+  @media(max-width:640px){
+    .finding{padding:16px 0 32px}
+    .finding .claim{font-size:1.06rem}
+    .finding h2.lbl{margin:18px 0 6px}
+    .finding details.fold{margin-top:18px}
   }
   @media(max-width:560px){
     header{margin:8px 0 20px;padding:22px 18px 18px;border-radius:14px}
@@ -1902,6 +1965,10 @@
        citation already carries. display:none rather than visibility, so it costs no
        layout; the date stays in the markup, and .vh keeps its label for a screen reader. */
     .eyebrow .updated{display:none}
+    /* At 375 a two-cell row leaves about 167px each, which truncates a collaborator
+       list. One column below here. */
+    .finding-facts{grid-template-columns:1fr}
+    .glance{gap:14px}
     .lede{font-size:1rem}
     .stat{padding:16px 16px 14px} .stat b{font-size:1.7rem}
     .controls{position:static;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 0 16px}
@@ -1932,7 +1999,10 @@
   @media(pointer:coarse){
     .controls input,.controls select{font-size:16px}   /* stop iOS/iPadOS zoom-on-focus */
     .btn{padding:12px 18px}
-    summary{padding-top:13px;padding-bottom:11px}
+    /* The second selector only matches what the first already covers. It is here for
+       specificity: .finding details.fold>summary sets its own padding, and a bare
+       summary loses to it on weight no matter which rule comes last in the file. */
+    summary,.finding details.fold>summary{padding-top:13px;padding-bottom:11px}
     .labcard{padding:18px}
 
     /* Room to grow: take the real 44px. */
@@ -1984,7 +2054,7 @@
       transform:translate(-50%,-50%);width:44px;height:44px}
     /* The tag row and the footer link rows wrap, so their expanded targets would overlap
        into each other's rows. Give the rows the vertical room the targets need. */
-    .tags{gap:10px 6px}
+    .tags,.findtags{gap:10px 6px}
     .about-links{gap:10px 14px}
   }
   @media(prefers-reduced-motion:reduce){

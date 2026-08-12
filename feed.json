@@ -9,6 +9,112 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-08-10-zeta-zeros-critical-line",
+      "url": "https://whataifound.org/finding/2026-08-10-zeta-zeros-critical-line",
+      "title": "Proportion of zeta zeros on the critical line raised to 67.25%",
+      "content_text": "An unconditional proof that at least 67.25% of the nontrivial zeros of the Riemann zeta function are simple and lie on the critical line, up from a previous record of about 41.6%, with a machine-checked Lean formalization.  The Riemann hypothesis asserts every nontrivial zero lies on the critical line. Short of proving it, the standard measure of progress is the proportion of zeros known unconditionally to lie there: Selberg established a positive proportion, Levinson reached a third in 1974, Conrey two fifths in 1989, and the record had crept to roughly 41.6%. This work proves at least 3/2 - (1/sqrt 2)cot(1/sqrt 2) = 67.25...% of zeros are simple and on the line, and that at least 0.83625 of zeros are distinct. The decisive step combined the unconditional pair-correlation work of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh with a 2000 paper of Bombieri, treating the whole function space at once with the quadratic form allowed to be non-diagonal rather than splitting it. The process is itself the record worth noting: the model was asked to attempt the Riemann hypothesis outright, with the mathematical choices left to it, and the bound improvement fell out of failing at that. It generated and discarded roughly 650 ideas in a first session; in a second it coordinated about 60 subagents which ran some 2,400 shell commands, wrote hundreds of scripts, checked numerically against known zeros and refereed one another. Two subagents developed the key ideas, thirteen fed them, thirty tried and failed, thirteen validated, two drafted the paper, across roughly 31 million output tokens in two Claude Code sessions. The model also proposed writing the result up, checked 54 arXiv papers for prior art, and recommended a human number theorist validate it.  Lab: Anthropic. Model: Claude (unreleased research version). Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-08-10T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "number-theory",
+        "riemann-hypothesis",
+        "multi-agent"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-04-moore-bound",
+      "url": "https://whataifound.org/finding/2026-08-04-moore-bound",
+      "title": "Asymptotic degree-diameter problem resolved for fixed diameter",
+      "content_text": "The maximum order of a graph with maximum degree d and diameter k satisfies n_k(d)/d^k tending to 1 as d grows, for every fixed k, resolving the asymptotic form of a question open since 1978, with a Lean 4 formalization.  The Moore bound caps the order of a graph of maximum degree d and diameter k at roughly d^k. Whether that cap is asymptotically attainable for fixed diameter was open: Bannai and Ito had settled which exact Moore graphs exist, and constructions had approached the bound only for small diameters. This proves the limit of n_k(d)/d^k is 1 for every fixed k, with a companion lower bound on the edge variant and a tight asymptotic for the bipartite version. The paper carries an explicit tool and computational resource disclosure: GPT-5.6 Pro was used in exploratory brainstorming directed by the authors, who formulated the required parameter scale and proposed higher-rank spherical buildings as the geometric setting. The model suggested splitting complete flags into their odd- and even-rank subflags, initially in connection with the edge problem; that suggestion became the halved-flag construction carrying the main theorem, and the graph is named for it.  Lab: Independent. Model: GPT-5.6 Pro. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-04T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "graph-theory",
+        "combinatorics",
+        "extremal-combinatorics"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-29-sumset-difference-exponent",
+      "url": "https://whataifound.org/finding/2026-07-29-sumset-difference-exponent",
+      "title": "Optimal exponent relating sumsets and difference sets determined",
+      "content_text": "The least universal exponent c with |A+A|/|A| bounded by (|A-A|/|A|)^c for every finite integer set A is determined, settling the extremal question with a Lean 4 formalization.  For a finite set A of integers with at least two elements, the ratio of log(|A+A|/|A|) to log(|A-A|/|A|) measures how far sumset growth can outrun difference-set growth. Determining its largest possible value fixes the least universal exponent c such that |A+A|/|A| is at most (|A-A|/|A|)^c for every such A. Tencent Hunyuan's Hyra research agent, powered by the Hy3 model, explored and optimized finite-set constructions over roughly a 24-hour run, moving from finite numerical searches to natural-language proposals of general constructions and supporting arguments, and produced the construction underlying the paper. The human authors independently checked the construction, corrected and rewrote the exposition, and prepared the final proof manually.  Lab: Tencent Hunyuan. Model: Hy3 (Hyra research agent). Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-29T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "additive-combinatorics",
+        "number-theory"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-28-kemeny-three-voters",
+      "url": "https://whataifound.org/finding/2026-07-28-kemeny-three-voters",
+      "title": "Kemeny rank aggregation shown NP-hard for three voters",
+      "content_text": "Computing a Kemeny-optimal aggregate ranking is NP-hard when the input is exactly three complete rankings, closing the minimal open case left by hardness results for even voter counts.  Kemeny aggregation asks for the ranking minimizing total disagreement with a set of input rankings. Hardness was known for every even number of voters n at least 4, while n = 2 is solvable in polynomial time, leaving three voters as the minimal open case since 2001. GPT-5.6 Sol Ultra found the reduction from MAX CUT; Claude Fable 5 helped simplify parts of it. Combined with the earlier results, every fixed number of voters n at least 3 is now known to be hard. The reduction is Lean-checked alongside an author-written preprint.  Lab: Independent. Model: GPT-5.6 Sol Ultra, Claude Fable 5. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-28T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "complexity-theory",
+        "computational-social-choice"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-27-feige-conjecture",
+      "url": "https://whataifound.org/finding/2026-07-27-feige-conjecture",
+      "title": "Feige's conjecture on sums of nonnegative random variables settled",
+      "content_text": "For independent nonnegative random variables with mean at most 1 and sum S, the probability that S is below its mean plus one is at least 1/e, the sharp constant Feige conjectured in 2004; three independent proofs appeared within days.  Feige proved in 2004 that for independent nonnegative random variables X_1..X_n with E[X_i] <= 1 and S their sum, P(S < E[S] + 1) is bounded below by a positive constant, established 1/13, and conjectured the sharp value 1/e. The primary paper states plainly in its abstract that the proof was found by ChatGPT 5.6 Pro, which combined the Vlassis-Thomas Dirichlet calibration theorem with Grunbaum-type convex geometry; the authors then checked, revised and rewrote the argument. The sharper form determines the optimal small-deviation bound. An end-to-end Lean formalization accompanies the paper, covering the Vlassis-Thomas theorem, Grunbaum's centroid theorem and the combining argument, developed with Codex.  Lab: Independent. Model: ChatGPT 5.6 Pro. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-27T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "probability",
+        "concentration-inequalities"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-20-gaussian-product-inequality",
+      "url": "https://whataifound.org/finding/2026-07-20-gaussian-product-inequality",
+      "title": "Gaussian product inequality conjecture proved",
+      "content_text": "For any centered Gaussian vector and positive exponents, the expectation of the product of absolute powers is at least the product of the individual expectations, settling a conjecture posed in 2007.  The conjecture states that for a centered Gaussian vector X = (X_1..X_n), not necessarily nondegenerate, and any positive exponents a_1..a_n, the expectation of the product of |X_i|^a_i is at least the product of the expectations of |X_i|^a_i. The stronger form adds that when every variance is positive, equality holds exactly when the coordinates are independent. The model returned a complete and correct solution from Greaves's prompt. It did not include the equality characterization, but only because that case was not in the prompt as posed. The proof was formalized in Lean using Codex, and the full prompt and output are public as a shared chat transcript.  Lab: Independent. Model: ChatGPT 5.6 Sol. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-20T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "probability",
+        "gaussian-inequalities"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-14-sabidussi-compatibility",
+      "url": "https://whataifound.org/finding/2026-07-14-sabidussi-compatibility",
+      "title": "Sabidussi's compatibility conjecture proved",
+      "content_text": "The edges of a finite connected multigraph carrying a closed eulerian trail can be partitioned into circuits so that no circuit contains two edges used consecutively in the trail, with a Lean 4 formalization.  Sabidussi's conjecture asks whether, given a finite connected multigraph together with a closed eulerian trail, the edge set can always be partitioned into circuits none of which contains two edges that the trail uses consecutively. The proof establishes this and in fact does more: it four-colours the edges so as to satisfy the constraints. The work was developed with GPT-5.6 Pro and GPT-5.6 Sol, with the author reviewing the proof, and a Lean 4 formalization accompanies the preprint in the author's repository.  Lab: Independent. Model: GPT-5.6 Pro, GPT-5.6 Sol. Verification: Formally verified. Autonomy: Collaborative.",
+      "date_published": "2026-07-14T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "graph-theory",
+        "combinatorics"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-06-02-jamming-exponent-identity",
+      "url": "https://whataifound.org/finding/2026-06-02-jamming-exponent-identity",
+      "title": "Identity for the critical exponents of jamming derived analytically",
+      "content_text": "The relation a + b = 1 between critical exponents at the jamming transition, previously seen only numerically in the full replica-symmetry-breaking solution of hard spheres, is derived from the scaling equations and published after peer review.  In the full replica-symmetry-breaking solution for hard spheres, the critical exponents a and b at the jamming transition had been observed numerically to high precision to satisfy a + b = 1, without an analytic derivation from the scaling equations. Parisi and Zamponi asked Claude for help; the model quickly proposed what proved to be essentially the correct idea, combining integration-by-parts identities with a maximum principle. Its first formal write-up contained errors, which the authors then fixed and verified before publication in the Journal of Statistical Mechanics.  Lab: Independent. Model: Claude Sonnet 4.6, Claude Opus 4.7. Verification: Peer reviewed. Autonomy: Collaborative.",
+      "date_published": "2026-06-02T00:00:00+00:00",
+      "date_modified": "2026-08-11T00:00:00+00:00",
+      "tags": [
+        "statistical-physics",
+        "jamming",
+        "critical-exponents"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
       "url": "https://whataifound.org/finding/2026-08-01-astra-ten-advances",
       "title": "Ten results in mathematics and theoretical computer science with Lean certificates",

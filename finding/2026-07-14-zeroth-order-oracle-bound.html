@@ -38,7 +38,7 @@
 <link rel="manifest" href="/site.webmanifest">
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
-<link rel="prev" href="https://whataifound.org/finding/2026-07-11-grothendieck-group-schemes">
+<link rel="prev" href="https://whataifound.org/finding/2026-07-14-sabidussi-compatibility">
 <link rel="next" href="https://whataifound.org/finding/2026-07-19-jacobian-conjecture">
 
 <script type="application/ld+json">
@@ -198,7 +198,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -212,19 +212,36 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-ai-led">AI-led</span>
   </div>
   <h1>Near-quadratic lower bound for derivative-free convex optimization</h1>
-  <p class="lede">Near-quadratic lower bound for derivative-free convex optimization is graded formally verified on whataifound.org, with the AI's role graded ai-led.</p>
   <p class="claim">A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Formally verified</dd></div>
-      <div><dt>Autonomy</dt><dd>AI-led</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Independent</dd></div>
       <div><dt>Model</dt><dd>GPT-5.6 Sol Pro</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2026-07-14</dd></div>
       <div><dt>Human collaborators</dt><dd>Phillip Kerger</dd></div>
       <div><dt>Problem posed</dt><dd>1996 · open 30 yrs</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.13335" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Closing the Oracle-Complexity Gap in Derivative-Free Convex Optimization</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean verification, prompt and chat logs</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>The gap between Protasov's O(d²) upper bound (1996) and the O(d) lower bound is documented in the derivative-free optimization literature and had stood for three decades. No prior matching lower bound appears in the literature. The paper is explicit that the AI produced the argument.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>arXiv preprint, not peer-reviewed. The author states plainly that 'it is accurate to say that the AI model used solved the problem, not the author of this paper', which is the basis for the ai-led grade; the human wrote the prompt, reviewed the proof, and did the Lean formalization. Graded `formal` on the strength of the machine-checked Lean artifact for the core bound, not on the preprint as a whole.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Lean 4 / Mathlib compiler (author-run, artifact public): <em>core Ω̃(d²) lower bound compiles with no sorry and no bespoke axioms</em> · <a href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -243,27 +260,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-07-14-zeroth-order-oracle-bound" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>In zeroth-order optimization an algorithm may only query a function's value, never its gradient. Protasov's 1996 algorithm needed about d² evaluations in d dimensions, but the best known lower bound was only about d, leaving open whether a much faster method existed. The new bound of Ω(d²/log(d+1)) matches the upper bound to polylogarithmic factors. Kerger reports that after a ten-page prompt built on his own earlier failed attempts, the model produced the complete proof in a single 2.5-hour session with no intervention; he then reviewed it and formally verified the core bound in Lean 4, which compiles against Mathlib with no `sorry` and no bespoke axioms.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>The gap between Protasov's O(d²) upper bound (1996) and the O(d) lower bound is documented in the derivative-free optimization literature and had stood for three decades. No prior matching lower bound appears in the literature. The paper is explicit that the AI produced the argument.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>arXiv preprint, not peer-reviewed. The author states plainly that 'it is accurate to say that the AI model used solved the problem, not the author of this paper', which is the basis for the ai-led grade; the human wrote the prompt, reviewed the proof, and did the Lean formalization. Graded `formal` on the strength of the machine-checked Lean artifact for the core bound, not on the preprint as a whole.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Lean 4 / Mathlib compiler (author-run, artifact public): <em>core Ω̃(d²) lower bound compiles with no sorry and no bespoke axioms</em> · <a href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-27">2026-07-27</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.13335" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Closing the Oracle-Complexity Gap in Derivative-Free Convex Optimization</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/PhillipKerger/zero-order-bounds-lean-verification" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean verification, prompt and chat logs</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>formally verified</strong>
-  and <strong>ai-led</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>formally verified</strong> for verification and
+  <strong>ai-led</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -286,8 +293,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2026-08-01-astra-ten-advances"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Ten results in mathematics and theoretical computer science with Lean certificates</span><span class="rel-meta">OpenAI · 2026-08-01</span></a><a class="rel-card" href="/finding/2026-07-20-kourovka-notebook"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Eight problems from the Kourovka Notebook solved and formalized in Lean</span><span class="rel-meta">Harmonic · 2026-07-20</span></a><a class="rel-card" href="/finding/2026-07-11-grothendieck-group-schemes"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Counterexample to Grothendieck's question on finite flat group schemes</span><span class="rel-meta">Independent · 2026-07-11</span></a></div>
-  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-07-11-grothendieck-group-schemes"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Counterexample to Grothendieck's question on finite flat group schemes</span></a><a class="pn-step" href="/finding/2026-07-19-jacobian-conjecture"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Counterexample to the Jacobian conjecture in dimension three</span></a></nav>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-07-28-kemeny-three-voters"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Kemeny rank aggregation shown NP-hard for three voters</span><span class="rel-meta">Independent · 2026-07-28</span></a><a class="rel-card" href="/finding/2026-08-10-zeta-zeros-critical-line"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Proportion of zeta zeros on the critical line raised to 67.25%</span><span class="rel-meta">Anthropic · 2026-08-10</span></a><a class="rel-card" href="/finding/2026-08-04-moore-bound"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Asymptotic degree-diameter problem resolved for fixed diameter</span><span class="rel-meta">Independent · 2026-08-04</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-07-14-sabidussi-compatibility"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Sabidussi's compatibility conjecture proved</span></a><a class="pn-step" href="/finding/2026-07-19-jacobian-conjecture"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Counterexample to the Jacobian conjecture in dimension three</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=optimization">optimization</a><a class="tag-chip" href="/?tag=complexity-theory">complexity-theory</a><a class="tag-chip" href="/?tag=lower-bounds">lower-bounds</a><a class="tag-chip" href="/?tag=lean">lean</a></div>
 
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
@@ -301,9 +310,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

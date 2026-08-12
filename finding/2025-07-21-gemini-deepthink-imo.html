@@ -203,7 +203,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -217,17 +217,38 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-ai-led">AI-led</span>
   </div>
   <h1>Gold-medal standard at the 2025 International Mathematical Olympiad</h1>
-  <p class="lede">Gold-medal standard at the 2025 International Mathematical Olympiad is graded independently checked on whataifound.org, with the AI's role graded ai-led.</p>
   <p class="claim">An advanced version of Gemini Deep Think read the official problem statements and wrote natural-language proofs for five of the six 2025 IMO problems inside the contest time limits, scoring 35 of 42, graded and certified by the official IMO coordinators.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Independently checked</dd></div>
-      <div><dt>Autonomy</dt><dd>AI-led</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Google DeepMind</dd></div>
       <div><dt>Model</dt><dd>Gemini Deep Think (advanced version)</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2025-07-21</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://storage.googleapis.com/deepmind-media/gemini/IMO_2025.pdf" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Gemini Deep Think: official IMO 2025 solutions (PDF)</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Gemini with Deep Think officially achieves gold-medal standard at the IMO</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-commentary">Independent commentary</h3>
+      <div class="refs"><a class="ref" href="https://simonwillison.net/2025/Jul/19/openai-gold-medal-math-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">Simon Willison</span><span class="ref-t">OpenAI's gold medal performance on the IMO</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The model worked end to end in natural language within the two 4.5-hour sessions, with no human translating problems into a formal language, and solved problems one through five. Google DeepMind was in the first cohort whose results were officially graded and certified by IMO coordinators against the rubric used for student scripts; 35 points is the gold-medal threshold. OpenAI announced the same 35/42 score two days earlier with an experimental reasoning model, graded internally by three former IMO medallists rather than by the IMO.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>IMO problems have published official solutions, so this is a capability milestone rather than a new mathematical result, and the registry records it as one. The prior best was AlphaProof and AlphaGeometry 2's 28/42 in 2024, which required humans to hand-translate each problem into Lean first; removing that step is the substantive change.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Benchmark performance on problems with known answers, not a discovery. Google's own account describes training on a curated corpus of high-quality solutions and providing general guidance on how to approach IMO problems, which is human mathematical input beyond posing the problem, hence ai-led rather than autonomous. Problem six went unsolved. The parallel OpenAI claim is self-graded and not IMO-certified, and drew criticism for being published before the closing ceremony, which organisers had asked AI developers to wait for.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Official IMO coordinators (certified grading): <em>35/42, gold-medal standard</em> · <a href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -246,31 +267,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2025-07-21-gemini-deepthink-imo" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>The model worked end to end in natural language within the two 4.5-hour sessions, with no human translating problems into a formal language, and solved problems one through five. Google DeepMind was in the first cohort whose results were officially graded and certified by IMO coordinators against the rubric used for student scripts; 35 points is the gold-medal threshold. OpenAI announced the same 35/42 score two days earlier with an experimental reasoning model, graded internally by three former IMO medallists rather than by the IMO.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>IMO problems have published official solutions, so this is a capability milestone rather than a new mathematical result, and the registry records it as one. The prior best was AlphaProof and AlphaGeometry 2's 28/42 in 2024, which required humans to hand-translate each problem into Lean first; removing that step is the substantive change.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>Benchmark performance on problems with known answers, not a discovery. Google's own account describes training on a curated corpus of high-quality solutions and providing general guidance on how to approach IMO problems, which is human mathematical input beyond posing the problem, hence ai-led rather than autonomous. Problem six went unsolved. The parallel OpenAI claim is self-graded and not IMO-certified, and drew criticism for being published before the closing ceremony, which organisers had asked AI developers to wait for.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Official IMO coordinators (certified grading): <em>35/42, gold-medal standard</em> · <a href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Independently checked and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://storage.googleapis.com/deepmind-media/gemini/IMO_2025.pdf" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Gemini Deep Think: official IMO 2025 solutions (PDF)</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-announcement">Announcement</h2>
-  <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/advanced-version-of-gemini-with-deep-think-officially-achieves-gold-medal-standard-at-the-international-mathematical-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Gemini with Deep Think officially achieves gold-medal standard at the IMO</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-commentary">Independent commentary</h2>
-  <div class="refs"><a class="ref" href="https://simonwillison.net/2025/Jul/19/openai-gold-medal-math-olympiad/" target="_blank" rel="noopener"><span class="ref-dom">Simon Willison</span><span class="ref-t">OpenAI's gold medal performance on the IMO</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>independently checked</strong>
-  and <strong>ai-led</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>independently checked</strong> for verification and
+  <strong>ai-led</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -296,6 +303,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="relgrid"><a class="rel-card" href="/finding/2025-07-28-aristotle-imo-lean"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Machine-checked Lean proofs for five of six 2025 IMO problems</span><span class="rel-meta">Harmonic · 2025-07-28</span></a><a class="rel-card" href="/finding/2024-07-25-alphaproof-imo"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Silver-medal standard at the 2024 International Mathematical Olympiad</span><span class="rel-meta">Google DeepMind · 2024-07-25</span></a><a class="rel-card" href="/finding/2024-01-17-alphageometry"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Olympiad geometry solved without human demonstrations</span><span class="rel-meta">Google DeepMind · 2024-01-17</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2025-06-03-rentosertib-phase2a"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Phase 2a results for a drug whose target and molecule both came from AI</span></a><a class="pn-step" href="/finding/2025-07-28-aristotle-imo-lean"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Machine-checked Lean proofs for five of six 2025 IMO problems</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=olympiad">olympiad</a><a class="tag-chip" href="/?tag=benchmark">benchmark</a><a class="tag-chip" href="/?tag=natural-language-proof">natural-language-proof</a></div>
+
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
 
@@ -308,9 +317,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

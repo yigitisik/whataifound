@@ -197,7 +197,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -211,18 +211,33 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-ai-assisted">AI-assisted</span>
   </div>
   <h1>Improved step-size bound in smooth convex optimization</h1>
-  <p class="lede">Improved step-size bound in smooth convex optimization is graded already known on whataifound.org, with the AI's role graded ai-assisted.</p>
   <p class="claim">GPT-5 Pro extended a guaranteed-convexity window for gradient descent from η ≤ 1/L to η ≤ 1.5/L, but the optimal 1.75/L bound had already been published months earlier.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Already known</dd></div>
-      <div><dt>Autonomy</dt><dd>AI-assisted</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>OpenAI</dd></div>
       <div><dt>Model</dt><dd>GPT-5 Pro</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2025-08-01</dd></div>
       <div><dt>Human collaborators</dt><dd>Sébastien Bubeck</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://hackmd.io/@niloydebbarma/HkGxVPwFgx" target="_blank" rel="noopener"><span class="ref-dom">HackMD</span><span class="ref-t">Analysis of the claim</span><span class="ref-a">↗</span></a><a class="ref" href="https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/" target="_blank" rel="noopener"><span class="ref-dom">AllThings.how</span><span class="ref-t">What does GPT-5's 'new math' claim actually mean?</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Version 2 of the source paper, published 2 April 2025, had already established the optimal 1.75/L bound, strictly stronger than the model's 1.5/L. The model was working from an earlier version and its result was superseded before it was produced.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>The proof itself is valid; the novelty claim is not. Analysts noted the argument largely recombined known techniques in different notation. Retained as a cautionary entry: this is the single most common failure mode in this space, and the reason every entry carries a novelty check.</p>
+  </details>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -241,27 +256,19 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2025-08-gpt5-convex-bound" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>Bubeck posed an open problem from a convex optimization paper. After about 17 minutes of reasoning the model produced an improved bound using Bregman divergence inequalities and cocoercivity. Bubeck verified the proof as correct and described it as new mathematics.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Version 2 of the source paper, published 2 April 2025, had already established the optimal 1.75/L bound, strictly stronger than the model's 1.5/L. The model was working from an earlier version and its result was superseded before it was produced.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>The proof itself is valid; the novelty claim is not. Analysts noted the argument largely recombined known techniques in different notation. Retained as a cautionary entry: this is the single most common failure mode in this space, and the reason every entry carries a novelty check.</p>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-20">2026-07-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Already known and AI-assisted.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-challenge">Challenge</h2>
-  <div class="refs"><a class="ref" href="https://hackmd.io/@niloydebbarma/HkGxVPwFgx" target="_blank" rel="noopener"><span class="ref-dom">HackMD</span><span class="ref-t">Analysis of the claim</span><span class="ref-a">↗</span></a><a class="ref" href="https://allthings.how/what-does-gpt-5s-new-math-claim-actually-mean/" target="_blank" rel="noopener"><span class="ref-dom">AllThings.how</span><span class="ref-t">What does GPT-5's 'new math' claim actually mean?</span><span class="ref-a">↗</span></a></div>
+  </details>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=44965577" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">claim that GPT-5-pro can prove new interesting mathematics</span><span class="ref-a">↗</span></a></div>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>already known</strong>
-  and <strong>ai-assisted</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>already known</strong> for verification and
+  <strong>ai-assisted</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -284,8 +291,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2025-10-19-gpt5-erdos-retrieval"><span class="rel-grade pill v v-known">Already known</span><span class="rel-title">GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions</span><span class="rel-meta">OpenAI · 2025-10-19</span></a><a class="rel-card" href="/finding/2026-07-14-zeroth-order-oracle-bound"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Near-quadratic lower bound for derivative-free convex optimization</span><span class="rel-meta">Independent · 2026-07-14</span></a><a class="rel-card" href="/finding/2026-08-01-astra-ten-advances"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Ten results in mathematics and theoretical computer science with Lean certificates</span><span class="rel-meta">OpenAI · 2026-08-01</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2025-10-19-gpt5-erdos-retrieval"><span class="rel-grade pill v v-known">Already known</span><span class="rel-title">GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions</span><span class="rel-meta">OpenAI · 2025-10-19</span></a><a class="rel-card" href="/finding/2026-07-14-zeroth-order-oracle-bound"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Near-quadratic lower bound for derivative-free convex optimization</span><span class="rel-meta">Independent · 2026-07-14</span></a><a class="rel-card" href="/finding/2026-08-10-zeta-zeros-critical-line"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Proportion of zeta zeros on the critical line raised to 67.25%</span><span class="rel-meta">Anthropic · 2026-08-10</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2025-07-28-aristotle-imo-lean"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Machine-checked Lean proofs for five of six 2025 IMO problems</span></a><a class="pn-step" href="/finding/2025-09-11-gauss-strong-pnt"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Strong prime number theorem formalized in Lean by an autoformalization agent</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=optimization">optimization</a><a class="tag-chip" href="/?tag=already-known">already-known</a><a class="tag-chip" href="/?tag=cautionary">cautionary</a></div>
 
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
@@ -299,9 +308,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

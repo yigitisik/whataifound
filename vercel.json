@@ -41,6 +41,15 @@
       ]
     },
     {
+      "source": "/api/dataset",
+      "headers": [
+        {
+          "key": "Referrer-Policy",
+          "value": "same-origin"
+        }
+      ]
+    },
+    {
       "source": "/api/(.*)",
       "headers": [
         {

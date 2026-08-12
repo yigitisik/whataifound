@@ -212,7 +212,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -226,18 +226,39 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>Faster matrix-multiplication algorithms found by reinforcement learning</h1>
-  <p class="lede">Faster matrix-multiplication algorithms found by reinforcement learning is graded peer reviewed on whataifound.org, with the AI's role graded search scaffold.</p>
   <p class="claim">AlphaTensor discovered matrix-multiplication schemes using fewer scalar multiplications than any previously known, including a way to multiply 4×4 matrices over GF(2) in 47 multiplications versus the 49 of two-level Strassen.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Peer reviewed</dd></div>
-      <div><dt>Autonomy</dt><dd>Search scaffold</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Google DeepMind</dd></div>
       <div><dt>Model</dt><dd>AlphaTensor (AlphaZero-based)</dd></div>
       <div><dt>Field</dt><dd>Computer science</dd></div>
       <div><dt>Date</dt><dd>2022-10-05</dd></div>
       <div><dt>Problem posed</dt><dd>1969 · open 53 yrs</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-022-05172-4" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Discovering faster matrix multiplication algorithms with reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphatensor" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AlphaTensor code and discovered algorithms</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Discovering novel algorithms with AlphaTensor</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-coverage">Media coverage</h3>
+      <div class="refs"><a class="ref" href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener"><span class="ref-dom">Quanta</span><span class="ref-t">AI Reveals New Possibilities in Matrix Multiplication</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Fast matrix multiplication has an exhaustively catalogued literature going back to Strassen (1969) and Laderman (1976). AlphaTensor's schemes were checked against the standing per-size records; the 4×4 result over GF(2) was new at publication.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>The 4×4 improvement is specific to characteristic-2 arithmetic and the practical speedup is limited. Within about a week, Kauers and Moosbauer used a classical computer search to improve the 5×5 GF(2) case from AlphaTensor's 96 multiplications to 95, showing conventional methods remained competitive. 'Discovered' here means an RL search over decompositions, not an autonomous mathematical insight.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Kauers &amp; Moosbauer (computer-algebra search): <em>verified and shortly improved on the 5×5 case</em> · <a href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -256,33 +277,19 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2022-10-05-alphatensor" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>AlphaTensor recast the search for matrix-multiplication algorithms as a single-player game of decomposing a 3-D tensor into rank-one terms, then trained an AlphaZero-style agent to play it. It matched or beat the best known rank for many matrix sizes, and over GF(2) found a 4×4 scheme using 47 multiplications, improving on the 49 obtained by applying Strassen's 1969 algorithm twice. Every decomposition it returns is an exact identity checkable by hand. Published in Nature.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Fast matrix multiplication has an exhaustively catalogued literature going back to Strassen (1969) and Laderman (1976). AlphaTensor's schemes were checked against the standing per-size records; the 4×4 result over GF(2) was new at publication.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>The 4×4 improvement is specific to characteristic-2 arithmetic and the practical speedup is limited. Within about a week, Kauers and Moosbauer used a classical computer search to improve the 5×5 GF(2) case from AlphaTensor's 96 multiplications to 95, showing conventional methods remained competitive. 'Discovered' here means an RL search over decompositions, not an autonomous mathematical insight.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Kauers &amp; Moosbauer (computer-algebra search): <em>verified and shortly improved on the 5×5 case</em> · <a href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-20">2026-07-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and Search scaffold.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-022-05172-4" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Discovering faster matrix multiplication algorithms with reinforcement learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphatensor" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AlphaTensor code and discovered algorithms</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-announcement">Announcement</h2>
-  <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/discovering-novel-algorithms-with-alphatensor/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">Discovering novel algorithms with AlphaTensor</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-coverage">Media coverage</h2>
-  <div class="refs"><a class="ref" href="https://www.quantamagazine.org/ai-reveals-new-possibilities-in-matrix-multiplication-20221123/" target="_blank" rel="noopener"><span class="ref-dom">Quanta</span><span class="ref-t">AI Reveals New Possibilities in Matrix Multiplication</span><span class="ref-a">↗</span></a></div>
+  </details>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=33096667" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Discovering novel algorithms with AlphaTensor</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=33117192" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">On AlphaTensor's new matrix multiplication algorithms</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=33180316" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">human search beats AlphaTensor's 5×5 result days later</span><span class="ref-a">↗</span></a></div>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>peer reviewed</strong> for verification and
+  <strong>search scaffold</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -308,6 +315,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="relgrid"><a class="rel-card" href="/finding/2025-05-alphaevolve-matmul"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">4×4 complex matrix multiplication in 48 scalar multiplications</span><span class="rel-meta">Google DeepMind · 2025-05-14</span></a><a class="rel-card" href="/finding/2023-06-07-alphadev"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Faster sorting routines discovered and merged into the LLVM C++ library</span><span class="rel-meta">Google DeepMind · 2023-06-07</span></a><a class="rel-card" href="/finding/2023-12-funsearch-binpacking"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Improved heuristics for online bin packing</span><span class="rel-meta">Google DeepMind · 2023-12-14</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2022-02-16-tokamak-plasma-control"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Deep reinforcement learning controls tokamak fusion plasma</span></a><a class="pn-step" href="/finding/2023-06-07-alphadev"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Faster sorting routines discovered and merged into the LLVM C++ library</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=algorithms">algorithms</a><a class="tag-chip" href="/?tag=linear-algebra">linear-algebra</a><a class="tag-chip" href="/?tag=reinforcement-learning">reinforcement-learning</a></div>
+
   <p class="finding-back"><a href="/topic/computer-science">← All computer science findings in the registry</a></p>
 </article>
 
@@ -320,9 +329,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

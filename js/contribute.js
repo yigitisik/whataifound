@@ -63,15 +63,23 @@ const GRADES = {
   "2026-05-18-pevac-ps-sarbecovirus":["peer-reviewed","ai-assisted"],
   "2026-05-21-alphaproof-nexus":["formal","search-scaffold"],
   "2026-05-erdos-unit-distance":["independent","ai-led"],
+  "2026-06-02-jamming-exponent-identity":["peer-reviewed","collaborative"],
   "2026-06-17-kagome-superconductors":["peer-reviewed","search-scaffold"],
   "2026-06-25-herculaneum-scroll-read":["author-verified","ai-assisted"],
   "2026-07-11-grothendieck-group-schemes":["formal","collaborative"],
+  "2026-07-14-sabidussi-compatibility":["formal","collaborative"],
   "2026-07-14-zeroth-order-oracle-bound":["formal","ai-led"],
   "2026-07-19-jacobian-conjecture":["formal","collaborative"],
   "2026-07-20-gaussian-moments":["author-verified","ai-led"],
+  "2026-07-20-gaussian-product-inequality":["formal","ai-led"],
   "2026-07-20-kourovka-notebook":["formal","autonomous"],
   "2026-07-22-dinitz-garg-goemans":["claimed","ai-led"],
-  "2026-08-01-astra-ten-advances":["formal","ai-led"]
+  "2026-07-27-feige-conjecture":["formal","ai-led"],
+  "2026-07-28-kemeny-three-voters":["formal","ai-led"],
+  "2026-07-29-sumset-difference-exponent":["formal","ai-led"],
+  "2026-08-01-astra-ten-advances":["formal","ai-led"],
+  "2026-08-04-moore-bound":["formal","ai-assisted"],
+  "2026-08-10-zeta-zeros-critical-line":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -121,15 +129,23 @@ const ID_BY_TITLE = {
   "phase 1 trial of a computationally designed pan-sarbecovirus vaccine":"2026-05-18-pevac-ps-sarbecovirus",
   "nine erd\u0151s problems and 44 oeis conjectures proved with machine-checked proofs":"2026-05-21-alphaproof-nexus",
   "disproof of the erd\u0151s unit-distance conjecture":"2026-05-erdos-unit-distance",
+  "identity for the critical exponents of jamming derived analytically":"2026-06-02-jamming-exponent-identity",
   "two kagome superconductors predicted by machine learning and confirmed in the lab":"2026-06-17-kagome-superconductors",
   "first herculaneum scroll read end to end without unrolling it":"2026-06-25-herculaneum-scroll-read",
   "counterexample to grothendieck's question on finite flat group schemes":"2026-07-11-grothendieck-group-schemes",
+  "sabidussi's compatibility conjecture proved":"2026-07-14-sabidussi-compatibility",
   "near-quadratic lower bound for derivative-free convex optimization":"2026-07-14-zeroth-order-oracle-bound",
   "counterexample to the jacobian conjecture in dimension three":"2026-07-19-jacobian-conjecture",
   "counterexamples to the gaussian moments conjecture":"2026-07-20-gaussian-moments",
+  "gaussian product inequality conjecture proved":"2026-07-20-gaussian-product-inequality",
   "eight problems from the kourovka notebook solved and formalized in lean":"2026-07-20-kourovka-notebook",
   "counterexample to the dinitz\u2013garg\u2013goemans conjecture":"2026-07-22-dinitz-garg-goemans",
-  "ten results in mathematics and theoretical computer science with lean certificates":"2026-08-01-astra-ten-advances"
+  "feige's conjecture on sums of nonnegative random variables settled":"2026-07-27-feige-conjecture",
+  "kemeny rank aggregation shown np-hard for three voters":"2026-07-28-kemeny-three-voters",
+  "optimal exponent relating sumsets and difference sets determined":"2026-07-29-sumset-difference-exponent",
+  "ten results in mathematics and theoretical computer science with lean certificates":"2026-08-01-astra-ten-advances",
+  "asymptotic degree-diameter problem resolved for fixed diameter":"2026-08-04-moore-bound",
+  "proportion of zeta zeros on the critical line raised to 67.25%":"2026-08-10-zeta-zeros-critical-line"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -179,15 +195,23 @@ const TITLE_BY_ID = {
   "2026-05-18-pevac-ps-sarbecovirus":"Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
   "2026-05-21-alphaproof-nexus":"Nine Erd\u0151s problems and 44 OEIS conjectures proved with machine-checked proofs",
   "2026-05-erdos-unit-distance":"Disproof of the Erd\u0151s unit-distance conjecture",
+  "2026-06-02-jamming-exponent-identity":"Identity for the critical exponents of jamming derived analytically",
   "2026-06-17-kagome-superconductors":"Two kagome superconductors predicted by machine learning and confirmed in the lab",
   "2026-06-25-herculaneum-scroll-read":"First Herculaneum scroll read end to end without unrolling it",
   "2026-07-11-grothendieck-group-schemes":"Counterexample to Grothendieck's question on finite flat group schemes",
+  "2026-07-14-sabidussi-compatibility":"Sabidussi's compatibility conjecture proved",
   "2026-07-14-zeroth-order-oracle-bound":"Near-quadratic lower bound for derivative-free convex optimization",
   "2026-07-19-jacobian-conjecture":"Counterexample to the Jacobian conjecture in dimension three",
   "2026-07-20-gaussian-moments":"Counterexamples to the Gaussian moments conjecture",
+  "2026-07-20-gaussian-product-inequality":"Gaussian product inequality conjecture proved",
   "2026-07-20-kourovka-notebook":"Eight problems from the Kourovka Notebook solved and formalized in Lean",
   "2026-07-22-dinitz-garg-goemans":"Counterexample to the Dinitz\u2013Garg\u2013Goemans conjecture",
-  "2026-08-01-astra-ten-advances":"Ten results in mathematics and theoretical computer science with Lean certificates"
+  "2026-07-27-feige-conjecture":"Feige's conjecture on sums of nonnegative random variables settled",
+  "2026-07-28-kemeny-three-voters":"Kemeny rank aggregation shown NP-hard for three voters",
+  "2026-07-29-sumset-difference-exponent":"Optimal exponent relating sumsets and difference sets determined",
+  "2026-08-01-astra-ten-advances":"Ten results in mathematics and theoretical computer science with Lean certificates",
+  "2026-08-04-moore-bound":"Asymptotic degree-diameter problem resolved for fixed diameter",
+  "2026-08-10-zeta-zeros-critical-line":"Proportion of zeta zeros on the critical line raised to 67.25%"
 };
 /*VOCAB:END*/
 

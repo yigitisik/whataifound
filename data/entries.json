@@ -2467,5 +2467,358 @@
       "experimental-confirmation"
     ],
     "added": "2026-08-06"
+  },
+  {
+    "id": "2026-08-10-zeta-zeros-critical-line",
+    "title": "Proportion of zeta zeros on the critical line raised to 67.25%",
+    "claim": "An unconditional proof that at least 67.25% of the nontrivial zeros of the Riemann zeta function are simple and lie on the critical line, up from a previous record of about 41.6%, with a machine-checked Lean formalization.",
+    "field": "mathematics",
+    "date": "2026-08-10",
+    "lab": "Anthropic",
+    "model": "Claude (unreleased research version)",
+    "humans": [
+      "Jarred Sumner",
+      "Levent Alpöge",
+      "Ralph Furman",
+      "Eric Easley"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The Riemann hypothesis asserts every nontrivial zero lies on the critical line. Short of proving it, the standard measure of progress is the proportion of zeros known unconditionally to lie there: Selberg established a positive proportion, Levinson reached a third in 1974, Conrey two fifths in 1989, and the record had crept to roughly 41.6%. This work proves at least 3/2 - (1/sqrt 2)cot(1/sqrt 2) = 67.25...% of zeros are simple and on the line, and that at least 0.83625 of zeros are distinct. The decisive step combined the unconditional pair-correlation work of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh with a 2000 paper of Bombieri, treating the whole function space at once with the quadratic form allowed to be non-diagonal rather than splitting it. The process is itself the record worth noting: the model was asked to attempt the Riemann hypothesis outright, with the mathematical choices left to it, and the bound improvement fell out of failing at that. It generated and discarded roughly 650 ideas in a first session; in a second it coordinated about 60 subagents which ran some 2,400 shell commands, wrote hundreds of scripts, checked numerically against known zeros and refereed one another. Two subagents developed the key ideas, thirteen fed them, thirty tried and failed, thirteen validated, two drafted the paper, across roughly 31 million output tokens in two Claude Code sessions. The model also proposed writing the result up, checked 54 arXiv papers for prior art, and recommended a human number theorist validate it.",
+    "novelty_check": "The proportion ladder is a documented literature running from Hardy (1914) and Selberg (1942) through Levinson's one third (1974) and Conrey's two fifths (1989), with subsequent refinements reaching about 41.6%; the paper states the prior record and cites it. The model itself searched 54 arXiv papers for prior art before write-up. No earlier unconditional bound above 42% appears in the literature. The result is a new bound, not a retrieval of a known one.",
+    "caveats": "Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output.",
+    "sources": [
+      {
+        "label": "Anthropic: paper (PDF)",
+        "url": "https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalization (anthropics/zeta-23-lean)",
+        "url": "https://github.com/anthropics/zeta-23-lean",
+        "kind": "research"
+      },
+      {
+        "label": "Session transcript (PDF)",
+        "url": "https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf",
+        "kind": "announcement"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "number-theory",
+      "riemann-hypothesis",
+      "multi-agent"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-27-feige-conjecture",
+    "title": "Feige's conjecture on sums of nonnegative random variables settled",
+    "claim": "For independent nonnegative random variables with mean at most 1 and sum S, the probability that S is below its mean plus one is at least 1/e, the sharp constant Feige conjectured in 2004; three independent proofs appeared within days.",
+    "field": "mathematics",
+    "date": "2026-07-27",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Pro",
+    "humans": [
+      "Weibo Fu",
+      "Yanjun Han",
+      "Guanyang Wang",
+      "Jun Yan",
+      "Peng Zhang",
+      "Zhengqing Zhou"
+    ],
+    "year_posed": 2004,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "Feige proved in 2004 that for independent nonnegative random variables X_1..X_n with E[X_i] <= 1 and S their sum, P(S < E[S] + 1) is bounded below by a positive constant, established 1/13, and conjectured the sharp value 1/e. The primary paper states plainly in its abstract that the proof was found by ChatGPT 5.6 Pro, which combined the Vlassis-Thomas Dirichlet calibration theorem with Grunbaum-type convex geometry; the authors then checked, revised and rewrote the argument. The sharper form determines the optimal small-deviation bound. An end-to-end Lean formalization accompanies the paper, covering the Vlassis-Thomas theorem, Grunbaum's centroid theorem and the combining argument, developed with Codex.",
+    "novelty_check": "Feige's conjecture is documented as open from his 2004 paper on sums of independent random variables, where he proved the weaker constant 1/13. The sharp 1/e constant is recorded as an open problem in the subsequent small-deviation literature and had stood for 22 years. No prior proof of the sharp constant appears; the near-simultaneous arrival of three independent proofs within days confirms it was live and open, not settled and forgotten.",
+    "caveats": "Not peer-reviewed; all three proofs are preprints. The Lean formalization accompanies the primary paper and is author-produced. Autonomy is graded ai-led rather than autonomous because the human authors posed the problem, then checked, revised and rewrote the argument for publication. The three independent proofs are genuine corroboration of the result, though two of the three were themselves AI-assisted, so they are not fully independent of the method.",
+    "independent_checks": [
+      {
+        "who": "Zipei Nie and Jiaye Wei (independent second proof)",
+        "url": "https://arxiv.org/abs/2607.24528",
+        "outcome": "independently proved the same sharp 1/e bound, obtained with assistance from GPT-5.6 Sol"
+      },
+      {
+        "who": "Mark Stander (independent third proof)",
+        "url": "https://doi.org/10.5281/zenodo.21622950",
+        "outcome": "further independent proof of the conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Sharp small-deviation inequalities for sums of independent nonnegative random variables",
+        "url": "https://arxiv.org/abs/2607.23980",
+        "kind": "research"
+      },
+      {
+        "label": "Lean formalization (pengzhang91/Feige)",
+        "url": "https://github.com/pengzhang91/Feige",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: On Feige's conjecture (Nie and Wei)",
+        "url": "https://arxiv.org/abs/2607.24528",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "probability",
+      "concentration-inequalities"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-08-04-moore-bound",
+    "title": "Asymptotic degree-diameter problem resolved for fixed diameter",
+    "claim": "The maximum order of a graph with maximum degree d and diameter k satisfies n_k(d)/d^k tending to 1 as d grows, for every fixed k, resolving the asymptotic form of a question open since 1978, with a Lean 4 formalization.",
+    "field": "mathematics",
+    "date": "2026-08-04",
+    "lab": "Independent",
+    "model": "GPT-5.6 Pro",
+    "humans": [
+      "Wouter Cames van Batenburg",
+      "Samuel Korsky"
+    ],
+    "year_posed": 1978,
+    "verification": "formal",
+    "autonomy": "ai-assisted",
+    "detail": "The Moore bound caps the order of a graph of maximum degree d and diameter k at roughly d^k. Whether that cap is asymptotically attainable for fixed diameter was open: Bannai and Ito had settled which exact Moore graphs exist, and constructions had approached the bound only for small diameters. This proves the limit of n_k(d)/d^k is 1 for every fixed k, with a companion lower bound on the edge variant and a tight asymptotic for the bipartite version. The paper carries an explicit tool and computational resource disclosure: GPT-5.6 Pro was used in exploratory brainstorming directed by the authors, who formulated the required parameter scale and proposed higher-rank spherical buildings as the geometric setting. The model suggested splitting complete flags into their odd- and even-rank subflags, initially in connection with the edge problem; that suggestion became the halved-flag construction carrying the main theorem, and the graph is named for it.",
+    "novelty_check": "The degree-diameter problem is a named and long-tracked question in extremal graph theory, surveyed by Bermond and Bollobas (1981) and with Bollobas's 1978 Extremal Graph Theory as the reference point for the asymptotic question; Bachraty, Siagiova and Siran had approached the bound for diameter three in 2019. The authors note that after completing the work they learned the projective-plane construction of an earlier paper shares the rank-2 incidence graph underlying the k=1 case of theirs, and state the higher-rank construction and its odd-even routing argument are independent and different. No prior proof of the general asymptotic result appears.",
+    "caveats": "Not peer-reviewed. Autonomy is graded ai-assisted, the weaker defensible reading, because the disclosure is explicit that the authors developed the suggestion into the construction, formulated and verified all mathematical arguments, and take full responsibility for the content; the model's contribution was one structural idea during brainstorming. Generative tools also assisted with the Lean formalization. The Lean repository is author-produced and had no independent audit at announcement.",
+    "independent_checks": [
+      {
+        "who": "vibemathed.com curator check of the Lean repository",
+        "url": "https://github.com/woutercvb/wewantmoore",
+        "outcome": "checked at commit 32beb227: DegreeDiameter.theorem_1_1 states Theorem 1.1 itself and corollary_1_2 states Corollary 1.2, neither a weakened lemma, with a second independent route proved alongside each; no sorry or admit in the sources"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Asymptotically attaining the Moore bound",
+        "url": "https://arxiv.org/abs/2608.03965",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalization (woutercvb/wewantmoore)",
+        "url": "https://github.com/woutercvb/wewantmoore",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "graph-theory",
+      "combinatorics",
+      "extremal-combinatorics"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-20-gaussian-product-inequality",
+    "title": "Gaussian product inequality conjecture proved",
+    "claim": "For any centered Gaussian vector and positive exponents, the expectation of the product of absolute powers is at least the product of the individual expectations, settling a conjecture posed in 2007.",
+    "field": "mathematics",
+    "date": "2026-07-20",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Sol",
+    "humans": [
+      "Frédéric Ouimet",
+      "Dylan Greaves"
+    ],
+    "year_posed": 2007,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The conjecture states that for a centered Gaussian vector X = (X_1..X_n), not necessarily nondegenerate, and any positive exponents a_1..a_n, the expectation of the product of |X_i|^a_i is at least the product of the expectations of |X_i|^a_i. The stronger form adds that when every variance is positive, equality holds exactly when the coordinates are independent. The model returned a complete and correct solution from Greaves's prompt. It did not include the equality characterization, but only because that case was not in the prompt as posed. The proof was formalized in Lean using Codex, and the full prompt and output are public as a shared chat transcript.",
+    "novelty_check": "The Gaussian product inequality is a named conjecture dating to 2007, with a substantial partial-results literature covering special cases such as even integer exponents and small dimensions; it was recorded as open in the general case. The proof settles the general statement. No prior general proof appears in the literature.",
+    "caveats": "Not peer-reviewed; released as a preprint with a public chat transcript rather than through a journal. The Lean formalization is author-produced. The AI output omitted the equality-characterization half of the strong form, which was supplied around it. Checks by other models (ChatGPT 5.6 Sol Pro, Gemini 3.1 Pro, Grok 4.5) are not independent human verification and do not raise the grade; the human check by Ouimet is author-side.",
+    "sources": [
+      {
+        "label": "A proof of the strong Gaussian product inequality conjecture",
+        "url": "https://doi.org/10.13140/RG.2.2.17569.77923/1",
+        "kind": "research"
+      },
+      {
+        "label": "Lean formalization (dylgre/gaussian-product-inequality)",
+        "url": "https://github.com/dylgre/gaussian-product-inequality",
+        "kind": "research"
+      },
+      {
+        "label": "Public chat transcript",
+        "url": "https://chatgpt.com/share/6a5ea69b-1648-83e8-80b1-014ae0b1003c",
+        "kind": "announcement"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "probability",
+      "gaussian-inequalities"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-29-sumset-difference-exponent",
+    "title": "Optimal exponent relating sumsets and difference sets determined",
+    "claim": "The least universal exponent c with |A+A|/|A| bounded by (|A-A|/|A|)^c for every finite integer set A is determined, settling the extremal question with a Lean 4 formalization.",
+    "field": "mathematics",
+    "date": "2026-07-29",
+    "lab": "Tencent Hunyuan",
+    "model": "Hy3 (Hyra research agent)",
+    "humans": [
+      "Haowei Lin",
+      "Shanda Li"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "For a finite set A of integers with at least two elements, the ratio of log(|A+A|/|A|) to log(|A-A|/|A|) measures how far sumset growth can outrun difference-set growth. Determining its largest possible value fixes the least universal exponent c such that |A+A|/|A| is at most (|A-A|/|A|)^c for every such A. Tencent Hunyuan's Hyra research agent, powered by the Hy3 model, explored and optimized finite-set constructions over roughly a 24-hour run, moving from finite numerical searches to natural-language proposals of general constructions and supporting arguments, and produced the construction underlying the paper. The human authors independently checked the construction, corrected and rewrote the exposition, and prepared the final proof manually.",
+    "novelty_check": "The relationship between sumset and difference-set growth is a standard question in additive combinatorics with a long record of partial bounds on the exponent; the extremal value was recorded as undetermined. The paper states the prior bounds it improves on. The construction is new, not a retrieval of a known extremal family.",
+    "caveats": "A newly released arXiv v1 preprint, not peer-reviewed. The Lean 4 and Mathlib formalization is author-provided; the repository reports lake build completing with no sorry declarations or warnings, but the principal asymptotic and supremum results rely on three native_decide certificates for elementary finite computations over a 12-element base-39 digit block, so those steps are trusted to the Lean kernel's decision procedure rather than proved term by term. Autonomy graded ai-led rather than autonomous: the agent produced the construction, but humans posed the problem, checked it and wrote the final proof.",
+    "sources": [
+      {
+        "label": "arXiv: Settling the Optimal Exponent Relating Sumsets and Difference Sets",
+        "url": "https://arxiv.org/abs/2607.27199",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "additive-combinatorics",
+      "number-theory"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-28-kemeny-three-voters",
+    "title": "Kemeny rank aggregation shown NP-hard for three voters",
+    "claim": "Computing a Kemeny-optimal aggregate ranking is NP-hard when the input is exactly three complete rankings, closing the minimal open case left by hardness results for even voter counts.",
+    "field": "computer-science",
+    "date": "2026-07-28",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Ultra, Claude Fable 5",
+    "humans": [
+      "Dominik Peters"
+    ],
+    "year_posed": 2001,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "Kemeny aggregation asks for the ranking minimizing total disagreement with a set of input rankings. Hardness was known for every even number of voters n at least 4, while n = 2 is solvable in polynomial time, leaving three voters as the minimal open case since 2001. GPT-5.6 Sol Ultra found the reduction from MAX CUT; Claude Fable 5 helped simplify parts of it. Combined with the earlier results, every fixed number of voters n at least 3 is now known to be hard. The reduction is Lean-checked alongside an author-written preprint.",
+    "novelty_check": "The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears.",
+    "caveats": "Not peer-reviewed. The Lean check covers the reduction; it is author-produced and had no independent audit at announcement. Autonomy graded ai-led rather than autonomous: the model found the reduction, but the human author posed the problem, reviewed the argument and wrote the paper.",
+    "sources": [
+      {
+        "label": "arXiv: Kemeny Rank Aggregation is NP-Hard for Three Voters",
+        "url": "https://arxiv.org/abs/2607.25540",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "complexity-theory",
+      "computational-social-choice"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-14-sabidussi-compatibility",
+    "title": "Sabidussi's compatibility conjecture proved",
+    "claim": "The edges of a finite connected multigraph carrying a closed eulerian trail can be partitioned into circuits so that no circuit contains two edges used consecutively in the trail, with a Lean 4 formalization.",
+    "field": "mathematics",
+    "date": "2026-07-14",
+    "lab": "Independent",
+    "model": "GPT-5.6 Pro, GPT-5.6 Sol",
+    "humans": [
+      "Nikolay Ulyanov"
+    ],
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "Sabidussi's conjecture asks whether, given a finite connected multigraph together with a closed eulerian trail, the edge set can always be partitioned into circuits none of which contains two edges that the trail uses consecutively. The proof establishes this and in fact does more: it four-colours the edges so as to satisfy the constraints. The work was developed with GPT-5.6 Pro and GPT-5.6 Sol, with the author reviewing the proof, and a Lean 4 formalization accompanies the preprint in the author's repository.",
+    "novelty_check": "Sabidussi's compatibility conjecture is a named open problem in graph theory concerning eulerian trails and compatible circuit decompositions, with a partial-results literature covering restricted degree conditions. It was recorded as open in the general case. No prior general proof appears.",
+    "caveats": "Not peer-reviewed. The Lean formalization is in the author's own repository and had no independent audit at announcement. Autonomy graded collaborative rather than ai-led: the source describes the proof as developed with the models and reviewed by the author, without attributing the key idea specifically to the model, so the weaker defensible reading applies.",
+    "sources": [
+      {
+        "label": "arXiv: Graph Puzzles III.1: A Proof of Sabidussi's Compatibility Conjecture",
+        "url": "https://arxiv.org/abs/2607.13225",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "graph-theory",
+      "combinatorics"
+    ],
+    "added": "2026-08-11"
+  },
+  {
+    "id": "2026-06-02-jamming-exponent-identity",
+    "title": "Identity for the critical exponents of jamming derived analytically",
+    "claim": "The relation a + b = 1 between critical exponents at the jamming transition, previously seen only numerically in the full replica-symmetry-breaking solution of hard spheres, is derived from the scaling equations and published after peer review.",
+    "field": "physics",
+    "date": "2026-06-02",
+    "lab": "Independent",
+    "model": "Claude Sonnet 4.6, Claude Opus 4.7",
+    "humans": [
+      "Giorgio Parisi",
+      "Francesco Zamponi"
+    ],
+    "year_posed": 2014,
+    "verification": "peer-reviewed",
+    "autonomy": "collaborative",
+    "detail": "In the full replica-symmetry-breaking solution for hard spheres, the critical exponents a and b at the jamming transition had been observed numerically to high precision to satisfy a + b = 1, without an analytic derivation from the scaling equations. Parisi and Zamponi asked Claude for help; the model quickly proposed what proved to be essentially the correct idea, combining integration-by-parts identities with a maximum principle. Its first formal write-up contained errors, which the authors then fixed and verified before publication in the Journal of Statistical Mechanics.",
+    "novelty_check": "The numerical observation that a + b = 1 in the FullRSB jamming solution dates to the 2014 work of Charbonneau, Kurchan, Parisi, Urbani and Zamponi on the exact mean-field theory of hard-sphere glasses, where the relation was reported as observed but unexplained. It remained without analytic derivation in the subsequent literature. The derivation is new.",
+    "caveats": "Peer-reviewed and published, which is the appropriate grade for a physics result of this kind, but this is an analytic derivation within an established mean-field framework rather than an independently replicated calculation. Autonomy graded collaborative: the model supplied the key idea, but its first formal write-up contained errors that the human authors fixed and verified, and the authors framed the exchange as asking for help on a problem they posed.",
+    "sources": [
+      {
+        "label": "arXiv: A proof of an identity for the critical exponents of jamming",
+        "url": "https://arxiv.org/abs/2606.03300",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "statistical-physics",
+      "jamming",
+      "critical-exponents"
+    ],
+    "added": "2026-08-11"
   }
 ]

@@ -195,7 +195,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -209,17 +209,34 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-retrieval">Retrieval</span>
   </div>
   <h1>GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions</h1>
-  <p class="lede">GPT-5 &quot;solved 10 Erdős problems&quot;: it located existing solutions is graded already known on whataifound.org, with the AI's role graded retrieval.</p>
   <p class="claim">An OpenAI executive announced that GPT-5 had solved 10 previously open Erdős problems and made progress on 11 more; the problems were only 'open' in the sense that one database maintainer was unaware of the already-published solutions the model surfaced.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Already known</dd></div>
-      <div><dt>Autonomy</dt><dd>Retrieval</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>OpenAI</dd></div>
       <div><dt>Model</dt><dd>GPT-5</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2025-10-19</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">OpenAI's 'embarrassing' math</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">A GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>OpenAI VP Kevin Weil posted that 'GPT-5 found solutions to 10 (!) previously unsolved Erdős problems.' Thomas Bloom, who maintains erdosproblems.com, replied that listing a problem as open there only means he personally was unaware of a solution, and that GPT-5 had found existing papers containing the solutions rather than proving anything new. The post was deleted; Demis Hassabis called the episode 'embarrassing' and Yann LeCun mocked it.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>By definition, that is the whole point of the episode. The solutions existed in the published literature; GPT-5's contribution was locating them, a genuinely useful literature-search result that was misdescribed as original problem-solving.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Retained as a cautionary entry and a direct companion to the GPT-5 convex-optimization case. The underlying literature search was real and valuable; only the 'solved previously unsolved problems' framing was false. This is distinct from the later, genuine GPT-5.2 + Aristotle resolution of Erdős #728.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Thomas Bloom (erdosproblems.com maintainer): <em>the problems were already solved in the literature; no new proofs</em> · <a href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -238,29 +255,19 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2025-10-19-gpt5-erdos-retrieval" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>OpenAI VP Kevin Weil posted that 'GPT-5 found solutions to 10 (!) previously unsolved Erdős problems.' Thomas Bloom, who maintains erdosproblems.com, replied that listing a problem as open there only means he personally was unaware of a solution, and that GPT-5 had found existing papers containing the solutions rather than proving anything new. The post was deleted; Demis Hassabis called the episode 'embarrassing' and Yann LeCun mocked it.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>By definition, that is the whole point of the episode. The solutions existed in the published literature; GPT-5's contribution was locating them, a genuinely useful literature-search result that was misdescribed as original problem-solving.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>Retained as a cautionary entry and a direct companion to the GPT-5 convex-optimization case. The underlying literature search was real and valuable; only the 'solved previously unsolved problems' framing was false. This is distinct from the later, genuine GPT-5.2 + Aristotle resolution of Erdős #728.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Thomas Bloom (erdosproblems.com maintainer): <em>the problems were already solved in the literature; no new proofs</em> · <a href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-20">2026-07-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Already known and Retrieval.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-challenge">Challenge</h2>
-  <div class="refs"><a class="ref" href="https://techcrunch.com/2025/10/19/openais-embarrassing-math/" target="_blank" rel="noopener"><span class="ref-dom">TechCrunch</span><span class="ref-t">OpenAI's 'embarrassing' math</span><span class="ref-a">↗</span></a><a class="ref" href="https://the-decoder.com/leading-openai-researcher-announced-a-gpt-5-math-breakthrough-that-never-happened/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">A GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div>
+  </details>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=45633482" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">OpenAI researcher announced a GPT-5 math breakthrough that never happened</span><span class="ref-a">↗</span></a></div>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>already known</strong>
-  and <strong>retrieval</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>already known</strong> for verification and
+  <strong>retrieval</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -283,8 +290,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2026-01-erdos-728"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős problem #728 resolved and formalized in Lean</span><span class="rel-meta">OpenAI / Harmonic · 2026-01-13</span></a><a class="rel-card" href="/finding/2025-08-gpt5-convex-bound"><span class="rel-grade pill v v-known">Already known</span><span class="rel-title">Improved step-size bound in smooth convex optimization</span><span class="rel-meta">OpenAI · 2025-08-01</span></a><a class="rel-card" href="/finding/2026-05-erdos-unit-distance"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Disproof of the Erdős unit-distance conjecture</span><span class="rel-meta">OpenAI · 2026-05-20</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-01-erdos-728"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős problem #728 resolved and formalized in Lean</span><span class="rel-meta">OpenAI / Harmonic · 2026-01-13</span></a><a class="rel-card" href="/finding/2025-08-gpt5-convex-bound"><span class="rel-grade pill v v-known">Already known</span><span class="rel-title">Improved step-size bound in smooth convex optimization</span><span class="rel-meta">OpenAI · 2025-08-01</span></a><a class="rel-card" href="/finding/2026-08-10-zeta-zeros-critical-line"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Proportion of zeta zeros on the critical line raised to 67.25%</span><span class="rel-meta">Anthropic · 2026-08-10</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2025-09-25-qma-amplification-limits"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Limits to black-box amplification in QMA, with the key step written by GPT-5</span></a><a class="pn-step" href="/finding/2025-11-03-alphaevolve-at-scale"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">AlphaEvolve across 67 problems: 20 improvements, 8 regressions</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=number-theory">number-theory</a><a class="tag-chip" href="/?tag=erdos">erdos</a><a class="tag-chip" href="/?tag=already-known">already-known</a><a class="tag-chip" href="/?tag=cautionary">cautionary</a><a class="tag-chip" href="/?tag=retrieval">retrieval</a></div>
 
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
@@ -298,9 +307,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

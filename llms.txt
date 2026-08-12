@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 56 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 64 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## How entries are graded
 
@@ -41,6 +41,7 @@ Autonomy, most to least AI-driven:
 ## Data
 
 - [entries.json](https://whataifound.org/data/entries.json): the complete registry, one JSON file, CC BY 4.0
+- [/api/dataset](https://whataifound.org/api/dataset): the same registry, filterable by field, verification, autonomy, lab, tag or date added, with a fixed field contract
 - [RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json): new and updated entries
 
 ## Findings
@@ -84,8 +85,9 @@ All 1 in one page: https://whataifound.org/topic/climate
 
 ### Computer science
 
-All 8 in one page: https://whataifound.org/topic/computer-science
+All 9 in one page: https://whataifound.org/topic/computer-science
 
+- [Kemeny rank aggregation shown NP-hard for three voters](https://whataifound.org/finding/2026-07-28-kemeny-three-voters): Computing a Kemeny-optimal aggregate ranking is NP-hard when the input is exactly three complete rankings, closing the minimal open case left by hardness results for even voter counts. (Independent, GPT-5.6 Sol Ultra, Claude Fable 5, 2026-07-28; verification: Formally verified; autonomy: AI-led)
 - [Counterexample to the Dinitz–Garg–Goemans conjecture](https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans): An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conjecture from the late 1990s. (Independent, GPT-5.6 Pro, 2026-07-22; verification: Claimed; autonomy: AI-led)
 - [Early science acceleration experiments with GPT-5](https://whataifound.org/finding/2025-11-gpt5-science-acceleration): A multi-domain study documenting cases where GPT-5 contributed to research progress across mathematics, physics, biology and materials science. (OpenAI, GPT-5, 2025-11-20; verification: Peer reviewed; autonomy: AI-assisted)
 - [Limits to black-box amplification in QMA, with the key step written by GPT-5](https://whataifound.org/finding/2025-09-25-qma-amplification-limits): A quantum complexity paper proving black-box error amplification for QMA cannot push completeness closer to certainty than doubly exponentially, in which the pivotal technical step was produced by GPT-5 in about half an hour. (UT Austin / CWI Amsterdam, GPT-5 Thinking, 2025-09-25; verification: Author verified; autonomy: AI-assisted)
@@ -106,13 +108,19 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 24 in one page: https://whataifound.org/topic/mathematics
+All 30 in one page: https://whataifound.org/topic/mathematics
 
+- [Proportion of zeta zeros on the critical line raised to 67.25%](https://whataifound.org/finding/2026-08-10-zeta-zeros-critical-line): An unconditional proof that at least 67.25% of the nontrivial zeros of the Riemann zeta function are simple and lie on the critical line, up from a previous record of about 41.6%, with a machine-checked Lean formalization. (Anthropic, Claude (unreleased research version), 2026-08-10; verification: Formally verified; autonomy: AI-led)
+- [Asymptotic degree-diameter problem resolved for fixed diameter](https://whataifound.org/finding/2026-08-04-moore-bound): The maximum order of a graph with maximum degree d and diameter k satisfies n_k(d)/d^k tending to 1 as d grows, for every fixed k, resolving the asymptotic form of a question open since 1978, with a Lean 4 formalization. (Independent, GPT-5.6 Pro, 2026-08-04; verification: Formally verified; autonomy: AI-assisted)
 - [Ten results in mathematics and theoretical computer science with Lean certificates](https://whataifound.org/finding/2026-08-01-astra-ten-advances): An unreleased OpenAI model produced ten results including the first explicit non-sofic group and a disproof of Connes's rigidity conjecture, each published with a machine-checkable Lean 4 proof. (OpenAI, Astra, 2026-08-01; verification: Formally verified; autonomy: AI-led)
+- [Optimal exponent relating sumsets and difference sets determined](https://whataifound.org/finding/2026-07-29-sumset-difference-exponent): The least universal exponent c with |A+A|/|A| bounded by (|A-A|/|A|)^c for every finite integer set A is determined, settling the extremal question with a Lean 4 formalization. (Tencent Hunyuan, Hy3 (Hyra research agent), 2026-07-29; verification: Formally verified; autonomy: AI-led)
+- [Feige's conjecture on sums of nonnegative random variables settled](https://whataifound.org/finding/2026-07-27-feige-conjecture): For independent nonnegative random variables with mean at most 1 and sum S, the probability that S is below its mean plus one is at least 1/e, the sharp constant Feige conjectured in 2004; three independent proofs appeared within days. (Independent, ChatGPT 5.6 Pro, 2026-07-27; verification: Formally verified; autonomy: AI-led)
 - [Counterexamples to the Gaussian moments conjecture](https://whataifound.org/finding/2026-07-20-gaussian-moments): Explicit low-degree polynomials disproving a 2017 conjecture that had been proposed as a route to proving the Jacobian conjecture, found days after that conjecture was itself disproved. (Independent, GPT-5.6 Sol Pro + Claude Fable 5, 2026-07-20; verification: Author verified; autonomy: AI-led)
 - [Eight problems from the Kourovka Notebook solved and formalized in Lean](https://whataifound.org/finding/2026-07-20-kourovka-notebook): A formal reasoning agent developed the proof strategies for eight open problems in group theory without human guidance on which mathematical steps to take, and machine-checked every one in Lean 4. (Harmonic, Aristotle, 2026-07-20; verification: Formally verified; autonomy: Autonomous)
+- [Gaussian product inequality conjecture proved](https://whataifound.org/finding/2026-07-20-gaussian-product-inequality): For any centered Gaussian vector and positive exponents, the expectation of the product of absolute powers is at least the product of the individual expectations, settling a conjecture posed in 2007. (Independent, ChatGPT 5.6 Sol, 2026-07-20; verification: Formally verified; autonomy: AI-led)
 - [Counterexample to the Jacobian conjecture in dimension three](https://whataifound.org/finding/2026-07-19-jacobian-conjecture): An explicit polynomial map in three variables with constant Jacobian determinant −2 that is nevertheless not invertible, disproving a conjecture open since 1939. (Anthropic, Claude Fable 5, 2026-07-19; verification: Formally verified; autonomy: Collaborative)
 - [Near-quadratic lower bound for derivative-free convex optimization](https://whataifound.org/finding/2026-07-14-zeroth-order-oracle-bound): A lower bound of order d²/log d on the number of exact function evaluations needed to minimize a convex Lipschitz function, closing a gap open since 1996 and showing a 1996 algorithm was essentially optimal. (Independent, GPT-5.6 Sol Pro, 2026-07-14; verification: Formally verified; autonomy: AI-led)
+- [Sabidussi's compatibility conjecture proved](https://whataifound.org/finding/2026-07-14-sabidussi-compatibility): The edges of a finite connected multigraph carrying a closed eulerian trail can be partitioned into circuits so that no circuit contains two edges used consecutively in the trail, with a Lean 4 formalization. (Independent, GPT-5.6 Pro, GPT-5.6 Sol, 2026-07-14; verification: Formally verified; autonomy: Collaborative)
 - [Counterexample to Grothendieck's question on finite flat group schemes](https://whataifound.org/finding/2026-07-11-grothendieck-group-schemes): A finite locally free group scheme of order four whose fourth power map is not trivial, answering a question Grothendieck raised in the 1960s; one model produced the construction and another formalised it in Lean. (Independent, OpenAI Sol (construction); Claude Fable (Lean formalisation), 2026-07-11; verification: Formally verified; autonomy: Collaborative)
 - [Nine Erdős problems and 44 OEIS conjectures proved with machine-checked proofs](https://whataifound.org/finding/2026-05-21-alphaproof-nexus): An agent pairing language models with the Lean proof assistant resolved 9 of 353 open Erdős problems and 44 of 492 open OEIS conjectures, with every proof mechanically verified. (Google DeepMind, AlphaProof Nexus (LLM + Lean), 2026-05-21; verification: Formally verified; autonomy: Search scaffold)
 - [Disproof of the Erdős unit-distance conjecture](https://whataifound.org/finding/2026-05-erdos-unit-distance): A reasoning model produced the core construction disproving a 1946 conjecture in discrete geometry, finding point configurations with more unit-distance pairs than the conjecture permitted. (OpenAI, GPT-5 series reasoning model, 2026-05-20; verification: Independently checked; autonomy: AI-led)
@@ -150,8 +158,9 @@ All 1 in one page: https://whataifound.org/topic/neuroscience
 
 ### Physics
 
-All 3 in one page: https://whataifound.org/topic/physics
+All 4 in one page: https://whataifound.org/topic/physics
 
+- [Identity for the critical exponents of jamming derived analytically](https://whataifound.org/finding/2026-06-02-jamming-exponent-identity): The relation a + b = 1 between critical exponents at the jamming transition, previously seen only numerically in the full replica-symmetry-breaking solution of hard spheres, is derived from the scaling equations and published after peer review. (Independent, Claude Sonnet 4.6, Claude Opus 4.7, 2026-06-02; verification: Peer reviewed; autonomy: Collaborative)
 - [A neural decoder that identifies quantum errors more accurately than hand-designed methods](https://whataifound.org/finding/2024-11-20-alphaqubit): A transformer trained on Google's Sycamore surface-code data cut decoding errors by 6% against tensor-network decoding and 30% against correlated matching, the best reported accuracy at the time. (Google DeepMind / Google Quantum AI, AlphaQubit, 2024-11-20; verification: Peer reviewed; autonomy: AI-led)
 - [Reinforcement learning steers a tokamak away from tearing instabilities](https://whataifound.org/finding/2024-02-21-tearing-mode-avoidance): A controller trained on past DIII-D shots forecast tearing-mode instabilities up to 300 ms ahead and adjusted the plasma in real time to avoid them, holding high-performance conditions that would otherwise have collapsed. (Princeton University / PPPL / DIII-D National Fusion Facility, Deep reinforcement learning controller over a learned plasma model, 2024-02-21; verification: Peer reviewed; autonomy: Search scaffold)
 - [Deep reinforcement learning controls tokamak fusion plasma](https://whataifound.org/finding/2022-02-16-tokamak-plasma-control): A reinforcement-learning controller learned to shape and stabilise the magnetic confinement of real fusion plasma inside the TCV tokamak, holding configurations that are hard to sustain by hand. (Google DeepMind, DeepMind RL controller, 2022-02-16; verification: Peer reviewed; autonomy: Search scaffold)

@@ -31,7 +31,7 @@ else (site, search, company pages) is a rendering of it.
 | `independent_checks` | array | `{who, url, outcome}` |
 | `discussion` | array | `{label, url}`. Threads where the result was debated (Hacker News, Stack Exchange, Reddit). Not a substitute for a primary source |
 | `videos` | array | `{label, channel, youtube_id}`. Credible explainers only (official lab channels, established science press, recognized educators). Verify the ID resolves and the channel is who it claims before adding; never add hype-channel content |
-| `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms` |
+| `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms`. See [method tags](#method-tags) for four that are worth spelling the same way every time |
 | `contributors` | array | `{name, github?, note?}`. Who added or corrected **this registry entry**. Not who made the discovery: that is `lab` and `humans` |
 | `reviewers` | array | `{name, github?, note?}`. Who independently checked the entry and had it accepted. Pairs with `independent_checks`, which records *what* was checked; this records *who gets credit* |
 | `revisions` | array | `{date, kind, note, url?}`. What has been edited on this entry since it was added, oldest first. See [recording a revision](#revisions-what-changed-since-the-entry-was-added) |
@@ -150,6 +150,61 @@ This column is the whole point. Most breathless claims collapse here.
 4. **Lab-announced results start at `claimed`** regardless of how confident the blog post sounds.
 5. **`autonomy` is graded on the strictest defensible reading.** When a human posed the problem,
    suggested the approach, and checked the algebra, that is not `autonomous`.
+
+## Method tags
+
+`tags` is free-form and stays that way, but four of them describe *how* the result was reached
+rather than what it was about, and those are worth spelling identically every time so that
+`/?tag=construction` is a real slice of the registry rather than a partial one:
+
+| Tag | Use when the decisive step was |
+|---|---|
+| `construction` | An explicit object: a counterexample, a design, a witness, a better packing |
+| `argument` | A proof or derivation, whether or not it was later formalised |
+| `computation` | A search or numerical result that settles the question by exhaustion or scale |
+| `formalization` | Restating an existing result in a proof assistant so a machine checks it |
+
+Use at most one of the first three: they name the step that did the work, and an entry that seems
+to want two usually wants the stronger one. `formalization` combines freely with the others,
+because it describes verification rather than discovery, and often arrives in a later revision.
+
+This is a convention, not a vocabulary. There is no enum in `data/vocab.json`, nothing validates
+it, and an entry without one is not incomplete. Kept deliberately soft: a `resolution_method`
+field would need a colour rule, a schema property, a render in two parity-checked templates and a
+judgement call backfilled across every entry, to buy a partition that tags already approximate. If
+these four turn out to carry real weight, promote them then, with the usage as evidence.
+
+## The dataset endpoint
+
+`data/entries.json` is the whole registry and the thing to take if you want all of it.
+`/api/dataset` answers the narrower question: one field, one grade, everything since a date.
+
+```
+GET /api/dataset?field=mathematics&verification=formal
+GET /api/dataset?since=2026-08-01&limit=10
+```
+
+| Parameter | Accepts |
+|---|---|
+| `field`, `verification`, `autonomy` | One value from the vocabulary. An unknown value is a `400` naming the accepted set, not an empty list |
+| `lab`, `tag` | An exact value. These are open vocabularies, so no match is an empty `200` |
+| `since` | `YYYY-MM-DD`, compared against `added` (when the entry reached this registry, not when the result was published). Inclusive |
+| `limit`, `offset` | Integers, `limit` up to 500 |
+
+The reply is `{version, generated, license, fields, total, count, offset, entries}`, newest first.
+`total` is the size of the whole filtered set, so `total` against `count` is what tells a caller
+whether to page. `generated` is the latest date in the data, not a build clock.
+
+`fields` names the contract, which is the reason to prefer this over the raw file: entries carry
+`id`, `title`, `claim`, `field`, `date`, `added`, `lab`, `model`, `verification`, `autonomy`,
+`tags`, `humans`, `year_posed`, `sources` and a derived `url`. Optional fields are omitted when
+absent rather than sent as `null`. `data/entries.json` may gain fields at any time without those
+appearing here; removing one from this list is a `version` bump.
+
+The endpoint reads no database and no environment, so it keeps working when Postgres is gone. It
+is generated into `api/_lib/dataset.js` by `build_api_dataset()` at build time, for the same
+reason `registry.js` is: a function that opens a data file at request time depends on that file
+being traced into the bundle, which fails quietly and only in production.
 
 ## Adding an entry
 

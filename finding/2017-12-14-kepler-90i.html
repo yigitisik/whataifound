@@ -210,7 +210,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -224,18 +224,35 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>An eighth planet around Kepler-90 found by a neural network</h1>
-  <p class="lede">An eighth planet around Kepler-90 found by a neural network is graded peer reviewed on whataifound.org, with the AI's role graded search scaffold.</p>
   <p class="claim">A convolutional network re-examining Kepler light curves recovered transit signals the standard pipeline had ranked below threshold, yielding Kepler-90i and making Kepler-90 the first star besides the Sun known to host eight planets.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Peer reviewed</dd></div>
-      <div><dt>Autonomy</dt><dd>Search scaffold</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Google Brain / University of Texas at Austin</dd></div>
       <div><dt>Model</dt><dd>Convolutional neural network (AstroNet)</dd></div>
       <div><dt>Field</dt><dd>Astronomy</dd></div>
       <div><dt>Date</dt><dd>2017-12-14</dd></div>
       <div><dt>Human collaborators</dt><dd>Christopher Shallue, Andrew Vanderburg</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09" target="_blank" rel="noopener"><span class="ref-dom">IOP</span><span class="ref-t">The Astronomical Journal: Identifying Exoplanets with Deep Learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-research/exoplanet-ml" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AstroNet: Kepler light-curve models (exoplanet-ml)</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/" target="_blank" rel="noopener"><span class="ref-dom">NASA</span><span class="ref-t">Artificial intelligence, NASA data used to discover eighth planet circling distant star</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The network was trained on 15,000 previously vetted Kepler signals to separate genuine transits from false positives, then pointed at 670 stars already known to host multiple planets, searching the weak signals the automated pipeline had discarded. It surfaced Kepler-90i (about 30% larger than Earth, orbiting every 14.4 days, with a surface hot enough to rival Mercury) and Kepler-80g, which completes a five-planet resonant chain. Published in The Astronomical Journal.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Machine classification of Kepler transit candidates already existed in the pipeline (Autovetter, Robovetter). What was new was training a network to vet signals below the pipeline's detection threshold and getting confirmable planets out of the discard pile.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>The network vetted candidate signals; the transit search, the follow-up and the statistical validation were conventional. &quot;First system with as many planets as ours&quot; is a statement about what has been detected, not what exists. Detection is heavily biased toward close-in planets, and all of Kepler-90's known planets orbit within roughly Earth's distance from its star. The 670-star search produced two new planets in total.</p>
+  </details>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -254,27 +271,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2017-12-14-kepler-90i" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>The network was trained on 15,000 previously vetted Kepler signals to separate genuine transits from false positives, then pointed at 670 stars already known to host multiple planets, searching the weak signals the automated pipeline had discarded. It surfaced Kepler-90i (about 30% larger than Earth, orbiting every 14.4 days, with a surface hot enough to rival Mercury) and Kepler-80g, which completes a five-planet resonant chain. Published in The Astronomical Journal.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Machine classification of Kepler transit candidates already existed in the pipeline (Autovetter, Robovetter). What was new was training a network to vet signals below the pipeline's detection threshold and getting confirmable planets out of the discard pile.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>The network vetted candidate signals; the transit search, the follow-up and the statistical validation were conventional. &quot;First system with as many planets as ours&quot; is a statement about what has been detected, not what exists. Detection is heavily biased toward close-in planets, and all of Kepler-90's known planets orbit within roughly Earth's distance from its star. The 670-star search produced two new planets in total.</p>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and Search scaffold.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://iopscience.iop.org/article/10.3847/1538-3881/aa9e09" target="_blank" rel="noopener"><span class="ref-dom">IOP</span><span class="ref-t">The Astronomical Journal: Identifying Exoplanets with Deep Learning</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-research/exoplanet-ml" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AstroNet: Kepler light-curve models (exoplanet-ml)</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-announcement">Announcement</h2>
-  <div class="refs"><a class="ref" href="https://www.nasa.gov/news-release/artificial-intelligence-nasa-data-used-to-discover-eighth-planet-circling-distant-star/" target="_blank" rel="noopener"><span class="ref-dom">NASA</span><span class="ref-t">Artificial intelligence, NASA data used to discover eighth planet circling distant star</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>peer reviewed</strong> for verification and
+  <strong>search scaffold</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -298,6 +305,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <nav class="pagenav-steps" aria-label="Nearby findings"><span class="pn-step pn-empty"></span><a class="pn-step" href="/finding/2020-02-20-halicin"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Halicin, an antibiotic found by a neural network screening a compound library</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=exoplanets">exoplanets</a><a class="tag-chip" href="/?tag=kepler">kepler</a><a class="tag-chip" href="/?tag=transit-detection">transit-detection</a></div>
+
   <p class="finding-back"><a href="/topic/astronomy">← All astronomy findings in the registry</a></p>
 </article>
 
@@ -310,9 +319,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

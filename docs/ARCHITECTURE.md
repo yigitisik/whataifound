@@ -258,3 +258,32 @@ Triage signals are the one thing readers can do with a single click, and they ar
 inert: they order the review queue and do nothing else. They never enter `data/entries.json`,
 never render as a score, and never move a grade, which keeps GOVERNANCE.md's "grades move on
 evidence, never on opinion" literally true.
+
+### Three things this deliberately does not have
+
+Sign-in, per-account write caps and a signals table are already here, which makes all three of
+these a short afternoon's work. That is exactly why the reasons are written down: the cost of
+adding them is not what is stopping us.
+
+**A significance score.** Every non-subjective way to build one turns out to be something the
+site already does better. Deriving it from the grades is `VER_SCORE` times `AUT_RANK`, and
+collapsing those two axes into one destroys the distinction the hero matrix exists to draw:
+"strong evidence, barely autonomous" and "weak evidence, fully autonomous" are different
+findings and would score the same. Deriving it from citation counts needs a live external
+source, which `connect-src 'self'` forbids and which would rot the moment it was snapshotted.
+"How long the problem stood" is the one honest proxy, and it already ships as `year_posed` and
+`standingCard()`. What is left is a judgement rendered to two significant figures, and whichever
+number exists becomes the sort everyone uses, which is a leaderboard wearing a different label.
+
+**Votes.** A vote tally on a scientific claim is a rendered opinion score sitting next to a
+grade, and readers reasonably take the more prominent number as the real verdict. The signals
+design goes to some trouble to avoid this (counts are flags, not a score, and `js/signals.js`
+declines to render a row of zeroes precisely because it would read as a scoreboard); adding
+votes would spend that care.
+
+**Comments.** Refused on architecture rather than principle. Postgres is currently not
+load-bearing for anything a reader sees: delete it and the site is what it was, minus sign-in.
+Comments break that, and they add a moderation surface and an untrusted-HTML path to a site
+whose CSP allows `'unsafe-inline'` styles. The `discussion` array already links out to Hacker
+News and Stack Exchange threads, where the moderation is someone else's job and the argument is
+happening anyway.

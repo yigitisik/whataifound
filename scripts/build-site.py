@@ -568,9 +568,11 @@ def site_footer():
         '<p>The whole registry is one open file under '
         '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
         ' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with '
-        'attribution.</p>',
+        'attribution. Take the file if you want everything; the API answers a narrower '
+        'question, and promises a fixed set of fields the file does not.</p>',
         '<p class="about-links">',
         '<a href="/data/entries.json" download>Download JSON</a>',
+        '<a href="/api/dataset">API</a>',
         '<a href="/feed.xml">RSS</a>',
         '<a href="/feed.json">JSON Feed</a>',
         f'<a href="{SITE}/LICENSE">License</a>',
@@ -698,6 +700,12 @@ def history_block(e):
     entry therefore has at least one row, so this section is never empty and never has to
     be conditionally hidden.
 
+    An entry that has never been regraded has nothing to say here beyond the day it
+    arrived, which the facts table already states, so those fold. An entry that has moved
+    stays open: a reader looking at a downgraded grade has to be able to see that it was
+    downgraded without opening anything. Folded, not dropped, because the history is part
+    of the record and a crawler that does not run scripts still reads it.
+
     Dates are absolute, never relative, for the reason at the top of this file: there is
     no clock in this script and the output is committed, so "3 days ago" would rot.
     """
@@ -722,10 +730,16 @@ def history_block(e):
                  f'<time class="hist-date" datetime="{esc(date)}">{esc(date)}</time>'
                  f'<span class="pill r r-{esc(kind)}">{esc(REV_CHIP.get(kind, kind))}</span>'
                  f'<span class="hist-note">{esc(note)}{link}</span></li>')
-    return (f'\n  <h2 class="lbl">History of this entry</h2>'
-            f'\n  <ol class="hist">{rows}\n  </ol>'
-            f'\n  <p class="hist-foot">Entries are never deleted. A grade that does not '
+    foot = (f'\n  <p class="hist-foot">Entries are never deleted. A grade that does not '
             f'hold up is downgraded on the record, with the reason beside it.</p>')
+    if e.get("revisions"):
+        return (f'\n  <h2 class="lbl">History of this entry</h2>'
+                f'\n  <ol class="hist">{rows}\n  </ol>{foot}')
+    n = len(events)
+    return (f'\n  <details class="fold">'
+            f'\n  <summary>Entry history ({n} event{"" if n == 1 else "s"})</summary>'
+            f'\n  <ol class="hist">{rows}\n  </ol>{foot}'
+            f'\n  </details>')
 
 
 def years_open(e):
@@ -1475,9 +1489,15 @@ def entry_page(e, entries, updated):
 
     The point of these is citation surface: an answer engine picks 2–7 sources per
     answer, and a URL that answers exactly one question beats a homepage that
-    answers twenty-two. The lede paragraph is written to be quotable on its own:
-    it states the verdict before the detail, because the first sentence is what
-    gets lifted into an answer.
+    answers twenty-two.
+
+    The claim leads the page, and the facts and every source sit beside each other
+    directly under it. What a reader and an answer engine both want first is what was
+    found and what backs it, so the evidence is in the opening screen rather than below
+    the prose about it. The synthesised verdict sentence is still built, because it is
+    the meta description an engine quotes when it has not fetched the body, but it is no
+    longer printed: on the page it restated the two grade pills immediately above it and
+    pushed the claim and the sources down a screen to do it.
     """
     url = f"{SITE}/finding/{e['id']}"
     ver = VER_LABEL.get(e["verification"], e["verification"])
@@ -1552,7 +1572,10 @@ def entry_page(e, entries, updated):
 
     ld = json_ld(entry_jsonld(e, url))
 
-    facts = [("Verification", ver), ("Autonomy", aut), ("Lab", e.get("lab")),
+    # No Verification or Autonomy rows: both are stated by the pills under the title and
+    # again by the grade note at the foot. Three times on one page was two too many, and
+    # these are the two cells that pushed the table into a second row.
+    facts = [("Lab", e.get("lab")),
              ("Model", e.get("model")),
              ("Field", FIELD_LABEL.get(e.get("field"), e.get("field"))),
              ("Date", e.get("date"))]
@@ -1568,14 +1591,22 @@ def entry_page(e, entries, updated):
     def section(title, body):
         return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
 
+    # Folded, not dropped: the text ships in the markup, so a crawler that does not run
+    # scripts reads it and print still expands it. The summary says what is inside rather
+    # than naming the section, because a closed row is all some readers will ever see.
+    def fold(summary, body):
+        return (f'\n  <details class="fold">\n  <summary>{esc(summary)}</summary>'
+                f'\n  <p>{esc(body)}</p>\n  </details>') if body else ""
+
     # Grouped by what each link is, and uncapped: the finding page is the citable
     # record, so it shows every source rather than the card's first three per kind.
+    # One h2 over the group, so the kind labels demote to h3 and the outline stays flat.
     sources = ""
     for kind in SRC_ORDER:
         of = [s for s in (e.get("sources") or []) if s.get("kind") == kind]
         if not of:
             continue
-        sources += (f'\n  <h2 class="lbl kind k-{esc(kind)}">{esc(SRC_LABEL[kind])}</h2>\n  <div class="refs">'
+        sources += (f'\n      <h3 class="lbl kind k-{esc(kind)}">{esc(SRC_LABEL[kind])}</h3>\n      <div class="refs">'
                     + "".join(ref_row(s) for s in of) + "</div>")
     discussion = ""
     if e.get("discussion"):
@@ -1589,6 +1620,14 @@ def entry_page(e, entries, updated):
                if c.get("url") else "") + "</p>"
             for c in e["independent_checks"])
         checks = f'\n  <h2 class="lbl">Independent checks</h2>\n  <div class="checks">{rows}</div>'
+    # Same chips as the registry card, down beside the related grid rather than under the
+    # title: these are navigation into the rest of the registry, not evidence about this
+    # finding, and five of them under the h1 compete with the claim. They already decide
+    # what "Related findings" shows, so a reader can now see why those three are there.
+    findtags = ('\n  <div class="findtags">'
+                + "".join(f'<a class="tag-chip" href="/?tag={enc_uri_component(t)}">{esc(t)}</a>'
+                          for t in e["tags"])
+                + "</div>") if e.get("tags") else ""
 
     return f'''<!DOCTYPE html>
 <html lang="en">
@@ -1659,12 +1698,19 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
     <span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>
   </div>
   <h1>{esc(e["title"])}</h1>
-  <p class="lede">{esc(verdict)}</p>
   <p class="claim">{esc(e.get("claim"))}</p>
 
-  <dl class="finding-facts">
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
 {fact_rows}
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>{sources}
+    </div>
+  </section>
+{section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{fold("Caveats and known objections", e.get("caveats"))}{checks}
 
   <div class="challenge">
     <p class="challenge-t">{esc(ask_title)}</p>
@@ -1682,17 +1728,16 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
     </p>
   {signal_block(e)}
   </div>
-{section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{section("Caveats", e.get("caveats"))}{checks}{history_block(e)}{sources}{discussion}
+{history_block(e)}{discussion}
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>{esc(ver.lower())}</strong>
-  and <strong>{esc(aut.lower())}</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>{esc(ver.lower())}</strong> for verification and
+  <strong>{esc(aut.lower())}</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 {credit}
 {citation_block(e, url)}
 {nav_html}
+{findtags}
 
   <p class="finding-back"><a href="/topic/{esc(e.get("field"))}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
   .lower()} findings in the registry</a></p>
@@ -1753,6 +1798,8 @@ def build_llms_txt(entries):
         "## Data",
         "",
         f"- [entries.json]({SITE}/data/entries.json): the complete registry, one JSON file, CC BY 4.0",
+        f"- [/api/dataset]({SITE}/api/dataset): the same registry, filterable by field, "
+        "verification, autonomy, lab, tag or date added, with a fixed field contract",
         f"- [RSS]({SITE}/feed.xml) · [JSON Feed]({SITE}/feed.json): new and updated entries",
         "",
         "## Findings",
@@ -2125,6 +2172,62 @@ def build_api_registry(entries):
         f.write(src)
 
 
+# The fields /api/dataset promises, in the order they appear in a record.
+#
+# A named list rather than "whatever the entry carries", because the endpoint's whole
+# reason to exist alongside the raw data/entries.json download is a contract: a consumer
+# can add a field to an entry tomorrow without changing what the API hands out, and a
+# reader of docs/SCHEMA.md can see the whole surface in one place.
+#
+# A superset of CSV_COLS in js/app.js, which is the same promise made to a spreadsheet.
+# The two are allowed to differ - CSV flattens sources into one cell and resolves grade
+# labels for a human, while this stays structured and keeps the slugs - but a field in
+# the CSV and missing here would be an oversight rather than a decision.
+DATASET_FIELDS = [
+    "id", "title", "claim", "field", "date", "added", "lab", "model",
+    "verification", "autonomy", "tags", "humans", "year_posed", "sources",
+]
+
+
+def build_api_dataset(entries, updated):
+    """Write the registry projection into api/_lib/dataset.js.
+
+    Sorted by id, so the generated file is a function of the data rather than of the
+    order entries happen to sit in: a reordered data file must not produce a diff here.
+    The handler sorts into date order itself, which is cheap and keeps this file stable.
+
+    Optional fields are omitted rather than emitted as null. A consumer testing
+    `if (entry.year_posed)` gets the same answer either way, and omission keeps the
+    generated file honest about the fact that only 14 of 56 entries carry one.
+
+    GENERATED is the same data-derived stamp the footer shows, not a clock: this script
+    imports no time module on purpose (see the note at the top), so a rebuild that
+    changes no data produces no diff here either.
+    """
+    path = os.path.join(ROOT, "api", "_lib", "dataset.js")
+    with open(path) as f:
+        src = f.read()
+
+    rows = []
+    for e in sorted(entries, key=lambda x: x["id"]):
+        rec = {k: e[k] for k in DATASET_FIELDS if e.get(k) not in (None, "", [])}
+        # The one derived field: a consumer should not have to know how we build a URL.
+        rec["url"] = f"{SITE}/finding/{e['id']}"
+        rows.append("  " + json.dumps(rec, ensure_ascii=False))
+
+    payload = ("\n"
+               f"export const GENERATED = {json.dumps(updated)};\n"
+               "export const ENTRIES = Object.freeze([\n"
+               + ",\n".join(rows) + "\n"
+               "].map(Object.freeze));\n"
+               f"export const FIELDS_SERVED = {json.dumps(DATASET_FIELDS + ['url'])};\n")
+    src = inject(src, "/*DATASET:START*/", "/*DATASET:END*/", payload,
+                 "dataset projection", "api/_lib/dataset.js")
+
+    with open(path, "w") as f:
+        f.write(src)
+
+
 # Where each organisation posts its own results. A URL cannot be derived from the data, so this
 # map is curated - but *which* organisations appear is not: build_lab_hub() reads that from
 # data/entries.json, so the hub cannot drift from the registry the way the hand-written one did
@@ -2153,6 +2256,7 @@ LAB_HUB = {
     "FlyWire Consortium": "https://flywire.ai/",
     "Aalto University": "https://www.aalto.fi/en/news",
     "University of Cambridge": "https://www.cam.ac.uk/research",
+    "Tencent Hunyuan": "https://hunyuan.tencent.com/",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
@@ -3216,6 +3320,7 @@ def main():
     # must be current before verify-parity.py diffs it against the pre-rendered cards.
     build_app_js()
     build_api_registry(entries)
+    build_api_dataset(entries, updated)
     build_api_shell(updated)
     build_methodology()
     queued = build_review(entries)

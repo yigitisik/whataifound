@@ -211,7 +211,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -225,18 +225,33 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-ai-led">AI-led</span>
   </div>
   <h1>A language-model agent that planned and ran chemistry experiments on lab robots</h1>
-  <p class="lede">A language-model agent that planned and ran chemistry experiments on lab robots is graded peer reviewed on whataifound.org, with the AI's role graded ai-led.</p>
   <p class="claim">Coscientist, driven by GPT-4 with web search, documentation search, code execution and lab automation, designed and executed palladium-catalysed cross-coupling reactions on real robotic hardware from a one-line goal.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Peer reviewed</dd></div>
-      <div><dt>Autonomy</dt><dd>AI-led</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Carnegie Mellon University</dd></div>
       <div><dt>Model</dt><dd>GPT-4 (Coscientist agent)</dd></div>
       <div><dt>Field</dt><dd>Chemistry</dd></div>
       <div><dt>Date</dt><dd>2023-12-20</dd></div>
       <div><dt>Human collaborators</dt><dd>Daniil Boiko, Robert MacKnight, Gabe Gomes</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06792-0" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Autonomous chemical research with large language models</span><span class="ref-a">↗</span></a><a class="ref" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10733136/" target="_blank" rel="noopener"><span class="ref-dom">NIH PMC</span><span class="ref-t">PubMed Central full text</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/gomesgroup/coscientist" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Coscientist data and reference implementation</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Given &quot;perform Suzuki and Sonogashira reactions&quot;, the agent searched the literature to identify the chemistry, read the hardware documentation for an API it had not seen, wrote the control code, located the reagents on the plate from a UV-Vis reading, and ran the reactions on a liquid handler. The paper reports six tasks in total, including reaction optimisation under Bayesian search. Published in Nature.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Robotic synthesis platforms and automated reaction optimisation predate this (Cronin's mobile robotic chemist, Nature 2020, among others). What was new is a general-purpose language model doing the planning, tool selection and code generation across unfamiliar hardware from a natural-language goal, rather than executing a human-written protocol.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>The chemistry performed is textbook cross-coupling: the finding is about autonomy, not about a new compound or reaction. The paper's own safety section shows the agent could be steered toward hazardous syntheses and the authors call for safeguards. Humans set up the hardware, reagents and safety envelope, and the tasks were chosen to be within the platform's reach.</p>
+  </details>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -255,25 +270,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2023-12-20-coscientist" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>Given &quot;perform Suzuki and Sonogashira reactions&quot;, the agent searched the literature to identify the chemistry, read the hardware documentation for an API it had not seen, wrote the control code, located the reagents on the plate from a UV-Vis reading, and ran the reactions on a liquid handler. The paper reports six tasks in total, including reaction optimisation under Bayesian search. Published in Nature.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Robotic synthesis platforms and automated reaction optimisation predate this (Cronin's mobile robotic chemist, Nature 2020, among others). What was new is a general-purpose language model doing the planning, tool selection and code generation across unfamiliar hardware from a natural-language goal, rather than executing a human-written protocol.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>The chemistry performed is textbook cross-coupling: the finding is about autonomy, not about a new compound or reaction. The paper's own safety section shows the agent could be steered toward hazardous syntheses and the authors call for safeguards. Humans set up the hardware, reagents and safety envelope, and the tasks were chosen to be within the platform's reach.</p>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06792-0" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Autonomous chemical research with large language models</span><span class="ref-a">↗</span></a><a class="ref" href="https://pmc.ncbi.nlm.nih.gov/articles/PMC10733136/" target="_blank" rel="noopener"><span class="ref-dom">NIH PMC</span><span class="ref-t">PubMed Central full text</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/gomesgroup/coscientist" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Coscientist data and reference implementation</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
-  and <strong>ai-led</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>peer reviewed</strong> for verification and
+  <strong>ai-led</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -299,6 +306,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="relgrid"><a class="rel-card" href="/finding/2025-03-12-ai-scientist-workshop-paper"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">A fully machine-generated paper passed workshop peer review</span><span class="rel-meta">Sakana AI · 2025-03-12</span></a><a class="rel-card" href="/finding/2025-02-13-designed-serine-hydrolases"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Enzymes with working catalytic machinery designed from scratch</span><span class="rel-meta">Institute for Protein Design, University of Washington · 2025-02-13</span></a><a class="rel-card" href="/finding/2023-12-20-antibiotic-structural-class"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">A new structural class of antibiotic candidates against MRSA</span><span class="rel-meta">MIT / Broad Institute / Harvard · 2023-12-20</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2023-12-20-antibiotic-structural-class"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">A new structural class of antibiotic candidates against MRSA</span></a><a class="pn-step" href="/finding/2024-01-17-alphageometry"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Olympiad geometry solved without human demonstrations</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=lab-automation">lab-automation</a><a class="tag-chip" href="/?tag=agents">agents</a><a class="tag-chip" href="/?tag=cross-coupling">cross-coupling</a><a class="tag-chip" href="/?tag=self-driving-lab">self-driving-lab</a></div>
+
   <p class="finding-back"><a href="/topic/chemistry">← All chemistry findings in the registry</a></p>
 </article>
 
@@ -311,9 +320,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

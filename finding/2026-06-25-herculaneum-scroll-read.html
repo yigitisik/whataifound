@@ -224,7 +224,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -238,18 +238,35 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-ai-assisted">AI-assisted</span>
   </div>
   <h1>First Herculaneum scroll read end to end without unrolling it</h1>
-  <p class="lede">First Herculaneum scroll read end to end without unrolling it is graded author verified on whataifound.org, with the AI's role graded ai-assisted.</p>
   <p class="claim">PHerc. 1667 was virtually unwrapped and read in full from X-ray scans using learned ink detection: about 1.4 metres of papyrus across roughly 22 columns of Greek, identified as Philodemus, On Gods, Book 8.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Author verified</dd></div>
-      <div><dt>Autonomy</dt><dd>AI-assisted</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Vesuvius Challenge</dd></div>
       <div><dt>Model</dt><dd>Community-developed ink-detection neural networks</dd></div>
       <div><dt>Field</dt><dd>Archaeology</dd></div>
       <div><dt>Date</dt><dd>2026-06-25</dd></div>
       <div><dt>Human collaborators</dt><dd>Brent Seales, Luke Farritor, Youssef Nader, Julian Schilliger</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2606.29085" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Complete virtual unwrapping and reading of a rolled Herculaneum papyrus</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://scrollprize.org/firstscroll" target="_blank" rel="noopener"><span class="ref-dom">Vesuvius Challenge</span><span class="ref-t">An entire Herculaneum scroll has been read for the first time</span><span class="ref-a">↗</span></a><a class="ref" href="https://scrollprize.org/" target="_blank" rel="noopener"><span class="ref-dom">Vesuvius Challenge</span><span class="ref-t">Vesuvius Challenge</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The Herculaneum scrolls were carbonised by the AD 79 eruption of Vesuvius and disintegrate if physically unrolled. The pipeline scans a scroll by X-ray tomography, traces the rolled sheet as a three-dimensional surface, flattens it, and runs a network that detects near-invisible carbon ink from sub-millimetre surface texture. Luke Farritor's model recovered the first word, πορφύρας (&quot;purple&quot;), in October 2023, and the 2023 Grand Prize for four passages of 140 characters was claimed in February 2024. In June 2026, PHerc. 1667 became the first scroll recovered continuously from beginning to end, and a title read in a related scroll established that Philodemus' On Gods ran to at least eight books.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Virtual unwrapping itself is older (Seales read the En-Gedi scroll in 2015), but that worked because its ink contained metal and showed up in X-ray. Herculaneum ink is carbon-based and nearly invisible to tomography, which is why the ink signal had to be learned from texture instead of density. No Herculaneum scroll had been read by any method before this programme.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Readings are probabilistic reconstructions from a learned ink signal, not photographs of text: characters come with varying confidence and papyrologists supply conventional editorial restoration on top. The project's papyrology team reviews prize submissions, but that team is part of the challenge rather than an outside body, and no peer-reviewed critical edition of PHerc. 1667 had appeared when this entry was written, hence author-verified rather than independent. The attribution to Philodemus rests on a title read in a different scroll.</p>
+  </details>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -268,27 +285,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-06-25-herculaneum-scroll-read" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>The Herculaneum scrolls were carbonised by the AD 79 eruption of Vesuvius and disintegrate if physically unrolled. The pipeline scans a scroll by X-ray tomography, traces the rolled sheet as a three-dimensional surface, flattens it, and runs a network that detects near-invisible carbon ink from sub-millimetre surface texture. Luke Farritor's model recovered the first word, πορφύρας (&quot;purple&quot;), in October 2023, and the 2023 Grand Prize for four passages of 140 characters was claimed in February 2024. In June 2026, PHerc. 1667 became the first scroll recovered continuously from beginning to end, and a title read in a related scroll established that Philodemus' On Gods ran to at least eight books.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Virtual unwrapping itself is older (Seales read the En-Gedi scroll in 2015), but that worked because its ink contained metal and showed up in X-ray. Herculaneum ink is carbon-based and nearly invisible to tomography, which is why the ink signal had to be learned from texture instead of density. No Herculaneum scroll had been read by any method before this programme.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>Readings are probabilistic reconstructions from a learned ink signal, not photographs of text: characters come with varying confidence and papyrologists supply conventional editorial restoration on top. The project's papyrology team reviews prize submissions, but that team is part of the challenge rather than an outside body, and no peer-reviewed critical edition of PHerc. 1667 had appeared when this entry was written, hence author-verified rather than independent. The attribution to Philodemus rests on a title read in a different scroll.</p>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Author verified and AI-assisted.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://arxiv.org/abs/2606.29085" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Complete virtual unwrapping and reading of a rolled Herculaneum papyrus</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-announcement">Announcement</h2>
-  <div class="refs"><a class="ref" href="https://scrollprize.org/firstscroll" target="_blank" rel="noopener"><span class="ref-dom">Vesuvius Challenge</span><span class="ref-t">An entire Herculaneum scroll has been read for the first time</span><span class="ref-a">↗</span></a><a class="ref" href="https://scrollprize.org/" target="_blank" rel="noopener"><span class="ref-dom">Vesuvius Challenge</span><span class="ref-t">Vesuvius Challenge</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>author verified</strong>
-  and <strong>ai-assisted</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>author verified</strong> for verification and
+  <strong>ai-assisted</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -312,6 +319,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-06-17-kagome-superconductors"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Two kagome superconductors predicted by machine learning and confirmed in the lab</span></a><a class="pn-step" href="/finding/2026-07-11-grothendieck-group-schemes"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Counterexample to Grothendieck's question on finite flat group schemes</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=papyrology">papyrology</a><a class="tag-chip" href="/?tag=virtual-unwrapping">virtual-unwrapping</a><a class="tag-chip" href="/?tag=ink-detection">ink-detection</a><a class="tag-chip" href="/?tag=ancient-texts">ancient-texts</a></div>
+
   <p class="finding-back"><a href="/topic/archaeology">← All archaeology findings in the registry</a></p>
 </article>
 
@@ -324,9 +333,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

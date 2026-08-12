@@ -799,13 +799,28 @@ function wireOnePlotTip(wrap, tip){
 // stepped back through with the browser's own back button. index.html's SearchAction
 // JSON-LD has advertised /?q=… since the site launched; reading it here is what makes
 // that claim true rather than aspirational.
-const PARAMS = ['q', 'field', 'lab', 'ver', 'aut', 'tag', 'sort', 'view'];
-const DEFAULTS = { q:'', field:'', lab:'', ver:'', aut:'', tag:'', sort:'date-desc', view:'table' };
+const PARAMS = ['q', 'field', 'lab', 'ver', 'aut', 'tag', 'since', 'sort', 'view'];
+const DEFAULTS = { q:'', field:'', lab:'', ver:'', aut:'', tag:'', since:'', sort:'date-desc', view:'table' };
 // The filters proper: the ones that narrow the list, as opposed to reordering it. The
 // chips, the empty state and the pristine test all work from this, not from PARAMS.
-const FILTERS = ['q', 'field', 'lab', 'ver', 'aut', 'tag'];
+const FILTERS = ['q', 'field', 'lab', 'ver', 'aut', 'tag', 'since'];
 const FILTER_NAME = { q:'Search', field:'Field', lab:'Lab', ver:'Verification',
-                      aut:'Autonomy', tag:'Tag' };
+                      aut:'Autonomy', tag:'Tag', since:'Added' };
+
+// The time window, stored as a token rather than as a resolved date.
+//
+// ?since=7d means "the last week from whenever you open this", so a link posted today
+// still means the same thing next month. A resolved date in the URL would freeze, and a
+// date computed at build time would rot: this script's Python counterpart imports no
+// clock at all, for exactly that reason. The browser has a real clock, so the token is
+// resolved at render time, on this side only.
+//
+// Filters on `added`, when the entry reached this registry, not on `date`, when the
+// result became public. "What is new here" is the question the control answers, and the
+// two differ by years on the older entries.
+const SINCE_DAYS = { '24h': 1, '3d': 3, '7d': 7, '30d': 30, '90d': 90 };
+const SINCE_LABEL = { '24h':'Last 24 hours', '3d':'Last 3 days', '7d':'Last 7 days',
+                      '30d':'Last 30 days', '90d':'Last 90 days' };
 const STATE = { ...DEFAULTS };
 
 // Sort orders. VER_SCORE and AUT_RANK are the registry's own rankings, already driving
@@ -886,8 +901,11 @@ function readState(){
   const qv = p.get('view');
   if (qv !== 'cards' && qv !== 'table') STATE.view = storedView();
   // A hand-edited or truncated URL should degrade to the default rather than render an
-  // empty list the visitor has no way to explain.
+  // empty list the visitor has no way to explain. Same for the window: an unrecognised
+  // token would otherwise show a chip reading "Added: 8d" that filtered nothing, which
+  // is worse than ignoring it.
   if (!SORTS[STATE.sort]) STATE.sort = DEFAULTS.sort;
+  if (STATE.since && !SINCE_DAYS[STATE.since]) STATE.since = DEFAULTS.since;
   if (STATE.view !== 'cards') STATE.view = 'table';
 }
 
@@ -910,14 +928,38 @@ function pristine(){
 }
 function activeFilters(){ return FILTERS.filter(k => STATE[k] !== DEFAULTS[k]); }
 
+// The window token as an ISO date, or '' for no window. Both `added` and this are
+// YYYY-MM-DD, so the comparison in matches() is a string compare.
+//
+// Read the clock once per call and not once per entry: matches() runs over every entry
+// on every keystroke, and a date rebuilt inside that loop would be both wasted work and,
+// across a midnight boundary, capable of disagreeing with itself mid-render.
+//
+// Built from the local date parts rather than toISOString(), which is UTC. setDate()
+// steps in local time, so mixing the two shifts the boundary by a day for anyone far
+// enough west: at UTC-11 the "last 24 hours" cutoff came out as today's date, and the
+// entries added today were filtered out of the window meant to show them.
+function sinceCutoff(token){
+  const days = SINCE_DAYS[token];
+  if (!days) return '';
+  const d = new Date();
+  d.setDate(d.getDate() - days);
+  const pad = n => String(n).padStart(2, '0');
+  return `${d.getFullYear()}-${pad(d.getMonth() + 1)}-${pad(d.getDate())}`;
+}
+
 // Written as a function of (entry, state) rather than of the DOM, so the empty state can
 // re-run it with a single filter lifted to work out which one to suggest dropping.
-function matches(e, s){
+//
+// `cutoff` is passed in rather than derived from `s`, so the one clock read per render
+// is shared by every entry and the function stays pure.
+function matches(e, s, cutoff = sinceCutoff(s.since)){
   return (!s.field || e.field === s.field)
       && (!s.lab   || e.lab === s.lab)
       && (!s.ver   || e.verification === s.ver)
       && (!s.aut   || e.autonomy === s.aut)
       && (!s.tag   || (e.tags || []).includes(s.tag))
+      && (!cutoff  || (e.added || '') >= cutoff)
       && (!s.q     || haystack(e).includes(s.q.toLowerCase()));
 }
 
@@ -952,11 +994,15 @@ function highlight(root, q){
   }
 }
 
-function selected(){ return ALL.filter(e => matches(e, STATE)).sort(SORTS[STATE.sort]); }
+function selected(){
+  const cutoff = sinceCutoff(STATE.since);
+  return ALL.filter(e => matches(e, STATE, cutoff)).sort(SORTS[STATE.sort]);
+}
 
 function filterValue(k, v){
   if (k === 'ver') return VER_LABEL[v] || v;
   if (k === 'aut') return AUT_LABEL[v] || v;
+  if (k === 'since') return SINCE_LABEL[v] || v;
   return v;
 }
 
@@ -1145,7 +1191,7 @@ function update(mode){
 }
 
 function syncControls(){
-  for (const id of ['q', 'field', 'lab', 'ver', 'aut', 'sort']){
+  for (const id of ['q', 'field', 'lab', 'ver', 'aut', 'since', 'sort']){
     const el = document.getElementById(id);
     if (el && el.value !== STATE[id]) el.value = STATE[id];
   }
@@ -1271,7 +1317,7 @@ function bootStatic(){
     if (!STATE.q && STATE.sort === 'relevance') STATE.sort = DEFAULTS.sort;
     update('replace');
   });
-  ['field','lab','ver','aut','sort'].forEach(id =>
+  ['field','lab','ver','aut','since','sort'].forEach(id =>
     document.getElementById(id).addEventListener('change', ev => {
       STATE[id] = ev.target.value; update('push');
     }));
@@ -1515,7 +1561,7 @@ function wirePalette(){
 
   function commands(){
     const out = [];
-    for (const key of ['field','lab','ver','aut'])
+    for (const key of ['field','lab','ver','aut','since'])
       for (const o of opts(key))
         out.push({ label: o.label, hint: FILTER_NAME[key], keywords: key, run: setFilter(key, o.value) });
     for (const o of opts('sort'))

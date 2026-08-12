@@ -203,7 +203,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -217,18 +217,37 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>Reinforcement learning refutes several conjectures in extremal combinatorics</h1>
-  <p class="lede">Reinforcement learning refutes several conjectures in extremal combinatorics is graded independently checked on whataifound.org, with the AI's role graded search scaffold.</p>
   <p class="claim">A neural network building graphs edge by edge under a cross-entropy search produced explicit counterexamples to several published conjectures in graph theory and extremal combinatorics.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Independently checked</dd></div>
-      <div><dt>Autonomy</dt><dd>Search scaffold</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Tel Aviv University</dd></div>
       <div><dt>Model</dt><dd>Deep cross-entropy method (custom network)</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2021-04-29</dd></div>
       <div><dt>Human collaborators</dt><dd>Adam Zsolt Wagner</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2104.14516" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Constructions in combinatorics via neural networks</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/zawagner22/cross-entropy-for-combinatorics" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Wagner's cross-entropy code for the counterexamples</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Refutation of Spectral Graph Theory Conjectures with Monte Carlo Search</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Each conjecture was rewritten as a scoring function on graphs. A network proposes graphs one edge at a time, the top-scoring constructions are kept, and the network is retrained on them, so the search drifts toward whatever the conjecture says should be impossible. Among the conjectures refuted are a question of Brualdi and Cao on maximising permanents of pattern-avoiding matrices and several concerning adjacency and distance eigenvalues of graphs. The counterexamples are small finite graphs printed in the paper, so each can be checked by hand or by a few lines of code.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Computer search for combinatorial counterexamples predates this work: linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest (none is a named problem of the Erdős or Jacobian class), and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Roucairol &amp; Cazenave, Monte Carlo search replication and extension: <em>reproduced the refutations and found further counterexamples by different search</em> · <a href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -247,29 +266,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2021-04-29-wagner-combinatorics" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>Each conjecture was rewritten as a scoring function on graphs. A network proposes graphs one edge at a time, the top-scoring constructions are kept, and the network is retrained on them, so the search drifts toward whatever the conjecture says should be impossible. Among the conjectures refuted are a question of Brualdi and Cao on maximising permanents of pattern-avoiding matrices and several concerning adjacency and distance eigenvalues of graphs. The counterexamples are small finite graphs printed in the paper, so each can be checked by hand or by a few lines of code.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Computer search for combinatorial counterexamples predates this work: linear-programming and SAT-based refutations go back years, including Refuting conjectures in extremal combinatorics via linear programming (2019). What was new is the reinforcement-learning formulation and the specific conjectures, which were open at the time. The paper is widely treated as the origin of the &quot;AI finds counterexamples&quot; line of work.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>An arXiv preprint; no journal publication is listed on the arXiv record five years on. The refuted conjectures are individually modest (none is a named problem of the Erdős or Jacobian class), and several came from open-problem lists rather than headline literature. Autonomy is search-scaffold on the strictest reading: the human chose the conjectures, wrote the scoring function that encodes each one, and designed the search; the network only proposes graphs.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Roucairol &amp; Cazenave, Monte Carlo search replication and extension: <em>reproduced the refutations and found further counterexamples by different search</em> · <a href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Independently checked and Search scaffold.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://arxiv.org/abs/2104.14516" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Constructions in combinatorics via neural networks</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/zawagner22/cross-entropy-for-combinatorics" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Wagner's cross-entropy code for the counterexamples</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-challenge">Challenge</h2>
-  <div class="refs"><a class="ref" href="https://arxiv.org/abs/2207.03343" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Refutation of Spectral Graph Theory Conjectures with Monte Carlo Search</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>independently checked</strong>
-  and <strong>search scaffold</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>independently checked</strong> for verification and
+  <strong>search scaffold</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -292,8 +299,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2026-07-20-gaussian-moments"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">Counterexamples to the Gaussian moments conjecture</span><span class="rel-meta">Independent · 2026-07-20</span></a><a class="rel-card" href="/finding/2026-07-19-jacobian-conjecture"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Counterexample to the Jacobian conjecture in dimension three</span><span class="rel-meta">Anthropic · 2026-07-19</span></a><a class="rel-card" href="/finding/2026-07-11-grothendieck-group-schemes"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Counterexample to Grothendieck's question on finite flat group schemes</span><span class="rel-meta">Independent · 2026-07-11</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-08-04-moore-bound"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Asymptotic degree-diameter problem resolved for fixed diameter</span><span class="rel-meta">Independent · 2026-08-04</span></a><a class="rel-card" href="/finding/2026-07-14-sabidussi-compatibility"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Sabidussi's compatibility conjecture proved</span><span class="rel-meta">Independent · 2026-07-14</span></a><a class="rel-card" href="/finding/2026-07-20-gaussian-moments"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">Counterexamples to the Gaussian moments conjecture</span><span class="rel-meta">Independent · 2026-07-20</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2020-02-20-halicin"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Halicin, an antibiotic found by a neural network screening a compound library</span></a><a class="pn-step" href="/finding/2021-07-15-alphafold2"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Accurate protein structure prediction across the known proteome (AlphaFold2)</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=combinatorics">combinatorics</a><a class="tag-chip" href="/?tag=graph-theory">graph-theory</a><a class="tag-chip" href="/?tag=counterexample">counterexample</a><a class="tag-chip" href="/?tag=reinforcement-learning">reinforcement-learning</a></div>
 
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
@@ -307,9 +316,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

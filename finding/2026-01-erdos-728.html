@@ -204,7 +204,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -218,17 +218,36 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-autonomous">Autonomous</span>
   </div>
   <h1>Erdős problem #728 resolved and formalized in Lean</h1>
-  <p class="lede">Erdős problem #728 resolved and formalized in Lean is graded formally verified on whataifound.org, with the AI's role graded autonomous.</p>
   <p class="claim">GPT-5.2 produced a proof of a previously open Erdős problem; Harmonic's Aristotle formalized it in Lean, making it the first Erdős problem regarded as fully resolved by AI with machine-checked proof.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Formally verified</dd></div>
-      <div><dt>Autonomy</dt><dd>Autonomous</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>OpenAI / Harmonic</dd></div>
       <div><dt>Model</dt><dd>GPT-5.2 Pro + Aristotle</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2026-01-13</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">arXiv 2601.07421: Resolution of Erdős Problem #728</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Tao: AI contributions to Erdős problems</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-coverage">Media coverage</h3>
+      <div class="refs"><a class="ref" href="https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">Tao on GPT-5.2 Pro</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Recorded as open in the Erdős problems database prior to resolution. Terence Tao's AI-contributions wiki tracked the resolution and did not find the result in existing literature.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Tao cautioned that the win 'says more about speed than difficulty': the problem was open but not considered deep. Lean formalization makes correctness essentially certain; significance is the contested part, not validity.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Lean kernel (machine-checked): <em>verified</em> · <a href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener">link ↗</a></p><p>Terence Tao: <em>accepted</em> · <a href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -247,29 +266,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-01-erdos-728" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>The problem concerns the existence of infinitely many integers a, b, n satisfying divisibility and inequality conditions involving factorials. GPT-5.2 generated the argument, Aristotle formalized it in Lean, and a human-readable writeup was posted to arXiv. Modifications of the same argument also resolved problems #729 and #401.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Recorded as open in the Erdős problems database prior to resolution. Terence Tao's AI-contributions wiki tracked the resolution and did not find the result in existing literature.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>Tao cautioned that the win 'says more about speed than difficulty': the problem was open but not considered deep. Lean formalization makes correctness essentially certain; significance is the contested part, not validity.</p>
-  <h2 class="lbl">Independent checks</h2>
-  <div class="checks"><p>Lean kernel (machine-checked): <em>verified</em> · <a href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener">link ↗</a></p><p>Terence Tao: <em>accepted</em> · <a href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener">link ↗</a></p></div>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-20">2026-07-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and Autonomous.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://arxiv.org/abs/2601.07421" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">arXiv 2601.07421: Resolution of Erdős Problem #728</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/teorth/erdosproblems/wiki/AI-contributions-to-Erd%C5%91s-problems" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Tao: AI contributions to Erdős problems</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-coverage">Media coverage</h2>
-  <div class="refs"><a class="ref" href="https://the-decoder.com/terence-tao-says-gpt-5-2-pro-cracked-an-erdos-problem-but-warns-the-win-says-more-about-speed-than-difficulty/" target="_blank" rel="noopener"><span class="ref-dom">The Decoder</span><span class="ref-t">Tao on GPT-5.2 Pro</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>formally verified</strong>
-  and <strong>autonomous</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>formally verified</strong> for verification and
+  <strong>autonomous</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -292,8 +299,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2025-09-11-gauss-strong-pnt"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">Strong prime number theorem formalized in Lean by an autoformalization agent</span><span class="rel-meta">Math, Inc. · 2025-09-11</span></a><a class="rel-card" href="/finding/2026-08-01-astra-ten-advances"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Ten results in mathematics and theoretical computer science with Lean certificates</span><span class="rel-meta">OpenAI · 2026-08-01</span></a><a class="rel-card" href="/finding/2026-07-20-kourovka-notebook"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Eight problems from the Kourovka Notebook solved and formalized in Lean</span><span class="rel-meta">Harmonic · 2026-07-20</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2025-09-11-gauss-strong-pnt"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">Strong prime number theorem formalized in Lean by an autoformalization agent</span><span class="rel-meta">Math, Inc. · 2025-09-11</span></a><a class="rel-card" href="/finding/2026-08-10-zeta-zeros-critical-line"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Proportion of zeta zeros on the critical line raised to 67.25%</span><span class="rel-meta">Anthropic · 2026-08-10</span></a><a class="rel-card" href="/finding/2026-08-01-astra-ten-advances"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Ten results in mathematics and theoretical computer science with Lean certificates</span><span class="rel-meta">OpenAI · 2026-08-01</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2025-11-gpt5-science-acceleration"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Early science acceleration experiments with GPT-5</span></a><a class="pn-step" href="/finding/2026-01-alphaevolve-bruhat"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Structure in Bruhat intervals of permutation groups</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=number-theory">number-theory</a><a class="tag-chip" href="/?tag=erdos">erdos</a><a class="tag-chip" href="/?tag=lean">lean</a><a class="tag-chip" href="/?tag=formalization">formalization</a></div>
 
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
@@ -307,9 +316,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>

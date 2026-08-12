@@ -212,7 +212,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-06</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-11</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -226,18 +226,35 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <span class="pill a a-search-scaffold">Search scaffold</span>
   </div>
   <h1>Olympiad geometry solved without human demonstrations</h1>
-  <p class="lede">Olympiad geometry solved without human demonstrations is graded peer reviewed on whataifound.org, with the AI's role graded search scaffold.</p>
   <p class="claim">A language model trained purely on synthetic data, paired with a symbolic deduction engine, solved 25 of 30 olympiad geometry problems against 10 for the previous best automated system and 25.9 for the average human gold medallist.</p>
 
-  <dl class="finding-facts">
-      <div><dt>Verification</dt><dd>Peer reviewed</dd></div>
-      <div><dt>Autonomy</dt><dd>Search scaffold</dd></div>
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts">
       <div><dt>Lab</dt><dd>Google DeepMind</dd></div>
       <div><dt>Model</dt><dd>AlphaGeometry</dd></div>
       <div><dt>Field</dt><dd>Mathematics</dd></div>
       <div><dt>Date</dt><dd>2024-01-17</dd></div>
       <div><dt>Human collaborators</dt><dd>Trieu Trinh, Thang Luong</dd></div>
-  </dl>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06747-5" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Solving olympiad geometry without human demonstrations</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphageometry" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">google-deepmind/alphageometry (code)</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaGeometry, an olympiad-level AI system for geometry</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Geometry proofs stall when they need an auxiliary construction, an extra point or line that is not in the problem statement. AlphaGeometry pairs a symbolic deduction engine, which exhausts what follows mechanically, with a language model that proposes constructions when deduction runs dry. The model was trained on 100 million synthetic proofs generated from random diagrams, with no human proof data, and its output is a symbolic proof that the deduction engine checks. Published in Nature.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Automated geometry provers date to Wu's method in the 1970s and to GEX/Java Geometry Expert; the prior state of the art solved 10 of the 30 benchmark problems. The benchmark is IMO geometry problems from 2000–2022 with known solutions, so the contribution is the method and the score, not a new theorem.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Benchmark performance on solved problems, not a discovery. The domain is narrow: plane geometry expressible in the system's formal language, which excludes problems involving inequalities or variable numbers of points, and the benchmark set was filtered to what the language can state. Proof steps are machine-checked by the deduction engine, which is what carries the confidence; the peer-reviewed grade reflects Nature review of the system and results.</p>
+  </details>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -256,27 +273,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2024-01-17-alphageometry" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <h2 class="lbl">What was found</h2>
-  <p>Geometry proofs stall when they need an auxiliary construction, an extra point or line that is not in the problem statement. AlphaGeometry pairs a symbolic deduction engine, which exhausts what follows mechanically, with a language model that proposes constructions when deduction runs dry. The model was trained on 100 million synthetic proofs generated from random diagrams, with no human proof data, and its output is a symbolic proof that the deduction engine checks. Published in Nature.</p>
-  <h2 class="lbl">Novelty check</h2>
-  <p>Automated geometry provers date to Wu's method in the 1970s and to GEX/Java Geometry Expert; the prior state of the art solved 10 of the 30 benchmark problems. The benchmark is IMO geometry problems from 2000–2022 with known solutions, so the contribution is the method and the score, not a new theorem.</p>
-  <h2 class="lbl">Caveats</h2>
-  <p>Benchmark performance on solved problems, not a discovery. The domain is narrow: plane geometry expressible in the system's formal language, which excludes problems involving inequalities or variable numbers of points, and the benchmark set was filtered to what the language can state. Proof steps are machine-checked by the deduction engine, which is what carries the confidence; the peer-reviewed grade reflects Nature review of the system and results.</p>
-  <h2 class="lbl">History of this entry</h2>
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and Search scaffold.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  <h2 class="lbl kind k-research">Original work</h2>
-  <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06747-5" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Solving olympiad geometry without human demonstrations</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphageometry" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">google-deepmind/alphageometry (code)</span><span class="ref-a">↗</span></a></div>
-  <h2 class="lbl kind k-announcement">Announcement</h2>
-  <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaGeometry, an olympiad-level AI system for geometry</span><span class="ref-a">↗</span></a></div>
+  </details>
 
-  <h2 class="lbl">How this is graded</h2>
-  <p>Every entry carries two grades: <strong>verification</strong> (how solid the result is) and
-  <strong>autonomy</strong> (how much the AI did). This one is <strong>peer reviewed</strong>
-  and <strong>search scaffold</strong>. Definitions are in the
-  <a href="/methodology">methodology</a>.</p>
+  <p class="gradenote">Graded <strong>peer reviewed</strong> for verification and
+  <strong>search scaffold</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
 
 
   <h2 class="lbl">Cite this entry</h2>
@@ -302,6 +309,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="relgrid"><a class="rel-card" href="/finding/2025-07-28-aristotle-imo-lean"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Machine-checked Lean proofs for five of six 2025 IMO problems</span><span class="rel-meta">Harmonic · 2025-07-28</span></a><a class="rel-card" href="/finding/2025-07-21-gemini-deepthink-imo"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Gold-medal standard at the 2025 International Mathematical Olympiad</span><span class="rel-meta">Google DeepMind · 2025-07-21</span></a><a class="rel-card" href="/finding/2024-07-25-alphaproof-imo"><span class="rel-grade pill v v-independent">Independently checked</span><span class="rel-title">Silver-medal standard at the 2024 International Mathematical Olympiad</span><span class="rel-meta">Google DeepMind · 2024-07-25</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2023-12-20-coscientist"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">A language-model agent that planned and ran chemistry experiments on lab robots</span></a><a class="pn-step" href="/finding/2024-02-21-tearing-mode-avoidance"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Reinforcement learning steers a tokamak away from tearing instabilities</span></a></nav>
 
+  <div class="findtags"><a class="tag-chip" href="/?tag=olympiad">olympiad</a><a class="tag-chip" href="/?tag=geometry">geometry</a><a class="tag-chip" href="/?tag=neuro-symbolic">neuro-symbolic</a><a class="tag-chip" href="/?tag=benchmark">benchmark</a></div>
+
   <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
 </article>
 
@@ -314,9 +323,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </section>
 <section class="about-cell">
 <h2 class="lbl">Use the data</h2>
-<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution.</p>
+<p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
 <a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
 <a href="/feed.xml">RSS</a>
 <a href="/feed.json">JSON Feed</a>
 <a href="https://whataifound.org/LICENSE">License</a>
