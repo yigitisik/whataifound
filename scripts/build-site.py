@@ -2618,9 +2618,11 @@ def build_activity(entries):
             f'<time class="feed-date" datetime="{esc(date)}">{esc(date)}</time>'
             f'<span class="pill r r-{esc(kind)}">{esc(REV_CHIP.get(kind, kind))}</span>'
             f'</span>'
-            # Both lines are clipped to one line each by CSS, so the full text is carried
-            # on title=. The link text itself is complete, so a screen reader already
-            # reads all of it; this is for the pointer.
+            # Clipped by CSS beside the chart, where the feed has a column height to fit:
+            # one line each on a desktop, two wrapped lines on a phone where the chart is
+            # hidden and the feed has the width of the page. Either way the text can be
+            # cut, so the full string is carried on title=. The link text itself is
+            # complete, so a screen reader already reads all of it; this is for the pointer.
             f'<a class="feed-title" href="/finding/{esc(e["id"])}"'
             f' title="{esc(e["title"])}">{esc(e["title"])}</a>'
             f'<span class="feed-note" title="{esc(note)}">{esc(note)}{link}</span>'

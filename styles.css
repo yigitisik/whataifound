@@ -523,7 +523,16 @@
   .stat span{display:block;margin-top:8px;font-family:var(--serif);font-size:.66rem;color:var(--muted);
     text-transform:uppercase;letter-spacing:.13em;line-height:1.4}
   @keyframes barIn{to{transform:scaleX(1)}}
-  @media(max-width:640px){.stats{grid-template-columns:repeat(2,1fr)}}
+  /* Two up on a phone. grid-auto-rows equalises the two rows: the cells size to content
+     otherwise, and "AI-led or autonomous" and "Negative or contested" both wrap to a
+     second line while "Well verified" does not, so the bottom row sat 13px taller than
+     the top one. Pushing the label down with margin-top:auto puts all four labels on one
+     baseline whether or not they wrap. */
+  @media(max-width:640px){
+    .stats{grid-template-columns:repeat(2,1fr);grid-auto-rows:1fr}
+    .stat{display:flex;flex-direction:column;justify-content:flex-start}
+    .stat span{margin-top:auto}
+  }
 
   /* ---------- Account control (header) ---------- */
   /* Lives in .eyebrow-right beside the theme switcher, on every page, because that is
@@ -765,8 +774,33 @@
      rather than omitted from the markup: the SVG stays in the pre-rendered HTML, so
      crawlers still read all 15 cells. */
   @media(max-width:640px){
-    .hero-data{grid-template-columns:1fr;gap:14px}
+    .hero-data{grid-template-columns:1fr;gap:12px;margin-top:10px}
     .hero-chart{display:none}
+    /* The one-line clamp on the two feed lines pays for itself beside the chart, where the
+       feed has a column height to fit. Here the chart is gone and the feed is the width of
+       the page, so the clamp is inherited without the constraint that earned it: all seven
+       titles ended mid-word. Two wrapped lines instead, and the rows that no longer fit go.
+       The note goes rather than moving the meta cell onto its own row: stacking read well
+       but spent a whole extra line per row, which cost back everything the truncation was
+       saving, and the note only restates the two grades the finding page states properly.
+       It stays in the markup, hidden, for the crawler. The date keeps its cell but drops
+       the pill beside it, which was repeating "Added" down the whole column and taking the
+       width the title needed to finish a sentence. */
+    .feed-title{white-space:normal;text-overflow:clip;display:-webkit-box;
+      -webkit-line-clamp:3;-webkit-box-orient:vertical}
+    .feed-note{display:none}
+    .feed-meta .pill{display:none}
+    .feed-row{row-gap:0;padding-bottom:7px;column-gap:8px}
+    /* Four rows, not seven. display:none rather than a smaller ACTIVITY_ROWS: the markup
+       keeps all seven for a crawler that does not run scripts, exactly as the hidden
+       chart above does. */
+    .feed-row:nth-child(n+5){display:none}
+    /* The hero has to end nearer the fold than it did: the h1 and the lede are what sits
+       between the masthead and the feed. The header padding and the lede size are set in
+       the 560 block below, which also sets both and would otherwise win on source order. */
+    h1.intro{font-size:clamp(1.85rem,7.4vw,2.3rem);margin-bottom:10px}
+    .hero-links{gap:8px}
+    .hero-links .btn{flex:1 1 0;padding:11px 14px}
   }
 
   /* ---------- Controls (sticky toolbar) ---------- */
@@ -798,6 +832,20 @@
     overflow:hidden;text-overflow:ellipsis}
   .count{grid-area:1/2;justify-self:end;align-self:center;font-family:var(--serif);font-size:.72rem;
     color:var(--muted);letter-spacing:.04em;font-variant-numeric:lining-nums tabular-nums;white-space:nowrap}
+
+  /* On a phone the wrapping flex row cannot tile evenly: the view toggle is a flex item in
+     the same container, so it takes the front of the first line and every row after it
+     inherits the offset. What that produced was four ragged rows, one select orphaned
+     beside the toggle and the double-width sort alone at the bottom. An explicit two-column
+     grid instead: the toggle takes a row of its own, the four filters pair off, and sort
+     spans the full width because it orders rather than narrows. The desktop min/max bounds
+     exist to keep the row tidy at 1120px and are lifted here, where the track sets width. */
+  @media(max-width:640px){
+    .ctl-filters{display:grid;grid-template-columns:1fr 1fr;gap:8px;align-items:center}
+    .ctl-filters .view-seg{grid-column:1/-1;justify-self:start}
+    .ctl-filters select{flex:none;width:100%;min-width:0;max-width:none}
+    .ctl-filters #sort{grid-column:1/-1;margin-left:0}
+  }
 
   /* Active filters, on their own row under the controls. [hidden] keeps the sticky bar
      at its two-row height for the visitor who never filters. */
@@ -1952,7 +2000,7 @@
     .finding details.fold{margin-top:18px}
   }
   @media(max-width:560px){
-    header{margin:8px 0 20px;padding:22px 18px 18px;border-radius:14px}
+    header{margin:8px 0 16px;padding:18px 16px 15px;border-radius:14px}
     header:after{border-radius:14px 14px 0 0}
     .stats{gap:9px}
     /* Column gap only. The pagenav carries its own top margin now, and it is the one item
@@ -1969,13 +2017,12 @@
        list. One column below here. */
     .finding-facts{grid-template-columns:1fr}
     .glance{gap:14px}
-    .lede{font-size:1rem}
+    /* Tighter leading rather than a bigger face. This ran to five lines and about 120px on
+       a 390 screen, which is a paragraph of setup between the title and the first thing
+       the reader came for. */
+    .lede{font-size:.95rem;line-height:1.45}
     .stat{padding:16px 16px 14px} .stat b{font-size:1.7rem}
     .controls{position:static;grid-template-columns:minmax(0,1fr);gap:8px;padding:10px 0 16px}
-    /* The desktop bounds exist to keep the filter row tidy at 1120px. Below 640 the bar
-       is no longer sticky and the selects tile two per row, so they are lifted. */
-    .controls select{flex:1 1 42%;min-width:0;max-width:none}
-    .ctl-filters #sort{margin-left:0}
     .count{justify-self:start;text-align:left}
     .ref{gap:9px} .ref-dom{flex-basis:74px}
     /* Below this the label column would squeeze the links to one per line, so stack
