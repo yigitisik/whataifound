@@ -44,6 +44,13 @@ Autonomy, most to least AI-driven:
 - [/api/dataset](https://whataifound.org/api/dataset): the same registry, filterable by field, verification, autonomy, lab, tag or date added, with a fixed field contract
 - [RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json): new and updated entries
 
+## By lab
+
+Every finding credited to one organisation, on one page.
+
+- [Google DeepMind](https://whataifound.org/lab/google-deepmind): 22 findings
+- [OpenAI](https://whataifound.org/lab/openai): 6 findings
+
 ## Findings
 
 ### Archaeology

@@ -228,7 +228,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <section class="glance">
     <div class="glance-facts">
       <dl class="finding-facts">
-      <div><dt>Lab</dt><dd>Google DeepMind</dd></div>
+      <div><dt>Lab</dt><dd><a href="/lab/google-deepmind">Google DeepMind</a></dd></div>
       <div><dt>Model</dt><dd>AlphaDev (AlphaZero-based)</dd></div>
       <div><dt>Field</dt><dd>Computer science</dd></div>
       <div><dt>Date</dt><dd>2023-06-07</dd></div>
@@ -247,6 +247,13 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">What was found</h2>
   <p>AlphaDev treated the construction of a sorting routine as a single-player game played directly in CPU assembly, rewarding shorter and faster correct programs. For sort-3, sort-4 and sort-5 it removed instructions relative to the human-tuned library code, yielding large speedups on short sequences. The routines were reverse-engineered to C++ and accepted into the LLVM libc++ standard sort, which ships to millions of users. Published in Nature.</p>
+  <h2 class="lbl">Video explainers</h2>
+  <div class="vid" data-yt="_wDCndqGiRE">
+    <button class="vid-play" type="button" aria-label="Play video: AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning">&#9654;</button>
+    <span class="vid-meta"><span class="vid-t">AlphaDev: Discovering Faster Sorting Algorithms with Reinforcement Learning</span><span class="vid-ch">AI for Good (ITU)</span></span>
+    <a class="vid-ext" href="https://www.youtube.com/watch?v=_wDCndqGiRE" target="_blank" rel="noopener">YouTube ↗</a>
+  </div>
+  <p class="vid-note">Nothing loads from YouTube until you press play.</p>
   <h2 class="lbl">Novelty check</h2>
   <p>The libc++ small-sort routines had been hand-optimised by compiler engineers for years. AlphaDev's shorter instruction sequences were reviewed against the standing implementations and confirmed to be improvements before being merged.</p>
   <details class="fold">
@@ -258,7 +265,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
-    <p class="challenge-d">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the objection beside it. Bring a citation.</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
       <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2023-06-07-alphadev">Challenge this grade</a>
       <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2023-06-07-alphadev">Submit a check</a>

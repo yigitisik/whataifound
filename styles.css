@@ -107,7 +107,7 @@
     padding:9px 15px;border-radius:11px;font-family:var(--serif);font-size:.82rem;text-decoration:none;
     transition:top .16s var(--ease)}
   .skip:focus{top:8px}
-  a:focus-visible,button:focus-visible,summary:focus-visible,.labcard:focus-visible,
+  a:focus-visible,button:focus-visible,summary:focus-visible,
   input:focus-visible,select:focus-visible,[tabindex]:focus-visible{
     outline:2.5px solid var(--accent);outline-offset:2px;border-radius:7px}
   /* The account control joined this row, which put it a few pixels over its budget at
@@ -1426,9 +1426,13 @@
   /* minmax(0,1fr): a bare 1fr track floors at its content's min-content width, which let the
      longest lab label ('GitHub (e.g: Deepmind)') push the grid wider than the viewport. */
   .labgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  /* Two destinations, so two links: the body goes to this site's hub for the lab and the
+     arrow goes to the lab's own research site. Anchors cannot nest, which is why the card
+     itself is a div and .labcard-main carries the layout the card used to. */
   .labcard{display:flex;align-items:center;gap:14px;padding:18px 20px;min-width:0;border:1px solid var(--line-strong);
-    border-radius:15px;background:var(--panel-2);text-decoration:none;box-shadow:var(--shadow);
+    border-radius:15px;background:var(--panel-2);box-shadow:var(--shadow);
     transition:transform .16s var(--ease),border-color .16s,box-shadow .16s}
+  .labcard-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0;text-decoration:none}
   @media(hover:hover){
     .labcard:hover{transform:translateY(-2px);border-color:var(--accent);
       box-shadow:0 2px 4px rgba(30,28,24,.05),0 14px 34px rgba(30,28,24,.10)}
@@ -1445,7 +1449,9 @@
   .labcard-meta b{color:var(--ink);font-family:var(--serif);font-size:1rem;font-weight:600;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
   .labcard-meta span{font-family:var(--serif);font-size:.78rem;color:var(--muted);letter-spacing:.04em}
-  .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem}
+  .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem;
+    text-decoration:none;display:grid;place-items:center;width:28px;height:28px;border-radius:9px}
+  .labcard-go:hover{background:var(--panel);color:var(--accent)}
   .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
   @media(max-width:640px){.labgrid{grid-template-columns:1fr}}
   /* Topic row above the lab grid: chips rather than cards, because there are eleven of
@@ -1828,7 +1834,7 @@
     color:var(--muted);margin:13px 0 0;padding-top:12px;border-top:1px solid var(--line)}
   .challenge-gh>svg{flex:none;width:15px;height:15px;display:block;margin-right:-6px}
   .challenge-gh-t{font-weight:600}
-  .finding a.challenge-gh-link,.challenge-gh a{color:var(--muted);text-decoration:none}
+  .challenge-gh a{color:var(--muted);text-decoration:none}
   .challenge-gh a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
 
   /* ---------- Public profile (/u/<handle>) ---------- */
@@ -1877,12 +1883,6 @@
   .q-sig{font-family:var(--serif);font-size:.7rem;color:var(--accent);
     font-variant-numeric:tabular-nums}
   .q-sig[hidden]{display:none}
-  .q-head{margin:30px 0 12px}
-  .q-head h2{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;margin:0 0 4px}
-  /* The count sits in the heading rather than in a sentence under it, so it reads at a
-     glance and the line below can stay a plain description. */
-  .q-head h2 b{color:var(--accent);font-variant-numeric:tabular-nums}
-  .q-head p{color:var(--muted);margin:0;font-size:.9rem}
 
   /* Each group of the backlog is a <details>. Collapsed, the whole queue reads as a handful
      of counts; a visitor opens only the part they mean to work on. No JS: the marker and the
@@ -2055,6 +2055,9 @@
     /* Room to grow: take the real 44px. */
     .totop{width:44px;height:44px}
     .vid-play{width:46px;height:44px}
+    /* The card body is the big target beside it, so this one only has to be reachable
+       without hitting the card by accident. */
+    .labcard-go{width:44px;height:44px}
     .sig-b{padding:11px 14px}
     .empty-act{padding:12px 18px}
     .csv-btn{padding:12px 16px}
