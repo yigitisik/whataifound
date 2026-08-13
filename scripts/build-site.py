@@ -1328,17 +1328,28 @@ def citation_block(e, url):
            f"}}")
     apa = f"whataifound.org. ({year}). {title}. {site}. {url}"
 
-    def block(label, text, lang=""):
+    def block(label, text, folded=False):
+        # When a fold's summary already names the format, the label inside the block just
+        # says it a second time; the copy button is the only thing the head still carries.
+        head = "" if folded else f'<span class="cite-label">{esc(label)}</span>'
         return (f'    <div class="cite-block">\n'
-                f'      <div class="cite-head"><span class="cite-label">{esc(label)}</span>'
+                f'      <div class="cite-head">{head}'
                 f'<button type="button" class="cite-copy" data-copy>Copy</button></div>\n'
-                f'      <pre class="cite-pre"{lang}><code>{esc(text)}</code></pre>\n'
+                f'      <pre class="cite-pre"><code>{esc(text)}</code></pre>\n'
                 f'    </div>')
 
+    # Plain text leads because it is the citation most people paste. BibTeX folds: it was
+    # eight lines of an open block that only the minority who want it will read, and the
+    # text still ships in the markup, so print expands it and a crawler still reads it.
+    # entry.js finds its target through .cite-block, which is inside the fold, so the copy
+    # button works closed or open.
     return ('  <h2 class="lbl">Cite this entry</h2>\n'
             '  <div class="cites">\n'
             + block("Plain text", apa) + "\n"
-            + block("BibTeX", bib) + "\n"
+            + '    <details class="fold cite-fold">\n'
+            + '    <summary>BibTeX</summary>\n'
+            + block("BibTeX", bib, folded=True) + "\n"
+            + '    </details>\n'
             + '  </div>')
 
 
@@ -1540,11 +1551,17 @@ def entry_page(e, entries, updated):
     if e.get("year_posed") is not None:
         facts.append(("Problem posed", str(e["year_posed"])
                       + (f" · open {n} yr{'' if n == 1 else 's'}" if n else ""), None))
+    shown = [(k, v, href) for k, v, href in facts if v]
     fact_rows = "\n".join(
         f"      <div><dt>{esc(k)}</dt><dd>"
         + (f'<a href="{esc(href)}">{esc(v)}</a>' if href else esc(v))
         + "</dd></div>"
-        for k, v, href in facts if v)
+        for k, v, href in shown)
+    # The strip is four cells wide and the four required fields fill it exactly. Human
+    # collaborators and a posed year are optional, so the row can also be five or six, and
+    # an auto-fitting grid left the leftovers sitting beside two or three empty cells.
+    # styles.css widens the last row to close that, and needs the count to do it.
+    facts_cls = f"finding-facts n{len(shown)}"
 
     def section(title, body):
         return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
@@ -1668,7 +1685,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 
   <section class="glance">
     <div class="glance-facts">
-      <dl class="finding-facts">
+      <dl class="{facts_cls}">
 {fact_rows}
       </dl>
     </div>

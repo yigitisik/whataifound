@@ -999,6 +999,13 @@
      horizontal scrollbar hides the end of the URL, which is the part that matters. */
   .cite-pre{margin:0;padding:12px;overflow-x:auto;font-size:.72rem;line-height:1.65;
     white-space:pre-wrap;word-break:break-word;color:var(--ink)}
+  /* The BibTeX fold. It borrows .fold's summary treatment but not its rule or margin:
+     the section heading above already draws one, and .cites owns the spacing. */
+  .finding details.cite-fold{margin:0;border-top:none;padding-top:0}
+  .cite-fold>summary{padding:2px 0 0}
+  /* The summary names the format, so the head holds only the copy button. */
+  .cite-fold .cite-head{justify-content:flex-end}
+  .cite-fold .cite-block{margin-top:8px}
 
   /* ---------- Related findings and prev/next (finding pages) ---------- */
   .relgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:11px;margin:0 0 4px}
@@ -1378,8 +1385,11 @@
   .field.kind b{color:var(--kc,var(--muted));display:flex;align-items:center;gap:6px}
   .field.kind b::before{content:"";flex:0 0 auto;width:6px;height:6px;border-radius:50%;
     background:var(--kc,var(--muted))}
-  .finding h2.lbl.kind{color:var(--kc,var(--muted));display:flex;align-items:center;gap:7px}
-  .finding h2.lbl.kind::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;
+  /* Element-agnostic on purpose. This was written as h2.lbl.kind and the source-kind
+     headings were later demoted to h3 so the finding page's outline stays flat, which
+     silently killed both the colour and the dot. */
+  .finding .lbl.kind{color:var(--kc,var(--muted));display:flex;align-items:center;gap:7px}
+  .finding .lbl.kind::before{content:"";flex:0 0 auto;width:7px;height:7px;border-radius:50%;
     background:var(--kc,var(--muted))}
   .rc-v{margin:0;flex:1;display:flex;flex-wrap:wrap;align-items:baseline;gap:2px 12px;min-width:0}
   .rc-l{font-family:var(--serif);font-size:.76rem;color:var(--accent);text-decoration:none;
@@ -1599,6 +1609,19 @@
      page's length. 22 still reads as a break at this type size. */
   .finding h2.lbl{font-weight:bold;font-family:var(--serif);font-size:.62rem;text-transform:uppercase;
     letter-spacing:.13em;color:var(--muted);display:block;margin:22px 0 6px}
+  /* A rule per top-level section. At this type size the label alone was not a boundary,
+     and seven sections in one 72ch column read as one undivided scroll.
+     The child combinator is doing real work: it takes the section headings and skips both
+     the Sources heading, which is nested inside .glance-src, and the h3 kind labels under
+     it, neither of which is a section break. Same hairline the folds, .sig and
+     .finding-back already use. */
+  /* 2px of --line-strong, not a hairline of --line. The page is drawn over a dot texture
+     and a 1px #2a2d24 rule on a #111310 ground disappeared into it, reading as speckle
+     rather than as a boundary. The folds below keep a 1px rule, which puts the two on
+     purpose at different weights: a section break outranks a disclosure. */
+  .finding>h2.lbl{margin-top:30px;padding-top:18px;border-top:2px solid var(--line-strong)}
+  /* .glance already leaves 26px under itself, so the first one only needs to clear it. */
+  .finding>h2.lbl:first-of-type{margin-top:4px}
   .finding h3.lbl{font-weight:bold;font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
     letter-spacing:.12em;color:var(--muted);display:block;margin:12px 0 4px}
   .finding p{line-height:1.6;color:var(--ink)}
@@ -1606,26 +1629,30 @@
   .finding .checks p{margin:0 0 6px}
   /* Claim, facts and every source in one screen. This page is a citation surface: what a
      reader and an answer engine both need first is what was found and what backs it, not
-     the prose about it. Two columns because both halves are short rows, and stacked they
-     spend a screen each saying very little. */
-  .glance{display:grid;grid-template-columns:minmax(0,7fr) minmax(0,9fr);gap:18px;
-    margin:0 0 26px}
-  /* Both columns start on the same line. The facts table is a bordered card and the
-     sources are not, so without this the heading sits a few pixels above the card's top
-     rule and the two columns read as misaligned rather than paired. */
+     the prose about it.
+     This was two columns, facts beside sources. It did not balance: a fact cell is about
+     57px and a reference row about 30px, so measured across the registry the sources filled
+     between a quarter and, at the very best, 86% of the facts tile's height, and 60 of 64
+     entries opened with a hole beside the facts. One band instead, facts spread into a
+     strip: no hole at any source count, and shorter than the two-column version was, since
+     the facts stop being a tall vertical list. */
+  .glance{display:grid;gap:14px;margin:0 0 26px}
   .glance-src>h2.lbl{margin:0 0 8px}
-  .glance-facts{padding-top:19px}
   .glance-src>h3.lbl:first-of-type{margin-top:0}
-  /* Tighter than a full-width ref row: this column is about 380px, so the domain gets
-     what it needs and the title takes the rest instead of a fixed gutter's worth of gap. */
+  /* A fixed column for the domain so the titles all start on one line, and the title takes
+     the rest of the measure. */
   .glance-src .ref{padding:5px 7px;gap:9px;align-items:baseline}
-  .glance-src .ref-dom{flex:0 0 auto;min-width:0;max-width:112px}
+  .glance-src .ref-dom{flex:0 0 92px;min-width:0;max-width:none}
   .glance-src .ref-t{flex:1 1 auto}
-  /* One column inside the band: the facts sit in about 230px here, where an auto-fit
-     minmax(180px) would try for two cells and clip the values. It goes back to auto-fit
-     below 720, where it has the whole measure again. */
-  .finding-facts{display:grid;grid-template-columns:1fr;gap:1px;
+  /* The facts as a strip across the measure rather than a tall vertical list. Four cells,
+     which the four required fields fill exactly; human collaborators and a posed year can
+     take it to five or six, and the last row then widens to close the gap rather than
+     leaving two or three empty cells showing the grid's own background. build-site.py
+     writes the count as .n4 / .n5 / .n6. */
+  .finding-facts{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:1px;
     background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin:0}
+  .finding-facts.n5>div:last-child{grid-column:span 4}
+  .finding-facts.n6>div:nth-child(n+5){grid-column:span 2}
   .finding-facts div{background:var(--panel);padding:9px 13px}
   .finding-facts dt{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
     letter-spacing:.11em;color:var(--muted);margin-bottom:2px}
@@ -1633,7 +1660,7 @@
   /* Caveats, and a history whose only event is the day the entry arrived. Both stay in
      the markup for a crawler that does not run scripts, and print expands them; a reader
      who wants the objections opens one line. */
-  .finding details.fold{margin:22px 0 0;border-top:1px solid var(--line);padding-top:2px}
+  .finding details.fold{margin:22px 0 0;border-top:1px solid var(--line-strong);padding-top:2px}
   .finding details.fold>summary{font-size:.72rem;text-transform:uppercase;letter-spacing:.11em;
     color:var(--muted);padding:10px 0 6px}
   .finding details.fold>summary:hover{color:var(--accent)}
@@ -1653,13 +1680,22 @@
      beside "Cite this entry", which was tried and read as a second citation box. The
      accent tint and the rule down its left are what keep it from reading that way in a
      column of reference blocks. */
+  /* Two columns: the ask on the left, the two actions on the right. Stacked, this panel
+     was five blocks deep in a narrow column and the buttons sat a long way under the
+     question they answer. Placed by grid alone, so the markup order is unchanged and the
+     phone layout below is just the same boxes in one column. */
   .challenge{margin:26px 0 0;padding:14px 16px 15px;background:var(--accent-soft);
-    border:1px solid transparent;border-left:3px solid var(--accent);border-radius:12px}
+    border:1px solid transparent;border-left:3px solid var(--accent);border-radius:12px;
+    display:grid;grid-template-columns:minmax(0,1fr) auto;column-gap:20px;align-items:start}
   .finding .challenge-t{font-family:var(--serif);font-size:.98rem;font-weight:600;
-    color:var(--ink);margin:0 0 4px;line-height:1.35}
-  .finding .challenge-d{font-size:.85rem;line-height:1.5;color:var(--muted);margin:0 0 12px;max-width:62ch}
-  .challenge-acts{display:flex;flex-wrap:wrap;align-items:center;gap:9px}
-  .challenge-b{font-size:.78rem}
+    color:var(--ink);margin:0 0 4px;line-height:1.35;grid-column:1;grid-row:1}
+  .finding .challenge-d{font-size:.85rem;line-height:1.5;color:var(--muted);margin:0;max-width:62ch;
+    grid-column:1;grid-row:2}
+  /* Spans both heading rows so the pair centres against the ask beside it. */
+  .challenge-acts{display:flex;flex-direction:column;align-items:stretch;gap:9px;
+    grid-column:2;grid-row:1 / span 2;align-self:center}
+  .challenge-b{font-size:.78rem;text-align:center}
+  .challenge-gh,.sig{grid-column:1 / -1}
   /* Tertiary by design: discussion is for what is not yet a claim, so it must not
      compete with the two actions that change the record. */
   .finding a.challenge-alt{color:var(--muted);font-family:var(--serif);font-size:.76rem;
@@ -1983,21 +2019,29 @@
     .rmeta{flex-flow:row wrap;gap:8px 18px}
     .ref-dom{flex-basis:84px}
     .rc-k{flex-basis:84px}
-    /* One column, so the facts get the whole measure back and two cells to a row is
-       right again. The sources need their heading margin back: they are no longer a
-       column beside the table, they follow it. */
-    .glance{grid-template-columns:1fr;gap:16px;margin-bottom:22px}
-    .finding-facts{grid-template-columns:repeat(auto-fit,minmax(170px,1fr))}
-    /* Stacked, so the heading no longer has a card beside it to line up with. */
-    .glance-facts{padding-top:0}
-    .glance-src>h2.lbl{margin-top:18px}
-    .glance-src .ref-dom{max-width:none;flex:0 0 84px}
+    .glance{margin-bottom:22px}
+    .glance-src .ref-dom{flex:0 0 84px}
+    /* Two cells to a row here, so the widened last row halves with it. */
+    .finding-facts{grid-template-columns:repeat(2,minmax(0,1fr))}
+    .finding-facts.n5>div:last-child{grid-column:span 2}
+    .finding-facts.n6>div:nth-child(n+5){grid-column:span 1}
   }
   @media(max-width:640px){
     .finding{padding:16px 0 32px}
     .finding .claim{font-size:1.06rem}
     .finding h2.lbl{margin:18px 0 6px}
+    /* Same specificity as the rule above and later in the file, so without the child
+       combinator here the bare .finding h2.lbl would win and leave a rule sitting on top
+       of a heading with none of its clearance. */
+    .finding>h2.lbl{margin-top:22px;padding-top:14px}
+    .finding>h2.lbl:first-of-type{margin-top:4px}
     .finding details.fold{margin-top:18px}
+    .finding details.cite-fold{margin-top:0}
+    /* One column: there is no room to put the actions beside the ask, and full-width
+       buttons are the better target anyway. */
+    .challenge{grid-template-columns:1fr}
+    .finding .challenge-d{margin-bottom:12px}
+    .challenge-acts{grid-column:1;grid-row:auto}
   }
   @media(max-width:560px){
     header{margin:8px 0 16px;padding:18px 16px 15px;border-radius:14px}
@@ -2016,6 +2060,8 @@
     /* At 375 a two-cell row leaves about 167px each, which truncates a collaborator
        list. One column below here. */
     .finding-facts{grid-template-columns:1fr}
+    /* One column, so nothing is left to span. */
+    .finding-facts.n5>div:last-child,.finding-facts.n6>div:nth-child(n+5){grid-column:span 1}
     .glance{gap:14px}
     /* Tighter leading rather than a bigger face. This ran to five lines and about 120px on
        a 390 screen, which is a paragraph of setup between the title and the first thing
@@ -2137,10 +2183,16 @@
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
     .permalink,.skip,.hero-feed,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
     a{text-decoration:underline}
-    /* Open every disclosure: a printed page cannot be expanded. */
+    /* Open every disclosure: a printed page cannot be expanded.
+       ::details-content is what actually does this. A closed <details> hides its content
+       through that pseudo-element's content-visibility, not through `display` on the
+       children, so the `details>*` rule below cannot reach it on its own and every fold on
+       the site was silently printing collapsed. The child rule stays for engines that have
+       not shipped the pseudo-element, where it is still the best available answer. */
     details{display:block!important}
     details>summary{display:none}
     details>*{display:block!important}
+    details::details-content{content-visibility:visible!important;display:block!important}
     .entry{break-inside:avoid;page-break-inside:avoid;border:0;border-top:1px solid #999;
       border-radius:0;padding:12px 0;margin:0;display:block;
       content-visibility:visible;contain-intrinsic-size:auto}
