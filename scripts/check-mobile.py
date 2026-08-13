@@ -128,6 +128,8 @@ def check_tap_targets(css, problems):
         (".acct .acct-menu>summary", "grow", "height", "the identicon takes over a door cell"),
         (".totop", "grow", "height", "isolated button, room to take the full 44"),
         (".vid-play", "grow", "height", "sits in a row with the video title"),
+        (".labcard-go", "grow", "height",
+         "second destination on the lab card, next to a much larger one"),
         (".sig-b", "grow", None, "triage buttons, sized by padding"),
         (".empty-act", "grow", None, "clear-filters button"),
         (".csv-btn", "grow", None, "export button"),

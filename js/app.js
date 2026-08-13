@@ -301,16 +301,16 @@ function renderCharts(){
     'UT Austin / CWI Amsterdam':'UT Austin / CWI'
   };
 
-  // One organisation dominates and a long tail holds a single finding each (29 orgs, 26
-  // of them with one), so plotting every row made this the tallest card on the page and
-  // stretched its whole grid row. Show the rows that carry information and aggregate the
-  // rest, so the column still sums to the registry instead of silently truncating.
+  // One organisation dominates and a long tail holds a single finding each, so plotting
+  // every row made this the tallest card on the page. Show the rows that carry information
+  // and aggregate the rest, so the column still sums to the registry rather than silently
+  // truncating.
   //
   // MAXROWS is a height budget, not a ranking: everything above the tail is always kept,
-  // then the tail is drawn from only to fill the card to a height that matches the topic
-  // chart beside it. Tail entries are all tied, so which ones surface is arbitrary;
-  // hence "and N more with one finding each" rather than a bare "Other", which would
-  // imply the listed ones outrank the omitted ones.
+  // and the tail is drawn from only to match the height of the topic chart beside it. Tail
+  // entries are all tied, so which ones surface is arbitrary; hence "and N more with one
+  // finding each" rather than a bare "Other", which would imply the listed ones outrank
+  // the omitted ones.
   const labRows = sortDesc(tally(e=>e.lab));
   const MAXROWS = 11;                          // ~= the topic chart, this card's row-mate
   const TAIL = 1;                              // counts at or below this are tied filler
@@ -589,8 +589,8 @@ function topicCard(max, cls){
 // The evidence chain: how many entries link each kind of source.
 //
 // Scaled to the registry, not to the tallest row the way hbarsHtml() is. This is
-// coverage, so a bar is the share of entries carrying that kind of link at all: 48 of 52
-// has to read as nearly full and 8 of 52 as nearly empty. Max-scaling would draw the
+// coverage, so a bar is the share of entries carrying that kind of link at all: a kind
+// nearly every entry has must read as nearly full. Max-scaling would draw the
 // first at 100% and the second at 17%, which states the wrong thing about both. Counted
 // once per entry per kind: one paper cited twice is not two papers.
 //
@@ -660,8 +660,8 @@ function cmpDesc(a, b){ return b > a ? 1 : b < a ? -1 : 0; }
 // registry and renders client side. Keep it that way. A card that ever needs to appear
 // on the home page has to be ported first, like the five above.
 
-// `model` is deliberately precise about what ran, so 52 entries carry 47 distinct
-// strings and a raw tally is a list of ones. Group on the system rather than the release:
+// `model` is deliberately precise about what ran, so nearly every entry carries a
+// distinct string and a raw tally is a list of ones. Group on the system rather than the release:
 // the question the card answers is which systems produce findings, not which point
 // version did. Same shape as LAB_SHORT above, and an unlisted model still renders, it
 // just counts as its own row until it is named here.
@@ -841,7 +841,7 @@ const SORTS = {
 
 // ---------- Search ----------
 // Searching JSON.stringify(entry) matched keys, URLs and slugs as well as prose, so
-// "claim", "com" and "http" each matched all 52 entries and the box appeared to do
+// "claim", "com" and "http" each matched every entry and the box appeared to do
 // nothing. This searches named fields only. Built once per entry and cached: the
 // haystack is the same for every keystroke, and only the needle changes.
 const HAY = new Map();
@@ -868,9 +868,9 @@ function score(e, q){
        + (has(e.lab) || has(e.model) || has((e.humans || []).join(' ')) ? 1 : 0);
 }
 
-// Table or cards. The table is the default: a registry is for scanning, and 52 tall
-// cards is one long scroll. A preference rather than a property of the link, so it is
-// remembered the way the theme is, and a URL without ?view= opens the way this visitor
+// Table or cards. The table is the default: a registry is for scanning, and a page of
+// tall cards is one long scroll. A preference rather than a property of the link, so it
+// is remembered the way the theme is, and a URL without ?view= opens the way this visitor
 // last left it. An explicit ?view= in a link still wins for that visit.
 // Nothing stored is NOT the same answer as "table" stored, which is why this no longer
 // collapses both to 'table'. With no preference the viewport decides: .regtable is
@@ -1480,18 +1480,10 @@ function bootStatic(){
       if (copy) copy(url, null, () => flash('copied'), () => flash('selected'));
       else flash('selected');
       history.replaceState(null, '', '#' + id);
-      return;
     }
-    const btn = ev.target.closest('.vid-play');
-    if (!btn) return;
-    const box = btn.closest('.vid');
-    const id = encodeURIComponent(box.dataset.yt || '');
-    const wrap = document.createElement('div');
-    wrap.className = 'vid-frame';
-    wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1"
-      title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture"
-      allowfullscreen loading="lazy"></iframe>`;
-    box.replaceWith(wrap);
+    // The .vid-play facade swap used to live here. It moved to chrome.js when finding
+    // pages started carrying videos too: chrome.js is the only script on every page, and
+    // a second copy of it here is a second copy to keep in step.
   });
   render();
 
@@ -1695,8 +1687,8 @@ function wirePalette(){
 }
 
 // ---------- Loading the registry ----------
-// data/entries.json is 143 KB, and index.html already ships every one of its 52 entries
-// as pre-rendered markup. The JSON is needed only to filter, sort, search or export, so
+// data/entries.json is well over 100 KB, and index.html already ships every one of its
+// entries as pre-rendered markup. The JSON is needed only to filter, sort, search or export, so
 // it is no longer fetched on the critical path: the page is readable and interactive
 // first, and the data follows on idle, or the moment a control is touched, whichever
 // comes first. A URL that arrives already filtered needs it at once and says so.

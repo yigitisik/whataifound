@@ -355,29 +355,16 @@ def page_nav(current):
 
 
 # ------------------------------------------------------------------ shared chrome
-# The header and footer are generated for the same reason page_nav() is: they were
-# hand-written into five files and generated into none, and the copies had already
-# drifted. The theme switcher existed on the home page alone, so a reader who followed a
-# link to a finding page could not change the theme without going back; the minimal
-# footer was copy-pasted across four files, inline GitHub SVG and all.
-#
 # One definition, used two ways: injected between the HEADER/FOOTER markers in the five
-# hand-written pages, and called directly by entry_page(), which writes the 52 finding
-# pages from scratch. 404.html is the documented exception and carries its own inlined
-# copy, because it is self-contained by design so it still renders if styles.css fails.
-
-# The shared chrome is emitted one element per line rather than as one long string, and
-# that is load-bearing rather than cosmetic. It used to be a single unbroken line per
-# function, so a one-word change to the footer showed up in git as a 3.5 KB line deleted
-# and a 3.5 KB line added, on all 74 generated pages at once, with no way to see what
-# actually moved. Broken up, the same change is a few short readable lines.
+# hand-written pages, and called directly by entry_page(). 404.html is the documented
+# exception and carries its own inlined copy, so it still renders if styles.css fails.
 #
-# THE RULE, if you add to the chrome: break only between children of a flex container, a
-# grid container, or a block-level element. Never between inline children. Whitespace-only
-# text nodes are dropped between flex and grid items and collapse away between block
-# siblings, but between inline elements a newline renders as a space and moves the layout.
-# `.updated` and the interior of any <p> are the places that bite; both are left on one
-# line on purpose, and each says so where it is written.
+# THE RULE, if you add to the chrome: it is emitted one element per line, and you may
+# break only between children of a flex container, a grid container, or a block-level
+# element. Never between inline children. Whitespace-only text nodes are dropped between
+# flex and grid items and collapse away between block siblings, but between inline
+# elements a newline renders as a space and moves the layout. `.updated` and the interior
+# of any <p> are the places that bite; both are left on one line on purpose.
 #
 # Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
 # .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
@@ -458,35 +445,18 @@ THEME_SEG = NL.join([
 ])
 
 
-# The two doors, in one control.
+# The two doors, in one control: a pull request and signing in are the two equal ways in
+# that CONTRIBUTING.md describes, so they read as a pair of alternatives rather than as two
+# unrelated controls that happen to be adjacent.
 #
-# CONTRIBUTING.md's whole framing is that there are two equal ways in: a pull request, and
-# signing in to submit through the UI. The eyebrow used to contradict that. The GitHub mark
-# was a bare 26px glyph reading as a utility, and beside it sat a filled accent "Sign in"
-# pill, so the two doors were rendered at wildly different weights and only one looked like
-# an offer at all.
+# The sign-in half carries the word, and it is an accent *edge*, the same language
+# .pagenav a[aria-current] uses, not a filled pill, so the GitHub door keeps its footing
+# beside it. No Google mark: which provider signs you in is a property of the next screen,
+# which is also why this points at /signin rather than straight at Google.
 #
-# They are one segment now, bordered like the theme switcher, which makes them read as a
-# pair of alternatives rather than as two unrelated controls that happen to be adjacent.
-#
-# The sign-in half carries the word. An earlier revision had both doors as bare 26px marks
-# on the argument that the border already said they were actions, and that a filled pill
-# beside a glyph rendered the two doors at wildly different weights. The first half of that
-# did not survive contact: a vendor logo the same size and weight as the GitHub glyph next
-# to it reads as a second utility, not as the way in, and the one thing a masthead control
-# has to say is what happens when you press it. The second half is still respected. This is
-# an accent *edge*, the same language .pagenav a[aria-current] uses, not a filled pill, so
-# the GitHub door keeps its footing beside it.
-#
-# No Google mark on the button. Which provider signs you in is a property of the next
-# screen, and putting it here spends width on the one row that has none while promising a
-# vendor before the reader has asked. It points at /signin rather than straight at Google
-# for the same reason: a door should show you the room.
-#
-# The row is still the same width signed in and out, which the earlier version of this
-# note claimed and this one keeps true by a different means: the word is wider than the
-# identicon that replaces it, so .acct carries a min-width equal to the button's own width
-# and the slot measures the same in both states. Nothing reflows when the session resolves.
+# The row measures the same signed in and out. The word is wider than the identicon that
+# replaces it, so .acct carries a min-width equal to the button's own width and nothing
+# reflows when the session resolves.
 SIGNIN_LINK = (
     '<a class="door door-in" href="/signin" data-signin'
     ' aria-label="Sign in" title="Sign in">'
@@ -637,15 +607,12 @@ GITHUB_RE = r"[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?"
 def person(p):
     """One credited person.
 
-    The name links to their profile here if they have one, and to GitHub otherwise.
-    That order is deliberate: a site handle is an identity this project can speak to,
-    and a profile page that credits the same work is a better destination than an
-    unrelated GitHub account. Someone who contributed by pull request and never signed
-    in has only the GitHub link, and keeps it.
+    The name links to their profile here if they have one and to GitHub otherwise: a site
+    handle is an identity this project can speak to, and a profile crediting the same work
+    beats an unrelated GitHub account.
 
-    Both values become an href, so both are matched against their own character set
-    rather than trusted. An ORCID is shown as a separate mark because it is the
-    credential that carries weight here, and because it identifies a researcher rather
+    Both values become an href, so both are matched against their own character set rather
+    than trusted. An ORCID gets a separate mark because it identifies a researcher rather
     than an account.
     """
     name = esc(p.get("name"))
@@ -689,25 +656,15 @@ def credit_block(e):
 def history_block(e):
     """This entry's own history: when it arrived, and everything that moved since.
 
-    Editorial rule 2 says an entry is never deleted, it is downgraded and annotated and
-    the history stays public. The home page's activity feed showed that across the whole
-    registry, but the finding page, which is the citable record and the page a reader
-    actually lands on, said nothing about its own past. A reader looking at a downgraded
-    entry could not tell it had been downgraded.
+    Same merge and tiebreak as build_activity(), scoped to one entry: the authored
+    `revisions` plus the single synthesised `added` event, newest first. Every entry has at
+    least one row, so this is never empty.
 
-    Same merge and the same tiebreak as build_activity(), scoped to one entry: the
-    authored `revisions` plus the single synthesised `added` event, newest first. Every
-    entry therefore has at least one row, so this section is never empty and never has to
-    be conditionally hidden.
+    An entry that has never been regraded folds; one that has moved stays open, because a
+    reader looking at a downgraded grade has to see that it was downgraded without opening
+    anything. Folded, not dropped: a crawler that does not run scripts still reads it.
 
-    An entry that has never been regraded has nothing to say here beyond the day it
-    arrived, which the facts table already states, so those fold. An entry that has moved
-    stays open: a reader looking at a downgraded grade has to be able to see that it was
-    downgraded without opening anything. Folded, not dropped, because the history is part
-    of the record and a crawler that does not run scripts still reads it.
-
-    Dates are absolute, never relative, for the reason at the top of this file: there is
-    no clock in this script and the output is committed, so "3 days ago" would rot.
+    Dates are absolute, never relative, for the reason at the top of this file.
     """
     events = [(r["date"], r["kind"], r.get("note", ""), r.get("url"))
               for r in (e.get("revisions") or [])]
@@ -743,14 +700,14 @@ def history_block(e):
 
 
 def years_open(e):
-    """Derived, never stored: how long the problem stood before this result."""
+    """Port of app.js yearsOpen(). How long the problem stood, derived, never stored.
+
+    validate() has already rejected any entry whose date is not YYYY-MM-DD, so the slice
+    is safe without a guard.
+    """
     if e.get("year_posed") is None:
         return None
-    try:
-        resolved = int(str(e.get("date", ""))[:4])
-    except ValueError:
-        return None
-    n = resolved - e["year_posed"]
+    n = int(str(e["date"])[:4]) - e["year_posed"]
     return n if n >= 0 else None
 
 
@@ -760,6 +717,26 @@ def open_meta(e):
         return ""
     span = "same year" if n == 0 else f"open {n} yr{'' if n == 1 else 's'}"
     return f"<div><dt>Posed</dt><dd>{e['year_posed']} · {span}</dd></div>"
+
+
+def video_rows(e, pad):
+    """The click-to-load video facades, shared by card() and entry_page().
+
+    Nothing is requested from YouTube until the play button is pressed; chrome.js swaps
+    the facade for the iframe on click, on every page that can hold one. `pad` is the
+    indent of the inner lines, so card() keeps the exact bytes verify-parity.py diffs
+    against app.js while a finding page nests at its own depth.
+    """
+    p, q = " " * pad, " " * (pad - 2)
+    return "".join(
+        f'<div class="vid" data-yt="{esc(v["youtube_id"])}">\n'
+        f'{p}<button class="vid-play" type="button" aria-label="Play video: {esc(v["label"])}">&#9654;</button>\n'
+        f'{p}<span class="vid-meta"><span class="vid-t">{esc(v["label"])}</span>'
+        f'<span class="vid-ch">{esc(v["channel"])}</span></span>\n'
+        f'{p}<a class="vid-ext" href="https://www.youtube.com/watch?v={enc_uri_component(v["youtube_id"])}" '
+        f'target="_blank" rel="noopener">YouTube ↗</a>\n'
+        f'{q}</div>'
+        for v in e["videos"])
 
 
 def card(e):
@@ -790,17 +767,8 @@ def card(e):
                   if e.get("discussion") else "")
 
     if e.get("videos"):
-        vids = "".join(
-            f'<div class="vid" data-yt="{esc(v["youtube_id"])}">\n'
-            f'            <button class="vid-play" type="button" aria-label="Play video: {esc(v["label"])}">&#9654;</button>\n'
-            f'            <span class="vid-meta"><span class="vid-t">{esc(v["label"])}</span>'
-            f'<span class="vid-ch">{esc(v["channel"])}</span></span>\n'
-            f'            <a class="vid-ext" href="https://www.youtube.com/watch?v={enc_uri_component(v["youtube_id"])}" '
-            f'target="_blank" rel="noopener">YouTube ↗</a>\n'
-            f'          </div>'
-            for v in e["videos"])
         videos_block = (f'<div class="field reveal"><b>Video explainers</b>\n'
-                        f'          {vids}\n'
+                        f'          {video_rows(e, 12)}\n'
                         f'          <p class="vid-note">Nothing loads from YouTube until you press play.</p>\n'
                         f'        </div>')
     else:
@@ -1151,34 +1119,19 @@ def topic_card(entries, cap=0, cls=""):
             + hbars_html(out, "By topic area") + "</div>")
 
 
-def years_open(e):
-    """Port of app.js yearsOpen(). How long the problem stood, derived, never stored."""
-    if e.get("year_posed") is None:
-        return None
-    n = int(str(e["date"])[:4]) - e["year_posed"]
-    return n if n >= 0 else None
-
-
 def evidence_card(entries):
     """The evidence chain: how many entries link each kind of source.
 
-    The registry's whole thesis is that a result and the claim made about it are
-    different things, and `kind` is what encodes that per link. Counted per entry rather
-    than per link: "how many findings have an original work behind them" is the question,
-    and one paper cited twice is not two papers.
+    Counted per entry rather than per link: "how many findings have an original work behind
+    them" is the question, and one paper cited twice is not two papers.
 
-    Scaled to the registry, not to the tallest row, which is what hbars_html does and is
-    right for a ranking. This is coverage: a bar is the share of entries that have that
-    kind of link at all, so 48 of 52 has to read as nearly full and 8 of 52 as nearly
-    empty. Max-scaling would draw the first at 100% and the second at 17%, which states
-    the wrong thing about both. Same markup and classes, so it still looks like the charts
-    beside it. Rows follow vocabulary order (original work, claim, pushback), not count
-    order, because that sequence is the point the card is making.
+    Scaled to the registry, not to the tallest row, because this is coverage rather than a
+    ranking: a bar is the share of entries carrying that kind of link at all, so a kind
+    nearly every entry has must read as nearly full and a rare one as nearly empty. Rows follow vocabulary order
+    (original work, claim, pushback), not count order, because that sequence is the point.
 
-    Rows use the short `chip` form, not `label`: the label column is 86px in the home
-    page's strip and "Independent commentary" ellipsises to "Independent co...". The long
-    form stays in the tooltip and in the aria-label, so nothing is lost to a reader or a
-    screen reader, only to the visible column that cannot hold it.
+    Rows use the short `chip` form: the label column is 86px in the home page's strip and
+    "Independent commentary" ellipsises. The long form stays in the tooltip and aria-label.
 
     Ported in app.js as evidenceCard(); verify-parity.py diffs the two.
     """
@@ -1375,24 +1328,35 @@ def citation_block(e, url):
            f"}}")
     apa = f"whataifound.org. ({year}). {title}. {site}. {url}"
 
-    def block(label, text, lang=""):
+    def block(label, text, folded=False):
+        # When a fold's summary already names the format, the label inside the block just
+        # says it a second time; the copy button is the only thing the head still carries.
+        head = "" if folded else f'<span class="cite-label">{esc(label)}</span>'
         return (f'    <div class="cite-block">\n'
-                f'      <div class="cite-head"><span class="cite-label">{esc(label)}</span>'
+                f'      <div class="cite-head">{head}'
                 f'<button type="button" class="cite-copy" data-copy>Copy</button></div>\n'
-                f'      <pre class="cite-pre"{lang}><code>{esc(text)}</code></pre>\n'
+                f'      <pre class="cite-pre"><code>{esc(text)}</code></pre>\n'
                 f'    </div>')
 
+    # Plain text leads because it is the citation most people paste. BibTeX folds: it was
+    # eight lines of an open block that only the minority who want it will read, and the
+    # text still ships in the markup, so print expands it and a crawler still reads it.
+    # entry.js finds its target through .cite-block, which is inside the fold, so the copy
+    # button works closed or open.
     return ('  <h2 class="lbl">Cite this entry</h2>\n'
             '  <div class="cites">\n'
             + block("Plain text", apa) + "\n"
-            + block("BibTeX", bib) + "\n"
+            + '    <details class="fold cite-fold">\n'
+            + '    <summary>BibTeX</summary>\n'
+            + block("BibTeX", bib, folded=True) + "\n"
+            + '    </details>\n'
             + '  </div>')
 
 
 def related(e, entries):
     """Up to three other findings, ranked by shared tags then by field.
 
-    Every finding page was a dead end: 52 leaf pages with no route to a 53rd. These are
+    Every finding page was a dead end, with no route from one leaf page to another. These are
     computed at build time from the data, so there is no list to maintain and no way for
     them to point at an entry that no longer exists.
     """
@@ -1458,15 +1422,13 @@ def entry_nav(e, entries):
 def signal_block(e):
     """The three one-click triage signals, pre-rendered but hidden until signals.js runs.
 
-    Hidden rather than absent because the markup should be in the committed HTML where
-    check-integrity.py can see it, and revealed by script rather than shown by default
-    because a button that does nothing without JavaScript is worse than no button. The
-    reader with scripting off loses a feature they could not have used anyway, and the
-    page they get is the page they got before signals existed.
+    Hidden rather than absent: the markup belongs in the committed HTML where
+    check-integrity.py can see it, but a button that does nothing without JavaScript is
+    worse than no button.
 
-    The note under the buttons is not decoration. Editorial rule: grades move on
-    evidence, never on opinion, and a count of clicks is an opinion. Saying so at the
-    point of clicking is the only place a reader will actually read it.
+    The note under the buttons is not decoration. Editorial rule: grades move on evidence,
+    never on opinion, and a count of clicks is an opinion. The point of clicking is the only
+    place a reader will actually read that.
     """
     buttons = "".join(
         f'<button type="button" class="sig-b" data-kind="{esc(k)}" aria-pressed="false" '
@@ -1487,17 +1449,15 @@ def signal_block(e):
 def entry_page(e, entries, updated):
     """A standalone, independently citable page for one finding.
 
-    The point of these is citation surface: an answer engine picks 2–7 sources per
-    answer, and a URL that answers exactly one question beats a homepage that
-    answers twenty-two.
+    The point of these is citation surface: an answer engine picks a handful of sources per
+    answer, and a URL that answers exactly one question beats a homepage that answers all
+    of them.
 
-    The claim leads the page, and the facts and every source sit beside each other
-    directly under it. What a reader and an answer engine both want first is what was
-    found and what backs it, so the evidence is in the opening screen rather than below
-    the prose about it. The synthesised verdict sentence is still built, because it is
-    the meta description an engine quotes when it has not fetched the body, but it is no
-    longer printed: on the page it restated the two grade pills immediately above it and
-    pushed the claim and the sources down a screen to do it.
+    The claim leads, with the facts and every source beside each other directly under it,
+    so the evidence is in the opening screen rather than below the prose about it. The
+    synthesised `verdict` sentence is still built because it is the meta description an
+    engine quotes when it has not fetched the body, but it is not printed: on the page it
+    only restated the two grade pills above it.
     """
     url = f"{SITE}/finding/{e['id']}"
     ver = VER_LABEL.get(e["verification"], e["verification"])
@@ -1528,12 +1488,9 @@ def entry_page(e, entries, updated):
     check = issue_url("independent-check.yml", f"Independent check: {e['id']}")
     correction = issue_url("correction.yml", f"Correction: {e['id']}")
 
-    # The in-UI route, which is now the primary one. Same questions as the issue
-    # templates above, same review at the end; the difference is that this one does not
-    # need a GitHub account or a fork, and 34 of 52 entries have never been checked
-    # because the cheapest possible contribution still cost a signup. The GitHub links
-    # stay, quieter, because a contributor who already lives there should not be pushed
-    # through a form.
+    # The in-UI route, which is the primary one: same questions as the issue templates
+    # above and the same review at the end, without needing a GitHub account or a fork. The
+    # GitHub links stay, quieter, for a contributor who already lives there.
     # Raw "&" here: esc() runs on the way into the href, and pre-escaping would emit
     # &amp;amp;.
     def ui_url(kind):
@@ -1563,8 +1520,11 @@ def entry_page(e, entries, updated):
                     "claim counts as a check, and you are credited on the entry.")
     else:
         ask_title = "Disagree with these grades?"
-        ask_body = ("Entries are never deleted. A grade that does not hold up is downgraded on "
-                    "the record, with the objection beside it. Bring a citation.")
+        # The history section below already states that nothing is deleted and that a grade
+        # that does not hold up is downgraded on the record. Saying it twice on one page
+        # spent the panel's only two lines restating the section under it, so this keeps
+        # just the part that is an instruction to the reader.
+        ask_body = ("Bring a citation: a grade moves on evidence, not on argument.")
 
     verdict = (f"{e['title']} is graded {ver.lower()} on whataifound.org, with the AI's "
                f"role graded {aut.lower()}.")
@@ -1575,18 +1535,33 @@ def entry_page(e, entries, updated):
     # No Verification or Autonomy rows: both are stated by the pills under the title and
     # again by the grade note at the foot. Three times on one page was two too many, and
     # these are the two cells that pushed the table into a second row.
-    facts = [("Lab", e.get("lab")),
-             ("Model", e.get("model")),
-             ("Field", FIELD_LABEL.get(e.get("field"), e.get("field"))),
-             ("Date", e.get("date"))]
+    # The lab is the strongest facet on the entry and was the only one that went nowhere:
+    # Field is a link in the breadcrumb above, tags are chips below. It goes to this site's
+    # hub for the organisation when there is one, and to the filtered registry otherwise, so
+    # the row is never a dead end. ?lab= matches the full attribution string, which is what
+    # the home page's own filter is populated with, not the hub_org() short form.
+    lab_href = (lab_hub_url(lab_groups(entries), hub_org(e.get("lab")))
+                or (f"/?lab={enc_uri_component(e['lab'])}" if e.get("lab") else None))
+    facts = [("Lab", e.get("lab"), lab_href),
+             ("Model", e.get("model"), None),
+             ("Field", FIELD_LABEL.get(e.get("field"), e.get("field")), None),
+             ("Date", e.get("date"), None)]
     if e.get("humans"):
-        facts.append(("Human collaborators", ", ".join(e["humans"])))
+        facts.append(("Human collaborators", ", ".join(e["humans"]), None))
     if e.get("year_posed") is not None:
         facts.append(("Problem posed", str(e["year_posed"])
-                      + (f" · open {n} yr{'' if n == 1 else 's'}" if n else "")))
+                      + (f" · open {n} yr{'' if n == 1 else 's'}" if n else ""), None))
+    shown = [(k, v, href) for k, v, href in facts if v]
     fact_rows = "\n".join(
-        f"      <div><dt>{esc(k)}</dt><dd>{esc(v)}</dd></div>"
-        for k, v in facts if v)
+        f"      <div><dt>{esc(k)}</dt><dd>"
+        + (f'<a href="{esc(href)}">{esc(v)}</a>' if href else esc(v))
+        + "</dd></div>"
+        for k, v, href in shown)
+    # The strip is four cells wide and the four required fields fill it exactly. Human
+    # collaborators and a posed year are optional, so the row can also be five or six, and
+    # an auto-fitting grid left the leftovers sitting beside two or three empty cells.
+    # styles.css widens the last row to close that, and needs the count to do it.
+    facts_cls = f"finding-facts n{len(shown)}"
 
     def section(title, body):
         return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
@@ -1620,6 +1595,14 @@ def entry_page(e, entries, updated):
                if c.get("url") else "") + "</p>"
             for c in e["independent_checks"])
         checks = f'\n  <h2 class="lbl">Independent checks</h2>\n  <div class="checks">{rows}</div>'
+    # The registry card carries these and this page did not, so the canonical record showed
+    # less about an entry than the list it was reached from. Placed under the prose, where a
+    # reader who has just read what was found is looking for someone to explain it.
+    videos = ""
+    if e.get("videos"):
+        videos = (f'\n  <h2 class="lbl">Video explainers</h2>\n  {video_rows(e, 4)}'
+                  f'\n  <p class="vid-note">Nothing loads from YouTube until you press '
+                  f'play.</p>')
     # Same chips as the registry card, down beside the related grid rather than under the
     # title: these are navigation into the rest of the registry, not evidence about this
     # finding, and five of them under the h1 compete with the claim. They already decide
@@ -1702,7 +1685,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 
   <section class="glance">
     <div class="glance-facts">
-      <dl class="finding-facts">
+      <dl class="{facts_cls}">
 {fact_rows}
       </dl>
     </div>
@@ -1710,7 +1693,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
       <h2 class="lbl">Sources</h2>{sources}
     </div>
   </section>
-{section("What was found", e.get("detail"))}{section("Novelty check", e.get("novelty_check"))}{fold("Caveats and known objections", e.get("caveats"))}{checks}
+{section("What was found", e.get("detail"))}{videos}{section("Novelty check", e.get("novelty_check"))}{fold("Caveats and known objections", e.get("caveats"))}{checks}
 
   <div class="challenge">
     <p class="challenge-t">{esc(ask_title)}</p>
@@ -1802,9 +1785,20 @@ def build_llms_txt(entries):
         "verification, autonomy, lab, tag or date added, with a fixed field contract",
         f"- [RSS]({SITE}/feed.xml) · [JSON Feed]({SITE}/feed.json): new and updated entries",
         "",
-        "## Findings",
-        "",
     ]
+    # The lab hubs, which the per-field listing below cannot reach: it groups by field, so
+    # an organisation working across three of them had no URL here at all while every topic
+    # had one. Same purpose as the "All N in one page" line under each field heading.
+    groups = lab_groups(entries)
+    hubbed = sorted((o for o in groups if lab_hub_url(groups, o)),
+                    key=lambda o: (-len(groups[o]), o))
+    if hubbed:
+        lines += ["## By lab", "",
+                  "Every finding credited to one organisation, on one page.", ""]
+        lines += [f"- [{o}]({SITE}/lab/{slugify(o)}): {len(groups[o])} findings"
+                  for o in hubbed]
+        lines.append("")
+    lines += ["## Findings", ""]
     for field in sorted(by_field, key=lambda k: FIELD_LABEL.get(k, k)):
         lines.append(f"### {FIELD_LABEL.get(field, field)}")
         lines.append("")
@@ -2312,16 +2306,43 @@ def build_topic_hub(entries):
         for f, c in sorted(counts.items(), key=lambda kv: (-kv[1], kv[0])))
 
 
-def build_lab_hub(entries):
-    """Regenerate the lab row of the #sources hub from the registry itself."""
-    counts = {}
+def lab_groups(entries):
+    """Entries per organisation, after hub_org() normalisation. One traversal, two callers.
+
+    build_lab_hub() wants the counts and build_hubs() wants the entries, and the two have
+    to agree about which organisations exist: a card that links to a hub page nobody wrote
+    is a 404 that no checker would catch.
+    """
+    groups = {}
     for e in entries:
         org = hub_org(e.get("lab"))
-        if org in LAB_HUB_SKIP:
+        if not org or org in LAB_HUB_SKIP:
             continue
-        counts[org] = counts.get(org, 0) + 1
+        groups.setdefault(org, []).append(e)
+    return groups
 
-    missing = sorted(o for o in counts if o not in LAB_HUB)
+
+def lab_hub_url(groups, org):
+    """This site's own hub for an organisation, or None when it is under the bar.
+
+    Decided from the same rule build_hubs() applies rather than from what it has written,
+    because main() builds the home page first.
+    """
+    return f"/lab/{slugify(org)}" if len(groups.get(org, ())) >= HUB_MIN_ENTRIES else None
+
+
+def build_lab_hub(entries):
+    """Regenerate the lab row of the #sources hub from the registry itself.
+
+    The card body points at this site's own hub whenever the organisation has one. These
+    cards are the most specific thing on the home page, and sending that click straight
+    off-site walked the reader past the findings the registry actually holds about the lab
+    they just expressed interest in. The arrow keeps the off-site research page, which is
+    the other thing they might have meant.
+    """
+    groups = lab_groups(entries)
+
+    missing = sorted(o for o in groups if o not in LAB_HUB)
     if missing:
         # Warn rather than fail: a new entry from an unlisted university should not break the
         # build, but the map must not silently fall behind either.
@@ -2329,27 +2350,35 @@ def build_lab_hub(entries):
               f"(add to LAB_HUB in {os.path.basename(__file__)})")
 
     cards = ""
-    for org in sorted(counts, key=lambda o: (-counts[o], o)):
-        url = LAB_HUB.get(org)
-        if not url:
+    for org in sorted(groups, key=lambda o: (-len(groups[o]), o)):
+        hub, ext = lab_hub_url(groups, org), LAB_HUB.get(org)
+        # An organisation with neither has nowhere to send anyone. It keeps its entries in
+        # the registry and its /?lab= filter; it just has no card here.
+        if not hub and not ext:
             continue
-        n = counts[org]
+        n = len(groups[org])
+        href = hub or ext
+        away = "" if hub else ' target="_blank" rel="noopener"'
+        # The arrow is a second destination, not decoration, so it carries its own label.
+        arrow = (f'<a class="labcard-go" href="{esc(ext)}" target="_blank" rel="noopener" '
+                 f'aria-label="{attr(org)} research site" title="{attr(org)} research site">'
+                 f'↗</a>') if ext else ""
         cards += (
-            f'<a class="labcard" href="{esc(url)}" target="_blank" rel="noopener">'
+            f'<div class="labcard">'
+            f'<a class="labcard-main" href="{esc(href)}"{away}>'
             f'{hub_mark(org)}'
             f'<span class="labcard-meta"><b>{esc(org)}</b>'
-            f'<span>{n} {"entry" if n == 1 else "entries"}</span></span>'
-            f'<span class="labcard-go" aria-hidden="true">↗</span></a>')
+            f'<span>{n} {"entry" if n == 1 else "entries"}</span></span></a>'
+            f'{arrow}</div>')
     return cards
 
 
 # ------------------------------------------------------------------ hub pages
-# A lab needs this many entries before it gets its own page. The registry has 22
-# organisations after hub_org() normalisation and 16 of them hold exactly one entry, so
-# generating a page each would mean sixteen near-identical pages carrying one row: thin
-# for a reader and thin in the eyes of a search engine, which is the opposite of what
-# these are for. Everything below the bar is still reachable through the filtered
-# registry (/?lab=...), and fills in on its own as the registry grows.
+# A lab needs this many entries before it gets its own page. Most organisations in the
+# registry hold exactly one, and a page each would mean a pile of near-identical pages
+# carrying one row: thin for a reader and thin in the eyes of a search engine, which is
+# the opposite of what these are for. Everything below the bar is still reachable
+# through the filtered registry (/?lab=...), and fills in as the registry grows.
 #
 # Fields are not thresholded: there are eleven, every one carries a vocabulary definition
 # worth reading, and "what has AI found in chemistry" is a question the page answers even
@@ -2532,13 +2561,9 @@ def build_hubs(entries, updated):
             f"Every finding in the registry filed under {label.lower()}, with what each "
             f"one claims and how solid the evidence is.", of, label))
 
-    by_lab = {}
-    for e in entries:
-        org = hub_org(e.get("lab"))
-        if org and org not in LAB_HUB_SKIP:
-            by_lab.setdefault(org, []).append(e)
+    by_lab = lab_groups(entries)
     for org, of in sorted(by_lab.items()):
-        if len(of) < HUB_MIN_ENTRIES:
+        if not lab_hub_url(by_lab, org):
             continue
         groups.append((
             "lab", slugify(org), f"AI findings from {org}",
@@ -2672,7 +2697,7 @@ def build_review(entries):
     The page explains the ask once, in the lede in review.html. Nothing here repeats it.
     """
     # The queue is about verification, and only verification. Metadata gaps are real but
-    # minor, and folding them in put 51 of 52 entries on the page, which reads as "the
+    # minor, and folding them in put nearly every entry on the page, which reads as "the
     # whole registry is broken" rather than as a task list anyone would pick up. They get
     # a compact section at the bottom instead.
     WEAK = ("claimed", "author-verified", "disputed")

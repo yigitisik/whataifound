@@ -1,11 +1,5 @@
-// The shared chrome: everything in the header that has to work on every page.
-//
-// This exists because the theme switcher used to live in app.js, and app.js loads only
-// on the registry and visuals pages. The switcher was therefore missing from the
-// methodology, review and contributors pages (which load no JavaScript at all), from all
-// 52 finding pages, and from 404. The stored theme still applied everywhere, because the
-// pre-paint initialiser is inlined in every page; there was simply no control to change
-// it once you left the home page.
+// The shared chrome: everything in the header that has to work on every page. This is the
+// only script that loads on all of them, so anything every page needs belongs here.
 //
 // Kept small on purpose, and separate from app.js for the same reason entry.js is: a
 // finding page should not download 47 KB of filtering and chart code to run a theme
@@ -104,22 +98,17 @@
     c => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 
   // ---------- Shared helpers for the per-page scripts ----------
-  // account.js, admin.js, contribute.js and signals.js each had their own copy of these.
-  // There is no module system here on purpose (no bundler, no build step for the
-  // client), so the sharing mechanism is the one this file already uses for the session
-  // and the identicon: hang it on window, and rely on chrome.js loading first.
+  // There is no module system here on purpose (no bundler, no build step for the client),
+  // so the sharing mechanism is to hang a helper on window and rely on load order.
   //
-  // That ordering is guaranteed, not hoped for. Every page loads chrome.js before its
-  // own script and both carry `defer`, which runs them in document order. app.js is the
-  // exception and deliberately keeps its own esc(): it loads WITHOUT defer on the home
-  // page, so it executes before this file, and its copy is diffed byte for byte against
-  // the Python port in build-site.py by verify-parity.py. It must not move.
-  //
-  // The distinction that matters for anything added here is WHEN the helper is read, not
-  // which page reads it. esc() is called while app.js is still evaluating, so app.js
-  // cannot borrow this one. wafCopy is read inside a click handler, which cannot run
-  // before a human clicks, so app.js borrows that one safely. A helper hoisted from a
-  // handler to the top level of app.js would start returning undefined.
+  // THE RULE for anything added here: what matters is WHEN the helper is read, not which
+  // page reads it. Every page loads chrome.js before its own script and both carry
+  // `defer`, which runs them in document order. app.js is the exception: it loads WITHOUT
+  // defer on the home page, so it executes before this file. esc() is called while app.js
+  // is still evaluating, so app.js keeps its own copy (also diffed byte for byte against
+  // build-site.py by verify-parity.py, so it must not move). wafCopy is only read inside a
+  // click handler, which cannot run before a human clicks, so app.js borrows that one
+  // safely. Hoisting such a helper to the top level of app.js would get undefined.
 
   /**
    * Show one of a page's pre-rendered states and hide the rest.
@@ -182,10 +171,28 @@
   window.wafEsc = esc;
   window.wafShow = show;
   window.wafLabels = LABELS;
-  // Safe for app.js to use despite the load-order note above, because app.js reads it
-  // inside a click handler rather than at load: by the time anyone clicks, this file has
-  // long since run. Reading it at the top level of app.js would get undefined.
   window.wafCopy = copyText;
+
+  // ---------- Video facades ----------
+  // Nothing is requested from YouTube until this runs: build-site.py renders a button and
+  // a title, and the iframe is created here, on click. That is the whole privacy claim the
+  // .vid-note under each row makes, so it has to stay a click away.
+  //
+  // Here rather than in app.js because both the registry cards and the finding pages carry
+  // videos now, and this file is the only script that loads on both.
+  document.addEventListener('click', ev => {
+    const btn = ev.target.closest('.vid-play');
+    if (!btn) return;
+    const box = btn.closest('.vid');
+    if (!box) return;
+    const id = encodeURIComponent(box.dataset.yt || '');
+    const wrap = document.createElement('div');
+    wrap.className = 'vid-frame';
+    wrap.innerHTML = `<iframe src="https://www.youtube-nocookie.com/embed/${id}?autoplay=1"
+      title="YouTube video player" allow="autoplay; encrypted-media; picture-in-picture"
+      allowfullscreen loading="lazy"></iframe>`;
+    box.replaceWith(wrap);
+  });
 
   // ---------- Account control ----------
   // The header is pre-rendered signed-out. This swaps it once the session resolves,

@@ -5,25 +5,20 @@
 
 Why this is separate from build.py
 ----------------------------------
-build.py regenerates the site and CI fails on any diff, which catches a stale build.
-That is not the same as catching a *malicious* one. Two gaps it does not close:
+build.py regenerates the site and CI fails on any diff, which catches a stale build but
+not a *malicious* one. Two gaps it does not close:
 
-1. Roughly a quarter of index.html (the <head>, the JSON-LD block, the nav, the
-   footer, the script tags) sits outside the <!--…:START/END--> markers and is never
-   regenerated. A payload placed there survives every rebuild untouched, so `git diff`
-   after a rebuild is clean and CI is satisfied.
+1. Roughly a quarter of index.html (the <head>, the JSON-LD block, the nav, the footer,
+   the script tags) sits outside the <!--…:START/END--> markers and is never regenerated.
+   A payload placed there survives every rebuild, so `git diff` is clean and CI is happy.
 
-2. Generated output is committed, so a PR's diff contains tens of thousands of lines
-   of machine-written HTML. A reviewer skimming that is exactly who a smuggled
-   <script> is aimed at.
+2. Generated output is committed, so a PR's diff is tens of thousands of lines of
+   machine-written HTML. A reviewer skimming that is who a smuggled <script> is aimed at.
 
-So this asserts properties of the *content*, independent of whether it was generated:
-no unexpected inline scripts, no external script/frame origins outside the CSP, no
-javascript:/data: links, and no stray markup in the registry data. It is cheap, has no
-dependencies, and is meant to run on every PR alongside the rebuild.
-
-It also enforces one house-style rule, for the same reason: prose is written by hand in
-a dozen places and a rule nobody can forget is worth more than a rule everybody knows.
+So this asserts properties of the *content*, independent of whether it was generated: no
+unexpected inline scripts, no external script/frame origins outside the CSP, no
+javascript:/data: links, no stray markup in the registry data, and the house rule on em
+dashes and control characters.
 
 Exits non-zero and names the file and line on any violation.
 """
