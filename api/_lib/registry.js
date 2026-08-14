@@ -65,6 +65,7 @@ export const ENTRY_IDS = new Set([
   "2026-06-02-jamming-exponent-identity",
   "2026-06-17-kagome-superconductors",
   "2026-06-25-herculaneum-scroll-read",
+  "2026-07-10-cycle-double-cover",
   "2026-07-11-grothendieck-group-schemes",
   "2026-07-14-sabidussi-compatibility",
   "2026-07-14-zeroth-order-oracle-bound",
@@ -78,7 +79,12 @@ export const ENTRY_IDS = new Set([
   "2026-07-29-sumset-difference-exponent",
   "2026-08-01-astra-ten-advances",
   "2026-08-04-moore-bound",
-  "2026-08-10-zeta-zeros-critical-line"
+  "2026-08-05-schiffer-conjecture",
+  "2026-08-05-sendov-conjecture",
+  "2026-08-08-petersen-coloring",
+  "2026-08-10-zeta-zeros-critical-line",
+  "2026-08-12-liquid-drop-minimizers",
+  "2026-08-13-sop2-sop3"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -106,7 +112,7 @@ export const ENTRY_GRADES = {
   "2025-01-16-esmgfp": ["peer-reviewed", "ai-led"],
   "2025-01-16-mattergen": ["disputed", "search-scaffold"],
   "2025-02-13-designed-serine-hydrolases": ["peer-reviewed", "search-scaffold"],
-  "2025-02-ai-coscientist-amr": ["author-verified", "ai-assisted"],
+  "2025-02-ai-coscientist-amr": ["peer-reviewed", "ai-assisted"],
   "2025-03-12-ai-scientist-workshop-paper": ["author-verified", "ai-led"],
   "2025-05-alphaevolve-kissing": ["independent", "search-scaffold"],
   "2025-05-alphaevolve-matmul": ["independent", "search-scaffold"],
@@ -122,7 +128,7 @@ export const ENTRY_GRADES = {
   "2025-10-19-gpt5-erdos-retrieval": ["known", "retrieval"],
   "2025-11-03-alphaevolve-at-scale": ["independent", "search-scaffold"],
   "2025-11-gpt5-science-acceleration": ["peer-reviewed", "ai-assisted"],
-  "2025-robin-macular": ["claimed", "ai-led"],
+  "2025-robin-macular": ["peer-reviewed", "ai-led"],
   "2026-01-alphaevolve-bruhat": ["independent", "search-scaffold"],
   "2026-01-erdos-728": ["formal", "autonomous"],
   "2026-05-18-pevac-ps-sarbecovirus": ["peer-reviewed", "ai-assisted"],
@@ -131,6 +137,7 @@ export const ENTRY_GRADES = {
   "2026-06-02-jamming-exponent-identity": ["peer-reviewed", "collaborative"],
   "2026-06-17-kagome-superconductors": ["peer-reviewed", "search-scaffold"],
   "2026-06-25-herculaneum-scroll-read": ["author-verified", "ai-assisted"],
+  "2026-07-10-cycle-double-cover": ["formal", "ai-led"],
   "2026-07-11-grothendieck-group-schemes": ["formal", "collaborative"],
   "2026-07-14-sabidussi-compatibility": ["formal", "collaborative"],
   "2026-07-14-zeroth-order-oracle-bound": ["formal", "ai-led"],
@@ -144,7 +151,12 @@ export const ENTRY_GRADES = {
   "2026-07-29-sumset-difference-exponent": ["formal", "ai-led"],
   "2026-08-01-astra-ten-advances": ["formal", "ai-led"],
   "2026-08-04-moore-bound": ["formal", "ai-assisted"],
-  "2026-08-10-zeta-zeros-critical-line": ["formal", "ai-led"]
+  "2026-08-05-schiffer-conjecture": ["formal", "ai-assisted"],
+  "2026-08-05-sendov-conjecture": ["formal", "collaborative"],
+  "2026-08-08-petersen-coloring": ["formal", "ai-assisted"],
+  "2026-08-10-zeta-zeros-critical-line": ["formal", "ai-led"],
+  "2026-08-12-liquid-drop-minimizers": ["author-verified", "ai-led"],
+  "2026-08-13-sop2-sop3": ["author-verified", "collaborative"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -197,6 +209,7 @@ export const ENTRY_TITLES = {
   "2026-06-02-jamming-exponent-identity": "Identity for the critical exponents of jamming derived analytically",
   "2026-06-17-kagome-superconductors": "Two kagome superconductors predicted by machine learning and confirmed in the lab",
   "2026-06-25-herculaneum-scroll-read": "First Herculaneum scroll read end to end without unrolling it",
+  "2026-07-10-cycle-double-cover": "Cycle double cover conjecture proved for all bridgeless multigraphs",
   "2026-07-11-grothendieck-group-schemes": "Counterexample to Grothendieck's question on finite flat group schemes",
   "2026-07-14-sabidussi-compatibility": "Sabidussi's compatibility conjecture proved",
   "2026-07-14-zeroth-order-oracle-bound": "Near-quadratic lower bound for derivative-free convex optimization",
@@ -210,7 +223,12 @@ export const ENTRY_TITLES = {
   "2026-07-29-sumset-difference-exponent": "Optimal exponent relating sumsets and difference sets determined",
   "2026-08-01-astra-ten-advances": "Ten results in mathematics and theoretical computer science with Lean certificates",
   "2026-08-04-moore-bound": "Asymptotic degree-diameter problem resolved for fixed diameter",
-  "2026-08-10-zeta-zeros-critical-line": "Proportion of zeta zeros on the critical line raised to 67.25%"
+  "2026-08-05-schiffer-conjecture": "Counterexamples to Schiffer's conjecture and the Pompeiu problem",
+  "2026-08-05-sendov-conjecture": "Sendov's conjecture proved for every degree",
+  "2026-08-08-petersen-coloring": "A 112-vertex counterexample to the Petersen coloring conjecture",
+  "2026-08-10-zeta-zeros-critical-line": "Proportion of zeta zeros on the critical line raised to 67.25%",
+  "2026-08-12-liquid-drop-minimizers": "Complete minimizer picture for Gamow's liquid drop model",
+  "2026-08-13-sop2-sop3": "SOP_2 and SOP_3 theories shown to coincide"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

@@ -68,10 +68,10 @@ feed_url_xml = f"{SITE}/feed.xml"
 # ---- JSON Feed 1.1 (https://www.jsonfeed.org/version/1.1/) ----
 json_feed = {
     "version": "https://jsonfeed.org/version/1.1",
-    "title": "whataifound.org: What AI Has Actually Discovered",
+    "title": "whataifound.org: What AI Has Actually Contributed",
     "home_page_url": f"{SITE}/",
     "feed_url": feed_url_json,
-    "description": "New and updated entries in the whataifound.org registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
+    "description": "New and updated entries in the whataifound.org registry of AI contributions to science and mathematics, graded on verification and autonomy.",
     "language": "en",
     "icon": f"{SITE}/assets/brand/og.png",
     "favicon": f"{SITE}/assets/brand/favicon.svg",
@@ -117,11 +117,11 @@ rss = (
     '<?xml version="1.0" encoding="UTF-8"?>\n'
     '<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">\n'
     "<channel>\n"
-    "<title>whataifound.org: What AI Has Actually Discovered</title>\n"
+    "<title>whataifound.org: What AI Has Actually Contributed</title>\n"
     f"<link>{SITE}/</link>\n"
     f'<atom:link href="{feed_url_xml}" rel="self" type="application/rss+xml" />\n'
-    "<description>New and updated entries in the whataifound.org registry of AI scientific "
-    "and mathematical discoveries, graded on verification and autonomy.</description>\n"
+    "<description>New and updated entries in the whataifound.org registry of AI "
+    "contributions to science and mathematics, graded on verification and autonomy.</description>\n"
     "<language>en</language>\n"
     f"<lastBuildDate>{format_datetime(now)}</lastBuildDate>\n"
     f"<image><url>{SITE}/assets/brand/og.png</url><title>whataifound.org</title>"

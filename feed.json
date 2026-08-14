@@ -1,13 +1,95 @@
 {
   "version": "https://jsonfeed.org/version/1.1",
-  "title": "whataifound.org: What AI Has Actually Discovered",
+  "title": "whataifound.org: What AI Has Actually Contributed",
   "home_page_url": "https://whataifound.org/",
   "feed_url": "https://whataifound.org/feed.json",
-  "description": "New and updated entries in the whataifound.org registry of AI scientific and mathematical discoveries, graded on verification and autonomy.",
+  "description": "New and updated entries in the whataifound.org registry of AI contributions to science and mathematics, graded on verification and autonomy.",
   "language": "en",
   "icon": "https://whataifound.org/assets/brand/og.png",
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
+    {
+      "id": "https://whataifound.org/finding/2026-08-13-sop2-sop3",
+      "url": "https://whataifound.org/finding/2026-08-13-sop2-sop3",
+      "title": "SOP_2 and SOP_3 theories shown to coincide",
+      "content_text": "The classes of SOP_2 and SOP_3 first-order theories are the same, answering a 2004 question of Džamonja and Shelah and collapsing the bottom of the SOP hierarchy to a single class.  Džamonja and Shelah introduced the tree configurations SOP_1 and SOP_2 in 2004 and asked whether either implication in the chain from SOP_3 to SOP_2 to SOP_1 reverses. Mutchnik answered the second, proving SOP_1 equals SOP_2, and the surviving half organised much of the subsequent NSOP_1 literature, with partial results by Conant, by Kaplan, Ramsey and Simon, and by Mutchnik. This five-page paper proves that SOP_2 implies SOP_3, the converse having been known from the start, which collapses the bottom of the hierarchy to a single class and carries consequences for Keisler-order maximality. The SOP_n hierarchy for n at least three is untouched, as is everything above it.  Lab: Independent. Model: ChatGPT 5.6. Verification: Author verified. Autonomy: Collaborative.",
+      "date_published": "2026-08-13T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "model-theory",
+        "logic",
+        "classification-theory"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-12-liquid-drop-minimizers",
+      "url": "https://whataifound.org/finding/2026-08-12-liquid-drop-minimizers",
+      "title": "Complete minimizer picture for Gamow's liquid drop model",
+      "content_text": "Balls uniquely minimize the Gamow liquid drop energy at every volume up to a sharp threshold of about 3.51, and above that threshold no minimizer exists, closing a gap that partial results had narrowed from both sides without meeting.  Gamow's liquid drop functional adds De Giorgi perimeter to a Coulomb repulsion term, and the central question in its literature is the fixed-volume minimization picture: for which volumes a minimizer exists, and whether it is the ball. This proves that balls uniquely minimize, up to translation and null sets, at every volume up to a threshold of 5 times 2 minus 2 to the two thirds, divided by 2 to the two thirds minus 1, roughly 3.51, and that above that threshold no minimizer exists at all. A corollary settles the minimal binding energy question of Frank and Lieb, identifying the infimum of energy per unit volume and the ball of volume 5/2 as the unique minimizer. The mechanism is a capacitary estimate sharpening an Agostiniani–Mazzieri monotonicity formula through Gauss–Bonnet, an improvement the authors note applies only to this particular weight and only in three dimensions.  Lab: Independent. Model: ChatGPT 5.6 Pro. Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-08-12T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "calculus-of-variations",
+        "geometric-analysis",
+        "mathematical-physics"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-08-petersen-coloring",
+      "url": "https://whataifound.org/finding/2026-08-08-petersen-coloring",
+      "title": "A 112-vertex counterexample to the Petersen coloring conjecture",
+      "content_text": "An explicit simple bridgeless cubic graph on 112 vertices admits no Petersen coloring, and hence no normal 5-edge-coloring, refuting a conjecture of Jaeger from 1985 with machine-checked UNSAT certificates.  Jaeger conjectured in 1985 that every bridgeless cubic graph admits a Petersen coloring: a map from its edges into the edges of the Petersen graph sending the three edges at each vertex to three edges meeting at a common vertex of the Petersen graph. Equivalently, every bridgeless cubic graph has a normal 5-edge-coloring. The conjecture implies both the Berge–Fulkerson conjecture and the 5-cycle-double-cover conjecture. This paper gives an explicit simple connected bridgeless cubic graph on 112 vertices, of girth five and edge and vertex connectivity three, with no such coloring; the graph is pinned by a SHA-256 digest in the theorem statement itself. Non-existence is established by direct SAT formulations, with CaDiCaL 3.0.1 returning UNSAT and drat-trim verifying the resulting DRAT proofs. A second, non-isomorphic counterexample of the same order is supplied. The implication runs one way, so Berge–Fulkerson and the 5-cycle-double-cover conjecture stay open; combined with a theorem of Ma, Mattiolo, Steffen and Wolf, one counterexample yields infinitely many.  Lab: Independent. Model: Unnamed OpenAI model. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-08T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "graph-theory",
+        "counterexample",
+        "sat-solver",
+        "combinatorics"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-05-sendov-conjecture",
+      "url": "https://whataifound.org/finding/2026-08-05-sendov-conjecture",
+      "title": "Sendov's conjecture proved for every degree",
+      "content_text": "For every complex polynomial of degree at least two whose zeros all lie in the closed unit disk, each zero has a critical point of the polynomial within distance one, closing a question open since 1959.  Sendov's conjecture states that if every zero of a complex polynomial of degree n at least two lies in the closed unit disk, then every zero has a critical point within distance one. Degrees up to eight were settled piecemeal between 1969 and 1999, and Tao proved the conjecture for all sufficiently large degree in 2020 without specifying the threshold, which left the middle range open. Lech Mazur, working with GPT-5.6 Pro, produced an argument covering every degree along with a Lean development of roughly 90,000 lines. Terence Tao then digested the proof, describing it as remarkably elementary with no complex analysis used beyond the fundamental theorem of algebra, and formalized the entire argument himself in about 15,000 lines. He reports that the same argument resolves the Phelps–Rodriguez conjecture in full generality.  Lab: Independent. Model: GPT-5.6 Pro. Verification: Formally verified. Autonomy: Collaborative.",
+      "date_published": "2026-08-05T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "complex-analysis",
+        "polynomials",
+        "formalization"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-05-schiffer-conjecture",
+      "url": "https://whataifound.org/finding/2026-08-05-schiffer-conjecture",
+      "title": "Counterexamples to Schiffer's conjecture and the Pompeiu problem",
+      "content_text": "Infinitely many planar domains that are not balls admit a Neumann eigenfunction of the Laplacian that is constant on the boundary, disproving Schiffer's conjecture and, through a classical equivalence, the 1929 Pompeiu problem.  Pompeiu asked in 1929 whether a bounded domain over which some nonzero function integrates to zero under every rigid motion must be a ball. Schiffer's 1957 reformulation asks the same thing through Neumann eigenfunctions of the Laplacian that are constant on the boundary, and appears as Problem 80 on Yau's 1982 list; Williams proved the two formulations equivalent for simply connected domains in 1976. Cao-Labora and de Dios Pont construct infinitely many N-fold symmetric planar domains, with N large, that are not balls and carry such an eigenfunction. The strategy is to relax the problem so that N may be any real number, which corresponds to the Schiffer problem only at integers, apply bifurcation theory there, and show the size of the local bifurcation branch can be taken independently of N. Their Corollary 1.2 applies Williams' equivalence to the same domains, so a single construction settles both problems.  Lab: Independent. Model: GPT-5.6, Claude Opus 4.8, Claude Fable 5. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-05T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "spectral-geometry",
+        "counterexample",
+        "analysis"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-07-10-cycle-double-cover",
+      "url": "https://whataifound.org/finding/2026-07-10-cycle-double-cover",
+      "title": "Cycle double cover conjecture proved for all bridgeless multigraphs",
+      "content_text": "Every finite bridgeless loopless multigraph has a multiset of cycles covering each edge exactly twice, resolving a conjecture open since 1973, with a machine-checked Lean proof of the unconditional statement.  The cycle double cover conjecture, posed by Szekeres in 1973 and independently by Seymour in 1979, asks whether every bridgeless graph admits a multiset of cycles in which every edge appears exactly twice. It is a textbook open problem in graph theory and sits at the centre of a cluster of neighbouring conjectures. OpenAI announced on 10 July 2026 that GPT-5.6 Sol Ultra, running 64 concurrent subagents, produced a three-page proof of the full statement in under an hour, and published the proof and the prompt, with a Lean 4 formalization following. The formalized route goes through the Jaeger–Kilpatrick eight-flow theorem: it constructs a nowhere-zero flow valued in three copies of the integers mod two, then converts that flow into a cycle double cover. Sang-il Oum published a ten-page exposition a week later, presenting the argument with slight modifications intended to make it more accessible.  Lab: OpenAI. Model: GPT-5.6 Sol Ultra. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-07-10T00:00:00+00:00",
+      "date_modified": "2026-08-14T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "graph-theory",
+        "combinatorics",
+        "multi-agent"
+      ]
+    },
     {
       "id": "https://whataifound.org/finding/2026-08-10-zeta-zeros-critical-line",
       "url": "https://whataifound.org/finding/2026-08-10-zeta-zeros-critical-line",
@@ -763,20 +845,20 @@
       "id": "https://whataifound.org/finding/2025-robin-macular",
       "url": "https://whataifound.org/finding/2025-robin-macular",
       "title": "Candidate treatment for dry age-related macular degeneration",
-      "content_text": "The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.  Presented as an end-to-end automated discovery loop with humans executing the physical experiments.  Lab: FutureHouse. Model: Robin (multi-agent). Verification: Claimed. Autonomy: AI-led.",
+      "content_text": "The Robin system automated hypothesis generation, experiment design and data analysis, identifying a novel candidate treatment for dry AMD.  Presented as an end-to-end automated discovery loop with humans executing the physical experiments. Robin proposed enhancing retinal pigment epithelium phagocytosis as a therapeutic strategy, then identified ripasudil and KL001 as candidates and confirmed in vitro efficacy for both. It went on to propose and analyse a follow-up RNA sequencing experiment, which showed upregulation of ABCA1, a lipid efflux pump and a possible novel target in its own right. Published in Nature in May 2026.  Lab: FutureHouse. Model: Robin (multi-agent). Verification: Peer reviewed. Autonomy: AI-led.",
       "date_published": "2025-05-01T00:00:00+00:00",
       "date_modified": "2026-07-20T00:00:00+00:00",
       "tags": [
         "drug-discovery",
         "ophthalmology",
-        "needs-verification"
+        "multi-agent"
       ]
     },
     {
       "id": "https://whataifound.org/finding/2025-02-ai-coscientist-amr",
       "url": "https://whataifound.org/finding/2025-02-ai-coscientist-amr",
       "title": "AI co-scientist hypotheses on antimicrobial resistance and liver fibrosis",
-      "content_text": "A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab.  The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible.  Lab: Google. Model: AI Co-Scientist (Gemini 2.0 multi-agent). Verification: Author verified. Autonomy: AI-assisted.",
+      "content_text": "A multi-agent system generated hypotheses that were subsequently validated experimentally in the lab.  The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible. The peer-reviewed version, published in Nature in May 2026, covers three biomedical applications together: drug repurposing, novel-target discovery and explaining mechanisms of antimicrobial resistance. It adds drug-repurposing candidates and synergistic combination therapies for acute myeloid leukaemia that were then validated in vitro.  Lab: Google. Model: AI Co-Scientist (Gemini 2.0 multi-agent). Verification: Peer reviewed. Autonomy: AI-assisted.",
       "date_published": "2025-02-19T00:00:00+00:00",
       "date_modified": "2026-07-20T00:00:00+00:00",
       "tags": [

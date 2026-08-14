@@ -1,8 +1,8 @@
 {
   "id": "/",
-  "name": "whataifound.org: What AI Has Actually Discovered",
+  "name": "whataifound.org: What AI Has Actually Contributed",
   "short_name": "whataifound",
-  "description": "A curated, independently graded registry of scientific and mathematical results discovered by or with AI systems.",
+  "description": "A curated, independently graded registry of scientific and mathematical results AI contributed to.",
   "lang": "en",
   "dir": "ltr",
   "categories": ["education", "news", "reference", "science"],

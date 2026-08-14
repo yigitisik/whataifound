@@ -493,12 +493,17 @@
     "date": "2025-02-19",
     "lab": "Google",
     "model": "AI Co-Scientist (Gemini 2.0 multi-agent)",
-    "verification": "author-verified",
+    "verification": "peer-reviewed",
     "autonomy": "ai-assisted",
-    "detail": "The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible.",
+    "detail": "The system proposed mechanisms in antimicrobial resistance and liver fibrosis that wet-lab work then supported. Notable as one of the earliest cases of an AI-generated hypothesis surviving experimental test rather than just sounding plausible. The peer-reviewed version, published in Nature in May 2026, covers three biomedical applications together: drug repurposing, novel-target discovery and explaining mechanisms of antimicrobial resistance. It adds drug-repurposing candidates and synergistic combination therapies for acute myeloid leukaemia that were then validated in vitro.",
     "novelty_check": "The AMR mechanism proposed had reportedly been independently arrived at by a human group whose work was unpublished at the time, which complicates the novelty claim.",
-    "caveats": "Hypothesis generation with human-run validation, not autonomous discovery. Independent replication outside the collaborating labs is limited. Graded conservatively.",
+    "caveats": "Hypothesis generation with human-run validation, not autonomous discovery. Peer review confirms the work, not that every hypothesis in it was unprecedented, and the novelty question above is untouched by publication. Independent replication outside the collaborating labs is limited. Graded conservatively.",
     "sources": [
+      {
+        "label": "Nature: Accelerating scientific discovery with Co-Scientist",
+        "url": "https://www.nature.com/articles/s41586-026-10644-y",
+        "kind": "research"
+      },
       {
         "label": "bioRxiv: AI mirrors experimental science to uncover a novel mechanism of gene transfer",
         "url": "https://www.biorxiv.org/content/10.1101/2025.02.19.639094v1",
@@ -515,6 +520,14 @@
       "microbiology",
       "multi-agent"
     ],
+    "revisions": [
+      {
+        "date": "2026-08-14",
+        "kind": "regraded",
+        "note": "Upgraded from author verified to peer reviewed: the work was published in Nature (655, 487-496) on 19 May 2026, covering drug repurposing, novel-target discovery and antimicrobial resistance mechanisms together.",
+        "url": "https://www.nature.com/articles/s41586-026-10644-y"
+      }
+    ],
     "added": "2026-07-20"
   },
   {
@@ -525,12 +538,17 @@
     "date": "2025-05-01",
     "lab": "FutureHouse",
     "model": "Robin (multi-agent)",
-    "verification": "claimed",
+    "verification": "peer-reviewed",
     "autonomy": "ai-led",
-    "detail": "Presented as an end-to-end automated discovery loop with humans executing the physical experiments.",
-    "novelty_check": "Not independently audited by this registry at time of entry. Novelty check pending.",
-    "caveats": "Lab-announced. No independent verification located. A candidate treatment is many years and several trial phases from being a treatment. Held at 'claimed' until outside confirmation.",
+    "detail": "Presented as an end-to-end automated discovery loop with humans executing the physical experiments. Robin proposed enhancing retinal pigment epithelium phagocytosis as a therapeutic strategy, then identified ripasudil and KL001 as candidates and confirmed in vitro efficacy for both. It went on to propose and analyse a follow-up RNA sequencing experiment, which showed upregulation of ABCA1, a lipid efflux pump and a possible novel target in its own right. Published in Nature in May 2026.",
+    "novelty_check": "Ripasudil is a clinically used Rho kinase inhibitor; the paper states that to the authors' knowledge it had never previously been proposed for the treatment of dry age-related macular degeneration, and the peer-reviewed version carries that claim. The ABCA1 mechanism emerged from the system's own follow-up experiment rather than from the prior literature. What is new is the repurposing hypothesis and its in vitro support, not a new compound.",
+    "caveats": "Peer reviewed, which is the right grade for an empirical claim of this kind, but in vitro efficacy is a long way from a treatment: a candidate is many years and several trial phases from the clinic. Verification of the biology is the journal's, not an independent replication. Autonomy stays ai-led rather than autonomous: the paper describes the approach as semi-autonomous, and humans executed every physical experiment, though all hypotheses, experimental directions, data analyses and main-text figures were produced by Robin.",
     "sources": [
+      {
+        "label": "Nature: A multi-agent system for automating scientific discovery",
+        "url": "https://www.nature.com/articles/s41586-026-10652-y",
+        "kind": "research"
+      },
       {
         "label": "Turing Post: 12 AI Co-Scientists of 2026",
         "url": "https://www.turingpost.com/p/ai-co-scientists-in-2026",
@@ -540,7 +558,15 @@
     "tags": [
       "drug-discovery",
       "ophthalmology",
-      "needs-verification"
+      "multi-agent"
+    ],
+    "revisions": [
+      {
+        "date": "2026-08-14",
+        "kind": "regraded",
+        "note": "Upgraded from claimed to peer reviewed: the work was published in Nature (655, 497-505) on 19 May 2026, which also supplies the primary source the entry previously lacked.",
+        "url": "https://www.nature.com/articles/s41586-026-10652-y"
+      }
     ],
     "added": "2026-07-20"
   },
@@ -2820,5 +2846,308 @@
       "critical-exponents"
     ],
     "added": "2026-08-11"
+  },
+  {
+    "id": "2026-07-10-cycle-double-cover",
+    "title": "Cycle double cover conjecture proved for all bridgeless multigraphs",
+    "claim": "Every finite bridgeless loopless multigraph has a multiset of cycles covering each edge exactly twice, resolving a conjecture open since 1973, with a machine-checked Lean proof of the unconditional statement.",
+    "field": "mathematics",
+    "date": "2026-07-10",
+    "lab": "OpenAI",
+    "model": "GPT-5.6 Sol Ultra",
+    "year_posed": 1973,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The cycle double cover conjecture, posed by Szekeres in 1973 and independently by Seymour in 1979, asks whether every bridgeless graph admits a multiset of cycles in which every edge appears exactly twice. It is a textbook open problem in graph theory and sits at the centre of a cluster of neighbouring conjectures. OpenAI announced on 10 July 2026 that GPT-5.6 Sol Ultra, running 64 concurrent subagents, produced a three-page proof of the full statement in under an hour, and published the proof and the prompt, with a Lean 4 formalization following. The formalized route goes through the Jaeger–Kilpatrick eight-flow theorem: it constructs a nowhere-zero flow valued in three copies of the integers mod two, then converts that flow into a cycle double cover. Sang-il Oum published a ten-page exposition a week later, presenting the argument with slight modifications intended to make it more accessible.",
+    "novelty_check": "The conjecture is recorded as open in the standard references, including Wolfram MathWorld, and has a documented history of proof claims posted to arXiv that were later withdrawn or found to have gaps, so the prior state was unambiguously unresolved. One thing complicates the picture rather than the novelty: Shiva Kintali posted an independent Codex-assisted proof claim of the same statement three days later (arXiv:2607.14140), also routed through nowhere-zero three-bit flows and likewise unreviewed. The result is a new proof, not a retrieval of a known one.",
+    "caveats": "Not peer-reviewed. The conjecture's history of gapped proof claims is itself a reason for caution, and mathematicians are treating this one as unconfirmed pending expert review. The Lean development does check the unconditional statement for finite loopless bridgeless multigraphs, sorry-free and admit-free with no project-specific axioms, but it is first-party, produced by the same organisation as the proof, and had no independent audit at entry time. Autonomy graded ai-led rather than autonomous: the published prompt supplies more than the problem. It instructs the model to assume for purposes of the task that a complete affirmative proof exists, enumerates the approach families to explore including the flow formulations the proof in fact used, and specifies the 64-agent search strategy in detail.",
+    "sources": [
+      {
+        "label": "OpenAI: A proof of the cycle double cover conjecture (PDF)",
+        "url": "https://cdn.openai.com/pdf/04d1d1e4-bc75-476a-97cf-49055cd98d31/cdc_proof.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalization (openai/cdc-lean)",
+        "url": "https://github.com/openai/cdc-lean",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: the prompt used for the proof (PDF)",
+        "url": "https://cdn.openai.com/pdf/04d1d1e4-bc75-476a-97cf-49055cd98d31/cdc_prompt.pdf",
+        "kind": "announcement"
+      },
+      {
+        "label": "Ethan Knight announcement (X)",
+        "url": "https://x.com/__eknight__/status/2075643450196971805",
+        "kind": "announcement"
+      },
+      {
+        "label": "arXiv: A proof of the cycle double cover conjecture by OpenAI: An exposition",
+        "url": "https://arxiv.org/abs/2607.16356",
+        "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Three-Bit Flows and Cycle Covers. Part I",
+        "url": "https://arxiv.org/abs/2607.14140",
+        "kind": "commentary"
+      },
+      {
+        "label": "Scientific American: ChatGPT just proved another 50-year-old math conjecture",
+        "url": "https://www.scientificamerican.com/article/chatgpt-just-proved-another-50-year-old-math-conjecture/",
+        "kind": "coverage"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/cycle-double-cover-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: GPT-5.6 Sol Ultra produces proof of the Cycle Double Cover Conjecture",
+        "url": "https://news.ycombinator.com/item?id=48863490"
+      }
+    ],
+    "tags": [
+      "lean",
+      "graph-theory",
+      "combinatorics",
+      "multi-agent"
+    ],
+    "added": "2026-08-14"
+  },
+  {
+    "id": "2026-08-05-sendov-conjecture",
+    "title": "Sendov's conjecture proved for every degree",
+    "claim": "For every complex polynomial of degree at least two whose zeros all lie in the closed unit disk, each zero has a critical point of the polynomial within distance one, closing a question open since 1959.",
+    "field": "mathematics",
+    "date": "2026-08-05",
+    "lab": "Independent",
+    "model": "GPT-5.6 Pro",
+    "humans": [
+      "Lech Mazur"
+    ],
+    "year_posed": 1959,
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "Sendov's conjecture states that if every zero of a complex polynomial of degree n at least two lies in the closed unit disk, then every zero has a critical point within distance one. Degrees up to eight were settled piecemeal between 1969 and 1999, and Tao proved the conjecture for all sufficiently large degree in 2020 without specifying the threshold, which left the middle range open. Lech Mazur, working with GPT-5.6 Pro, produced an argument covering every degree along with a Lean development of roughly 90,000 lines. Terence Tao then digested the proof, describing it as remarkably elementary with no complex analysis used beyond the fundamental theorem of algebra, and formalized the entire argument himself in about 15,000 lines. He reports that the same argument resolves the Phelps–Rodriguez conjecture in full generality.",
+    "novelty_check": "Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval.",
+    "caveats": "Not peer-reviewed. Mazur's own Lean package cannot be recompiled as distributed: the published bundle ships no lakefile or manifest and excludes Mathlib, so the formal grade rests on Tao's independent formalization rather than on the original artifact. Autonomy graded collaborative rather than ai-led: the disclosure credits GPT-5.6 Pro with substantial contribution to the discovery and derivation of the proof, including exploration, proof development, exact computational testing and adversarial auditing, but it also has Mazur directing the research workflow and selecting and reconciling the model's outputs, which is mathematical judgment rather than cleanup. The weaker defensible reading applies.",
+    "independent_checks": [
+      {
+        "who": "Terence Tao",
+        "url": "https://terrytao.wordpress.com/2026/08/12/a-digestion-of-the-proof-of-sendovs-conjecture/",
+        "outcome": "digested the argument and formalized the whole of it in Lean independently, at about 15,000 lines against the original's roughly 90,000, and states that it resolves both the Sendov and Phelps–Rodriguez conjectures in full generality"
+      }
+    ],
+    "sources": [
+      {
+        "label": "ProofAtlas: A Computer-Assisted Proof of Sendov's Conjecture (PDF)",
+        "url": "https://www.proofatlas.ai/papers/sendov-conjecture/SENDOV_CONJECTURE_PROOF_AUGUST_5_2026.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "ProofAtlas: Sendov conjecture formalization record",
+        "url": "https://proofatlas.ai/formalizations/sendov-conjecture/",
+        "kind": "research"
+      },
+      {
+        "label": "Terence Tao: A digestion of the proof of Sendov's conjecture",
+        "url": "https://terrytao.wordpress.com/2026/08/12/a-digestion-of-the-proof-of-sendovs-conjecture/",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/sendov-s-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "complex-analysis",
+      "polynomials",
+      "formalization"
+    ],
+    "added": "2026-08-14"
+  },
+  {
+    "id": "2026-08-05-schiffer-conjecture",
+    "title": "Counterexamples to Schiffer's conjecture and the Pompeiu problem",
+    "claim": "Infinitely many planar domains that are not balls admit a Neumann eigenfunction of the Laplacian that is constant on the boundary, disproving Schiffer's conjecture and, through a classical equivalence, the 1929 Pompeiu problem.",
+    "field": "mathematics",
+    "date": "2026-08-05",
+    "lab": "Independent",
+    "model": "GPT-5.6, Claude Opus 4.8, Claude Fable 5",
+    "humans": [
+      "Gonzalo Cao-Labora",
+      "Jaume de Dios Pont"
+    ],
+    "year_posed": 1929,
+    "verification": "formal",
+    "autonomy": "ai-assisted",
+    "detail": "Pompeiu asked in 1929 whether a bounded domain over which some nonzero function integrates to zero under every rigid motion must be a ball. Schiffer's 1957 reformulation asks the same thing through Neumann eigenfunctions of the Laplacian that are constant on the boundary, and appears as Problem 80 on Yau's 1982 list; Williams proved the two formulations equivalent for simply connected domains in 1976. Cao-Labora and de Dios Pont construct infinitely many N-fold symmetric planar domains, with N large, that are not balls and carry such an eigenfunction. The strategy is to relax the problem so that N may be any real number, which corresponds to the Schiffer problem only at integers, apply bifurcation theory there, and show the size of the local bifurcation branch can be taken independently of N. Their Corollary 1.2 applies Williams' equivalence to the same domains, so a single construction settles both problems.",
+    "novelty_check": "Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. No prior counterexample to either appears. The construction is new.",
+    "caveats": "A preprint, not peer-reviewed. The Lean 4 verification was written by GPT-5.6 from an early draft of the paper and lives in an author's own repository; it had no independent audit at entry time, and the same group produced both the proof and its formalization. Autonomy graded ai-assisted: the paper is explicit that the novel construction strategy is the authors' own, and that the models were used to verify the asymptotic estimates numerically, to produce first drafts of the proofs of the Bessel function estimates, and to help with exposition.",
+    "sources": [
+      {
+        "label": "arXiv: Counterexamples to Schiffer's Conjecture",
+        "url": "https://arxiv.org/abs/2608.05114",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalization (jaumededios/Schiffer)",
+        "url": "https://github.com/jaumededios/Schiffer",
+        "kind": "research"
+      },
+      {
+        "label": "Wikipedia: Pompeiu problem",
+        "url": "https://en.wikipedia.org/wiki/Pompeiu_problem",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/schiffer-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "spectral-geometry",
+      "counterexample",
+      "analysis"
+    ],
+    "added": "2026-08-14"
+  },
+  {
+    "id": "2026-08-08-petersen-coloring",
+    "title": "A 112-vertex counterexample to the Petersen coloring conjecture",
+    "claim": "An explicit simple bridgeless cubic graph on 112 vertices admits no Petersen coloring, and hence no normal 5-edge-coloring, refuting a conjecture of Jaeger from 1985 with machine-checked UNSAT certificates.",
+    "field": "mathematics",
+    "date": "2026-08-08",
+    "lab": "Independent",
+    "model": "Unnamed OpenAI model",
+    "humans": [
+      "Bryce Putman"
+    ],
+    "year_posed": 1985,
+    "verification": "formal",
+    "autonomy": "ai-assisted",
+    "detail": "Jaeger conjectured in 1985 that every bridgeless cubic graph admits a Petersen coloring: a map from its edges into the edges of the Petersen graph sending the three edges at each vertex to three edges meeting at a common vertex of the Petersen graph. Equivalently, every bridgeless cubic graph has a normal 5-edge-coloring. The conjecture implies both the Berge–Fulkerson conjecture and the 5-cycle-double-cover conjecture. This paper gives an explicit simple connected bridgeless cubic graph on 112 vertices, of girth five and edge and vertex connectivity three, with no such coloring; the graph is pinned by a SHA-256 digest in the theorem statement itself. Non-existence is established by direct SAT formulations, with CaDiCaL 3.0.1 returning UNSAT and drat-trim verifying the resulting DRAT proofs. A second, non-isomorphic counterexample of the same order is supplied. The implication runs one way, so Berge–Fulkerson and the 5-cycle-double-cover conjecture stay open; combined with a theorem of Ma, Mattiolo, Steffen and Wolf, one counterexample yields infinitely many.",
+    "novelty_check": "The Petersen coloring conjecture is tracked as open in the Open Problem Garden, whose entry calls it an extraordinary conjecture, and it carries a substantial literature on normal edge-colorings and sublinear approximations built on the assumption that it holds. No prior counterexample appears anywhere in that literature. The construction is a new concrete graph, not a retrieval of an existing example.",
+    "caveats": "A preprint, not peer-reviewed. The paper's computational provenance section states only that OpenAI language-model systems were used extensively in the discovery, computational search, verification and preparation of the work, and names no product, version or division of labour, so the model field records an unnamed OpenAI system and autonomy is graded ai-assisted, the weakest reading the disclosure permits. The paper does not claim 112 is the minimum order for a counterexample.",
+    "independent_checks": [
+      {
+        "who": "vibemathed.com curator reproduction",
+        "url": "https://vibemathed.com/problem/petersen-coloring-conjecture",
+        "outcome": "rebuilt the 112-vertex graph from the appendix edge table with a SHA-256 matching Theorem 1.1, rederived every property claimed there, and re-proved non-existence with an independently written CNF encoder solved by CaDiCaL rather than by replaying the shipped certificates; six control graphs including the Petersen graph itself came back satisfiable through the same encoder"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A 112-Vertex Counterexample to the Petersen Coloring Conjecture",
+        "url": "https://arxiv.org/abs/2608.10012",
+        "kind": "research"
+      },
+      {
+        "label": "Zenodo: reproducibility artifacts and checked DRAT certificates",
+        "url": "https://doi.org/10.5281/zenodo.21845291",
+        "kind": "research"
+      },
+      {
+        "label": "Open Problem Garden: Petersen coloring conjecture",
+        "url": "https://www.openproblemgarden.org/op/petersen_coloring_conjecture",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/petersen-coloring-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "counterexample",
+      "sat-solver",
+      "combinatorics"
+    ],
+    "added": "2026-08-14"
+  },
+  {
+    "id": "2026-08-12-liquid-drop-minimizers",
+    "title": "Complete minimizer picture for Gamow's liquid drop model",
+    "claim": "Balls uniquely minimize the Gamow liquid drop energy at every volume up to a sharp threshold of about 3.51, and above that threshold no minimizer exists, closing a gap that partial results had narrowed from both sides without meeting.",
+    "field": "mathematics",
+    "date": "2026-08-12",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Pro",
+    "humans": [
+      "Otis Chodosh",
+      "Matilde Gianocca"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Gamow's liquid drop functional adds De Giorgi perimeter to a Coulomb repulsion term, and the central question in its literature is the fixed-volume minimization picture: for which volumes a minimizer exists, and whether it is the ball. This proves that balls uniquely minimize, up to translation and null sets, at every volume up to a threshold of 5 times 2 minus 2 to the two thirds, divided by 2 to the two thirds minus 1, roughly 3.51, and that above that threshold no minimizer exists at all. A corollary settles the minimal binding energy question of Frank and Lieb, identifying the infimum of energy per unit volume and the ball of volume 5/2 as the unique minimizer. The mechanism is a capacitary estimate sharpening an Agostiniani–Mazzieri monotonicity formula through Gauss–Bonnet, an improvement the authors note applies only to this particular weight and only in three dimensions.",
+    "novelty_check": "The sharp threshold is the tracked open problem of the liquid drop literature, followed across calculus of variations, mathematical physics and geometric analysis, with a 2017 Notices of the AMS survey and partial results carrying Lieb, Otto, Figalli and Maggi. The prior state of the art is stated in the paper and checks out: minimality of the ball was known only up to volume 1 (Chodosh–Ruohoniemi, CPAM 2025) and nonexistence only from volume 7.5 upward (Schulz, arXiv:2608.09000, posted two days earlier), leaving the interval from 1 to 7.5 open. Frank and Nam had proved existence up to the threshold in 2021, and the new proof uses that result rather than superseding it. Uniqueness across the whole range and nonexistence immediately above the threshold are new.",
+    "caveats": "A preprint, not peer-reviewed, with no formalization. Verification is author-side: the authors state they checked and reworked the proof, which is not independent replication. Autonomy graded ai-led on the paper's own disclosure, which says the results were obtained by ChatGPT 5.6 Pro over a series of chats without significant assistance from the authors and that the fundamental strategy remains close to the model's original output; the authors checked the proof, reworked it and wrote the manuscript, and state the article contains no AI-written text.",
+    "sources": [
+      {
+        "label": "arXiv: No compromise in the liquid drop model",
+        "url": "https://arxiv.org/abs/2608.11517",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: An improved nonexistence bound for the liquid drop model",
+        "url": "https://arxiv.org/abs/2608.09000",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/gamow-liquid-drop-minimizer-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "calculus-of-variations",
+      "geometric-analysis",
+      "mathematical-physics"
+    ],
+    "added": "2026-08-14"
+  },
+  {
+    "id": "2026-08-13-sop2-sop3",
+    "title": "SOP_2 and SOP_3 theories shown to coincide",
+    "claim": "The classes of SOP_2 and SOP_3 first-order theories are the same, answering a 2004 question of Džamonja and Shelah and collapsing the bottom of the SOP hierarchy to a single class.",
+    "field": "mathematics",
+    "date": "2026-08-13",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6",
+    "humans": [
+      "Artem Chernikov"
+    ],
+    "year_posed": 2004,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Džamonja and Shelah introduced the tree configurations SOP_1 and SOP_2 in 2004 and asked whether either implication in the chain from SOP_3 to SOP_2 to SOP_1 reverses. Mutchnik answered the second, proving SOP_1 equals SOP_2, and the surviving half organised much of the subsequent NSOP_1 literature, with partial results by Conant, by Kaplan, Ramsey and Simon, and by Mutchnik. This five-page paper proves that SOP_2 implies SOP_3, the converse having been known from the start, which collapses the bottom of the hierarchy to a single class and carries consequences for Keisler-order maximality. The SOP_n hierarchy for n at least three is untouched, as is everything above it.",
+    "novelty_check": "The question is one of the two 2004 Džamonja–Shelah questions that organised two decades of classification theory, and the paper's own introduction traces it as open through Mutchnik's celebrated resolution of the other half and the partial results that followed. It is repeatedly highlighted in the NSOP_1 literature as the surviving open case. No prior proof appears. The result is new.",
+    "caveats": "A preprint one day old at entry, not peer-reviewed and not formalized. The acknowledgements record comments from Itay Kaplan and Scott Mutchnik on a preliminary version, which is expert attention on a draft rather than independent verification, so the entry stays at author verified. Autonomy graded collaborative: the entire disclosure is one sentence, that the proof was found using ChatGPT 5.6 and simplified and streamlined by the author, which is ambiguous between the model supplying the key insight and the author using it as a tool. The weaker defensible reading applies.",
+    "sources": [
+      {
+        "label": "arXiv: SOP_2 = SOP_3",
+        "url": "https://arxiv.org/abs/2608.13291",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed.com registry entry",
+        "url": "https://vibemathed.com/problem/sop-2-sop-3",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "model-theory",
+      "logic",
+      "classification-theory"
+    ],
+    "added": "2026-08-14"
   }
 ]

@@ -108,7 +108,12 @@ const DOMAIN_NAME = {
   'terrytao.wordpress.com':'Terence Tao','xenaproject.wordpress.com':'Kevin Buzzard',
   'simonwillison.net':'Simon Willison','alexisgallagher.com':'Alexis Gallagher',
   'jacobianfun.org':'jacobianfun.org','openai.com':'OpenAI',
-  'journalofinfection.com':'Journal of Infection','cam.ac.uk':'Cambridge'
+  'journalofinfection.com':'Journal of Infection','cam.ac.uk':'Cambridge',
+  'cdn.openai.com':'OpenAI','proofatlas.ai':'ProofAtlas',
+  'scientificamerican.com':'Scientific American','zenodo.org':'Zenodo',
+  'openproblemgarden.org':'Open Problem Garden','doi.org':'DOI',
+  'vibemathed.com':'VibeMathed','www-cdn.anthropic.com':'Anthropic',
+  'chatgpt.com':'ChatGPT'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }

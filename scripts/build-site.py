@@ -204,6 +204,11 @@ DOMAIN_NAME = {
     "simonwillison.net": "Simon Willison", "alexisgallagher.com": "Alexis Gallagher",
     "jacobianfun.org": "jacobianfun.org", "openai.com": "OpenAI",
     "journalofinfection.com": "Journal of Infection", "cam.ac.uk": "Cambridge",
+    "cdn.openai.com": "OpenAI", "proofatlas.ai": "ProofAtlas",
+    "scientificamerican.com": "Scientific American", "zenodo.org": "Zenodo",
+    "openproblemgarden.org": "Open Problem Garden", "doi.org": "DOI",
+    "vibemathed.com": "VibeMathed", "www-cdn.anthropic.com": "Anthropic",
+    "chatgpt.com": "ChatGPT",
 }
 
 
@@ -1635,7 +1640,7 @@ def entry_page(e, entries, updated):
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 <meta property="article:published_time" content="{attr(e.get("date"))}">
 <meta property="og:locale" content="en_US">
 
@@ -1643,7 +1648,7 @@ def entry_page(e, entries, updated):
 <meta name="twitter:title" content="{attr(e["title"])}">
 <meta name="twitter:description" content="{attr(meta_desc)}">
 <meta name="twitter:image" content="{SITE}/assets/brand/og.png">
-<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
@@ -1870,7 +1875,7 @@ def home_itemlist(entries):
         "@type": "CollectionPage",
         "@id": f"{SITE}/#collection",
         "url": f"{SITE}/",
-        "name": "What AI Has Actually Discovered",
+        "name": "What AI Has Actually Contributed",
         "inLanguage": "en",
         "isPartOf": {"@id": f"{SITE}/#website"},
         "mainEntity": {
@@ -2476,14 +2481,14 @@ def hub_page(title, lede, entries, all_entries, url, updated, back):
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="{attr(title)}">
 <meta name="twitter:description" content="{attr(desc)}">
 <meta name="twitter:image" content="{SITE}/assets/brand/og.png">
-<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually discovered.">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
