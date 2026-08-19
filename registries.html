@@ -7,15 +7,15 @@
 <meta name="color-scheme" content="dark light">
 
 <!-- Canonical domain: https://whataifound.org -->
-<title>Where else AI mathematics is recorded: Palomar, MathDB, vibemathed, ProofAtlas | whataifound.org</title>
-<meta name="description" content="Four projects now record AI contributions to mathematics, and each certifies something different. What Palomar, MathDB, vibemathed and ProofAtlas each check, what none of them check, and how whataifound.org relates to all four.">
+<title>Other registries: Palomar, MathDB, vibemathed, ProofAtlas | whataifound.org</title>
+<meta name="description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do. Four projects record AI contributions to mathematics; each checks something different.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://whataifound.org/registries">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="whataifound.org">
-<meta property="og:title" content="Where else AI mathematics is recorded">
-<meta property="og:description" content="Palomar, MathDB, vibemathed and ProofAtlas each certify something different. What each one checks, and what none of them do.">
+<meta property="og:title" content="Other registries">
+<meta property="og:description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do.">
 <meta property="og:url" content="https://whataifound.org/registries">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
@@ -26,8 +26,8 @@
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Where else AI mathematics is recorded">
-<meta name="twitter:description" content="Palomar, MathDB, vibemathed and ProofAtlas each certify something different.">
+<meta name="twitter:title" content="Other registries">
+<meta name="twitter:description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
@@ -101,7 +101,6 @@
 <a href="/visuals">Visuals</a>
 <a href="/methodology">Methodology</a>
 <a href="/contributors">Contributors</a>
-<a href="/registries" aria-current="page">Elsewhere</a>
 </nav>
 <span class="eyebrow-right">
 <span class="doors" role="group" aria-label="Ways to contribute">
@@ -115,19 +114,17 @@
 </span>
 <span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-19</b></span>
 </span></div><!--HEADER:END-->
-  <h1 class="meth-title">Elsewhere</h1>
-  <p class="lede">Four other projects record AI contributions to mathematics. Each one certifies
-  something different, and the differences matter more than they look. This page says what each
-  checks, what none of them check, and where this registry sits.</p>
+  <h1 class="meth-title">Other registries</h1>
+  <p class="lede">Four other projects record AI contributions to mathematics, and each certifies
+  something different. What each one checks, and what none of them do.</p>
 </header>
 
 <main id="main">
 
   <section class="meth-sec" aria-labelledby="land-h">
     <h2 id="land-h">The landscape</h2>
-    <p class="sub">Grouped by what kind of record each one keeps. Descriptions come from the same
-    vocabulary file the finding pages render from, so what is claimed here is what is claimed
-    beside a citation.</p>
+    <p class="sub">Grouped by what kind of record each keeps. These descriptions come from the
+    file that also renders them beside a citation, so the two cannot disagree.</p>
     <!--REGISTRIES:START--><h3 class="lbl">Machine-checked elsewhere</h3>
 <div class="regcards">
 <div class="regcard" id="palomar"><p class="regcard-h"><a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">Incubated by the Lean FRO and ICARM, with a scientific advisory board of nine mathematicians.</p><p class="regcard-s">Snapshots of public Lean repositories, mathematics only.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review.</p></div>
@@ -146,70 +143,55 @@
 
   <section class="meth-sec" aria-labelledby="same-h">
     <h2 id="same-h">One result, four different facts</h2>
-    <p>Sendov's conjecture is the clearest example. ProofAtlas hosts Lech Mazur's formalization,
-    which its own record marks Lean checked with a passing build but <em>not</em> accepted,
-    because the retained audit is a summary rather than the full build transcript its evidence
-    contract asks for. Palomar registers Terence Tao's separate formalization, written from his
-    blog digestion rather than from Mazur's proof, and archives its entire dependency tree.
-    MathDB tracks the conjecture itself. vibemathed lists the result.</p>
-    <p>All four are true at once, and none of them is the whole picture. Priority for the first
-    machine-checked proof belongs to Mazur; the reproducible archived artifact is Tao's; the
-    problem's standing in the literature is MathDB's to state. Our
-    <a href="/finding/2026-08-05-sendov-conjecture">entry for Sendov</a> is the only place a
-    reader sees all four and which one answers which question.</p>
-    <p>The Jacobian conjecture shows the same thing sharper. MathDB records it as partially
-    solved with the claim not independently verified. We grade the counterexample
-    <em>formally verified</em>. Both are right: they are tracking the conjecture's standing in
-    the literature, which stays open until the literature catches up, and we are grading whether
-    the counterexample checks out, which it does under a symbolic recomputation anyone can rerun
-    in seconds.</p>
+    <p>Sendov's conjecture sits in all four. ProofAtlas hosts Lech Mazur's formalization, marked
+    Lean checked but <em>not</em> accepted: its retained audit is a summary, not the full build
+    transcript. Palomar registers Terence Tao's separate formalization and archives its whole
+    dependency tree. MathDB tracks the conjecture. vibemathed lists the result.</p>
+    <p>All four are true at once. Priority for the first machine-checked proof is Mazur's; the
+    reproducible archived artifact is Tao's. Our
+    <a href="/finding/2026-08-05-sendov-conjecture">entry for Sendov</a> is the only place both
+    appear together.</p>
+    <p>The Jacobian conjecture shows it sharper. MathDB records it partially solved, the claim
+    not independently verified. We grade the counterexample <em>formally verified</em>. Both are
+    right: they track the conjecture's standing in the literature, which stays open until the
+    literature catches up, and we grade whether the counterexample checks out, which it does in
+    seconds by symbolic recomputation.</p>
   </section>
 
   <section class="meth-sec" aria-labelledby="us-h">
     <h2 id="us-h">What none of them do</h2>
-    <p>Two things on this site have no counterpart anywhere above, and they are the reason it
-    exists.</p>
-    <p><strong>We grade how much the AI actually did.</strong> Every entry carries an
+    <p><strong>We grade how much the AI did.</strong> Every entry carries an
     <a href="/methodology">autonomy grade</a> on a six-point scale, from a result the model
-    produced with no mathematical input beyond the problem statement, down to one where it
-    retrieved something a human had already proved. It is graded on the strictest defensible
-    reading, so an arguable case takes the weaker grade. No other registry records this, and it
-    is the question most readers are actually asking.</p>
-    <p><strong>We keep the failures.</strong> Refuted results, disputed results, and results that
-    turned out to already exist in the literature stay on the record, marked as such. A registry
-    that publishes only what passes is telling you about its filter, not about the field. One of
-    our entries records a set of Erdős problems an AI was reported to have solved and had in fact
-    located existing solutions to; a registry that only registers successes has nowhere to put
-    that.</p>
-    <p>We also carry the case against. Every source on an entry is labelled with what it is, and
-    <em>challenge</em> is one of the labels: a rebuttal, a failed replication, or prior work
-    showing the result was already known. Where an entry has no counterargument linked, the
-    <a href="/review">review queue</a> says so rather than letting the silence read as consensus.</p>
-    <p>Beyond mathematics, the comparison stops applying. Every project on this page is
-    mathematics only. Roughly half this registry is biology, medicine, materials, physics,
-    chemistry and the rest.</p>
+    produced with no input beyond the problem statement down to one it retrieved from the
+    literature. Arguable cases take the weaker grade.</p>
+    <p><strong>We keep the failures.</strong> Refuted, disputed and already-known results stay on
+    the record. One entry covers ten Erdős problems an AI was reported to have solved and had in
+    fact located existing solutions to. A project that registers only successes has nowhere to
+    put that.</p>
+    <p>We also carry the case against: every source is labelled with what it is, and
+    <em>challenge</em> is one of the labels. Where an entry has no counterargument, the
+    <a href="/review">review queue</a> says so rather than letting silence read as consensus.</p>
+    <p>Every project above is mathematics only. Half this registry is not.</p>
   </section>
 
   <section class="meth-sec" aria-labelledby="corr-h">
     <h2 id="corr-h">Corrections welcome</h2>
-    <p>If you maintain one of these projects and this page describes it wrongly, that is a bug and
-    we would rather hear it than keep it.
-    <a href="/contribute">Send a correction</a>, or
+    <p>If you maintain one of these and this page has it wrong, we would rather hear it.
+    <a href="/contribute">Send a correction</a> or
     <a href="mailto:misik6@gatech.edu?subject=whataifound.org%20registries%20page">email us</a>.
-    Descriptions here are generated from one vocabulary file, so a fix lands on this page, on the
-    methodology page and beside every citation at once.</p>
+    A fix lands here, on the methodology page and beside every citation at once.</p>
   </section>
 
 </main>
 
 <!--FOOTER:START--><footer id="about">
 <div class="about-grid">
-<section class="about-cell">
+<section class="about-cell c-policy">
 <h2 class="lbl">Editorial policy</h2>
 <p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is ever deleted: entries are downgraded and annotated, and the history stays public. Every entry carries a novelty check, including when it comes back clean.</p>
 <p class="about-links"><a href="/methodology">Full rules →</a></p>
 </section>
-<section class="about-cell">
+<section class="about-cell c-data">
 <h2 class="lbl">Use the data</h2>
 <p>The whole registry is one open file under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with attribution. Take the file if you want everything; the API answers a narrower question, and promises a fixed set of fields the file does not.</p>
 <p class="about-links">
@@ -220,7 +202,7 @@
 <a href="https://whataifound.org/LICENSE">License</a>
 </p>
 </section>
-<section class="about-cell">
+<section class="about-cell c-help">
 <h2 class="lbl">Contribute</h2>
 <p>Most entries have never been checked outside the lab that announced them. A check takes one form to submit, needs no GitHub account, and is credited on the entry and on the contributors page.</p>
 <p class="about-links">
@@ -230,7 +212,7 @@
 <a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>
 </p>
 </section>
-<section class="about-cell">
+<section class="about-cell c-src">
 <h2 class="lbl">Source</h2>
 <p>Site and registry are open on GitHub. Corrections and new entries are welcome by pull request.</p>
 <p class="about-links">
@@ -240,15 +222,15 @@
 </p>
 </section>
 </div>
-<section class="about-note">
-<h2 class="lbl">Elsewhere</h2>
-<p>Four other projects record neighbouring facts about the same results, and each certifies something different. What each one does, and what it does not: <a href="/registries">the landscape</a>.</p>
+<section class="about-note reg-note">
+<h2 class="lbl">Other registries</h2>
+<p>Four other projects record the same results, and each certifies something different.</p>
 <p class="about-links">
 <a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
 <a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
 <a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
 <a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
-<a href="/registries">Compare them →</a>
+<a href="/registries">What each one checks →</a>
 </p>
 </section>
 <section class="about-note">

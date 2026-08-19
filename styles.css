@@ -37,6 +37,13 @@
        entry has one and a feed of them should not look like five alarms. */
     --rev-added:#5b5f57; --rev-regraded:#83681d; --rev-check:#16705a;
     --rev-challenge:#a8461f; --rev-correction:#5f4f9c;
+    /* Footer cells. Their own family for the same reason source kinds have one: the footer
+       is navigation, not evidence, and a cell sharing a swatch with "Formally verified"
+       would imply the two mean something to each other. Hues are drawn from the palette
+       already in use so the page keeps one voice, and each is a value this stylesheet
+       already renders as small text on a tint elsewhere. */
+    --foot-policy:#16705a; --foot-data:#2a6ea8; --foot-help:#5f4f9c;
+    --foot-src:#8a6420; --foot-reg:#a8461f;
     --serif:'Newsreader',Georgia,'Iowan Old Style',Palatino,serif;
     --shadow:0 1px 2px rgba(30,28,24,.04),0 8px 24px rgba(30,28,24,.06);
     --shadow-card:0 1px 1px rgba(30,28,24,.04),0 2px 6px rgba(30,28,24,.05),
@@ -58,6 +65,8 @@
       --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
       --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
       --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
+      --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
+      --foot-src:#c9a94e; --foot-reg:#d47a45;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
       --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -74,6 +83,8 @@
     --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
     --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
     --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
+    --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
+    --foot-src:#c9a94e; --foot-reg:#d47a45;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
     --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -1496,17 +1507,45 @@
      one question and carries its own links. The disclaimer stays full width and complete. */
   .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:2px;
     background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
-  .about-cell{background:var(--panel);padding:18px 20px 16px}
-  .about-cell .lbl{margin:0 0 7px}
-  .about-cell p{margin:0;font-size:.88rem;line-height:1.55;max-width:46ch}
+  /* One colour per cell, carried on --cc. Four tiles of the same white separated by a
+     hairline read as one block of text, and the footer answers four unrelated questions:
+     what the editorial rules are, how to take the data, how to help, and where the source
+     is. The colour is the thing that says they are four answers and not one. */
+  .about-cell{--cc:var(--accent);background:color-mix(in srgb, var(--cc) 6%, var(--panel));
+    border-top:3px solid var(--cc);padding:15px 20px 16px}
+  .c-policy{--cc:var(--foot-policy)}
+  .c-data{--cc:var(--foot-data)}
+  .c-help{--cc:var(--foot-help)}
+  .c-src{--cc:var(--foot-src)}
+  /* Bigger and in the cell's colour, not muted: this is the word a reader scans for. */
+  .about-cell .lbl{margin:0 0 7px;color:var(--cc);font-size:.68rem}
+  /* --ink, not the footer's inherited --muted. Four paragraphs of muted 0.88rem is what
+     made this read as fine print rather than as the four things it actually says. */
+  .about-cell p{margin:0;font-size:.88rem;line-height:1.55;max-width:46ch;color:var(--ink)}
   .about-links{margin-top:10px !important;display:flex;flex-wrap:wrap;gap:6px 16px}
   .about-links a{font-family:var(--serif);font-size:.8rem;font-weight:600;text-decoration:none;
     display:inline-flex;align-items:center;gap:6px}
+  .about-cell .about-links a{color:var(--cc)}
   .about-links a:hover{text-decoration:underline;text-underline-offset:3px}
   .about-note{margin-top:16px;padding:15px 18px;border:1px solid var(--line);border-radius:13px;
     background:var(--panel-2)}
   .about-note .lbl{margin:0 0 6px}
   .about-note p{margin:0;font-size:.8rem;line-height:1.6;max-width:none}
+  /* The registries band. Same treatment as a cell, plus the four names as chips: they are
+     a list of destinations rather than prose, and four bare links in a row are the one
+     thing on this page a reader is most likely to skim straight past. The disclaimer
+     below keeps the plain .about-note, deliberately: a disclaimer should not be inviting. */
+  .reg-note{--cc:var(--foot-reg);background:color-mix(in srgb, var(--cc) 7%, var(--panel-2));
+    border-color:color-mix(in srgb, var(--cc) 32%, var(--line));border-left:3px solid var(--cc)}
+  .reg-note .lbl{color:var(--cc);font-size:.68rem}
+  .reg-note p{color:var(--ink)}
+  .reg-note .about-links{gap:8px}
+  .reg-note .about-links a{color:var(--cc);border:1px solid color-mix(in srgb, var(--cc) 36%, transparent);
+    background:var(--panel);border-radius:999px;padding:5px 12px;font-size:.78rem}
+  /* Colour-only on hover, so it needs no @media (hover: hover) guard: nothing moves and
+     no shadow appears, which is what iOS holding :hover after a tap actually spoils. */
+  .reg-note .about-links a:hover{background:color-mix(in srgb, var(--cc) 14%, var(--panel));
+    text-decoration:none}
   .about-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:18px}
   .cite{flex:1 1 460px;font-family:var(--serif);font-size:.78rem;line-height:1.55;color:var(--ink);
     background:var(--panel-2);border:1px solid var(--line);border-radius:11px;

@@ -37,7 +37,7 @@ Autonomy, most to least AI-driven:
 - [Visuals](https://whataifound.org/visuals): the registry as charts
 - [Open review queue](https://whataifound.org/review): entries still needing an independent check
 - [Contributors](https://whataifound.org/contributors): who builds and checks the registry
-- [Elsewhere](https://whataifound.org/registries): the other projects recording AI mathematics (Palomar, MathDB, vibemathed, ProofAtlas), what each one certifies, and what none of them do
+- [Other registries](https://whataifound.org/registries): Palomar, MathDB, vibemathed and ProofAtlas, what each one certifies, and what none of them do
 
 ## Data
 

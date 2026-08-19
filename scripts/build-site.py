@@ -61,7 +61,6 @@ PAGES = [
     ("/visuals", "Visuals", "weekly", "0.7"),
     ("/methodology", "Methodology", "monthly", "0.7"),
     ("/contributors", "Contributors", "monthly", "0.5"),
-    ("/registries", "Elsewhere", "monthly", "0.4"),
 ]
 
 # Pages that carry the shared chrome but do not belong in the nav. /account is a
@@ -84,6 +83,12 @@ CHROME_PAGES = [
     # Maintainers only. Every row on it comes from a session-authenticated request, so an
     # indexed copy would be an empty shell in search results.
     ("/admin", False, None, None),
+    # Indexable, and not in the nav. It was in PAGES for exactly one build: .eyebrow is a
+    # wrapping flex row, and a sixth item widened .pagenav enough to push the sign-in and
+    # GitHub cluster onto a second line. check-mobile.py did not catch it because nothing
+    # overflowed; the masthead just grew a row. The page is reached from the footer, which
+    # is on every page including all 70 findings, and from the methodology page.
+    ("/registries", True, "monthly", "0.4"),
 ]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -560,7 +565,7 @@ def site_footer():
         '<footer id="about">',
         '<div class="about-grid">',
 
-        '<section class="about-cell">',
+        '<section class="about-cell c-policy">',
         '<h2 class="lbl">Editorial policy</h2>',
         '<p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is '
         'ever deleted: entries are downgraded and annotated, and the history stays public. '
@@ -568,7 +573,7 @@ def site_footer():
         '<p class="about-links"><a href="/methodology">Full rules →</a></p>',
         '</section>',
 
-        '<section class="about-cell">',
+        '<section class="about-cell c-data">',
         '<h2 class="lbl">Use the data</h2>',
         '<p>The whole registry is one open file under '
         '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
@@ -584,7 +589,7 @@ def site_footer():
         '</p>',
         '</section>',
 
-        '<section class="about-cell">',
+        '<section class="about-cell c-help">',
         '<h2 class="lbl">Contribute</h2>',
         '<p>Most entries have never been checked outside the lab that announced them. A check '
         'takes one form to submit, needs no GitHub account, and is credited on the entry '
@@ -597,7 +602,7 @@ def site_footer():
         '</p>',
         '</section>',
 
-        '<section class="about-cell">',
+        '<section class="about-cell c-src">',
         '<h2 class="lbl">Source</h2>',
         '<p>Site and registry are open on GitHub. Corrections and new entries are welcome by '
         'pull request.</p>',
@@ -619,15 +624,14 @@ def site_footer():
         # places to check: the registry that joins the others up is the one worth
         # opening first. Generated from the registries map so the list cannot drift
         # from the one the finding pages and /registries render from.
-        '<section class="about-note">',
-        '<h2 class="lbl">Elsewhere</h2>',
-        '<p>Four other projects record neighbouring facts about the same results, and each '
-        'certifies something different. What each one does, and what it does not: '
-        '<a href="/registries">the landscape</a>.</p>',
+        '<section class="about-note reg-note">',
+        '<h2 class="lbl">Other registries</h2>',
+        '<p>Four other projects record the same results, and each certifies something '
+        'different.</p>',
         '<p class="about-links">',
         *[f'<a href="{esc(m["home"])}" target="_blank" rel="noopener">{esc(m["name"])}</a>'
           for m in REGISTRY.values()],
-        '<a href="/registries">Compare them →</a>',
+        '<a href="/registries">What each one checks →</a>',
         '</p>',
         '</section>',
 
@@ -1885,9 +1889,8 @@ def build_llms_txt(entries):
         f"- [Visuals]({SITE}/visuals): the registry as charts",
         f"- [Open review queue]({SITE}/review): entries still needing an independent check",
         f"- [Contributors]({SITE}/contributors): who builds and checks the registry",
-        f"- [Elsewhere]({SITE}/registries): the other projects recording AI mathematics "
-        "(Palomar, MathDB, vibemathed, ProofAtlas), what each one certifies, and what none "
-        "of them do",
+        f"- [Other registries]({SITE}/registries): Palomar, MathDB, vibemathed and "
+        "ProofAtlas, what each one certifies, and what none of them do",
         "",
         "## Data",
         "",
