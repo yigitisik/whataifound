@@ -126,6 +126,10 @@ REGISTRATION = {
                               "PALOMAR-2026-08-13-000001."},
         "url": {"type": "string", "pattern": "^https?://",
                 "description": "The record's own page. Must be http(s)."},
+        "title": {"type": "string",
+                  "description": "The record's own title, when it is more use to a reader than "
+                                 "the bare identifier. A MathDB id is a number; the problem's "
+                                 "name is what someone is actually looking for. Optional."},
         "repository": {"type": "string",
                        "description": "The repository the registration checked, as owner/name. Optional."},
         "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$",

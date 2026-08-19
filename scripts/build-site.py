@@ -61,6 +61,7 @@ PAGES = [
     ("/visuals", "Visuals", "weekly", "0.7"),
     ("/methodology", "Methodology", "monthly", "0.7"),
     ("/contributors", "Contributors", "monthly", "0.5"),
+    ("/registries", "Elsewhere", "monthly", "0.4"),
 ]
 
 # Pages that carry the shared chrome but do not belong in the nav. /account is a
@@ -138,6 +139,28 @@ FIELD_LABEL = VOCAB["fields"]
 # registry is outside mathematics, where no such registry exists at all. Modelled on
 # FIELD_LABEL rather than on the graded arrays, so a new registry needs no pill colour.
 REGISTRY = VOCAB.get("registries") or {}
+
+# What kind of record each registry keeps, which decides how a registration reads on a
+# finding page. Three very different things were about to end up under one heading: a
+# machine check of an artifact, a tracker of the problem's standing in the literature, and
+# a parallel listing of the same result. Calling all three "machine-checked elsewhere"
+# would have been false for two of them, so the role picks the heading.
+#
+# Display order, not importance: the mechanical check is the load-bearing one, so it
+# leads, and the parallel listing is the weakest evidence, so it closes.
+REG_ROLE_HEADING = {
+    "verification": "Machine-checked elsewhere",
+    "problem": "The open problem",
+    "registry": "Also recorded at",
+}
+REG_ROLE_ORDER = list(REG_ROLE_HEADING)
+# The short form for llms.txt, where the line has no room for a heading. Same three roles,
+# and validate_vocab() pins both tables to the vocabulary so neither can fall behind it.
+REG_ROLE_SHORT = {
+    "verification": "machine-checked record",
+    "problem": "open-problem record",
+    "registry": "also listed at",
+}
 
 # What each source link is: the original work, the claim about it, or the case against.
 # Not a grade - see the note in vocab.json. Array order is display order, and it is the
@@ -590,6 +613,23 @@ def site_footer():
         '</section>',
 
         '</div>',
+
+        # Outbound, on every page including all 70 finding pages. Linking to the
+        # neighbours is what makes this the place to start rather than one of five
+        # places to check: the registry that joins the others up is the one worth
+        # opening first. Generated from the registries map so the list cannot drift
+        # from the one the finding pages and /registries render from.
+        '<section class="about-note">',
+        '<h2 class="lbl">Elsewhere</h2>',
+        '<p>Four other projects record neighbouring facts about the same results, and each '
+        'certifies something different. What each one does, and what it does not: '
+        '<a href="/registries">the landscape</a>.</p>',
+        '<p class="about-links">',
+        *[f'<a href="{esc(m["home"])}" target="_blank" rel="noopener">{esc(m["name"])}</a>'
+          for m in REGISTRY.values()],
+        '<a href="/registries">Compare them →</a>',
+        '</p>',
+        '</section>',
 
         '<section class="about-note">',
         '<h2 class="lbl">Disclaimer</h2>',
@@ -1616,36 +1656,53 @@ def entry_page(e, entries, updated):
     # the difference said out loud rather than inferred from the heading.
     regs = ""
     if e.get("registrations"):
-        rows = ""
+        # Grouped by what kind of record each registry keeps, one heading per group, the
+        # same shape grouped_refs() uses for sources. Three registries hold three
+        # different facts about one result, and collapsing them under a single heading
+        # would tell a reader that a problem tracker had machine-checked something.
+        by_role = {}
         for r in e["registrations"]:
-            meta = REGISTRY.get(r.get("registry")) or {}
-            sha = str(r.get("commit") or "")
-            # Twelve characters, not the full forty: unambiguous in any repository and it
-            # does not wrap the line on a phone. The full SHA is in entries.json and in
-            # the linked record, which is where anyone rechecking the proof will start.
-            line = []
-            if r.get("repository"):
-                line.append(f'<span class="reg-repo">{esc(r["repository"])}</span>'
-                            + (f' at <code>{esc(sha[:12])}</code>' if sha else ""))
-            if r.get("checked"):
-                line.append(f'checked {esc(r["checked"])}')
-            theorems = "".join(f'<code>{esc(t)}</code>'
-                               for t in (r.get("theorems") or []))
-            rows += (
-                '<div class="reg">'
-                f'<p class="reg-h"><a href="{esc(r.get("url"))}" target="_blank" rel="noopener">'
-                f'{esc(meta.get("name") or r.get("registry"))}'
-                f'<span class="reg-id">{esc(r.get("id"))}</span>'
-                '<span class="reg-a" aria-hidden="true">\u2197</span></a></p>'
-                + (f'<p class="reg-m">{" \u00b7 ".join(line)}</p>' if line else "")
-                + (f'<p class="reg-t"><span class="reg-t-k">Proved</span>{theorems}</p>'
-                   if theorems else "")
-                + (f'<p class="reg-w">{esc(meta["certifies"])}</p>'
-                   if meta.get("certifies") else "")
-                + (f'<p class="reg-n">{esc(r["note"])}</p>' if r.get("note") else "")
-                + '</div>')
-        regs = ('\n  <h2 class="lbl">Machine-checked elsewhere</h2>'
-                f'\n  <div class="regs">{rows}</div>')
+            role = (REGISTRY.get(r.get("registry")) or {}).get("role")
+            by_role.setdefault(role, []).append(r)
+        for role in REG_ROLE_ORDER:
+            group = by_role.get(role) or []
+            if not group:
+                continue
+            rows = ""
+            for r in group:
+                meta = REGISTRY.get(r.get("registry")) or {}
+                sha = str(r.get("commit") or "")
+                line = []
+                # A repository at a pinned commit and a list of proved theorems are what a
+                # mechanical check produces. A problem tracker has neither, and printing
+                # empty rows for it would imply it does.
+                if role == "verification":
+                    # Twelve characters, not the full forty: unambiguous in any repository
+                    # and it does not wrap on a phone. The full SHA is in entries.json and
+                    # in the linked record, where anyone rechecking the proof will start.
+                    if r.get("repository"):
+                        line.append(f'<span class="reg-repo">{esc(r["repository"])}</span>'
+                                    + (f' at <code>{esc(sha[:12])}</code>' if sha else ""))
+                if r.get("checked"):
+                    line.append(f'checked {esc(r["checked"])}')
+                theorems = "".join(f'<code>{esc(t)}</code>'
+                                   for t in (r.get("theorems") or [])) if role == "verification" else ""
+                rows += (
+                    '<div class="reg">'
+                    f'<p class="reg-h"><a href="{esc(r.get("url"))}" target="_blank" rel="noopener">'
+                    f'{esc(meta.get("name") or r.get("registry"))}'
+                    f'<span class="reg-id">{esc(r.get("title") or r.get("id"))}</span>'
+                    '<span class="reg-a" aria-hidden="true">\u2197</span></a></p>'
+                    + (f'<p class="reg-m">{" \u00b7 ".join(([esc(r["id"])] if r.get("title") else []) + line)}</p>'
+                       if (line or r.get("title")) else "")
+                    + (f'<p class="reg-t"><span class="reg-t-k">Proved</span>{theorems}</p>'
+                       if theorems else "")
+                    + (f'<p class="reg-w">{esc(meta["certifies"])}</p>'
+                       if meta.get("certifies") else "")
+                    + (f'<p class="reg-n">{esc(r["note"])}</p>' if r.get("note") else "")
+                    + '</div>')
+            regs += (f'\n  <h2 class="lbl">{esc(REG_ROLE_HEADING[role])}</h2>'
+                     f'\n  <div class="regs">{rows}</div>')
     # The registry card carries these and this page did not, so the canonical record showed
     # less about an entry than the list it was reached from. Placed under the prose, where a
     # reader who has just read what was found is looking for someone to explain it.
@@ -1828,6 +1885,9 @@ def build_llms_txt(entries):
         f"- [Visuals]({SITE}/visuals): the registry as charts",
         f"- [Open review queue]({SITE}/review): entries still needing an independent check",
         f"- [Contributors]({SITE}/contributors): who builds and checks the registry",
+        f"- [Elsewhere]({SITE}/registries): the other projects recording AI mathematics "
+        "(Palomar, MathDB, vibemathed, ProofAtlas), what each one certifies, and what none "
+        "of them do",
         "",
         "## Data",
         "",
@@ -1860,18 +1920,29 @@ def build_llms_txt(entries):
         for e in sorted(by_field[field], key=lambda x: x.get("date", ""), reverse=True):
             ver = VER_LABEL.get(e["verification"], e["verification"])
             aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
-            # The machine-checked record, named inline rather than left to the finding
-            # page. This is the line a model quoting us reads, and "formally verified"
-            # with a citable record id behind it is a different claim from the same
-            # words alone.
+            # Where else the result is recorded, named inline rather than left to the
+            # finding page. This is the line a model quoting us reads, and "formally
+            # verified" with a citable record id behind it is a different claim from the
+            # same words alone.
+            #
+            # Labelled per role, not with one phrase for all of them. This said
+            # "machine-checked record" for every registration, which was true while
+            # Palomar was the only one and became false the moment a problem tracker was
+            # added: a model would have read "machine-checked" off a record that checks
+            # nothing mechanically.
+            reg_by_role = {}
+            for r in (e.get("registrations") or []):
+                meta = REGISTRY.get(r.get("registry")) or {}
+                reg_by_role.setdefault(meta.get("role"), []).append(
+                    f"{meta.get('name', r.get('registry'))} {r.get('id')}")
             reg = "; ".join(
-                f"{(REGISTRY.get(r.get('registry')) or {}).get('name', r.get('registry'))} "
-                f"{r.get('id')}" for r in (e.get("registrations") or []))
+                f"{REG_ROLE_SHORT[role]}: {', '.join(reg_by_role[role])}"
+                for role in REG_ROLE_ORDER if reg_by_role.get(role))
             lines.append(
                 f"- [{e['title']}]({SITE}/finding/{e['id']}): {e['claim']} "
                 f"({e.get('lab', '')}, {e.get('model', '')}, {e.get('date', '')}; "
                 f"verification: {ver}; autonomy: {aut}"
-                + (f"; machine-checked record: {reg}" if reg else "") + ")")
+                + (f"; {reg}" if reg else "") + ")")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
@@ -2988,6 +3059,71 @@ def build_chrome(updated):
             f.write(src)
 
 
+def registry_cards():
+    """The landscape, generated from the registries map in data/vocab.json.
+
+    Same map that decides how a registration renders on a finding page and what the
+    footer links to, so the three surfaces cannot disagree about what Palomar or MathDB
+    is. Grouped by role, because the roles are the actual taxonomy: one of these checks
+    proofs by machine, one tracks problems, one is a parallel list.
+    """
+    by_role = {}
+    for slug, m in REGISTRY.items():
+        by_role.setdefault(m.get("role"), []).append((slug, m))
+    out = ""
+    for role in REG_ROLE_ORDER:
+        group = by_role.get(role) or []
+        if not group:
+            continue
+        out += f'<h3 class="lbl">{esc(REG_ROLE_HEADING[role])}</h3>\n<div class="regcards">\n'
+        for slug, m in group:
+            out += (f'<div class="regcard" id="{esc(slug)}">'
+                    f'<p class="regcard-h"><a href="{esc(m["home"])}" target="_blank"'
+                    f' rel="noopener">{esc(m["name"])}'
+                    '<span class="reg-a" aria-hidden="true">\u2197</span></a></p>'
+                    f'<p class="regcard-o">{esc(m["operator"])}</p>'
+                    f'<p class="regcard-s">{esc(m["scope"])}</p>'
+                    '<p class="regcard-c"><span class="reg-t-k">Certifies</span>'
+                    f'{esc(m["certifies"])}</p>'
+                    '</div>\n')
+        out += "</div>\n"
+    return out
+
+
+def build_registries():
+    """Regenerate the registry cards on /registries and the short list on /methodology.
+
+    Both read the same map for the same reason the grade tables do: a description of
+    what Palomar certifies that lives in two hand-written places is a description that
+    will eventually be wrong in one of them.
+    """
+    path = os.path.join(ROOT, "registries.html")
+    src = open(path).read()
+    src = inject(src, "<!--REGISTRIES:START-->", "<!--REGISTRIES:END-->",
+                 registry_cards(), "registry cards", "registries.html")
+    with open(path, "w") as f:
+        f.write(src)
+
+    # One line each on the methodology page, where the question is "how do your grades
+    # relate to theirs". The full cards stay on /registries.
+    rows = ""
+    for role in REG_ROLE_ORDER:
+        for slug, m in REGISTRY.items():
+            if m.get("role") != role:
+                continue
+            rows += (f'<div class="meth-row"><span class="meth-term">'
+                     f'<a href="{esc(m["home"])}" target="_blank" rel="noopener">'
+                     f'{esc(m["name"])}</a></span>'
+                     f'<span class="meth-def">{esc(m["certifies"])}</span></div>')
+    mpath = os.path.join(ROOT, "methodology.html")
+    msrc = open(mpath).read()
+    msrc = inject(msrc, "<!--REGDEFS:START-->", "<!--REGDEFS:END-->", rows,
+                  "related registries", "methodology.html")
+    with open(mpath, "w") as f:
+        f.write(msrc)
+    print(f"Wrote /registries ({len(REGISTRY)} registries) and the methodology list.")
+
+
 def build_methodology():
     """Regenerate the two grade lists on the methodology page from data/vocab.json.
 
@@ -3223,9 +3359,22 @@ def validate_vocab():
         if not isinstance(item, dict):
             problems.append(f"{where}: must be an object with 'name', 'home' and 'certifies'")
             continue
-        for key in ("name", "home", "certifies"):
+        for key in ("name", "home", "certifies", "operator", "scope"):
             if not str(item.get(key, "")).strip():
                 problems.append(f"{where}: missing '{key}'")
+        # The role picks the heading a registration renders under and the words llms.txt
+        # uses for it. An unknown role would print a block with no heading, or describe a
+        # problem tracker as a machine check, so both tables are pinned here rather than
+        # defaulted at render time.
+        role = item.get("role")
+        if role not in REG_ROLE_HEADING:
+            problems.append(f"{where}: role {role!r} is not one of "
+                            f"{', '.join(REG_ROLE_HEADING)}. A new role also needs a "
+                            "heading in REG_ROLE_HEADING and a short form in "
+                            f"REG_ROLE_SHORT in {os.path.basename(__file__)}.")
+        elif role not in REG_ROLE_SHORT:
+            problems.append(f"{where}: role {role!r} has a heading but no REG_ROLE_SHORT "
+                            "entry, so llms.txt could not name it")
         if item.get("home") and not str(item["home"]).startswith(SAFE_SCHEMES):
             problems.append(f"{where}: 'home' is not an http(s) link")
 
@@ -3397,6 +3546,9 @@ def validate(entries):
                 for key in ("id", "url"):
                     if not str(r.get(key, "")).strip():
                         problems.append(f"{where}: registrations[{i}] is missing '{key}'")
+                if "title" in r and not str(r.get("title", "")).strip():
+                    problems.append(f"{where}: registrations[{i}] has an empty 'title'; "
+                                    "omit the key rather than writing a blank one")
                 checked = r.get("checked")
                 if checked is not None and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(checked)):
                     problems.append(f"{where}: registrations[{i}] checked '{checked}' "
@@ -3467,6 +3619,7 @@ def main():
     build_api_dataset(entries, updated)
     build_api_shell(updated)
     build_methodology()
+    build_registries()
     queued = build_review(entries)
     build_contributors(entries)
     build_contribute(entries)

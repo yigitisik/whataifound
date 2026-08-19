@@ -55,9 +55,16 @@ required field, an unknown grade or source `kind`, a malformed date, a duplicate
 `id`, a bad `youtube_id`, a non-`http(s)` URL, or an entry graded above `claimed` with no
 `research` source.
 
-Two scripts run outside every build, because they hit the network or need a renderer:
-`check-links.py` (CI runs it on PRs touching the data, and weekly) and `build-icons.py` (run
-deliberately; outputs are committed).
+Three scripts run outside every build, because they hit the network or need a renderer:
+`check-links.py` (CI runs it on PRs touching the data, and weekly), `check-registries.py`
+(suggests cross-links to Palomar, MathDB, vibemathed and ProofAtlas; it prints candidates and
+never writes one) and `build-icons.py` (run deliberately; outputs are committed).
+
+Entries can cite the record another project keeps for the same result, through `registrations`.
+Each cited project states what its record establishes, which is not the same thing in each case:
+Palomar machine-checks a Lean proof, MathDB tracks a problem's standing in the literature, and
+vibemathed is a parallel list. [/registries](https://whataifound.org/registries) sets out what
+each one does and what none of them do.
 
 Why the site is pre-rendered, why `card()` exists twice, what the integrity check guards, and how
 accounts and UI contributions stay off git's critical path: [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md).

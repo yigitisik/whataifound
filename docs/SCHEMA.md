@@ -29,7 +29,7 @@ else (site, search, company pages) is a rendering of it.
 | `novelty_check` | string | What was searched, what turned up. **Write this even when clean** |
 | `caveats` | string | Known objections, disputes, unreplicated parts |
 | `independent_checks` | array | `{who, url, outcome}` |
-| `registrations` | array | `{registry, id, url, repository?, commit?, theorems?, checked?, note?}`. Where else this result is registered, and what that registration mechanically guarantees. See [registrations](#registrations-what-a-machine-checked-elsewhere) |
+| `registrations` | array | `{registry, id, url, title?, repository?, commit?, theorems?, checked?, note?}`. Where else this result is recorded, and what that record establishes. See [registrations](#registrations-what-a-machine-checked-elsewhere) |
 | `discussion` | array | `{label, url}`. Threads where the result was debated (Hacker News, Stack Exchange, Reddit). Not a substitute for a primary source |
 | `videos` | array | `{label, channel, youtube_id}`. Credible explainers only (official lab channels, established science press, recognized educators). Verify the ID resolves and the channel is who it claims before adding; never add hype-channel content |
 | `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms`. See [method tags](#method-tags) for four that are worth spelling the same way every time |
@@ -73,16 +73,33 @@ work to find.
 
 ## `registrations`: what a machine checked elsewhere
 
-Other registries check one narrow thing very well. [Palomar](https://palomar-registry.org/)
-takes a snapshot of a public Lean repository and verifies mechanically that the proof
-typechecks against the recorded statement under a declared axiom set. That is exactly the
-evidence a `formal` grade asserts, and until this field existed we asserted it in prose.
+Four other projects record neighbouring facts about the results in this registry, and each one
+establishes something different. A registration cites one of their records and prints, beside
+it, what that record does and does not establish.
 
-A registration is **evidence about one artifact, not a verdict on the finding**. Nothing here
+A registration is **evidence about one record, not a verdict on the finding**. Nothing here
 ranks an entry, an entry without one is not thereby weaker, and most of the registry is in
-fields where no such registry exists. It is also not peer review: Palomar says so itself, and
-the `certifies` sentence printed beside every record on the finding page comes from the
-`registries` map in `data/vocab.json` so that the limit travels with the claim.
+fields where no such project exists. The `certifies` sentence printed beside every record on
+the finding page comes from the `registries` map in `data/vocab.json`, so the limit always
+travels with the claim.
+
+Each registry carries a `role`, which decides the heading its records render under. This is
+the part that matters: three of these things are not the same, and one heading over all of
+them would say a problem tracker had machine-checked something.
+
+| `role` | heading | who | what it establishes |
+|---|---|---|---|
+| `verification` | Machine-checked elsewhere | Palomar, ProofAtlas | a proof typechecks against a recorded statement |
+| `problem` | The open problem | MathDB | the problem's standing in the literature |
+| `registry` | Also recorded at | vibemathed | that a parallel list holds the same result |
+
+A new `role` is a code change, not a data change: it needs an entry in `REG_ROLE_HEADING` and
+`REG_ROLE_SHORT` in `scripts/build-site.py`, and the build fails naming the missing one.
+
+`scripts/check-registries.py` suggests candidates for entries that carry none. It never writes
+a link, and the reason is in its docstring: an early version paired "Counterexamples to the
+Gaussian moments conjecture" with the Jacobian conjecture at full confidence, because the
+claim mentions the Jacobian conjecture as context.
 
 ```json
 "registrations": [
@@ -100,7 +117,18 @@ the `certifies` sentence printed beside every record on the finding page comes f
 ```
 
 `registry` must be a slug in the `registries` map in `data/vocab.json`; adding a registry is a
-one-object edit there, and it needs no colour rule because a registration is not a grade.
+one-object edit there (`name`, `home`, `role`, `operator`, `scope`, `certifies`), and it needs
+no colour rule because a registration is not a grade. That one object also feeds
+[/registries](https://whataifound.org/registries) and the methodology page, so a description
+written once appears everywhere it is claimed.
+
+`title` is the record's own name, for when the bare identifier is no use to a reader. A MathDB
+id is a number; `MathDB 315904` tells nobody anything, and `MathDB: Sendov's conjecture` does.
+Omit it where the identifier already reads well, as vibemathed's slugs do.
+
+`repository`, `commit` and `theorems` only render under the `verification` role, because only a
+mechanical check produces them. Setting them on a `problem` row is not rejected, but nothing
+will show them.
 
 `commit` must be a **full 40-character SHA**. A short SHA or a branch name points at something
 that can move, and the whole value of a registration is that it pins what was checked. The

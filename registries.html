@@ -4,23 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
-<!-- Declares the page supports both palettes, dark preferred, before styles.css
-     loads. styles.css then sets color-scheme per resolved theme. Without this the
-     native scrollbars and <select> dropdown lists paint light on a dark page. -->
 <meta name="color-scheme" content="dark light">
 
 <!-- Canonical domain: https://whataifound.org -->
-<title>Visuals: The AI Contribution Registry at a Glance | whataifound.org</title>
-<meta name="description" content="Charts of the whataifound.org registry: findings per year, a breakdown by verification grade, lab, and topic area, and a scatter of how long each problem stood open versus how widely known it is, colored by how much the AI actually did. These visuals always reflect the whole registry.">
+<title>Where else AI mathematics is recorded: Palomar, MathDB, vibemathed, ProofAtlas | whataifound.org</title>
+<meta name="description" content="Four projects now record AI contributions to mathematics, and each certifies something different. What Palomar, MathDB, vibemathed and ProofAtlas each check, what none of them check, and how whataifound.org relates to all four.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="canonical" href="https://whataifound.org/visuals">
+<link rel="canonical" href="https://whataifound.org/registries">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="whataifound.org">
-<meta property="og:title" content="Visuals: The AI Contribution Registry at a Glance">
-<meta property="og:description" content="Charts of the whataifound.org registry: findings over time, verification grades, labs, topics, and an evidence-versus-autonomy matrix.">
-<meta property="og:url" content="https://whataifound.org/visuals">
-<!-- PNG, not SVG: WhatsApp, iMessage, Facebook, LinkedIn and X do not render SVG previews. -->
+<meta property="og:title" content="Where else AI mathematics is recorded">
+<meta property="og:description" content="Palomar, MathDB, vibemathed and ProofAtlas each certify something different. What each one checks, and what none of them do.">
+<meta property="og:url" content="https://whataifound.org/registries">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
@@ -30,48 +26,59 @@
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Visuals: The AI Contribution Registry at a Glance">
-<meta name="twitter:description" content="The whataifound.org registry in charts: findings over time, grades, labs, topics, and evidence versus autonomy.">
+<meta name="twitter:title" content="Where else AI mathematics is recorded">
+<meta name="twitter:description" content="Palomar, MathDB, vibemathed and ProofAtlas each certify something different.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
-<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
-     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
-     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
-     /favicon.ico is the path Google probes when no <link> is usable. -->
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
 <link rel="manifest" href="/site.webmanifest">
 
-<!-- Subscribable feeds: new and updated registry entries. -->
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": "https://whataifound.org/visuals#article",
-  "headline": "Visuals: The AI Contribution Registry at a Glance",
-  "description": "Charts of the whataifound.org registry: findings over time, verification grades, labs, topics, and an evidence-versus-autonomy matrix.",
-  "url": "https://whataifound.org/visuals",
-  "inLanguage": "en",
-  "author": { "@type": "Organization", "name": "whataifound.org" },
-  "publisher": { "@type": "Organization", "name": "whataifound.org", "url": "https://whataifound.org/" },
-  "isPartOf": { "@id": "https://whataifound.org/#website" },
-  "about": ["AI discoveries", "data visualization", "scientific verification", "AI autonomy", "mathematics"]
-}
-</script>
+<link rel="preload" href="/styles.css" as="style">
+<link rel="stylesheet" href="/styles.css">
 
-<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
-/* Keep the browser-chrome tint on the theme that actually rendered. The static tag is
-   dark (the default); only a light result needs rewriting, and 'system' resolves via
-   the media query rather than the stored value. */
-var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
-if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
-<link rel="stylesheet" href="styles.css">
+<style>
+  /* Shares .meth-title, .reg-a and .reg-t-k with styles.css. What lives here is the card
+     grid, which no other page renders. Same conventions as the methodology page's own
+     scoped block: section rhythm first, then the layout that is unique to this page. */
+  .meth-sec{margin:34px 0}
+  .meth-sec > h2{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+  .meth-sec > .sub{color:var(--muted);margin:0 0 22px;max-width:70ch}
+  .meth-sec > p{line-height:1.62;max-width:74ch;margin:0 0 14px}
+  .meth-sec h3.lbl{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted);margin:24px 0 8px;font-weight:bold}
+  .meth-sec h3.lbl:first-of-type{margin-top:0}
+
+  /* Two up on a desktop, one on a phone. minmax(0,1fr) rather than 1fr because a long
+     unbroken operator name would otherwise push the column past the grid. */
+  .regcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 8px}
+  .regcard{border:1px solid var(--line);border-left:3px solid var(--rev-check);
+    border-radius:10px;background:var(--panel);padding:14px 16px}
+  .regcard-h{margin:0 0 6px;font-size:1.02rem;font-weight:600}
+  .regcard-h a{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;
+    color:var(--accent)}
+  .regcard-h a:hover{text-decoration:underline;text-underline-offset:3px}
+  .regcard-o{margin:0 0 3px;font-size:.84rem;line-height:1.5;color:var(--muted)}
+  .regcard-s{margin:0 0 9px;font-size:.84rem;line-height:1.5;color:var(--muted)}
+  /* The load-bearing line on the page, so it is the one at full ink rather than muted:
+     everything above it is context for what this project actually establishes. */
+  .regcard-c{margin:0;font-size:.87rem;line-height:1.55;color:var(--ink)}
+  .regcard-c .reg-t-k{display:block;margin:0 0 3px}
+
+  .meth-more{margin:16px 0 0}
+  .meth-more a{font-family:var(--serif);font-weight:600;text-decoration:none}
+  .meth-more a:hover{text-decoration:underline;text-underline-offset:3px}
+
+  @media(max-width:720px){
+    .regcards{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -91,10 +98,10 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <nav class="pagenav" aria-label="Site">
 <a href="/">Registry</a>
 <a href="/review">Review queue</a>
-<a href="/visuals" aria-current="page">Visuals</a>
+<a href="/visuals">Visuals</a>
 <a href="/methodology">Methodology</a>
 <a href="/contributors">Contributors</a>
-<a href="/registries">Elsewhere</a>
+<a href="/registries" aria-current="page">Elsewhere</a>
 </nav>
 <span class="eyebrow-right">
 <span class="doors" role="group" aria-label="Ways to contribute">
@@ -108,17 +115,91 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </span>
 <span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-19</b></span>
 </span></div><!--HEADER:END-->
-  <h1 class="meth-title">Visuals</h1>
-  <p class="lede">The whole registry at a glance: <strong>how findings accumulate</strong>,
-  <strong>how solid they are</strong>, and <strong>how much the AI actually did</strong>.
-  Every chart is drawn from the whole registry, never from a filtered view.</p>
+  <h1 class="meth-title">Elsewhere</h1>
+  <p class="lede">Four other projects record AI contributions to mathematics. Each one certifies
+  something different, and the differences matter more than they look. This page says what each
+  checks, what none of them check, and where this registry sits.</p>
 </header>
 
 <main id="main">
-  <!-- Derived in renderInsights() from the same data as the charts, so the headline
-       figures cannot drift from the registry. -->
-  <div class="insights" id="insights"></div>
-  <div class="qv-grid" id="charts"></div>
+
+  <section class="meth-sec" aria-labelledby="land-h">
+    <h2 id="land-h">The landscape</h2>
+    <p class="sub">Grouped by what kind of record each one keeps. Descriptions come from the same
+    vocabulary file the finding pages render from, so what is claimed here is what is claimed
+    beside a citation.</p>
+    <!--REGISTRIES:START--><h3 class="lbl">Machine-checked elsewhere</h3>
+<div class="regcards">
+<div class="regcard" id="palomar"><p class="regcard-h"><a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">Incubated by the Lean FRO and ICARM, with a scientific advisory board of nine mathematicians.</p><p class="regcard-s">Snapshots of public Lean repositories, mathematics only.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review.</p></div>
+<div class="regcard" id="proofatlas"><p class="regcard-h"><a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">A platform publishing authored formalizations, in read-only beta.</p><p class="regcard-s">Lean formalizations and the proof routes behind them, mathematics only.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>That a recorded Lean build passed with no unfinished proof steps, under its own evidence contract, which a record can satisfy for checking while still failing for acceptance.</p></div>
+</div>
+<h3 class="lbl">The open problem</h3>
+<div class="regcards">
+<div class="regcard" id="mathdb"><p class="regcard-h"><a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">A collaboration between Caltech mathematics faculty, graduate students and undergraduates.</p><p class="regcard-s">66,736 open problems in research mathematics.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div>
+</div>
+<h3 class="lbl">Also recorded at</h3>
+<div class="regcards">
+<div class="regcard" id="vibemathed"><p class="regcard-h"><a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">Community-curated, maintained by Rasmus Lindahl.</p><p class="regcard-s">Mathematics problems first closed with AI in the loop.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div>
+</div>
+<!--REGISTRIES:END-->
+  </section>
+
+  <section class="meth-sec" aria-labelledby="same-h">
+    <h2 id="same-h">One result, four different facts</h2>
+    <p>Sendov's conjecture is the clearest example. ProofAtlas hosts Lech Mazur's formalization,
+    which its own record marks Lean checked with a passing build but <em>not</em> accepted,
+    because the retained audit is a summary rather than the full build transcript its evidence
+    contract asks for. Palomar registers Terence Tao's separate formalization, written from his
+    blog digestion rather than from Mazur's proof, and archives its entire dependency tree.
+    MathDB tracks the conjecture itself. vibemathed lists the result.</p>
+    <p>All four are true at once, and none of them is the whole picture. Priority for the first
+    machine-checked proof belongs to Mazur; the reproducible archived artifact is Tao's; the
+    problem's standing in the literature is MathDB's to state. Our
+    <a href="/finding/2026-08-05-sendov-conjecture">entry for Sendov</a> is the only place a
+    reader sees all four and which one answers which question.</p>
+    <p>The Jacobian conjecture shows the same thing sharper. MathDB records it as partially
+    solved with the claim not independently verified. We grade the counterexample
+    <em>formally verified</em>. Both are right: they are tracking the conjecture's standing in
+    the literature, which stays open until the literature catches up, and we are grading whether
+    the counterexample checks out, which it does under a symbolic recomputation anyone can rerun
+    in seconds.</p>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="us-h">
+    <h2 id="us-h">What none of them do</h2>
+    <p>Two things on this site have no counterpart anywhere above, and they are the reason it
+    exists.</p>
+    <p><strong>We grade how much the AI actually did.</strong> Every entry carries an
+    <a href="/methodology">autonomy grade</a> on a six-point scale, from a result the model
+    produced with no mathematical input beyond the problem statement, down to one where it
+    retrieved something a human had already proved. It is graded on the strictest defensible
+    reading, so an arguable case takes the weaker grade. No other registry records this, and it
+    is the question most readers are actually asking.</p>
+    <p><strong>We keep the failures.</strong> Refuted results, disputed results, and results that
+    turned out to already exist in the literature stay on the record, marked as such. A registry
+    that publishes only what passes is telling you about its filter, not about the field. One of
+    our entries records a set of Erdős problems an AI was reported to have solved and had in fact
+    located existing solutions to; a registry that only registers successes has nowhere to put
+    that.</p>
+    <p>We also carry the case against. Every source on an entry is labelled with what it is, and
+    <em>challenge</em> is one of the labels: a rebuttal, a failed replication, or prior work
+    showing the result was already known. Where an entry has no counterargument linked, the
+    <a href="/review">review queue</a> says so rather than letting the silence read as consensus.</p>
+    <p>Beyond mathematics, the comparison stops applying. Every project on this page is
+    mathematics only. Roughly half this registry is biology, medicine, materials, physics,
+    chemistry and the rest.</p>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="corr-h">
+    <h2 id="corr-h">Corrections welcome</h2>
+    <p>If you maintain one of these projects and this page describes it wrongly, that is a bug and
+    we would rather hear it than keep it.
+    <a href="/contribute">Send a correction</a>, or
+    <a href="mailto:misik6@gatech.edu?subject=whataifound.org%20registries%20page">email us</a>.
+    Descriptions here are generated from one vocabulary file, so a fix lands on this page, on the
+    methodology page and beside every citation at once.</p>
+  </section>
+
 </main>
 
 <!--FOOTER:START--><footer id="about">
@@ -183,8 +264,6 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </div>
 
 <script src="/js/chrome.js" defer></script>
-<script src="/js/app.js"></script>
-
 <!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>

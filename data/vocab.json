@@ -247,7 +247,34 @@
     "palomar": {
       "name": "Palomar",
       "home": "https://palomar-registry.org/",
+      "role": "verification",
+      "operator": "Incubated by the Lean FRO and ICARM, with a scientific advisory board of nine mathematicians.",
+      "scope": "Snapshots of public Lean repositories, mathematics only.",
       "certifies": "A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review."
+    },
+    "proofatlas": {
+      "name": "ProofAtlas",
+      "home": "https://www.proofatlas.ai/",
+      "role": "verification",
+      "operator": "A platform publishing authored formalizations, in read-only beta.",
+      "scope": "Lean formalizations and the proof routes behind them, mathematics only.",
+      "certifies": "That a recorded Lean build passed with no unfinished proof steps, under its own evidence contract, which a record can satisfy for checking while still failing for acceptance."
+    },
+    "mathdb": {
+      "name": "MathDB",
+      "home": "https://mathdb.com/",
+      "role": "problem",
+      "operator": "A collaboration between Caltech mathematics faculty, graduate students and undergraduates.",
+      "scope": "66,736 open problems in research mathematics.",
+      "certifies": "Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution."
+    },
+    "vibemathed": {
+      "name": "vibemathed",
+      "home": "https://vibemathed.com/",
+      "role": "registry",
+      "operator": "Community-curated, maintained by Rasmus Lindahl.",
+      "scope": "Mathematics problems first closed with AI in the loop.",
+      "certifies": "Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check."
     }
   }
 }

@@ -16,6 +16,14 @@
     "detail": "Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.",
     "novelty_check": "The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example.",
     "caveats": "Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified. Downgraded from 'author verified' when source classification showed no primary artifact is linked: the construction was published as a chat transcript rather than a paper or repository. Readers have checked the arithmetic and found it consistent, but there is nothing citable to point at, so the grade caps at 'claimed' until someone links a standalone write-up.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "316187",
+        "title": "Dinitz–Garg–Goemans conjecture",
+        "url": "https://mathdb.com/p/316187/dinitz-garg-goemans-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "Dmitry Rybin announcement (X)",
@@ -46,6 +54,11 @@
         "date": "2026-08-02",
         "kind": "regraded",
         "note": "Downgraded from author verified to claimed: classifying the sources showed no primary artifact, only a chat transcript."
+      },
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
       }
     ]
   },
@@ -77,6 +90,14 @@
         "outcome": "confirmed"
       }
     ],
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "315779",
+        "title": "Jacobian conjecture",
+        "url": "https://mathdb.com/p/315779/jacobian-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "The Jacobian counterexample, explained",
@@ -99,7 +120,14 @@
       "counterexample",
       "polynomial-maps"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
+      }
+    ]
   },
   {
     "id": "2026-05-erdos-unit-distance",
@@ -127,6 +155,12 @@
         ],
         "checked": "2026-08-14",
         "note": "Palomar's record describes this as certifying the literal negation of the uniform-constant form of the conjecture, from a Mathlib-only statement of that negation. That is narrower than this entry's claim, which is why the entry stays at independently checked rather than moving to formally verified."
+      },
+      {
+        "registry": "mathdb",
+        "id": "315785",
+        "title": "Erdős unit-distance conjecture",
+        "url": "https://mathdb.com/p/315785/erdos-unit-distance-conjecture"
       }
     ],
     "sources": [
@@ -168,6 +202,11 @@
         "kind": "check",
         "note": "Palomar registered Kim Morrison's comparator wrapper as PALOMAR-2026-08-08-000001, a machine-checked formalization by someone outside the group that produced the writeup. The verification grade did not move: what is proved formally is the uniform-constant form, which is narrower than this entry's claim.",
         "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&version=3"
+      },
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
       }
     ]
   },
@@ -326,6 +365,14 @@
     "detail": "Part of a sweep across 50+ open problems in analysis, geometry, combinatorics and number theory. AlphaEvolve rediscovered state-of-the-art solutions in roughly 75% of cases and improved on the best known in about 20%. The kissing number problem asks how many non-overlapping unit spheres can touch a central one.",
     "novelty_check": "Kissing number bounds are well catalogued per dimension; the 11D improvement was checked against the standing record.",
     "caveats": "A lower-bound improvement via explicit construction, not a resolution of the problem. The 20% improvement rate means most of the 50+ problems saw no advance.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "315951",
+        "title": "Kissing number problem",
+        "url": "https://mathdb.com/p/315951/kissing-number-problem"
+      }
+    ],
     "sources": [
       {
         "label": "AlphaEvolve paper (PDF)",
@@ -354,7 +401,14 @@
       "sphere-packing",
       "alphaevolve"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
+      }
+    ]
   },
   {
     "id": "2025-08-gpt5-convex-bound",
@@ -1060,6 +1114,14 @@
     "detail": "As part of a sweep across open problems in mathematical analysis, AlphaEvolve improved the upper bound on the Erdős minimum-overlap constant from about 0.380927 to about 0.380924, the first movement since 2016, and improved constants in autocorrelation inequalities. The gains are numerically small but exceed long-standing records, and the constructions are explicit and checkable.",
     "novelty_check": "The minimum-overlap constant and the autocorrelation inequalities have well-tracked records. AlphaEvolve's values were compared against the standing bounds and confirmed to improve them.",
     "caveats": "The improvements are marginal in magnitude, and both were improved again by other automated systems in 2026. As with the other AlphaEvolve results, a human-designed evaluator and search loop did the selecting.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "316064",
+        "title": "Minimum overlap problem",
+        "url": "https://mathdb.com/p/316064/minimum-overlap-problem"
+      }
+    ],
     "sources": [
       {
         "label": "DeepMind: AlphaEvolve",
@@ -1088,7 +1150,14 @@
       "erdos",
       "alphaevolve"
     ],
-    "added": "2026-07-21"
+    "added": "2026-07-21",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
+      }
+    ]
   },
   {
     "id": "2026-07-20-gaussian-moments",
@@ -1339,6 +1408,14 @@
         "outcome": "confirmed; 1,076-line Lean proof compiles in under five minutes"
       }
     ],
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "315784",
+        "title": "Grothendieck's group-scheme question",
+        "url": "https://mathdb.com/p/315784/grothendieck-s-group-scheme-question"
+      }
+    ],
     "sources": [
       {
         "label": "Kevin Buzzard: Human mathematicians are being outcounterexampled",
@@ -1358,7 +1435,14 @@
       "lean",
       "formalization"
     ],
-    "added": "2026-07-29"
+    "added": "2026-07-29",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this result as a registration."
+      }
+    ]
   },
   {
     "id": "2025-09-17-unstable-singularities",
@@ -2535,6 +2619,14 @@
     "detail": "The Riemann hypothesis asserts every nontrivial zero lies on the critical line. Short of proving it, the standard measure of progress is the proportion of zeros known unconditionally to lie there: Selberg established a positive proportion, Levinson reached a third in 1974, Conrey two fifths in 1989, and the record had crept to roughly 41.6%. This work proves at least 3/2 - (1/sqrt 2)cot(1/sqrt 2) = 67.25...% of zeros are simple and on the line, and that at least 0.83625 of zeros are distinct. The decisive step combined the unconditional pair-correlation work of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh with a 2000 paper of Bombieri, treating the whole function space at once with the quadratic form allowed to be non-diagonal rather than splitting it. The process is itself the record worth noting: the model was asked to attempt the Riemann hypothesis outright, with the mathematical choices left to it, and the bound improvement fell out of failing at that. It generated and discarded roughly 650 ideas in a first session; in a second it coordinated about 60 subagents which ran some 2,400 shell commands, wrote hundreds of scripts, checked numerically against known zeros and refereed one another. Two subagents developed the key ideas, thirteen fed them, thirty tried and failed, thirteen validated, two drafted the paper, across roughly 31 million output tokens in two Claude Code sessions. The model also proposed writing the result up, checked 54 arXiv papers for prior art, and recommended a human number theorist validate it.",
     "novelty_check": "The proportion ladder is a documented literature running from Hardy (1914) and Selberg (1942) through Levinson's one third (1974) and Conrey's two fifths (1989), with subsequent refinements reaching about 41.6%; the paper states the prior record and cites it. The model itself searched 54 arXiv papers for prior art before write-up. No earlier unconditional bound above 42% appears in the literature. The result is a new bound, not a retrieval of a known one.",
     "caveats": "Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "more-than-67-of-riemann-zeta-zeros-are-on-the-critical-line",
+        "url": "https://vibemathed.com/problem/more-than-67-of-riemann-zeta-zeros-are-on-the-critical-line",
+        "title": "The Proportion of Zeta Zeros on the Critical Line"
+      }
+    ],
     "sources": [
       {
         "label": "Anthropic: paper (PDF)",
@@ -2550,11 +2642,6 @@
         "label": "Session transcript (PDF)",
         "url": "https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf",
         "kind": "announcement"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2563,7 +2650,14 @@
       "riemann-hypothesis",
       "multi-agent"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-27-feige-conjecture",
@@ -2599,6 +2693,20 @@
         "outcome": "further independent proof of the conjecture"
       }
     ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "feiges-conjecture",
+        "url": "https://vibemathed.com/problem/feiges-conjecture",
+        "title": "Feige's Conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "315661",
+        "title": "Feige's 1/e conjecture",
+        "url": "https://mathdb.com/p/315661/feige-s-1-e-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Sharp small-deviation inequalities for sums of independent nonnegative random variables",
@@ -2614,11 +2722,6 @@
         "label": "arXiv: On Feige's conjecture (Nie and Wei)",
         "url": "https://arxiv.org/abs/2607.24528",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2626,7 +2729,14 @@
       "probability",
       "concentration-inequalities"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-08-04-moore-bound",
@@ -2653,6 +2763,20 @@
         "outcome": "checked at commit 32beb227: DegreeDiameter.theorem_1_1 states Theorem 1.1 itself and corollary_1_2 states Corollary 1.2, neither a weakened lemma, with a second independent route proved alongside each; no sorry or admit in the sources"
       }
     ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "asymptotically-attaining-the-moore-bound",
+        "url": "https://vibemathed.com/problem/asymptotically-attaining-the-moore-bound",
+        "title": "Asymptotically attaining the Moore bound"
+      },
+      {
+        "registry": "mathdb",
+        "id": "316015",
+        "title": "Degree diameter problem",
+        "url": "https://mathdb.com/p/316015/degree-diameter-problem"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Asymptotically attaining the Moore bound",
@@ -2663,11 +2787,6 @@
         "label": "Lean 4 formalization (woutercvb/wewantmoore)",
         "url": "https://github.com/woutercvb/wewantmoore",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2676,7 +2795,14 @@
       "combinatorics",
       "extremal-combinatorics"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-20-gaussian-product-inequality",
@@ -2696,6 +2822,20 @@
     "detail": "The conjecture states that for a centered Gaussian vector X = (X_1..X_n), not necessarily nondegenerate, and any positive exponents a_1..a_n, the expectation of the product of |X_i|^a_i is at least the product of the expectations of |X_i|^a_i. The stronger form adds that when every variance is positive, equality holds exactly when the coordinates are independent. The model returned a complete and correct solution from Greaves's prompt. It did not include the equality characterization, but only because that case was not in the prompt as posed. The proof was formalized in Lean using Codex, and the full prompt and output are public as a shared chat transcript.",
     "novelty_check": "The Gaussian product inequality is a named conjecture dating to 2007, with a substantial partial-results literature covering special cases such as even integer exponents and small dimensions; it was recorded as open in the general case. The proof settles the general statement. No prior general proof appears in the literature.",
     "caveats": "Not peer-reviewed; released as a preprint with a public chat transcript rather than through a journal. The Lean formalization is author-produced. The AI output omitted the equality-characterization half of the strong form, which was supplied around it. Checks by other models (ChatGPT 5.6 Sol Pro, Gemini 3.1 Pro, Grok 4.5) are not independent human verification and do not raise the grade; the human check by Ouimet is author-side.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "gaussian-product-inequality-conjecture",
+        "url": "https://vibemathed.com/problem/gaussian-product-inequality-conjecture",
+        "title": "Gaussian product inequality conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "330065",
+        "title": "The Gaussian Product Conjecture",
+        "url": "https://mathdb.com/p/330065/the-gaussian-product-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "A proof of the strong Gaussian product inequality conjecture",
@@ -2711,11 +2851,6 @@
         "label": "Public chat transcript",
         "url": "https://chatgpt.com/share/6a5ea69b-1648-83e8-80b1-014ae0b1003c",
         "kind": "announcement"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2723,7 +2858,14 @@
       "probability",
       "gaussian-inequalities"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-29-sumset-difference-exponent",
@@ -2742,16 +2884,25 @@
     "detail": "For a finite set A of integers with at least two elements, the ratio of log(|A+A|/|A|) to log(|A-A|/|A|) measures how far sumset growth can outrun difference-set growth. Determining its largest possible value fixes the least universal exponent c such that |A+A|/|A| is at most (|A-A|/|A|)^c for every such A. Tencent Hunyuan's Hyra research agent, powered by the Hy3 model, explored and optimized finite-set constructions over roughly a 24-hour run, moving from finite numerical searches to natural-language proposals of general constructions and supporting arguments, and produced the construction underlying the paper. The human authors independently checked the construction, corrected and rewrote the exposition, and prepared the final proof manually.",
     "novelty_check": "The relationship between sumset and difference-set growth is a standard question in additive combinatorics with a long record of partial bounds on the exponent; the extremal value was recorded as undetermined. The paper states the prior bounds it improves on. The construction is new, not a retrieval of a known extremal family.",
     "caveats": "A newly released arXiv v1 preprint, not peer-reviewed. The Lean 4 and Mathlib formalization is author-provided; the repository reports lake build completing with no sorry declarations or warnings, but the principal asymptotic and supremum results rely on three native_decide certificates for elementary finite computations over a 12-element base-39 digit block, so those steps are trusted to the Lean kernel's decision procedure rather than proved term by term. Autonomy graded ai-led rather than autonomous: the agent produced the construction, but humans posed the problem, checked it and wrote the final proof.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "optimal-exponent-relating-sumsets-and-difference-sets",
+        "url": "https://vibemathed.com/problem/optimal-exponent-relating-sumsets-and-difference-sets",
+        "title": "Optimal Exponent Relating Sumsets and Difference Sets"
+      },
+      {
+        "registry": "mathdb",
+        "id": "315713",
+        "title": "Optimal exponent relating sumsets and difference sets",
+        "url": "https://mathdb.com/p/315713/optimal-exponent-relating-sumsets-and-difference-sets"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Settling the Optimal Exponent Relating Sumsets and Difference Sets",
         "url": "https://arxiv.org/abs/2607.27199",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2759,7 +2910,14 @@
       "additive-combinatorics",
       "number-theory"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-28-kemeny-three-voters",
@@ -2778,16 +2936,25 @@
     "detail": "Kemeny aggregation asks for the ranking minimizing total disagreement with a set of input rankings. Hardness was known for every even number of voters n at least 4, while n = 2 is solvable in polynomial time, leaving three voters as the minimal open case since 2001. GPT-5.6 Sol Ultra found the reduction from MAX CUT; Claude Fable 5 helped simplify parts of it. Combined with the earlier results, every fixed number of voters n at least 3 is now known to be hard. The reduction is Lean-checked alongside an author-written preprint.",
     "novelty_check": "The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears.",
     "caveats": "Not peer-reviewed. The Lean check covers the reduction; it is author-produced and had no independent audit at announcement. Autonomy graded ai-led rather than autonomous: the model found the reduction, but the human author posed the problem, reviewed the argument and wrote the paper.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "kemeny-three-voters",
+        "url": "https://vibemathed.com/problem/kemeny-three-voters",
+        "title": "Kemeny Rank Aggregation for Three Voters"
+      },
+      {
+        "registry": "mathdb",
+        "id": "315674",
+        "title": "Kemeny rank aggregation for three voters",
+        "url": "https://mathdb.com/p/315674/kemeny-rank-aggregation-for-three-voters"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Kemeny Rank Aggregation is NP-Hard for Three Voters",
         "url": "https://arxiv.org/abs/2607.25540",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2795,7 +2962,14 @@
       "complexity-theory",
       "computational-social-choice"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-14-sabidussi-compatibility",
@@ -2825,6 +2999,12 @@
         ],
         "checked": "2026-08-17",
         "note": "Palomar's record does not restate the theorem in prose, so what the registration certifies is that formal statement rather than the preprint's phrasing of it."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "sabidussi-compatibility",
+        "url": "https://vibemathed.com/problem/sabidussi-compatibility",
+        "title": "Sabidussi's Compatibility Conjecture"
       }
     ],
     "sources": [
@@ -2837,11 +3017,6 @@
         "label": "Lean 4 formalization (gexahedron/sabidussi-lean)",
         "url": "https://github.com/gexahedron/sabidussi-lean",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2856,6 +3031,11 @@
         "kind": "check",
         "note": "Palomar registered the author's Lean development as PALOMAR-2026-08-17-000003, so the formalization now carries the mechanical audit it did not have at announcement. The repository was also added as a source: the entry had linked no artifact at all.",
         "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-17-000003&version=1"
+      },
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
       }
     ]
   },
@@ -2877,16 +3057,19 @@
     "detail": "In the full replica-symmetry-breaking solution for hard spheres, the critical exponents a and b at the jamming transition had been observed numerically to high precision to satisfy a + b = 1, without an analytic derivation from the scaling equations. Parisi and Zamponi asked Claude for help; the model quickly proposed what proved to be essentially the correct idea, combining integration-by-parts identities with a maximum principle. Its first formal write-up contained errors, which the authors then fixed and verified before publication in the Journal of Statistical Mechanics.",
     "novelty_check": "The numerical observation that a + b = 1 in the FullRSB jamming solution dates to the 2014 work of Charbonneau, Kurchan, Parisi, Urbani and Zamponi on the exact mean-field theory of hard-sphere glasses, where the relation was reported as observed but unexplained. It remained without analytic derivation in the subsequent literature. The derivation is new.",
     "caveats": "Peer-reviewed and published, which is the appropriate grade for a physics result of this kind, but this is an analytic derivation within an established mean-field framework rather than an independently replicated calculation. Autonomy graded collaborative: the model supplied the key idea, but its first formal write-up contained errors that the human authors fixed and verified, and the authors framed the exchange as asking for help on a problem they posed.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "fullrsb-jamming-identity",
+        "url": "https://vibemathed.com/problem/fullrsb-jamming-identity",
+        "title": "FullRSB Jamming Identity a + b = 1"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: A proof of an identity for the critical exponents of jamming",
         "url": "https://arxiv.org/abs/2606.03300",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -2894,7 +3077,14 @@
       "jamming",
       "critical-exponents"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-07-10-cycle-double-cover",
@@ -2910,6 +3100,19 @@
     "detail": "The cycle double cover conjecture, posed by Szekeres in 1973 and independently by Seymour in 1979, asks whether every bridgeless graph admits a multiset of cycles in which every edge appears exactly twice. It is a textbook open problem in graph theory and sits at the centre of a cluster of neighbouring conjectures. OpenAI announced on 10 July 2026 that GPT-5.6 Sol Ultra, running 64 concurrent subagents, produced a three-page proof of the full statement in under an hour, and published the proof and the prompt, with a Lean 4 formalization following. The formalized route goes through the Jaeger–Kilpatrick eight-flow theorem: it constructs a nowhere-zero flow valued in three copies of the integers mod two, then converts that flow into a cycle double cover. Sang-il Oum published a ten-page exposition a week later, presenting the argument with slight modifications intended to make it more accessible.",
     "novelty_check": "The conjecture is recorded as open in the standard references, including Wolfram MathWorld, and has a documented history of proof claims posted to arXiv that were later withdrawn or found to have gaps, so the prior state was unambiguously unresolved. One thing complicates the picture rather than the novelty: Shiva Kintali posted an independent Codex-assisted proof claim of the same statement three days later (arXiv:2607.14140), also routed through nowhere-zero three-bit flows and likewise unreviewed. The result is a new proof, not a retrieval of a known one.",
     "caveats": "Not peer-reviewed. The conjecture's history of gapped proof claims is itself a reason for caution, and mathematicians are treating this one as unconfirmed pending expert review. The Lean development does check the unconditional statement for finite loopless bridgeless multigraphs, sorry-free and admit-free with no project-specific axioms, but it is first-party, produced by the same organisation as the proof, and had no independent audit at entry time. Autonomy graded ai-led rather than autonomous: the published prompt supplies more than the problem. It instructs the model to assume for purposes of the task that a complete affirmative proof exists, enumerates the approach families to explore including the flow formulations the proof in fact used, and specifies the 64-agent search strategy in detail.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "cycle-double-cover-conjecture",
+        "url": "https://vibemathed.com/problem/cycle-double-cover-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "316019",
+        "title": "Cycle double cover conjecture",
+        "url": "https://mathdb.com/p/316019/cycle-double-cover-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "OpenAI: A proof of the cycle double cover conjecture (PDF)",
@@ -2945,11 +3148,6 @@
         "label": "Scientific American: ChatGPT just proved another 50-year-old math conjecture",
         "url": "https://www.scientificamerican.com/article/chatgpt-just-proved-another-50-year-old-math-conjecture/",
         "kind": "coverage"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/cycle-double-cover-conjecture",
-        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -2964,7 +3162,14 @@
       "combinatorics",
       "multi-agent"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-08-05-sendov-conjecture",
@@ -3003,6 +3208,17 @@
         ],
         "checked": "2026-08-13",
         "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, so the development adds none of its own. This is the artifact the formal grade already rested on, now checked by someone other than its author."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "sendov-s-conjecture",
+        "url": "https://vibemathed.com/problem/sendov-s-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "315904",
+        "title": "Sendov's conjecture",
+        "url": "https://mathdb.com/p/315904/sendov-s-conjecture"
       }
     ],
     "sources": [
@@ -3019,11 +3235,6 @@
       {
         "label": "Terence Tao: A digestion of the proof of Sendov's conjecture",
         "url": "https://terrytao.wordpress.com/2026/08/12/a-digestion-of-the-proof-of-sendovs-conjecture/",
-        "kind": "commentary"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/sendov-s-conjecture",
         "kind": "commentary"
       }
     ],
@@ -3045,6 +3256,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded priority for the first machine-checked proof, which belongs to Mazur's ProofAtlas formalization rather than to Tao's independent one. Neither grade moved."
+      },
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
       }
     ]
   },
@@ -3066,6 +3282,13 @@
     "detail": "Pompeiu asked in 1929 whether a bounded domain over which some nonzero function integrates to zero under every rigid motion must be a ball. Schiffer's 1957 reformulation asks the same thing through Neumann eigenfunctions of the Laplacian that are constant on the boundary, and appears as Problem 80 on Yau's 1982 list; Williams proved the two formulations equivalent for simply connected domains in 1976. Cao-Labora and de Dios Pont construct infinitely many N-fold symmetric planar domains, with N large, that are not balls and carry such an eigenfunction. The strategy is to relax the problem so that N may be any real number, which corresponds to the Schiffer problem only at integers, apply bifurcation theory there, and show the size of the local bifurcation branch can be taken independently of N. Their Corollary 1.2 applies Williams' equivalence to the same domains, so a single construction settles both problems.",
     "novelty_check": "Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. No prior counterexample to either appears. The construction is new.",
     "caveats": "A preprint, not peer-reviewed. The Lean 4 verification was written by GPT-5.6 from an early draft of the paper and lives in an author's own repository; it had no independent audit at entry time, and the same group produced both the proof and its formalization. Autonomy graded ai-assisted: the paper is explicit that the novel construction strategy is the authors' own, and that the models were used to verify the asymptotic estimates numerically, to produce first drafts of the proofs of the Bessel function estimates, and to help with exposition.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "schiffer-conjecture",
+        "url": "https://vibemathed.com/problem/schiffer-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Counterexamples to Schiffer's Conjecture",
@@ -3081,11 +3304,6 @@
         "label": "Wikipedia: Pompeiu problem",
         "url": "https://en.wikipedia.org/wiki/Pompeiu_problem",
         "kind": "commentary"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/schiffer-conjecture",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -3094,7 +3312,14 @@
       "counterexample",
       "analysis"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-08-08-petersen-coloring",
@@ -3120,6 +3345,19 @@
         "outcome": "rebuilt the 112-vertex graph from the appendix edge table with a SHA-256 matching Theorem 1.1, rederived every property claimed there, and re-proved non-existence with an independently written CNF encoder solved by CaDiCaL rather than by replaying the shipped certificates; six control graphs including the Petersen graph itself came back satisfiable through the same encoder"
       }
     ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "petersen-coloring-conjecture",
+        "url": "https://vibemathed.com/problem/petersen-coloring-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "316003",
+        "title": "Petersen coloring conjecture",
+        "url": "https://mathdb.com/p/316003/petersen-coloring-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: A 112-Vertex Counterexample to the Petersen Coloring Conjecture",
@@ -3135,11 +3373,6 @@
         "label": "Open Problem Garden: Petersen coloring conjecture",
         "url": "https://www.openproblemgarden.org/op/petersen_coloring_conjecture",
         "kind": "commentary"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/petersen-coloring-conjecture",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -3148,7 +3381,14 @@
       "sat-solver",
       "combinatorics"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-08-12-liquid-drop-minimizers",
@@ -3167,6 +3407,19 @@
     "detail": "Gamow's liquid drop functional adds De Giorgi perimeter to a Coulomb repulsion term, and the central question in its literature is the fixed-volume minimization picture: for which volumes a minimizer exists, and whether it is the ball. This proves that balls uniquely minimize, up to translation and null sets, at every volume up to a threshold of 5 times 2 minus 2 to the two thirds, divided by 2 to the two thirds minus 1, roughly 3.51, and that above that threshold no minimizer exists at all. A corollary settles the minimal binding energy question of Frank and Lieb, identifying the infimum of energy per unit volume and the ball of volume 5/2 as the unique minimizer. The mechanism is a capacitary estimate sharpening an Agostiniani–Mazzieri monotonicity formula through Gauss–Bonnet, an improvement the authors note applies only to this particular weight and only in three dimensions.",
     "novelty_check": "The sharp threshold is the tracked open problem of the liquid drop literature, followed across calculus of variations, mathematical physics and geometric analysis, with a 2017 Notices of the AMS survey and partial results carrying Lieb, Otto, Figalli and Maggi. The prior state of the art is stated in the paper and checks out: minimality of the ball was known only up to volume 1 (Chodosh–Ruohoniemi, CPAM 2025) and nonexistence only from volume 7.5 upward (Schulz, arXiv:2608.09000, posted two days earlier), leaving the interval from 1 to 7.5 open. Frank and Nam had proved existence up to the threshold in 2021, and the new proof uses that result rather than superseding it. Uniqueness across the whole range and nonexistence immediately above the threshold are new.",
     "caveats": "A preprint, not peer-reviewed, with no formalization. Verification is author-side: the authors state they checked and reworked the proof, which is not independent replication. Autonomy graded ai-led on the paper's own disclosure, which says the results were obtained by ChatGPT 5.6 Pro over a series of chats without significant assistance from the authors and that the fundamental strategy remains close to the model's original output; the authors checked the proof, reworked it and wrote the manuscript, and state the article contains no AI-written text.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "gamow-liquid-drop-minimizer-conjecture",
+        "url": "https://vibemathed.com/problem/gamow-liquid-drop-minimizer-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "355211",
+        "title": "Liquid-drop minimizer conjecture",
+        "url": "https://mathdb.com/p/355211/liquid-drop-minimizer-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: No compromise in the liquid drop model",
@@ -3177,11 +3430,6 @@
         "label": "arXiv: An improved nonexistence bound for the liquid drop model",
         "url": "https://arxiv.org/abs/2608.09000",
         "kind": "commentary"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/gamow-liquid-drop-minimizer-conjecture",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -3189,7 +3437,14 @@
       "geometric-analysis",
       "mathematical-physics"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      }
+    ]
   },
   {
     "id": "2026-08-13-sop2-sop3",
@@ -3208,16 +3463,18 @@
     "detail": "Džamonja and Shelah introduced the tree configurations SOP_1 and SOP_2 in 2004 and asked whether either implication in the chain from SOP_3 to SOP_2 to SOP_1 reverses. Mutchnik answered the second, proving SOP_1 equals SOP_2, and the surviving half organised much of the subsequent NSOP_1 literature, with partial results by Conant, by Kaplan, Ramsey and Simon, and by Mutchnik. This five-page paper proves that SOP_2 implies SOP_3, the converse having been known from the start, which collapses the bottom of the hierarchy to a single class and carries consequences for Keisler-order maximality. The SOP_n hierarchy for n at least three is untouched, as is everything above it.",
     "novelty_check": "The question is one of the two 2004 Džamonja–Shelah questions that organised two decades of classification theory, and the paper's own introduction traces it as open through Mutchnik's celebrated resolution of the other half and the partial results that followed. It is repeatedly highlighted in the NSOP_1 literature as the surviving open case. No prior proof appears. The result is new.",
     "caveats": "A preprint one day old at entry, not peer-reviewed and not formalized. The acknowledgements record comments from Itay Kaplan and Scott Mutchnik on a preliminary version, which is expert attention on a draft rather than independent verification, so the entry stays at author verified. Autonomy graded collaborative: the entire disclosure is one sentence, that the proof was found using ChatGPT 5.6 and simplified and streamlined by the author, which is ambiguous between the model supplying the key insight and the author using it as a tool. The weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "sop-2-sop-3",
+        "url": "https://vibemathed.com/problem/sop-2-sop-3"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: SOP_2 = SOP_3",
         "url": "https://arxiv.org/abs/2608.13291",
         "kind": "research"
-      },
-      {
-        "label": "vibemathed.com registry entry",
-        "url": "https://vibemathed.com/problem/sop-2-sop-3",
-        "kind": "commentary"
       }
     ],
     "tags": [
@@ -3225,6 +3482,13 @@
       "logic",
       "classification-theory"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      }
+    ]
   }
 ]

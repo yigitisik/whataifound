@@ -118,11 +118,6 @@
           "@type": "CreativeWork",
           "url": "https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf",
           "name": "Session transcript (PDF)"
-        },
-        {
-          "@type": "CreativeWork",
-          "url": "https://vibemathed.com",
-          "name": "vibemathed.com registry entry"
         }
       ]
     },
@@ -214,6 +209,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <a href="/visuals">Visuals</a>
 <a href="/methodology">Methodology</a>
 <a href="/contributors">Contributors</a>
+<a href="/registries">Elsewhere</a>
 </nav>
 <span class="eyebrow-right">
 <span class="doors" role="group" aria-label="Ways to contribute">
@@ -257,8 +253,6 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">paper (PDF)</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/anthropics/zeta-23-lean" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean 4 formalization (anthropics/zeta-23-lean)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-announcement">Announcement</h3>
       <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">Session transcript (PDF)</span><span class="ref-a">↗</span></a></div>
-      <h3 class="lbl kind k-commentary">Independent commentary</h3>
-      <div class="refs"><a class="ref" href="https://vibemathed.com" target="_blank" rel="noopener"><span class="ref-dom">VibeMathed</span><span class="ref-t">vibemathed.com registry entry</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
@@ -270,6 +264,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <summary>Caveats and known objections</summary>
   <p>Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output.</p>
   </details>
+  <h2 class="lbl">Also recorded at</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/more-than-67-of-riemann-zeta-zeros-are-on-the-critical-line" target="_blank" rel="noopener">vibemathed<span class="reg-id">The Proportion of Zeta Zeros on the Critical Line</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">more-than-67-of-riemann-zeta-zeros-are-on-the-critical-line</p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -288,13 +284,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-08-10-zeta-zeros-critical-line" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-11">2026-08-11</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
 
   <p class="gradenote">Graded <strong>formally verified</strong> for verification and
   <strong>ai-led</strong> for autonomy.
@@ -370,6 +365,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </p>
 </section>
 </div>
+<section class="about-note">
+<h2 class="lbl">Elsewhere</h2>
+<p>Four other projects record neighbouring facts about the same results, and each certifies something different. What each one does, and what it does not: <a href="/registries">the landscape</a>.</p>
+<p class="about-links">
+<a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
+<a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
+<a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
+<a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="/registries">Compare them →</a>
+</p>
+</section>
 <section class="about-note">
 <h2 class="lbl">Disclaimer</h2>
 <p>We run whataifound.org as an independent editorial project, as volunteer work. Verification and autonomy grades are our good-faith judgments from public information, provided "as is" without warranty, and may change as new evidence emerges. Nothing here is scientific, legal, or investment advice. We are not affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; logos and names are trademarks of their owners and appear for identification only. <a href="mailto:misik6@gatech.edu">Get in touch</a></p>
