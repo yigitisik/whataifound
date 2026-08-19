@@ -26,6 +26,7 @@ vocab = json.load(open(os.path.join(ROOT, "data", "vocab.json"), encoding="utf-8
 VER = [v["slug"] for v in vocab["verification"]]
 AUT = [a["slug"] for a in vocab["autonomy"]]
 FIELDS = sorted(vocab["fields"])
+REGISTRIES = sorted(vocab.get("registries") or {})
 
 
 def described(slugs, items):
@@ -105,6 +106,43 @@ REVISION = {
     },
 }
 
+# One record of this result in another registry. Not a grade: it says what some other
+# service mechanically checked about one artifact, never how good the finding is. `commit`
+# is a full 40-character SHA by design, because the whole value of a registration is that
+# it pins the thing that was checked; a short SHA or a branch name points at something
+# that can move, and build-site.py rejects both.
+REGISTRATION = {
+    "type": "object",
+    "required": ["registry", "id", "url"],
+    "additionalProperties": False,
+    "properties": {
+        "registry": {"type": "string", "enum": REGISTRIES,
+                     "description": "One of: "
+                                    + "; ".join(f"`{r}` {(vocab['registries'][r]).get('name', r)}"
+                                                for r in REGISTRIES)
+                                    + ". A new one goes in the 'registries' map in data/vocab.json."},
+        "id": {"type": "string", "minLength": 1,
+               "description": "The record identifier as that registry issues it, e.g. "
+                              "PALOMAR-2026-08-13-000001."},
+        "url": {"type": "string", "pattern": "^https?://",
+                "description": "The record's own page. Must be http(s)."},
+        "repository": {"type": "string",
+                       "description": "The repository the registration checked, as owner/name. Optional."},
+        "commit": {"type": "string", "pattern": "^[0-9a-f]{40}$",
+                   "description": "Full 40-character commit SHA of the checked snapshot. "
+                                  "Anything shorter does not pin it. Optional."},
+        "theorems": {"type": "array", "items": {"type": "string", "minLength": 1},
+                     "description": "The statements the registration certifies, by their formal "
+                                    "names. Worth recording precisely: this is where a claim "
+                                    "broader than what was proved becomes visible. Optional."},
+        "checked": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
+                    "description": "ISO date the registration was made. Optional."},
+        "note": {"type": "string",
+                 "description": "Anything the record says that the fields above cannot carry, "
+                                "such as a scope limit on what was proved. Optional."},
+    },
+}
+
 schema = {
     "$schema": "https://json-schema.org/draft/2020-12/schema",
     "$id": "https://whataifound.org/entry.schema.json",
@@ -172,6 +210,13 @@ schema = {
                              "description": "Who added or corrected this registry entry."},
             "reviewers": {"type": "array", "items": PERSON,
                           "description": "Who independently checked it. Pairs with independent_checks."},
+            "registrations": {"type": "array", "items": REGISTRATION,
+                              "description": ("Where else this result is registered and what "
+                                              "that registration mechanically guarantees. A "
+                                              "machine check of one artifact, not a verdict on "
+                                              "the finding: nothing ranks an entry by it, and "
+                                              "most of the registry is in fields where no such "
+                                              "registry exists.")},
             "revisions": {"type": "array", "items": REVISION,
                           "description": ("What has been edited on this entry since it was "
                                           "added, newest last. This is where editorial rule 2 "

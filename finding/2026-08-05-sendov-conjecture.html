@@ -142,7 +142,7 @@
         "worstRating": 1,
         "alternateName": "Formally verified: machine-checked proof"
       },
-      "reviewBody": "Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval."
+      "reviewBody": "Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval. On priority between the two formalizations: Palomar's record for Tao's development notes that it shares no code with Mazur's, was written from the blog-post digestion rather than from that proof, and that priority for the first machine-checked proof of Sendov's conjecture belongs to Mazur's ProofAtlas work."
     },
     {
       "@type": "BreadcrumbList",
@@ -208,7 +208,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-14</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-19</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -247,13 +247,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <h2 class="lbl">What was found</h2>
   <p>Sendov's conjecture states that if every zero of a complex polynomial of degree n at least two lies in the closed unit disk, then every zero has a critical point within distance one. Degrees up to eight were settled piecemeal between 1969 and 1999, and Tao proved the conjecture for all sufficiently large degree in 2020 without specifying the threshold, which left the middle range open. Lech Mazur, working with GPT-5.6 Pro, produced an argument covering every degree along with a Lean development of roughly 90,000 lines. Terence Tao then digested the proof, describing it as remarkably elementary with no complex analysis used beyond the fundamental theorem of algebra, and formalized the entire argument himself in about 15,000 lines. He reports that the same argument resolves the Phelps–Rodriguez conjecture in full generality.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval.</p>
+  <p>Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval. On priority between the two formalizations: Palomar's record for Tao's development notes that it shares no code with Mazur's, was written from the blog-post digestion rather than from that proof, and that priority for the first machine-checked proof of Sendov's conjecture belongs to Mazur's ProofAtlas work.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
   <p>Not peer-reviewed. Mazur's own Lean package cannot be recompiled as distributed: the published bundle ships no lakefile or manifest and excludes Mathlib, so the formal grade rests on Tao's independent formalization rather than on the original artifact. Autonomy graded collaborative rather than ai-led: the disclosure credits GPT-5.6 Pro with substantial contribution to the discovery and derivation of the proof, including exploration, proof development, exact computational testing and adversarial auditing, but it also has Mazur directing the research workflow and selecting and reconciling the model's outputs, which is mathematical judgment rather than cleanup. The weaker defensible reading applies.</p>
   </details>
   <h2 class="lbl">Independent checks</h2>
   <div class="checks"><p>Terence Tao: <em>digested the argument and formalized the whole of it in Lean independently, at about 15,000 lines against the original's roughly 90,000, and states that it resolves both the Sendov and Phelps–Rodriguez conjectures in full generality</em> · <a href="https://terrytao.wordpress.com/2026/08/12/a-digestion-of-the-proof-of-sendovs-conjecture/" target="_blank" rel="noopener">link ↗</a></p></div>
+  <h2 class="lbl">Machine-checked elsewhere</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-13-000001&amp;version=1" target="_blank" rel="noopener">Palomar<span class="reg-id">PALOMAR-2026-08-13-000001</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m"><span class="reg-repo">teorth/sendov</span> at <code>e356ef6d706c</code> · checked 2026-08-13</p><p class="reg-t"><span class="reg-t-k">Proved</span><code>SendovConjecture.sendov</code><code>SendovConjecture.phelps_rodriguez</code></p><p class="reg-w">A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review.</p><p class="reg-n">Permitted axioms are exactly propext, Quot.sound and Classical.choice, so the development adds none of its own. This is the artifact the formal grade already rested on, now checked by someone other than its author.</p></div></div>
 
   <div class="challenge">
     <p class="challenge-t">Disagree with these grades?</p>
@@ -272,13 +274,13 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-08-05-sendov-conjecture" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded priority for the first machine-checked proof, which belongs to Mazur's ProofAtlas formalization rather than to Tao's independent one. Neither grade moved.</span></li>
+    <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-check">Checked</span><span class="hist-note">Palomar registered Tao's Lean development as PALOMAR-2026-08-13-000001, mechanically confirming that it typechecks against both stated theorems at a pinned commit under the three standard axioms. <a class="hist-src" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-13-000001&amp;version=1" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-14">2026-08-14</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and Collaborative.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
 
   <p class="gradenote">Graded <strong>formally verified</strong> for verification and
   <strong>collaborative</strong> for autonomy.

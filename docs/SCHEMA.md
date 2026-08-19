@@ -29,6 +29,7 @@ else (site, search, company pages) is a rendering of it.
 | `novelty_check` | string | What was searched, what turned up. **Write this even when clean** |
 | `caveats` | string | Known objections, disputes, unreplicated parts |
 | `independent_checks` | array | `{who, url, outcome}` |
+| `registrations` | array | `{registry, id, url, repository?, commit?, theorems?, checked?, note?}`. Where else this result is registered, and what that registration mechanically guarantees. See [registrations](#registrations-what-a-machine-checked-elsewhere) |
 | `discussion` | array | `{label, url}`. Threads where the result was debated (Hacker News, Stack Exchange, Reddit). Not a substitute for a primary source |
 | `videos` | array | `{label, channel, youtube_id}`. Credible explainers only (official lab channels, established science press, recognized educators). Verify the ID resolves and the channel is who it claims before adding; never add hype-channel content |
 | `tags` | array | Free-form: `combinatorics`, `protein-design`, `algorithms`. See [method tags](#method-tags) for four that are worth spelling the same way every time |
@@ -69,6 +70,51 @@ Order within a kind is significance order, most authoritative first; the "strong
 is simply the first `challenge`. The registry card shows the first three of each kind and then `+N`;
 the finding page shows all of them. There is no cap in the data: never drop a link someone did the
 work to find.
+
+## `registrations`: what a machine checked elsewhere
+
+Other registries check one narrow thing very well. [Palomar](https://palomar-registry.org/)
+takes a snapshot of a public Lean repository and verifies mechanically that the proof
+typechecks against the recorded statement under a declared axiom set. That is exactly the
+evidence a `formal` grade asserts, and until this field existed we asserted it in prose.
+
+A registration is **evidence about one artifact, not a verdict on the finding**. Nothing here
+ranks an entry, an entry without one is not thereby weaker, and most of the registry is in
+fields where no such registry exists. It is also not peer review: Palomar says so itself, and
+the `certifies` sentence printed beside every record on the finding page comes from the
+`registries` map in `data/vocab.json` so that the limit travels with the claim.
+
+```json
+"registrations": [
+  {
+    "registry": "palomar",
+    "id": "PALOMAR-2026-08-13-000001",
+    "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-13-000001&version=1",
+    "repository": "teorth/sendov",
+    "commit": "e356ef6d706cc8687369f3b21bb009587e88cbe9",
+    "theorems": ["SendovConjecture.sendov", "SendovConjecture.phelps_rodriguez"],
+    "checked": "2026-08-13",
+    "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice."
+  }
+]
+```
+
+`registry` must be a slug in the `registries` map in `data/vocab.json`; adding a registry is a
+one-object edit there, and it needs no colour rule because a registration is not a grade.
+
+`commit` must be a **full 40-character SHA**. A short SHA or a branch name points at something
+that can move, and the whole value of a registration is that it pins what was checked. The
+build rejects anything else.
+
+`theorems` is the field worth the most care. It is where a claim broader than what was actually
+proved becomes visible: `2026-05-erdos-unit-distance` carries a registration whose single
+theorem is the *uniform-constant* form of the conjecture, which is narrower than the entry's
+claim, and that is why the entry stays at `independent` rather than moving to `formal`. Record
+the theorem names exactly as the registry states them, and use `note` for any scope limit the
+names alone do not carry.
+
+A registration landing is a `check` revision (see below), because it is someone outside the
+lab checking the result. It does not by itself move a grade.
 
 ## `revisions`: what changed since the entry was added
 

@@ -1627,6 +1627,39 @@
   .finding p{line-height:1.6;color:var(--ink)}
   .finding a{color:var(--accent)}
   .finding .checks p{margin:0 0 6px}
+  /* Where else this result is registered. Drawn as a bordered block with a left edge in
+     --rev-check, the same colour a landed check already uses in the activity feed: a
+     registration is a check, and the reader who has seen that green on the home page
+     should not have to learn a second colour for the same idea. No new token, so nothing
+     here needs a fourth entry in the three palette blocks at the top of this file.
+     The record id, the repository and the theorem names are the parts worth copying, so
+     they are the parts set in mono. Everything wraps: a Lean theorem name runs past 40
+     characters and 320px has about 34 to give it. */
+  .regs{display:grid;gap:10px}
+  .reg{border:1px solid var(--line);border-left:3px solid var(--rev-check);
+    border-radius:8px;background:var(--panel-2);padding:11px 13px}
+  .reg-h{margin:0 0 5px;font-size:.95rem}
+  .reg-h a{display:inline-flex;flex-wrap:wrap;align-items:baseline;gap:7px;
+    font-weight:600;text-decoration:none}
+  .reg-h a:hover{text-decoration:underline}
+  .reg-id{font-family:var(--mono,ui-monospace,monospace);font-size:.72rem;
+    font-weight:400;color:var(--muted);word-break:break-all}
+  .reg-a{font-size:.72rem;color:var(--muted)}
+  .reg-m{margin:0 0 5px;font-size:.82rem;color:var(--muted)}
+  .reg-repo{font-family:var(--mono,ui-monospace,monospace);word-break:break-all}
+  .reg-t{margin:0 0 5px;display:flex;flex-wrap:wrap;align-items:baseline;gap:6px;
+    font-size:.82rem}
+  /* The label reads as a label rather than as the first theorem in the list. */
+  .reg-t-k{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted)}
+  .reg-m code,.reg-t code{font-family:var(--mono,ui-monospace,monospace);font-size:.74rem;
+    background:var(--panel);border:1px solid var(--line);border-radius:4px;
+    padding:1px 5px;word-break:break-all}
+  /* What the registration actually certifies, printed from the vocabulary. Quieter than
+     the record above it and deliberately not hidden in a fold: it is the sentence that
+     stops a mechanical check being read as peer review. */
+  .reg-w{margin:0;font-size:.82rem;line-height:1.5;color:var(--muted)}
+  .reg-n{margin:6px 0 0;font-size:.85rem;line-height:1.55}
   /* Claim, facts and every source in one screen. This page is a citation surface: what a
      reader and an answer engine both need first is what was found and what backs it, not
      the prose about it.

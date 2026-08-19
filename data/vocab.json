@@ -17,7 +17,15 @@
     "revision_kinds is not a grade either. It classifies an *edit* to an entry, so that",
     "editorial rule 2 (never delete; downgrade and annotate) is visible on the site and",
     "not only in the git log. `added` is owned by the build, which synthesises one row",
-    "per entry from the `added` field; writing it into an entry's revisions is rejected."
+    "per entry from the `added` field; writing it into an entry's revisions is rejected.",
+    "",
+    "registries is not a grade either, and not a set of values an entry is scored on. It",
+    "names the other registries a result can also be recorded in, and states in one",
+    "sentence what each registration mechanically guarantees. An entry's `registrations`",
+    "cite one of these by slug. Nothing ranks an entry by which registries it appears in,",
+    "and an absent registration is not a mark against a finding: most of the registry is",
+    "outside mathematics, where no such registry exists. Modelled on `fields` rather than",
+    "on the graded arrays above, so a new registry needs no pill colour in styles.css."
   ],
   "verification": [
     {
@@ -234,5 +242,12 @@
     "engineering": "Engineering",
     "climate": "Climate science",
     "economics": "Economics"
+  },
+  "registries": {
+    "palomar": {
+      "name": "Palomar",
+      "home": "https://palomar-registry.org/",
+      "certifies": "A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review."
+    }
   }
 }

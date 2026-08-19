@@ -132,6 +132,13 @@ VER_RATING = {v["slug"]: (v["rating"], v["rating_label"]) for v in VER}
 # "computer-science" into a headline.
 FIELD_LABEL = VOCAB["fields"]
 
+# Where else a result is registered, and what that registration mechanically guarantees.
+# Not a grade and not a ranking: a registration is evidence about one artifact, not a
+# verdict on the finding, and an entry without one is not thereby weaker. Most of the
+# registry is outside mathematics, where no such registry exists at all. Modelled on
+# FIELD_LABEL rather than on the graded arrays, so a new registry needs no pill colour.
+REGISTRY = VOCAB.get("registries") or {}
+
 # What each source link is: the original work, the claim about it, or the case against.
 # Not a grade - see the note in vocab.json. Array order is display order, and it is the
 # order the rows appear in on a card, so it reads original work -> claim -> pushback.
@@ -1600,6 +1607,45 @@ def entry_page(e, entries, updated):
                if c.get("url") else "") + "</p>"
             for c in e["independent_checks"])
         checks = f'\n  <h2 class="lbl">Independent checks</h2>\n  <div class="checks">{rows}</div>'
+    # Where else this result is registered. Directly under the independent checks because
+    # it answers the same question they do, who other than the authors has confirmed
+    # something, and differs only in that the checker was a machine and the artifact it
+    # checked is pinned. What the registration certifies is printed from the vocabulary
+    # rather than left implied: a mechanical check is not peer review and not a claim of
+    # novelty, and a reader who has now seen the word "checked" twice on one page needs
+    # the difference said out loud rather than inferred from the heading.
+    regs = ""
+    if e.get("registrations"):
+        rows = ""
+        for r in e["registrations"]:
+            meta = REGISTRY.get(r.get("registry")) or {}
+            sha = str(r.get("commit") or "")
+            # Twelve characters, not the full forty: unambiguous in any repository and it
+            # does not wrap the line on a phone. The full SHA is in entries.json and in
+            # the linked record, which is where anyone rechecking the proof will start.
+            line = []
+            if r.get("repository"):
+                line.append(f'<span class="reg-repo">{esc(r["repository"])}</span>'
+                            + (f' at <code>{esc(sha[:12])}</code>' if sha else ""))
+            if r.get("checked"):
+                line.append(f'checked {esc(r["checked"])}')
+            theorems = "".join(f'<code>{esc(t)}</code>'
+                               for t in (r.get("theorems") or []))
+            rows += (
+                '<div class="reg">'
+                f'<p class="reg-h"><a href="{esc(r.get("url"))}" target="_blank" rel="noopener">'
+                f'{esc(meta.get("name") or r.get("registry"))}'
+                f'<span class="reg-id">{esc(r.get("id"))}</span>'
+                '<span class="reg-a" aria-hidden="true">\u2197</span></a></p>'
+                + (f'<p class="reg-m">{" \u00b7 ".join(line)}</p>' if line else "")
+                + (f'<p class="reg-t"><span class="reg-t-k">Proved</span>{theorems}</p>'
+                   if theorems else "")
+                + (f'<p class="reg-w">{esc(meta["certifies"])}</p>'
+                   if meta.get("certifies") else "")
+                + (f'<p class="reg-n">{esc(r["note"])}</p>' if r.get("note") else "")
+                + '</div>')
+        regs = ('\n  <h2 class="lbl">Machine-checked elsewhere</h2>'
+                f'\n  <div class="regs">{rows}</div>')
     # The registry card carries these and this page did not, so the canonical record showed
     # less about an entry than the list it was reached from. Placed under the prose, where a
     # reader who has just read what was found is looking for someone to explain it.
@@ -1698,7 +1744,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
       <h2 class="lbl">Sources</h2>{sources}
     </div>
   </section>
-{section("What was found", e.get("detail"))}{videos}{section("Novelty check", e.get("novelty_check"))}{fold("Caveats and known objections", e.get("caveats"))}{checks}
+{section("What was found", e.get("detail"))}{videos}{section("Novelty check", e.get("novelty_check"))}{fold("Caveats and known objections", e.get("caveats"))}{checks}{regs}
 
   <div class="challenge">
     <p class="challenge-t">{esc(ask_title)}</p>
@@ -1814,10 +1860,18 @@ def build_llms_txt(entries):
         for e in sorted(by_field[field], key=lambda x: x.get("date", ""), reverse=True):
             ver = VER_LABEL.get(e["verification"], e["verification"])
             aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
+            # The machine-checked record, named inline rather than left to the finding
+            # page. This is the line a model quoting us reads, and "formally verified"
+            # with a citable record id behind it is a different claim from the same
+            # words alone.
+            reg = "; ".join(
+                f"{(REGISTRY.get(r.get('registry')) or {}).get('name', r.get('registry'))} "
+                f"{r.get('id')}" for r in (e.get("registrations") or []))
             lines.append(
                 f"- [{e['title']}]({SITE}/finding/{e['id']}): {e['claim']} "
                 f"({e.get('lab', '')}, {e.get('model', '')}, {e.get('date', '')}; "
-                f"verification: {ver}; autonomy: {aut})")
+                f"verification: {ver}; autonomy: {aut}"
+                + (f"; machine-checked record: {reg}" if reg else "") + ")")
         lines.append("")
     return "\n".join(lines).rstrip() + "\n"
 
@@ -2185,6 +2239,7 @@ def build_api_registry(entries):
 DATASET_FIELDS = [
     "id", "title", "claim", "field", "date", "added", "lab", "model",
     "verification", "autonomy", "tags", "humans", "year_posed", "sources",
+    "registrations",
 ]
 
 
@@ -3083,7 +3138,8 @@ SAFE_SCHEMES = ("https://", "http://")
 
 def check_urls(e, where, problems):
     """Every URL an entry contributes to the page must be an ordinary web link."""
-    for field in ("sources", "discussion", "independent_checks", "revisions"):
+    for field in ("sources", "discussion", "independent_checks", "revisions",
+                  "registrations"):
         for item in (e.get(field) or []):
             if not isinstance(item, dict):
                 continue          # shape is reported by validate(), not here
@@ -3156,6 +3212,23 @@ def validate_vocab():
             kind_seen.add(item.get("slug"))
         if not VOCAB.get(key_name):
             problems.append(f"vocab.json: '{key_name}' is missing or empty")
+    # A registry is rendered by name, and its `certifies` sentence is printed verbatim on
+    # every finding page that cites it. A missing one would put an unattributed claim about
+    # what a machine checked onto a canonical record, which is the one thing this field
+    # exists to prevent, so the shape is pinned here rather than defaulted at render time.
+    for slug, item in (VOCAB.get("registries") or {}).items():
+        where = f"vocab.json registries['{slug}']"
+        if not re.fullmatch(r"[a-z0-9]+(?:-[a-z0-9]+)*", slug):
+            problems.append(f"{where}: slug is not lowercase words joined by hyphens")
+        if not isinstance(item, dict):
+            problems.append(f"{where}: must be an object with 'name', 'home' and 'certifies'")
+            continue
+        for key in ("name", "home", "certifies"):
+            if not str(item.get(key, "")).strip():
+                problems.append(f"{where}: missing '{key}'")
+        if item.get("home") and not str(item["home"]).startswith(SAFE_SCHEMES):
+            problems.append(f"{where}: 'home' is not an http(s) link")
+
     # build_activity() synthesises this row itself, so its label has to exist.
     if REV_KIND_BUILD_OWNED not in REV_LABEL:
         problems.append(f"vocab.json: revision_kinds has no '{REV_KIND_BUILD_OWNED}' entry, "
@@ -3301,6 +3374,45 @@ def validate(entries):
                 if not str(r.get("note", "")).strip():
                     problems.append(f"{where}: revisions[{i}] is missing 'note'. An edit "
                                     "with no stated reason is not a record of anything")
+        # Where else this result is registered. The finding page prints the registry's
+        # `certifies` sentence beside the record, so a wrong slug would render a machine
+        # check with nothing saying what was checked. The commit is the part that makes a
+        # registration worth anything: without a full SHA it points at something that can
+        # move, and the record stops being reproducible.
+        regs = e.get("registrations")
+        if regs is not None:
+            if not isinstance(regs, list):
+                problems.append(f"{where}: 'registrations' must be a list of objects")
+                regs = []
+            for i, r in enumerate(regs):
+                if not isinstance(r, dict):
+                    problems.append(f"{where}: registrations[{i}] must be an object with "
+                                    "'registry', 'id' and 'url'")
+                    continue
+                slug = r.get("registry")
+                if slug not in REGISTRY:
+                    problems.append(f"{where}: registrations[{i}] has unknown registry "
+                                    f"{slug!r} (expected one of: {', '.join(REGISTRY)}). "
+                                    "Add it to the 'registries' map in data/vocab.json.")
+                for key in ("id", "url"):
+                    if not str(r.get(key, "")).strip():
+                        problems.append(f"{where}: registrations[{i}] is missing '{key}'")
+                checked = r.get("checked")
+                if checked is not None and not re.fullmatch(r"\d{4}-\d{2}-\d{2}", str(checked)):
+                    problems.append(f"{where}: registrations[{i}] checked '{checked}' "
+                                    "is not YYYY-MM-DD")
+                commit = r.get("commit")
+                if commit is not None and not re.fullmatch(r"[0-9a-f]{40}", str(commit)):
+                    problems.append(f"{where}: registrations[{i}] commit {commit!r} is not a "
+                                    "full 40-character SHA. A short SHA or a branch name does "
+                                    "not pin the artifact that was checked.")
+                theorems = r.get("theorems")
+                if theorems is not None and (
+                        not isinstance(theorems, list)
+                        or not all(isinstance(t, str) and t.strip() for t in theorems)):
+                    problems.append(f"{where}: registrations[{i}] 'theorems' must be a list "
+                                    "of non-empty strings")
+
         # Editorial rule 4: a claim with no reproducible artifact caps at `claimed`.
         # Stated in docs/SCHEMA.md since the registry began, but unenforceable until
         # sources carried a kind - at which point nine entries turned out to be graded

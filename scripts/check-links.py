@@ -61,6 +61,11 @@ def urls_from(entries):
         for c in e.get("independent_checks") or []:
             if c.get("url"):
                 out.append((e["id"], "independent_check", c.get("who", ""), c["url"]))
+        # A registration is the strongest evidence an entry can carry, so a record that
+        # has moved or been withdrawn is the worst dead link on the site: the page would
+        # keep asserting a machine check that no longer resolves.
+        for r in e.get("registrations") or []:
+            out.append((e["id"], "registration", r.get("id", ""), r["url"]))
         # Videos carry an id rather than a URL, so they were invisible to this check and a
         # pulled or privated video would sit on the page indefinitely. youtube.com/watch
         # answers 404 for an unknown id, which is exactly what DEAD looks for.

@@ -115,6 +115,20 @@
     "detail": "The model produced a construction beating the conjectured bound, with an inexplicit exponent greater than 1. Nine mathematicians - Alon, Bloom, Gowers, Litt, Sawin, Shankar, Tsimerman, Wang and Wood - published a human-verified version of the argument; Sawin separately made the exponent explicit at n^1.014. Gowers called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
     "novelty_check": "The unit-distance problem dates to Erdős (1946). Prior bounds were well documented; the construction is new.",
     "caveats": "Human mathematicians shaped the problem framing and verified the construction. The explicit n^1.014 exponent is Sawin's refinement, not the model's output: the model's own bound was inexplicit. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-08-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&version=3",
+        "repository": "kim-em/erdos-unit-distance-comparator",
+        "commit": "be6c2ee4c9fb16fd6bed442b4c361fb10369beb5",
+        "theorems": [
+          "UnitDistance.erdos_unit_distance_uniform_constant_false"
+        ],
+        "checked": "2026-08-14",
+        "note": "Palomar's record describes this as certifying the literal negation of the uniform-constant form of the conjecture, from a Mathlib-only statement of that negation. That is narrower than this entry's claim, which is why the entry stays at independently checked rather than moving to formally verified."
+      }
+    ],
     "sources": [
       {
         "label": "Remarks on the disproof of the unit distance conjecture (human-verified writeup)",
@@ -147,7 +161,15 @@
       "combinatorics",
       "erdos"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "check",
+        "note": "Palomar registered Kim Morrison's comparator wrapper as PALOMAR-2026-08-08-000001, a machine-checked formalization by someone outside the group that produced the writeup. The verification grade did not move: what is proved formally is the uniform-constant form, which is narrower than this entry's claim.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&version=3"
+      }
+    ]
   },
   {
     "id": "2026-01-erdos-728",
@@ -2791,10 +2813,29 @@
     "detail": "Sabidussi's conjecture asks whether, given a finite connected multigraph together with a closed eulerian trail, the edge set can always be partitioned into circuits none of which contains two edges that the trail uses consecutively. The proof establishes this and in fact does more: it four-colours the edges so as to satisfy the constraints. The work was developed with GPT-5.6 Pro and GPT-5.6 Sol, with the author reviewing the proof, and a Lean 4 formalization accompanies the preprint in the author's repository.",
     "novelty_check": "Sabidussi's compatibility conjecture is a named open problem in graph theory concerning eulerian trails and compatible circuit decompositions, with a partial-results literature covering restricted degree conditions. It was recorded as open in the general case. No prior general proof appears.",
     "caveats": "Not peer-reviewed. The Lean formalization is in the author's own repository and had no independent audit at announcement. Autonomy graded collaborative rather than ai-led: the source describes the proof as developed with the models and reviewed by the author, without attributing the key idea specifically to the model, so the weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-17-000003",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-17-000003&version=1",
+        "repository": "gexahedron/sabidussi-lean",
+        "commit": "58307d74da99ec6e4fe28e012c30c83e369c54c3",
+        "theorems": [
+          "sabidussi_compatibility_ordinary"
+        ],
+        "checked": "2026-08-17",
+        "note": "Palomar's record does not restate the theorem in prose, so what the registration certifies is that formal statement rather than the preprint's phrasing of it."
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Graph Puzzles III.1: A Proof of Sabidussi's Compatibility Conjecture",
         "url": "https://arxiv.org/abs/2607.13225",
+        "kind": "research"
+      },
+      {
+        "label": "Lean 4 formalization (gexahedron/sabidussi-lean)",
+        "url": "https://github.com/gexahedron/sabidussi-lean",
         "kind": "research"
       },
       {
@@ -2808,7 +2849,15 @@
       "graph-theory",
       "combinatorics"
     ],
-    "added": "2026-08-11"
+    "added": "2026-08-11",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "check",
+        "note": "Palomar registered the author's Lean development as PALOMAR-2026-08-17-000003, so the formalization now carries the mechanical audit it did not have at announcement. The repository was also added as a source: the entry had linked no artifact at all.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-17-000003&version=1"
+      }
+    ]
   },
   {
     "id": "2026-06-02-jamming-exponent-identity",
@@ -2932,13 +2981,28 @@
     "verification": "formal",
     "autonomy": "collaborative",
     "detail": "Sendov's conjecture states that if every zero of a complex polynomial of degree n at least two lies in the closed unit disk, then every zero has a critical point within distance one. Degrees up to eight were settled piecemeal between 1969 and 1999, and Tao proved the conjecture for all sufficiently large degree in 2020 without specifying the threshold, which left the middle range open. Lech Mazur, working with GPT-5.6 Pro, produced an argument covering every degree along with a Lean development of roughly 90,000 lines. Terence Tao then digested the proof, describing it as remarkably elementary with no complex analysis used beyond the fundamental theorem of algebra, and formalized the entire argument himself in about 15,000 lines. He reports that the same argument resolves the Phelps–Rodriguez conjecture in full generality.",
-    "novelty_check": "Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval.",
+    "novelty_check": "Sendov's conjecture is a named 1959 problem with its own Wikipedia article in four languages and a partial-results literature spanning 67 years. Tao's 2020 paper on the sufficiently-high-degree case (arXiv:2012.04125) states the general case as open, which fixes the prior state of the art precisely. No earlier proof covering all degrees appears in the literature, and the Phelps–Rodriguez corollary is new with it. The result is a new proof, not a retrieval. On priority between the two formalizations: Palomar's record for Tao's development notes that it shares no code with Mazur's, was written from the blog-post digestion rather than from that proof, and that priority for the first machine-checked proof of Sendov's conjecture belongs to Mazur's ProofAtlas work.",
     "caveats": "Not peer-reviewed. Mazur's own Lean package cannot be recompiled as distributed: the published bundle ships no lakefile or manifest and excludes Mathlib, so the formal grade rests on Tao's independent formalization rather than on the original artifact. Autonomy graded collaborative rather than ai-led: the disclosure credits GPT-5.6 Pro with substantial contribution to the discovery and derivation of the proof, including exploration, proof development, exact computational testing and adversarial auditing, but it also has Mazur directing the research workflow and selecting and reconciling the model's outputs, which is mathematical judgment rather than cleanup. The weaker defensible reading applies.",
     "independent_checks": [
       {
         "who": "Terence Tao",
         "url": "https://terrytao.wordpress.com/2026/08/12/a-digestion-of-the-proof-of-sendovs-conjecture/",
         "outcome": "digested the argument and formalized the whole of it in Lean independently, at about 15,000 lines against the original's roughly 90,000, and states that it resolves both the Sendov and Phelps–Rodriguez conjectures in full generality"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-13-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-13-000001&version=1",
+        "repository": "teorth/sendov",
+        "commit": "e356ef6d706cc8687369f3b21bb009587e88cbe9",
+        "theorems": [
+          "SendovConjecture.sendov",
+          "SendovConjecture.phelps_rodriguez"
+        ],
+        "checked": "2026-08-13",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, so the development adds none of its own. This is the artifact the formal grade already rested on, now checked by someone other than its author."
       }
     ],
     "sources": [
@@ -2969,7 +3033,20 @@
       "polynomials",
       "formalization"
     ],
-    "added": "2026-08-14"
+    "added": "2026-08-14",
+    "revisions": [
+      {
+        "date": "2026-08-19",
+        "kind": "check",
+        "note": "Palomar registered Tao's Lean development as PALOMAR-2026-08-13-000001, mechanically confirming that it typechecks against both stated theorems at a pinned commit under the three standard axioms.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-13-000001&version=1"
+      },
+      {
+        "date": "2026-08-19",
+        "kind": "correction",
+        "note": "Recorded priority for the first machine-checked proof, which belongs to Mazur's ProofAtlas formalization rather than to Tao's independent one. Neither grade moved."
+      }
+    ]
   },
   {
     "id": "2026-08-05-schiffer-conjecture",

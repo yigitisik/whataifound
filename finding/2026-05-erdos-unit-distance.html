@@ -221,7 +221,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
 <button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
 </span>
-<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-14</b></span>
+<span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-19</b></span>
 </span></div></header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
@@ -264,6 +264,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <summary>Caveats and known objections</summary>
   <p>Human mathematicians shaped the problem framing and verified the construction. The explicit n^1.014 exponent is Sawin's refinement, not the model's output: the model's own bound was inexplicit. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.</p>
   </details>
+  <h2 class="lbl">Machine-checked elsewhere</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&amp;version=3" target="_blank" rel="noopener">Palomar<span class="reg-id">PALOMAR-2026-08-08-000001</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m"><span class="reg-repo">kim-em/erdos-unit-distance-comparator</span> at <code>be6c2ee4c9fb</code> · checked 2026-08-14</p><p class="reg-t"><span class="reg-t-k">Proved</span><code>UnitDistance.erdos_unit_distance_uniform_constant_false</code></p><p class="reg-w">A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review.</p><p class="reg-n">Palomar's record describes this as certifying the literal negation of the uniform-constant form of the conjecture, from a Mathlib-only statement of that negation. That is narrower than this entry's claim, which is why the entry stays at independently checked rather than moving to formally verified.</p></div></div>
 
   <div class="challenge">
     <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
@@ -282,13 +284,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2026-05-erdos-unit-distance" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-check">Checked</span><span class="hist-note">Palomar registered Kim Morrison's comparator wrapper as PALOMAR-2026-08-08-000001, a machine-checked formalization by someone outside the group that produced the writeup. The verification grade did not move: what is proved formally is the uniform-constant form, which is narrower than this entry's claim. <a class="hist-src" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&amp;version=3" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-07-20">2026-07-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Independently checked and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
 
   <p class="gradenote">Graded <strong>independently checked</strong> for verification and
   <strong>ai-led</strong> for autonomy.
