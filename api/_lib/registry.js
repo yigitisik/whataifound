@@ -59,6 +59,7 @@ export const ENTRY_IDS = new Set([
   "2025-robin-macular",
   "2026-01-alphaevolve-bruhat",
   "2026-01-erdos-728",
+  "2026-04-23-synthecin",
   "2026-05-18-pevac-ps-sarbecovirus",
   "2026-05-21-alphaproof-nexus",
   "2026-05-erdos-unit-distance",
@@ -84,7 +85,13 @@ export const ENTRY_IDS = new Set([
   "2026-08-08-petersen-coloring",
   "2026-08-10-zeta-zeros-critical-line",
   "2026-08-12-liquid-drop-minimizers",
-  "2026-08-13-sop2-sop3"
+  "2026-08-13-banach-isometric",
+  "2026-08-13-sop2-sop3",
+  "2026-08-16-talagrand-convolution",
+  "2026-08-17-matmul-exponent",
+  "2026-08-18-prime-gaps-246",
+  "2026-08-19-yau-tian-donaldson",
+  "2026-08-20-marton-inner-bound"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -131,6 +138,7 @@ export const ENTRY_GRADES = {
   "2025-robin-macular": ["peer-reviewed", "ai-led"],
   "2026-01-alphaevolve-bruhat": ["independent", "search-scaffold"],
   "2026-01-erdos-728": ["formal", "autonomous"],
+  "2026-04-23-synthecin": ["peer-reviewed", "search-scaffold"],
   "2026-05-18-pevac-ps-sarbecovirus": ["peer-reviewed", "ai-assisted"],
   "2026-05-21-alphaproof-nexus": ["formal", "search-scaffold"],
   "2026-05-erdos-unit-distance": ["independent", "ai-led"],
@@ -156,7 +164,13 @@ export const ENTRY_GRADES = {
   "2026-08-08-petersen-coloring": ["formal", "ai-assisted"],
   "2026-08-10-zeta-zeros-critical-line": ["formal", "ai-led"],
   "2026-08-12-liquid-drop-minimizers": ["author-verified", "ai-led"],
-  "2026-08-13-sop2-sop3": ["author-verified", "collaborative"]
+  "2026-08-13-banach-isometric": ["author-verified", "ai-assisted"],
+  "2026-08-13-sop2-sop3": ["author-verified", "collaborative"],
+  "2026-08-16-talagrand-convolution": ["author-verified", "ai-led"],
+  "2026-08-17-matmul-exponent": ["author-verified", "search-scaffold"],
+  "2026-08-18-prime-gaps-246": ["formal", "collaborative"],
+  "2026-08-19-yau-tian-donaldson": ["author-verified", "collaborative"],
+  "2026-08-20-marton-inner-bound": ["author-verified", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -203,6 +217,7 @@ export const ENTRY_TITLES = {
   "2025-robin-macular": "Candidate treatment for dry age-related macular degeneration",
   "2026-01-alphaevolve-bruhat": "Structure in Bruhat intervals of permutation groups",
   "2026-01-erdos-728": "Erd\u0151s problem #728 resolved and formalized in Lean",
+  "2026-04-23-synthecin": "An antibiotic designed by reinforcement learning clears an MRSA infection in mice",
   "2026-05-18-pevac-ps-sarbecovirus": "Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
   "2026-05-21-alphaproof-nexus": "Nine Erd\u0151s problems and 44 OEIS conjectures proved with machine-checked proofs",
   "2026-05-erdos-unit-distance": "Disproof of the Erd\u0151s unit-distance conjecture",
@@ -228,7 +243,13 @@ export const ENTRY_TITLES = {
   "2026-08-08-petersen-coloring": "A 112-vertex counterexample to the Petersen coloring conjecture",
   "2026-08-10-zeta-zeros-critical-line": "Proportion of zeta zeros on the critical line raised to 67.25%",
   "2026-08-12-liquid-drop-minimizers": "Complete minimizer picture for Gamow's liquid drop model",
-  "2026-08-13-sop2-sop3": "SOP_2 and SOP_3 theories shown to coincide"
+  "2026-08-13-banach-isometric": "Banach's isometric conjecture settled in the remaining odd dimensions",
+  "2026-08-13-sop2-sop3": "SOP_2 and SOP_3 theories shown to coincide",
+  "2026-08-16-talagrand-convolution": "Talagrand's convolution conjecture proved on the Boolean hypercube",
+  "2026-08-17-matmul-exponent": "Matrix multiplication exponent lowered to below 2.371177",
+  "2026-08-18-prime-gaps-246": "Bounded prime gaps of 246 formalized in Lean from Bombieri-Vinogradov",
+  "2026-08-19-yau-tian-donaldson": "Counterexample to the Yau\u2013Tian\u2013Donaldson conjecture for constant scalar curvature metrics",
+  "2026-08-20-marton-inner-bound": "Marton's inner bound shown not to reach the broadcast channel capacity region"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

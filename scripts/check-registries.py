@@ -3,8 +3,9 @@
 
 Four projects now record neighbouring facts about the results in this registry, and an
 entry that cites the right one is worth more than an entry that does not. Finding the
-match by hand means searching three sites per entry, which is why most entries do not
-carry one.
+match by hand means searching four sites per entry, which is why most entries do not
+carry one. All four are read here: vibemathed and MathDB by problem name, Palomar by
+repository and Lean theorem name, ProofAtlas by formalization slug.
 
 This prints candidates. It does not add them, and that is deliberate: a naive title match
 against vibemathed's dataset paired "Counterexamples to the Gaussian moments conjecture"
@@ -16,7 +17,7 @@ Outside build.py, like check-links.py, because it hits the network.
 
     python3 scripts/check-registries.py                 # entries with no registration
     python3 scripts/check-registries.py --all           # every mathematics entry
-    python3 scripts/check-registries.py --min 0.5       # loosen the threshold
+    python3 scripts/check-registries.py --min 0.5       # one threshold for every registry
 
 Exit status is 0 whether or not it finds anything: a missing cross-link is a gap to fill,
 not a broken build.
@@ -26,6 +27,12 @@ that names the same thing differently. Our "Asymptotic degree-diameter problem r
 fixed diameter" and vibemathed's "Asymptotically attaining the Moore bound" are the same
 result and share no word at all. On the fourteen pairs confirmed by hand it surfaces
 thirteen. Whatever it does not print still has to be looked for.
+
+Second known limit: Palomar registers a repository, not a result, so one result can hold
+several registrations and one repository can cover work this registry files separately.
+Two of the nineteen are lemmas from a campaign on the plane Jacobian conjecture, which is
+open, and they rank against our dimension-three counterexample entry because both are
+about Jacobians. Read a Palomar row as a repository to open, never as a match.
 """
 import json
 import os
@@ -40,6 +47,13 @@ DATA = os.path.join(ROOT, "data", "entries.json")
 
 VIBEMATHED = "https://vibemathed.com/api/dataset"
 MATHDB_SITEMAPS = [f"https://mathdb.com/sitemap-problems-{i}.xml" for i in (1, 2, 3, 4)]
+# Not linked from Palomar's own pages; it is what the homepage reads to render its list.
+PALOMAR = "https://data.palomar-registry.org/recent.json"
+# ProofAtlas has no API. Its sitemap carries five kinds of page and only one of them is a
+# formalization record: /collaboration/ is an open problem someone is working on, so
+# /collaboration/riemann-hypothesis/ exists and is not a result. Take /formalizations/
+# only, which is what the vocabulary means by what this registry certifies.
+PROOFATLAS_SITEMAP = "https://www.proofatlas.ai/sitemap.xml"
 UA = "whataifound.org registry cross-reference (+https://whataifound.org)"
 
 # Below this, a shared word or two is coincidence rather than a lead. Tuned on the
@@ -47,6 +61,16 @@ UA = "whataifound.org registry cross-reference (+https://whataifound.org)"
 # positives sat under it. It is a floor for what is worth a human opening two tabs, not a
 # confidence score.
 MIN_SCORE = 0.60
+
+# Palomar is scored against a repository name and Lean theorem identifiers rather than
+# against a problem name, so its candidate text always carries tokens no title of ours can
+# match: the author's handle, "comparator", "lean", the module path. That drags every real
+# pair below a floor tuned for problem names without changing the ranking, which stays
+# decisive. Over the four pairs confirmed by hand, against all 19 registrations and every
+# mathematics entry: 0.30 loses the unit-distance pair, 0.20 keeps all four but prints nine
+# strays, and 0.25 keeps all four with three. ProofAtlas is slug-named like MathDB and
+# needs no adjustment.
+FLOOR = {"palomar": 0.25}
 
 # A cheap pre-filter, not the real defence: idf() already drives common words toward
 # nothing, and recall is identical with this list cut to bare function words. It stays
@@ -56,10 +80,25 @@ STOP = {"the", "and", "for", "with", "conjecture", "problem", "problems", "prove
         "results", "theorem", "bound", "bounds", "question"}
 
 
+def trust_store():
+    """A context that verifies, on a machine whose system trust store is empty.
+
+    A python.org build on macOS ships no certificates until someone runs Install
+    Certificates.command, so a bare create_default_context() fails every fetch here with
+    CERTIFICATE_VERIFY_FAILED. That surfaced as "vibemathed: 0 records" and exit 0, which
+    reads like full coverage with nothing to report rather than like a broken run. Prefer
+    certifi's bundle when it is importable and fall back to the system one, so the trust
+    store this depends on stays visible rather than differing per machine.
+    """
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        return ssl.create_default_context()
+
+
 def fetch(url, what):
-    # Explicit context, same as check-links.py: it makes the trust store the script
-    # depends on visible, rather than leaving it to a default that differs per machine.
-    ctx = ssl.create_default_context()
+    ctx = trust_store()
     req = urllib.request.Request(url, headers={"User-Agent": UA})
     try:
         with urllib.request.urlopen(req, timeout=45, context=ctx) as r:
@@ -90,7 +129,7 @@ def idf(haystack):
     return {w: math.log(n / c) + 1.0 for w, c in df.items()}
 
 
-def candidates(title_toks, haystack, weights):
+def candidates(title_toks, haystack, weights, floor=None):
     """Score by how much of the candidate's own name our title accounts for, IDF-weighted.
 
     Two decisions here, both learned from getting it wrong:
@@ -115,7 +154,7 @@ def candidates(title_toks, haystack, weights):
         hit = title_toks & t
         total = sum(weights.get(w, 1.0) for w in t)
         score = sum(weights.get(w, 1.0) for w in hit) / total if total else 0.0
-        if score >= MIN_SCORE:
+        if score >= (MIN_SCORE if floor is None else floor):
             out.append((score, len(hit), label, url))
     out.sort(key=lambda x: (-x[0], -x[1]))
     return out
@@ -124,12 +163,17 @@ def candidates(title_toks, haystack, weights):
 def main():
     show_all = "--all" in sys.argv
     global MIN_SCORE
+    # --min overrides every registry, including the ones with their own floor, so
+    # that one flag still means one threshold for the whole run.
+    override = None
     if "--min" in sys.argv:
-        MIN_SCORE = float(sys.argv[sys.argv.index("--min") + 1])
+        MIN_SCORE = override = float(sys.argv[sys.argv.index("--min") + 1])
+    floors = {r: (override if override is not None else FLOOR.get(r, MIN_SCORE))
+              for r in ("vibemathed", "mathdb", "palomar", "proofatlas")}
 
     entries = json.load(open(DATA, encoding="utf-8"))
 
-    print("Reading vibemathed and MathDB...")
+    print("Reading vibemathed, MathDB, Palomar and ProofAtlas...")
     vm_raw = fetch(VIBEMATHED, "vibemathed dataset")
     vm = []
     if vm_raw:
@@ -146,10 +190,37 @@ def main():
         for url in re.findall(r"<loc>([^<]+)</loc>", body):
             slug = url.rsplit("/", 1)[-1]
             md.append((slug.replace("-", " "), url, slug))
-    print(f"  vibemathed: {len(vm)} records · MathDB: {len(md)} problems\n")
-    if not vm and not md:
+    # Palomar records a repository, not a problem name, so the text to match on is the
+    # repository basename plus its theorem names rather than the abstract. The abstracts
+    # run to paragraphs, and candidates() scores against the candidate's own name, so an
+    # abstract would bury a real match under its own vocabulary. teorth/sendov becomes
+    # "sendov SendovConjecture.phelps_rodriguez" and lands where it should.
+    pal = []
+    pal_raw = fetch(PALOMAR, "Palomar registry")
+    if pal_raw:
+        for it in json.loads(pal_raw).get("entries", []):
+            repo = (it.get("source") or {}).get("repository") or ""
+            names = (it.get("formalization") or {}).get("theorem_names") or []
+            text = repo.split("/")[-1] + " " + " ".join(names)
+            pal.append((repo or it["id"],
+                        f"https://palomar-registry.org/entry?id={it['id']}"
+                        f"&version={it.get('version', 1)}",
+                        re.sub(r"([a-z0-9])([A-Z])", r"\1 \2", text)))
+
+    pa = []
+    pa_raw = fetch(PROOFATLAS_SITEMAP, "ProofAtlas sitemap")
+    if pa_raw:
+        for url in re.findall(r"<loc>([^<]+)</loc>", pa_raw):
+            slug = url.rstrip("/").rsplit("/", 1)[-1]
+            if "/formalizations/" in url and slug != "formalizations":
+                pa.append((slug.replace("-", " "), url, slug.replace("-", " ")))
+
+    print(f"  vibemathed: {len(vm)} records · MathDB: {len(md)} problems · "
+          f"Palomar: {len(pal)} registrations · ProofAtlas: {len(pa)} formalizations\n")
+    if not (vm or md or pal or pa):
         return 0
-    weights = {"vibemathed": idf(vm), "mathdb": idf(md)}
+    weights = {"vibemathed": idf(vm), "mathdb": idf(md),
+               "palomar": idf(pal), "proofatlas": idf(pa)}
 
     # Only mathematics: every one of these projects is mathematics only, so proposing a
     # MathDB page for a protein-design entry would be noise by construction.
@@ -159,10 +230,12 @@ def main():
         have = {r.get("registry") for r in (e.get("registrations") or [])}
         needle = toks(e["title"])
         rows = []
-        for name, pool_ in (("vibemathed", vm), ("mathdb", md)):
+        for name, pool_ in (("vibemathed", vm), ("mathdb", md),
+                            ("palomar", pal), ("proofatlas", pa)):
             if name in have and not show_all:
                 continue
-            for score, hits, label, url in candidates(needle, pool_, weights[name])[:3]:
+            for score, hits, label, url in candidates(
+                    needle, pool_, weights[name], floors[name])[:3]:
                 rows.append((score, hits, name, label, url))
         if not rows:
             if not have:

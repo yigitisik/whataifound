@@ -91,10 +91,26 @@ def changed_only(rows):
     return [r for r in rows if r[3] not in known]
 
 
+def trust_store():
+    """A context that verifies, on a machine whose system trust store is empty.
+
+    Same fix, and same reason, as trust_store() in check-registries.py: a python.org build
+    on macOS ships no certificates until Install Certificates.command is run, and a bare
+    create_default_context() then fails every URL with CERTIFICATE_VERIFY_FAILED. Here that
+    would read as the whole registry having gone dead rather than as a local misconfigured
+    trust store. Prefer certifi's bundle when importable, fall back to the system one.
+    """
+    try:
+        import certifi
+        return ssl.create_default_context(cafile=certifi.where())
+    except ImportError:
+        return ssl.create_default_context()
+
+
 def check(row):
     """Resolve one URL. HEAD first, then GET: some hosts refuse HEAD outright."""
     eid, kind, label, url = row
-    ctx = ssl.create_default_context()
+    ctx = trust_store()
     for method in ("HEAD", "GET"):
         try:
             req = urllib.request.Request(url, headers={"User-Agent": UA}, method=method)

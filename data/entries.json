@@ -22,6 +22,11 @@
         "id": "316187",
         "title": "Dinitz–Garg–Goemans conjecture",
         "url": "https://mathdb.com/p/316187/dinitz-garg-goemans-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "dinitz-garg-goemans-unsplittable-flow",
+        "url": "https://vibemathed.com/problem/dinitz-garg-goemans-unsplittable-flow"
       }
     ],
     "sources": [
@@ -59,6 +64,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the MathDB record for this result as a registration."
+      },
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It sits alongside the MathDB record already cited. No grade moved."
       }
     ]
   },
@@ -96,6 +106,11 @@
         "id": "315779",
         "title": "Jacobian conjecture",
         "url": "https://mathdb.com/p/315779/jacobian-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "jacobian-conjecture",
+        "url": "https://vibemathed.com/problem/jacobian-conjecture"
       }
     ],
     "sources": [
@@ -126,6 +141,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the MathDB record for this result as a registration."
+      },
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. No grade moved."
       }
     ]
   },
@@ -258,7 +278,22 @@
       "lean",
       "formalization"
     ],
-    "added": "2026-07-20"
+    "added": "2026-07-20",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "315787",
+        "title": "Erdős Problem #728",
+        "url": "https://mathdb.com/p/315787/erdos-problem-728"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this problem as a registration. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-01-alphaevolve-bruhat",
@@ -1194,7 +1229,21 @@
       "counterexample",
       "jacobian-conjecture"
     ],
-    "added": "2026-07-27"
+    "added": "2026-07-27",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "gaussian-moments-conjecture",
+        "url": "https://vibemathed.com/problem/gaussian-moments-conjecture"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-07-14-zeroth-order-oracle-bound",
@@ -3219,17 +3268,19 @@
         "id": "315904",
         "title": "Sendov's conjecture",
         "url": "https://mathdb.com/p/315904/sendov-s-conjecture"
+      },
+      {
+        "registry": "proofatlas",
+        "id": "sendov-conjecture",
+        "url": "https://proofatlas.ai/formalizations/sendov-conjecture/",
+        "title": "Sendov's conjecture",
+        "note": "ProofAtlas records that the build passed with no unfinished proof steps, and that the record has not reached its accepted-result status, which needs four independent reviews. Its recorded build is not the same claim as the published bundle being rebuildable; this entry's caveat that the distributed package ships no lakefile or manifest still stands."
       }
     ],
     "sources": [
       {
         "label": "ProofAtlas: A Computer-Assisted Proof of Sendov's Conjecture (PDF)",
         "url": "https://www.proofatlas.ai/papers/sendov-conjecture/SENDOV_CONJECTURE_PROOF_AUGUST_5_2026.pdf",
-        "kind": "research"
-      },
-      {
-        "label": "ProofAtlas: Sendov conjecture formalization record",
-        "url": "https://proofatlas.ai/formalizations/sendov-conjecture/",
         "kind": "research"
       },
       {
@@ -3261,6 +3312,12 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      },
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the ProofAtlas record for Mazur's formalization as a registration. It was previously carried as a research source, which a registry listing is not. The paper it accompanies stays a source, and no grade moved.",
+        "url": "https://proofatlas.ai/formalizations/sendov-conjecture/"
       }
     ]
   },
@@ -3287,6 +3344,12 @@
         "registry": "vibemathed",
         "id": "schiffer-conjecture",
         "url": "https://vibemathed.com/problem/schiffer-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "315903",
+        "title": "Pompeiu problem",
+        "url": "https://mathdb.com/p/315903/pompeiu-problem"
       }
     ],
     "sources": [
@@ -3318,6 +3381,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
+      },
+      {
+        "date": "2026-08-21",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for the Pompeiu problem, the second of the two questions this entry settles, as a registration. No grade moved."
       }
     ]
   },
@@ -3490,5 +3558,352 @@
         "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces was classified as commentary, which a registry listing is not."
       }
     ]
+  },
+  {
+    "id": "2026-04-23-synthecin",
+    "title": "An antibiotic designed by reinforcement learning clears an MRSA infection in mice",
+    "claim": "A reinforcement-learning generator searching a 46-billion-compound synthesizable space produced synthecin, a structurally novel antibacterial that cleared a methicillin-resistant Staphylococcus aureus wound infection in a mouse model.",
+    "field": "medicine",
+    "date": "2026-04-23",
+    "lab": "McMaster University / Stanford University",
+    "model": "SyntheMol-RL",
+    "humans": [
+      "Kyle Swanson",
+      "Gary Liu",
+      "Denise B. Catacutan",
+      "Eric D. Brown",
+      "James Zou",
+      "Jonathan M. Stokes"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "search-scaffold",
+    "detail": "SyntheMol-RL replaces the Monte Carlo tree search of the earlier SyntheMol with reinforcement learning over roughly 150,000 commercial building blocks and about 50 reaction templates, which lets it generalize across chemically similar blocks and optimize several properties at once. Run against S. aureus with joint objectives of antibacterial activity and aqueous solubility, it proposed candidates that the team then made: 79 compounds unique relative to the training set were synthesized, 13 were potently active in vitro, and 7 of those passed the authors' structural-novelty filters against known antibiotics. One hit, synthecin, was formulated as a topical and cleared a murine MRSA wound infection. The design step is a search harness with a learned policy, not a language model reasoning about chemistry.",
+    "novelty_check": "The compound is new by construction: the generator is restricted to a combinatorial space of unsynthesized products, and the paper reports the 79 tested molecules as unique relative to the training set, with structural-novelty filters applied against known antibiotics leaving seven. The prior art in this registry is the 2020 halicin screen and the 2023 MRSA structural class, both of which selected from existing libraries; the distinguishing claim here is generation of a molecule nobody had made, followed by synthesis and an in vivo test. Searched PubMed and Europe PMC for synthecin: the only records are this paper and its 2025 bioRxiv preprint. The framework itself is an increment on the authors' own SyntheMol, which they state.",
+    "caveats": "Preclinical. One compound, one pathogen, one mouse wound model, and topical administration; the paper describes systemic use as a possibility to be optimized toward, not a result. Structural novelty is measured by the authors' own filters rather than by an outside assessment. The 13 active compounds out of 79 synthesized is a hit rate on a set the model itself chose, so it is not an unbiased estimate of the generator's precision. Autonomy graded search-scaffold rather than ai-led: humans set the objectives, the scoring functions and the building-block space, and selected which candidates to synthesize, which is the same shape as the halicin and MRSA entries.",
+    "sources": [
+      {
+        "label": "Molecular Systems Biology: SyntheMol-RL",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC13230741/",
+        "kind": "research"
+      },
+      {
+        "label": "bioRxiv preprint (2025)",
+        "url": "https://www.biorxiv.org/content/10.1101/2025.05.17.654017v1",
+        "kind": "research"
+      },
+      {
+        "label": "McMaster University announcement",
+        "url": "https://news.mcmaster.ca/mcmaster-built-ai-model-speeds-up-drug-discovery-designs-new-antibiotic/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "antibiotics",
+      "drug-discovery",
+      "reinforcement-learning",
+      "generative-model",
+      "mrsa",
+      "in-vivo"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-13-banach-isometric",
+    "title": "Banach's isometric conjecture settled in the remaining odd dimensions",
+    "claim": "A real Banach space whose n-dimensional subspaces are all isometric to one another must be a Hilbert space for every odd n, which together with Gromov's even-dimensional theorem closes a question Banach asked in 1932.",
+    "field": "mathematics",
+    "date": "2026-08-13",
+    "lab": "Independent",
+    "model": "ChatGPT 5.5 Pro, ChatGPT 5.6 Pro and GPT-5.6 Sol",
+    "humans": [
+      "Xinbao Lu",
+      "Kaiwen Yang"
+    ],
+    "year_posed": 1932,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Banach asked in 1932 whether a real Banach space X all of whose n-dimensional subspaces are isometric, for some fixed n strictly between 1 and the dimension of X, has to be a Hilbert space. Gromov settled every even n, and later work closed several odd cases, leaving a gap. This 21-page paper proves the remaining odd n, combining bundle topology with Brouwer degree theory, which completes the conjecture in the real case. The complex case is not addressed.",
+    "novelty_check": "The conjecture is a named 1932 problem of Banach with a documented partial-results ladder: Gromov's theorem covers even n, and subsequent work settled particular odd dimensions, which is the prior state of the art the paper states and cites. Searched arXiv and MathSciNet for a proof covering all odd n; none appears before this preprint, and the surveys of the problem still list the general odd case as open. The result is a new proof rather than a retrieval.",
+    "caveats": "A preprint, unrefereed and not formalized, and only days old at entry. Autonomy graded ai-assisted rather than collaborative: the declaration states that the authors had already reduced the main problem to proving Theorem 3.10 before using generative AI, that an approach to that theorem then emerged through extensive interactions with ChatGPT 5.5 Pro and 5.6 Pro, that GPT-5.6 Sol generated the initial draft of Section 3 and corresponding material in Section 2, and that the authors checked and rewrote it and take full responsibility. The reduction, which is the framing step, is human, and the machine contribution is one theorem inside it. The weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "banach-s-isometric-conjecture",
+        "url": "https://vibemathed.com/problem/banach-s-isometric-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "383555",
+        "title": "Banach's isometric conjecture",
+        "url": "https://mathdb.com/p/383555/banach-s-isometric-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A solution to Banach's isometric conjecture",
+        "url": "https://arxiv.org/abs/2608.13536",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "functional-analysis",
+      "banach-spaces",
+      "argument",
+      "geometry"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-16-talagrand-convolution",
+    "title": "Talagrand's convolution conjecture proved on the Boolean hypercube",
+    "claim": "Convolution by a measure on the Boolean hypercube obeys the dimension-free weak-type decay Talagrand conjectured in 1989, removing the iterated-logarithm factor carried by the best previous bound.",
+    "field": "mathematics",
+    "date": "2026-08-16",
+    "lab": "Independent",
+    "model": "Odin Automatic AI Research Agent",
+    "humans": [
+      "Junwei Lu",
+      "Shengtao Guo",
+      "Ethan X. Fang"
+    ],
+    "year_posed": 1989,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "For the Boolean hypercube with uniform measure and convolution by a finite positive measure, Talagrand conjectured that the anti-concentration profile decays like one over the square root of log u, with a constant free of the dimension. Yuansi Chen reached that decay in November 2025 up to an additional log log factor, using a perturbed reverse heat flow. This paper reworks the endpoint comparison so that the exponent has a fixed numerator, which removes the need for a growing stopping buffer and with it the log log factor, giving the conjectured bound.",
+    "novelty_check": "Talagrand posed the hypercube conjecture in 1989 and it remained on O'Donnell's open-problem list; even the Gaussian special case was open as of 2012. The prior state of the art is fixed precisely by Chen, arXiv:2511.19374, November 2025, which proves the bound up to a log log correction and says so in its title. This paper's stated contribution is the removal of exactly that factor, and the mechanism it credits, a fixed-numerator frozen exponent that dispenses with the growing stopping buffer, is specific to the gap. The result is one step in a chain rather than a proof from scratch, and it is new.",
+    "caveats": "A preprint days old at entry, unrefereed, not formalized, and with no independent endorsement recorded. The AI disclosure is two sentences, in the abstract and again under a heading 'The role of AI in this proof': the Odin Automatic AI Research Agent was used to discover the proof, and the final proofs were reorganized by the authors. Autonomy graded ai-led on that statement taken at face value, but the claim cannot be audited: Odin is not a publicly documented system, no vendor is named, no transcript or artifact is published, and there is no way to separate discovery from reorganization. Read the model field as the authors' attribution rather than as a verified fact.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "talagrand-s-convolution-conjecture",
+        "url": "https://vibemathed.com/problem/talagrand-s-convolution-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "371652",
+        "title": "Talagrand's convolution conjecture for the Boolean hypercube",
+        "url": "https://mathdb.com/p/371652/talagrand-s-convolution-conjecture-for-the-boolean-hypercube"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Weak-Type Bounds for Convolution on the Boolean Hypercube",
+        "url": "https://arxiv.org/abs/2608.15515",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Chen, Talagrand's convolution conjecture up to loglog (prior bound)",
+        "url": "https://arxiv.org/abs/2511.19374",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "probability",
+      "boolean-analysis",
+      "concentration",
+      "argument"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-17-matmul-exponent",
+    "title": "Matrix multiplication exponent lowered to below 2.371177",
+    "claim": "A reformulated optimization inside the laser method, with AlphaEvolve applied as the final refinement, lowers the best known upper bound on the matrix multiplication exponent from 2.371339 to 2.371177.",
+    "field": "computer-science",
+    "date": "2026-08-17",
+    "lab": "Google DeepMind",
+    "model": "AlphaEvolve",
+    "humans": [
+      "Emilien Dupont",
+      "Marvin Eisenberger",
+      "Borislav Kozlovskii",
+      "Abbas Mehrabian",
+      "Francisco J. R. Ruiz",
+      "Abigail See",
+      "Renfei Zhou",
+      "Josh Alman",
+      "Virginia Vassilevska Williams",
+      "Matej Balog"
+    ],
+    "year_posed": 1969,
+    "verification": "author-verified",
+    "autonomy": "search-scaffold",
+    "detail": "The best bounds on the matrix multiplication exponent come from combination loss analysis, a refinement of the laser method. The paper makes three changes to the optimization at its core, and AlphaEvolve is only the third: first the problem is reformulated so it can be solved over a larger space than was previously tractable, then a new optimization algorithm is designed using recent machine-learning methods, and then that algorithm is refined with AlphaEvolve. The combination gives an upper bound of 2.371177 against a previous best of 2.371339. The paper is a note reporting a record, not a structural advance: whether the exponent equals 2 is untouched, and nothing here suggests the laser method can reach it.",
+    "novelty_check": "The exponent has a well-tracked ladder of published upper bounds running through Duan, Wu and Zhou (2022), Vassilevska Williams, Xu, Xu and Zhou (2024) and Alman, Duan, Vassilevska Williams, Xu, Xu and Zhou (2025), and the paper states the prior best as 2.371339 and cites it. No lower published upper bound appears before this note. The result is a new bound rather than a retrieval, and it is an improvement of roughly 1.6 times ten to the minus four, which the authors themselves describe as a small step.",
+    "caveats": "A preprint, unrefereed at entry. A bound of this kind is not the sort of claim a reader can spot-check: the number falls out of a large optimization over laser-method parameters, so reproducing it means re-running the optimization rather than checking a certificate, and no such independent rerun is recorded. Autonomy graded search-scaffold, consistent with the other AlphaEvolve entries here: AlphaEvolve is a human-built evolutionary harness with a language model inside, and in this paper it is the last stage of a pipeline whose first two stages are ordinary human applied mathematics. The author list mixes the DeepMind team with the complexity theorists who set the previous record, which is where the reformulation comes from.",
+    "sources": [
+      {
+        "label": "arXiv: Improving the matrix multiplication exponent with modern optimization and AlphaEvolve",
+        "url": "https://arxiv.org/abs/2608.16884",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "alphaevolve",
+      "algorithms",
+      "matrix-multiplication",
+      "complexity",
+      "computation"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-18-prime-gaps-246",
+    "title": "Bounded prime gaps of 246 formalized in Lean from Bombieri-Vinogradov",
+    "claim": "A machine-checked Lean development proves that infinitely many pairs of primes differ by at most 246, taking the Bombieri-Vinogradov theorem as a hypothesis rather than proving it.",
+    "field": "mathematics",
+    "date": "2026-08-18",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Evan Chen",
+      "Sidharth Hariharan",
+      "Kenny Lau",
+      "Bhavik Mehta",
+      "Ken Ono",
+      "Ashvin Swaminathan",
+      "Jesse Thorner",
+      "Yunzhou Xie"
+    ],
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "The 246 bound is the closest mathematics has come to the twin prime conjecture: Zhang broke the bounded-gaps barrier in 2013, Maynard's multidimensional sieve brought it to 600, and the Polymath8b collaboration tightened that to 246 in 2014. This project formalizes the majority of Maynard's paper together with the Polymath8b extension, in Lean 4 on top of Mathlib and the PrimeNumberTheoremAnd development led by Kontorovich and Tao. AxiomProver generated machine-checkable proofs which human formalisers at Axiom Math then curated and librarized into PrimeGapsLib, released as reusable infrastructure. The mathematics is not new; the machine-checked proof of it is.",
+    "novelty_check": "The theorem is not new and the project does not claim it is. H at most 246 is Polymath8b, 2014, building on Maynard 2013 and Zhang 2013, and all three are cited by the project as the sources being formalized. What did not previously exist is a machine-checked proof: no formalization of the Maynard sieve or the Polymath8b bound appears in Mathlib or in the Lean community's project index before this, and the related PrimeNumberTheoremAnd project it builds on formalizes a different theorem. This entry records a formalization milestone, in the same sense as the strong prime number theorem entry, not a new mathematical result.",
+    "caveats": "The formalization is not self-contained. Palomar registered the development under the theorem names bombieriVinogradov_implies_prime_gap_le_246 and bombieriVinogradov_implies_nth_prime_gap_le_246, and Palomar's own record describes the flagship result as conditional on the Bombieri-Vinogradov theorem, which is assumed as a hypothesis because it is not yet in Mathlib. Bombieri-Vinogradov has been a theorem since 1965, so the mathematics is unconditional in the literature and only the Lean development is conditional, but the project's public page states the 246 result without that qualification, and the two readings should not be conflated. Beyond the mechanical Palomar check there has been no mathematical peer review of the formalization choices. Autonomy graded collaborative: the disclosure is that the proof was generated collaboratively between human formalisers and AxiomProver, with humans curating and librarizing, and roughly 41 named contributors are credited.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-18-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-18-000002&version=1",
+        "repository": "AxiomMath/PrimeGapsLib",
+        "commit": "1faa7b14e82ddebc2772dfb9153922f01b106477",
+        "theorems": [
+          "bombieriVinogradov_implies_prime_gap_le_246",
+          "bombieriVinogradov_implies_nth_prime_gap_le_246"
+        ],
+        "checked": "2026-08-18",
+        "note": "Registered the day Palomar opened for submissions. The theorem names are where the Bombieri-Vinogradov hypothesis is visible; the project's own page does not carry that qualification."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Axiom Math: Lean formalization of bounded gaps between primes",
+        "url": "https://primegaps.axiommath.ai/",
+        "kind": "research"
+      },
+      {
+        "label": "PrimeGapsLib (Lean 4 source)",
+        "url": "https://github.com/AxiomMath/PrimeGapsLib",
+        "kind": "research"
+      },
+      {
+        "label": "Axiom announcement (X)",
+        "url": "https://x.com/axiommathai/status/2089732764279132449",
+        "kind": "announcement"
+      },
+      {
+        "label": "IEEE Spectrum coverage",
+        "url": "https://spectrum.ieee.org/axiom-math-246-theorem-formalization",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "lean",
+      "formalization",
+      "number-theory",
+      "prime-gaps",
+      "sieve-methods"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-19-yau-tian-donaldson",
+    "title": "Counterexample to the Yau–Tian–Donaldson conjecture for constant scalar curvature metrics",
+    "claim": "A smooth polarized fivefold that is K-polystable but admits no constant scalar curvature Kähler metric, disproving the form of the Yau–Tian–Donaldson conjecture that Donaldson stated in 2002.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "Claude Fable 5, GPT-5.6-sol and Danus",
+    "humans": [
+      "Jihao Liu",
+      "Bin Dong",
+      "Guoxiong Gao"
+    ],
+    "year_posed": 2002,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Donaldson conjectured in 2002 that a smooth polarized variety carries a constant scalar curvature Kähler metric exactly when it is K-polystable, the general-polarization successor to the Kähler-Einstein expectation going back to Yau and to Tian's K-stability. This 79-page paper constructs a polarized smooth projective fivefold, proves it K-polystable against all normal ample algebraic test configurations of every positive exponent, and shows it carries no such metric. Its appendix draws a distinction worth keeping: some counterexamples reduce to a finite certificate checkable once the object is written down, as the Jacobian conjecture counterexample does, while others are themselves theorems quantified over everything, and this is the second kind. Candidate manifolds of this shape have been available since 2008; the mathematical content is the classification showing every test configuration has nonnegative Donaldson-Futaki invariant with equality only for products.",
+    "novelty_check": "The conjecture is named, celebrated and traceable: the paper states it as Donaldson's 2002 conjecture, records the normality repair of the original scheme-theoretic formulation due to Ross and Thomas, and cites the Matsushima and Futaki obstructions and the Chen-Cheng and Berman-Darvas-Sjöström Dinew lines of work as the surrounding literature. No prior counterexample in any dimension appears. The paper is explicit about what was and was not already available: candidate manifolds of the present shape date to 2008, and what was missing is the proof that the mechanism works. The result is new.",
+    "caveats": "A preprint days old at entry, 79 pages, unrefereed and not formalized, and a counterexample of the kind that cannot be checked by evaluating an object, so verification means reading the classification argument. The theorem actually proved is the extremal-metric statement, which is stronger than the cscK wording of the abstract. Autonomy graded collaborative rather than ai-led: the appendix says the author found initial signs of a breakthrough while exploring open problems with Claude Code and then had Claude Code, Codex and Danus work on it in collaboration, with the three systems together producing the counterexample and its proof, but it also records that human input was crucial at one point, when the author recognized the example had to refute either the Codogni-Stoppa conjecture or cscK Yau–Tian–Donaldson and directed the agents to settle which. The appendix further reports that an improved version of Danus, given only the original problem and none of the earlier findings, later settled it alone in 5 hours and 29 minutes without that human input, which would be autonomous; that system is not public and the report is by the same author, so it is not gradeable evidence. The weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "yau-tian-donaldson-conjecture-csck",
+        "url": "https://vibemathed.com/problem/yau-tian-donaldson-conjecture-csck"
+      },
+      {
+        "registry": "mathdb",
+        "id": "383718",
+        "title": "Yau–Tian–Donaldson conjecture for constant scalar curvature metrics",
+        "url": "https://mathdb.com/p/383718/yau-tian-donaldson-conjecture-for-constant-scalar-curvature",
+        "note": "MathDB carries three records for this conjecture under permuted name orders (321390, 331106, 383718). This is the one whose title matches the usual attribution order."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Disproof of the Yau–Tian–Donaldson conjecture",
+        "url": "https://arxiv.org/abs/2608.19301",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "algebraic-geometry",
+      "differential-geometry",
+      "k-stability",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-20-marton-inner-bound",
+    "title": "Marton's inner bound shown not to reach the broadcast channel capacity region",
+    "claim": "There are discrete memoryless broadcast channels whose capacity region is strictly larger than Marton's inner bound, settling in the negative a question open since 1979.",
+    "field": "computer-science",
+    "date": "2026-08-20",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol, Claude Fable 5 and Claude Opus 5",
+    "humans": [
+      "Mian Huang",
+      "Yanxiao Liu",
+      "Yi Liu"
+    ],
+    "year_posed": 1979,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Marton's inner bound has been the best known achievable region for the general two-receiver discrete memoryless broadcast channel since 1979, and whether it is tight has been the central open question of the area. The paper exhibits channels whose capacity strictly exceeds it. The route ran through a related conjecture: the authors first found counterexamples to the Markovity conjecture of Gohari, Liu and Nair, then built a local tensorization test for a ternary-component broadcast channel, developed that into a counterexample to the additivity conjecture, and finally into an unconstrained counterexample to Marton's region. The violation gaps are small, of order ten to the minus six, and are certified with interval arithmetic.",
+    "novelty_check": "Marton posed the inner bound in 1979 and its tightness is the standing open problem of broadcast-channel capacity, restated in the network information theory literature and in the Gohari-Liu-Nair line of work the paper builds on and partly refutes. The paper records that the Markovity conjecture had survived an experiment over more than ten thousand random channels in earlier work, which fixes the prior state of the art: no counterexample to either conjecture had been found. No prior demonstration of sub-optimality appears. The result is a new construction rather than a retrieval.",
+    "caveats": "A preprint one day old at entry, unrefereed and not formalized. The gaps are of order ten to the minus six, so the claim rests on the authors' interval-arithmetic certification rather than on anything visible by inspection, and no independent rerun is recorded. Autonomy graded ai-assisted rather than collaborative or ai-led: the acknowledgement credits each contribution individually and the recurring verb is assisted. Chandra Nair asked Yanxiao Liu to search using AI; GPT-5.6 Sol assisted Liu to a Markovity counterexample and, independently, assisted Mian Huang via the human-devised method of elimination geometry; Claude Fable 5 assisted the tensorization test; Claude Fable 5 and Opus 5 assisted a fixed-input-distribution example after Amin Gohari and Nair suggested that constraint; and Yanxiao Liu then modified that example into the unconstrained counterexample. Humans chose the method, set each search target and did the final construction. The weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "marton-inner-bound-capacity-region",
+        "url": "https://vibemathed.com/problem/marton-inner-bound-capacity-region"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Sub-optimality of Marton's Inner Bound for the Two-Receiver Broadcast Channel",
+        "url": "https://arxiv.org/abs/2608.19869",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "information-theory",
+      "broadcast-channel",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-08-21"
   }
 ]
