@@ -9,6 +9,52 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-08-23-s6-complex-structure",
+      "url": "https://whataifound.org/finding/2026-08-23-s6-complex-structure",
+      "title": "A proposed complex structure on the six-sphere",
+      "content_text": "An explicit compact complex threefold, built as a family of 2-tori over the (3,4,infinity) orbifold, is argued to be diffeomorphic to the six-sphere, which if it holds settles a question Hopf raised in 1948.  Whether the six-sphere admits a complex structure is the surviving case of a question going back to Hopf: the two-sphere and the six-sphere are the only spheres carrying an almost complex structure, and only the six-dimensional case is open. The manuscript builds a threefold X fibred over the projective line by complex 2-tori, using the period functions of the (3,4,infinity) triangle group, degenerating to a degree-six del Pezzo fibre at one special point and to bielliptic multiple fibres of multiplicities 3 and 4 at the other two. It argues that X is simply connected with the integral homology of the six-sphere, hence diffeomorphic to it, and that its algebraic dimension is exactly 1. That last number is where the paper collides with the literature, and it says so itself rather than passing over it.  Lab: Anthropic. Model: Claude, version not stated. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-08-23T00:00:00+00:00",
+      "date_modified": "2026-08-25T00:00:00+00:00",
+      "tags": [
+        "complex-geometry",
+        "differential-geometry",
+        "hopf-problem",
+        "construction",
+        "contested"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-21-dubickas-square-roots",
+      "url": "https://whataifound.org/finding/2026-08-21-dubickas-square-roots",
+      "title": "Dubickas's question on integral parts of powers of square roots settled",
+      "content_text": "The square root of 3 admits a real multiplier making every integral part of its powers even, and among integers only the square root of 2 fails to, answering a question Dubickas posed in 2006 and classifying the whole square-root case.  Dubickas splits the reals above 1 into two classes: alpha lies in Z when some nonzero real xi makes every integral part of xi times alpha to the n even, and in S otherwise. At alpha equal to 3/2 this is Mahler's question and still open; his Problem 3 asks which class contains the square root of 3. The answer is that it lies in Z, by an explicit multiplier near 1.3416, and the argument classifies the entire square-root slice: for an integer m at least 2, the square root of m lies in S exactly when m is 2. A further theorem in the paper replaces parity by divisibility by any integer p at least 2.  Lab: Independent. Model: Claude Fable 5 and Claude Opus 5. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-08-21T00:00:00+00:00",
+      "date_modified": "2026-08-25T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "formalization",
+        "number-theory",
+        "z-numbers",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-11-prescribed-cycle-recovery",
+      "url": "https://whataifound.org/finding/2026-08-11-prescribed-cycle-recovery",
+      "title": "A prescribed Hamiltonian cycle that a book-embedding algorithm cannot produce",
+      "content_text": "A 16-vertex graph carries a Hamiltonian cycle that the Alam et al. book-embedding algorithm cannot return for any choice of dual spanning tree, answering a question of Bekos, Kaufmann and Pfister in the negative.  Bekos, Kaufmann and Pfister asked whether every prescribed Hamiltonian cycle of a Barnette graph can be recovered from the book-embedding algorithm of Alam and co-authors by choosing the dual spanning tree appropriately. The answer is no. The paper exhibits an explicit 16-vertex Barnette graph whose Hamiltonian cycle has a complementary perfect matching meeting all three edge-colour classes of the simultaneous edge and face colouring the algorithm uses. Every output of the algorithm contains each edge designated green, whatever spanning tree is chosen, and the prescribed cycle omits a green edge under every global colour labelling, so no run can produce it. Note what is not being claimed: the graph satisfies Barnette's conjecture and is Hamiltonian. What fails is the algorithm's ability to reach a particular cycle, not the conjecture.  Lab: Independent. Model: OpenAI Codex, with Claude for adversarial review. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-11T00:00:00+00:00",
+      "date_modified": "2026-08-25T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "formalization",
+        "graph-theory",
+        "book-embedding",
+        "algorithms",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-08-20-marton-inner-bound",
       "url": "https://whataifound.org/finding/2026-08-20-marton-inner-bound",
       "title": "Marton's inner bound shown not to reach the broadcast channel capacity region",

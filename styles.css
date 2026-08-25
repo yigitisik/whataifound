@@ -19,8 +19,22 @@
     --bg:#faf9f6; --panel:#ffffff; --panel-2:#f6f4ef; --ink:#191917; --muted:#6a6760;
     --line:#e5e1d9; --line-strong:#d3cec3;
     --accent:#12513a; --accent-soft:#e9f1ec;
+    /* Verification grades. `claimed` and `refuted` are separated from `author` and `known`
+       by lightness inside the same hue rather than by a new hue, because each of these is
+       also a .pill.v background carrying white text: a value has to work as an 8px chart
+       swatch on the panel and as a pill fill under white text at once, and lightness is the
+       one axis that survives every kind of colour blindness.
+
+       This fixes the two pairs that were literally the same hex. It does not make the eight
+       a passing categorical palette, and they never were one: --peer against --independent
+       is the worst remaining pair (delta E 5.1 deutan in light), and --known against
+       --disputed is worst in dark. A colour-blindness delta E of 0 simply got reported
+       first. Both are legal only because a grade is never identified by colour alone here:
+       every swatch sits beside its name in .hbar-label, and every pill prints its grade.
+       Fixing them properly means repainting the ramp, which changes the entry cards on every
+       page and is its own piece of work. */
     --formal:#1a6b4a; --independent:#2d6ba3; --peer:#5a4a9e;
-    --author:#8a6d1f; --claimed:#8a6d1f; --disputed:#a8501f; --known:#8f2f2f; --refuted:#8f2f2f;
+    --author:#8a6d1f; --claimed:#5f4a13; --disputed:#a8501f; --known:#8f2f2f; --refuted:#5e1414;
     /* Source kinds. Their own family rather than reused grade colours: a link's kind is not a
        grade, and "Original work" sharing a swatch with "Formally verified" would imply it is. */
     --src-research:#16705a; --src-announcement:#2a6ea8; --src-coverage:#8a6420;
@@ -58,7 +72,7 @@
       --line:#2a2d24; --line-strong:#3a3e32;
       --accent:#7ec6a3; --accent-soft:#1a251f;
       --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
-      --author:#c9a94e; --claimed:#c9a94e; --disputed:#d47a45; --known:#d06666; --refuted:#d06666;
+      --author:#c9a94e; --claimed:#8a6f22; --disputed:#d47a45; --known:#d06666; --refuted:#b5527a;
       --src-research:#4fbf9a; --src-announcement:#5c9dd6; --src-coverage:#c9a94e;
       --src-commentary:#9b8ae0; --src-challenge:#d47a45;
       --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
@@ -76,7 +90,7 @@
     --line:#2a2d24; --line-strong:#3a3e32;
     --accent:#7ec6a3; --accent-soft:#1a251f;
     --formal:#4fae86; --independent:#5c9dd6; --peer:#9b8ae0;
-    --author:#c9a94e; --claimed:#c9a94e; --disputed:#d47a45; --known:#d06666; --refuted:#d06666;
+    --author:#c9a94e; --claimed:#8a6f22; --disputed:#d47a45; --known:#d06666; --refuted:#b5527a;
     --src-research:#4fbf9a; --src-announcement:#5c9dd6; --src-coverage:#c9a94e;
     --src-commentary:#9b8ae0; --src-challenge:#d47a45;
     --aut-autonomous:#4fae86; --aut-ai-led:#5c9dd6; --aut-collaborative:#9b8ae0;
@@ -1229,6 +1243,104 @@
   @media(max-width:640px){.qv-grid{grid-template-columns:1fr}.hbar{grid-template-columns:100px 1fr 24px}}
   @media(prefers-reduced-motion:reduce){.hbar-fill,.vbar-fill{animation:none}}
 
+  /* ---------- Sectioned visuals page ----------
+     The /visuals charts are grouped under the three claims the lede makes, so the page
+     argues in an order rather than presenting ten equal tiles. Each section reuses .qv-grid,
+     so a section is a hairline grid of cards exactly as the whole page used to be, and the
+     even-count rule that keeps a card from being orphaned now applies per section. */
+  .qv-sections{display:flex;flex-direction:column;gap:30px}
+  .qv-sec-t{font-family:var(--serif);font-size:1.05rem;font-weight:600;letter-spacing:-.01em;
+    color:var(--ink);margin:0 0 3px}
+  .qv-sec-n{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:0 0 11px;line-height:1.45}
+  /* The hero spans the grid, like .qv-wide. Named separately because it also carries a
+     taller plot and the page's only two-state control. */
+  .qv-hero{grid-column:1 / -1}
+
+  /* Card header: the title, with the view switch pushed to the trailing edge where one exists. */
+  .qv-head{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:0 0 11px}
+  .qv-head .qv-title{margin:0}
+
+  /* View switch. Both states draw the whole registry, so this re-encodes rather than filters,
+     which is why it belongs in the card and not in a filter row above the page. */
+  .qv-seg{display:inline-flex;background:var(--panel-2);border:1px solid var(--line);
+    border-radius:8px;overflow:hidden;flex:0 0 auto}
+  .qv-seg button{appearance:none;background:none;border:0;cursor:pointer;padding:5px 10px;
+    font-family:var(--serif);font-size:.66rem;color:var(--muted);letter-spacing:.03em}
+  .qv-seg button+button{border-left:1px solid var(--line)}
+  .qv-seg button[aria-pressed="true"]{background:var(--panel);color:var(--ink);font-weight:600}
+  .qv-seg button:focus-visible{outline:2px solid var(--accent);outline-offset:-2px}
+
+  /* Legend. Present whenever a chart carries two or more series, and every key names its
+     series, so the bands are never told apart by colour alone. */
+  .qv-legend{display:flex;flex-wrap:wrap;gap:4px 12px;margin:0 0 10px}
+  .qv-key{appearance:none;background:none;border:0;cursor:pointer;padding:2px 0;position:relative;
+    display:inline-flex;align-items:center;gap:6px;font-family:var(--serif);font-size:.67rem;
+    color:var(--muted)}
+  .qv-key .sw{width:9px;height:9px;border-radius:2px;flex:0 0 auto}
+  .qv-key[aria-pressed="true"]{color:var(--ink);font-weight:600}
+  .qv-key:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:3px}
+
+  /* Highlight rather than filter: the other series stay drawn, faintly, so the whole is
+     still visible behind the one being read. */
+  .ser{transition:opacity .18s var(--ease)}
+  .ser.is-dim{opacity:.15}
+
+  /* Which group of a two-state chart is drawn. */
+  .qv-card[data-view="cum"] .v-yr,
+  .qv-card[data-view="yr"] .v-cum,
+  .qv-card[data-view="share"] .v-count,
+  .qv-card[data-view="count"] .v-share{display:none}
+
+  /* Marks for the plots added beside the matrix. .pt-hit is an invisible column that makes a
+     whole year hoverable, so the tooltip never depends on hitting a band edge. */
+  .pt-mark{cursor:pointer}
+  circle.pt-mark{stroke:var(--panel);stroke-width:1.5;opacity:.85;transition:opacity .15s}
+  circle.pt-mark:hover,circle.pt-mark:focus-visible{opacity:1;stroke:var(--ink);stroke-width:2;outline:none}
+  circle.pt-mark:focus-visible{stroke:var(--accent)}
+  /* Values past the end of the axis are drawn on the edge and ringed, so they cannot be
+     misread as ordinary points that happen to sit at the maximum. */
+  circle.pt-mark.is-out{stroke:var(--ink);stroke-width:2;stroke-dasharray:2 2}
+  .pt-hit{fill:transparent}
+  .pt-hit:hover,.pt-hit:focus-visible{fill:var(--ink);fill-opacity:.045;outline:none}
+
+  /* Checking against output. An emphasis chart: the total is context in the muted ink, the
+     checked line carries the one hue, and the gap between them is the subject, so it is
+     filled rather than left as empty space. */
+  .ck-gap{fill:var(--muted);fill-opacity:.13}
+  .ck-line{fill:none;stroke-width:2;stroke-linejoin:round;stroke-linecap:round}
+  .ck-tot{stroke:var(--muted)}
+  .ck-chk{stroke:var(--src-research)}
+  .ck-end{font-family:var(--serif);font-size:9px;font-weight:600;letter-spacing:.02em}
+  .ck-tot-t{fill:var(--muted)}
+  .ck-chk-t{fill:var(--src-research)}
+
+  /* Topic against grade. One hue, with opacity carrying magnitude, so an empty cell reads as
+     empty rather than as a second colour meaning zero. */
+  .hm-cell:hover,.hm-cell:focus-visible{stroke:var(--ink);stroke-width:1.5;outline:none}
+  .hm-n{font-family:var(--serif);font-size:10px;font-weight:600;fill:var(--panel);
+    pointer-events:none;font-variant-numeric:lining-nums tabular-nums}
+  text.hm-tot{fill-opacity:1;font-size:10px;font-weight:600}
+  text.mx-tick.hm-tot{fill:var(--ink)}
+
+  /* Lab against grade. CSS rather than SVG, because the rows are a labelled list exactly like
+     .hbar above and only the track is segmented. */
+  .lg-bars{display:flex;flex-direction:column;gap:7px}
+  .lg-row{display:grid;grid-template-columns:138px 1fr 26px;align-items:center;gap:10px}
+  .lg-track{position:relative;height:14px;background:var(--panel-2);border-radius:4px;overflow:hidden}
+  .lg-seg{position:absolute;top:0;height:100%;transition:opacity .18s var(--ease)}
+  /* A 2px panel-coloured gap between segments, rather than a border drawn around each. */
+  .lg-seg+.lg-seg{box-shadow:-2px 0 0 var(--panel)}
+  .lg-row.is-rollup{margin-top:3px;padding-top:7px;border-top:1px dashed var(--line-strong)}
+  .lg-row.is-rollup .hbar-label{font-style:italic;color:var(--muted)}
+
+  @media(max-width:640px){
+    .qv-sections{gap:22px}
+    .qv-head{flex-wrap:wrap}
+    .lg-row{grid-template-columns:100px 1fr 24px}
+  }
+  @media(max-width:560px){.lg-row{grid-template-columns:94px 1fr 22px}}
+  @media(prefers-reduced-motion:reduce){.ser,.lg-seg,circle.pt-mark{transition:none}}
+
   /* ---------- Entry cards ---------- */
   /* content-visibility skips layout and paint for the entries below the fold. The list
      is 52 cards and roughly 8000px, so most of that work is for content nobody has
@@ -2176,6 +2288,12 @@
     /* The card body is the big target beside it, so this one only has to be reachable
        without hitting the card by accident. */
     .labcard-go{width:44px;height:44px}
+    /* Chart view switch: a segmented control, so adjacent cells cannot overlap and the
+       height has to carry the whole target. */
+    .qv-seg button{height:44px;padding:0 14px}
+    /* Legend keys sit beside each other in a wrapping row, so they expand vertically only. */
+    .qv-key::after{content:"";position:absolute;left:0;right:0;top:50%;
+      transform:translateY(-50%);height:44px}
     .sig-b{padding:11px 14px}
     .empty-act{padding:12px 18px}
     .csv-btn{padding:12px 16px}

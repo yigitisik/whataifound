@@ -111,6 +111,18 @@
         "registry": "vibemathed",
         "id": "jacobian-conjecture",
         "url": "https://vibemathed.com/problem/jacobian-conjecture"
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-21-000006",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-21-000006&version=1",
+        "repository": "Paul-Lez/jacobian-conjecture",
+        "commit": "b244ea482ed086297e379d73e6724cd26b2d301f",
+        "theorems": [
+          "JacobianConjecture.jacobian_conjecture"
+        ],
+        "checked": "2026-08-21",
+        "note": "A Comparator wrapper of the formalization by Paul Lezeau and Dean Cureton in Google DeepMind's formal-conjectures, whose Lean source names the construction as Alpöge and Fable's counterexample. It records a stronger statement than this entry claims, disproving the generalized conjecture over every nontrivial commutative ring rather than in characteristic zero alone, and omits the two-variable case, which stays open."
       }
     ],
     "sources": [
@@ -146,6 +158,12 @@
         "date": "2026-08-21",
         "kind": "correction",
         "note": "Recorded the vibemathed record for this result as a registration. No grade moved."
+      },
+      {
+        "date": "2026-08-25",
+        "kind": "check",
+        "note": "A third-party Lean formalization of this counterexample was registered at Palomar, mechanically confirming that it typechecks against the stated theorem at a pinned commit. The formalization is by Lezeau and Cureton rather than by the counterexample's author. The grade was already formal and did not move.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-21-000006&version=1"
       }
     ]
   },
@@ -3905,5 +3923,158 @@
       "construction"
     ],
     "added": "2026-08-21"
+  },
+  {
+    "id": "2026-08-23-s6-complex-structure",
+    "title": "A proposed complex structure on the six-sphere",
+    "claim": "An explicit compact complex threefold, built as a family of 2-tori over the (3,4,infinity) orbifold, is argued to be diffeomorphic to the six-sphere, which if it holds settles a question Hopf raised in 1948.",
+    "field": "mathematics",
+    "date": "2026-08-23",
+    "lab": "Anthropic",
+    "model": "Claude, version not stated",
+    "humans": [
+      "Levent Alpöge"
+    ],
+    "year_posed": 1948,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Whether the six-sphere admits a complex structure is the surviving case of a question going back to Hopf: the two-sphere and the six-sphere are the only spheres carrying an almost complex structure, and only the six-dimensional case is open. The manuscript builds a threefold X fibred over the projective line by complex 2-tori, using the period functions of the (3,4,infinity) triangle group, degenerating to a degree-six del Pezzo fibre at one special point and to bielliptic multiple fibres of multiplicities 3 and 4 at the other two. It argues that X is simply connected with the integral homology of the six-sphere, hence diffeomorphic to it, and that its algebraic dimension is exactly 1. That last number is where the paper collides with the literature, and it says so itself rather than passing over it.",
+    "novelty_check": "The problem is named, ancient and heavily attempted: Hopf posed it in 1948, and the modern literature runs through Chern, Bryant, LeBrun and the Campana-Demailly-Peternell papers the manuscript cites and disputes. Its 60-item bibliography is real and checkable. The specific construction, a family of 2-tori over the (3,4,infinity) orbifold completed at its three special points, does not appear in the prior literature, and no accepted complex structure on the six-sphere exists. Atiyah's 2016 attempt is the best-known recent failure and is not this argument. The construction is new; whether it is correct is a separate question this entry does not settle.",
+    "caveats": "Enters at claimed, and there are three separate reasons not to grade it higher. First, the AI attribution rests on a social-media post and nothing else. The 108-page manuscript was read here in full: it has no acknowledgements section, no methods note and no mention of Claude, Anthropic or any paraphrase anywhere in its text. The author's public post names the model and credits it substantively, but says nothing about which parts of the work it did, and no stable direct link to that post could be confirmed. Autonomy is graded ai-assisted because that is all the disclosure can carry, not because the contribution is known to be small. The model version is not stated. Second, the result contradicts a published theorem. The paper carries a section headed on why the argument of the Campana-Demailly-Peternell corrigendum does not apply, and a remark stating that its theorem contradicts that paper's Corollary 2.3 as published, locating the divergence in a non-vanishing higher direct image and in a lemma there that assumes trivial monodromy where here the monodromy is non-trivial. Worth reading both ways: the 1998 paper's Lemma 1.5 was itself wrong and the 2020 paper is the corrigendum, so that literature is known to be fragile, which makes the collision survivable without making the claim likelier. Third, the problem has a long history of false proofs. Not peer-reviewed, not formalized, and no independent check is recorded.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "modular-family-of-2-tori-as-a-complex-structure-on-s6",
+        "url": "https://vibemathed.com/problem/modular-family-of-2-tori-as-a-complex-structure-on-s6"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Alpöge: The (3,4,infinity) modular family of 2-tori is a complex structure on S^6 (PDF)",
+        "url": "https://alpo.ge/s6.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Coverage: officechai",
+        "url": "https://officechai.com/ai/anthropic-researcher-says-claude-helped-build-a-complex-structure-on-s%E2%81%B6-taking-aim-at-the-unsolved-hopf-problem/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "complex-geometry",
+      "differential-geometry",
+      "hopf-problem",
+      "construction",
+      "contested"
+    ],
+    "added": "2026-08-25"
+  },
+  {
+    "id": "2026-08-21-dubickas-square-roots",
+    "title": "Dubickas's question on integral parts of powers of square roots settled",
+    "claim": "The square root of 3 admits a real multiplier making every integral part of its powers even, and among integers only the square root of 2 fails to, answering a question Dubickas posed in 2006 and classifying the whole square-root case.",
+    "field": "mathematics",
+    "date": "2026-08-21",
+    "lab": "Independent",
+    "model": "Claude Fable 5 and Claude Opus 5",
+    "humans": [
+      "Ralf Stephan"
+    ],
+    "year_posed": 2006,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "Dubickas splits the reals above 1 into two classes: alpha lies in Z when some nonzero real xi makes every integral part of xi times alpha to the n even, and in S otherwise. At alpha equal to 3/2 this is Mahler's question and still open; his Problem 3 asks which class contains the square root of 3. The answer is that it lies in Z, by an explicit multiplier near 1.3416, and the argument classifies the entire square-root slice: for an integer m at least 2, the square root of m lies in S exactly when m is 2. A further theorem in the paper replaces parity by divisibility by any integer p at least 2.",
+    "novelty_check": "Dubickas posed the question as Problem 3 of his 2006 Glasgow Mathematical Journal paper (48, 331-336), and it is stated as open there and in the subsequent Z-number literature descending from Mahler. The neighbouring case alpha equal to 3/2 is Mahler's problem and remains open, which fixes the boundary of what is claimed here. No prior resolution of Problem 3 appears. The result is new, and the paper also generalizes past the original question rather than only answering it.",
+    "caveats": "The Lean covers less than the paper. The author states that the case m equal to 3 is what is machine-verified, and the repository flags the thickness computation of section 4.1 and the whole of section 8 as not formalized, so the formal grade attaches to the central claim rather than to every theorem in the write-up. Not peer-reviewed. Autonomy graded ai-led on an unusually explicit disclosure: the author records that the mathematical discovery is the Fable 5 agent's, that the formalization is the Fable 5 and Opus 5 agents', that the agents drafted the prose which the author revised, and that the direction, review and responsibility are the author's. The Lean development carries the same framing in its copyright line.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-23-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-23-000002&version=1",
+        "repository": "rwst/Square-Roots",
+        "commit": "e3184902f13967b9f20f37244b3d1c30610ca846",
+        "theorems": [
+          "SZ.sqrtThree_mem_MahlerZ",
+          "SZ.sqrtThree_notMem_S",
+          "SZ.sqrt_natCast_mem_S_iff"
+        ],
+        "checked": "2026-08-23",
+        "note": "Eleven modules, no unfinished proof steps and no declared axioms beyond the three standard ones."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Even integral parts of powers of square roots (ResearchGate)",
+        "url": "https://www.researchgate.net/publication/413520035_Even_integral_parts_of_powers_of_square_roots",
+        "kind": "research"
+      },
+      {
+        "label": "Lean development: rwst/Square-Roots",
+        "url": "https://github.com/rwst/Square-Roots",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "lean",
+      "formalization",
+      "number-theory",
+      "z-numbers",
+      "argument"
+    ],
+    "added": "2026-08-25"
+  },
+  {
+    "id": "2026-08-11-prescribed-cycle-recovery",
+    "title": "A prescribed Hamiltonian cycle that a book-embedding algorithm cannot produce",
+    "claim": "A 16-vertex graph carries a Hamiltonian cycle that the Alam et al. book-embedding algorithm cannot return for any choice of dual spanning tree, answering a question of Bekos, Kaufmann and Pfister in the negative.",
+    "field": "computer-science",
+    "date": "2026-08-11",
+    "lab": "Independent",
+    "model": "OpenAI Codex, with Claude for adversarial review",
+    "humans": [
+      "Lennart Rudolph"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-assisted",
+    "detail": "Bekos, Kaufmann and Pfister asked whether every prescribed Hamiltonian cycle of a Barnette graph can be recovered from the book-embedding algorithm of Alam and co-authors by choosing the dual spanning tree appropriately. The answer is no. The paper exhibits an explicit 16-vertex Barnette graph whose Hamiltonian cycle has a complementary perfect matching meeting all three edge-colour classes of the simultaneous edge and face colouring the algorithm uses. Every output of the algorithm contains each edge designated green, whatever spanning tree is chosen, and the prescribed cycle omits a green edge under every global colour labelling, so no run can produce it. Note what is not being claimed: the graph satisfies Barnette's conjecture and is Hamiltonian. What fails is the algorithm's ability to reach a particular cycle, not the conjecture.",
+    "novelty_check": "The question is stated by Bekos, Kaufmann and Pfister about the earlier book-embedding algorithm of Alam and co-authors, and the paper answers it directly rather than a nearby question. Searched for a prior counterexample to prescribed-cycle recovery and none appears; the surrounding literature treats the recovery question as open. The construction is a new explicit instance, not a retrieval. Barnette's conjecture itself is untouched and remains open, so nothing in the novelty claim depends on it.",
+    "caveats": "The formalization is partial by its own account: the Lean covers the finite combinatorial core, and the topological realization of the incidence data as a sphere embedding, together with the published algorithm's Property 1, remain external inputs. So the machine checking establishes that the displayed graph has the stated combinatorial properties and that the obstruction fires, not the whole argument end to end. Not peer-reviewed. Autonomy graded ai-assisted on the paper's own disclosure, which is the authoritative one: Codex assisted with literature and novelty searches, certificate verification, code testing, proof development, and manuscript drafting and editing, while Claude was used for independent adversarial review, and the author states that neither system qualifies as an author and takes full responsibility. Worth recording a discrepancy: the Palomar record lists the authors as the human plus two model names, which the paper explicitly declines to do. The paper's statement is the one graded here.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-21-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-21-000002&version=1",
+        "repository": "lennrt/palomar-formalizations",
+        "commit": "090b3b300ba8ec76fdba09a17f086953d13f2653",
+        "theorems": [
+          "BarnettePalomar.concrete_graph_certificate",
+          "BarnettePalomar.face_coloring_certificate",
+          "BarnettePalomar.property_one_excludes_prescribed_cycle"
+        ],
+        "checked": "2026-08-21",
+        "note": "Covers the finite core only. The sphere embedding and the algorithm's Property 1 are external inputs, which the record states."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Zenodo: A Counterexample to Prescribed-Cycle Recovery in Barnette Graphs",
+        "url": "https://zenodo.org/records/21890733",
+        "kind": "research"
+      },
+      {
+        "label": "Lean development: lennrt/palomar-formalizations",
+        "url": "https://github.com/lennrt/palomar-formalizations",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "lean",
+      "formalization",
+      "graph-theory",
+      "book-embedding",
+      "algorithms",
+      "construction"
+    ],
+    "added": "2026-08-25"
   }
 ]

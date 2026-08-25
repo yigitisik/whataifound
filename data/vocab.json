@@ -249,8 +249,8 @@
       "home": "https://palomar-registry.org/",
       "role": "verification",
       "operator": "Incubated by the Lean FRO and ICARM, with a scientific advisory board of nine mathematicians.",
-      "scope": "Snapshots of public Lean repositories, mathematics only.",
-      "certifies": "A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review."
+      "scope": "Snapshots of public Lean repositories, mathematics only. Open to any submitter since August 2026, so the pool mixes new results with formalizations of long-settled ones.",
+      "certifies": "A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review. It does not certify that a result is new or of research interest: the only filter on that is a language-model screen, and Palomar states that it adds no human editorial step."
     },
     "proofatlas": {
       "name": "ProofAtlas",
