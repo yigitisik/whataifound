@@ -84,6 +84,7 @@ export const ENTRY_IDS = new Set([
   "2026-08-05-sendov-conjecture",
   "2026-08-08-petersen-coloring",
   "2026-08-10-zeta-zeros-critical-line",
+  "2026-08-11-prescribed-cycle-recovery",
   "2026-08-12-liquid-drop-minimizers",
   "2026-08-13-banach-isometric",
   "2026-08-13-sop2-sop3",
@@ -91,7 +92,9 @@ export const ENTRY_IDS = new Set([
   "2026-08-17-matmul-exponent",
   "2026-08-18-prime-gaps-246",
   "2026-08-19-yau-tian-donaldson",
-  "2026-08-20-marton-inner-bound"
+  "2026-08-20-marton-inner-bound",
+  "2026-08-21-dubickas-square-roots",
+  "2026-08-23-s6-complex-structure"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -163,6 +166,7 @@ export const ENTRY_GRADES = {
   "2026-08-05-sendov-conjecture": ["formal", "collaborative"],
   "2026-08-08-petersen-coloring": ["formal", "ai-assisted"],
   "2026-08-10-zeta-zeros-critical-line": ["formal", "ai-led"],
+  "2026-08-11-prescribed-cycle-recovery": ["formal", "ai-assisted"],
   "2026-08-12-liquid-drop-minimizers": ["author-verified", "ai-led"],
   "2026-08-13-banach-isometric": ["author-verified", "ai-assisted"],
   "2026-08-13-sop2-sop3": ["author-verified", "collaborative"],
@@ -170,7 +174,9 @@ export const ENTRY_GRADES = {
   "2026-08-17-matmul-exponent": ["author-verified", "search-scaffold"],
   "2026-08-18-prime-gaps-246": ["formal", "collaborative"],
   "2026-08-19-yau-tian-donaldson": ["author-verified", "collaborative"],
-  "2026-08-20-marton-inner-bound": ["author-verified", "ai-assisted"]
+  "2026-08-20-marton-inner-bound": ["author-verified", "ai-assisted"],
+  "2026-08-21-dubickas-square-roots": ["formal", "ai-led"],
+  "2026-08-23-s6-complex-structure": ["claimed", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -242,6 +248,7 @@ export const ENTRY_TITLES = {
   "2026-08-05-sendov-conjecture": "Sendov's conjecture proved for every degree",
   "2026-08-08-petersen-coloring": "A 112-vertex counterexample to the Petersen coloring conjecture",
   "2026-08-10-zeta-zeros-critical-line": "Proportion of zeta zeros on the critical line raised to 67.25%",
+  "2026-08-11-prescribed-cycle-recovery": "A prescribed Hamiltonian cycle that a book-embedding algorithm cannot produce",
   "2026-08-12-liquid-drop-minimizers": "Complete minimizer picture for Gamow's liquid drop model",
   "2026-08-13-banach-isometric": "Banach's isometric conjecture settled in the remaining odd dimensions",
   "2026-08-13-sop2-sop3": "SOP_2 and SOP_3 theories shown to coincide",
@@ -249,7 +256,9 @@ export const ENTRY_TITLES = {
   "2026-08-17-matmul-exponent": "Matrix multiplication exponent lowered to below 2.371177",
   "2026-08-18-prime-gaps-246": "Bounded prime gaps of 246 formalized in Lean from Bombieri-Vinogradov",
   "2026-08-19-yau-tian-donaldson": "Counterexample to the Yau\u2013Tian\u2013Donaldson conjecture for constant scalar curvature metrics",
-  "2026-08-20-marton-inner-bound": "Marton's inner bound shown not to reach the broadcast channel capacity region"
+  "2026-08-20-marton-inner-bound": "Marton's inner bound shown not to reach the broadcast channel capacity region",
+  "2026-08-21-dubickas-square-roots": "Dubickas's question on integral parts of powers of square roots settled",
+  "2026-08-23-s6-complex-structure": "A proposed complex structure on the six-sphere"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

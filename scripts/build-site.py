@@ -244,7 +244,8 @@ DOMAIN_NAME = {
     "openproblemgarden.org": "Open Problem Garden", "doi.org": "DOI",
     "vibemathed.com": "VibeMathed", "www-cdn.anthropic.com": "Anthropic",
     "chatgpt.com": "ChatGPT", "primegaps.axiommath.ai": "Axiom Math",
-    "news.mcmaster.ca": "McMaster University",
+    "news.mcmaster.ca": "McMaster University", "alpo.ge": "Levent Alpöge",
+    "researchgate.net": "ResearchGate",
 }
 
 

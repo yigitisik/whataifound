@@ -114,7 +114,8 @@ const DOMAIN_NAME = {
   'openproblemgarden.org':'Open Problem Garden','doi.org':'DOI',
   'vibemathed.com':'VibeMathed','www-cdn.anthropic.com':'Anthropic',
   'chatgpt.com':'ChatGPT','primegaps.axiommath.ai':'Axiom Math',
-  'news.mcmaster.ca':'McMaster University'
+  'news.mcmaster.ca':'McMaster University','alpo.ge':'Levent Alpöge',
+  'researchgate.net':'ResearchGate'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }
@@ -286,84 +287,44 @@ function renderCharts(){
   const el = document.getElementById('charts');
   if (!el) return;
   const tally = keyFn => { const m={}; ALL.forEach(e=>{const k=keyFn(e); if(k!=null) m[k]=(m[k]||0)+1;}); return m; };
-  const sortDesc = m => Object.entries(m).sort((a,b)=>b[1]-a[1]);
-  const hbars = hbarsHtml;
+  const am = tally(e => e.autonomy);
+  // Most AI-driven first: the reverse of the stacking order above, because a ranked list
+  // reads top down where a stack reads bottom up.
+  const byAut = AUT_ORDER.slice().reverse().filter(a => am[a])
+    .map(a => [AUT_LABEL[a]||a, am[a], AUT_VAR[a]]);
 
-  // Long organisation names get ellipsised to nothing useful in the label column
-  // ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
-  // actually use. The full name stays in the row's title attribute and aria-label.
-  const LAB_SHORT = {
-    'Lawrence Berkeley National Laboratory':'Berkeley Lab',
-    'Google DeepMind (with Brown, NYU and Stanford)':'DeepMind + universities',
-    'Google DeepMind (with Oxford and Sydney)':'DeepMind + Oxford/Sydney',
-    'Google DeepMind / Isomorphic Labs':'DeepMind / Isomorphic',
-    'Google DeepMind / Google Quantum AI':'DeepMind / Quantum AI',
-    'Google Brain / University of Texas at Austin':'Google Brain / UT Austin',
-    'Institute for Protein Design, University of Washington':'IPD, U. Washington',
-    'Princeton University / PPPL / DIII-D National Fusion Facility':'Princeton / PPPL',
-    'FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont)':'FlyWire Consortium',
-    'Arc Institute / Stanford University':'Arc Institute / Stanford',
-    'MIT / Broad Institute / Harvard':'MIT / Broad / Harvard',
-    'UT Austin / CWI Amsterdam':'UT Austin / CWI'
-  };
+  // Three sections, in the order the lede names them, so the page argues rather than just
+  // listing. A grid row is as tall as its tallest card, so each section keeps an even count
+  // of half-width cards and lets the hero and the two long list cards take the full width:
+  // an odd count orphans the last card beside dead space.
+  const section = (id, title, note, cards) =>
+    `<section class="qv-sec" aria-labelledby="${id}">`+
+    `<h2 class="qv-sec-t" id="${id}">${esc(title)}</h2>`+
+    `<p class="qv-sec-n">${esc(note)}</p>`+
+    `<div class="qv-grid">${cards}</div></section>`;
 
-  // One organisation dominates and a long tail holds a single finding each, so plotting
-  // every row made this the tallest card on the page. Show the rows that carry information
-  // and aggregate the rest, so the column still sums to the registry rather than silently
-  // truncating.
-  //
-  // MAXROWS is a height budget, not a ranking: everything above the tail is always kept,
-  // and the tail is drawn from only to match the height of the topic chart beside it. Tail
-  // entries are all tied, so which ones surface is arbitrary; hence "and N more with one
-  // finding each" rather than a bare "Other", which would imply the listed ones outrank
-  // the omitted ones.
-  const labRows = sortDesc(tally(e=>e.lab));
-  const MAXROWS = 11;                          // ~= the topic chart, this card's row-mate
-  const TAIL = 1;                              // counts at or below this are tied filler
-  const ranked = labRows.filter(([,c]) => c > TAIL);
-  const tied = labRows.filter(([,c]) => c <= TAIL);
-  // Keep every ranked row; spend what's left of the budget on tied rows, reserving one
-  // slot for the aggregate row when it's needed.
-  const room = Math.max(MAXROWS - ranked.length - 1, 0);
-  const shown = tied.slice(0, tied.length <= room + 1 ? tied.length : room);
-  const rest = tied.slice(shown.length);
-  // Shortened rows keep the full organisation name in the tooltip, so nothing is lost.
-  const labRow = ([l,c]) => LAB_SHORT[l] ? [LAB_SHORT[l], c, null, `${l}: ${c}`] : [l, c];
-  const byLab = [
-    ...ranked.map(labRow),
-    ...shown.map(labRow),
-    ...(rest.length ? [[`+${rest.length} more, 1 each`, rest.length, null,
-      `${rest.length} further organisations with one finding each: `+
-      rest.map(([l])=>l).join(', '), 'is-rollup']] : [])
-  ];
-  const gm = tally(e=>e.verification);
-  const byGrade = GRADE_ORDER.filter(g=>gm[g]).map(g=>[GRADE_SHORT[g]||g, gm[g], `var(${GRADE_VAR[g]})`]);
-
-  // Order matters, and a grid row is as tall as its tallest card, so row-mates are paired
-  // by similar height: the fixed-height year bars with the grade breakdown, the matrix
-  // with the five-row evidence chain, then the two long category lists together. The
-  // evidence/autonomy matrix is the analytical centrepiece, so it stays in the second row
-  // rather than below the whole strip, where reaching it took a deliberate scroll.
-  //
-  // The count has to stay even, or the last half-width card is orphaned beside dead space.
-  // Eight half-width cards fill four rows exactly; the two list cards that want the room
-  // take the full width and close the page.
   el.innerHTML =
-    yearCard()+
-    `<div class="qv-card"><h3 class="qv-title">By verification grade</h3>${hbars(byGrade,'By verification grade')}</div>`+
-    matrixCard()+
-    evidenceCard()+
-    `<div class="qv-card"><h3 class="qv-title">By lab</h3>${hbars(byLab,'By lab')}</div>`+
-    modelCard()+
-    coverageCard()+
-    spanCard()+
-    // 8 rather than the home page's 4, and full width: these rows carry a title, and a
-    // half-width column clamps most of them to two lines.
-    standingCard(8, 'qv-wide')+
-    // 0 = no cap: this page has the width for all of them, the home page does not.
-    topicCard(0, 'qv-wide');
+    section('sec-time', 'How findings accumulate',
+      'When each result became public, and what kind of AI work produced it.',
+      trendCard() + mixCard() + checkedCard()) +
+    section('sec-evidence', 'How solid the evidence is',
+      'What has been checked, by whom, and where the checking runs out.',
+      matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard()) +
+    section('sec-autonomy', 'How much the AI did',
+      'Which systems and organisations produced these results, and what they were up against.',
+      labGradeCard() + spanCard() + modelCard() +
+      `<div class="qv-card"><div class="qv-head"><h3 class="qv-title">By autonomy grade</h3></div>`+
+      hbarsHtml(byAut, 'By autonomy grade')+
+      `<p class="qv-foot">The strictest defensible reading of what the AI did unaided. `+
+      `<a href="/methodology">How these are graded</a>.</p></div>` +
+      // 8 rather than the home page's 4, and full width: these rows carry a title, and a
+      // half-width column clamps most of them to two lines.
+      standingCard(8, 'qv-wide') +
+      // 0 = no cap: this page has the width for all of them, the home page does not.
+      topicCard(0, 'qv-wide'));
   renderInsights();
   wireScatterTip();
+  wireChartControls();
 }
 
 // Headline figures above the charts. The charts show distributions; these state the
@@ -660,6 +621,24 @@ function standingCard(max, cls){
 /** Descending string compare by code point, for the sort tiebreaks above. */
 function cmpDesc(a, b){ return b > a ? 1 : b < a ? -1 : 0; }
 
+// Long organisation names get ellipsised to nothing useful in the label column
+// ('Lawrence Berkeley Natior…'), so shorten the known offenders to the name people
+// actually use. The full name stays in the row's title attribute and aria-label.
+const LAB_SHORT = {
+  'Lawrence Berkeley National Laboratory':'Berkeley Lab',
+  'Google DeepMind (with Brown, NYU and Stanford)':'DeepMind + universities',
+  'Google DeepMind (with Oxford and Sydney)':'DeepMind + Oxford/Sydney',
+  'Google DeepMind / Isomorphic Labs':'DeepMind / Isomorphic',
+  'Google DeepMind / Google Quantum AI':'DeepMind / Quantum AI',
+  'Google Brain / University of Texas at Austin':'Google Brain / UT Austin',
+  'Institute for Protein Design, University of Washington':'IPD, U. Washington',
+  'Princeton University / PPPL / DIII-D National Fusion Facility':'Princeton / PPPL',
+  'FlyWire Consortium (Princeton, MRC LMB, Cambridge, Vermont)':'FlyWire Consortium',
+  'Arc Institute / Stanford University':'Arc Institute / Stanford',
+  'MIT / Broad Institute / Harvard':'MIT / Broad / Harvard',
+  'UT Austin / CWI Amsterdam':'UT Austin / CWI'
+};
+
 // ---------- Charts /visuals mounts and the home page does not ----------
 // These three have no port in build-site.py and no parity row, because nothing
 // pre-renders them: /visuals is the only page that shows them, and it fetches the
@@ -712,25 +691,6 @@ function modelCard(cls){
     `against a general model prompted at it.</p></div>`;
 }
 
-// How long the problems stood. The insight strip states the median; this is the shape
-// behind it, and the shape is the part worth seeing: of the entries recording a posed
-// year, most had stood fifty years or more, and none closed a problem posed in the last
-// five. Empty buckets are drawn rather than dropped, for the same reason yearCard() draws
-// its quiet years: a gap in the middle of the range is a fact about the registry.
-const SPAN_BUCKETS = [
-  [0, 4, 'Under 5 yrs'], [5, 9, '5 to 9 yrs'], [10, 24, '10 to 24 yrs'],
-  [25, 49, '25 to 49 yrs'], [50, Infinity, '50 yrs or more'],
-];
-function spanCard(){
-  const spans = ALL.map(yearsOpen).filter(v => v != null);
-  const rows = SPAN_BUCKETS.map(([lo,hi,label]) =>
-    [label, spans.filter(v => v >= lo && v <= hi).length]);
-  return `<div class="qv-card"><h3 class="qv-title">How long the problem stood</h3>`+
-    hbarsHtml(rows, 'How long the problem stood')+
-    `<p class="qv-foot">From the ${spans.length} of ${ALL.length} entries recording a `+
-    `posed year. <a href="/review">Add a missing one</a>.</p></div>`;
-}
-
 // Who has actually looked. An entry with no independent_checks has been read by nobody
 // outside the lab that announced it, which is the number /review exists to move, so the
 // card splits by grade rather than giving one total: an unchecked 'formal' and an
@@ -750,6 +710,461 @@ function coverageCard(cls){
     `<p class="qv-foot">${ALL.length - checked} of ${ALL.length} entries have never been `+
     `checked outside the lab that announced them. `+
     `<a href="/review">Open the review queue</a>.</p></div>`;
+}
+
+// ---------- Shared plot helpers for the /visuals charts below ----------
+// Pure like everything else in this section: numbers in, SVG string out. They are shared
+// so the five plots agree on tick spacing, axis chrome and mark colouring instead of each
+// inventing its own.
+
+// Autonomy is this registry's own axis, so it is the colour key of every chart that splits
+// by it. These are the --aut-* tokens rather than AUT_COLOR's grade tokens: the two hold
+// the same hues today, but a grade token is the wrong thing to reach for when the thing
+// being coloured is not a grade, and AUT_COLOR belongs to the parity-checked matrix.
+const AUT_VAR = {
+  'autonomous':'var(--aut-autonomous)','ai-led':'var(--aut-ai-led)',
+  'collaborative':'var(--aut-collaborative)','ai-assisted':'var(--aut-ai-assisted)',
+  'search-scaffold':'var(--aut-search-scaffold)','retrieval':'var(--aut-retrieval)'
+};
+// Least AI-driven first, so a stack reads bottom-up in the same direction the matrix reads
+// left to right, and the search-scaffold era sits under the AI-led one that follows it.
+const AUT_ORDER = Object.keys(AUT_RANK).sort((a,b) => AUT_RANK[a] - AUT_RANK[b]);
+
+/** Round ticks at 1, 2 or 5 times a power of ten, covering 0 to max. */
+function niceTicks(max, want){
+  if (!(max > 0)) return [0];
+  const mag = Math.pow(10, Math.floor(Math.log10(max / want)));
+  const norm = (max / want) / mag;
+  const step = (norm <= 1 ? 1 : norm <= 2 ? 2 : norm <= 5 ? 5 : 10) * mag;
+  // Round up past the largest value rather than stopping under it. Stopping under it puts
+  // real data outside the axis, which the span chart then has to draw as an overflow.
+  const top = Math.ceil(max / step) * step;
+  const out = [];
+  for (let v = 0; v <= top + step / 1000; v += step) out.push(Math.round(v * 1000) / 1000);
+  return out;
+}
+
+/** The domain a set of ticks spans, which is what every scale below should divide by. */
+function tickTop(ticks){ return ticks[ticks.length - 1] || 1; }
+
+/** Horizontal gridlines plus their value labels, drawn behind the marks. */
+function yGrid(ticks, yOf, x0, x1){
+  return ticks.map(t =>
+    `<line x1="${x0}" y1="${yOf(t).toFixed(1)}" x2="${x1}" y2="${yOf(t).toFixed(1)}" class="mx-guide"/>`+
+    `<text x="${x0-7}" y="${(yOf(t)+3.5).toFixed(1)}" class="mx-tick" text-anchor="end">${t}</text>`
+  ).join('');
+}
+
+/** A clickable key per series. Identity is never colour alone: every key carries its name. */
+function legendHtml(series, labelOf, colorOf){
+  return `<div class="qv-legend">` + series.map(s =>
+    `<button type="button" class="qv-key" data-ser="${esc(s)}" aria-pressed="false">`+
+    `<i class="sw" style="background:${colorOf(s)}"></i>${esc(labelOf(s))}</button>`).join('') + `</div>`;
+}
+
+/** The two-state view switch used by the trend and mix cards. */
+function segHtml(views, current){
+  return `<div class="qv-seg" role="group">` + views.map(([v,label]) =>
+    `<button type="button" data-view="${esc(v)}" aria-pressed="${v===current}">${esc(label)}</button>`
+  ).join('') + `</div>`;
+}
+
+/** Per-year counts by autonomy, gap years filled. Shared by the trend and mix cards. */
+function autoByYear(){
+  const years = ALL.map(e => +e.date.slice(0,4));
+  const y0 = Math.min(...years), y1 = Math.max(...years), span = [];
+  for (let y = y0; y <= y1; y++) span.push(y);
+  const series = AUT_ORDER.filter(a => ALL.some(e => e.autonomy === a));
+  const per = {};
+  series.forEach(a => { per[a] = span.map(y =>
+    ALL.filter(e => e.autonomy === a && +e.date.slice(0,4) === y).length); });
+  return { span, series, per };
+}
+
+// The page's centrepiece: how the registry filled up, and what it filled up with. Cumulative
+// is the honest time encoding for 77 entries over ten years, because raw monthly counts are
+// mostly ones and read as noise; the per-year view is a toggle rather than a second card so
+// both states describe the same whole registry, which is what the lede promises.
+function trendCard(){
+  const { span, series, per } = autoByYear();
+  const cum = {};
+  series.forEach(a => { let t = 0; cum[a] = per[a].map(v => (t += v)); });
+
+  const W = 940, H = 330, PADL = 46, PADR = 18, PADT = 18, PADB = 46;
+  const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
+  const step = span.length > 1 ? (x1 - x0) / (span.length - 1) : 0;
+  const x = i => x0 + i * step;
+  const bw = (x1 - x0) / span.length;
+
+  const totalCum = span.map((_, i) => series.reduce((s,a) => s + cum[a][i], 0));
+  const totalPer = span.map((_, i) => series.reduce((s,a) => s + per[a][i], 0));
+  const tickC = niceTicks(Math.max(...totalCum, 1), 4), domC = tickTop(tickC);
+  const tickP = niceTicks(Math.max(...totalPer, 1), 4), domP = tickTop(tickP);
+  const yC = v => yBot - v / domC * (yBot - yTop);
+  const yP = v => yBot - v / domP * (yBot - yTop);
+
+  // One hit target per year spanning the plot height, so the tooltip does not depend on
+  // landing on a band edge. Built per view because the two views report different numbers.
+  const hits = (counts, label) => span.map((y,i) => {
+    const parts = series.map(a => [AUT_LABEL[a]||a, counts[a][i]]).filter(p => p[1] > 0)
+      .sort((p,q) => q[1] - p[1]).map(p => `${p[0]}: ${p[1]}`).join(' · ');
+    const tot = series.reduce((s,a) => s + counts[a][i], 0);
+    return `<rect class="pt-mark pt-hit" x="${(x(i)-bw/2).toFixed(1)}" y="${yTop}"`+
+      ` width="${bw.toFixed(1)}" height="${(yBot-yTop).toFixed(1)}" tabindex="0" role="img"`+
+      ` data-title="${y}" data-aut="${esc(`${tot} ${label}`)}" data-autcol="var(--accent)"`+
+      ` data-open="${esc(parts || 'No findings this year')}"`+
+      ` aria-label="${esc(`${y}: ${tot} ${label}. ${parts}`)}"></rect>`;
+  }).join('');
+
+  // Stacked bands, drawn bottom up. The 1.5px panel-coloured stroke is the gap between
+  // fills rather than a border around them.
+  let base = span.map(() => 0);
+  const bands = series.map(a => {
+    const lower = base.slice(), upper = base.map((b,i) => b + cum[a][i]);
+    base = upper;
+    const top = upper.map((v,i) => `${x(i).toFixed(1)},${yC(v).toFixed(1)}`).join(' ');
+    const bot = lower.map((v,i) => `${x(i).toFixed(1)},${yC(v).toFixed(1)}`).reverse().join(' ');
+    return `<polygon class="ser" data-ser="${esc(a)}" points="${top} ${bot}"`+
+      ` fill="${AUT_VAR[a]}" stroke="var(--panel)" stroke-width="1.5"/>`;
+  }).join('');
+
+  let pbase = span.map(() => 0);
+  const cols = series.map(a => {
+    const segs = span.map((_,i) => {
+      const v = per[a][i];
+      if (!v) return '';
+      const y = yP(pbase[i] + v), h = yP(pbase[i]) - yP(pbase[i] + v);
+      return `<rect x="${(x(i)-bw*0.34).toFixed(1)}" y="${y.toFixed(1)}"`+
+        ` width="${(bw*0.68).toFixed(1)}" height="${Math.max(h,1).toFixed(1)}"`+
+        ` fill="${AUT_VAR[a]}" stroke="var(--panel)" stroke-width="1.5"/>`;
+    }).join('');
+    span.forEach((_,i) => { pbase[i] += per[a][i]; });
+    return `<g class="ser" data-ser="${esc(a)}">${segs}</g>`;
+  }).join('');
+
+  const xlabels = span.map((y,i) =>
+    `<text x="${x(i).toFixed(1)}" y="${H-PADB+16}" class="mx-tick" text-anchor="middle">'${String(y).slice(2)}</text>`
+  ).join('');
+
+  const total = ALL.length;
+  const lab = `Findings over time by autonomy. Cumulative total reaches ${total} by ${span[span.length-1]}. `+
+    series.map(a => `${AUT_LABEL[a]||a}: ${cum[a][cum[a].length-1]}`).join('; ') + '.';
+
+  return `<div class="qv-card qv-hero" data-view="cum">`+
+    `<div class="qv-head"><h3 class="qv-title">Findings over time, by autonomy</h3>`+
+    segHtml([['cum','Cumulative'],['yr','Per year']], 'cum')+`</div>`+
+    legendHtml(series, a => AUT_LABEL[a]||a, a => AUT_VAR[a])+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(lab)}" preserveAspectRatio="xMidYMid meet">`+
+    `<g class="v-cum">${yGrid(tickC, yC, x0, x1)}${bands}${hits(cum,'in total')}</g>`+
+    `<g class="v-yr">${yGrid(tickP, yP, x0, x1)}${cols}${hits(per,'that year')}</g>`+
+    xlabels+
+    `<text x="14" y="${((yTop+yBot)/2).toFixed(1)}" class="sc-axis" text-anchor="middle"`+
+    ` transform="rotate(-90 14 ${((yTop+yBot)/2).toFixed(1)})">Findings</text>`+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">Dated by when the result became public, not when it was added here. `+
+    `Cumulative reaches ${total}. Click a key to isolate one band.</p></div>`;
+}
+
+// The composition shift is the one real trend in the data and a count chart hides it, because
+// 2026 is taller than every earlier year put together. Share puts every year on the same
+// footing; the caption carries the warning that the early years rest on very few entries.
+function mixCard(){
+  const { span, series, per } = autoByYear();
+  const W = 470, H = 300, PADL = 34, PADR = 12, PADT = 14, PADB = 44;
+  const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
+  const bw = (x1 - x0) / span.length;
+  const tot = span.map((_,i) => series.reduce((s,a) => s + per[a][i], 0));
+  const tickP = niceTicks(Math.max(...tot, 1), 4), domP = tickTop(tickP);
+
+  const build = (mode) => {
+    let base = span.map(() => 0);
+    return series.map(a => {
+      const segs = span.map((_,i) => {
+        const v = per[a][i];
+        if (!v || (mode === 'share' && !tot[i])) return '';
+        const denom = mode === 'share' ? tot[i] : domP;
+        const yA = yBot - (base[i] + v) / denom * (yBot - yTop);
+        const yB = yBot - base[i] / denom * (yBot - yTop);
+        return `<rect x="${(x0+i*bw+bw*0.16).toFixed(1)}" y="${yA.toFixed(1)}"`+
+          ` width="${(bw*0.68).toFixed(1)}" height="${Math.max(yB-yA,1).toFixed(1)}"`+
+          ` fill="${AUT_VAR[a]}" stroke="var(--panel)" stroke-width="1.2"/>`;
+      }).join('');
+      span.forEach((_,i) => { base[i] += per[a][i]; });
+      return `<g class="ser" data-ser="${esc(a)}">${segs}</g>`;
+    }).join('');
+  };
+
+  const hits = span.map((y,i) => {
+    const parts = series.map(a => [AUT_LABEL[a]||a, per[a][i]]).filter(p => p[1] > 0)
+      .sort((p,q) => q[1] - p[1])
+      .map(p => `${p[0]}: ${p[1]}${tot[i] ? ` (${Math.round(p[1]/tot[i]*100)}%)` : ''}`).join(' · ');
+    return `<rect class="pt-mark pt-hit" x="${(x0+i*bw).toFixed(1)}" y="${yTop}"`+
+      ` width="${bw.toFixed(1)}" height="${(yBot-yTop).toFixed(1)}" tabindex="0" role="img"`+
+      ` data-title="${y}" data-aut="${esc(`${tot[i]} finding${tot[i]===1?'':'s'}`)}"`+
+      ` data-autcol="var(--accent)" data-open="${esc(parts || 'No findings this year')}"`+
+      ` aria-label="${esc(`${y}: ${tot[i]} findings. ${parts}`)}"></rect>`;
+  }).join('');
+
+  const thin = span.filter((_,i) => tot[i] > 0 && tot[i] < 4).length;
+  const lab = 'Share of findings by autonomy each year. ' + span.map((y,i) =>
+    `${y}: ${tot[i]}`).join('; ') + '.';
+
+  return `<div class="qv-card" data-view="share">`+
+    `<div class="qv-head"><h3 class="qv-title">What each year was made of</h3>`+
+    segHtml([['share','Share'],['count','Count']], 'share')+`</div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(lab)}" preserveAspectRatio="xMidYMid meet">`+
+    `<g class="v-share">${yGrid([0,25,50,75,100], v => yBot - v/100*(yBot-yTop), x0, x1)}${build('share')}${hits}</g>`+
+    `<g class="v-count">${yGrid(tickP, v => yBot - v/domP*(yBot-yTop), x0, x1)}${build('count')}${hits}</g>`+
+    span.map((y,i) => `<text x="${(x0+i*bw+bw/2).toFixed(1)}" y="${H-PADB+15}" class="mx-tick" text-anchor="middle">'${String(y).slice(2)}</text>`).join('')+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">Share puts thin years beside full ones. ${thin} year${thin===1?'':'s'} `+
+    `rest on fewer than four findings, so read the left of this chart as direction, not rate.</p></div>`;
+}
+
+// Whether the checking keeps pace with the output, which is the question this project
+// exists to move. Two cumulative lines and the gap between them: an emphasis chart rather
+// than a categorical one, because the subject is not which line is which, it is how far
+// apart they have grown. The earlier version of this card plotted the delay between a
+// result and its entry here, which looked like a scatter but was not one: every entry was
+// added inside the same few weeks, so that delay was only the date axis restated.
+function checkedCard(){
+  const years = ALL.map(e => +e.date.slice(0,4));
+  const y0 = Math.min(...years), y1 = Math.max(...years), span = [];
+  for (let y = y0; y <= y1; y++) span.push(y);
+  let a = 0, b = 0;
+  const tot = [], chk = [];
+  span.forEach(y => {
+    const of = ALL.filter(e => +e.date.slice(0,4) === y);
+    a += of.length;
+    b += of.filter(e => (e.independent_checks||[]).length).length;
+    tot.push(a); chk.push(b);
+  });
+
+  const W = 470, H = 300, PADL = 34, PADR = 62, PADT = 16, PADB = 44;
+  const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
+  const ticks = niceTicks(Math.max(a, 1), 4), dom = tickTop(ticks);
+  const step = span.length > 1 ? (x1 - x0) / (span.length - 1) : 0;
+  const x = i => x0 + i * step, y = v => yBot - v / dom * (yBot - yTop);
+  const path = arr => arr.map((v,i) => `${x(i).toFixed(1)},${y(v).toFixed(1)}`).join(' ');
+
+  // The gap is the subject, so it is filled rather than left as empty space between lines.
+  const gap = `<polygon class="ck-gap" points="${path(tot)} ${chk.map((v,i) =>
+    `${x(i).toFixed(1)},${y(v).toFixed(1)}`).reverse().join(' ')}"/>`;
+
+  const hits = span.map((yr,i) => {
+    const pc = tot[i] ? Math.round(chk[i] / tot[i] * 100) : 0;
+    return `<rect class="pt-mark pt-hit" x="${(x(i)-(step||10)/2).toFixed(1)}" y="${yTop}"`+
+      ` width="${(step||10).toFixed(1)}" height="${(yBot-yTop).toFixed(1)}" tabindex="0" role="img"`+
+      ` data-title="${yr}" data-aut="${esc(`${chk[i]} of ${tot[i]} checked`)}"`+
+      ` data-autcol="var(--src-research)"`+
+      ` data-open="${esc(`${pc}% of the registry up to this point had an independent check`)}"`+
+      ` aria-label="${esc(`By ${yr}: ${chk[i]} of ${tot[i]} findings independently checked.`)}"></rect>`;
+  }).join('');
+
+  // Direct labels at the line ends rather than a legend box: two series, and the label sits
+  // on the thing it names, so neither line is identified by its colour alone.
+  const endLab = (v, cls, text) =>
+    `<text x="${x1+6}" y="${(y(v)+3.5).toFixed(1)}" class="ck-end ${cls}">${esc(text)}</text>`;
+
+  const pc = a ? Math.round(b / a * 100) : 0;
+  return `<div class="qv-card">`+
+    `<div class="qv-head"><h3 class="qv-title">Has the checking kept up?</h3></div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img"`+
+    ` aria-label="${esc(`Cumulative findings against cumulative independently checked findings, ${y0} to ${y1}. ${a} recorded, ${b} checked, ${pc} percent.`)}"`+
+    ` preserveAspectRatio="xMidYMid meet">`+
+    yGrid(ticks, y, x0, x1) + gap +
+    `<polyline class="ck-line ck-tot" points="${path(tot)}"/>`+
+    `<polyline class="ck-line ck-chk" points="${path(chk)}"/>`+
+    endLab(a, 'ck-tot-t', `${a} recorded`) + endLab(b, 'ck-chk-t', `${b} checked`) + hits +
+    span.map((yr,i) => `<text x="${x(i).toFixed(1)}" y="${H-PADB+16}" class="mx-tick" text-anchor="middle">'${String(yr).slice(2)}</text>`).join('')+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">The shaded gap is what nobody outside the announcing lab has `+
+    `confirmed: ${a-b} of ${a} entries. <a href="/review">Open the review queue</a>.</p></div>`;
+}
+
+// Topic against grade. Two long bar charts said which topics and which grades separately;
+// this says which grades each topic actually earns, which is where the pattern is: formal
+// proof is almost entirely mathematics, and every disputed entry is materials science.
+function fieldGradeCard(){
+  const grades = GRADE_ORDER.filter(g => ALL.some(e => e.verification === g));
+  const totals = {};
+  ALL.forEach(e => { totals[e.field] = (totals[e.field]||0) + 1; });
+  const fields = Object.keys(totals).sort((a,b) => totals[b]-totals[a] || (a<b?-1:1));
+  const at = (f,g) => ALL.filter(e => e.field === f && e.verification === g).length;
+  const maxN = Math.max(...fields.map(f => Math.max(...grades.map(g => at(f,g)))), 1);
+
+  const W = 470, PADL = 104, PADR = 12, PADT = 58, PADB = 12, GAP = 9;
+  const cw = (W - PADL - PADR) / grades.length, ch = 22;
+  const totRow = PADT + fields.length * ch + GAP;
+  const H = totRow + ch + PADB;
+
+  const cells = fields.map((f,r) => grades.map((g,c) => {
+    const n = at(f,g);
+    const xx = PADL + c*cw, yy = PADT + r*ch;
+    // Sequential single hue: opacity carries magnitude, so an empty cell is visibly empty
+    // rather than a second colour meaning zero.
+    // Area-proportional ink, like the matrix: the square root keeps 20 reading as roughly
+    // twice 5 rather than four times it.
+    const op = n ? 0.16 + 0.84 * Math.sqrt(n / maxN) : 0;
+    return `<rect class="hm-cell${n?' pt-mark':''}" x="${(xx+0.6).toFixed(1)}" y="${(yy+0.6).toFixed(1)}"`+
+      ` width="${(cw-1.2).toFixed(1)}" height="${(ch-1.2).toFixed(1)}" rx="3"`+
+      ` fill="var(--accent)" fill-opacity="${op.toFixed(3)}"`+
+      (n ? ` tabindex="0" role="img" data-title="${esc(`${FIELD_SHORT[f]||f} · ${GRADE_SHORT[g]||g}`)}"`+
+        ` data-aut="${esc(`${n} finding${n===1?'':'s'}`)}" data-autcol="var(${GRADE_VAR[g]})"`+
+        ` data-open="${esc(`${totals[f]} in ${FIELD_SHORT[f]||f} altogether`)}"`+
+        ` aria-label="${esc(`${FIELD_SHORT[f]||f}, ${GRADE_SHORT[g]||g}: ${n}.`)}"` : ' aria-hidden="true"')+
+      `/>`+
+      (n ? `<text class="hm-n" x="${(xx+cw/2).toFixed(1)}" y="${(yy+ch/2+3.5).toFixed(1)}"`+
+        ` text-anchor="middle" style="fill:var(${op > 0.55 ? '--panel' : '--ink'})">${n}</text>` : '');
+  }).join('')).join('');
+
+  const rows = fields.map((f,r) =>
+    `<text x="${PADL-8}" y="${(PADT + r*ch + ch/2 + 3.5).toFixed(1)}" class="mx-tick" text-anchor="end">`+
+    `${esc(FIELD_SHORT[f]||f)}</text>`).join('');
+  const cols = grades.map((g,c) => {
+    const xx = (PADL + c*cw + cw/2).toFixed(1);
+    return `<text x="${xx}" y="${PADT-10}" class="mx-tick" text-anchor="start"`+
+      ` transform="rotate(-52 ${xx} ${PADT-10})">${esc(GRADE_SHORT[g]||g)}</text>`;
+  }).join('');
+
+  // A totals row, so this card also answers "how many of each grade altogether" and the
+  // page does not need a separate grade tally beside it.
+  const colTot = grades.map(g => ALL.filter(e => e.verification === g).length);
+  const totals_row =
+    `<line x1="${PADL}" y1="${(totRow-GAP/2).toFixed(1)}" x2="${W-PADR}" y2="${(totRow-GAP/2).toFixed(1)}" class="mx-guide"/>`+
+    `<text x="${PADL-8}" y="${(totRow + ch/2 + 3.5).toFixed(1)}" class="mx-tick hm-tot" text-anchor="end">All topics</text>`+
+    grades.map((g,c) =>
+      `<text class="hm-n hm-tot" x="${(PADL + c*cw + cw/2).toFixed(1)}" y="${(totRow + ch/2 + 3.5).toFixed(1)}"`+
+      ` text-anchor="middle" style="fill:var(${GRADE_VAR[g]})">${colTot[c]}</text>`).join('');
+
+  const lab = 'Topic area against verification grade. ' + fields.slice(0,4).map(f =>
+    `${FIELD_SHORT[f]||f}: ` + grades.filter(g => at(f,g)).map(g => `${GRADE_SHORT[g]||g} ${at(f,g)}`).join(', ')
+  ).join('; ') + '.';
+
+  return `<div class="qv-card">`+
+    `<div class="qv-head"><h3 class="qv-title">Topic area vs. grade</h3></div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(lab)}" preserveAspectRatio="xMidYMid meet">`+
+    cols + rows + cells + totals_row +
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">Stronger colour is more findings. Rows are ordered by size; the thin rows near `+
+    `the bottom hold one or two entries each. The last row is the whole registry.</p></div>`;
+}
+
+// Who earns which grade. The two organisations with the most entries reach them by opposite
+// routes, which neither a lab tally nor a grade tally can show on its own.
+function labGradeCard(){
+  const grades = GRADE_ORDER.filter(g => ALL.some(e => e.verification === g));
+  const totals = {};
+  ALL.forEach(e => { totals[e.lab] = (totals[e.lab]||0) + 1; });
+  const ranked = Object.keys(totals).sort((a,b) => totals[b]-totals[a] || (a<b?-1:1));
+  const TOP = 6;
+  const shown = ranked.slice(0, TOP), rest = ranked.slice(TOP);
+  const rowsOf = lab => grades.map(g => ALL.filter(e => e.lab === lab && e.verification === g).length);
+  const restRow = grades.map(g => rest.reduce((s,l) =>
+    s + ALL.filter(e => e.lab === l && e.verification === g).length, 0));
+
+  const data = shown.map(l => [LAB_SHORT[l] || l, rowsOf(l), totals[l], l])
+    .concat(rest.length ? [[`+${rest.length} more`, restRow, rest.reduce((s,l)=>s+totals[l],0), null]] : []);
+  const max = Math.max(...data.map(d => d[2]), 1);
+
+  const bars = data.map(([label, counts, tot, full]) => {
+    let acc = 0;
+    const segs = grades.map((g,i) => {
+      const v = counts[i];
+      if (!v) return '';
+      const left = acc / max * 100, width = v / max * 100;
+      acc += v;
+      return `<span class="lg-seg ser" data-ser="${esc(g)}" style="left:${left.toFixed(2)}%;`+
+        `width:${width.toFixed(2)}%;background:var(${GRADE_VAR[g]})"`+
+        ` title="${esc(`${full||label} · ${GRADE_SHORT[g]||g}: ${v}`)}"></span>`;
+    }).join('');
+    return `<div class="lg-row${full?'':' is-rollup'}" title="${esc(full ? `${full}: ${tot}` : `${rest.length} further organisations: ${tot}`)}">`+
+      `<span class="hbar-label">${esc(label)}</span>`+
+      `<span class="lg-track">${segs}</span>`+
+      `<span class="hbar-val">${tot}</span></div>`;
+  }).join('');
+
+  const lab = 'Verification grades by organisation. ' + data.map(([l,c,t]) =>
+    `${l}: ${t} (` + grades.map((g,i) => c[i] ? `${GRADE_SHORT[g]||g} ${c[i]}` : '')
+      .filter(Boolean).join(', ') + ')').join('; ') + '.';
+
+  return `<div class="qv-card">`+
+    `<div class="qv-head"><h3 class="qv-title">How each lab's evidence lands</h3></div>`+
+    legendHtml(grades, g => GRADE_SHORT[g]||g, g => `var(${GRADE_VAR[g]})`)+
+    `<div class="lg-bars" role="img" aria-label="${esc(lab)}">${bars}</div>`+
+    `<p class="qv-foot">Bars are counts on one shared scale, so row length is output and `+
+    `colour is how that output was checked.</p></div>`;
+}
+
+// How long the problems stood. The five buckets this replaces stated the shape at a
+// resolution the data does not have; 29 values fit on one axis individually, and colouring
+// them by grade answers the question the buckets raised, which is whether the old problems
+// are the well-evidenced ones.
+function spanCard(){
+  const pts = ALL.map(e => ({ e, n: yearsOpen(e) })).filter(p => p.n != null)
+    .sort((a,b) => a.n - b.n || (a.e.id < b.e.id ? -1 : 1));
+  if (!pts.length){
+    return `<div class="qv-card"><h3 class="qv-title">How long the problem stood</h3>`+
+      `<p class="qv-empty">No entry records the year its problem was posed.</p></div>`;
+  }
+  const W = 470, PADL = 34, PADR = 16, PADT = 14, PADB = 46, R = 4.5, ROW = 10;
+  const x0 = PADL, x1 = W - PADR;
+  // One value sits far beyond the rest, so the axis stops at a round number above the others
+  // and that entry is drawn in the last column with a marker, rather than compressing
+  // everything else into the left third.
+  const inliers = pts.filter(p => p.n <= 120);
+  const cap = Math.max(...niceTicks(Math.max(...inliers.map(p => p.n), 10), 5));
+  // A dot histogram rather than a strip: binning makes the vertical axis mean something
+  // (how many entries stood that long) instead of being free space to scatter into.
+  const BINS = 20, binW = cap / BINS;
+  const binOf = v => Math.min(Math.floor(v / binW), BINS - 1);
+  const x = v => x0 + (binOf(v) + 0.5) * (x1 - x0) / BINS;
+  // Place first, then size the card to the tallest column.
+  const col = {};
+  const placed = pts.map(p => {
+    const b = binOf(p.n);
+    return { p, tier: (col[b] = (col[b] || 0) + 1) - 1 };
+  });
+  const H = PADT + (Math.max(...placed.map(d => d.tier)) + 1) * ROW + 12 + PADB;
+  const yTop = PADT, yBot = H - PADB;
+
+  const ticks = niceTicks(cap, 5).map(t =>
+    `<line x1="${x(t).toFixed(1)}" y1="${yTop}" x2="${x(t).toFixed(1)}" y2="${yBot}" class="mx-guide"/>`+
+    `<text x="${x(t).toFixed(1)}" y="${yBot+16}" class="mx-tick" text-anchor="middle">${t}</text>`).join('');
+
+  // Deterministic stacking rather than random jitter: entries in the same bin pile upward in
+  // a fixed order, so the picture is identical on every load.
+  const dots = placed.map(({ p, tier }) => {
+    const cy = yBot - R - 2 - tier * ROW;
+    const out = p.n > cap;
+    return `<circle class="pt-mark${out?' is-out':''}" cx="${x(p.n).toFixed(1)}" cy="${Math.max(cy,yTop+R).toFixed(1)}" r="${R}"`+
+      ` fill="var(${GRADE_VAR[p.e.verification]||'--muted'})" tabindex="0" role="img"`+
+      ` data-title="${esc(p.e.title)}"`+
+      ` data-aut="${esc(`${p.n} years open`)}" data-autcol="var(${GRADE_VAR[p.e.verification]||'--muted'})"`+
+      ` data-open="${esc(`Posed ${p.e.year_posed} · ${VER_LABEL[p.e.verification]||p.e.verification}`)}"`+
+      ` aria-label="${esc(`${p.e.title}: open ${p.n} years, ${VER_LABEL[p.e.verification]||p.e.verification}.`)}"></circle>`;
+  }).join('');
+
+  const over = pts.filter(p => p.n > cap).length;
+  const note = over ? `<p class="qv-foot">${over} entr${over===1?'y':'ies'} beyond ${cap} years `+
+    `${over===1?'is':'are'} drawn on the right edge, ringed, so the rest keep the axis.</p>` : '';
+
+  return `<div class="qv-card">`+
+    `<div class="qv-head"><h3 class="qv-title">How long the problem stood</h3></div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img"`+
+    ` aria-label="${esc(`Years each problem stood before the result, for ${pts.length} entries, coloured by verification grade.`)}"`+
+    ` preserveAspectRatio="xMidYMid meet">`+
+    ticks + dots +
+    `<text x="${((x0+x1)/2).toFixed(1)}" y="${H-6}" class="sc-axis" text-anchor="middle">Years open before the result</text>`+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">One dot per entry, coloured by grade. From the ${pts.length} of `+
+    `${ALL.length} entries recording a posed year. <a href="/review">Add a missing one</a>.</p>`+
+    note + `</div>`;
 }
 
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside
@@ -792,11 +1207,36 @@ function wireOnePlotTip(wrap, tip){
   };
   const hide = () => { tip.hidden = true; tip.setAttribute('aria-hidden', 'true'); };
 
-  const MARK = '.mx-dot';
+  const MARK = '.mx-dot,.pt-mark';
   wrap.addEventListener('pointerover', e => { const d = e.target.closest(MARK); if (d) show(d); });
   wrap.addEventListener('pointerout', e => { if (e.target.closest(MARK)) hide(); });
   wrap.addEventListener('focusin', e => { const d = e.target.closest(MARK); if (d) show(d); });
   wrap.addEventListener('focusout', e => { if (e.target.closest(MARK)) hide(); });
+}
+
+// View toggles and legend keys. Both re-encode the whole registry rather than filtering it:
+// a toggle swaps how the same 77 entries are drawn, and a legend key dims the other series
+// without removing them, so the page keeps the promise its lede makes.
+function wireChartControls(){
+  document.querySelectorAll('.qv-card[data-view]').forEach(card => {
+    const btns = [...card.querySelectorAll('.qv-seg button')];
+    btns.forEach(b => b.addEventListener('click', () => {
+      card.dataset.view = b.dataset.view;
+      btns.forEach(o => o.setAttribute('aria-pressed', String(o === b)));
+    }));
+  });
+  document.querySelectorAll('.qv-legend').forEach(leg => {
+    const card = leg.closest('.qv-card');
+    if (!card) return;
+    const keys = [...leg.querySelectorAll('.qv-key')];
+    keys.forEach(b => b.addEventListener('click', () => {
+      // Clicking the active key clears the highlight, so the control is its own escape.
+      const active = b.getAttribute('aria-pressed') === 'true';
+      keys.forEach(o => o.setAttribute('aria-pressed', String(!active && o === b)));
+      card.querySelectorAll('.ser').forEach(g =>
+        g.classList.toggle('is-dim', !active && g.dataset.ser !== b.dataset.ser));
+    }));
+  });
 }
 
 // ---------- View state ----------
