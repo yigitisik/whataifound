@@ -255,7 +255,7 @@ test("a challenge accepts conflicts of interest and keeps them out of the regist
 test("both doors credit a contributor the same way", () => {
   // A GitHub contributor is credited by name plus optional github handle; a web
   // contributor by name plus handle, and orcid when they gave one. `{name}` alone is
-  // valid in docs/entry.schema.json, so neither route needs a schema change and the
+  // valid in entry.schema.json, so neither route needs a schema change and the
   // credit block renders both.
   const payload = validateProposal("check", goodCheck).value;
   const viaWeb = applyProposal(ENTRIES, { kind: "check", entryId: REAL_ID, payload },

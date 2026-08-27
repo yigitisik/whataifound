@@ -1,0 +1,557 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "whataifound.org registry API",
+    "version": "1",
+    "summary": "Read-only access to a graded registry of scientific and mathematical results discovered by or with AI systems.",
+    "description": "Every entry carries two grades: `verification` (how the result was checked, from a machine-checked Lean proof down to an unchecked announcement) and `autonomy` (how much the AI actually did). Use this API to ask whether a claimed AI discovery has been independently verified and to what standard, to list findings in a field at or above a grade, or to cite an individual result.\n\nRead-only, unauthenticated, no key. Cached for five minutes at the edge. Data is CC BY 4.0; cite as whataifound.org.\n\nThe complete registry is also downloadable in one request as [https://whataifound.org/data/entries.json](https://whataifound.org/data/entries.json). Take that when you want everything; use this endpoint when you want a filtered slice.\n\nContent last generated 2026-08-25.",
+    "license": {
+      "name": "CC BY 4.0",
+      "url": "https://creativecommons.org/licenses/by/4.0/"
+    },
+    "contact": {
+      "name": "whataifound.org",
+      "url": "https://whataifound.org/contact"
+    }
+  },
+  "security": [],
+  "servers": [
+    {
+      "url": "https://whataifound.org",
+      "description": "Production"
+    }
+  ],
+  "externalDocs": {
+    "description": "Field definitions, grade scales and editorial rules",
+    "url": "https://whataifound.org/developers"
+  },
+  "paths": {
+    "/api/dataset": {
+      "get": {
+        "operationId": "listFindings",
+        "summary": "List graded findings, newest first",
+        "description": "Returns registry entries newest first, filtered by any combination of the parameters below. Filters combine with AND. Every parameter is optional: with none, the whole registry is returned.\n\n`field`, `verification` and `autonomy` are closed vocabularies and are validated, so a typo is a 400 that names the accepted values rather than a silently empty list. `lab` and `tag` are open vocabularies matched exactly, so an unmatched value is a legitimate empty result.",
+        "parameters": [
+          {
+            "name": "field",
+            "in": "query",
+            "required": false,
+            "description": "Restrict to one subject area. An unlisted value is a 400 naming the accepted set, not an empty result.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "archaeology",
+                "astronomy",
+                "biology",
+                "chemistry",
+                "climate",
+                "computer-science",
+                "economics",
+                "engineering",
+                "materials",
+                "mathematics",
+                "medicine",
+                "neuroscience",
+                "physics"
+              ]
+            }
+          },
+          {
+            "name": "verification",
+            "in": "query",
+            "required": false,
+            "description": "Restrict to one verification grade. Exact match, not a floor: ask for `formal` and you get only machine-checked results. An unlisted value is a 400 naming the accepted set, not an empty result.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "formal",
+                "independent",
+                "peer-reviewed",
+                "author-verified",
+                "claimed",
+                "disputed",
+                "known",
+                "refuted"
+              ]
+            }
+          },
+          {
+            "name": "autonomy",
+            "in": "query",
+            "required": false,
+            "description": "Restrict to one autonomy grade. An unlisted value is a 400 naming the accepted set, not an empty result.",
+            "schema": {
+              "type": "string",
+              "enum": [
+                "autonomous",
+                "ai-led",
+                "collaborative",
+                "ai-assisted",
+                "search-scaffold",
+                "retrieval"
+              ]
+            }
+          },
+          {
+            "name": "lab",
+            "in": "query",
+            "required": false,
+            "description": "Exact organisation name, for example 'Google DeepMind'. Open vocabulary, matched exactly: 'Google' does not match 'Google DeepMind'.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "tag",
+            "in": "query",
+            "required": false,
+            "description": "Entries carrying this tag. Open vocabulary.",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "since",
+            "in": "query",
+            "required": false,
+            "description": "Entries added to the registry on or after this date. Filters on `added`, not `date`, so this answers 'what is new here' for a polling client.",
+            "schema": {
+              "type": "string",
+              "format": "date",
+              "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "required": false,
+            "description": "Maximum records to return. Omit for all of them.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0,
+              "maximum": 500
+            }
+          },
+          {
+            "name": "offset",
+            "in": "query",
+            "required": false,
+            "description": "Records to skip, for paging with `limit`. `total` in the response is the unpaged count.",
+            "schema": {
+              "type": "integer",
+              "minimum": 0
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Matching entries, newest first.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/DatasetResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "A parameter was outside its accepted set. The body names the parameter and lists what would have worked.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "This deployment does not serve this endpoint. Any /api/ path no endpoint claims answers RFC 9457 problem+json naming the routes that do exist.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          },
+          "405": {
+            "description": "Read-only endpoint: GET and HEAD only.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/BadRequest"
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/health": {
+      "get": {
+        "operationId": "getHealth",
+        "summary": "Report which optional services this deployment was given",
+        "description": "Presence booleans for the environment this deployment was built with, never values. Sign-in and submissions need a database and OAuth credentials; the registry itself does not, and the whole static site plus /api/dataset work with all of it absent. Useful for telling 'not configured' apart from 'configured after this deployment was built'.",
+        "responses": {
+          "200": {
+            "description": "Configuration report.",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Health"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "This deployment does not serve this endpoint. Any /api/ path no endpoint claims answers RFC 9457 problem+json naming the routes that do exist.",
+            "content": {
+              "application/problem+json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Problem"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Entry": {
+        "type": "object",
+        "description": "One graded finding. Optional fields are omitted, not null, when the registry has not recorded them.",
+        "required": [
+          "id",
+          "title",
+          "claim",
+          "field",
+          "date",
+          "added",
+          "lab",
+          "model",
+          "verification",
+          "autonomy",
+          "url"
+        ],
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[a-z0-9][a-z0-9._-]*$",
+            "description": "Stable slug, YYYY-MM-DD-short-name. Never reused."
+          },
+          "title": {
+            "type": "string",
+            "description": "The finding, stated without hype verbs."
+          },
+          "claim": {
+            "type": "string",
+            "description": "One sentence: what was found, specifically enough to check."
+          },
+          "field": {
+            "type": "string",
+            "enum": [
+              "archaeology",
+              "astronomy",
+              "biology",
+              "chemistry",
+              "climate",
+              "computer-science",
+              "economics",
+              "engineering",
+              "materials",
+              "mathematics",
+              "medicine",
+              "neuroscience",
+              "physics"
+            ],
+            "description": "Subject area."
+          },
+          "date": {
+            "type": "string",
+            "format": "date",
+            "description": "When the result became public."
+          },
+          "added": {
+            "type": "string",
+            "format": "date",
+            "description": "When the entry entered this registry. `since` filters on this."
+          },
+          "lab": {
+            "type": "string",
+            "description": "Organisation credited. Open vocabulary."
+          },
+          "model": {
+            "type": "string",
+            "description": "System used. Open vocabulary."
+          },
+          "verification": {
+            "type": "string",
+            "enum": [
+              "formal",
+              "independent",
+              "peer-reviewed",
+              "author-verified",
+              "claimed",
+              "disputed",
+              "known",
+              "refuted"
+            ],
+            "description": "How the result was checked, strongest first: formal (machine-checked proof (e.g. Lean)), independent (checked by third parties who were not the authors), peer-reviewed (published after peer review), author-verified (verified only by the people who produced it), claimed (announced, not independently verified), disputed (substantive public challenge to the result), known (correct, but the result already existed in the literature), refuted (shown to be wrong)"
+          },
+          "autonomy": {
+            "type": "string",
+            "enum": [
+              "autonomous",
+              "ai-led",
+              "collaborative",
+              "ai-assisted",
+              "search-scaffold",
+              "retrieval"
+            ],
+            "description": "How much the AI did, most first: autonomous (the AI did it without human problem-setting or steering), ai-led (the AI produced the core idea; humans framed or checked it), collaborative (genuine back-and-forth between AI and human), ai-assisted (humans led; the AI helped with parts), search-scaffold (a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside), retrieval (the AI located an existing result rather than producing a new one)"
+          },
+          "tags": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Open vocabulary."
+          },
+          "humans": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "Named people credited, where the record names them."
+          },
+          "year_posed": {
+            "type": "integer",
+            "description": "Year the question was first asked, where that is known."
+          },
+          "sources": {
+            "type": "array",
+            "description": "Where the claim can be checked. An entry graded above `claimed` always carries at least one `research` source.",
+            "items": {
+              "type": "object",
+              "required": [
+                "url",
+                "kind"
+              ],
+              "properties": {
+                "label": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "kind": {
+                  "type": "string",
+                  "enum": [
+                    "research",
+                    "announcement",
+                    "coverage",
+                    "commentary",
+                    "challenge"
+                  ]
+                }
+              }
+            }
+          },
+          "registrations": {
+            "type": "array",
+            "description": "Entries for the same result in other registries.",
+            "items": {
+              "type": "object",
+              "required": [
+                "registry",
+                "url"
+              ],
+              "properties": {
+                "registry": {
+                  "type": "string",
+                  "enum": [
+                    "mathdb",
+                    "palomar",
+                    "proofatlas",
+                    "vibemathed"
+                  ]
+                },
+                "id": {
+                  "type": "string"
+                },
+                "title": {
+                  "type": "string"
+                },
+                "url": {
+                  "type": "string",
+                  "format": "uri"
+                },
+                "note": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "url": {
+            "type": "string",
+            "format": "uri",
+            "description": "Canonical page for this finding on whataifound.org."
+          }
+        }
+      },
+      "DatasetResponse": {
+        "type": "object",
+        "required": [
+          "version",
+          "generated",
+          "license",
+          "fields",
+          "total",
+          "count",
+          "offset",
+          "entries"
+        ],
+        "properties": {
+          "version": {
+            "type": "integer",
+            "description": "Contract version. Bumped only when a field is removed or its meaning changes; adding a field does not move it."
+          },
+          "generated": {
+            "type": "string",
+            "format": "date",
+            "description": "When the served data was last built."
+          },
+          "license": {
+            "type": "string",
+            "const": "CC BY 4.0"
+          },
+          "fields": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The field contract, in record order."
+          },
+          "total": {
+            "type": "integer",
+            "description": "Matches before limit and offset."
+          },
+          "count": {
+            "type": "integer",
+            "description": "Records in this response."
+          },
+          "offset": {
+            "type": "integer",
+            "description": "Records skipped."
+          },
+          "entries": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Entry"
+            }
+          }
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "required": [
+          "error"
+        ],
+        "properties": {
+          "error": {
+            "type": "string",
+            "enum": [
+              "bad_request",
+              "method_not_allowed"
+            ]
+          },
+          "parameter": {
+            "type": "string",
+            "description": "Which parameter was wrong."
+          },
+          "message": {
+            "type": "string"
+          },
+          "accepted": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The values that would have worked, where the vocabulary is closed."
+          }
+        }
+      },
+      "Problem": {
+        "type": "object",
+        "description": "RFC 9457 problem detail, served as application/problem+json by any /api/ path no endpoint claims.",
+        "required": [
+          "type",
+          "title",
+          "status",
+          "error"
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "format": "uri"
+          },
+          "title": {
+            "type": "string"
+          },
+          "status": {
+            "type": "integer"
+          },
+          "detail": {
+            "type": "string"
+          },
+          "instance": {
+            "type": "string"
+          },
+          "error": {
+            "type": "string"
+          },
+          "resolution": {
+            "type": "string",
+            "description": "What would have worked."
+          }
+        }
+      },
+      "Health": {
+        "type": "object",
+        "required": [
+          "signInReady",
+          "present"
+        ],
+        "properties": {
+          "signInReady": {
+            "type": "boolean"
+          },
+          "present": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "boolean"
+            }
+          },
+          "sessionSecretLongEnough": {
+            "type": "boolean"
+          },
+          "siteOrigin": {
+            "type": "string"
+          },
+          "redirectUri": {
+            "type": "string"
+          },
+          "githubApp": {
+            "type": "boolean"
+          },
+          "hint": {
+            "type": "string"
+          }
+        }
+      }
+    }
+  }
+}

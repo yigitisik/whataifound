@@ -43,7 +43,8 @@ ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.
 
 DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
                  "contributors.html", "account.html", "privacy.html",
-                 "contribute.html", "admin.html", "404.html"]
+                 "contribute.html", "admin.html", "404.html",
+                 "developers.html", "contact.html"]
 
 # Directories the em dash sweep never descends into: version control, build caches, and
 # anything a local tool dropped in. All are either untracked or not prose.

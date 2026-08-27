@@ -89,6 +89,16 @@ CHROME_PAGES = [
     # overflowed; the masthead just grew a row. The page is reached from the footer, which
     # is on every page including all 70 findings, and from the methodology page.
     ("/registries", True, "monthly", "0.4"),
+    # The machine-readable surface, described for a human. /api/dataset, the bulk downloads
+    # and the generated formats were each documented in a different place (docs/SCHEMA.md,
+    # llms.txt, the footer), which meant a consumer had to already know what to look for.
+    # Indexable and named by path on purpose: an agent looking for developer resources looks
+    # for /developers before it reads prose.
+    ("/developers", True, "monthly", "0.5"),
+    # Not in the nav, and reached from the footer. Wanted for its own sake, since "how do I
+    # report that an entry is wrong" is the question the correction path exists to answer,
+    # and it is also the page anything checking whether this project is a real one goes to.
+    ("/contact", True, "yearly", "0.3"),
 ]
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
@@ -585,6 +595,7 @@ def site_footer():
         '<p class="about-links">',
         '<a href="/data/entries.json" download>Download JSON</a>',
         '<a href="/api/dataset">API</a>',
+        '<a href="/developers">Developers</a>',
         '<a href="/feed.xml">RSS</a>',
         '<a href="/feed.json">JSON Feed</a>',
         f'<a href="{SITE}/LICENSE">License</a>',
@@ -614,8 +625,7 @@ def site_footer():
         # It is a footer link by design (see CHROME_PAGES) and was not actually in the
         # footer, so a reader on the registry had no way to reach it at all.
         '<a href="/privacy">Privacy</a>',
-        '<a href="mailto:misik6@gatech.edu?subject=whataifound.org%20feedback"'
-        ' title="Submit a finding, suggest a correction, or ask for updates">Send feedback</a>',
+        '<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>',
         '</p>',
         '</section>',
 
@@ -1779,6 +1789,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <link rel="stylesheet" href="/styles.css">
 </head>
 <body class="finding-page">
+<a class="skip" href="#main">Skip to content</a>
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
@@ -1789,6 +1800,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   <span aria-hidden="true">/</span> <span>Finding</span>
 </nav>
 
+<main id="main">
 <article class="finding">
   <div class="finding-pills">
     <span class="pill v v-{esc(e["verification"])}">{esc(ver)}</span>
@@ -1839,6 +1851,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
   <p class="finding-back"><a href="/topic/{esc(e.get("field"))}">← All {esc(FIELD_LABEL.get(e.get("field"), e.get("field")))
   .lower()} findings in the registry</a></p>
 </article>
+</main>
 
 {site_footer()}
 </div>
@@ -1874,6 +1887,29 @@ def build_llms_txt(entries):
         f"Maintained as an independent editorial project. {len(entries)} entries on record. "
         "Data is CC BY 4.0; cite as whataifound.org.",
         "",
+        "## When to use this registry",
+        "",
+        "Reach for this when the question is whether a *specific* claim about an AI discovery",
+        "holds up, and to what standard. It is built for four jobs:",
+        "",
+        "- **Checking a claim.** Someone says an AI proved, discovered or solved something.",
+        "  Look it up here and read the verification grade: a machine-checked Lean proof and a",
+        "  press release are both on this list, and they are not the same thing.",
+        "- **Filtering by strength of evidence.** Ask for everything in a field at a given",
+        f"  grade, for example `{SITE}/api/dataset?field=mathematics&verification=formal`.",
+        "- **Separating what the AI did from what people did.** Every entry carries an",
+        "  autonomy grade, graded on the strictest defensible reading.",
+        "- **Citing one result.** Every finding has its own permanent page with sources, a",
+        "  novelty check naming the database and query, and BibTeX.",
+        "",
+        f"How to call it: `{SITE}/api/dataset` filters by field, verification, autonomy, lab,",
+        f"tag or date added, and is described in `{SITE}/openapi.json`. For the whole registry",
+        f"in one request, take `{SITE}/data/entries.json`.",
+        "",
+        "What it is not: a ranking, a benchmark, or a list of everything AI has ever done. It",
+        "is a curated record with a stated grading method, and negative results (already known,",
+        "disputed, refuted) stay on it rather than being deleted.",
+        "",
         "## How entries are graded",
         "",
         "Verification, strongest to weakest. When unsure, the lower grade wins:",
@@ -1893,12 +1929,21 @@ def build_llms_txt(entries):
         f"- [Contributors]({SITE}/contributors): who builds and checks the registry",
         f"- [Other registries]({SITE}/registries): Palomar, MathDB, vibemathed and "
         "ProofAtlas, what each one certifies, and what none of them do",
+        f"- [Developers]({SITE}/developers): the API, the bulk downloads and the "
+        "machine-readable formats, in one place",
+        f"- [Contact]({SITE}/contact): corrections, submissions and who maintains this",
         "",
         "## Data",
         "",
         f"- [entries.json]({SITE}/data/entries.json): the complete registry, one JSON file, CC BY 4.0",
         f"- [/api/dataset]({SITE}/api/dataset): the same registry, filterable by field, "
         "verification, autonomy, lab, tag or date added, with a fixed field contract",
+        f"- [openapi.json]({SITE}/openapi.json): OpenAPI 3.1 for the endpoints above, with "
+        "every grade vocabulary inlined as an enum",
+        f"- [entry.schema.json]({SITE}/entry.schema.json): JSON Schema for one entry, the "
+        "same one the build validates against",
+        f"- [vocab.json]({SITE}/data/vocab.json): both grade scales with definitions and "
+        "numeric ratings, source kinds and subject fields",
         f"- [RSS]({SITE}/feed.xml) · [JSON Feed]({SITE}/feed.json): new and updated entries",
         "",
     ]
@@ -2399,6 +2444,345 @@ LAB_ALIAS = {
 }
 # Not an organisation with a research hub: an entry credited to nobody in particular.
 LAB_HUB_SKIP = {"Independent"}
+
+
+def dataset_constants():
+    """VERSION and MAX_LIMIT, read out of api/dataset.js.
+
+    The spec has to state the contract version and the paging ceiling, and the handler is
+    where both are actually decided. Restating them here would create the one kind of
+    duplicate this repo works hardest to avoid: two numbers that agree today. Read rather
+    than declared, so bumping VERSION in the handler is the whole change.
+    """
+    src = open(os.path.join(ROOT, "api", "dataset.js")).read()
+    out = []
+    for name in ("VERSION", "MAX_LIMIT"):
+        m = re.search(rf"^const {name} = (\d+);", src, re.M)
+        if not m:
+            sys.exit(f"build-site: could not read {name} from api/dataset.js. "
+                     "openapi.json cannot be generated without it.")
+        out.append(int(m.group(1)))
+    return out
+
+
+def openapi_spec(entries, updated):
+    """The public API as an OpenAPI 3.1 document, generated from the same tables the
+    endpoint validates against.
+
+    /api/dataset has had a contract since it was written: a named field list, allowlisted
+    filters, and 400s that say what would have worked. What it did not have was a way for
+    a machine to learn any of that without reading docs/SCHEMA.md in English. This is that
+    document, and it is generated rather than hand-kept for the usual reason: an enum
+    copied by hand is an enum that goes stale the first time data/vocab.json gains a grade.
+
+    Every enum here comes from the same VER/AUT/FIELD_LABEL/SRC tables that
+    build_api_registry() writes into api/_lib/registry.js, which is what the handler
+    actually checks a query against, so the spec cannot promise a value the endpoint
+    rejects or omit one it accepts.
+
+    Deliberately describes only the two endpoints that read generated data and no session:
+    /api/dataset and /api/health. The account, proposal and admin routes are a UI's private
+    channel, not a public contract, and publishing them would invite calls that can only
+    ever answer 401.
+    """
+    dataset_version, max_limit = dataset_constants()
+
+    entry_props = {
+        "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$",
+               "description": "Stable slug, YYYY-MM-DD-short-name. Never reused."},
+        "title": {"type": "string", "description": "The finding, stated without hype verbs."},
+        "claim": {"type": "string",
+                  "description": "One sentence: what was found, specifically enough to check."},
+        "field": {"type": "string", "enum": sorted(FIELD_LABEL),
+                  "description": "Subject area."},
+        "date": {"type": "string", "format": "date",
+                 "description": "When the result became public."},
+        "added": {"type": "string", "format": "date",
+                  "description": "When the entry entered this registry. `since` filters on this."},
+        "lab": {"type": "string", "description": "Organisation credited. Open vocabulary."},
+        "model": {"type": "string", "description": "System used. Open vocabulary."},
+        "verification": {"type": "string", "enum": [v["slug"] for v in VER],
+                         "description": "How the result was checked, strongest first: "
+                                        + ", ".join(f'{v["slug"]} ({v["short"]})' for v in VER)},
+        "autonomy": {"type": "string", "enum": [a["slug"] for a in AUT],
+                     "description": "How much the AI did, most first: "
+                                    + ", ".join(f'{a["slug"]} ({a["short"]})' for a in AUT)},
+        "tags": {"type": "array", "items": {"type": "string"},
+                 "description": "Open vocabulary."},
+        "humans": {"type": "array", "items": {"type": "string"},
+                   "description": "Named people credited, where the record names them."},
+        "year_posed": {"type": "integer",
+                       "description": "Year the question was first asked, where that is known."},
+        "sources": {
+            "type": "array",
+            "description": "Where the claim can be checked. An entry graded above `claimed` "
+                           "always carries at least one `research` source.",
+            "items": {
+                "type": "object",
+                "required": ["url", "kind"],
+                "properties": {
+                    "label": {"type": "string"},
+                    "url": {"type": "string", "format": "uri"},
+                    "kind": {"type": "string", "enum": [k["slug"] for k in SRC]},
+                },
+            },
+        },
+        "registrations": {
+            "type": "array",
+            "description": "Entries for the same result in other registries.",
+            "items": {
+                "type": "object",
+                "required": ["registry", "url"],
+                "properties": {
+                    "registry": {"type": "string", "enum": sorted(REGISTRY)},
+                    "id": {"type": "string"},
+                    "title": {"type": "string"},
+                    "url": {"type": "string", "format": "uri"},
+                    "note": {"type": "string"},
+                },
+            },
+        },
+        "url": {"type": "string", "format": "uri",
+                "description": "Canonical page for this finding on whataifound.org."},
+    }
+
+    # Everything entry.schema.json marks required, plus the one derived field. The
+    # optional ones are omitted rather than sent as null (see build_api_dataset), so a
+    # consumer must treat absence, not null, as "not recorded".
+    entry_required = ["id", "title", "claim", "field", "date", "added", "lab", "model",
+                      "verification", "autonomy", "url"]
+
+    def enum_param(name, values, blurb):
+        return {
+            "name": name, "in": "query", "required": False,
+            "description": blurb + " An unlisted value is a 400 naming the accepted set, "
+                                   "not an empty result.",
+            "schema": {"type": "string", "enum": list(values)},
+        }
+
+    return {
+        "openapi": "3.1.0",
+        "info": {
+            "title": "whataifound.org registry API",
+            "version": str(dataset_version),
+            "summary": "Read-only access to a graded registry of scientific and "
+                       "mathematical results discovered by or with AI systems.",
+            "description": (
+                "Every entry carries two grades: `verification` (how the result was "
+                "checked, from a machine-checked Lean proof down to an unchecked "
+                "announcement) and `autonomy` (how much the AI actually did). Use this API "
+                "to ask whether a claimed AI discovery has been independently verified and "
+                "to what standard, to list findings in a field at or above a grade, or to "
+                "cite an individual result.\n\n"
+                "Read-only, unauthenticated, no key. Cached for five minutes at the edge. "
+                "Data is CC BY 4.0; cite as whataifound.org.\n\n"
+                "The complete registry is also downloadable in one request as "
+                f"[{SITE}/data/entries.json]({SITE}/data/entries.json). Take that when you "
+                "want everything; use this endpoint when you want a filtered slice.\n\n"
+                f"Content last generated {updated}."
+            ),
+            "license": {"name": "CC BY 4.0",
+                        "url": "https://creativecommons.org/licenses/by/4.0/"},
+            "contact": {"name": "whataifound.org", "url": f"{SITE}/contact"},
+        },
+        # Explicitly no authentication, rather than silent about it: an agent reading
+        # this should not have to guess whether a key exists that it has not been given.
+        "security": [],
+        "servers": [{"url": SITE, "description": "Production"}],
+        "externalDocs": {"description": "Field definitions, grade scales and editorial rules",
+                         "url": f"{SITE}/developers"},
+        "paths": {
+            "/api/dataset": {
+                "get": {
+                    "operationId": "listFindings",
+                    "summary": "List graded findings, newest first",
+                    "description": (
+                        "Returns registry entries newest first, filtered by any combination "
+                        "of the parameters below. Filters combine with AND. Every parameter "
+                        "is optional: with none, the whole registry is returned.\n\n"
+                        "`field`, `verification` and `autonomy` are closed vocabularies and "
+                        "are validated, so a typo is a 400 that names the accepted values "
+                        "rather than a silently empty list. `lab` and `tag` are open "
+                        "vocabularies matched exactly, so an unmatched value is a "
+                        "legitimate empty result."
+                    ),
+                    "parameters": [
+                        enum_param("field", sorted(FIELD_LABEL), "Restrict to one subject area."),
+                        enum_param("verification", [v["slug"] for v in VER],
+                                   "Restrict to one verification grade. Exact match, not "
+                                   "a floor: ask for `formal` and you get only "
+                                   "machine-checked results."),
+                        enum_param("autonomy", [a["slug"] for a in AUT],
+                                   "Restrict to one autonomy grade."),
+                        {"name": "lab", "in": "query", "required": False,
+                         "description": "Exact organisation name, for example "
+                                        "'Google DeepMind'. Open vocabulary, matched "
+                                        "exactly: 'Google' does not match 'Google DeepMind'.",
+                         "schema": {"type": "string"}},
+                        {"name": "tag", "in": "query", "required": False,
+                         "description": "Entries carrying this tag. Open vocabulary.",
+                         "schema": {"type": "string"}},
+                        {"name": "since", "in": "query", "required": False,
+                         "description": "Entries added to the registry on or after this "
+                                        "date. Filters on `added`, not `date`, so this "
+                                        "answers 'what is new here' for a polling client.",
+                         "schema": {"type": "string", "format": "date",
+                                    "pattern": "^\\d{4}-\\d{2}-\\d{2}$"}},
+                        {"name": "limit", "in": "query", "required": False,
+                         "description": "Maximum records to return. Omit for all of them.",
+                         "schema": {"type": "integer", "minimum": 0,
+                                    "maximum": max_limit}},
+                        {"name": "offset", "in": "query", "required": False,
+                         "description": "Records to skip, for paging with `limit`. "
+                                        "`total` in the response is the unpaged count.",
+                         "schema": {"type": "integer", "minimum": 0}},
+                    ],
+                    "responses": {
+                        "200": {
+                            "description": "Matching entries, newest first.",
+                            "content": {"application/json": {
+                                "schema": {"$ref": "#/components/schemas/DatasetResponse"}}},
+                        },
+                        "400": {
+                            "description": "A parameter was outside its accepted set. The "
+                                           "body names the parameter and lists what would "
+                                           "have worked.",
+                            "content": {"application/json": {
+                                "schema": {"$ref": "#/components/schemas/BadRequest"}}},
+                        },
+                        "404": {
+                            "description": "This deployment does not serve this endpoint. "
+                                           "Any /api/ path no endpoint claims answers RFC "
+                                           "9457 problem+json naming the routes that do "
+                                           "exist.",
+                            "content": {"application/problem+json": {
+                                "schema": {"$ref": "#/components/schemas/Problem"}}},
+                        },
+                        "405": {
+                            "description": "Read-only endpoint: GET and HEAD only.",
+                            "content": {"application/json": {
+                                "schema": {"$ref": "#/components/schemas/BadRequest"}}},
+                        },
+                    },
+                },
+            },
+            "/api/health": {
+                "get": {
+                    "operationId": "getHealth",
+                    "summary": "Report which optional services this deployment was given",
+                    "description": (
+                        "Presence booleans for the environment this deployment was built "
+                        "with, never values. Sign-in and submissions need a database and "
+                        "OAuth credentials; the registry itself does not, and the whole "
+                        "static site plus /api/dataset work with all of it absent. Useful "
+                        "for telling 'not configured' apart from 'configured after this "
+                        "deployment was built'."
+                    ),
+                    "responses": {
+                        "200": {
+                            "description": "Configuration report.",
+                            "content": {"application/json": {
+                                "schema": {"$ref": "#/components/schemas/Health"}}},
+                        },
+                        "404": {
+                            "description": "This deployment does not serve this endpoint. "
+                                           "Any /api/ path no endpoint claims answers RFC "
+                                           "9457 problem+json naming the routes that do "
+                                           "exist.",
+                            "content": {"application/problem+json": {
+                                "schema": {"$ref": "#/components/schemas/Problem"}}},
+                        },
+                    },
+                },
+            },
+        },
+        "components": {
+            "schemas": {
+                "Entry": {
+                    "type": "object",
+                    "description": "One graded finding. Optional fields are omitted, not "
+                                   "null, when the registry has not recorded them.",
+                    "required": entry_required,
+                    "properties": {k: entry_props[k] for k in DATASET_FIELDS + ["url"]},
+                },
+                "DatasetResponse": {
+                    "type": "object",
+                    "required": ["version", "generated", "license", "fields", "total",
+                                 "count", "offset", "entries"],
+                    "properties": {
+                        "version": {"type": "integer",
+                                    "description": "Contract version. Bumped only when a "
+                                                   "field is removed or its meaning "
+                                                   "changes; adding a field does not move "
+                                                   "it."},
+                        "generated": {"type": "string", "format": "date",
+                                      "description": "When the served data was last built."},
+                        "license": {"type": "string", "const": "CC BY 4.0"},
+                        "fields": {"type": "array", "items": {"type": "string"},
+                                   "description": "The field contract, in record order."},
+                        "total": {"type": "integer",
+                                  "description": "Matches before limit and offset."},
+                        "count": {"type": "integer",
+                                  "description": "Records in this response."},
+                        "offset": {"type": "integer",
+                                   "description": "Records skipped."},
+                        "entries": {"type": "array",
+                                    "items": {"$ref": "#/components/schemas/Entry"}},
+                    },
+                },
+                "BadRequest": {
+                    "type": "object",
+                    "required": ["error"],
+                    "properties": {
+                        "error": {"type": "string",
+                                  "enum": ["bad_request", "method_not_allowed"]},
+                        "parameter": {"type": "string",
+                                      "description": "Which parameter was wrong."},
+                        "message": {"type": "string"},
+                        "accepted": {"type": "array", "items": {"type": "string"},
+                                     "description": "The values that would have worked, "
+                                                    "where the vocabulary is closed."},
+                    },
+                },
+                "Problem": {
+                    "type": "object",
+                    "description": "RFC 9457 problem detail, served as "
+                                   "application/problem+json by any /api/ path no endpoint "
+                                   "claims.",
+                    "required": ["type", "title", "status", "error"],
+                    "properties": {
+                        "type": {"type": "string", "format": "uri"},
+                        "title": {"type": "string"},
+                        "status": {"type": "integer"},
+                        "detail": {"type": "string"},
+                        "instance": {"type": "string"},
+                        "error": {"type": "string"},
+                        "resolution": {"type": "string",
+                                       "description": "What would have worked."},
+                    },
+                },
+                "Health": {
+                    "type": "object",
+                    "required": ["signInReady", "present"],
+                    "properties": {
+                        "signInReady": {"type": "boolean"},
+                        "present": {"type": "object",
+                                    "additionalProperties": {"type": "boolean"}},
+                        "sessionSecretLongEnough": {"type": "boolean"},
+                        "siteOrigin": {"type": "string"},
+                        "redirectUri": {"type": "string"},
+                        "githubApp": {"type": "boolean"},
+                        "hint": {"type": "string"},
+                    },
+                },
+            },
+        },
+    }
+
+
+def build_openapi(entries, updated):
+    """Serialise openapi_spec() to openapi.json at the site root."""
+    return json.dumps(openapi_spec(entries, updated), indent=2, ensure_ascii=False) + "\n"
 
 
 def hub_org(lab):
@@ -3654,10 +4038,12 @@ def main():
         f.write(build_llms_txt(entries))
     with open(os.path.join(ROOT, "sitemap.xml"), "w") as f:
         f.write(build_sitemap(entries, updated, hubs))
+    with open(os.path.join(ROOT, "openapi.json"), "w") as f:
+        f.write(build_openapi(entries, updated))
 
     print(f"Pre-rendered {len(entries)} entries into index.html")
     print(f"Wrote finding/ ({len(entries)} pages), topic/ and lab/ ({len(hubs)} hub "
-          f"pages), llms.txt, sitemap.xml "
+          f"pages), llms.txt, openapi.json, sitemap.xml "
           f"({build_sitemap(entries, updated, hubs).count('<loc>')} URLs).")
     print(f"Review queue: {queued} of {len(entries)} entries need work.")
 

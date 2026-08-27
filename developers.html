@@ -4,23 +4,19 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <meta name="theme-color" content="#111310">
-<!-- Declares the page supports both palettes, dark preferred, before styles.css
-     loads. styles.css then sets color-scheme per resolved theme. Without this the
-     native scrollbars and <select> dropdown lists paint light on a dark page. -->
 <meta name="color-scheme" content="dark light">
 
 <!-- Canonical domain: https://whataifound.org -->
-<title>Visuals: The AI Contribution Registry at a Glance | whataifound.org</title>
-<meta name="description" content="Charts of the whataifound.org registry: findings per year, a breakdown by verification grade, lab, and topic area, and a scatter of how long each problem stood open versus how widely known it is, colored by how much the AI actually did. These visuals always reflect the whole registry.">
+<title>Developers: API, bulk data and machine-readable formats | whataifound.org</title>
+<meta name="description" content="The whataifound.org registry API, bulk downloads and machine-readable formats: /api/dataset, OpenAPI 3.1, llms.txt, JSON Schema and the CC BY 4.0 terms.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
-<link rel="canonical" href="https://whataifound.org/visuals">
+<link rel="canonical" href="https://whataifound.org/developers">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="whataifound.org">
-<meta property="og:title" content="Visuals: The AI Contribution Registry at a Glance">
-<meta property="og:description" content="Charts of the whataifound.org registry: findings over time, verification grades, labs, topics, and an evidence-versus-autonomy matrix.">
-<meta property="og:url" content="https://whataifound.org/visuals">
-<!-- PNG, not SVG: WhatsApp, iMessage, Facebook, LinkedIn and X do not render SVG previews. -->
+<meta property="og:title" content="Developers">
+<meta property="og:description" content="The registry API, bulk downloads and machine-readable formats.">
+<meta property="og:url" content="https://whataifound.org/developers">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:type" content="image/png">
@@ -30,48 +26,59 @@
 <meta property="og:locale" content="en_US">
 
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="Visuals: The AI Contribution Registry at a Glance">
-<meta name="twitter:description" content="The whataifound.org registry in charts: findings over time, grades, labs, topics, and evidence versus autonomy.">
+<meta name="twitter:title" content="Developers">
+<meta name="twitter:description" content="The registry API, bulk downloads and machine-readable formats.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
-<!-- Icons. The PNG rel="icon" entries matter for search: Google's favicon crawler
-     documents .ico/.png/.jpg/.gif support and does not list SVG, so an SVG-only site
-     tends to show a generic globe in results. SVG stays first for crisp browser tabs;
-     /favicon.ico is the path Google probes when no <link> is usable. -->
 <link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
 <link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
 <link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
 <link rel="manifest" href="/site.webmanifest">
 
-<!-- Subscribable feeds: new and updated registry entries. -->
 <link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
 <link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "TechArticle",
-  "@id": "https://whataifound.org/visuals#article",
-  "headline": "Visuals: The AI Contribution Registry at a Glance",
-  "description": "Charts of the whataifound.org registry: findings over time, verification grades, labs, topics, and an evidence-versus-autonomy matrix.",
-  "url": "https://whataifound.org/visuals",
-  "inLanguage": "en",
-  "author": { "@type": "Organization", "name": "whataifound.org" },
-  "publisher": { "@type": "Organization", "name": "whataifound.org", "url": "https://whataifound.org/" },
-  "isPartOf": { "@id": "https://whataifound.org/#website" },
-  "about": ["AI discoveries", "data visualization", "scientific verification", "AI autonomy", "mathematics"]
-}
-</script>
+<link rel="preload" href="/styles.css" as="style">
+<link rel="stylesheet" href="/styles.css">
 
-<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
-/* Keep the browser-chrome tint on the theme that actually rendered. The static tag is
-   dark (the default); only a light result needs rewriting, and 'system' resolves via
-   the media query rather than the stored value. */
-var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
-if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
-<link rel="stylesheet" href="styles.css">
+<style>
+  /* Shares .meth-title, .reg-a and .reg-t-k with styles.css. What lives here is the card
+     grid, which no other page renders. Same conventions as the methodology page's own
+     scoped block: section rhythm first, then the layout that is unique to this page. */
+  .meth-sec{margin:34px 0}
+  .meth-sec > h2{font-size:1.35rem;font-weight:600;letter-spacing:-.01em;margin:0 0 6px}
+  .meth-sec > .sub{color:var(--muted);margin:0 0 22px;max-width:70ch}
+  .meth-sec > p{line-height:1.62;max-width:74ch;margin:0 0 14px}
+  .meth-sec h3.lbl{font-family:var(--serif);font-size:.6rem;text-transform:uppercase;
+    letter-spacing:.12em;color:var(--muted);margin:24px 0 8px;font-weight:bold}
+  .meth-sec h3.lbl:first-of-type{margin-top:0}
+
+  /* Two up on a desktop, one on a phone. minmax(0,1fr) rather than 1fr because a long
+     unbroken operator name would otherwise push the column past the grid. */
+  .regcards{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin:0 0 8px}
+  .regcard{border:1px solid var(--line);border-left:3px solid var(--rev-check);
+    border-radius:10px;background:var(--panel);padding:14px 16px}
+  .regcard-h{margin:0 0 6px;font-size:1.02rem;font-weight:600}
+  .regcard-h a{display:inline-flex;align-items:baseline;gap:6px;text-decoration:none;
+    color:var(--accent)}
+  .regcard-h a:hover{text-decoration:underline;text-underline-offset:3px}
+  .regcard-o{margin:0 0 3px;font-size:.84rem;line-height:1.5;color:var(--muted)}
+  .regcard-s{margin:0 0 9px;font-size:.84rem;line-height:1.5;color:var(--muted)}
+  /* The load-bearing line on the page, so it is the one at full ink rather than muted:
+     everything above it is context for what this project actually establishes. */
+  .regcard-c{margin:0;font-size:.87rem;line-height:1.55;color:var(--ink)}
+  .regcard-c .reg-t-k{display:block;margin:0 0 3px}
+
+  .meth-more{margin:16px 0 0}
+  .meth-more a{font-family:var(--serif);font-weight:600;text-decoration:none}
+  .meth-more a:hover{text-decoration:underline;text-underline-offset:3px}
+
+  @media(max-width:720px){
+    .regcards{grid-template-columns:1fr}
+  }
+</style>
 </head>
 <body>
 <a class="skip" href="#main">Skip to content</a>
@@ -91,7 +98,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <nav class="pagenav" aria-label="Site">
 <a href="/">Registry</a>
 <a href="/review">Review queue</a>
-<a href="/visuals" aria-current="page">Visuals</a>
+<a href="/visuals">Visuals</a>
 <a href="/methodology">Methodology</a>
 <a href="/contributors">Contributors</a>
 </nav>
@@ -107,20 +114,98 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </span>
 <span class="updated" title="Registry last updated"><span class="pulse"></span><span class="vh">Registry last updated </span><b id="updated">2026-08-25</b></span>
 </span></div><!--HEADER:END-->
-  <h1 class="meth-title">Visuals</h1>
-  <p class="lede">The whole registry at a glance: <strong>how findings accumulate</strong>,
-  <strong>how solid they are</strong>, and <strong>how much the AI actually did</strong>.
-  Every chart is drawn from the whole registry, never from a filtered view.</p>
+  <h1 class="meth-title">Developers</h1>
+  <p class="lede">Everything the registry publishes for machines: a filterable JSON endpoint, the complete dataset as one file, an OpenAPI description, and the terms for reusing any of it.</p>
 </header>
 
 <main id="main">
-  <!-- Derived in renderInsights() from the same data as the charts, so the headline
-       figures cannot drift from the registry. -->
-  <div class="insights" id="insights"></div>
-  <!-- renderCharts() emits the three sections named in the lede above: how findings
-       accumulate, how solid they are, how much the AI did. The section headings live in
-       JS beside the cards they label so a card cannot drift out of its section. -->
-  <div class="qv-sections" id="charts"></div>
+
+  <section class="meth-sec" aria-labelledby="dev-api-h">
+    <h2 id="dev-api-h">The dataset endpoint</h2>
+    <p class="sub">Read-only, unauthenticated, no key. <code>GET /api/dataset</code> returns
+    registry entries newest first, filtered by any combination of the parameters below.
+    Filters combine with AND, and every one is optional.</p>
+    <p>Three of them are closed vocabularies and are validated against the same tables the
+    build enforces, so a typo answers <code>400</code> naming the accepted values rather than
+    returning a silently empty list. <code>lab</code> and <code>tag</code> are open
+    vocabularies matched exactly, so an unmatched value is a legitimate empty result.</p>
+    <div class="meth-row"><span class="meth-term"><code>field</code></span>
+      <p class="meth-def">One subject area. Closed vocabulary.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>verification</code></span>
+      <p class="meth-def">One verification grade, exact match rather than a floor: asking for
+      <code>formal</code> returns only machine-checked results. Closed vocabulary.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>autonomy</code></span>
+      <p class="meth-def">One autonomy grade. Closed vocabulary.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>lab</code></span>
+      <p class="meth-def">Exact organisation name. <code>Google</code> does not match
+      <code>Google DeepMind</code>.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>tag</code></span>
+      <p class="meth-def">Entries carrying this tag.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>since</code></span>
+      <p class="meth-def"><code>YYYY-MM-DD</code>. Filters on <code>added</code>, when the entry
+      entered this registry, not on <code>date</code>, when the result became public. This is
+      the one a polling client wants.</p></div>
+    <div class="meth-row"><span class="meth-term"><code>limit</code>, <code>offset</code></span>
+      <p class="meth-def">Paging. <code>limit</code> caps at 500; <code>total</code> in the
+      response is the unpaged count.</p></div>
+    <p>The response carries a <code>version</code>, which is bumped only when a field is removed
+    or its meaning changes. Adding a field is backwards compatible and does not move it.</p>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="dev-spec-h">
+    <h2 id="dev-spec-h">Machine-readable descriptions</h2>
+    <p class="sub">Everything below is generated from the same source as the site itself, so
+    none of it can drift from what the registry actually serves.</p>
+    <div class="meth-row"><span class="meth-term"><a href="/openapi.json">/openapi.json</a></span>
+      <p class="meth-def">OpenAPI 3.1 for the public endpoints, with every grade vocabulary
+      inlined as an enum. Enough for an agent to call this API without reading this page.</p></div>
+    <div class="meth-row"><span class="meth-term"><a href="/llms.txt">/llms.txt</a></span>
+      <p class="meth-def">The whole registry as one markdown document: what the grades mean,
+      when to use this registry, and a line per finding.</p></div>
+    <div class="meth-row"><span class="meth-term"><a href="/entry.schema.json">/entry.schema.json</a></span>
+      <p class="meth-def">JSON Schema for one entry, the same one the build validates against.</p></div>
+    <div class="meth-row"><span class="meth-term"><a href="/sitemap.xml">/sitemap.xml</a></span>
+      <p class="meth-def">Every page, with content-derived modification dates.</p></div>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="dev-bulk-h">
+    <h2 id="dev-bulk-h">Bulk data and feeds</h2>
+    <p class="sub">Take the file when you want everything; use the endpoint when you want a
+    filtered slice.</p>
+    <div class="meth-row"><span class="meth-term"><a href="/data/entries.json">/data/entries.json</a></span>
+      <p class="meth-def">The complete registry, one JSON array. This is the source of truth
+      the whole site is generated from.</p></div>
+    <div class="meth-row"><span class="meth-term"><a href="/data/vocab.json">/data/vocab.json</a></span>
+      <p class="meth-def">The grading vocabulary: both grade scales with their definitions and
+      numeric ratings, source kinds, subject fields, and the related registries.</p></div>
+    <div class="meth-row"><span class="meth-term"><a href="/feed.xml">/feed.xml</a>,
+      <a href="/feed.json">/feed.json</a></span>
+      <p class="meth-def">New and updated entries, as RSS and JSON Feed.</p></div>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="dev-err-h">
+    <h2 id="dev-err-h">Errors</h2>
+    <p class="sub">Every <code>/api/</code> path answers JSON, including the ones that do not
+    exist. Nothing here returns an HTML error page.</p>
+    <p>A rejected parameter answers <code>400</code> with the parameter named and, where the
+    vocabulary is closed, the accepted values listed. An error that does not say what would
+    have worked only moves the guessing to the caller.</p>
+    <p id="errors">A path no endpoint claims answers <code>404</code> as
+    <code>application/problem+json</code>, following RFC 9457: <code>type</code>,
+    <code>title</code>, <code>status</code>, <code>detail</code> and <code>instance</code>,
+    plus the <code>error</code> slug the rest of this API uses and a <code>resolution</code>
+    naming the routes that do exist.</p>
+  </section>
+
+  <section class="meth-sec" aria-labelledby="dev-lic-h">
+    <h2 id="dev-lic-h">Licence and citation</h2>
+    <p class="sub">The data is CC BY 4.0. Use it, including commercially, with attribution.</p>
+    <p>Cite as whataifound.org. Every finding page carries a BibTeX and an APA block for the
+    individual entry. If you are building on the registry and something here is missing or
+    wrong, <a href="/contact">say so</a>: the field contract exists so that consumers do not
+    have to guess, which only works if the guessing gets reported.</p>
+  </section>
+
 </main>
 
 <!--FOOTER:START--><footer id="about">
@@ -186,8 +271,6 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 </div>
 
 <script src="/js/chrome.js" defer></script>
-<script src="/js/app.js"></script>
-
 <!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
 <script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
 <script defer src="/_vercel/insights/script.js"></script>

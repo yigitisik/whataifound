@@ -36,7 +36,7 @@ create table if not exists signals (
 -- entry then kind.
 create index if not exists signals_entry_idx on signals (entry_id, kind);
 
--- Shape check, mirroring the id pattern in docs/entry.schema.json. The allowlist in the
+-- Shape check, mirroring the id pattern in entry.schema.json. The allowlist in the
 -- API is the real gate; this stops a malformed id arriving by any other route.
 alter table signals drop constraint if exists signals_entry_shape;
 alter table signals add constraint signals_entry_shape

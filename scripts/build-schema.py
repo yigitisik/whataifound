@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Generate docs/entry.schema.json from data/vocab.json.
+"""Generate entry.schema.json from data/vocab.json.
 
 Editing data/entries.json by hand is the first thing a new contributor does and the
 easiest thing to get subtly wrong. A JSON Schema gives them autocomplete and inline
@@ -20,7 +20,10 @@ import os
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-OUT = os.path.join(ROOT, "docs", "entry.schema.json")
+# Root, not docs/: the schema declares $id https://whataifound.org/entry.schema.json,
+# and .vercelignore excludes docs/, so from docs/ that $id resolved to a 404. A schema
+# that cannot be fetched at the URL it calls itself is not much of a contract.
+OUT = os.path.join(ROOT, "entry.schema.json")
 
 vocab = json.load(open(os.path.join(ROOT, "data", "vocab.json"), encoding="utf-8"))
 VER = [v["slug"] for v in vocab["verification"]]
@@ -240,5 +243,5 @@ if "--check" in sys.argv:
 else:
     with open(OUT, "w", encoding="utf-8") as f:
         f.write(text)
-    print(f"Wrote docs/entry.schema.json ({len(VER)} verification, {len(AUT)} autonomy, "
+    print(f"Wrote entry.schema.json ({len(VER)} verification, {len(AUT)} autonomy, "
           f"{len(FIELDS)} fields).")

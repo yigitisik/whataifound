@@ -13,6 +13,13 @@ Disallow: /*?
 # that parameter has to stay reachable. Google resolves a conflict by the longest matching
 # rule path, and this one is longer than the Disallow above, so it wins.
 Allow: /?q=
+# The same exception, for the same reason, for the query API. The crawl-budget argument
+# above is about 242 filter URLs that all serve the identical page; /api/dataset is the
+# opposite case, since every parameter combination returns a genuinely different document.
+# llms.txt and openapi.json both hand an agent a filtered URL to call, so blocking it here
+# would tell that agent to ignore the instruction the same site just gave it. Longer rule
+# path than the Disallow, so it wins on the same tie-break as /?q=.
+Allow: /api/dataset
 
 # AI search / answer engines are explicitly welcome to index and cite this registry.
 # Deliberately unrestricted, including the parameter URLs excluded above: these crawlers

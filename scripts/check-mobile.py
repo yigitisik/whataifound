@@ -33,7 +33,8 @@ MIN_TARGET = 44
 
 DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
                  "contributors.html", "account.html", "privacy.html",
-                 "contribute.html", "admin.html", "404.html"]
+                 "contribute.html", "admin.html", "404.html",
+                 "developers.html", "contact.html"]
 
 
 def line_of(text, index):

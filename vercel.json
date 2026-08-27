@@ -8,6 +8,10 @@
     {
       "source": "/u/:handle",
       "destination": "/api/u/[handle]"
+    },
+    {
+      "source": "/api/(.*)",
+      "destination": "/api/[...path]"
     }
   ],
   "headers": [
@@ -46,6 +50,10 @@
         {
           "key": "Referrer-Policy",
           "value": "same-origin"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
         }
       ]
     },
@@ -75,6 +83,10 @@
       "source": "/data/entries.json",
       "headers": [
         {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
           "key": "Cache-Control",
           "value": "public, max-age=0, must-revalidate"
         }
@@ -83,6 +95,10 @@
     {
       "source": "/feed.(xml|json)",
       "headers": [
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
         {
           "key": "Cache-Control",
           "value": "public, max-age=1800, s-maxage=3600"
@@ -111,12 +127,68 @@
       "source": "/llms.txt",
       "headers": [
         {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        },
+        {
           "key": "Content-Type",
           "value": "text/plain; charset=utf-8"
         },
         {
           "key": "Cache-Control",
           "value": "public, max-age=1800, s-maxage=3600"
+        }
+      ]
+    },
+    {
+      "source": "/(openapi.json|entry.schema.json)",
+      "headers": [
+        {
+          "key": "Content-Type",
+          "value": "application/json; charset=utf-8"
+        },
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=1800, s-maxage=3600"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/(sitemap.xml|robots.txt)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=1800, s-maxage=3600"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/data/vocab.json",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
+        },
+        {
+          "key": "Access-Control-Allow-Origin",
+          "value": "*"
+        }
+      ]
+    },
+    {
+      "source": "/(topic|lab)/(.*)",
+      "headers": [
+        {
+          "key": "Cache-Control",
+          "value": "public, max-age=0, must-revalidate"
         }
       ]
     },
@@ -139,7 +211,7 @@
       ]
     },
     {
-      "source": "/(methodology|review|visuals|contributors|contribute|privacy|signin)",
+      "source": "/(methodology|review|visuals|contributors|contribute|privacy|signin|developers|contact)",
       "headers": [
         {
           "key": "Cache-Control",

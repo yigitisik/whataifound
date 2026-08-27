@@ -55,10 +55,13 @@ required field, an unknown grade or source `kind`, a malformed date, a duplicate
 `id`, a bad `youtube_id`, a non-`http(s)` URL, or an entry graded above `claimed` with no
 `research` source.
 
-Three scripts run outside every build, because they hit the network or need a renderer:
+Four scripts run outside every build, because they hit the network or need a renderer:
 `check-links.py` (CI runs it on PRs touching the data, and weekly), `check-registries.py`
 (suggests cross-links to Palomar, MathDB, vibemathed and ProofAtlas; it prints candidates and
-never writes one) and `build-icons.py` (run deliberately; outputs are committed).
+never writes one), `watch-registry.py` (what changed since last time: new records nobody here
+cites, registrations an entry could carry, cited records that have moved, and cited preprints
+since published or withdrawn; `--json` writes it all out) and `build-icons.py` (run
+deliberately; outputs are committed).
 
 Entries can cite the record another project keeps for the same result, through `registrations`.
 Each cited project states what its record establishes, which is not the same thing in each case:
@@ -72,9 +75,10 @@ accounts and UI contributions stay off git's critical path: [docs/ARCHITECTURE.m
 ### Generated files: never hand-edit
 
 `finding/`, `topic/`, `lab/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`,
-`docs/entry.schema.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
+`entry.schema.json`, `openapi.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
 `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`, `contributors.html`,
-`methodology.html`, `visuals.html`, `contribute.html` or the GitHub issue templates. That includes
+`methodology.html`, `visuals.html`, `contribute.html`, `developers.html`, `contact.html` or the
+GitHub issue templates. That includes
 the masthead and footer on every page: change the chrome in `site_header()` / `site_footer()`, not
 in every generated file. Edit `data/entries.json` and rebuild.
 
@@ -169,8 +173,19 @@ Static, no build command: the generated files are committed, so a deploy just se
   one already carries a canonical, so this is a crawl budget question rather than a duplicate
   content one. The `SearchAction` target `/?q=` is allowed back in by a longer, and therefore
   winning, rule.
-- `llms.txt` gives LLM crawlers a markdown map: what the registry is, both grading scales, the data
-  files, and every finding with its grades.
+- `llms.txt` gives LLM crawlers a markdown map: what the registry is, when to reach for it, both
+  grading scales, the data files, and every finding with its grades.
+- `openapi.json` describes `/api/dataset` and `/api/health` in OpenAPI 3.1, generated from the same
+  vocabulary tables the endpoint validates against, so the spec cannot promise a grade the API
+  rejects. `entry.schema.json` is served from the root because that is the `$id` it declares.
+- Every `/api/` path answers JSON, including the ones that do not exist: an unclaimed path returns
+  RFC 9457 `application/problem+json` naming the routes that do. An HTML error page is unreadable
+  to a caller that asked for JSON.
+- The public, non-credentialed surfaces (`/api/dataset`, the data files, the feeds, `llms.txt`,
+  `openapi.json`, `sitemap.xml`) send `Access-Control-Allow-Origin: *`, so a browser-resident agent
+  can read them. The session endpoints deliberately do not.
+- `/developers` collects the API, the bulk downloads and the generated formats on one predictable
+  URL; `/contact` is the route for a correction.
 
 ## Contributing
 

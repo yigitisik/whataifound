@@ -62,6 +62,14 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   h1{font-size:1.9rem;font-weight:600;letter-spacing:-.01em;margin:0 0 14px;line-height:1.25}
   p{color:var(--muted);font-size:1.02rem;line-height:1.6;margin:0 auto 26px;max-width:42ch}
   .actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
+  /* A 404 an agent can recover from. A crawler that lands here has no site to
+     click around, so name the machine-readable routes rather than only offering
+     a button back to the homepage. Colour-only hover: no transform to guard. */
+  .recover{margin:22px 0 0;font-size:.78rem;line-height:1.7;color:var(--muted)}
+  .recover a{color:var(--muted);text-decoration:none;
+    border-bottom:1px solid rgba(255,255,255,.16);
+    font-family:ui-monospace,SFMono-Regular,Menlo,monospace;font-size:.95em}
+  .recover a:hover{color:var(--accent);border-bottom-color:var(--accent)}
   a.btn{display:inline-block;text-decoration:none;font-size:.82rem;letter-spacing:.02em;
     padding:11px 20px;border-radius:11px;border:1px solid var(--line-strong);color:var(--ink);
     transition:border-color .16s var(--ease),background .16s,transform .16s}
@@ -94,6 +102,11 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <a class="btn primary" href="/">Back to the registry</a>
       <a class="btn" href="/methodology">How we grade</a>
     </div>
+    <p class="recover">Machine-readable routes: <a href="/llms.txt">/llms.txt</a>,
+    <a href="/sitemap.xml">/sitemap.xml</a>, <a href="/openapi.json">/openapi.json</a>,
+    <a href="/api/dataset">/api/dataset</a>,
+    <a href="/data/entries.json">/data/entries.json</a>. Notes on all of them are at
+    <a href="/developers">/developers</a>.</p>
   </div>
 
   <footer class="mini-foot">

@@ -314,7 +314,7 @@ export function validateProposal(kind, payload, entry) {
 /**
  * How a contributor is credited on an entry.
  *
- * `{name}` alone is already a valid person in docs/entry.schema.json, so a
+ * `{name}` alone is already a valid person in entry.schema.json, so a
  * Google-authenticated contributor needs no schema change to be credited. `handle`
  * links the credit on /contributors to a profile, and `orcid` is the identifier that
  * actually carries weight in a science registry; both are omitted when absent rather

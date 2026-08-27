@@ -16,7 +16,8 @@ feed.xml                   linguist-generated=true
 feed.json                  linguist-generated=true
 sitemap.xml                linguist-generated=true
 llms.txt                   linguist-generated=true
-docs/entry.schema.json     linguist-generated=true
+entry.schema.json          linguist-generated=true
+openapi.json               linguist-generated=true
 
 # Deliberately absent from the list above:
 #

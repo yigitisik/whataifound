@@ -8,6 +8,29 @@
 
 Maintained as an independent editorial project. 80 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
+## When to use this registry
+
+Reach for this when the question is whether a *specific* claim about an AI discovery
+holds up, and to what standard. It is built for four jobs:
+
+- **Checking a claim.** Someone says an AI proved, discovered or solved something.
+  Look it up here and read the verification grade: a machine-checked Lean proof and a
+  press release are both on this list, and they are not the same thing.
+- **Filtering by strength of evidence.** Ask for everything in a field at a given
+  grade, for example `https://whataifound.org/api/dataset?field=mathematics&verification=formal`.
+- **Separating what the AI did from what people did.** Every entry carries an
+  autonomy grade, graded on the strictest defensible reading.
+- **Citing one result.** Every finding has its own permanent page with sources, a
+  novelty check naming the database and query, and BibTeX.
+
+How to call it: `https://whataifound.org/api/dataset` filters by field, verification, autonomy, lab,
+tag or date added, and is described in `https://whataifound.org/openapi.json`. For the whole registry
+in one request, take `https://whataifound.org/data/entries.json`.
+
+What it is not: a ranking, a benchmark, or a list of everything AI has ever done. It
+is a curated record with a stated grading method, and negative results (already known,
+disputed, refuted) stay on it rather than being deleted.
+
 ## How entries are graded
 
 Verification, strongest to weakest. When unsure, the lower grade wins:
@@ -38,11 +61,16 @@ Autonomy, most to least AI-driven:
 - [Open review queue](https://whataifound.org/review): entries still needing an independent check
 - [Contributors](https://whataifound.org/contributors): who builds and checks the registry
 - [Other registries](https://whataifound.org/registries): Palomar, MathDB, vibemathed and ProofAtlas, what each one certifies, and what none of them do
+- [Developers](https://whataifound.org/developers): the API, the bulk downloads and the machine-readable formats, in one place
+- [Contact](https://whataifound.org/contact): corrections, submissions and who maintains this
 
 ## Data
 
 - [entries.json](https://whataifound.org/data/entries.json): the complete registry, one JSON file, CC BY 4.0
 - [/api/dataset](https://whataifound.org/api/dataset): the same registry, filterable by field, verification, autonomy, lab, tag or date added, with a fixed field contract
+- [openapi.json](https://whataifound.org/openapi.json): OpenAPI 3.1 for the endpoints above, with every grade vocabulary inlined as an enum
+- [entry.schema.json](https://whataifound.org/entry.schema.json): JSON Schema for one entry, the same one the build validates against
+- [vocab.json](https://whataifound.org/data/vocab.json): both grade scales with definitions and numeric ratings, source kinds and subject fields
 - [RSS](https://whataifound.org/feed.xml) · [JSON Feed](https://whataifound.org/feed.json): new and updated entries
 
 ## By lab
