@@ -91,10 +91,13 @@ export const ENTRY_IDS = new Set([
   "2026-08-16-talagrand-convolution",
   "2026-08-17-matmul-exponent",
   "2026-08-18-prime-gaps-246",
+  "2026-08-18-stein-riesz-weak-type",
   "2026-08-19-yau-tian-donaldson",
   "2026-08-20-marton-inner-bound",
   "2026-08-21-dubickas-square-roots",
-  "2026-08-23-s6-complex-structure"
+  "2026-08-23-s6-complex-structure",
+  "2026-08-25-ramsey-algebraic-construction",
+  "2026-08-26-nevanlinna-half-plane"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -173,10 +176,13 @@ export const ENTRY_GRADES = {
   "2026-08-16-talagrand-convolution": ["author-verified", "ai-led"],
   "2026-08-17-matmul-exponent": ["author-verified", "search-scaffold"],
   "2026-08-18-prime-gaps-246": ["formal", "collaborative"],
+  "2026-08-18-stein-riesz-weak-type": ["author-verified", "collaborative"],
   "2026-08-19-yau-tian-donaldson": ["author-verified", "collaborative"],
   "2026-08-20-marton-inner-bound": ["author-verified", "ai-assisted"],
   "2026-08-21-dubickas-square-roots": ["formal", "ai-led"],
-  "2026-08-23-s6-complex-structure": ["claimed", "ai-assisted"]
+  "2026-08-23-s6-complex-structure": ["claimed", "ai-assisted"],
+  "2026-08-25-ramsey-algebraic-construction": ["author-verified", "ai-assisted"],
+  "2026-08-26-nevanlinna-half-plane": ["author-verified", "ai-led"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -255,10 +261,13 @@ export const ENTRY_TITLES = {
   "2026-08-16-talagrand-convolution": "Talagrand's convolution conjecture proved on the Boolean hypercube",
   "2026-08-17-matmul-exponent": "Matrix multiplication exponent lowered to below 2.371177",
   "2026-08-18-prime-gaps-246": "Bounded prime gaps of 246 formalized in Lean from Bombieri-Vinogradov",
+  "2026-08-18-stein-riesz-weak-type": "Dimension-free weak-type bound for the vector Riesz transform",
   "2026-08-19-yau-tian-donaldson": "Counterexample to the Yau\u2013Tian\u2013Donaldson conjecture for constant scalar curvature metrics",
   "2026-08-20-marton-inner-bound": "Marton's inner bound shown not to reach the broadcast channel capacity region",
   "2026-08-21-dubickas-square-roots": "Dubickas's question on integral parts of powers of square roots settled",
-  "2026-08-23-s6-complex-structure": "A proposed complex structure on the six-sphere"
+  "2026-08-23-s6-complex-structure": "A proposed complex structure on the six-sphere",
+  "2026-08-25-ramsey-algebraic-construction": "Improved algebraic construction for off-diagonal Ramsey numbers",
+  "2026-08-26-nevanlinna-half-plane": "Counterexample to Nevanlinna's half-plane omitted-values question"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

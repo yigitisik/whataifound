@@ -123,6 +123,20 @@
         ],
         "checked": "2026-08-21",
         "note": "A Comparator wrapper of the formalization by Paul Lezeau and Dean Cureton in Google DeepMind's formal-conjectures, whose Lean source names the construction as Alpöge and Fable's counterexample. It records a stronger statement than this entry claims, disproving the generalized conjecture over every nontrivial commutative ring rather than in characteristic zero alone, and omits the two-variable case, which stays open."
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-27-000013",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-27-000013&version=1",
+        "repository": "Arthur742Ramos/jacobian-conjecture-lean",
+        "commit": "8db55ea3ffa8ba90094d6ef78ee3351ddfce01ca",
+        "theorems": [
+          "JacobianCounterexample.jacobianDet_F",
+          "JacobianCounterexample.explicit_three_point_fibre",
+          "JacobianCounterexample.not_jacobian_conjecture_complex"
+        ],
+        "checked": "2026-08-27",
+        "note": "A second and independent Lean formalization of the same map, by Ramos, Hulak and de Queiroz, sharing no code with the Lezeau and Cureton development already cited. It records the two-variable case as untouched, as this entry does."
       }
     ],
     "sources": [
@@ -164,6 +178,12 @@
         "kind": "check",
         "note": "A third-party Lean formalization of this counterexample was registered at Palomar, mechanically confirming that it typechecks against the stated theorem at a pinned commit. The formalization is by Lezeau and Cureton rather than by the counterexample's author. The grade was already formal and did not move.",
         "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-21-000006&version=1"
+      },
+      {
+        "date": "2026-08-31",
+        "kind": "check",
+        "note": "A second independent Lean formalization of this counterexample was registered at Palomar, by a different group from the one already cited. Two independent developments of the same construction reinforce the formal grade rather than change it.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-27-000013&version=1"
       }
     ]
   },
@@ -1481,6 +1501,11 @@
         "id": "315784",
         "title": "Grothendieck's group-scheme question",
         "url": "https://mathdb.com/p/315784/grothendieck-s-group-scheme-question"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "grothendieck-finite-flat-group-schemes",
+        "url": "https://vibemathed.com/problem/grothendieck-finite-flat-group-schemes"
       }
     ],
     "sources": [
@@ -1508,6 +1533,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the MathDB record for this result as a registration."
+      },
+      {
+        "date": "2026-08-31",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record as a second registration, alongside MathDB. It carries the same split of work between the two models that this entry does. No grade moved."
       }
     ]
   },
@@ -3072,6 +3102,13 @@
         "id": "sabidussi-compatibility",
         "url": "https://vibemathed.com/problem/sabidussi-compatibility",
         "title": "Sabidussi's Compatibility Conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "388102",
+        "title": "Sabidussi's compatibility conjecture",
+        "url": "https://mathdb.com/p/388102/sabidussi-s-compatibility-conjecture",
+        "note": "A bare problem record: MathDB has no progress summary and no solution posted for it, so this places the problem in that catalogue rather than corroborating the resolution."
       }
     ],
     "sources": [
@@ -3103,6 +3140,11 @@
         "date": "2026-08-19",
         "kind": "correction",
         "note": "Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not."
+      },
+      {
+        "date": "2026-08-31",
+        "kind": "correction",
+        "note": "Recorded the MathDB problem record as a third registration, alongside Palomar and vibemathed. The page carries nothing about the resolution, so no grade moved."
       }
     ]
   },
@@ -3763,7 +3805,21 @@
       "complexity",
       "computation"
     ],
-    "added": "2026-08-21"
+    "added": "2026-08-21",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "matrix-multiplication-exponent-2371177",
+        "url": "https://vibemathed.com/problem/matrix-multiplication-exponent-2371177"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-08-31",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It carries the same bound and the same AlphaEvolve attribution this entry does. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-08-18-prime-gaps-246",
@@ -3907,6 +3963,13 @@
         "registry": "vibemathed",
         "id": "marton-inner-bound-capacity-region",
         "url": "https://vibemathed.com/problem/marton-inner-bound-capacity-region"
+      },
+      {
+        "registry": "mathdb",
+        "id": "390544",
+        "title": "Marton's conjecture on broadcast-channel capacity",
+        "url": "https://mathdb.com/p/390544/marton-s-conjecture-on-broadcast-channel-capacity",
+        "note": "MathDB records the same three models and describes the result as remaining unverified as a theorem, which matches the caveat this entry already carries."
       }
     ],
     "sources": [
@@ -3922,7 +3985,14 @@
       "counterexample",
       "construction"
     ],
-    "added": "2026-08-21"
+    "added": "2026-08-21",
+    "revisions": [
+      {
+        "date": "2026-08-31",
+        "kind": "correction",
+        "note": "Recorded the MathDB record as a second registration, alongside vibemathed. Its own status text agrees with this entry's author-verified grade and its caveat, so no grade moved."
+      }
+    ]
   },
   {
     "id": "2026-08-23-s6-complex-structure",
@@ -4076,5 +4146,121 @@
       "construction"
     ],
     "added": "2026-08-25"
+  },
+  {
+    "id": "2026-08-26-nevanlinna-half-plane",
+    "title": "Counterexample to Nevanlinna's half-plane omitted-values question",
+    "claim": "An explicit meromorphic function omits three values in a half-plane without being of bounded type there, answering in the negative a question of Nevanlinna open for more than a century.",
+    "field": "mathematics",
+    "date": "2026-08-26",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Ultra",
+    "humans": [
+      "Quanyu Tang",
+      "Bokai Cui",
+      "Wei He",
+      "Tao Hu",
+      "Yanyang Li",
+      "Ke Wang",
+      "Zijun Yu"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "A meromorphic function on a domain is of bounded type if it is a quotient of two bounded holomorphic functions. Nevanlinna asked whether omitting three values on a half-plane forces bounded type there. The paper constructs a function omitting 0, 1 and infinity whose a-point divisor fails the Blaschke condition in each half-plane, which is exactly the negation, and notes that postcomposition gives the same conclusion for any prescribed triple of distinct values on the Riemann sphere. The construction runs through a modular covering, a comparison domain and a Farey-edge boundary with Schwarz reflection.",
+    "novelty_check": "The question is a named one in classical function theory, stated by Nevanlinna and described in the paper's own abstract as open for over a century, with the Blaschke condition and bounded type both standard notions carrying their own literature. The paper devotes a subsection to chronology and priority, which fixes what it believes was known when. No prior counterexample appears. The result is a new construction rather than a retrieval.",
+    "caveats": "A preprint days old at entry, unrefereed and not formalized, and no independent check is recorded. Autonomy graded ai-led on an unusually specific disclosure, which the paper puts in a numbered subsection headed Declaration of AI usage rather than in a footnote: the core mathematical construction and proof were generated during an autonomous run of GPT-5.6 Sol on OpenAI's ultra setting, the run lasted 7 hours 14 minutes and 14 seconds, the candidate proof was then subjected to human checking, mathematical auditing and revision, and the initial draft of the manuscript was also machine-generated and lightly revised. Graded ai-led rather than autonomous because the problem was posed and the output audited by the seven authors; the run itself is described as autonomous, and that distinction is the whole of the difference.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "nevanlinna-s-half-plane-omitted-values-problem",
+        "url": "https://vibemathed.com/problem/nevanlinna-s-half-plane-omitted-values-problem"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Three omitted values and non-Blaschke point divisors in half-planes",
+        "url": "https://arxiv.org/abs/2608.26062",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "complex-analysis",
+      "value-distribution",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-08-31"
+  },
+  {
+    "id": "2026-08-18-stein-riesz-weak-type",
+    "title": "Dimension-free weak-type bound for the vector Riesz transform",
+    "claim": "The best constant in the weak-type (1,1) bound for the vector Riesz transform on n-dimensional space is at most 2 whatever the dimension, answering a question Stein raised in 1986.",
+    "field": "mathematics",
+    "date": "2026-08-18",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol and Claude Opus 5.0, with Danus and Rethlas agents",
+    "humans": [
+      "Yuyuan Ouyang",
+      "Daniel Spector",
+      "Cody B. Stockdale"
+    ],
+    "year_posed": 1986,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Dimension-free bounds for Riesz transforms are known in the strong-type range, and Stein asked at the 1986 ICM whether the weak-type (1,1) endpoint behaves the same way. The paper answers yes with an explicit constant: the best weak-type (1,1) constant for the vector Riesz transform is at most 2, independent of n. The proof goes through a new decomposition of the input data rather than through the torus-transference route the models first proposed, which the authors judged more complicated than necessary and replaced with a direct argument in Euclidean space.",
+    "novelty_check": "Stein posed the question at the 1986 ICM and the paper cites it directly, along with the authors' own 2021 Communications in Contemporary Mathematics paper on the dimensional weak-type (1,1) bound, which fixes the prior state of the art as dimensional rather than dimension-free. Dimension-free strong-type bounds are long established and are not what is claimed here. No prior dimension-free weak-type constant appears in the literature. The result is new.",
+    "caveats": "A preprint, unrefereed and not formalized, with no independent check recorded. Autonomy graded collaborative rather than ai-led, and the disclosure is detailed enough to justify the weaker reading: the statement opens by saying the proof strategy was developed by large language models in dialogue with the authors, but the same paragraph records that the first attempt failed and produced only partial results, that a second attempt yielded a solution the authors judged significantly more complicated than what was published, that the human authors then assessed feasibility and redirected the work into Euclidean space, and that they checked and rewrote the proofs where the presentation was unnatural, performed the literature review, and take full responsibility. Humans chose the route that was kept. The weaker defensible reading applies.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "stein-s-dimension-free-weak-1-1-riesz-transform-problem",
+        "url": "https://vibemathed.com/problem/stein-s-dimension-free-weak-1-1-riesz-transform-problem"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A dimension-free weak-type (1,1) bound for the vector Riesz transform",
+        "url": "https://arxiv.org/abs/2608.18068",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "riesz-transforms",
+      "argument"
+    ],
+    "added": "2026-08-31"
+  },
+  {
+    "id": "2026-08-25-ramsey-algebraic-construction",
+    "title": "Improved algebraic construction for off-diagonal Ramsey numbers",
+    "claim": "A finite-geometry construction supplied by a language model, then reworked by the authors, improves the explicit lower bound for off-diagonal Ramsey numbers.",
+    "field": "mathematics",
+    "date": "2026-08-25",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6",
+    "humans": [
+      "Ferdinand Ihringer",
+      "Sam Mattheus"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The authors set out to use p-rank arguments on constructions in finite geometry to push the explicit lower bound for off-diagonal Ramsey numbers. The first construction, a graph on the points of a projective space with adjacency given by a trace condition, came from the model together with a bound on its clique number resting on algebraic geometry. The authors then developed and refined it into the published construction, which gives a bound of the form R(s,t) at least t to the power (1-o(1)) log s over log(log s + 1). The paper describes the underlying idea as a deterministic analogue of random sampling in finite-geometric settings.",
+    "novelty_check": "Off-diagonal Ramsey lower bounds are a well-tracked ladder and the paper states the prior explicit bound it improves on, crediting Alon and Pudlak, and cites the recent off-diagonal literature it sits in. No registry carried this result at entry: it does not appear in vibemathed, MathDB, Palomar or ProofAtlas, and it reached this registry through a comment on the r/math weekly thread rather than through any catalogue. The construction is new; the p-rank framing it starts from is the authors' own and is credited as such.",
+    "caveats": "A preprint, unrefereed and not formalized. Autonomy graded ai-assisted, which is what the disclosure supports and no more: the authors state that they had the idea to use p-rank arguments as the starting point, that the first construction and a bound on its clique number were provided by ChatGPT 5.6, and that they subsequently developed, refined and independently verified all arguments and take full responsibility. The model supplied one object inside a human-chosen frame, and the published construction is not the one it returned. Worth recording that the disclosure is a clearly headed AI Declaration at the end of the introduction rather than a remark buried in the body, which is better practice than several other entries here.",
+    "sources": [
+      {
+        "label": "arXiv: An improved algebraic construction for Ramsey numbers",
+        "url": "https://arxiv.org/abs/2608.21769",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "ramsey-theory",
+      "finite-geometry",
+      "construction"
+    ],
+    "added": "2026-08-31"
   }
 ]

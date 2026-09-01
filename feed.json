@@ -9,6 +9,47 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-08-26-nevanlinna-half-plane",
+      "url": "https://whataifound.org/finding/2026-08-26-nevanlinna-half-plane",
+      "title": "Counterexample to Nevanlinna's half-plane omitted-values question",
+      "content_text": "An explicit meromorphic function omits three values in a half-plane without being of bounded type there, answering in the negative a question of Nevanlinna open for more than a century.  A meromorphic function on a domain is of bounded type if it is a quotient of two bounded holomorphic functions. Nevanlinna asked whether omitting three values on a half-plane forces bounded type there. The paper constructs a function omitting 0, 1 and infinity whose a-point divisor fails the Blaschke condition in each half-plane, which is exactly the negation, and notes that postcomposition gives the same conclusion for any prescribed triple of distinct values on the Riemann sphere. The construction runs through a modular covering, a comparison domain and a Farey-edge boundary with Schwarz reflection.  Lab: Independent. Model: GPT-5.6 Sol Ultra. Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-08-26T00:00:00+00:00",
+      "date_modified": "2026-08-31T00:00:00+00:00",
+      "tags": [
+        "complex-analysis",
+        "value-distribution",
+        "counterexample",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-25-ramsey-algebraic-construction",
+      "url": "https://whataifound.org/finding/2026-08-25-ramsey-algebraic-construction",
+      "title": "Improved algebraic construction for off-diagonal Ramsey numbers",
+      "content_text": "A finite-geometry construction supplied by a language model, then reworked by the authors, improves the explicit lower bound for off-diagonal Ramsey numbers.  The authors set out to use p-rank arguments on constructions in finite geometry to push the explicit lower bound for off-diagonal Ramsey numbers. The first construction, a graph on the points of a projective space with adjacency given by a trace condition, came from the model together with a bound on its clique number resting on algebraic geometry. The authors then developed and refined it into the published construction, which gives a bound of the form R(s,t) at least t to the power (1-o(1)) log s over log(log s + 1). The paper describes the underlying idea as a deterministic analogue of random sampling in finite-geometric settings.  Lab: Independent. Model: ChatGPT 5.6. Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-25T00:00:00+00:00",
+      "date_modified": "2026-08-31T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "ramsey-theory",
+        "finite-geometry",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-18-stein-riesz-weak-type",
+      "url": "https://whataifound.org/finding/2026-08-18-stein-riesz-weak-type",
+      "title": "Dimension-free weak-type bound for the vector Riesz transform",
+      "content_text": "The best constant in the weak-type (1,1) bound for the vector Riesz transform on n-dimensional space is at most 2 whatever the dimension, answering a question Stein raised in 1986.  Dimension-free bounds for Riesz transforms are known in the strong-type range, and Stein asked at the 1986 ICM whether the weak-type (1,1) endpoint behaves the same way. The paper answers yes with an explicit constant: the best weak-type (1,1) constant for the vector Riesz transform is at most 2, independent of n. The proof goes through a new decomposition of the input data rather than through the torus-transference route the models first proposed, which the authors judged more complicated than necessary and replaced with a direct argument in Euclidean space.  Lab: Independent. Model: GPT-5.6 Sol and Claude Opus 5.0, with Danus and Rethlas agents. Verification: Author verified. Autonomy: Collaborative.",
+      "date_published": "2026-08-18T00:00:00+00:00",
+      "date_modified": "2026-08-31T00:00:00+00:00",
+      "tags": [
+        "harmonic-analysis",
+        "riesz-transforms",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-08-23-s6-complex-structure",
       "url": "https://whataifound.org/finding/2026-08-23-s6-complex-structure",
       "title": "A proposed complex structure on the six-sphere",

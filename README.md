@@ -55,13 +55,10 @@ required field, an unknown grade or source `kind`, a malformed date, a duplicate
 `id`, a bad `youtube_id`, a non-`http(s)` URL, or an entry graded above `claimed` with no
 `research` source.
 
-Four scripts run outside every build, because they hit the network or need a renderer:
+Three scripts run outside every build, because they hit the network or need a renderer:
 `check-links.py` (CI runs it on PRs touching the data, and weekly), `check-registries.py`
 (suggests cross-links to Palomar, MathDB, vibemathed and ProofAtlas; it prints candidates and
-never writes one), `watch-registry.py` (what changed since last time: new records nobody here
-cites, registrations an entry could carry, cited records that have moved, and cited preprints
-since published or withdrawn; `--json` writes it all out) and `build-icons.py` (run
-deliberately; outputs are committed).
+never writes one) and `build-icons.py` (run deliberately; outputs are committed).
 
 Entries can cite the record another project keeps for the same result, through `registrations`.
 Each cited project states what its record establishes, which is not the same thing in each case:
