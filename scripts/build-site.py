@@ -662,7 +662,15 @@ def site_footer():
         '<p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI '
         'Scientific and Mathematical Discoveries.</em> Retrieved '
         f'<span id="cite-date">2026</span> from {SITE}/</p>',
-        '<p class="colophon">© 2026 Isik &amp; Co.</p>',
+        # The operator line, kept in step with the footer on isik.co: same identity, same
+        # one-line descriptor, same sibling-project link. Naming the company is the point of
+        # the sentence rather than decoration, which is the bar reader-facing copy has to
+        # clear here, and it stays one line so the footer does not grow a paragraph.
+        '<p class="colophon">© 2026 '
+        '<a href="https://isik.co" target="_blank" rel="noopener">Isik &amp; Co.</a>'
+        ' · Technology, manufacturing, consulting and trade · '
+        '<a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">'
+        'confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>',
         '</div>',
         '</footer>',
     ])

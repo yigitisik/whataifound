@@ -3811,6 +3811,13 @@
         "registry": "vibemathed",
         "id": "matrix-multiplication-exponent-2371177",
         "url": "https://vibemathed.com/problem/matrix-multiplication-exponent-2371177"
+      },
+      {
+        "registry": "mathdb",
+        "id": "388199",
+        "title": "Is the exponent of matrix multiplication 2?",
+        "url": "https://mathdb.com/p/388199/is-the-exponent-of-matrix-multiplication-2",
+        "note": "Bare problem page for the open question of whether the exponent is 2. It records the problem's standing, not this result: nothing is posted against it."
       }
     ],
     "revisions": [
@@ -4262,5 +4269,1329 @@
       "construction"
     ],
     "added": "2026-08-31"
+  },
+  {
+    "id": "2026-08-25-erdos-4-prime-gaps",
+    "title": "Improved lower bound for large gaps between consecutive primes",
+    "claim": "A new sieving construction raises the record lower bound on how large the gap between consecutive primes becomes infinitely often, the first advance on Erdős Problem #4 since 2018.",
+    "field": "mathematics",
+    "date": "2026-08-25",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol",
+    "humans": [
+      "DottedCalculator",
+      "Boris Alexeev"
+    ],
+    "year_posed": 1955,
+    "verification": "independent",
+    "autonomy": "ai-led",
+    "detail": "Writing G(T) for the largest gap between consecutive primes below T, the record since Ford, Green, Konyagin, Maynard and Tao (2018) has been G(T) much greater than log T log_2 T log_4 T / log_3 T, where log_k is the k-fold iterated logarithm. The manuscript claims G(T) much greater than log T log_2 T / log_4 T, a gain of log_3 T / (log_4 T)^2, together with Y(X) much greater than X log X / log_3 X for the covering problem behind it. What is new is narrow and specific: the intermediate sieve is replaced, its hard cutoff smoothed into a probabilistic tilt, while the hypergraph covering theorem and the Maynard weight are carried over unchanged from the 2018 paper. Ben Green, a co-author of the bound being beaten, describes the sieving procedure as different from the Erdős-Rankin one that underpinned every bound on the problem since 1938.",
+    "novelty_check": "Erdős Problem #4 is tracked at erdosproblems.com/4 and carries a $10,000 prize; the prize question itself was settled in 2016 and the record bound since is Ford, Green, Konyagin, Maynard and Tao (2018). Green, who holds that record, read the manuscript and compared the new sieve against Erdős-Rankin (1938) directly, which fixes both what was known and what is added. No intervening record appears in the erdosproblems.com record for the problem or in the vibemathed entry. The result is a new construction, not a retrieval.",
+    "caveats": "The manuscript has no human author: its title block and PDF metadata both name GPT 5.6 Sol, there is no acknowledgements section, and no human is credited anywhere in it. That is the argument for grading autonomy as autonomous; ai-led is taken instead because a human posed the problem, iterated on the output and asked for the argument to be made self-contained, and the weaker grade wins when the reading is arguable. The submitter, who is pseudonymous and wishes to stay so, states plainly that the mathematics was not theirs: 'I am not familiar with sieve theory.' Verification rests on Green becoming, in his own words, more or less convinced the argument is correct after consulting Tao and Maynard; that is expert reading, not refereeing. One attribution discrepancy is recorded rather than smoothed over: the manuscript says GPT 5.6 Sol, while the erdosproblems.com claim was filed as GPT 5.6 Pro. Boris Alexeev's Lean development transcribes the manuscript downstream rather than producing it, and this registry has not confirmed that it builds, so the grade stays at independent rather than formal. Readers on the r/math thread note that several later sections reproduce the 2018 paper with no new content, and Green calls the exposition horrific.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "tilted-residue-class-construction-for-long-prime-free-intervals",
+        "url": "https://vibemathed.com/problem/tilted-residue-class-construction-for-long-prime-free-intervals"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Manuscript: Erdős_4_GPT_5.6_Sol.pdf",
+        "url": "https://github.com/DottedCalculator/ai-math/blob/main/Erdos_4_GPT_5.6_Sol.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Erdős Problems: problem #4",
+        "url": "https://www.erdosproblems.com/4",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed: a tilted residue-class construction for long prime-free intervals",
+        "url": "https://vibemathed.com/problem/tilted-residue-class-construction-for-long-prime-free-intervals",
+        "kind": "commentary"
+      },
+      {
+        "label": "Jared Duker Lichtman on the result (X)",
+        "url": "https://x.com/jdlichtman/status/2094040463443673227",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "erdos",
+      "prime-gaps",
+      "sieve-methods",
+      "construction"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-caratheodory-umbilic",
+    "title": "Counterexample to the smooth Carathéodory conjecture on umbilic points",
+    "claim": "An explicit support function gives a smoothly embedded two-sphere bounding a convex body with exactly one umbilic point, so the C-infinity form of Carathéodory's 1922 conjecture is false.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "Claude; Codex",
+    "humans": [
+      "Levent Alpöge",
+      "John-Paul Smith"
+    ],
+    "year_posed": 1922,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Carathéodory's conjecture, Problem 8.1 of Ghomi's list and traceable to 1922, asks whether every closed convex surface in R^3 carries at least two umbilic points. Hamburger settled the real-analytic case in 1940-41 and that theorem is untouched. The counterexample is explicitly a C-infinity object: an explicit support function produces a smoothly embedded two-sphere bounding a convex body with exactly one umbilic point. The same family disproves the smooth Loewner conjecture, whose member at k = 1 has an isolated trace-free Hessian zero of the wrong index. The gap between the smooth and the real-analytic case is the whole content of the result.",
+    "novelty_check": "Carathéodory's conjecture is a named problem with a long literature and a standing partial theorem, Hamburger's real-analytic case from 1940-41, and it appears as Problem 8.1 in Ghomi's published problem list. The claim is a counterexample in the smooth category only, which is consistent with rather than contradicting Hamburger. No prior smooth counterexample appears in the problem list or in the vibemathed record. The construction is new work, not a retrieval of something already in the literature.",
+    "caveats": "Announced in an X post rather than a preprint, and unrefereed. The Lean formalization is sorry-free at a commit but not merged, and vibemathed records its statement as read rather than compiled and audited, so nothing here is machine-checked end to end for this registry's purposes; the grade stays at claimed. Autonomy is graded ai-assisted rather than higher on a deliberately strict reading of two separate model roles, neither of which is the discovery: Alpöge's announcement credits John-Paul Smith and Claude with checking the construction, which makes the model a verifier of a human construction, and the Lean development was, in its author's words, developed with Codex and parallel proof-review agents, which is formalization of a human result. Only the smooth case falls; the classical real-analytic form of the conjecture remains true.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "mathbb-c-infty-caratheodory-conjecture",
+        "url": "https://vibemathed.com/problem/mathbb-c-infty-caratheodory-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Levent Alpöge, announcement (X)",
+        "url": "https://x.com/__alpoge__/status/2089971359921156203",
+        "kind": "announcement"
+      },
+      {
+        "label": "vibemathed: the C-infinity Carathéodory conjecture on umbilic points",
+        "url": "https://vibemathed.com/problem/mathbb-c-infty-caratheodory-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "geometry",
+      "differential-geometry",
+      "counterexample",
+      "lean",
+      "construction"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-23-elliptic-rank-31",
+    "title": "Elliptic curves over the rationals of rank at least 30 and at least 31",
+    "claim": "Two explicit elliptic curves over the rationals carry 30 and 31 independent rational points, raising the Mordell-Weil rank record twice in four days.",
+    "field": "mathematics",
+    "date": "2026-08-23",
+    "lab": "Independent",
+    "model": "Claude",
+    "humans": [
+      "Levent Alpöge",
+      "Ava Howell"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Whether the Mordell-Weil rank of an elliptic curve over the rationals is bounded is open, and progress is measured by explicit records: rank at least 28 from 2006, raised to at least 29 by Elkies and Klagsbrun in 2024. Curve 273 on the elliptic-rank leaderboard reaches rank at least 30 on 2026-08-20 and curve 302 reaches at least 31 on 2026-08-23, each witnessed by explicit independent points. The method is the human Elkies-Klagsbrun elliptic-K3 family search, with the model assisting inside it. Both entries are recorded as two tiers: the lower bound is what the explicit points establish, while exact rank is claimed only conditionally on the Birch-Swinnerton-Dyer conjecture and the generalized Riemann hypothesis.",
+    "novelty_check": "The rank record ladder is well documented and tabulated by Dujella, which makes the prior state of the art unambiguous: Elkies rank at least 28 in 2006 and Elkies and Klagsbrun rank at least 29 in 2024. Both new curves are given explicitly with their a-invariants, conductor, discriminant and regulator, so the claim is checkable against that table rather than resting on an assertion. No intervening record appears. These are new curves, not a rediscovery.",
+    "caveats": "Recorded only as leaderboard database entries: there is no preprint, no transcript and no refereeing, and nothing is formalized. The two records are kept in one entry because they are the same method and the same people four days apart. Independence of the points is asserted through the leaderboard's stated general practice of exact 2-descent rather than reproduced on the page, and the exact-rank claim is conditional on BSD and GRH with no numeric derivation published for either curve. What the model contributed is documented only by the leaderboard's own commentary field, which reads in full: 'BSD + GRH certified to rank 31, found by Claude, Levent Alpöge, and Ava Howell.' Autonomy is graded ai-assisted on that thin evidence, because the search framework is the humans' and no stronger reading is defensible. Neither record answers the open question of whether ranks are unbounded.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "elliptic-curve-rank-record-thirty-one",
+        "url": "https://vibemathed.com/problem/elliptic-curve-rank-record-thirty-one"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "elliptic-curve-rank-record-thirty",
+        "url": "https://vibemathed.com/problem/elliptic-curve-rank-record-thirty"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Elliptic curve rank leaderboard: curve 302, rank at least 31",
+        "url": "https://elliptic-rank.icarm.cloud/curve/302",
+        "kind": "research"
+      },
+      {
+        "label": "Elliptic curve rank leaderboard: curve 273, rank at least 30",
+        "url": "https://elliptic-rank.icarm.cloud/curve/273",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: a rank-31 record for an elliptic curve over Q",
+        "url": "https://vibemathed.com/problem/elliptic-curve-rank-record-thirty-one",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed: record rank for an elliptic curve over Q",
+        "url": "https://vibemathed.com/problem/elliptic-curve-rank-record-thirty",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "elliptic-curves",
+      "record",
+      "search"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-29-dean-conjecture-k5",
+    "title": "Dean's conjecture for k = 5, cycles of length divisible by five",
+    "claim": "A preprint claims every finite simple graph of minimum degree at least five contains a cycle whose length is divisible by five, the last open case of Dean's 1988 conjecture.",
+    "field": "mathematics",
+    "date": "2026-08-29",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude Opus 5; GLM 5.3 Flash",
+    "humans": [
+      "Elias Botsford"
+    ],
+    "year_posed": 1988,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Dean's conjecture asserts that every finite simple graph of minimum degree at least k contains a cycle of length divisible by k. The cases k = 3 and k = 4 were known, and Luo, Ma and Zhao proved every k at least 6, which left k = 5 as the single open case; if this proof stands, the conjecture holds for all k at least 3. Nine finite configuration propositions in the bipartite and triangle-free branches are computer-assisted, with verifier sources and certificate data archived in a separate computational supplement.",
+    "novelty_check": "The landscape is fixed by an independent recent paper rather than by the claimant: Luo, Ma and Zhao (arXiv:2601.13552) state in their own abstract that the conjecture was known for k in {3, 4} and prove it for every k at least 6, which identifies k = 5 as the remaining case at the time of writing. No competing resolution of k = 5 appears in that literature or in the vibemathed record. The claim is new work on an identified gap.",
+    "caveats": "A Zenodo preprint days old at entry, unrefereed, with no independent check on record. The computer-assisted part is the narrow part: nine finite configuration families have verifiers and certificates, and certificate runs are reported as passing, but the reductions from arbitrary graphs to those finite state spaces are ordinary prose arguments that are not machine-checked and that only the submitter has audited. That is why the grade is claimed despite the artifact. Autonomy is graded ai-led rather than autonomous because a human submitted, framed and archived the work; the Zenodo record names Elias Botsford as the sole creator, a detail the registry rows carrying this result omit.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "dean-s-conjecture-for-k-5",
+        "url": "https://vibemathed.com/problem/dean-s-conjecture-for-k-5"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Zenodo: cycles of length divisible by five in graphs of minimum degree five",
+        "url": "https://zenodo.org/records/22182448",
+        "kind": "research"
+      },
+      {
+        "label": "Zenodo: computational supplement, version 1.0.1",
+        "url": "https://doi.org/10.5281/zenodo.22167084",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Dean's conjecture for k = 5",
+        "url": "https://vibemathed.com/problem/dean-s-conjecture-for-k-5",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "combinatorics",
+      "computer-assisted",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-31-stable-forking",
+    "title": "Counterexample to the stable forking conjecture",
+    "claim": "A simple first-order theory is constructed in which forking cannot always be witnessed by a stable formula, answering a question of Hart, Kim and Pillay open since 1996.",
+    "field": "mathematics",
+    "date": "2026-08-31",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol",
+    "humans": [
+      "James Freitag",
+      "Scott Mutchnik"
+    ],
+    "year_posed": 1996,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "The stable forking conjecture asserts that in a simple theory, whenever a does not fork with b over C, there is a formula in the type of a over Cb that forks over C and whose parameter-free form is stable. The counterexample is an infinite-dimensional vector space over the division ring of fractions of the quantum graph algebra of the random graph. Forking is characterised through an abstract independence relation using the Kim-Pillay criteria, and the random graph is encoded into that relation so that it has the order property, which is what breaks stability.",
+    "novelty_check": "The conjecture is a named open question in classification theory, attributed in the paper to Hart, Kim and Pillay (1996) and described there as long-standing. The construction runs through the standard route for such results, proving simplicity and then characterising forking independence via the Kim-Pillay criteria, so its relation to the existing literature is explicit rather than assumed. Model-theoretic study of noncommutative rings has precedent, which the authors cite; no prior counterexample appears.",
+    "caveats": "A preprint days old at entry, unrefereed, not formalized, and with no independent check on record. Autonomy is graded collaborative rather than ai-led on the authors' own account of the division of labour: they prompted the model with a detailed series of prompts that encoded the known restrictions such a counterexample must satisfy, and specifically directed it to the standard strategy of proving simplicity and applying the Kim-Pillay criteria, so the framing was substantially theirs. They state that the proofs of the relevant facts and aspects of the setup were written entirely by the authors and that no AI tool was used in writing the manuscript, with AI used for proofreading under manual evaluation. They also record their view that the counterexample would have been unlikely to be found in the near term without generative AI.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "a-counterexample-to-the-stable-forking-conjecture",
+        "url": "https://vibemathed.com/problem/a-counterexample-to-the-stable-forking-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: a counterexample to the stable forking conjecture",
+        "url": "https://arxiv.org/abs/2609.00436",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: a counterexample to the stable forking conjecture",
+        "url": "https://vibemathed.com/problem/a-counterexample-to-the-stable-forking-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "model-theory",
+      "logic",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-26-spin-systems-girth-five",
+    "title": "Rapid mixing for spin systems on graphs of girth at least five",
+    "claim": "Glauber dynamics for proper q-colourings mixes rapidly once q exceeds the maximum degree by any fixed factor, provided the graph has girth at least five.",
+    "field": "computer-science",
+    "date": "2026-08-26",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Ultra",
+    "humans": [
+      "Xiaoyu Chen",
+      "Kuikui Liu"
+    ],
+    "year_posed": 1995,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "For every fixed positive delta, the Glauber dynamics on proper q-colourings is shown to mix rapidly when q is at least (1 + delta) times the maximum degree, the graph has girth at least five, and the maximum degree is large in terms of delta. The result extends to general multi-spin systems satisfying a local spectral contraction condition, including the anti-ferromagnetic Potts model. The engine is a new spectral local-to-global principle for multi-spin systems on graphs of girth at least five, together with a Fourier analysis for Glauber dynamics on a star.",
+    "novelty_check": "The target is Jerrum's long-standing question about the colouring threshold, and the paper situates itself explicitly against the recent chain it builds on: the Bochner-Bakry-Emery proof of the spectral-gap criterion of Chen, Chen, Chen, Yin and Zhang, and the trickle-down and spectral independence literature it names. The girth-five restriction is stated as a hypothesis rather than removed, so the claim is a partial advance on a known frontier and is positioned as such. No prior result at this threshold under these hypotheses appears.",
+    "caveats": "A preprint days old at entry, unrefereed, not formalized, and with no independent check on record. The result is partial: girth at least five and a large maximum degree are genuine hypotheses, not technicalities. Autonomy is graded collaborative on the authors' own narrative, which describes several rounds of interaction rather than a single handoff: they first asked the model to redo known proofs by the Bochner identity, then brought it the open question, at which point it proposed an affirmative proof strategy; the human authors then verified the argument, generalized the proof with further assistance, and streamlined the paper.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "rapid-mixing-for-spin-systems-on-graphs-of-girth-at-least-five",
+        "url": "https://vibemathed.com/problem/rapid-mixing-for-spin-systems-on-graphs-of-girth-at-least-five"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: a spectral local-to-global principle for spin systems on graphs with girth at least five",
+        "url": "https://arxiv.org/abs/2608.25491",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: rapid mixing for spin systems on graphs of girth at least five",
+        "url": "https://vibemathed.com/problem/rapid-mixing-for-spin-systems-on-graphs-of-girth-at-least-five",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "sampling",
+      "markov-chains",
+      "combinatorics",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-20-fast-dynamo-three-torus",
+    "title": "A smooth random fast dynamo on the three-torus",
+    "claim": "A random smooth divergence-free velocity field on the three-torus is constructed whose magnetic field grows exponentially at a rate bounded below independently of the resistivity.",
+    "field": "mathematics",
+    "date": "2026-08-20",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Sol Ultra",
+    "humans": [
+      "Keefer Rowan"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "The construction is a random, time-dependent, divergence-free velocity field on the three-torus, refreshing independently on finite time blocks and obeying deterministic smooth bounds in space and time, which exhibits fast dynamo behaviour: for every sufficiently small fixed resistivity the almost sure exponential growth rate of the magnetic field solving the linear resistive induction equation is at least one half. The argument turns on an algebraic structure in Fourier space of the induction equation solution operator that lets the expected growth of the logarithmic size of three chosen Fourier modes be propagated, reducing the problem to a simple recursion and avoiding the infinite-dimensional dynamics usually involved.",
+    "novelty_check": "The paper positions itself against Arnold's fast-dynamo problem and the dynamo literature it cites, and the arXiv comment records the provenance directly as AI discovered, human written. vibemathed records the resolution as a variant rather than the original problem, which is the honest reading: what is built is a smooth random field with the growth property, not a resolution of the fast-dynamo problem as classically posed. No prior construction of this kind appears in the cited literature.",
+    "caveats": "A preprint, unrefereed, not formalized, with no independent check on record, and a variant of the classical problem rather than the problem itself. Autonomy is graded ai-led on an explicit disclosure: the author writes that the central proof idea was generated essentially autonomously by ChatGPT 5.6 Sol Ultra from a prompt adapted from an earlier preprint, and that the manuscript was written and verified by the author. Some simplifications over the machine-generated manuscript are the author's, including a simpler set of velocity fields and a more direct iteration argument, and the model was also used to explain sections of the original argument back to the author and to copy-edit.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "smooth-random-fast-dynamo-on-the-three-torus",
+        "url": "https://vibemathed.com/problem/smooth-random-fast-dynamo-on-the-three-torus"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: an AI-discovered smooth random fast dynamo on T^3",
+        "url": "https://arxiv.org/abs/2608.20105",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: smooth random fast dynamo on the three-torus",
+        "url": "https://vibemathed.com/problem/smooth-random-fast-dynamo-on-the-three-torus",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "analysis",
+      "pde",
+      "probability",
+      "construction"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-big-line-big-clique",
+    "title": "First open case of the big-line-big-clique conjecture",
+    "claim": "Every finite point set of size at least 10^11055931 contains four collinear points or six points that pairwise see each other, settling the first open case of the Kára-Pór-Wood conjecture.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro",
+    "humans": [
+      "Édouard Bonnet"
+    ],
+    "year_posed": 2005,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "The big-line-big-clique conjecture of Kára, Pór and Wood asserts that for all k and l there is an n such that every finite point set of at least n points contains l collinear points or k points that pairwise see each other, where two points see each other if no other point of the set lies between them. The paper proves the case l = 4, k = 6, the first case left open, with the explicit and very large threshold 10^11055931. The proof combines a lower bound on distance to 5-colorability, a Turán-type stability and edge-density argument, and matching harmonic upper and lower bounds.",
+    "novelty_check": "The conjecture is named and dated to Kára, Pór and Wood in 2005, and the paper identifies l = 4, k = 6 as the first case left open by the existing partial results, which fixes the prior state of the art. The threshold is explicit, so the statement is falsifiable as written rather than asymptotic hand-waving. No prior proof of this case appears in the discrete geometry literature or in the vibemathed record.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record, and vibemathed lists it as a candidate pending review. The threshold is astronomically large and the result settles one case rather than the conjecture. Autonomy is graded ai-led on the paper's own AI disclosure, which is unusually specific about the sequence: after one fruitless attempt and what the author calls the now customary generic encouragement, a relatively detailed proof of Theorem 1 was provided by GPT-5.6 Sol Pro after pondering for 222 minutes.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "big-line-big-clique-four-collinear-or-six-clique",
+        "url": "https://vibemathed.com/problem/big-line-big-clique-four-collinear-or-six-clique"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: large finite point sets have 4 collinear points or a 6-clique",
+        "url": "https://arxiv.org/abs/2608.19468",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: the Kára-Pór-Wood big-line-big-clique conjecture",
+        "url": "https://vibemathed.com/problem/big-line-big-clique-four-collinear-or-six-clique",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "discrete-geometry",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-linear-extensions-below-2n",
+    "title": "Counting linear extensions below the 2^n barrier",
+    "claim": "A deterministic algorithm counts the linear extensions of an arbitrary n-element poset in time O*(1.89^n), breaking the 2^n barrier for the general problem.",
+    "field": "computer-science",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "Claude Opus 5; ChatGPT 5.6 Sol",
+    "humans": [
+      "Keigo Oka"
+    ],
+    "year_posed": 2013,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "A linear extension of a finite poset is a total order respecting it. The algorithm counts them exactly for an arbitrary n-element poset in O*(1.89^n) time, resolving a question posed by Koivisto at Dagstuhl in 2013. It refines an argument of Kozma for two-dimensional posets: a chain partition handles posets far from an antichain, and otherwise a maximum antichain is fixed and only the first comparable element above each of its elements is recorded, with a decoding lemma enumerating the resulting patterns from their multiplicities. Once a pattern is fixed each antichain element has a release condition and at most one deadline, so the dynamic program need only store how many elements are released in each deadline class.",
+    "novelty_check": "The question is attributed to a specific venue and date, Koivisto at Dagstuhl 2013, and the 2^n barrier for the general problem is the standing baseline the paper names. The refinement is stated against a specific prior argument, Kozma's for two-dimensional posets, which makes the delta explicit. A verification script ships as an ancillary file with the preprint. No prior sub-2^n algorithm for the general problem appears.",
+    "caveats": "A preprint, unrefereed, with no independent check on record, and vibemathed lists it as a candidate pending review; the ancillary verification script is not a proof artifact and nothing is formalized. Autonomy is graded ai-led on an unusually layered disclosure: the core mathematical ideas behind the new part of the algorithm and proof are stated to have been discovered by Claude Opus 5, while the research prompt supplied to it was itself generated by ChatGPT 5.6 Sol, which the author instructed to model the prompt on OpenAI's publicly released one for the cycle double cover work, so the prompt-generation stage was AI-assisted as well. Generative tools were also used for literature search, drafting and verification assistance.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "counting-linear-extensions-below-two-to-the-n",
+        "url": "https://vibemathed.com/problem/counting-linear-extensions-below-two-to-the-n"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: breaking the 2^n barrier for counting linear extensions with a short elementary algorithm",
+        "url": "https://arxiv.org/abs/2608.19505",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: counting linear extensions below the 2^n barrier",
+        "url": "https://vibemathed.com/problem/counting-linear-extensions-below-two-to-the-n",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "combinatorics",
+      "exact-algorithms"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-25-sparse-convex-body-domination",
+    "title": "Sparse domination implies convex body domination",
+    "claim": "Any bilinear form with a sparse bound has a convex body sparse bound for its vector-valued extension, answering a question about the relation between the two notions.",
+    "field": "mathematics",
+    "date": "2026-08-25",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro",
+    "humans": [
+      "Aapo Laukkarinen",
+      "Emiel Lorist"
+    ],
+    "year_posed": 2017,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "If a bilinear form admits an (r,s)-sparse bound, then its coordinate-wise extension to functions valued in complex n-space admits an (r,s)-convex body sparse bound. The proof rests on a randomization argument, and the result is established both for sparse families in a fixed dyadic lattice and for sparse families of arbitrary cubes. As an application the authors deduce sparse domination for iterated commutators, with the local oscillations of the symbol appearing in the sparse form.",
+    "novelty_check": "Convex body domination was introduced by Nazarov, Petermichl, Treil and Volberg, whom vibemathed records as posing the question in 2017, and sparse domination is a standard tool with its own literature, cited in the paper alongside the Bellman-function and sparse-revolution surveys. The implication between the two notions is what was open; the paper proves it in both the fixed-lattice and arbitrary-cube settings rather than one. No prior proof of the implication appears.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-assisted, the weakest reading consistent with the disclosure, because the paper's AI disclosure statement claims only prototyping and not discovery: GPT-5.6 Sol Pro, accessed through ChatGPT, was used to prototype proof strategies for this note. Nothing in the disclosure attributes the final argument to the model.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "sparse-domination-implies-convex-body-domination",
+        "url": "https://vibemathed.com/problem/sparse-domination-implies-convex-body-domination"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: sparse domination implies convex body domination",
+        "url": "https://arxiv.org/abs/2608.24802",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: sparse domination implies convex body domination",
+        "url": "https://vibemathed.com/problem/sparse-domination-implies-convex-body-domination",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "analysis",
+      "harmonic-analysis",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-27-large-systoles",
+    "title": "Hyperbolic surfaces with large systoles in every large genus",
+    "claim": "For every sufficiently large genus there is a closed hyperbolic surface whose systole is at least log g minus 12 log log g, raising the known asymptotic constant from 2/9 to 1.",
+    "field": "mathematics",
+    "date": "2026-08-27",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol",
+    "humans": [
+      "Yifei Cai"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "For every sufficiently large genus g the note constructs a closed hyperbolic surface with systole at least log g minus 12 log log g, which gives a lower bound of 1 for the limit inferior of the maximum systole over genus-g surfaces divided by log g, improving the previously known bound of 2/9. It continues the author's earlier work on the diameter of finite covers, using the same constant-twist pants decomposition framework applied to systoles instead.",
+    "novelty_check": "The improvement is stated against a specific numerical baseline, the previously known bound of 2/9 for the same limit inferior, so the delta is explicit. The note names its own predecessor, arXiv:2608.12887, and reuses that framework, which makes clear what is new here as against what was already built. No stronger bound appears in the cited literature or in the vibemathed record.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record, and vibemathed records the resolution as partial. Autonomy is graded ai-led on the paper's declaration on the use of AI, which credits the model with the proof but the framework to the author: starting from the constant-twist pants decomposition approach described in the note, GPT-5.6 Sol developed the first complete proof of the main theorem through an extended discussion with the author.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "large-systoles-in-every-sufficiently-large-genus",
+        "url": "https://vibemathed.com/problem/large-systoles-in-every-sufficiently-large-genus"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: a note on surfaces with large systoles",
+        "url": "https://arxiv.org/abs/2608.26660",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: large systoles in every sufficiently large genus",
+        "url": "https://vibemathed.com/problem/large-systoles-in-every-sufficiently-large-genus",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "geometry",
+      "hyperbolic-geometry",
+      "construction"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-09-01-mckean-entropy-production",
+    "title": "Entropy production of the Boltzmann equation is not always monotone",
+    "claim": "Explicit radially symmetric mixtures of Maxwellians show the entropy production of the Boltzmann equation need not decrease monotonically, answering a question McKean asked in 1966.",
+    "field": "mathematics",
+    "date": "2026-09-01",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude",
+    "humans": [
+      "Luis Silvestre"
+    ],
+    "year_posed": 1966,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "In 1966 McKean asked whether the entropy production of the Boltzmann equation must be monotone decreasing in time. The paper shows it need not be, even in the space-homogeneous setting, for the Boltzmann collision operator with a constant angular cross section and kinetic parameter gamma in the interval from 0 to 1. That range recovers the classical case of hard spheres and the simplest case of Maxwell molecules, so the counterexample reaches the two physically standard models rather than an exotic corner. The examples are radially symmetric mixtures of Maxwellians.",
+    "novelty_check": "The question is named, dated and attributed to McKean in 1966 in the paper's own opening, and the parameter range is chosen precisely so that the two classical models, hard spheres and Maxwell molecules, are covered. The paper separately flags the corresponding question for the Landau equation as still open, which shows the boundary of the claim is being drawn deliberately. No prior counterexample appears.",
+    "caveats": "A preprint days old at entry, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-led on the paper's disclaimer on the use of AI tools, which records a chain of tools and a substantial human rewrite: a first version of the proof was obtained by ChatGPT 5.6 Sol, run in Codex in Ultra mode with access to the source of one of the author's own earlier papers and other notes, and it was then rewritten first using Claude Code and afterwards reinterpreted and restructured by the author.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "mckean-entropy-production-conjecture",
+        "url": "https://vibemathed.com/problem/mckean-entropy-production-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: the entropy production is not always monotone for hard spheres or for Maxwell molecules",
+        "url": "https://arxiv.org/abs/2609.01753",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: McKean entropy-production conjecture",
+        "url": "https://vibemathed.com/problem/mckean-entropy-production-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "analysis",
+      "pde",
+      "mathematical-physics",
+      "counterexample"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-25-generically-stable-keisler",
+    "title": "Equivalence of generic stability notions for Keisler measures",
+    "claim": "Three candidate definitions of generic stability for a Borel-definable global Keisler measure are shown to be equivalent, closing a research objective left open by earlier work.",
+    "field": "mathematics",
+    "date": "2026-08-25",
+    "lab": "Independent",
+    "model": "ChatGPT 5.5; ChatGPT 5.6 Sol; Kimi K3; Claude Fable 5",
+    "humans": [
+      "Gabriel Conant",
+      "Kyle Gannon",
+      "James E. Hanson"
+    ],
+    "year_posed": 2020,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "For a first-order theory in discrete or continuous logic and a Borel-definable global Keisler measure, the paper shows three conditions equivalent: that the measure is a frequency interpretation measure, that it is definable and its canonical random extension is generically stable in the randomization theory, and that it is self-averaging. The forward implications were already established by the same authors for discrete theories; the paper's contribution is the two reverse implications, which is what makes the notion of generic stability robust and settles a long-term objective from that earlier work.",
+    "novelty_check": "The prior state is unusually clean here because it is the authors' own: the implications from frequency interpretation to generic stability of the random extension to self-averaging were established in their previous work for discrete theories, and the reverse implications are what remained. The paper states that division explicitly, so what is new is not in doubt. No competing proof of the reverse implications appears.",
+    "caveats": "A preprint, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-led on the paper's AI acknowledgment, which reports both discovery and cross-checking by several models followed by substantial human rewriting: a proof of the main theorem was initially obtained from a ChatGPT 5.5 query focused on the discrete case, the authors were also able to find proofs independently using Kimi K3 and Claude Fable 5, and the arguments were then heavily reorganized and rewritten by the authors with further assistance from ChatGPT 5.6 Sol.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "equivalence-of-generic-stability-notions-for-keisler-measures",
+        "url": "https://vibemathed.com/problem/equivalence-of-generic-stability-notions-for-keisler-measures"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: generically stable Keisler measures",
+        "url": "https://arxiv.org/abs/2608.24605",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: equivalence of generic stability notions for Keisler measures",
+        "url": "https://vibemathed.com/problem/equivalence-of-generic-stability-notions-for-keisler-measures",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "model-theory",
+      "logic",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-09-01-saxl-common-neighbour",
+    "title": "Common neighbour conjectures for Saxl graphs fail at every base size",
+    "claim": "Primitive permutation groups are constructed whose generalised Saxl graphs contain two nonadjacent vertices with no common neighbour, disproving the Burness-Giudici conjecture and its extension at every base size.",
+    "field": "mathematics",
+    "date": "2026-09-01",
+    "lab": "Independent",
+    "model": "Codex; ChatGPT Pro; Claude",
+    "humans": [
+      "Aluna Rizzoli",
+      "Adam R. Thomas"
+    ],
+    "year_posed": 2020,
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "For a finite permutation group a base is a set of points with trivial pointwise stabiliser, and the generalised Saxl graph records which pairs of points lie together in a base of minimum size. Burness and Giudici conjectured that any two vertices of the Saxl graph of a primitive group of base size two have a common neighbour, and Freedman, Huang, Lee and Rekvényi extended this to arbitrary base size. Both are disproved: for each integer B at least 2 the paper constructs infinitely many primitive groups of base size B whose generalised Saxl graphs contain two nonadjacent vertices with no common neighbour. At base size two there are three further infinite families, one each of affine, product and twisted wreath type, so the conjecture fails in three of the five O'Nan-Scott types, and in the affine and product families the Saxl graphs have diameter exactly three. The result also answers Problem 21.29 of the Kourovka Notebook.",
+    "novelty_check": "Both conjectures are named, attributed and dated in the paper: Burness and Giudici for base size two in 2020, and Freedman, Huang, Lee and Rekvényi for the extension to arbitrary base size. The counterexamples are exhibited as explicit infinite families rather than existence claims, and their spread across three of the five O'Nan-Scott types is stated precisely. The Kourovka Notebook problem answered here is 21.29, which is not among the eight problems covered by this registry's existing Kourovka entry. No prior counterexample appears.",
+    "caveats": "A preprint days old at entry, unrefereed, with no independent human check on record. The formal grade rests on Theorem 1.2, the statement that counterexamples exist at every base size, which is verified in Lean 4 with no sorry placeholders and no project-specific axioms, with the source in the paper's repository; the three additional base-size-two families and the diameter computations are not covered by that formalization, and the Lean statements have not been audited by a third party against the paper. Autonomy is graded collaborative on a detailed disclosure describing back-and-forth rather than handoff: the project began with Codex support aimed at proving the conjecture for soluble affine groups, the authors then worked with Codex, ChatGPT Pro and Claude to find further examples and constructions, search the literature and draft the manuscript, Codex implemented much of the Magma, GAP, Python and C++ code, and the Lean formalisation was produced primarily by Codex with the authors reviewing its theorem statements and verifying the completed formalisation.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "common-neighbour-conjectures-for-saxl-graphs",
+        "url": "https://vibemathed.com/problem/common-neighbour-conjectures-for-saxl-graphs"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: common neighbour conjectures for Saxl graphs fail at every base size",
+        "url": "https://arxiv.org/abs/2609.01367",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: common neighbour conjectures for Saxl graphs",
+        "url": "https://vibemathed.com/problem/common-neighbour-conjectures-for-saxl-graphs",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "combinatorics",
+      "counterexample",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-29-metric-distortion-23282",
+    "title": "Randomized metric distortion improved to 2.3282",
+    "claim": "A randomized voting rule built on a new random-size stable lottery achieves metric distortion 2.3282, past a 2.5 barrier that existing arguments could not cross.",
+    "field": "computer-science",
+    "date": "2026-08-29",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude Opus 5.0",
+    "humans": [
+      "Nisarg Shah"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "In metric social choice each voter ranks candidates by distance in an unknown metric space, a candidate's cost is its average distance to voters, and a randomized rule's distortion is the worst-case ratio between the expected cost of its lottery and that of the best candidate. Charikar, Ramakrishnan, Wang and Wu proved an upper bound of 2.753, and Frank and Ye independently improved it to 2.5 using an equal mixture of maximal lottery and Integrated Veto; existing arguments yield nothing better from any mixture of those two rules. The paper breaks that barrier with a new ingredient, a random-size stable lottery, reaching 2.3282.",
+    "novelty_check": "The baseline chain is named and dated in the paper: 2.753 from Charikar, Ramakrishnan, Wang and Wu in JACM 2024, then 2.5 independently by Frank (arXiv:2608.17863) and Ye (arXiv:2608.21202) weeks before this work. The paper also states why 2.5 was a barrier rather than merely the current best, namely that no mixture of the two rules involved yields a better bound, which is what the new lottery is introduced to get past. No stronger bound appears.",
+    "caveats": "A preprint days old at entry, unrefereed, not formalized, with no independent check on record, and vibemathed records it as a partial result since the optimal distortion remains unknown. Autonomy is graded ai-led on a disclosure that describes the model producing the key ideas under human guidance: all proofs in the document were obtained using GPT-5.6 Sol with guidance from the author, who verified them for correctness and expanded and simplified the exposition with the aid of GPT-5.6 Sol and Claude Opus 5. The author records two specific steps where the model autonomously identified the ingredient to add, first a stable lottery and then a lottery whose existence it proved by a minimax argument.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "improving-randomized-metric-distortion-to-2-3282",
+        "url": "https://vibemathed.com/problem/improving-randomized-metric-distortion-to-2-3282"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: improving randomized metric distortion to 2.3282",
+        "url": "https://arxiv.org/abs/2608.29308",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: improving randomized metric distortion to 2.3282",
+        "url": "https://vibemathed.com/problem/improving-randomized-metric-distortion-to-2-3282",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "social-choice",
+      "game-theory",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-27-intuitionistic-higher-order-truth",
+    "title": "Not every Heyting algebra is the subterminal lattice of a topos",
+    "claim": "The free Heyting algebra on two generators cannot be the lattice of subterminal objects of an elementary topos, answering the question in the negative.",
+    "field": "mathematics",
+    "date": "2026-08-27",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Sol",
+    "humans": [
+      "Lingyuan Ye",
+      "Yiqi Xu"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The question is whether every Heyting algebra arises as the lattice of subterminal objects of an elementary topos, which would say that intuitionistic propositional logic is fully realised by higher-order truth. The answer is no, and the witness is concrete: the free Heyting algebra on two generators cannot be such a lattice.",
+    "novelty_check": "The question is a clean yes-or-no about a standard construction relating Heyting algebras to elementary toposes, and the paper answers it with a specific named algebra rather than an abstract obstruction, which makes the counterexample checkable. vibemathed records no attributed poser or year, so the entry carries no year_posed rather than guessing one. No prior negative answer appears in the categorical logic literature cited.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-assisted, the weakest reading the disclosure supports, because the paper claims help rather than authorship of the ideas: the mathematical results in the document were obtained with the help of ChatGPT 5.6 Sol, although the document itself was written entirely by the authors, who take full responsibility for its contents. The disclosure does not separate which results came from the model.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "failure-of-higher-order-truth-within-intuitionistic-propositional-logic",
+        "url": "https://vibemathed.com/problem/failure-of-higher-order-truth-within-intuitionistic-propositional-logic"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: failure of higher-order truth within intuitionistic propositional logic",
+        "url": "https://arxiv.org/abs/2608.26874",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: failure of higher-order truth within intuitionistic propositional logic",
+        "url": "https://vibemathed.com/problem/failure-of-higher-order-truth-within-intuitionistic-propositional-logic",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "logic",
+      "category-theory",
+      "counterexample"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-21-scl-relator-invariance",
+    "title": "Stable commutator length of a relator is not a one-relator group invariant",
+    "claim": "Two explicit words give isomorphic one-relator groups whose relators have different stable commutator lengths, answering a question of Heuer and Loh in the negative.",
+    "field": "mathematics",
+    "date": "2026-08-21",
+    "lab": "Independent",
+    "model": "Claude Opus 5; Harmonic Aristotle",
+    "humans": [
+      "Artem Semidetnov"
+    ],
+    "year_posed": 2019,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "For the two explicit words r = aabABabABBAbaabABBAb and r' = aabABabABabABBAbaBAb, both lying in the commutator subgroup of the free group on a and b, the one-relator groups presented by r = 1 and by r' = 1 are isomorphic, while r and r' have different stable commutator lengths. That combination is exactly the negative answer to the question of Heuer and Loh, since it shows the stable commutator length of the relator is not determined by the group it presents.",
+    "novelty_check": "The question is attributed to Heuer and Loh and dated 2019 in the vibemathed record, and the counterexample is a pair of concrete words whose properties can be checked directly rather than an existence argument. The repository accompanying the paper reproduces the computation, so both halves of the claim, the isomorphism and the difference in stable commutator length, are independently re-runnable in principle. No prior counterexample appears.",
+    "caveats": "A short preprint, unrefereed, with no independent check on record. The formalization is partial and does not cover the result: the repository contains a Lean formalisation of the six identities used in the argument, produced with the assistance of Harmonic's Aristotle, not of the full claim, so the grade stays at author-verified rather than formal. Autonomy is graded ai-assisted, the weaker of the two readings the paper's own wording admits, since the body says Claude Desktop with Opus 5 designed and orchestrated an exhaustive search through orbits of words of bounded length while the acknowledgement says it assisted in designing and orchestrating that search.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-stable-commutator-length-of-a-relator-is-not-a-one-relator-group-invariant",
+        "url": "https://vibemathed.com/problem/the-stable-commutator-length-of-a-relator-is-not-a-one-relator-group-invariant"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: the stable commutator length of a relator is not a one-relator group invariant",
+        "url": "https://arxiv.org/abs/2608.21465",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: the stable commutator length of a relator is not a one-relator group invariant",
+        "url": "https://vibemathed.com/problem/the-stable-commutator-length-of-a-relator-is-not-a-one-relator-group-invariant",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "geometric-group-theory",
+      "counterexample",
+      "computer-assisted"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-21-bounded-mass-property",
+    "title": "Counterexample to the bounded mass property on the Hopf threefold",
+    "claim": "The bounded mass property fails on the Hopf threefold, answering a question of Boucksom, Guedj and Lu.",
+    "field": "mathematics",
+    "date": "2026-08-21",
+    "lab": "Independent",
+    "model": "Rethlas agent (GPT-5.6 Sol)",
+    "humans": [
+      "Mingchen Xia",
+      "Kewei Zhang"
+    ],
+    "year_posed": 2025,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "A compact complex manifold has the bounded mass property if, for one and equivalently every Hermitian form, the masses of the n-th power of that form plus a dd^c-exact perturbation stay uniformly bounded over all smooth potentials keeping the form positive. The paper shows this fails on the Hopf threefold, the quotient of punctured complex three-space by the map sending z to e^{-1} z, which answers a question of Boucksom, Guedj and Lu in the negative.",
+    "novelty_check": "The question is recent and attributed: Boucksom, Guedj and Lu posed it in 2025, so the window in which a prior answer could exist is short and the paper names the source directly. The counterexample is a single named manifold, the Hopf threefold, rather than an abstract existence claim, which makes it checkable against the definition. No prior counterexample or positive resolution appears.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-led on a one-sentence disclosure that credits the construction itself to an agent rather than to assistance: the initial counterexample was constructed with the Rethlas agent, improved by Felix Ye, using the gpt-5.6-sol model. The disclosure covers the initial counterexample only and does not say how much of the final write-up is the authors' own.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "bounded-mass-property-for-compact-complex-manifolds",
+        "url": "https://vibemathed.com/problem/bounded-mass-property-for-compact-complex-manifolds"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: a counterexample to the bounded mass property",
+        "url": "https://arxiv.org/abs/2608.21053",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: bounded mass property for compact complex manifolds",
+        "url": "https://vibemathed.com/problem/bounded-mass-property-for-compact-complex-manifolds",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "geometry",
+      "complex-geometry",
+      "counterexample"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-20-pauli-fractional-colouring",
+    "title": "Counterexamples to the fractional colouring conjecture for Pauli shadow tomography",
+    "claim": "The fractional chromatic number of the anticommutation graph of large-expectation Pauli observables is not bounded by a constant over epsilon squared, removing a proposed route to triply efficient shadow tomography.",
+    "field": "physics",
+    "date": "2026-08-20",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol",
+    "humans": [
+      "Jędrzej Stempin",
+      "Santiago Llorens",
+      "Felix Huber"
+    ],
+    "year_posed": 2025,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Fractional graph colourings are used in shadow tomography of Pauli observables, and it is desirable that any experimentally interesting set of Pauli operators have a small fractional chromatic number for its anticommutation graph. Conjecture 13 of King, Gosset, Kothari and Babbush states that for the set of Pauli observables whose expectation value in a given state has magnitude at least epsilon, the fractional chromatic number of the induced anticommutation graph is order epsilon to the minus two. The paper gives counterexamples, so no such constant exists; had the conjecture held it would have implied a triply efficient Pauli shadow tomography algorithm for any subset of Pauli observables given an efficient fractional colouring algorithm.",
+    "novelty_check": "The conjecture is pinned to a specific numbered statement in a specific published paper, Conjecture 13 of King, Gosset, Kothari and Babbush in PRX Quantum 6, 010336 (2025), which leaves no ambiguity about what is being refuted or when it was posed. The consequence that fails with it, a triply efficient algorithm for arbitrary Pauli subsets, is stated in the same source. No prior counterexample appears.",
+    "caveats": "A preprint, unrefereed, not formalized, with no independent check on record, and vibemathed lists it as a candidate pending review. Autonomy is graded collaborative rather than ai-led because the disclosure is a single sentence with no account of the division of labour between the model and the three authors, and the weaker grade wins when the reading is arguable. The sentence, in full, is: GPT Sol 5.6 was used to derive the main results (Theorem A and Theorem B) of this paper.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "fractional-colouring-pauli-shadow-tomography",
+        "url": "https://vibemathed.com/problem/fractional-colouring-pauli-shadow-tomography"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: counterexamples to the fractional coloring conjecture for triply efficient shadow tomography",
+        "url": "https://arxiv.org/abs/2608.20113",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: the fractional colouring conjecture for triply efficient Pauli shadow tomography",
+        "url": "https://vibemathed.com/problem/fractional-colouring-pauli-shadow-tomography",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "quantum-information",
+      "combinatorics",
+      "counterexample"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-24-ancheta-massey-linear-coding",
+    "title": "Optimal linear encoding rate for lossy compression of Bernoulli sources",
+    "claim": "Ancheta's answer to Massey's question about linear encoders for lossy compression is extended from the fair-coin case to every source bias below one half.",
+    "field": "computer-science",
+    "date": "2026-08-24",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol",
+    "humans": [
+      "Yihong Wu"
+    ],
+    "year_posed": 1978,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Linear encoders achieve the entropy for lossless compression of a Bernoulli source, but for lossy compression linearity is known to be strictly suboptimal against the rate-distortion function. Massey asked in 1978 whether the optimal rate for linear encoding is achieved simply by compressing a fraction of the bits linearly and losslessly and estimating the rest by zero. Ancheta answered yes for bias one half in the same year, and this note extends that to every bias below one half. The key step bounds the entropy of the posterior distribution conditioned on an affine subspace in terms of its marginals.",
+    "novelty_check": "The question and its partial answer are both named, dated and cited: Massey posed it in 1978 and Ancheta settled the p = 1/2 case that same year, so what remained was every other bias. The note also records, as a correction to its own novelty, that a literature search aided by Codex found several proof ingredients already present in or deducible from prior work, and devotes a section to that discussion. That is a partial-novelty flag surfaced by the author rather than by a later reader.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record. The novelty is qualified by the author's own hindsight statement that several ingredients of the proof have appeared in, or can be deduced from, the prior literature, discussed in the note's Section 4.1; what is claimed as new is the extension itself and a simplified self-contained presentation. Autonomy is graded ai-led on the declaration of AI use, which credits discovery to the model and simplification to the author: the first version of the proof was discovered by GPT-5.6 Sol in an interactive process guided by the author, who subsequently simplified the program and developed the self-contained proof presented in the note.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "entropy-of-bernoulli-measures-conditioned-on-affine-subspaces-and-a-problem-of-a",
+        "url": "https://vibemathed.com/problem/entropy-of-bernoulli-measures-conditioned-on-affine-subspaces-and-a-problem-of-a"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: entropy of Bernoulli measures conditioned on affine subspaces and a problem of Ancheta-Massey",
+        "url": "https://arxiv.org/abs/2608.22837",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: entropy of Bernoulli measures conditioned on affine subspaces",
+        "url": "https://vibemathed.com/problem/entropy-of-bernoulli-measures-conditioned-on-affine-subspaces-and-a-problem-of-a",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "information-theory",
+      "coding-theory",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-25-froberg-quintics-septics",
+    "title": "Fröberg's conjecture for quintics and septics in four variables",
+    "claim": "Fröberg's predicted Hilbert series is proved for ideals generated by any number of general forms of degree five or seven in four variables.",
+    "field": "mathematics",
+    "date": "2026-08-25",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude Fable 5; Grok 4.6",
+    "humans": [
+      "Qihang Wang",
+      "Dongming Zhang"
+    ],
+    "year_posed": 1985,
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Over a field of characteristic zero in four variables, the paper proves Fröberg's predicted Hilbert series for ideals generated by r general forms of equal degree d, for every r at least 1, in the two cases d = 5 and d = 7. Against the classical cases r at most 5 and the equal-degree theorem of Boij, Dannetun and Lundqvist through degree d + 2, the ranges needing new input are r between 6 and 11 for quintics and 6 and 21 for septics. Each slice reduces to finitely many endpoint ranks of Macaulay multiplication matrices: ten exact endpoint computations from twenty-one sparse forms for quintics, and fifteen from a nested family of 120 integral forms for septics, with every endpoint certificate recording an explicit maximal minor that is nonzero modulo 2 and hence a nonzero integer.",
+    "novelty_check": "The paper states exactly which generator-count ranges were already covered and by what, the classical cases r at most 5 and the Boij-Dannetun-Lundqvist equal-degree theorem through degree d + 2, and therefore which ranges required new input. That makes the contribution a bounded and stated delta rather than a broad claim on Fröberg's conjecture, which remains open in general. No prior treatment of these ranges appears.",
+    "caveats": "A preprint, unrefereed, with no independent check on record, and vibemathed records the resolution as partial: this is two degrees in four variables, not Fröberg's conjecture. The certificates are explicit and the nonzero-modulo-2 minors make the endpoint computations checkable, but nothing is machine-checked, so the grade stays at author-verified. Autonomy is graded collaborative on a broad disclosure of automated assistance that spans the whole pipeline without separating human from model contribution: the workflow used GPT-5.6 Sol, Claude Fable 5 and Grok 4.6 for the formulation of mathematical ideas, generation of conjectures and proof strategies, derivation and checking of intermediate steps, construction of examples and exact certificates, comparison of literature and candidate proof approaches, and organization of arguments.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "froberg-s-conjecture-for-quintics-and-septics-in-four-variables",
+        "url": "https://vibemathed.com/problem/froberg-s-conjecture-for-quintics-and-septics-in-four-variables"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Fröberg's conjecture for quintics and septics in four variables",
+        "url": "https://arxiv.org/abs/2608.24797",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Fröberg's conjecture for quintics and septics in four variables",
+        "url": "https://vibemathed.com/problem/froberg-s-conjecture-for-quintics-and-septics-in-four-variables",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algebra",
+      "commutative-algebra",
+      "computer-assisted"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-erdos-501-independence",
+    "title": "Erdős Problem #501 shown independent of ZFC, with both directions in Lean",
+    "claim": "The first question of Erdős Problem #501 is proved independent of ZFC, and both directions are formalized in Lean 4 as statements about the theory ZFC itself.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "Sol; Claude",
+    "humans": [
+      "Elliot Glazer"
+    ],
+    "year_posed": 1961,
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "Erdős Problem #501 asks, for a family of bounded sets of outer measure less than 1 indexed by the reals, whether there must be an infinite independent set, meaning an infinite set of reals none of which lies in the set indexed by another. The answer is independent of ZFC: the continuum hypothesis gives a counterexample by Hechler's 1972 construction, while adding more than continuum-many random reals gives a positive answer. Both directions are formalized, and the independence is stated inside Mathlib's own first-order logic, with the theory ZFC and a sentence Erdős501 defined in a file importing Mathlib only, so that non-provability and non-refutability are themselves proved from the standard axioms. A further target certifies the rendering is faithful by showing the sentence is equivalent in Mathlib's ZFSet to the formalized statement of the question.",
+    "novelty_check": "The problem is tracked at erdosproblems.com/501 and traced in the repository to Erdős 1961, Problem II.9 and Erdős-Hajnal 1971. The repository checks its own novelty claim against the database directly: in a snapshot of teorth/erdosproblems dated 2026-08-17 covering 1217 problems, the problems already marked independent, not provable or not disprovable all carry formal_status unformalized, while #501 is listed as open. That is the basis for the repository's claim that this is the first Erdős problem whose resolution is a formally verified independence result. The second question was settled by Newelski, Pawlikowski and Seredyński in 1987 and is formalized here without the boundedness hypothesis.",
+    "caveats": "Announced through a repository rather than a paper, and unrefereed. The credit is shared and mostly human, which is why autonomy is graded collaborative rather than higher: Hechler supplied one direction in 1972, Newelski, Pawlikowski and Seredyński settled the second question in 1987, Sungchul Lee derived a positive answer from a real-valued measurable cardinal with assistance from GPT-5.5 Pro, and Nat Sothanaphan observed that the two halves together give independence. What Glazer and Sol added is the removal of the large cardinal assumption. The formal grade covers the Lean development, which builds under CI and proves its targets from the standard axioms; the Lean statements have not been audited by a third party against the informal problem, beyond the repository's own faithfulness target.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "erdos-501-infinite-independent-sets",
+        "url": "https://vibemathed.com/problem/erdos-501-infinite-independent-sets"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: Erdős Problem #501 in Lean 4",
+        "url": "https://github.com/ElliotGlazer/erdos501",
+        "kind": "research"
+      },
+      {
+        "label": "Erdős Problems: problem #501",
+        "url": "https://www.erdosproblems.com/501",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed: Erdős Problem #501, infinite independent sets",
+        "url": "https://vibemathed.com/problem/erdos-501-infinite-independent-sets",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "set-theory",
+      "erdos",
+      "lean",
+      "formalization",
+      "forcing"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-22-erdos-270-affine-transcendence",
+    "title": "Transcendence in the affine case of Erdős Problem 270",
+    "claim": "The series in Erdős Problem 270 is claimed transcendental for every positive integer-valued affine choice of the defining function.",
+    "field": "mathematics",
+    "date": "2026-08-22",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol (Codex)",
+    "year_posed": 1980,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Erdős Problem 270 concerns the series whose n-th term is 1 over the product of the f(n) consecutive integers starting at n+1. For the affine choice f(n) = an + b this is the sum of n! over ((a+1)n + b)!, and the manuscript claims that constant is transcendental for every a at least 1 and b at least 1 - a, settling the positive integer-valued affine subclass. It also determines the algebraic structure of the family at each fixed slope, and ships a Lean development covering part of the argument.",
+    "novelty_check": "Two pieces of prior work bound what is left to prove, and both are recorded in the repository rather than found later. Problem 270 as Erdős and Graham posed it, for every f tending to infinity, was already answered in the negative by Crmarić and Kovac in 2025, who showed some such f makes the series sum to any prescribed value; what survives is the non-decreasing case, inside which the affine family sits. Separately, the short irrationality proof for the base constant is Crmarić and Kovac's, posted by Kovac on the Erdős Problems forum in July 2026 and credited in the repository, and base-case transcendence follows from known results. So the checkable parts were already known and the new content is the affine extension.",
+    "caveats": "Announced through a repository rather than a paper, unrefereed, with no independent check on record, and vibemathed lists it as a candidate pending review. The Lean development is explicitly partial: the repository separates what is fully verified from what is not yet verified, so the transcendence claim as a whole is not machine-checked and the grade stays at claimed. The novelty is narrow for the reason given above, since the pieces a reader can most easily check are the ones already in the literature. Autonomy is graded ai-led on the repository's own AI disclosure, which is unusually sweeping: generative AI performed nearly all of the mathematical work, independently rediscovering the elementary denominator argument, developing the affine extensions and the transcendence-theoretic arguments, conducting the literature search, writing the manuscript and producing the Lean formalization, with the repository owner directing and supervising. No human author is named on the work.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "transcendence-in-the-affine-case-of-erdos-problem-270",
+        "url": "https://vibemathed.com/problem/transcendence-in-the-affine-case-of-erdos-problem-270"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: algebraic independence in the affine case of Erdős Problem 270",
+        "url": "https://github.com/clambro/erdos-270-transcendence",
+        "kind": "research"
+      },
+      {
+        "label": "Erdős Problems: problem #270",
+        "url": "https://www.erdosproblems.com/270",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed: transcendence in the affine case of Erdős Problem 270",
+        "url": "https://vibemathed.com/problem/transcendence-in-the-affine-case-of-erdos-problem-270",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "erdos",
+      "transcendence",
+      "lean"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-06-kreiss-constant-separation",
+    "title": "Separation between the ordinary and strong Kreiss constants",
+    "claim": "A negative solution to the inverse generator problem on Hilbert spaces yields an operator whose Cayley transforms satisfy the ordinary Kreiss condition but are neither strongly Kreiss bounded nor power bounded.",
+    "field": "mathematics",
+    "date": "2026-08-06",
+    "lab": "Independent",
+    "model": "ChatGPT 5.6 Pro; Claude Fable",
+    "humans": [
+      "Emiel Lorist",
+      "Martin Meyries",
+      "Mark Veraar"
+    ],
+    "year_posed": 2025,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The paper constructs a bounded operator with dense range on a Hilbert space that generates a bounded, strongly stable C0-semigroup while its inverse generates no C0-semigroup, which answers the inverse generator problem in the negative. It also builds an exponentially stable generator with 0 in the resolvent set whose inverse semigroup is unbounded and grows at least double logarithmically; for that generator every Cayley transform satisfies the ordinary Kreiss resolvent condition but is neither strongly Kreiss bounded nor power bounded, which separates the two notions. A numerical consequence follows: the Crank-Nicolson scheme is unstable in operator norm both for every fixed step size over long times and under mesh refinement at any fixed final time. All counterexamples are deduced from a common finite-dimensional construction.",
+    "novelty_check": "The separation question between ordinary and strong Kreiss constants is attributed by vibemathed to Chalmoukis and Tsikalas and dated 2025, so the window for a prior answer is short. The inverse generator problem is the older and better-known target, and the paper answers it in the negative on Hilbert spaces, the setting where it was sharpest. Both claims descend from one explicit finite-dimensional construction whose entries are given by explicit formulas, so the construction can be inspected directly. No prior counterexample appears.",
+    "caveats": "A preprint, unrefereed, with no independent check on record; it has been revised, with v1 posted 2026-08-06 and v3 on 2026-08-26, and the date here is the first public posting. The formalization is partial and covers the finite-dimensional core rather than the claims of the entry: the proof of Theorem 1.1 has been formalized in Lean 4 in a public repository, while the semigroup and Kreiss deductions drawn from it are not machine-checked, so the grade stays at author-verified rather than formal. Autonomy is graded ai-assisted on a disclosure that keeps the model in a search and formalization role: ChatGPT 5.6 Pro was used to explore various Schauder basis counterexamples to the inverse generator problem, and the Lean 4 formalization was done using Claude Fable.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "separation-of-ordinary-and-strong-kreiss-constants",
+        "url": "https://vibemathed.com/problem/separation-of-ordinary-and-strong-kreiss-constants"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: a solution to the inverse generator problem and related questions",
+        "url": "https://arxiv.org/abs/2608.06272",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: Lean 4 formalization of Theorem 1.1",
+        "url": "https://github.com/zoowirt/inverse-generator-lean",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: separation between the ordinary and strong Kreiss constants",
+        "url": "https://vibemathed.com/problem/separation-of-ordinary-and-strong-kreiss-constants",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "analysis",
+      "operator-theory",
+      "counterexample",
+      "lean"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-31-boolean-multiplicative-complexity-mul4",
+    "title": "Unrestricted Boolean multiplicative complexity of four-term binary polynomial multiplication",
+    "claim": "Multiplying two four-term binary polynomials needs exactly nine AND gates even when nonlinear intermediate wires may be reused, with the whole result formalized in Lean 4.",
+    "field": "computer-science",
+    "date": "2026-08-31",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude Opus 5",
+    "humans": [
+      "Gregory Morse"
+    ],
+    "year_posed": 2014,
+    "verification": "formal",
+    "autonomy": "ai-assisted",
+    "detail": "Classical lower bounds show that multiplying two degree-three polynomials over the field with two elements needs nine scalar products in bilinear or quadratic models, but they leave open the unrestricted Boolean case, where an XOR-AND circuit may reuse nonlinear intermediate wires and equality is taken modulo the idempotence relations, so a multiplication can lower algebraic degree. The paper proves that the map producing the seven coefficients of the product of two four-term binary polynomials has unrestricted XOR-AND multiplicative complexity exactly nine. This resolves, for a natural vector-valued quadratic function, the Boyar-Find question of whether a quadratic-circuit lower bound survives unrestricted nonlinear reuse. The proof is structural rather than exhaustive, and the same argument gives multiplicative complexity six for three-term multiplication.",
+    "novelty_check": "The open question is attributed to Boyar and Find and dated 2014, and the paper is explicit about what the classical bounds do and do not settle: they cover bilinear and quadratic models, not unrestricted Boolean circuits with nonlinear reuse. That distinction is the entire content of the contribution and is stated before the result. No prior unrestricted lower bound for this function appears.",
+    "caveats": "A preprint days old at entry, unrefereed, with no independent human check on record, and vibemathed records the resolution as partial since this settles one function rather than the general question. The formal grade is well supported for a self-published result: the Lean 4 formalization covers the Boolean-ANF semantics, the unrestricted circuit model, the seven- and eight-gate exclusions and the explicit nine-gate upper bound, uses no project-specific axiom and no native decision procedure, pins Lean v4.32.1 and a locked mathlib revision, and its continuous integration performs the build, an axiom audit and a declaration replay with a weekly fresh source replay. What is missing is third-party auditing that the formalized statements say what the paper says. Autonomy is graded ai-assisted, matching the disclosed roles, with GPT-5.6 Sol at an extra-high setting and Claude Opus 5 acting as a referee.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "unrestricted-multiplicative-complexity-mul4",
+        "url": "https://vibemathed.com/problem/unrestricted-multiplicative-complexity-mul4"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: unrestricted Boolean multiplicative complexity of four-term binary polynomial multiplication",
+        "url": "https://arxiv.org/abs/2608.30238",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: unrestricted Boolean multiplicative complexity of Mul4",
+        "url": "https://vibemathed.com/problem/unrestricted-multiplicative-complexity-mul4",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "circuit-complexity",
+      "algorithms",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-27-entanglement-supporting-functional",
+    "title": "Supporting affine functionals for entanglement of formation need not exist",
+    "claim": "An explicit two-qubit state has no global supporting affine functional for the entanglement of formation, contradicting an assumption used in several papers.",
+    "field": "physics",
+    "date": "2026-08-27",
+    "lab": "Independent",
+    "model": "Claude Fable 5",
+    "humans": [
+      "A. S. Holevo",
+      "M. E. Shirokov"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Several articles assume that the convex roof structure of the entanglement of formation together with finite-dimensional subsystems guarantees a global supporting affine functional at every state, meaning a Hermitian operator whose trace against the state gives the entanglement of formation and which lower-bounds it everywhere else. The paper gives an explicit counterexample at a degenerate state, in the simplest case where both subsystems are qubits. The construction rests on the equivalence between existence of such a supporting functional at a state and Lipschitz lower semicontinuity of the entanglement of formation there, and uses Wootters' closed formula to locate the state.",
+    "novelty_check": "The target is not a named conjecture but an assumption in circulation, which the paper identifies as appearing in several articles by the authors themselves among others, so the thing being corrected is stated before it is refuted. The counterexample is at the smallest possible size, two qubits, where Wootters' formula gives the entanglement of formation in closed form and the claim can therefore be checked directly rather than argued asymptotically. No prior counterexample appears.",
+    "caveats": "A short preprint, unrefereed, not formalized, with no independent check on record. Autonomy is graded ai-assisted, the weakest reading the disclosures support, because every mention of the model in the paper is of assistance in a search step inside a human-built argument: the authors use Wootters' formula and the help of Claude Fable 5 to find a state where the property fails, note that this is done very quickly with the model, and attribute one crucial corollary to work obtained with its help. The equivalence with Lipschitz lower semicontinuity, which is what makes the search possible, is the authors' own.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "supporting-affine-functionals-for-entanglement-of-formation",
+        "url": "https://vibemathed.com/problem/supporting-affine-functionals-for-entanglement-of-formation"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: on supporting affine functionals for entanglement of formation",
+        "url": "https://arxiv.org/abs/2608.27363",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: supporting affine functionals for entanglement of formation",
+        "url": "https://vibemathed.com/problem/supporting-affine-functionals-for-entanglement-of-formation",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "quantum-information",
+      "entanglement",
+      "counterexample"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-delavina-waller-wiener",
+    "title": "The DeLaViña-Waller conjecture on the Wiener index",
+    "claim": "Every connected graph on 2d+1 vertices of diameter d at least 3 is claimed to have Wiener index at most that of the cycle on the same number of vertices, with the equality cases determined.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol; Claude Fable 5",
+    "humans": [
+      "Mingchang Liu"
+    ],
+    "year_posed": 2008,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The conjecture of DeLaViña and Waller states that a finite simple connected graph on 2d+1 vertices with diameter exactly d at least 3 has Wiener index, the sum of all pairwise distances, at most that of the odd cycle on 2d+1 vertices. The preprint claims a proof and pins down the equality cases: the odd cycle for every d at least 3, plus the double star D(2,3) when d = 3 and the nine-vertex tree S(2,3,3) when d = 4.",
+    "novelty_check": "The conjecture is named, attributed to DeLaViña and Waller and dated 2008 in the vibemathed record, which is where this candidate is carried. The claim is sharpened rather than merely asserted, since the equality cases are enumerated and include two sporadic small-diameter graphs alongside the cycle, and those exceptions are the sort of detail a re-derivation can check. No prior proof appears in that record.",
+    "caveats": "A Zenodo preprint, unrefereed, not formalized, with no independent check on record, and vibemathed lists it as a candidate pending review with a low significance rating. The Zenodo metadata carries no abstract, so the statement here is reconstructed from the registry record rather than from the deposit's own description, and a reader should open the deposit before relying on it. Autonomy is graded ai-assisted on the only account of the model's role available, which is the registry's one-line summary that the models assisted in developing proof strategies and checking computations; no AI disclosure written by the author has been located.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-delavina-waller-conjecture-on-the-wiener-index",
+        "url": "https://vibemathed.com/problem/the-delavina-waller-conjecture-on-the-wiener-index"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Zenodo: the DeLaViña-Waller conjecture on the Wiener index",
+        "url": "https://doi.org/10.5281/zenodo.22015517",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: the DeLaViña-Waller conjecture on the Wiener index",
+        "url": "https://vibemathed.com/problem/the-delavina-waller-conjecture-on-the-wiener-index",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "combinatorics",
+      "argument"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-19-kasami-apn-triple-counts",
+    "title": "Partial proof of the Kasami APN triple-count conjecture, verified in Lean",
+    "claim": "A conjecture from a 2019 cryptography olympiad on triple counts for the Kasami almost perfect nonlinear function is proved in four residue cases and verified exhaustively for small field degrees, with every proof machine-checked.",
+    "field": "mathematics",
+    "date": "2026-08-19",
+    "lab": "Independent",
+    "model": "Claude Fable 5; Harmonic Aristotle",
+    "humans": [
+      "Gábor P. Nagy",
+      "Attila Vajda"
+    ],
+    "year_posed": 2019,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "For the Kasami almost perfect nonlinear function on a binary field, the conjecture concerns a set built from the function's second difference and asserts that, for any two distinct nonzero elements, the number of triples in that set satisfying a fixed linear relation is exactly 2^(2n-3). The paper proves this when k modulo n lies in the set {1, 2, n-2, n-1}, including a complete proof for k = 2 via quadratic-form theory and an exact root-count reduction, and verifies the conjecture exhaustively by computer for every admissible pair with n at most 13. It also corrects one hypothesis in the supporting facts supplied with the original problem, concerning the Müller-Cohen-Matthews permutation.",
+    "novelty_check": "The conjecture was proposed at the NSUCRYPTO 2019 cryptographic olympiad, with the proposer not publicly disclosed, and the companion repository supplied with the problem records which supporting facts were already formally verified, so the starting point is unusually well defined. Working from that inventory the authors identify one hypothesis in it as essential and correct it, which is itself evidence the prior material was checked rather than assumed. The result is a partial proof of an open conjecture, not a retrieval.",
+    "caveats": "A preprint, unrefereed, with no independent human check on record, and the result is explicitly partial: four residue classes of k modulo n plus exhaustive verification for n at most 13, not the conjecture. The formal grade rests on the authors' statement that all new results and proofs have been formally verified in Lean 4 by Aristotle from Harmonic, with provenance details in the acknowledgements; vibemathed records the Lean development as checked with its statement unaudited, so nobody outside has confirmed the formalized statements match the paper. Autonomy is graded ai-led on a strong and specific disclosure: every proof in the paper was obtained by prompting Claude Fable 5 with the conjecture statement, background hints and a pointer to the companion repository, and the human authors supplied the framing and the subsequent verification.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "kasami-apn-function-triple-count-conjecture",
+        "url": "https://vibemathed.com/problem/kasami-apn-function-triple-count-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: on a conjecture on the Kasami APN function",
+        "url": "https://arxiv.org/abs/2608.18584",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: a conjecture on triple counts for the Kasami APN function",
+        "url": "https://vibemathed.com/problem/kasami-apn-function-triple-count-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "finite-fields",
+      "cryptography",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-03"
+  },
+  {
+    "id": "2026-08-31-pisot-cantor-equidistribution",
+    "title": "Criteria and two quadratic instances for Bugeaud's Problem 10.61",
+    "claim": "Covering criteria for a 1967 equidistribution problem of Mendès France are proved and applied to two quadratic Pisot cases, with Lean checking; the general problem stays open.",
+    "field": "mathematics",
+    "date": "2026-08-31",
+    "lab": "Independent",
+    "model": "Claude Fable 5; Claude Opus 5",
+    "humans": [
+      "Ralf Stephan"
+    ],
+    "year_posed": 1967,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Bugeaud's Problem 10.61, due to Mendès France in 1967, asks whether for a Pisot number alpha and the associated Cantor set of base-alpha expansions with digits 0 and 1, no point of that Cantor set makes the sequence of its multiples by powers of alpha uniformly distributed modulo one. What the repository establishes is narrower than the problem: covering criteria for it, proved only for quadratic setups where alpha is a real root of a quadratic whose conjugate has modulus below one, together with two instances of that kind. Material for arbitrary degree is present but conditional, showing for one family that the large real root is Pisot with a conjugate-modulus bound.",
+    "novelty_check": "The repository is explicit that the problem remains open and that what is proved are criteria and instances rather than the general statement, so the novelty question is about the criteria rather than the headline. Every compared statement that concludes Problem 10.61 does so in a quadratic setup, and both worked instances are quadratic, because the covering criterion is proved only there; the arbitrary-degree material does not carry any compared statement above degree two. That boundary is recorded in the registry entry as well as in the repository.",
+    "caveats": "Announced through a repository rather than a paper, unrefereed, with no independent check on record. The grade is claimed rather than formal despite a Lean development, because what is machine-checked covers the quadratic criteria and instances rather than the problem, vibemathed records the Lean work as checked with its statement unaudited, and the covering criterion additionally leaves cases open even within the quadratic range. Anyone citing this should treat Problem 10.61 as open. Autonomy is graded ai-led following the registry's record of the models as the source of the results, with the repository owner supplying framing and publication; no author-written AI disclosure has been located.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "bugeaud-problem-10-61",
+        "url": "https://vibemathed.com/problem/bugeaud-problem-10-61"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: Pisot-Cantor-61, paper and Lean development",
+        "url": "https://github.com/rwst/Pisot-Cantor-61",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Bugeaud Problem 10.61",
+        "url": "https://vibemathed.com/problem/bugeaud-problem-10-61",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "equidistribution",
+      "lean",
+      "partial-result"
+    ],
+    "added": "2026-09-03"
   }
 ]
