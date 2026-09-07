@@ -3918,11 +3918,6 @@
     "caveats": "A preprint days old at entry, 79 pages, unrefereed and not formalized, and a counterexample of the kind that cannot be checked by evaluating an object, so verification means reading the classification argument. The theorem actually proved is the extremal-metric statement, which is stronger than the cscK wording of the abstract. Autonomy graded collaborative rather than ai-led: the appendix says the author found initial signs of a breakthrough while exploring open problems with Claude Code and then had Claude Code, Codex and Danus work on it in collaboration, with the three systems together producing the counterexample and its proof, but it also records that human input was crucial at one point, when the author recognized the example had to refute either the Codogni-Stoppa conjecture or cscK Yau–Tian–Donaldson and directed the agents to settle which. The appendix further reports that an improved version of Danus, given only the original problem and none of the earlier findings, later settled it alone in 5 hours and 29 minutes without that human input, which would be autonomous; that system is not public and the report is by the same author, so it is not gradeable evidence. The weaker defensible reading applies.",
     "registrations": [
       {
-        "registry": "vibemathed",
-        "id": "yau-tian-donaldson-conjecture-csck",
-        "url": "https://vibemathed.com/problem/yau-tian-donaldson-conjecture-csck"
-      },
-      {
         "registry": "mathdb",
         "id": "383718",
         "title": "Yau–Tian–Donaldson conjecture for constant scalar curvature metrics",
@@ -3944,7 +3939,14 @@
       "counterexample",
       "construction"
     ],
-    "added": "2026-08-21"
+    "added": "2026-08-21",
+    "revisions": [
+      {
+        "date": "2026-09-07",
+        "kind": "correction",
+        "note": "Removed the vibemathed registration: the cited record now returns 404, and the result appears under no other slug in vibemathed's dataset. The arXiv preprint and the MathDB record are unaffected, and no grade moved."
+      }
+    ]
   },
   {
     "id": "2026-08-20-marton-inner-bound",
@@ -5572,6 +5574,34 @@
         "registry": "vibemathed",
         "id": "bugeaud-problem-10-61",
         "url": "https://vibemathed.com/problem/bugeaud-problem-10-61"
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-31-000013",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-31-000013&version=2",
+        "repository": "rwst/Pisot-Cantor-61",
+        "commit": "d61132ffcdb748b641f9de59b7acfffc860796b2",
+        "theorems": [
+          "BB61.QuadSetup.equidistributed_iff_exists_invariant_measure",
+          "BB61.QuadSetup.forall_not_equidistributed_iff_exists_trigCertificate",
+          "MeasureTheory.le_integral_of_partitionPressure_le",
+          "BB61.forall_not_equidistributed_of_partitionPressure_lt",
+          "BB61.forall_not_equidistributed_of_transferBound",
+          "BB61.QuadSetup.routeAExponent_mul_hMin",
+          "BB61.slope_neg_iff",
+          "BB61.logb_coverTotal_balancedDepth_le",
+          "BB61.QuadSetup.exists_avoided_interval",
+          "BB61.QuadSetup.not_equidistributed_of_routeAExponent_lt_one",
+          "BB61.QuadSetup.routeAExponent_lt_one_iff_quadratic",
+          "BB61.isPisot_family",
+          "BB61.norm_le_familyConjBound",
+          "BB61.routeA_family_lt_one",
+          "BB61.routeA_two_add_sqrt5",
+          "BB61.two_add_sqrt5_not_equidistributed",
+          "BB61.GapThree.problem_10_61_two_add_sqrt3_axiom_free"
+        ],
+        "checked": "2026-09-06",
+        "note": "What typechecks is the criteria and the two quadratic instances, not Problem 10.61. BB61.QuadSetup.routeAExponent_lt_one_iff_quadratic is where that boundary is visible: the covering criterion is characterized only for quadratic setups, and the arbitrary-degree material carries no compared statement to the problem. Every compared statement depends on propext, Classical.choice and Quot.sound and nothing else. Palomar also carries the submitter's own disclosure that he has not verified informal-to-formal fidelity, and that the challenge file governs wherever the prose disagrees with it."
       }
     ],
     "sources": [
@@ -5592,6 +5622,13 @@
       "lean",
       "partial-result"
     ],
-    "added": "2026-09-03"
+    "added": "2026-09-03",
+    "revisions": [
+      {
+        "date": "2026-09-07",
+        "kind": "check",
+        "note": "Palomar registered the Lean development as PALOMAR-2026-08-31-000013, mechanically confirming that it typechecks against seventeen stated theorems at a pinned commit. The grade stays at claimed: what is checked is the quadratic criteria and instances, and Problem 10.61 remains open."
+      }
+    ]
   }
 ]

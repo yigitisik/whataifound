@@ -101,7 +101,7 @@ jobs:
 
       - name: Upload PR report
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: pr-report
           path: pr-report/
