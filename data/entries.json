@@ -3918,11 +3918,6 @@
     "caveats": "A preprint days old at entry, 79 pages, unrefereed and not formalized, and a counterexample of the kind that cannot be checked by evaluating an object, so verification means reading the classification argument. The theorem actually proved is the extremal-metric statement, which is stronger than the cscK wording of the abstract. Autonomy graded collaborative rather than ai-led: the appendix says the author found initial signs of a breakthrough while exploring open problems with Claude Code and then had Claude Code, Codex and Danus work on it in collaboration, with the three systems together producing the counterexample and its proof, but it also records that human input was crucial at one point, when the author recognized the example had to refute either the Codogni-Stoppa conjecture or cscK Yau–Tian–Donaldson and directed the agents to settle which. The appendix further reports that an improved version of Danus, given only the original problem and none of the earlier findings, later settled it alone in 5 hours and 29 minutes without that human input, which would be autonomous; that system is not public and the report is by the same author, so it is not gradeable evidence. The weaker defensible reading applies.",
     "registrations": [
       {
-        "registry": "vibemathed",
-        "id": "yau-tian-donaldson-conjecture-csck",
-        "url": "https://vibemathed.com/problem/yau-tian-donaldson-conjecture-csck"
-      },
-      {
         "registry": "mathdb",
         "id": "383718",
         "title": "Yau–Tian–Donaldson conjecture for constant scalar curvature metrics",
@@ -3944,7 +3939,14 @@
       "counterexample",
       "construction"
     ],
-    "added": "2026-08-21"
+    "added": "2026-08-21",
+    "revisions": [
+      {
+        "date": "2026-09-07",
+        "kind": "correction",
+        "note": "Removed the vibemathed registration: the cited record now returns 404, and the result appears under no other slug in vibemathed's dataset. The arXiv preprint and the MathDB record are unaffected, and no grade moved."
+      }
+    ]
   },
   {
     "id": "2026-08-20-marton-inner-bound",
@@ -5572,6 +5574,34 @@
         "registry": "vibemathed",
         "id": "bugeaud-problem-10-61",
         "url": "https://vibemathed.com/problem/bugeaud-problem-10-61"
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-08-31-000013",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-31-000013&version=2",
+        "repository": "rwst/Pisot-Cantor-61",
+        "commit": "d61132ffcdb748b641f9de59b7acfffc860796b2",
+        "theorems": [
+          "BB61.QuadSetup.equidistributed_iff_exists_invariant_measure",
+          "BB61.QuadSetup.forall_not_equidistributed_iff_exists_trigCertificate",
+          "MeasureTheory.le_integral_of_partitionPressure_le",
+          "BB61.forall_not_equidistributed_of_partitionPressure_lt",
+          "BB61.forall_not_equidistributed_of_transferBound",
+          "BB61.QuadSetup.routeAExponent_mul_hMin",
+          "BB61.slope_neg_iff",
+          "BB61.logb_coverTotal_balancedDepth_le",
+          "BB61.QuadSetup.exists_avoided_interval",
+          "BB61.QuadSetup.not_equidistributed_of_routeAExponent_lt_one",
+          "BB61.QuadSetup.routeAExponent_lt_one_iff_quadratic",
+          "BB61.isPisot_family",
+          "BB61.norm_le_familyConjBound",
+          "BB61.routeA_family_lt_one",
+          "BB61.routeA_two_add_sqrt5",
+          "BB61.two_add_sqrt5_not_equidistributed",
+          "BB61.GapThree.problem_10_61_two_add_sqrt3_axiom_free"
+        ],
+        "checked": "2026-09-06",
+        "note": "What typechecks is the criteria and the two quadratic instances, not Problem 10.61. BB61.QuadSetup.routeAExponent_lt_one_iff_quadratic is where that boundary is visible: the covering criterion is characterized only for quadratic setups, and the arbitrary-degree material carries no compared statement to the problem. Every compared statement depends on propext, Classical.choice and Quot.sound and nothing else. Palomar also carries the submitter's own disclosure that he has not verified informal-to-formal fidelity, and that the challenge file governs wherever the prose disagrees with it."
       }
     ],
     "sources": [
@@ -5592,6 +5622,375 @@
       "lean",
       "partial-result"
     ],
-    "added": "2026-09-03"
+    "added": "2026-09-03",
+    "revisions": [
+      {
+        "date": "2026-09-07",
+        "kind": "check",
+        "note": "Palomar registered the Lean development as PALOMAR-2026-08-31-000013, mechanically confirming that it typechecks against seventeen stated theorems at a pinned commit. The grade stays at claimed: what is checked is the quadratic criteria and instances, and Problem 10.61 remains open."
+      }
+    ]
+  },
+  {
+    "id": "2026-09-04-fermat-last-theorem-lean",
+    "title": "Fermat's Last Theorem formalized end to end in Lean 4",
+    "claim": "A complete machine-checked proof of Fermat's Last Theorem in Lean 4, written by AI agents in eleven days, resting on Lean's three standard axioms and accepted by two independent kernels.",
+    "field": "mathematics",
+    "date": "2026-09-04",
+    "lab": "Anthropic",
+    "model": "Internal Anthropic research model, described in the announcement as roughly comparable to Claude Fable 5.1",
+    "humans": [
+      "Tianyi Peng"
+    ],
+    "year_posed": 1637,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The repository states the theorem over Lean's built-in naturals as fermat_last_theorem, and its default build target FinalCheck.lean derives Mathlib's own FermatLastTheorem from it, so the statement is not a bespoke restatement. The build fails unless the proof depends on exactly propext, Classical.choice and Quot.sound: no sorry, no added axiom, no native_decide. Three checks are recorded. A from-scratch build compiled all 60,475 modules; leanprover/comparator v4.33.0 checked the result against a Mathlib-only Challenge.lean and returned 'Your solution is okay!'; and nanoda 0.4.13, an independent Lean kernel written in Rust, accepted an export of the same environment with 1,052,234 declarations and no errors. The argument formalized is the classical one of Frey, Serre, Ribet, Wiles and Taylor-Wiles, and the development builds on the Imperial College London FLT project, flt-regular and Mathlib, with 106 files containing material from the first two.",
+    "novelty_check": "This is a formalization, not a new theorem, and the entry is graded as such. Wiles and Taylor-Wiles proved Fermat's Last Theorem in 1995; nothing mathematically new is claimed here, and Kevin Buzzard states directly that 'mathematically this work of anthropic tells us essentially nothing' and that 'the formalization just faithfully follows the early literature on the proof and adds nothing'. What is new is the scale of autoformalization: prior partial formalizations existed, notably the ongoing Imperial College FLT project this work builds on, and no complete machine-checked proof of the theorem existed before. It completes the last open item of Wiedijk's list of 100 theorems.",
+    "caveats": "The result is a formalization of an existing proof and should not be read as new mathematics. Verification is graded formal on the machine checks rather than on the announcement: the comparator check ties the proved statement to Mathlib's own, and a second independent kernel replayed it. What no tool establishes, and the repository says so itself, is that each intermediate theorem means what its name suggests, since names are machine-generated and 'where a name and a statement disagree the statement is what was proved'. Buzzard reports the codebase is over 13.4 million lines and that the proof as formalized only works for exponents p at least 17, with smaller cases covered by earlier work. Reproducing the checks is expensive: the build takes hours at 96 jobs with a peak of 153 GB of memory, and the comparator run about 15 hours. Autonomy is graded ai-led rather than autonomous: the announcement describes Claude working 'largely autonomously' but also records high-level human steering from Tianyi Peng, and the strictest defensible reading applies.",
+    "independent_checks": [
+      {
+        "who": "Kevin Buzzard, Imperial College London, who leads the FLT formalization project this work builds on",
+        "url": "https://xenaproject.wordpress.com/2026/09/04/flt-anthropic-has-beaten-me-to-it/",
+        "outcome": "Ran the comparator and reports the proof checks out. States he 'manually inspected every line of the code base which (according to Claude) was not a mathematical definition or proof of a theorem', looking for soundness exploits, and that random reads of the mathematics were clearly developing FLT the classical way. Judges the mathematical contribution to be nil."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: anthropics/fermats-last-theorem",
+        "url": "https://github.com/anthropics/fermats-last-theorem",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Formalizing Fermat's Last Theorem in Lean (PDF)",
+        "url": "https://www-cdn.anthropic.com/9e431dff043da6538d99d6c2d231b670aa3da263.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Formalizing Fermat's Last Theorem",
+        "url": "https://www.anthropic.com/research/formalizing-fermats-last-theorem",
+        "kind": "announcement"
+      },
+      {
+        "label": "Kevin Buzzard: FLT, Anthropic has beaten me to it",
+        "url": "https://xenaproject.wordpress.com/2026/09/04/flt-anthropic-has-beaten-me-to-it/",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "lean",
+      "formalization",
+      "fermat"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-08-28-percolation-critical-point",
+    "title": "Lean proof that the percolation probability vanishes at the critical point in every dimension",
+    "claim": "A Lean development proves that nearest-neighbour Bernoulli bond percolation on the integer lattice has no infinite cluster at its critical parameter in every dimension at least two, which would settle the dimensions 3 to 10 that were open.",
+    "field": "mathematics",
+    "date": "2026-08-28",
+    "lab": "Anthropic",
+    "model": "Anthropic Claude models, versions not stated",
+    "humans": [
+      "Justin Leder"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The development proves Kozma and Nitzan's Conjecture 3 (arXiv:2401.12397), which by their Theorem 6 gives that the percolation probability vanishes at the critical point on the d-dimensional integer lattice for every d at least 2. The route is a new conditioned slack hierarchy, a family of conditioned covariance inequalities for increasing functions of a single open cluster whose level-zero case is the Harris inequality, from which a stronger additive gluing inequality is derived. The classical inputs, including Harris, van den Berg, Haggstrom and Kahn, the four functions theorem, Gladkov's decision-tree Harris-Kleitman inequality, the Barsky, Grimmett and Newman half-space theorem and Kesten's critical value for the square lattice, are re-proved from Mathlib, so the statement carries no hypothesis beyond the dimension. The recorded audit reports a clean build, two sorry placeholders confined to the statement file by design, no added axioms, all seven compared theorems depending on exactly the three standard axioms, and a passing comparator run.",
+    "novelty_check": "The result was known for dimension two by Harris and Kesten and for dimension at least eleven by the lace expansion of Hara and Slade and of Fitzner and van der Hofstad; the repository cites Grimmett's Percolation and Duminil-Copin's 2018 ICM conjecture for the standing of the open cases 3 to 10. The proved statement is Kozma and Nitzan's Conjecture 3, posed in 2024 and open at the time of writing. The repository is explicit about what is not claimed: their Conjectures 1, 2 and 4, anything about slabs, site percolation or other lattices, and continuity of the percolation probability as a formal statement. No competing claim on Conjecture 3 was found in the four registries or on arXiv.",
+    "caveats": "The artifact is not published where it says it is, and that is the first thing to check before citing it. The percolation directory does not exist on the main branch of anthropics/formal-math, whose project table lists only the zeta23 formalization; no branch carries it and the repository's own commit history for that path is empty. It survives only at the pinned commit recorded in the sources here, and the README's own repository link and AUDIT.md both point at a main-branch path that now returns 404. Verification is graded claimed rather than formal despite a passing comparator run, for two reasons: no human has read it, and the statement fidelity question is load-bearing here in a way it is not for a formalization of a known theorem. The README says so itself, that the work 'has not yet been refereed by human mathematicians or by anyone independent of the author; the only review so far was carried out by AI systems', and that readers should check that Challenge.lean states the intended theorem. There is no registration at Palomar. Autonomy is ai-led on the repository's own wording, that the Lean was written by an AI system 'working autonomously under the direction of Justin Leder; no human wrote or edited the Lean code': the direction is human, so the strictest defensible reading is not autonomous.",
+    "sources": [
+      {
+        "label": "GitHub: anthropics/formal-math, percolation project at the pinned commit 795efb86",
+        "url": "https://github.com/anthropics/formal-math/tree/795efb86f191735c5481675763537cfb4ff37e55/percolation",
+        "kind": "research"
+      },
+      {
+        "label": "Audit record for the percolation project",
+        "url": "https://github.com/anthropics/formal-math/blob/795efb86f191735c5481675763537cfb4ff37e55/percolation/AUDIT.md",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Kozma and Nitzan, gluing inequalities for percolation",
+        "url": "https://arxiv.org/abs/2401.12397",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "probability",
+      "percolation",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-03-koethe-conjecture-matrix-form",
+    "title": "Lean disproof of Krempa's matrix form of the Koethe conjecture",
+    "claim": "A machine-checked Lean proof refutes the matrix formulation that Krempa showed equivalent to the Koethe conjecture, found by a pre-release model with no human steering of the proof search.",
+    "field": "mathematics",
+    "date": "2026-09-03",
+    "lab": "OpenAI / Epoch AI",
+    "model": "GPT-6 Astra (pre-release)",
+    "humans": [
+      "Tom Adamczewski"
+    ],
+    "year_posed": 1930,
+    "verification": "formal",
+    "autonomy": "autonomous",
+    "detail": "Koethe asked in 1930 whether every ring has a largest nil left ideal. Krempa showed in 1972 that this is equivalent to several other statements, among them a statement about matrix ideals, and it is that matrix form which is disproved here. The proof was produced in Epoch AI's LeanOpenProblems harness, in an evaluation run over the 222 research-open statements of the Wikipedia collection of Google DeepMind's Formal Conjectures, at a pinned benchmark commit. The benchmark file states the conjecture and its negation, both with sorry, and the model fills in exactly one. The construction builds a nil algebra from three weighted backward shifts over the algebraic closure of the two-element field. The compared theorem depends on no sorry and on no axioms beyond propext, Quot.sound and Classical.choice.",
+    "novelty_check": "The Koethe conjecture has stood since 1930 and is stated as open in Google DeepMind's Formal Conjectures at the commit the harness pinned, which is what the model was given. Krempa's 1972 equivalences are the standard literature on the problem and are cited in the repository. No prior disproof of the matrix form, and no prior resolution of the conjecture in any of its equivalent forms, was found in the four registries or the surrounding literature. What is new is the counterexample and its Lean proof, not the equivalence, which is classical.",
+    "caveats": "The machine-checked statement is Krempa's matrix form, not Koethe's original question, and the step from one to the other is a 1972 equivalence in the literature rather than part of what was checked. Anyone citing this as a disproof of the Koethe conjecture is relying on that equivalence, and an algebraist should confirm it holds in the form used. The repository is prepared for submission to Palomar but no registration had landed at entry, and no expert in ring theory is on record as having read the construction. The verification grade rests on the mechanical check of the matrix-form statement, which vibemathed independently cloned and confirmed at 3,331 lines with no sorry outside the statement stub and no axiom declarations. Autonomy is graded autonomous on the repository's explicit record that the run was one attempt per statement with 'no human saw or steered the proof search', the only human input being the pre-existing benchmark statement; the repository also discloses that the whole repository was machine-written by AI assistants at Adamczewski's direction.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "kothe-conjecture",
+        "url": "https://vibemathed.com/problem/kothe-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: tadamcz/koethe, Lean disproof and Palomar submission repository",
+        "url": "https://github.com/tadamcz/koethe",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Koethe Conjecture",
+        "url": "https://vibemathed.com/problem/kothe-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algebra",
+      "ring-theory",
+      "lean",
+      "formalization",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-03-erdos-sos-conjecture",
+    "title": "Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement",
+    "claim": "A machine-checked Lean proof establishes the Erdos-Sos conjecture in the benchmark's formalization, which in one parity case assumes one more edge than the classical statement requires.",
+    "field": "mathematics",
+    "date": "2026-09-03",
+    "lab": "OpenAI / Epoch AI",
+    "model": "GPT-6 Astra (pre-release)",
+    "humans": [
+      "Tom Adamczewski"
+    ],
+    "year_posed": 1962,
+    "verification": "formal",
+    "autonomy": "autonomous",
+    "detail": "Erdos and Sos conjectured in 1962 that a graph on n vertices with more than (k-1)n/2 edges contains every tree on k+1 vertices. The Lean development proves the benchmark's direct formalization, which states the hypothesis as at least (k-1)n/2 + 1 edges. The proof uses a permutation-word counting argument over ordered host-vertex configurations. It was produced in the same Epoch AI LeanOpenProblems evaluation run as the Koethe disproof, one autonomous attempt per statement, and the compared theorem carries no sorry outside the statement stubs and no axioms beyond the three standard ones.",
+    "novelty_check": "The conjecture dates to 1962 and is Erdos Problem 548. The weaker statement with (k-2)n edges is an easy induction, and the repository records that the conjecture was previously proved for large k by Ajtai, Komlos, Simonovits and Szemeredi, work that has not appeared in full. The formalized statement is the benchmark's, stated as open in Formal Conjectures at the pinned commit. No prior full formal proof was found in the four registries. The novelty question here is less about priority than about scope, and the scope limit is recorded in the caveats rather than left implicit.",
+    "caveats": "The formalized statement is very slightly weaker than the classical conjecture, and the repository documents the gap precisely rather than glossing it: when (k-1)n is odd, more than (k-1)n/2 edges is already satisfied with one edge fewer than at least (k-1)n/2 + 1 requires, so in that parity case the compared theorem assumes half an edge more. The classical statement implies the formalized one and not conversely. The repository notes that the proof's internal counting lemma derives the sharp classical bound, but only the weaker advertised form is what the comparator compares, so the machine-checked claim is the weaker one and this entry is worded to it. No expert in extremal graph theory is on record as having read it, and the Palomar submission had not landed at entry. Autonomy is autonomous on the same disclosure as the Koethe entry: one attempt, no human seeing or steering the proof search.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "erdos-problem-548-erdos-sos-conjecture",
+        "url": "https://vibemathed.com/problem/erdos-problem-548-erdos-sos-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: tadamcz/erdos548, Lean proof and Palomar submission repository",
+        "url": "https://github.com/tadamcz/erdos548",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Erdos Problem 548, the Erdos-Sos conjecture",
+        "url": "https://vibemathed.com/problem/erdos-problem-548-erdos-sos-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "combinatorics",
+      "erdos",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-02-qma2-oracle-separation",
+    "title": "A quantum oracle separating QMA(2) from QMA",
+    "claim": "A quantum oracle is constructed relative to which QMA(2) differs from QMA, resolving Watrous's no-disentanglers conjecture, from a proof idea the authors state was generated by a language model.",
+    "field": "computer-science",
+    "date": "2026-09-02",
+    "lab": "MIT / Columbia / University of Washington",
+    "model": "ChatGPT 5.6 Sol",
+    "humans": [
+      "John Bostanci",
+      "Sabee Grewal",
+      "Jonas Haferkamp",
+      "Andrew Huang",
+      "Yeongwoo Hwang",
+      "Anand Natarajan",
+      "Chinmay Nirkhe"
+    ],
+    "year_posed": 2009,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The paper exhibits a quantum oracle relative to which QMA is not equal to QMA(2), and derives the no-disentanglers conjecture of Watrous: for every choice of error parameters summing to less than one, any disentangler requires input size exponential in the number of output qubits. The proof combines the unitarily invariant polynomial method of She and Yuen with a construction based on the symmetric and antisymmetric subspace projectors, reducing the QMA lower bound to the approximate degree of OR. The paper carries a section headed 'Tool and computational resource disclosure' which argues that AI-assisted research should record how findings were obtained, and then discloses the model's role.",
+    "novelty_check": "Whether QMA(2) collapses to QMA has been tracked since Watrous posed the no-disentanglers conjecture, reported by Aaronson, Beigi, Drucker, Fefferman and Shor in 2009. The paper cites the prior partial results it improves on: Harrow, Natarajan and Wu obtained a quasipolynomial lower bound when the error is exponentially small, and Akibue, Kato and Tani proved an exponential lower bound for the more restrictive strong disentanglers. No prior oracle separation was found. The result is new, and is an oracle separation rather than an unrelativized one.",
+    "caveats": "An unrefereed preprint days old at entry, with no formalization and no independent check. The separation is relative to a quantum oracle and does not settle whether QMA(2) equals QMA in the unrelativized world. Autonomy is graded ai-assisted rather than ai-led on the strictest defensible reading of the paper's own account: the authors state that 'the proof idea underlying the main theorem was generated using ChatGPT 5.6 Sol', but also that their initial prompts directed the model to the work of She and Yuen and that they 'subsequently verified, simplified, and developed the argument presented here, and take full responsibility for its correctness'. Humans chose the problem, supplied the key reference and did the development. No transcript has been released, so the phrase 'minimal additional guidance' cannot be checked.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "a-quantum-oracle-separation-between-mathsf-qma-2-and-mathsf-qma",
+        "url": "https://vibemathed.com/problem/a-quantum-oracle-separation-between-mathsf-qma-2-and-mathsf-qma"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A quantum oracle separation between QMA(2) and QMA",
+        "url": "https://arxiv.org/abs/2609.02865",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: A quantum oracle separation between QMA(2) and QMA",
+        "url": "https://vibemathed.com/problem/a-quantum-oracle-separation-between-mathsf-qma-2-and-mathsf-qma",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "quantum-computing",
+      "complexity-theory",
+      "oracle-separation",
+      "argument"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-02-daykin-frankl-conjecture",
+    "title": "Confirmation of the Daykin-Frankl conjecture from a language-model proof",
+    "claim": "A four-page note verifies and communicates a language-model-generated proof of the 1983 Daykin-Frankl conjecture on incomparable elements in convex subsets of the Boolean lattice.",
+    "field": "mathematics",
+    "date": "2026-09-02",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro",
+    "humans": [
+      "Kada Williams"
+    ],
+    "year_posed": 1983,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Daykin and Frankl conjectured in 1983 that a convex subset P of the n-dimensional Boolean lattice contains at least |P| times the central binomial coefficient divided by 2 to the n pairwise incomparable elements. The note's abstract states its provenance in one sentence: 'We verify and communicate an LLM-generated proof of this conjecture.' The argument proves a stronger product inequality for convex subsets and recovers the original conjecture as a special case, by an induction on dimension resting on a convexity lemma.",
+    "novelty_check": "The conjecture is named and dated to 1983, due to David E. Daykin and Peter Frankl, and no prior proof was found in the four registries or the surrounding literature on the Boolean lattice. The note presents itself as a first proof rather than a rediscovery, and the strengthened product inequality it proves does not appear in the prior literature located. The result is new.",
+    "caveats": "A four-page unrefereed preprint, checked by its human author and by nobody independent, with no formalization. The human role as stated is verification and communication rather than discovery, which is why autonomy is graded ai-led: the model produced the proof content and the author checked and wrote it up. The model is named in the note's body rather than the abstract. What 'verify' amounts to here is not spelled out, and for a short combinatorial argument the distinction between a careful check and a read matters; treat the proof as needing an independent reading.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "daykin-frankl-conjecture",
+        "url": "https://vibemathed.com/problem/daykin-frankl-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Confirmation of the Daykin-Frankl conjecture",
+        "url": "https://arxiv.org/abs/2609.03087",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: The Daykin-Frankl conjecture on convex subsets of the Boolean lattice",
+        "url": "https://vibemathed.com/problem/daykin-frankl-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "boolean-lattice",
+      "order-theory",
+      "argument"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-02-trautman-conjecture",
+    "title": "A smooth counterexample to the Trautman conjecture",
+    "claim": "A strongly pseudoconvex CR three-manifold is constructed that carries a nowhere-zero closed section of its canonical bundle yet is not locally embeddable, disproving the Trautman conjecture.",
+    "field": "mathematics",
+    "date": "2026-09-02",
+    "lab": "Oklahoma State University",
+    "model": "ChatGPT Plus, version not named",
+    "humans": [
+      "Sean N. Curry"
+    ],
+    "year_posed": 1998,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "The Trautman conjecture asserted that a smooth three-dimensional CR manifold admitting a nowhere-zero closed section of its canonical bundle must be locally embeddable in complex two-space. The paper modifies a standard construction of nonembeddable smooth strongly pseudoconvex CR three-manifolds so that the closed-section condition is preserved, producing a strongly pseudoconvex counterexample. The construction proceeds through Hamiltonian perturbations of the Heisenberg CR structure, bump functions on shrinking solid tori and weighted moment identities, and is then globalized to the three-sphere.",
+    "novelty_check": "The conjecture is attributed to Andrzej Trautman and dated 1998, and the paper's introduction sets out its origins and the standard nonembeddability constructions it modifies. No prior counterexample was found in the four registries or in the CR geometry literature located; the point of the paper is that the existing nonembeddable examples do not preserve the closed canonical section, which is exactly what the modification supplies. The result is new.",
+    "caveats": "A single-author unrefereed preprint days old at entry, labelled by its author a preliminary version, with no independent check and no formalization. The AI disclosure sits in the acknowledgements rather than the abstract, which is the pattern worth noting: a reader of the abstract alone would not know a model was involved. Autonomy is graded ai-assisted on the strictest defensible reading. The acknowledgements say 'The counterexample construction presented below was discovered through experimentation using ChatGPT Plus on August 18, 2026' and that ChatGPT also drafted the manuscript and helped proofread, but the framing is the author's experimentation, the problem was posed to him by Pawel Nurowski and Rod Gover, and he states he 'independently checked all calculations and arguments presented here and takes full responsibility'. A case for ai-led could be made from the word discovered; the weaker grade wins.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "a-smooth-counterexample-to-the-trautman-conjecture",
+        "url": "https://vibemathed.com/problem/a-smooth-counterexample-to-the-trautman-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A Smooth Counterexample to the Trautman Conjecture",
+        "url": "https://arxiv.org/abs/2609.03198",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: A smooth counterexample to the Trautman conjecture",
+        "url": "https://vibemathed.com/problem/a-smooth-counterexample-to-the-trautman-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "differential-geometry",
+      "cr-geometry",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-03-catalan-constant-irrationality",
+    "title": "Disputed claim that Catalan's constant is irrational",
+    "claim": "A preprint claims a proof that Catalan's constant is irrational, using weighted tails in the Calegari-Dimitrov-Tang framework; a specific technical objection to the argument has been raised publicly and is unresolved.",
+    "field": "mathematics",
+    "date": "2026-09-03",
+    "lab": "Nanjing University",
+    "model": "ChatGPT 5.6 Solar, named in the paper as the verifier; the model consulted during the work is named only as AI",
+    "humans": [
+      "Zhi-Wei Sun"
+    ],
+    "verification": "disputed",
+    "autonomy": "ai-assisted",
+    "detail": "The irrationality of Catalan's constant is a long-standing open problem. The preprint adapts the method Calegari, Dimitrov and Tang used for the linear independence of 1, zeta(2) and L(2, chi_-3), replacing part of the arithmetic input with a construction of suitable weights and weighted tails. The acknowledgements set out an unusually specific division of labour: repeated attempts by the model failed, the author then supplied the weighting idea that made the approach work, and the model produced the numerical data. The paper states that 'the whole proof has passed the verification of Chatgpt 5.6 Solar', which is a machine reading rather than a human check.",
+    "novelty_check": "The irrationality of Catalan's constant is a well-known open problem with no claimed resolution in the four registries before this preprint. The method is explicitly derivative of Calegari, Dimitrov and Tang's 2024 work, which the paper cites, and the claimed novelty is the weighting construction rather than the framework. No competing claim was found. The question of priority is not the issue here; the correctness of the argument is, and it is disputed.",
+    "caveats": "Graded disputed on a specific, unresolved technical objection rather than on general scepticism. The objection, raised publicly and cited here, is that the tail recurrence of equation 1.4 is inconsistent with the factor used in equation 2.12, so the zero count the argument needs in order to force the degree bound fails. The same critique notes that the paper replaces the arithmetic content of the model it follows with a combinatorial minimization plus numerics that no human has checked, and points to internal inconsistencies in the write-up. The preprint remains at version one with no revision or withdrawal at entry. Autonomy is graded ai-assisted, and the paper's own account is the reason: the model 'made many attempts but we failed again and again' until 'the author realized that we should use suitable weights', so the decisive idea is the author's. The only stated verification of the whole proof is by a language model, which is not an independent check by any human.",
+    "sources": [
+      {
+        "label": "arXiv: Catalan's constant is irrational",
+        "url": "https://arxiv.org/abs/2609.04176",
+        "kind": "research"
+      },
+      {
+        "label": "Hacker News: technical objection to the argument, equation 1.4 against equation 2.12",
+        "url": "https://news.ycombinator.com/item?id=49560333",
+        "kind": "challenge"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "irrationality",
+      "disputed",
+      "argument"
+    ],
+    "added": "2026-09-07"
   }
 ]

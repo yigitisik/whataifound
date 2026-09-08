@@ -2435,6 +2435,8 @@ LAB_HUB = {
     "Princeton University": "https://www.pppl.gov/",
     "Lawrence Berkeley National Laboratory": "https://www.lbl.gov/",
     "Tel Aviv University": "https://english.tau.ac.il/",
+    "Oklahoma State University": "https://math.okstate.edu/",
+    "Nanjing University": "https://math.nju.edu.cn/",
     "UT Austin": "https://cs.utexas.edu/",
     "FlyWire Consortium": "https://flywire.ai/",
     "Aalto University": "https://www.aalto.fi/en/news",
