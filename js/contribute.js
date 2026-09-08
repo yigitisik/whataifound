@@ -121,13 +121,21 @@ const GRADES = {
   "2026-08-27-entanglement-supporting-functional":["author-verified","ai-assisted"],
   "2026-08-27-intuitionistic-higher-order-truth":["author-verified","ai-assisted"],
   "2026-08-27-large-systoles":["author-verified","ai-led"],
+  "2026-08-28-percolation-critical-point":["claimed","ai-led"],
   "2026-08-29-dean-conjecture-k5":["claimed","ai-led"],
   "2026-08-29-metric-distortion-23282":["author-verified","ai-led"],
   "2026-08-31-boolean-multiplicative-complexity-mul4":["formal","ai-assisted"],
   "2026-08-31-pisot-cantor-equidistribution":["claimed","ai-led"],
   "2026-08-31-stable-forking":["author-verified","collaborative"],
   "2026-09-01-mckean-entropy-production":["author-verified","ai-led"],
-  "2026-09-01-saxl-common-neighbour":["formal","collaborative"]
+  "2026-09-01-saxl-common-neighbour":["formal","collaborative"],
+  "2026-09-02-daykin-frankl-conjecture":["author-verified","ai-led"],
+  "2026-09-02-qma2-oracle-separation":["author-verified","ai-assisted"],
+  "2026-09-02-trautman-conjecture":["author-verified","ai-assisted"],
+  "2026-09-03-catalan-constant-irrationality":["disputed","ai-assisted"],
+  "2026-09-03-erdos-sos-conjecture":["formal","autonomous"],
+  "2026-09-03-koethe-conjecture-matrix-form":["formal","autonomous"],
+  "2026-09-04-fermat-last-theorem-lean":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -235,13 +243,21 @@ const ID_BY_TITLE = {
   "supporting affine functionals for entanglement of formation need not exist":"2026-08-27-entanglement-supporting-functional",
   "not every heyting algebra is the subterminal lattice of a topos":"2026-08-27-intuitionistic-higher-order-truth",
   "hyperbolic surfaces with large systoles in every large genus":"2026-08-27-large-systoles",
+  "lean proof that the percolation probability vanishes at the critical point in every dimension":"2026-08-28-percolation-critical-point",
   "dean's conjecture for k = 5, cycles of length divisible by five":"2026-08-29-dean-conjecture-k5",
   "randomized metric distortion improved to 2.3282":"2026-08-29-metric-distortion-23282",
   "unrestricted boolean multiplicative complexity of four-term binary polynomial multiplication":"2026-08-31-boolean-multiplicative-complexity-mul4",
   "criteria and two quadratic instances for bugeaud's problem 10.61":"2026-08-31-pisot-cantor-equidistribution",
   "counterexample to the stable forking conjecture":"2026-08-31-stable-forking",
   "entropy production of the boltzmann equation is not always monotone":"2026-09-01-mckean-entropy-production",
-  "common neighbour conjectures for saxl graphs fail at every base size":"2026-09-01-saxl-common-neighbour"
+  "common neighbour conjectures for saxl graphs fail at every base size":"2026-09-01-saxl-common-neighbour",
+  "confirmation of the daykin-frankl conjecture from a language-model proof":"2026-09-02-daykin-frankl-conjecture",
+  "a quantum oracle separating qma(2) from qma":"2026-09-02-qma2-oracle-separation",
+  "a smooth counterexample to the trautman conjecture":"2026-09-02-trautman-conjecture",
+  "disputed claim that catalan's constant is irrational":"2026-09-03-catalan-constant-irrationality",
+  "erdos-sos conjecture proved in lean, in a form marginally weaker than the classical statement":"2026-09-03-erdos-sos-conjecture",
+  "lean disproof of krempa's matrix form of the koethe conjecture":"2026-09-03-koethe-conjecture-matrix-form",
+  "fermat's last theorem formalized end to end in lean 4":"2026-09-04-fermat-last-theorem-lean"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -349,13 +365,21 @@ const TITLE_BY_ID = {
   "2026-08-27-entanglement-supporting-functional":"Supporting affine functionals for entanglement of formation need not exist",
   "2026-08-27-intuitionistic-higher-order-truth":"Not every Heyting algebra is the subterminal lattice of a topos",
   "2026-08-27-large-systoles":"Hyperbolic surfaces with large systoles in every large genus",
+  "2026-08-28-percolation-critical-point":"Lean proof that the percolation probability vanishes at the critical point in every dimension",
   "2026-08-29-dean-conjecture-k5":"Dean's conjecture for k = 5, cycles of length divisible by five",
   "2026-08-29-metric-distortion-23282":"Randomized metric distortion improved to 2.3282",
   "2026-08-31-boolean-multiplicative-complexity-mul4":"Unrestricted Boolean multiplicative complexity of four-term binary polynomial multiplication",
   "2026-08-31-pisot-cantor-equidistribution":"Criteria and two quadratic instances for Bugeaud's Problem 10.61",
   "2026-08-31-stable-forking":"Counterexample to the stable forking conjecture",
   "2026-09-01-mckean-entropy-production":"Entropy production of the Boltzmann equation is not always monotone",
-  "2026-09-01-saxl-common-neighbour":"Common neighbour conjectures for Saxl graphs fail at every base size"
+  "2026-09-01-saxl-common-neighbour":"Common neighbour conjectures for Saxl graphs fail at every base size",
+  "2026-09-02-daykin-frankl-conjecture":"Confirmation of the Daykin-Frankl conjecture from a language-model proof",
+  "2026-09-02-qma2-oracle-separation":"A quantum oracle separating QMA(2) from QMA",
+  "2026-09-02-trautman-conjecture":"A smooth counterexample to the Trautman conjecture",
+  "2026-09-03-catalan-constant-irrationality":"Disputed claim that Catalan's constant is irrational",
+  "2026-09-03-erdos-sos-conjecture":"Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement",
+  "2026-09-03-koethe-conjecture-matrix-form":"Lean disproof of Krempa's matrix form of the Koethe conjecture",
+  "2026-09-04-fermat-last-theorem-lean":"Fermat's Last Theorem formalized end to end in Lean 4"
 };
 /*VOCAB:END*/
 
