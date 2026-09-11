@@ -135,7 +135,9 @@ const GRADES = {
   "2026-09-03-catalan-constant-irrationality":["disputed","ai-assisted"],
   "2026-09-03-erdos-sos-conjecture":["formal","autonomous"],
   "2026-09-03-koethe-conjecture-matrix-form":["formal","autonomous"],
-  "2026-09-04-fermat-last-theorem-lean":["formal","ai-led"]
+  "2026-09-04-fermat-last-theorem-lean":["formal","ai-led"],
+  "2026-09-08-euler-unforced-blowup":["claimed","ai-led"],
+  "2026-09-08-navier-stokes-forced-blowup":["claimed","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -257,7 +259,9 @@ const ID_BY_TITLE = {
   "disputed claim that catalan's constant is irrational":"2026-09-03-catalan-constant-irrationality",
   "erdos-sos conjecture proved in lean, in a form marginally weaker than the classical statement":"2026-09-03-erdos-sos-conjecture",
   "lean disproof of krempa's matrix form of the koethe conjecture":"2026-09-03-koethe-conjecture-matrix-form",
-  "fermat's last theorem formalized end to end in lean 4":"2026-09-04-fermat-last-theorem-lean"
+  "fermat's last theorem formalized end to end in lean 4":"2026-09-04-fermat-last-theorem-lean",
+  "finite-time blowup for the unforced euler equations from smooth compactly supported data":"2026-09-08-euler-unforced-blowup",
+  "finite-time blowup for navier-stokes with smooth forcing, clay alternatives c and d":"2026-09-08-navier-stokes-forced-blowup"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -379,7 +383,9 @@ const TITLE_BY_ID = {
   "2026-09-03-catalan-constant-irrationality":"Disputed claim that Catalan's constant is irrational",
   "2026-09-03-erdos-sos-conjecture":"Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement",
   "2026-09-03-koethe-conjecture-matrix-form":"Lean disproof of Krempa's matrix form of the Koethe conjecture",
-  "2026-09-04-fermat-last-theorem-lean":"Fermat's Last Theorem formalized end to end in Lean 4"
+  "2026-09-04-fermat-last-theorem-lean":"Fermat's Last Theorem formalized end to end in Lean 4",
+  "2026-09-08-euler-unforced-blowup":"Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
+  "2026-09-08-navier-stokes-forced-blowup":"Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D"
 };
 /*VOCAB:END*/
 

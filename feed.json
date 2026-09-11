@@ -9,6 +9,40 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-09-08-navier-stokes-forced-blowup",
+      "url": "https://whataifound.org/finding/2026-09-08-navier-stokes-forced-blowup",
+      "title": "Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D",
+      "content_text": "A Lean development proves that three-dimensional Navier-Stokes with a smooth forcing term breaks down in finite time, at every positive viscosity, on both Euclidean space and the periodic torus, settling two of the four alternatives the Clay problem description lists but not the unforced question the Millennium Prize attaches to.  Fefferman's Clay problem description lists four alternatives, and the Millennium Prize attaches to (A) and (B), global existence and smoothness for the unforced equations. This work settles (C) and (D), the two breakdown alternatives, which permit a forcing term: for every positive viscosity there exist smooth initial data and forcing admitting no global smooth solution of uniformly bounded kinetic energy on R^3, and smooth periodic data and forcing admitting no global smooth solution on R^3/Z^3. The repository carries Lean 4 proofs of both, declared as navier_stokes_breakdown_R3 and navier_stokes_breakdown_periodic, each recorded with no sorry and depending on exactly propext, Classical.choice and Quot.sound. The Comparator reference statements were adapted from Google DeepMind's Formal Conjectures formalization of the Clay problem rather than written for this repository, and the challenge config enables the independent nanoda kernel. The same repository also carries two theorems on unforced Euler blowup, which are a separate result and are not covered by this entry.  Lab: OpenAI. Model: Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-08T00:00:00+00:00",
+      "date_modified": "2026-09-10T00:00:00+00:00",
+      "tags": [
+        "pde",
+        "fluid-dynamics",
+        "navier-stokes",
+        "singularity",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-08-euler-unforced-blowup",
+      "url": "https://whataifound.org/finding/2026-09-08-euler-unforced-blowup",
+      "title": "Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
+      "content_text": "A Lean development proves that the three-dimensional incompressible Euler equations, with no forcing term, develop a singularity in finite time from smooth, compactly supported, divergence-free initial velocity on all of space.  Whether the three-dimensional incompressible Euler equations can produce a singularity in finite time from smooth finite-energy data, with no forcing and no boundary, is one of the long-standing questions in mathematical fluid dynamics. The repository states the result twice: euler_breakdown_R3, that no global smooth unforced solution of uniformly bounded kinetic energy exists on R^3, and exists_compact_smooth_euler_singularity, which gives compactly supported smooth initial data with a positive finite maximal lifespan in the all-order Sobolev class, an unbounded limsup of the velocity's C^1 norm, and a divergent time integral of the vorticity's sup norm. That last condition is the Beale-Kato-Majda quantity, so the blowup is certified in the classical criterion rather than only as a loss of regularity. Both theorems are recorded with no sorry and dependence on exactly propext, Classical.choice and Quot.sound, and the Comparator config enables the independent nanoda kernel. OpenAI's account describes roughly 100 agents working about 50 hours on this result, against roughly 10,000 over 88 hours for the companion Navier-Stokes work. Euler is not one of the Clay Millennium problems; that list carries Navier-Stokes only.  Lab: OpenAI. Model: Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-08T00:00:00+00:00",
+      "date_modified": "2026-09-10T00:00:00+00:00",
+      "tags": [
+        "pde",
+        "fluid-dynamics",
+        "euler-equations",
+        "singularity",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-04-fermat-last-theorem-lean",
       "url": "https://whataifound.org/finding/2026-09-04-fermat-last-theorem-lean",
       "title": "Fermat's Last Theorem formalized end to end in Lean 4",
