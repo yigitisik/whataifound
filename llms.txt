@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 120 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 122 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -78,7 +78,7 @@ Autonomy, most to least AI-driven:
 Every finding credited to one organisation, on one page.
 
 - [Google DeepMind](https://whataifound.org/lab/google-deepmind): 23 findings
-- [OpenAI](https://whataifound.org/lab/openai): 9 findings
+- [OpenAI](https://whataifound.org/lab/openai): 11 findings
 - [Anthropic](https://whataifound.org/lab/anthropic): 5 findings
 - [MIT](https://whataifound.org/lab/mit): 3 findings
 
@@ -155,8 +155,10 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 74 in one page: https://whataifound.org/topic/mathematics
+All 76 in one page: https://whataifound.org/topic/mathematics
 
+- [Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D](https://whataifound.org/finding/2026-09-08-navier-stokes-forced-blowup): A Lean development proves that three-dimensional Navier-Stokes with a smooth forcing term breaks down in finite time, at every positive viscosity, on both Euclidean space and the periodic torus, settling two of the four alternatives the Clay problem description lists but not the unforced question the Millennium Prize attaches to. (OpenAI, Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization, 2026-09-08; verification: Claimed; autonomy: AI-led; also listed at: vibemathed navier-stokes-millennium-prize-problem-finite-time-breakdown-with-smooth-forcing)
+- [Finite-time blowup for the unforced Euler equations from smooth compactly supported data](https://whataifound.org/finding/2026-09-08-euler-unforced-blowup): A Lean development proves that the three-dimensional incompressible Euler equations, with no forcing term, develop a singularity in finite time from smooth, compactly supported, divergence-free initial velocity on all of space. (OpenAI, Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization, 2026-09-08; verification: Claimed; autonomy: AI-led)
 - [Fermat's Last Theorem formalized end to end in Lean 4](https://whataifound.org/finding/2026-09-04-fermat-last-theorem-lean): A complete machine-checked proof of Fermat's Last Theorem in Lean 4, written by AI agents in eleven days, resting on Lean's three standard axioms and accepted by two independent kernels. (Anthropic, Internal Anthropic research model, described in the announcement as roughly comparable to Claude Fable 5.1, 2026-09-04; verification: Formally verified; autonomy: AI-led)
 - [Lean disproof of Krempa's matrix form of the Koethe conjecture](https://whataifound.org/finding/2026-09-03-koethe-conjecture-matrix-form): A machine-checked Lean proof refutes the matrix formulation that Krempa showed equivalent to the Koethe conjecture, found by a pre-release model with no human steering of the proof search. (OpenAI / Epoch AI, GPT-6 Astra (pre-release), 2026-09-03; verification: Formally verified; autonomy: Autonomous; also listed at: vibemathed kothe-conjecture)
 - [Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement](https://whataifound.org/finding/2026-09-03-erdos-sos-conjecture): A machine-checked Lean proof establishes the Erdos-Sos conjecture in the benchmark's formalization, which in one parity case assumes one more edge than the classical statement requires. (OpenAI / Epoch AI, GPT-6 Astra (pre-release), 2026-09-03; verification: Formally verified; autonomy: Autonomous; also listed at: vibemathed erdos-problem-548-erdos-sos-conjecture)

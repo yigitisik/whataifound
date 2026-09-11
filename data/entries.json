@@ -6083,5 +6083,151 @@
       "argument"
     ],
     "added": "2026-09-07"
+  },
+  {
+    "id": "2026-09-08-navier-stokes-forced-blowup",
+    "title": "Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D",
+    "claim": "A Lean development proves that three-dimensional Navier-Stokes with a smooth forcing term breaks down in finite time, at every positive viscosity, on both Euclidean space and the periodic torus, settling two of the four alternatives the Clay problem description lists but not the unforced question the Millennium Prize attaches to.",
+    "field": "mathematics",
+    "date": "2026-09-08",
+    "lab": "OpenAI",
+    "model": "Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization",
+    "year_posed": 2000,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Fefferman's Clay problem description lists four alternatives, and the Millennium Prize attaches to (A) and (B), global existence and smoothness for the unforced equations. This work settles (C) and (D), the two breakdown alternatives, which permit a forcing term: for every positive viscosity there exist smooth initial data and forcing admitting no global smooth solution of uniformly bounded kinetic energy on R^3, and smooth periodic data and forcing admitting no global smooth solution on R^3/Z^3. The repository carries Lean 4 proofs of both, declared as navier_stokes_breakdown_R3 and navier_stokes_breakdown_periodic, each recorded with no sorry and depending on exactly propext, Classical.choice and Quot.sound. The Comparator reference statements were adapted from Google DeepMind's Formal Conjectures formalization of the Clay problem rather than written for this repository, and the challenge config enables the independent nanoda kernel. The same repository also carries two theorems on unforced Euler blowup, which are a separate result and are not covered by this entry.",
+    "novelty_check": "The alternatives settled here are Clay's own (C) and (D), stated in Fefferman's 2000 problem description, which the repository cites and links directly; the underlying regularity question goes back to Leray in 1934. The prior literature on forced or modified blowup is substantial but does not reach full three-dimensional Navier-Stokes with smooth forcing: blowup is known for the hypodissipative equations with a force (arXiv:2407.06776), for solutions with linear growth at infinity (arXiv:2103.12237), and for model equations (arXiv:1811.09394), and Tao's averaged Navier-Stokes construction is of the same character. No prior claim on (C) or (D) themselves was found in the four registries or in that search. The live novelty question is not priority over the classical literature but priority within the past year: OpenAI's own account credits the basic idea of the program to Diego Cordoba and Luis Martinez-Zoroa, and how much is owed to that program is publicly disputed, which the caveats record.",
+    "caveats": "This is not the Millennium Prize problem and the entry should not be read as saying it is. The prize attaches to the unforced equations, alternatives (A) and (B); (C) and (D) permit a forcing term. The repository's README is explicit about that distinction, while OpenAI's blog post is titled 'On the Navier-Stokes Millennium Prize Problem' and much of the press coverage dropped it entirely. Verification is graded claimed rather than formal despite four theorems carrying no sorry and exactly the three standard axioms, for the reason the repository itself supplies: its formalization.yaml records the review status as self-assessed, and no mathematician outside OpenAI is on record as having read the argument. Clay's own acceptance process additionally requires journal publication and two years of community acceptance. The statement-fidelity worry is smaller here than on a self-stated formalization, because the Comparator challenge statements were adapted from DeepMind's independent Formal Conjectures formalization rather than authored alongside the proof, but that adaptation has not itself been checked by a third party. The model attribution is split, and both halves are recorded above because they may describe different steps: the announcement describes an unnamed next-generation model more capable than GPT-6 Astra, reported as roughly 10,000 coordinating agents over 88 hours, while the repository's own metadata credits GPT-6 Astra through Codex under an agent method, which most plausibly describes who wrote the Lean rather than who found the proof. Autonomy is ai-led rather than autonomous because the disclosure describes an agent framework without stating that the run was unsteered, so the strictest defensible reading is not autonomous. Priority is contested in public and unresolved at entry: the entangled Alpoge and Buckmaster results released the same week drew allegations, on r/math and in the comments of Terence Tao's blog, that the Cordoba and Martinez-Zoroa program was worked from for roughly a year before a denial that several commenters read as evasive, and Andreas Thom has publicly described asking OpenAI whether his own private conversations on an adjacent problem were drawn on and being told they were not, without further explanation. None of that bears on whether the Lean compiles.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "navier-stokes-millennium-prize-problem-finite-time-breakdown-with-smooth-forcing",
+        "url": "https://vibemathed.com/problem/navier-stokes-millennium-prize-problem-finite-time-breakdown-with-smooth-forcing",
+        "note": "Recorded there as a candidate with review pending."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: openai/NavierStokesAndEuler, the Lean 4 formalizations",
+        "url": "https://github.com/openai/NavierStokesAndEuler",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Finite time blowup for Navier-Stokes (PDF)",
+        "url": "https://cdn.openai.com/pdf/32d9f210-8b73-45e0-91bc-82a30aef8a9a/navier-stokes.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Clay Mathematics Institute: the official problem description, alternatives (C) and (D) on page 2",
+        "url": "https://www.claymath.org/wp-content/uploads/2022/06/navierstokes.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Formal Conjectures: the Lean statement of the Navier-Stokes problem the Comparator challenges adapt",
+        "url": "https://github.com/google-deepmind/formal-conjectures/blob/main/FormalConjectures/Millenium/NavierStokes.lean",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: On the Navier-Stokes Millennium Prize Problem",
+        "url": "https://openai.com/index/navier-stokes-solution/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Terence Tao on the blowup results released the same week",
+        "url": "https://terrytao.wordpress.com/2026/09/07/finite-time-blowup-with-smooth-forcing-term-for-the-incompressible-porous-medium-boussinesq-and-incompressible-euler-equations/",
+        "kind": "commentary"
+      },
+      {
+        "label": "vibemathed: finite-time breakdown with smooth forcing",
+        "url": "https://vibemathed.com/problem/navier-stokes-millennium-prize-problem-finite-time-breakdown-with-smooth-forcing",
+        "kind": "commentary"
+      },
+      {
+        "label": "Quanta: AI has solved one of math's $1 million Millennium Prize problems",
+        "url": "https://www.quantamagazine.org/ai-has-solved-one-of-maths-1-million-millennium-prize-problems-20260908/",
+        "kind": "coverage"
+      },
+      {
+        "label": "Nature: OpenAI claims huge maths breakthrough on a famed Millennium Problem",
+        "url": "https://www.nature.com/articles/d41586-026-02842-5",
+        "kind": "coverage"
+      },
+      {
+        "label": "Science: How an AI math breakthrough ignited a controversy",
+        "url": "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy",
+        "kind": "coverage"
+      },
+      {
+        "label": "Buckmaster and Alpoge: public statement on the priority of the forced-blowup program (PDF)",
+        "url": "https://cims.nyu.edu/~tristanb/statement.pdf",
+        "kind": "challenge"
+      }
+    ],
+    "tags": [
+      "pde",
+      "fluid-dynamics",
+      "navier-stokes",
+      "singularity",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-10"
+  },
+  {
+    "id": "2026-09-08-euler-unforced-blowup",
+    "title": "Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
+    "claim": "A Lean development proves that the three-dimensional incompressible Euler equations, with no forcing term, develop a singularity in finite time from smooth, compactly supported, divergence-free initial velocity on all of space.",
+    "field": "mathematics",
+    "date": "2026-09-08",
+    "lab": "OpenAI",
+    "model": "Unnamed OpenAI model described as more capable than GPT-6 Astra for the proof; GPT-6 Astra through Codex for the Lean formalization",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Whether the three-dimensional incompressible Euler equations can produce a singularity in finite time from smooth finite-energy data, with no forcing and no boundary, is one of the long-standing questions in mathematical fluid dynamics. The repository states the result twice: euler_breakdown_R3, that no global smooth unforced solution of uniformly bounded kinetic energy exists on R^3, and exists_compact_smooth_euler_singularity, which gives compactly supported smooth initial data with a positive finite maximal lifespan in the all-order Sobolev class, an unbounded limsup of the velocity's C^1 norm, and a divergent time integral of the vorticity's sup norm. That last condition is the Beale-Kato-Majda quantity, so the blowup is certified in the classical criterion rather than only as a loss of regularity. Both theorems are recorded with no sorry and dependence on exactly propext, Classical.choice and Quot.sound, and the Comparator config enables the independent nanoda kernel. OpenAI's account describes roughly 100 agents working about 50 hours on this result, against roughly 10,000 over 88 hours for the companion Navier-Stokes work. Euler is not one of the Clay Millennium problems; that list carries Navier-Stokes only.",
+    "novelty_check": "The gap this closes is specific and the prior literature marks it clearly. Elgindi proved finite-time singularity for axisymmetric no-swirl Euler on R^3 at C^{1,alpha} regularity, and Elgindi and Pasqualotto did the analogous thing for Boussinesq, in both cases below smooth. Chen and Hou proved blowup for smooth finite-energy data by computer-assisted analysis, but in an axially periodic cylinder with an impermeable wall, so with a boundary (PNAS, 2025). What remained open was exactly the case claimed here: smooth, compactly supported data on R^3 with no boundary and no forcing. No prior claim on that case was found in the four registries or in the search behind this note. The companion result released the same week by Alpoge and Buckmaster is finite-time blowup for Euler with smooth forcing, which is a weaker and different statement, and the two should not be read as competing claims on the same theorem.",
+    "caveats": "Verification is graded claimed rather than formal despite two theorems with no sorry and exactly the three standard axioms. The repository's own formalization.yaml records its review status as self-assessed, and no mathematician outside OpenAI is on record as having read the argument at entry. Statement fidelity carries more weight on this entry than on the companion Navier-Stokes one, and the difference is worth stating plainly: there, the Comparator reference statements were adapted from Google DeepMind's Formal Conjectures formalization of the Clay problem, so the statement being proved against had independent provenance. The repository records no such outside source for the Euler challenge module, so what the kernel compares against is the repository's own formalization of its own theorem, and a reader checking this should start by reading ComparatorChallenges/Euler.lean against the paper rather than by rerunning the build. The model attribution is split and both halves are recorded above: the announcement describes an unnamed next-generation model, while the repository metadata credits GPT-6 Astra through Codex under an agent method, which most plausibly describes who wrote the Lean rather than who found the proof. Autonomy is ai-led rather than autonomous because the disclosure describes an agent framework without stating the run was unsteered. The priority dispute around the same week's releases is recorded on the Navier-Stokes entry; how much of it reaches this unforced result is not clear from the public record, and the credit OpenAI gives to Diego Cordoba and Luis Martinez-Zoroa is stated for the forced program rather than for this one.",
+    "sources": [
+      {
+        "label": "GitHub: openai/NavierStokesAndEuler, the Lean 4 formalizations",
+        "url": "https://github.com/openai/NavierStokesAndEuler",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Finite time blowup for the Euler equation (PDF)",
+        "url": "https://cdn.openai.com/pdf/315b36cd-ec98-4023-8342-93345194ece1/euler.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: On the Navier-Stokes Millennium Prize Problem, the announcement covering both results",
+        "url": "https://openai.com/index/navier-stokes-solution/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Chen and Hou: singularity formation in 3D Euler with smooth initial data and boundary, the closest prior result",
+        "url": "https://www.pnas.org/doi/10.1073/pnas.2500940122",
+        "kind": "commentary"
+      },
+      {
+        "label": "Terence Tao on the Alpoge and Buckmaster forced-blowup results of the same week, a different claim",
+        "url": "https://terrytao.wordpress.com/2026/09/07/finite-time-blowup-with-smooth-forcing-term-for-the-incompressible-porous-medium-boussinesq-and-incompressible-euler-equations/",
+        "kind": "commentary"
+      },
+      {
+        "label": "Science: How an AI math breakthrough ignited a controversy",
+        "url": "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "pde",
+      "fluid-dynamics",
+      "euler-equations",
+      "singularity",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-10"
   }
 ]

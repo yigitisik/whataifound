@@ -2919,7 +2919,7 @@ def slugify(s):
     return out or "unknown"
 
 
-def hub_page(title, lede, entries, all_entries, url, updated, back):
+def hub_page(title, lede, entries, url, back):
     """One derived index page: a heading, a grade breakdown, and the table of entries.
 
     Assembled from the same renderers the rest of the site uses (hbars_html, table_view,
@@ -3055,7 +3055,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 
   {table_view(entries, sortable=False)}
 
-  <p class="finding-back"><a href="/">← The whole registry, {len(all_entries)} findings</a></p>
+  <p class="finding-back"><a href="/">← The whole registry</a></p>
 </main>
 
 {site_footer()}
@@ -3109,7 +3109,7 @@ def build_hubs(entries, updated):
         url = f"{SITE}/{kind}/{slug}"
         # Newest first, the order the registry itself uses.
         of = sorted(of, key=lambda e: e.get("date", ""), reverse=True)
-        page = hub_page(title, lede, of, entries, url, updated, back)
+        page = hub_page(title, lede, of, url, back)
         with open(os.path.join(ROOT, kind, f"{slug}.html"), "w") as f:
             f.write(page)
         urls.append((url, max((e.get("added") or e.get("date") or updated)[:10]

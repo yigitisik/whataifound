@@ -134,7 +134,9 @@ export const ENTRY_IDS = new Set([
   "2026-09-03-catalan-constant-irrationality",
   "2026-09-03-erdos-sos-conjecture",
   "2026-09-03-koethe-conjecture-matrix-form",
-  "2026-09-04-fermat-last-theorem-lean"
+  "2026-09-04-fermat-last-theorem-lean",
+  "2026-09-08-euler-unforced-blowup",
+  "2026-09-08-navier-stokes-forced-blowup"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -256,7 +258,9 @@ export const ENTRY_GRADES = {
   "2026-09-03-catalan-constant-irrationality": ["disputed", "ai-assisted"],
   "2026-09-03-erdos-sos-conjecture": ["formal", "autonomous"],
   "2026-09-03-koethe-conjecture-matrix-form": ["formal", "autonomous"],
-  "2026-09-04-fermat-last-theorem-lean": ["formal", "ai-led"]
+  "2026-09-04-fermat-last-theorem-lean": ["formal", "ai-led"],
+  "2026-09-08-euler-unforced-blowup": ["claimed", "ai-led"],
+  "2026-09-08-navier-stokes-forced-blowup": ["claimed", "ai-led"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -378,7 +382,9 @@ export const ENTRY_TITLES = {
   "2026-09-03-catalan-constant-irrationality": "Disputed claim that Catalan's constant is irrational",
   "2026-09-03-erdos-sos-conjecture": "Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement",
   "2026-09-03-koethe-conjecture-matrix-form": "Lean disproof of Krempa's matrix form of the Koethe conjecture",
-  "2026-09-04-fermat-last-theorem-lean": "Fermat's Last Theorem formalized end to end in Lean 4"
+  "2026-09-04-fermat-last-theorem-lean": "Fermat's Last Theorem formalized end to end in Lean 4",
+  "2026-09-08-euler-unforced-blowup": "Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
+  "2026-09-08-navier-stokes-forced-blowup": "Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
