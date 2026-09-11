@@ -415,8 +415,8 @@ def page_nav(current):
 # break only between children of a flex container, a grid container, or a block-level
 # element. Never between inline children. Whitespace-only text nodes are dropped between
 # flex and grid items and collapse away between block siblings, but between inline
-# elements a newline renders as a space and moves the layout. `.updated` and the interior
-# of any <p> are the places that bite; both are left on one line on purpose.
+# elements a newline renders as a space and moves the layout. The interior of any <p> is
+# where this bites, and those are left whole on purpose.
 #
 # Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
 # .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
@@ -526,8 +526,8 @@ DOORS_SEG = NL.join([
 ])
 
 
-def site_header(current, updated, extra_class=""):
-    """The eyebrow every page carries: brand, nav, GitHub, theme switcher, updated stamp.
+def site_header(current, extra_class=""):
+    """The eyebrow every page carries: brand, nav, GitHub and the theme switcher.
 
     `current` is the page's path, or None on a finding page, which sits below the nav
     rather than beside it. `extra_class` carries the home page's intro animation hooks.
@@ -546,17 +546,12 @@ def site_header(current, updated, extra_class=""):
         # back to that page.
         f'{DOORS_SEG}',
         f'{THEME_SEG}',
-        # The word "Updated" is dropped from the visible badge and kept for screen
-        # readers. It cost about seventy pixels of the eyebrow, which is the only row on
-        # the site with no slack, and it was spending them on a label the pulse dot and
-        # an ISO date already imply.
-        #
-        # This one stays on a single line. .updated has no display of its own, so its
-        # children are inline and a newline between them would render as a space: the
-        # pulse dot would drift off the date. See the note on NL above.
-        f'<span class="updated" title="Registry last updated"><span class="pulse"></span>'
-        f'<span class="vh">Registry last updated </span>'
-        f'<b id="updated">{esc(updated)}</b></span>',
+        # There is deliberately no "last updated" stamp here. It was the one piece of
+        # chrome that moved when the data moved, so adding a single registration to
+        # data/entries.json rewrote the masthead of all 155 generated pages and buried
+        # the real diff in them. The build date is still published, in feed.xml's
+        # lastBuildDate, in GENERATED on /api/dataset and as sitemap lastmod, and the
+        # footer citation carries the retrieval year for a reader who wants to cite.
         f'</span></div>',
     ])
 
@@ -1801,7 +1796,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
-<header>{site_header(None, updated)}</header>
+<header>{site_header(None)}</header>
 <nav class="crumb" aria-label="Breadcrumb">
   <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
   <a href="/topic/{esc(e.get("field"))}">{esc(FIELD_LABEL.get(e.get("field"), e.get("field")))}</a>
@@ -2293,7 +2288,7 @@ def build_api_shell(updated):
     # current=None: a profile is not one of the nav destinations, so nothing is marked
     # as the current page, which is what every finding page does too.
     payload = ("\n"
-               f"export const HEADER = {json.dumps(site_header(None, updated))};\n"
+               f"export const HEADER = {json.dumps(site_header(None))};\n"
                f"export const FOOTER = {json.dumps(site_footer())};\n")
     src = inject(src, "/*SHELL:START*/", "/*SHELL:END*/", payload,
                  "shared chrome", "api/_lib/shell.js")
@@ -3040,7 +3035,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <div class="spectrum" aria-hidden="true"></div>
 <div class="wrap">
 
-<header>{site_header(None, updated)}
+<header>{site_header(None)}
   <h1 class="meth-title">{esc(title)}</h1>
   <p class="lede">{esc(lede)}</p>
 </header>
@@ -3453,7 +3448,7 @@ def build_chrome(updated):
         # The home page's eyebrow carries the intro animation hooks; the others do not.
         extra = "intro i1" if path == "/" else ""
         src = inject(src, "<!--HEADER:START-->", "<!--HEADER:END-->",
-                     site_header(path, updated, extra), "site header", name)
+                     site_header(path, extra), "site header", name)
         src = inject(src, "<!--FOOTER:START-->", "<!--FOOTER:END-->",
                      site_footer(), "site footer", name)
         with open(full, "w") as f:

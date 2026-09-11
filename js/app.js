@@ -1686,15 +1686,6 @@ function bootData(data){
   // plots already in the DOM instead. Guarded so the visuals page doesn't wire twice.
   if (!document.getElementById('charts')) wireScatterTip();
 
-  // Same rule as build-site.py's `updated`: the latest date the data carries, counting
-  // revisions as well as additions. Both halves matter, or this overwrites the
-  // pre-rendered stamp with an older one and the badge contradicts the activity feed
-  // three inches to its left.
-  const updated = document.getElementById('updated');
-  if (updated) updated.textContent =
-    ALL.flatMap(e => [e.added, ...(e.revisions || []).map(r => r.date)])
-       .filter(Boolean).sort().pop() || ALL[0]?.date || '';
-
   if (!document.getElementById('list')) return;  // visuals-only page: done here.
 
   const strong = ALL.filter(e=>['formal','independent','peer-reviewed'].includes(e.verification)).length;
