@@ -98,6 +98,11 @@
         },
         {
           "@type": "CreativeWork",
+          "url": "https://www.ulam.ai/research/jacobian.pdf",
+          "name": "Ulam: A counterexample to the Jacobian conjecture (PDF), the seven-page algebraic verification of the announced map"
+        },
+        {
+          "@type": "CreativeWork",
           "url": "https://alexisgallagher.com/posts/2026/jacobianfun/",
           "name": "Alexis Gallagher: Jacobian Conjecture Disproved!"
         },
@@ -105,6 +110,11 @@
           "@type": "CreativeWork",
           "url": "https://news.ycombinator.com/item?id=48973869",
           "name": "Hacker News discussion"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2609.05746",
+          "name": "Borisov, Gabber and Vasiu: on endomorphisms of affine spaces and the Jacobian problem, whose supplemental statement on page 160 raises priority and disclosure questions"
         }
       ]
     },
@@ -136,7 +146,7 @@
         "worstRating": 1,
         "alternateName": "Formally verified: machine-checked proof"
       },
-      "reviewBody": "The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed."
+      "reviewBody": "The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed. A separate question was opened in September 2026, about provenance rather than priority of the counterexample: the supplemental statement on page 160 of arXiv:2609.05746 asserts prior systematic use of the xy, 1+xy and delta+xy constructions, including the map to the projective line given by (x : 1+xy), in an in-progress monograph circulated publicly in January 2025. That bears on where the construction came from, not on whether a counterexample already existed, and the caveats record what is and is not claimed."
     },
     {
       "@type": "BreadcrumbList",
@@ -233,19 +243,21 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <div class="glance-src">
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
-      <div class="refs"><a class="ref" href="https://jacobianfun.org/jacobian-explained" target="_blank" rel="noopener"><span class="ref-dom">jacobianfun.org</span><span class="ref-t">The Jacobian counterexample, explained</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://jacobianfun.org/jacobian-explained" target="_blank" rel="noopener"><span class="ref-dom">jacobianfun.org</span><span class="ref-t">The Jacobian counterexample, explained</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.ulam.ai/research/jacobian.pdf" target="_blank" rel="noopener"><span class="ref-dom">ulam.ai</span><span class="ref-t">Ulam: A counterexample to the Jacobian conjecture (PDF), the seven-page algebraic verification of the announced map</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-commentary">Independent commentary</h3>
       <div class="refs"><a class="ref" href="https://alexisgallagher.com/posts/2026/jacobianfun/" target="_blank" rel="noopener"><span class="ref-dom">Alexis Gallagher</span><span class="ref-t">Jacobian Conjecture Disproved!</span><span class="ref-a">↗</span></a><a class="ref" href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Hacker News discussion</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2609.05746" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Borisov, Gabber and Vasiu: on endomorphisms of affine spaces and the Jacobian problem, whose supplemental statement on page 160 raises priority and disclosure questions</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
   <h2 class="lbl">What was found</h2>
   <p>The map F(x,y,z) = (u³z + y²u(4+3xy), y + 3xu²z + 3xy²(4+3xy), 2x − 3x²y − x³z) with u = 1+xy has Jacobian determinant identically −2, yet sends the three distinct points (0,0,−¼), (1,−3/2,13/2) and (−1,3/2,13/2) all to (−¼,0,0). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed.</p>
+  <p>The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed. A separate question was opened in September 2026, about provenance rather than priority of the counterexample: the supplemental statement on page 160 of arXiv:2609.05746 asserts prior systematic use of the xy, 1+xy and delta+xy constructions, including the map to the projective line given by (x : 1+xy), in an in-progress monograph circulated publicly in January 2025. That bears on where the construction came from, not on whether a counterexample already existed, and the caveats record what is and is not claimed.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript.</p>
+  <p>Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript. A priority and disclosure question was raised on the record in September 2026 and is unresolved. Adrian Vasiu, the third author of the Borisov, Gabber and Vasiu monograph on endomorphisms of affine spaces, appended a signed supplemental statement to arXiv:2609.05746 recording that an in-progress version of that work, dated 14 January 2025, was posted publicly at IHES two days later without his knowledge, and that in his understanding it subsequently fed AI models. He makes four numbered points: that no prior work aimed to classify etale endomorphisms of affine spaces of geometric degree three; that no prior work systematically used xy, 1+xy and delta+xy in constructing open embeddings, morphisms and etale endomorphisms, including the map (x : 1+xy); that between the monograph and the seven-page write-up of this counterexample there is overlap of notation and of intent; and that the prompt history, model version and workflow behind that write-up have not been disclosed publicly. What he does not claim is that the counterexample itself appears in the earlier work, and he notes that one of the overlapping constructions plays no role in the counterexamples. So this is a question about where the construction came from and what was disclosed, not a challenge to whether the map is a counterexample, and the formal grade is unaffected. It is not a generic complaint either: (x : 1+xy) is the device the seven-page paper's own abstract is built on.</p>
   </details>
   <h2 class="lbl">Independent checks</h2>
   <div class="checks"><p>whataifound.org (symbolic recomputation, SymPy): <em>confirmed, det J = −2 identically; all three points map to (−¼,0,0)</em></p><p>Multiple mathematicians via public computer-algebra checks: <em>confirmed</em> · <a href="https://news.ycombinator.com/item?id=48973869" target="_blank" rel="noopener">link ↗</a></p></div>
@@ -275,6 +287,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-14">2026-09-14</time><span class="pill r r-challenge">Challenged</span><span class="hist-note">Cited the supplemental statement on page 160 of arXiv:2609.05746, in which Adrian Vasiu raises a priority and disclosure question about the construction behind this counterexample. Neither grade moved: the statement does not dispute that the map is a counterexample, and does not claim the counterexample appears in the earlier monograph. <a class="hist-src" href="https://arxiv.org/abs/2609.05746" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-31">2026-08-31</time><span class="pill r r-check">Checked</span><span class="hist-note">A second independent Lean formalization of this counterexample was registered at Palomar, by a different group from the one already cited. Two independent developments of the same construction reinforce the formal grade rather than change it. <a class="hist-src" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-27-000013&amp;version=1" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-25">2026-08-25</time><span class="pill r r-check">Checked</span><span class="hist-note">A third-party Lean formalization of this counterexample was registered at Palomar, mechanically confirming that it typechecks against the stated theorem at a pinned commit. The formalization is by Lezeau and Cureton rather than by the counterexample's author. The grade was already formal and did not move. <a class="hist-src" href="https://palomar-registry.org/entry?id=PALOMAR-2026-08-21-000006&amp;version=1" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-21">2026-08-21</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result as a registration. No grade moved.</span></li>
