@@ -6424,5 +6424,297 @@
       "argument"
     ],
     "added": "2026-09-10"
+  },
+  {
+    "id": "2026-09-14-nivat-conjecture",
+    "title": "Nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it",
+    "claim": "A Lean development claims Nivat's 1997 conjecture in full: if a two-dimensional configuration has at most mn distinct patterns on some m by n rectangle, it has a nonzero period.",
+    "field": "mathematics",
+    "date": "2026-09-14",
+    "lab": "Independent",
+    "model": "GPT-6 Pro (proof); GPT-6 Astra Ultra through Codex (Lean formalization)",
+    "humans": [
+      "Boon Suan Ho"
+    ],
+    "year_posed": 1997,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Nivat conjectured in 1997 that low rectangular pattern complexity forces periodicity in a two-dimensional configuration. Partial results are known under stronger complexity bounds; the sharp mn form has stood. The repository separates Challenge.lean, which states the result in mathlib terms alone, from Solution.lean, which proves it, and carries a Palomar registration. The submitter's disclaimer is the unusual part and is quoted in the caveats: he says the proof is entirely the model's and that he is not qualified to check it.",
+    "novelty_check": "The conjecture dates to 1997 and is a named open problem in symbolic dynamics, still described as open in the literature the repository cites. No competing resolution of the sharp form appears in the four registries the watch sweep diffs. The repository itself notes that Bryna Kra published a guest post on Terence Tao's blog discussing Nivat's conjecture and AI-generated mathematics roughly three hours before its first commit, and states the proof work was complete before the author saw that post; the two are independent, and neither is evidence about the other.",
+    "caveats": "Nobody has checked this, and the submitter says so first. His disclaimer reads: the proof was found entirely by GPT-6 Pro in response to his prompts, the paper was written by AI and has not been mathematically digested by humans, and he does not regard himself as qualified to digest the argument or give it the exposition it deserves. His stated role was prompting and arranging formal verification. That is a clearer disclosure than most entries here carry, and it is also the reason the grade is claimed rather than formal: a Palomar registration establishes that the Lean typechecks against the recorded statement, not that the statement is Nivat's conjecture. Autonomy is ai-led rather than autonomous because a human chose the problem and drove the prompting.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-14-000003",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-14-000003&version=1",
+        "repository": "boonsuan/nivat"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: boonsuan/nivat, the Lean 4 and mathlib formalization",
+        "url": "https://github.com/boonsuan/nivat",
+        "kind": "research"
+      },
+      {
+        "label": "Palomar registration for the Nivat formalization",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-14-000003&version=1",
+        "kind": "research"
+      },
+      {
+        "label": "Bryna Kra on AI and deep theorems, guest post on Terence Tao's blog",
+        "url": "https://terrytao.wordpress.com/2026/09/13/deep-theorems-were-scarce-and-difficult-and-so-became-an-effective-mechanism-to-identify-deep-thought-ai-has-broken-this-system/",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "symbolic-dynamics",
+      "combinatorics",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-15"
+  },
+  {
+    "id": "2026-09-03-smale-mean-value-k1",
+    "title": "Counterexample to Smale's mean value conjecture at K = 1",
+    "claim": "A Lean proof produced in an unsteered benchmark run disproves the K = 1 form of Smale's 1981 mean value conjecture, exhibiting a polynomial for which no critical point meets the bound.",
+    "field": "mathematics",
+    "date": "2026-09-03",
+    "lab": "OpenAI / Epoch AI",
+    "model": "GPT-6 Astra (pre-release)",
+    "humans": [
+      "Tom Adamczewski"
+    ],
+    "year_posed": 1981,
+    "verification": "claimed",
+    "autonomy": "autonomous",
+    "detail": "Smale proved in 1981 that for every complex polynomial of degree at least two and every point z there is a critical point c with the mean value ratio at most four times the derivative at z, and asked whether four can be replaced by one. The constant has since been lowered to four minus order one over the degree, and the conjecture is known for small degrees and for polynomials whose roots are all real or all of one modulus. This development proves the negation of the Formal Conjectures statement. It came out of the same Epoch AI LeanOpenProblems evaluation run as the Koethe and Erdos-Sos entries already in the registry, and Comparator checks the compared statement against the challenge file under the three standard axioms.",
+    "novelty_check": "The conjecture dates to 1981 and is one of Smale's problems for the twenty-first century, described as open in the sources the repository cites. No competing counterexample appears in the four registries. The repository's own fidelity note is the substantive part of this check: the compared theorem is the explicit negation of the Formal Conjectures statement, and it observes that Lean's convention that division by zero yields zero makes the formal conjecture weaker than the informal one, so the counterexample refutes the conjecture as stated in the literature rather than only its formalization.",
+    "caveats": "Days old at entry, unrefereed, with no expert in complex analysis on record as having read it. The witness is the weak part and the repository says so: a polynomial of very large unspecified degree that violates the bound by a small margin. That is consistent with Smale's own K = 4 theorem and with the known asymptotics of the best constant, so nothing about it is obviously wrong, but a nonconstructive witness of unspecified degree is hard for a reader to check by hand. The grade is claimed rather than formal because no third party has audited the statement against the literature. Autonomy is autonomous on the same disclosure the Koethe and Erdos-Sos entries rest on: one attempt inside an evaluation harness, with no human seeing or steering the proof search.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "smale-s-mean-value-conjecture-k-1",
+        "url": "https://vibemathed.com/problem/smale-s-mean-value-conjecture-k-1"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: tadamcz/mean-value-problem, the Lean 4 disproof",
+        "url": "https://github.com/tadamcz/mean-value-problem",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Smale's mean value conjecture (K = 1)",
+        "url": "https://vibemathed.com/problem/smale-s-mean-value-conjecture-k-1",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "complex-analysis",
+      "polynomials",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-09-15"
+  },
+  {
+    "id": "2026-09-05-ibragimov-iosifescu",
+    "title": "Disproof of the Ibragimov-Iosifescu conjecture for phi-mixing sequences",
+    "claim": "A Lean development constructs a stationary phi-mixing sequence with finite second moments whose normalized partial sums fail to satisfy the central limit theorem, disproving a 1971 conjecture.",
+    "field": "mathematics",
+    "date": "2026-09-05",
+    "lab": "OpenAI / Epoch AI",
+    "model": "GPT-6 Astra (pre-release)",
+    "humans": [
+      "Tom Adamczewski"
+    ],
+    "year_posed": 1971,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Ibragimov conjectured that a strictly stationary phi-mixing sequence with finite second moments and diverging partial-sum variance satisfies the central limit theorem; Iosifescu's stronger form asks for convergence of the rescaled partial-sum process to Brownian motion. The construction uses bounded causal feedback to suppress ordinary fluctuations while rare large spikes retain the variance, giving variance divergence together with collapse of the normalized sums along a subsequence. Disproving Ibragimov's form rules out Iosifescu's, since that convergence would give the central limit theorem at time one. The recorded verification reports the standard three axioms only.",
+    "novelty_check": "The repository carries its own literature review documenting a search through 2026-09-05 for a prior resolution. It reports finding no earlier counterexample satisfying all the conjecture's hypotheses, and identifies a 2023 scholarly source still describing the conjecture as open. That review was not independently repeated for this entry. No competing claim appears in the four registries.",
+    "caveats": "Unrefereed and days old at entry, with no probabilist on record as having read it. The grade is claimed rather than formal for the usual reason on this pipeline: the axiom check establishes that the Lean proves the recorded statement, not that the recorded statement is the conjecture as the literature states it, and no third party has audited that step. Autonomy is ai-led rather than autonomous, weaker than the sibling Smale entry: the disclosure says the model constructed the counterexample and wrote the proof over roughly twelve hours and 1054 turns, which describes an agentic run rather than the unsteered single attempt the benchmark entries rest on.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "ibragimov-iosifescu-varphi-mixing-clt-conjecture",
+        "url": "https://vibemathed.com/problem/ibragimov-iosifescu-varphi-mixing-clt-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: tadamcz/phi-mixing-clt, the Lean counterexample and literature review",
+        "url": "https://github.com/tadamcz/phi-mixing-clt",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Ibragimov-Iosifescu phi-mixing CLT conjecture",
+        "url": "https://vibemathed.com/problem/ibragimov-iosifescu-varphi-mixing-clt-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "probability",
+      "central-limit-theorem",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-09-15"
+  },
+  {
+    "id": "2026-09-06-bollobas-nikiforov",
+    "title": "Bollobas-Nikiforov conjecture claimed in full, in a weighted form",
+    "claim": "Five named mathematicians with AI assistance claim the 2007 Bollobas-Nikiforov conjecture for every noncomplete graph, bounding the sum of the squares of the two largest adjacency eigenvalues, with a Lean formalization.",
+    "field": "mathematics",
+    "date": "2026-09-06",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (ideation and manuscript); Grok 4.6 (Lean formalization); Claude Fable 5.1 (submission packaging)",
+    "humans": [
+      "Gabriel Coutinho",
+      "Yinchen Liu",
+      "Thomas Jung Spier",
+      "Quanyu Tang",
+      "Shengtong Zhang"
+    ],
+    "year_posed": 2007,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "Bollobas and Nikiforov conjectured in 2007 that every noncomplete graph on at least two vertices satisfies a bound on the sum of the squares of its two largest adjacency eigenvalues, in terms of its edge count and clique number. The repository formalizes the conjecture together with a weighted spectral inequality and a completely positive matrix theorem that prove it, and carries a Palomar registration. The AI roles are split and disclosed individually: ideation and the manuscript from GPT-6 Astra, the Lean development completed by Grok 4.6 with minimal direction, and submission packaging by a Claude agent.",
+    "novelty_check": "The conjecture dates to 2007. The strongest previously published result found is Giacomelli (arXiv:2603.26379), a single-author paper with no AI disclosure, which proves the conjecture only for complete multipartite graphs and for dense K4-free graphs. This claim is materially larger: the general conjecture for every noncomplete graph, in a stronger weighted form, submitted some months later. The gap between the two is the reason to record this early and to state plainly that it has not been checked.",
+    "caveats": "The jump from the published partial results to a claimed full resolution is the thing to verify first, and nobody outside the five authors has done it. The grade is claimed rather than formal because the Palomar record establishes that the Lean typechecks against the recorded statement, not that the recorded statement is the conjecture in its general form. Autonomy is collaborative rather than ai-led: the disclosure describes ideation as human and model back and forth among five named mathematicians rather than a model producing the argument, and the formalization step was a separate model working from an already written proof.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-07-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-07-000002&version=1",
+        "repository": "ShengtongZhang-alt/BN"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "bollobas-nikiforov-conjecture",
+        "url": "https://vibemathed.com/problem/bollobas-nikiforov-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: ShengtongZhang-alt/BN, the Lean 4 and Mathlib formalization",
+        "url": "https://github.com/ShengtongZhang-alt/BN",
+        "kind": "research"
+      },
+      {
+        "label": "Giacomelli: the prior partial result, complete multipartite and dense K4-free graphs",
+        "url": "https://arxiv.org/abs/2603.26379",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: Bollobas-Nikiforov conjecture",
+        "url": "https://vibemathed.com/problem/bollobas-nikiforov-conjecture",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "spectral-graph-theory",
+      "combinatorics",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-15"
+  },
+  {
+    "id": "2026-09-03-prime-gaps-212",
+    "title": "Bounded prime gaps improved to 212, with a Lean certificate of the deduction",
+    "claim": "Nine authors prove that infinitely many pairs of primes differ by at most 212, improving Stadlmann's 240, with the deduction certified in Lean by the group's own prover.",
+    "field": "mathematics",
+    "date": "2026-09-03",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Francois Charton",
+      "Letong Hong",
+      "Kenny Lau",
+      "Ken Ono",
+      "Guillaume Remy",
+      "Ho Chung Siu",
+      "Ashvin A. Swaminathan",
+      "Jesse Thorner",
+      "Yunzhou Xie"
+    ],
+    "year_posed": 1849,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The bounded-gaps line runs from Zhang in 2013 through Maynard's sieve to the Polymath8b bound of 246, which this registry already carries as a formalization entry, and then to Stadlmann's 240. This paper builds on Stadlmann's work to reach 212. The authors are explicit about the division of labour: the mathematics is theirs, and AxiomProver generated the Lean certificate of the deduction from natural-language specifications rather than finding the argument.",
+    "novelty_check": "The bound improves on published work the paper names in its own abstract: 246 from Polymath8b and 240 from Stadlmann. No earlier claim below 240 was found in the four registries. Two competing prime-gap claims appeared in the same window, an unreviewed 236 with no named model and no preprint, and an OpenAI 186 that is recorded separately here and is conditional on three unproved axioms; neither displaces this one on evidence.",
+    "caveats": "Nothing outside the author group has checked this. The certificate covers the deduction from stated assumptions rather than the analytic inputs themselves, the same shape as the 246 entry already in the registry, so it is not a machine-checked proof of the bound from first principles. The Lean build was not independently reproduced for this entry. Autonomy is collaborative on the authors' own framing, that the mathematics is theirs and the AI contribution is the formal certificate. Whether this should supersede or extend 2026-08-18-prime-gaps-246 rather than sit beside it is an open editorial question: same lab, same tooling, a strictly better bound.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "bounded-prime-gaps-at-most-212",
+        "url": "https://vibemathed.com/problem/bounded-prime-gaps-at-most-212"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Axiom Math: a new bound for small gaps between primes (PDF)",
+        "url": "https://primegaps.axiommath.ai/bgp212.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: bounded prime gaps at most 212",
+        "url": "https://vibemathed.com/problem/bounded-prime-gaps-at-most-212",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "prime-gaps",
+      "sieve-methods",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-15"
+  },
+  {
+    "id": "2026-09-02-prime-gaps-186",
+    "title": "Prime gaps at most 186, conditional on three unproved Lean axioms",
+    "claim": "An OpenAI repository derives a bound of 186 on infinitely many prime gaps in Lean, from three inputs it states as axioms rather than proving.",
+    "field": "mathematics",
+    "date": "2026-09-02",
+    "lab": "OpenAI",
+    "model": "GPT-6 Astra",
+    "year_posed": 1849,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "This is numerically the strongest of three bounded prime-gap claims from the same window, ahead of the Axiom Math 212 recorded separately here and the 246 already in the registry, and it is the weakest evidentially. The development derives DHL[40,2], and so the bound, from three stated inputs. Those inputs are not proved in Lean: the repository's own README says the results remain conditional on three explicit input axioms and that the cited estimates and numerical computations have not been turned into Lean proofs.",
+    "novelty_check": "The claimed bound is below every published figure in the bounded-gaps line, which runs through Polymath8b's 246 and Stadlmann's 240, and below the Axiom Math 212 from the same window. No earlier claim at 186 or lower was found in the four registries. Priority is not really the open question here; whether the claim is established at all is, and the caveats address that.",
+    "caveats": "The grade is capped by the artifact's own structure rather than by caution. Three load-bearing statements are axioms rather than theorems, so what the kernel establishes is an implication: granted those three, the bound follows. Until they are proved in Lean or cited to the literature, the development certifies a conditional statement, and the numerical work does not discharge the corresponding axiom. No human author is named on the repository, so nobody is on record as having reviewed it. Autonomy is ai-led rather than autonomous: the disclosure describes the model working to specific formalization instructions, including which inputs to retain as axioms, which is steering even without a named human.",
+    "sources": [
+      {
+        "label": "GitHub: openai/PrimeGaps186, the conditional Lean formalization and numerical certificate",
+        "url": "https://github.com/openai/PrimeGaps186",
+        "kind": "research"
+      },
+      {
+        "label": "vibemathed: prime gaps at most 186",
+        "url": "https://vibemathed.com/problem/prime-gaps-at-most-186",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "prime-gaps",
+      "sieve-methods",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-15"
   }
 ]
