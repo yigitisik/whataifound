@@ -53,6 +53,13 @@ const SRC_CHIP = {
   "challenge":"Challenge"
 };
 const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challenge"];
+const REG_NAME = {
+  "palomar":"Palomar",
+  "proofatlas":"ProofAtlas",
+  "mathdb":"MathDB",
+  "vibemathed":"vibemathed"
+};
+const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -305,23 +312,35 @@ function renderCharts(){
 
   el.innerHTML =
     section('sec-time', 'How findings accumulate',
-      'When each result became public, and what kind of AI work produced it.',
-      trendCard() + mixCard() + checkedCard()) +
+      'When each result became public, what kind of AI work produced it, and which fields '+
+      'it came from.',
+      trendCard() + mixCard() + checkedCard() +
+      // 0 = no cap: this page has the width for all of them, the home page does not.
+      // Two columns rather than one: thirteen fields in a single column is a third of a
+      // screen of mostly short bars on a card that is already the full grid width.
+      // qv-cols is only on this call, so the home page's copy, which verify-parity.py
+      // diffs, is untouched.
+      //
+      // Here rather than closing the page: it is the plainest description of what the
+      // registry is, so it is worth more as orientation before the argument than as a
+      // tail card four screens down.
+      topicCard(0, 'qv-wide qv-cols')) +
     section('sec-evidence', 'How solid the evidence is',
       'What has been checked, by whom, and where the checking runs out.',
       matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard()) +
     section('sec-autonomy', 'How much the AI did',
       'Which systems and organisations produced these results, and what they were up against.',
-      labGradeCard() + spanCard() + modelCard() +
+      // The record chart leads the section: it is the one here a reader is most likely to
+      // have come for, and behind four half-width cards it sat most of a screen down.
+      recordCard('qv-wide') +
+      labGradeCard() + spanCard() + modelCard(8) +
       `<div class="qv-card"><div class="qv-head"><h3 class="qv-title">By autonomy grade</h3></div>`+
       hbarsHtml(byAut, 'By autonomy grade')+
       `<p class="qv-foot">The strictest defensible reading of what the AI did unaided. `+
       `<a href="/methodology">How these are graded</a>.</p></div>` +
       // 8 rather than the home page's 4, and full width: these rows carry a title, and a
       // half-width column clamps most of them to two lines.
-      standingCard(8, 'qv-wide') +
-      // 0 = no cap: this page has the width for all of them, the home page does not.
-      topicCard(0, 'qv-wide'));
+      standingCard(8, 'qv-wide'));
   renderInsights();
   wireScatterTip();
   wireChartControls();
@@ -346,20 +365,40 @@ function renderInsights(){
        : Math.round((spans[spans.length/2-1] + spans[spans.length/2]) / 2))
     : null;
 
+  // A number is easier to argue with than to picture, so each tile names one entry behind
+  // it. Chosen from sorted data rather than by array position, so an unrelated edit to
+  // data/entries.json cannot silently swap the example out from under a tile.
+  const newest = fn => ALL.filter(fn)
+    .sort((a,b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)
+                || (a.id < b.id ? -1 : 1))[0] || null;
+  // Nearest the median rather than at the middle index: for an even count the figure shown
+  // is the mean of the middle two, and naming an entry whose own span differs from the
+  // number printed above it would read as an error.
+  const nearest = v => v == null ? null : ALL.filter(e => yearsOpen(e) != null)
+    .sort((a,b) => Math.abs(yearsOpen(a)-v) - Math.abs(yearsOpen(b)-v)
+                || (a.id < b.id ? -1 : 1))[0] || null;
+
   const cards = [
     [`${strong}`, `of ${n} well verified`,
-     `Formally verified, independently checked or peer reviewed. ${pct(strong)}% of the registry.`],
+     `Formally verified, independently checked or peer reviewed. ${pct(strong)}% of the registry.`,
+     newest(e => ['formal','independent','peer-reviewed'].includes(e.verification))],
     [`${scaffold}`, 'came from search scaffolds',
-     'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.'],
+     'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.',
+     newest(e => e.autonomy === 'search-scaffold')],
     [`${negative}`, 'negative or contested',
-     'Already known, disputed or refuted. Kept on the record rather than deleted.'],
+     'Already known, disputed or refuted. Kept on the record rather than deleted.',
+     newest(e => ['known','disputed','refuted'].includes(e.verification))],
   ];
   if (median != null) cards.push([`${median}yr`, 'median problem age',
-    `Half the problems with a known posed year had stood longer than this before the result.`]);
+    `Half the problems with a known posed year had stood longer than this before the result.`,
+    nearest(median)]);
 
-  el.innerHTML = cards.map(([big, label, note]) =>
+  el.innerHTML = cards.map(([big, label, note, ex]) =>
     `<div class="ins"><b>${esc(big)}</b><span class="ins-l">${esc(label)}</span>`+
-    `<span class="ins-n">${esc(note)}</span></div>`).join('');
+    `<span class="ins-n">${esc(note)}</span>`+
+    // Internal path built from the entry's own id, so it needs no href validation.
+    (ex ? `<a class="ins-x" href="/finding/${encodeURIComponent(ex.id)}">${esc(ex.title)}</a>` : '')+
+    `</div>`).join('');
 }
 
 // The verification vocabulary as chart furniture: display order, colour variable and the
@@ -674,21 +713,31 @@ function modelFamily(model){
 // Findings by AI system, grouped into families. Same long-tail handling as the lab card:
 // the singles aggregate into one labelled row rather than being dropped, so the column
 // still sums to the registry.
-function modelCard(cls){
+// `max` is a height budget, not a ranking, the same as topicCard's. Every system named
+// twice used to get its own row, which was 19 of them: eleven rows of two or three, one
+// of them a sentence-long model description that a 138px label column cannot show anyway.
+// Nineteen rows also set the height of whatever card shares its grid row, so one long tail
+// stretched two cards and pushed everything below them down a screen.
+function modelCard(max, cls){
   const m = {};
   ALL.forEach(e => { const k = modelFamily(e.model); if (k) m[k] = (m[k]||0)+1; });
-  const rows = Object.entries(m).sort((a,b)=>b[1]-a[1]);
-  const ranked = rows.filter(([,c]) => c > 1);
-  const singles = rows.filter(([,c]) => c <= 1);
-  const out = ranked.slice();
-  if (singles.length) out.push([`+${singles.length} more, 1 each`, singles.length, null,
-    `${singles.length} further systems with one finding each: `+
-    singles.map(([l])=>l).join(', '), 'is-rollup']);
+  // Largest first, then by name: without the tiebreak the many equal counts order
+  // themselves by however Object.entries happened to walk the keys.
+  const rows = Object.entries(m).sort((a,b)=> b[1]-a[1] || (a[0] < b[0] ? -1 : 1));
+  const head = (max && rows.length > max) ? rows.slice(0, max) : rows;
+  const rest = rows.slice(head.length);
+  const out = head.slice();
+  const tail = rest.reduce((n,[,c]) => n + c, 0);
+  if (rest.length) out.push([`+${rest.length} more systems`, tail, null,
+    `${rest.length} further systems: ` + rest.map(([l,c])=>`${l} (${c})`).join(', '), 'is-rollup']);
   return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">By AI system</h3>`+
     hbarsHtml(out, 'By AI system')+
     `<p class="qv-foot">Grouped by system, not by release: GPT-5 Pro and GPT-5.6 Pro `+
     `count together. Purpose-built networks are models trained for one problem, as `+
-    `against a general model prompted at it.</p></div>`;
+    `against a general model prompted at it.`+
+    (rest.length ? ` The hatched row is ${rest.length} systems with ${tail} findings `+
+      `between them, more than any one system here.` : '')+
+    `</p></div>`;
 }
 
 // Who has actually looked. An entry with no independent_checks has been read by nobody
@@ -790,7 +839,7 @@ function trendCard(){
   const cum = {};
   series.forEach(a => { let t = 0; cum[a] = per[a].map(v => (t += v)); });
 
-  const W = 940, H = 330, PADL = 46, PADR = 18, PADT = 18, PADB = 46;
+  const W = 940, H = 296, PADL = 46, PADR = 18, PADT = 18, PADB = 46;
   const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
   const step = span.length > 1 ? (x1 - x0) / (span.length - 1) : 0;
   const x = i => x0 + i * step;
@@ -871,7 +920,7 @@ function trendCard(){
 // footing; the caption carries the warning that the early years rest on very few entries.
 function mixCard(){
   const { span, series, per } = autoByYear();
-  const W = 470, H = 300, PADL = 34, PADR = 12, PADT = 14, PADB = 44;
+  const W = 470, H = 266, PADL = 34, PADR = 12, PADT = 14, PADB = 44;
   const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
   const bw = (x1 - x0) / span.length;
   const tot = span.map((_,i) => series.reduce((s,a) => s + per[a][i], 0));
@@ -942,7 +991,7 @@ function checkedCard(){
     tot.push(a); chk.push(b);
   });
 
-  const W = 470, H = 300, PADL = 34, PADR = 62, PADT = 16, PADB = 44;
+  const W = 470, H = 266, PADL = 34, PADR = 62, PADT = 16, PADB = 44;
   const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
   const ticks = niceTicks(Math.max(a, 1), 4), dom = tickTop(ticks);
   const step = span.length > 1 ? (x1 - x0) / (span.length - 1) : 0;
@@ -997,7 +1046,7 @@ function fieldGradeCard(){
   const maxN = Math.max(...fields.map(f => Math.max(...grades.map(g => at(f,g)))), 1);
 
   const W = 470, PADL = 104, PADR = 12, PADT = 58, PADB = 12, GAP = 9;
-  const cw = (W - PADL - PADR) / grades.length, ch = 22;
+  const cw = (W - PADL - PADR) / grades.length, ch = 19;
   const totRow = PADT + fields.length * ch + GAP;
   const H = totRow + ch + PADB;
 
@@ -1165,6 +1214,158 @@ function spanCard(){
     `<p class="qv-foot">One dot per entry, coloured by grade. From the ${pts.length} of `+
     `${ALL.length} entries recording a posed year. <a href="/review">Add a missing one</a>.</p>`+
     note + `</div>`;
+}
+
+// The record book: how old a problem this registry has seen fall, and when that last moved.
+//
+// Adapted from a running-best line rather than copied, because the record alone is six
+// points on a ten-year axis and six points are not a chart. The dots are every entry that
+// records a posed year; the line over them is the running maximum, which is flat by
+// construction and only breaks when something older falls. Reading both at once is the
+// point: the cloud says how much is happening, the line says whether any of it was
+// unprecedented.
+function recordCard(cls){
+  const pts = ALL.map(e => ({ e, n: yearsOpen(e) })).filter(p => p.n != null)
+    .sort((a,b) => (a.e.date < b.e.date ? -1 : a.e.date > b.e.date ? 1 : 0)
+                || (a.e.id < b.e.id ? -1 : 1));
+  if (pts.length < 2){
+    return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">The record book</h3>`+
+      `<p class="qv-empty">Too few entries record the year their problem was posed to draw a record.</p></div>`;
+  }
+
+  // One step per date, not per entry: three records fell on 2025-05-14, and three vertical
+  // steps at one x reads as a drawing error rather than as three results.
+  const records = [];
+  let best = -1;
+  pts.forEach((p, i) => {
+    if (p.n <= best) return;
+    if (records.length && records[records.length-1].e.date === p.e.date) records.pop();
+    records.push({ i, n: p.n, e: p.e });
+    best = p.n;
+  });
+
+  const W = 940, H = 296, PADL = 46, PADR = 18, PADT = 30, PADB = 46;
+  const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
+  // One slot per entry in date order, not a calendar axis. Intake is far lumpier than the
+  // calendar: most of these entries share a handful of recent months, and on a date axis
+  // they stack into an unreadable smear against the right edge while most of the plot sits
+  // empty. Equal slots give each year the width its share of the entries earns, which is
+  // what the reader is being asked to compare; the year rules below keep the calendar
+  // visible. Safe to divide: the early return above guarantees two points.
+  const x = i => x0 + i * (x1 - x0) / (pts.length - 1);
+
+  // Log, because the range runs from a problem posed the same year to one posed in 1637,
+  // and a linear axis spends nine tenths of its height on empty space above the cloud.
+  // log(v+1) rather than log(v) so a problem closed in the year it was posed sits on the
+  // axis instead of at negative infinity.
+  const maxN = Math.max(...pts.map(p => p.n));
+  const top = maxN <= 10 ? 10 : maxN <= 100 ? Math.ceil(maxN/10)*10 : Math.ceil(maxN/100)*100;
+  const lg = v => Math.log10(v + 1);
+  const y = v => yBot - lg(v) / lg(top) * (yBot - yTop);
+  const yticks = [0, 10, 100, top].filter((v,i,a) => v <= top && a.indexOf(v) === i);
+
+  const grid = yticks.map(t =>
+    `<line x1="${x0}" y1="${y(t).toFixed(1)}" x2="${x1}" y2="${y(t).toFixed(1)}" class="mx-guide"/>`+
+    `<text x="${x0-7}" y="${(y(t)+3.5).toFixed(1)}" class="mx-tick" text-anchor="end">${t}</text>`
+  ).join('');
+
+  // A rule at every year boundary, but a label only where one fits. The early years hold
+  // one entry each, so their boundaries are a dozen pixels apart and every label would
+  // overprint its neighbour; the rules still show the reader where the years divide. The
+  // first and last are always labelled, so the axis always states the range it covers.
+  const yr0 = +pts[0].e.date.slice(0,4), yr1 = +pts[pts.length-1].e.date.slice(0,4);
+  const bounds = [];
+  for (let yr = yr0 + 1; yr <= yr1; yr++){
+    const i = pts.findIndex(p => +p.e.date.slice(0,4) >= yr);
+    if (i <= 0) continue;
+    // A year with no entries at all starts at the same slot as the year after it. Keep the
+    // later one: everything right of that rule is that year or newer, and labelling it with
+    // the empty year would say the opposite.
+    if (bounds.length && bounds[bounds.length-1].i === i) bounds[bounds.length-1].yr = yr;
+    else bounds.push({ yr, i });
+  }
+  let last = -Infinity;
+  const xticks = [{ yr: yr0, i: 0 }].concat(bounds).map((b, k, a) => {
+    const px = x(b.i);
+    const rule = b.i > 0
+      ? `<line x1="${px.toFixed(1)}" y1="${yTop}" x2="${px.toFixed(1)}" y2="${yBot}" class="mx-guide"/>` : '';
+    // Always the first and the last; anything between only if it has clear air.
+    const room = k === 0 || k === a.length - 1 || (px - last >= 46 && x(a[a.length-1].i) - px >= 46);
+    if (!room) return rule;
+    last = px;
+    return rule + `<text x="${px.toFixed(1)}" y="${yBot+16}" class="mx-tick" text-anchor="middle">${b.yr}</text>`;
+  }).join('');
+
+  const dots = pts.map((p, i) => {
+    const isRec = records.some(r => r.e.id === p.e.id);
+    const col = `var(${GRADE_VAR[p.e.verification]||'--muted'})`;
+    return `<circle class="pt-mark${isRec?' is-rec':' is-faint'}" cx="${x(i).toFixed(1)}"`+
+      ` cy="${y(p.n).toFixed(1)}" r="${isRec?5:3.4}" fill="${col}" tabindex="0" role="img"`+
+      ` data-title="${esc(p.e.title)}"`+
+      ` data-aut="${esc(`${p.n} years open`)}" data-autcol="${col}"`+
+      ` data-open="${esc(`${p.e.date} · posed ${p.e.year_posed} · ${VER_LABEL[p.e.verification]||p.e.verification}`)}"`+
+      ` aria-label="${esc(`${p.e.title}: open ${p.n} years, closed ${p.e.date}.`)}"></circle>`;
+  }).join('');
+
+  // Step, not a smoothed line: the record holds flat until it breaks, and a line that
+  // sloped between records would draw years of gradual progress that did not happen.
+  let d = `M ${x(records[0].i).toFixed(1)} ${y(records[0].n).toFixed(1)}`;
+  for (let k = 1; k < records.length; k++){
+    d += ` L ${x(records[k].i).toFixed(1)} ${y(records[k-1].n).toFixed(1)}`+
+         ` L ${x(records[k].i).toFixed(1)} ${y(records[k].n).toFixed(1)}`;
+  }
+  d += ` L ${x1} ${y(records[records.length-1].n).toFixed(1)}`;
+
+  // Direct labels rather than a legend: they are the whole point of the card, and a legend
+  // would name colours the line does not use.
+  //
+  // Not every record gets one. The early records are a handful of entries apart, so all
+  // four labels printed on top of each other in the left corner. Biggest jump first, then
+  // greedily, skipping any that would land within LAB_GAP of one already placed: the jump
+  // is what makes a record worth naming, and the ones dropped are still drawn as a ringed
+  // dot and named in full by the tooltip. Ranked by jump rather than by date so which
+  // labels survive does not depend on how many entries happen to sit between them. The
+  // first record jumps from nothing, so it competes on its own span: it set the bar.
+  const LAB_GAP = 90;
+  const placed = [];
+  records.map((r, k) => ({ r, jump: r.n - (k ? records[k-1].n : 0) }))
+    .sort((a,b) => b.jump - a.jump || a.r.i - b.r.i)
+    .forEach(({ r }) => {
+      if (placed.every(q => Math.abs(x(q.i) - x(r.i)) >= LAB_GAP)) placed.push(r);
+    });
+  placed.sort((a,b) => a.i - b.i);
+
+  // Sides alternate, so any pair the gap above still lets through is separated by a whole
+  // line without this having to measure text it has no way to measure. A label near the
+  // right edge is anchored to its end so it cannot run off.
+  const labs = placed.map((r, i) => {
+    const px = x(r.i), end = px > x1 - 150, above = i % 2 === 0;
+    const t = r.e.title.length > 30 ? r.e.title.slice(0,29).trimEnd() + '…' : r.e.title;
+    return `<text class="rc-lab" x="${(px + (end ? -8 : 8)).toFixed(1)}"`+
+      ` y="${(y(r.n) + (above ? -9 : 16)).toFixed(1)}"`+
+      ` text-anchor="${end?'end':'start'}">${esc(`${r.n} yr · ${t}`)}</text>`;
+  }).join('');
+
+  const held = records[records.length-1];
+  return `<div class="qv-card${cls?' '+cls:''}">`+
+    `<div class="qv-head"><h3 class="qv-title">The record book</h3></div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img"`+
+    ` aria-label="${esc(`Years each problem had stood when it fell, for ${pts.length} entries, `+
+      `with the running record over them. The record has moved ${records.length} times, and stands at `+
+      `${held.n} years: ${held.e.title}.`)}"`+
+    ` preserveAspectRatio="xMidYMid meet">`+
+    grid + xticks +
+    `<path class="rc-line" d="${d}"/>` + dots + labs +
+    `<text x="${(x0-34).toFixed(1)}" y="${((yTop+yBot)/2).toFixed(1)}" class="sc-axis"`+
+    ` text-anchor="middle" transform="rotate(-90 ${(x0-34).toFixed(1)} ${((yTop+yBot)/2).toFixed(1)})">Years open</text>`+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">One dot per entry, coloured by grade; the line is the record. `+
+    `It has moved ${records.length} times and stands at ${held.n} years. `+
+    `Drawn from the ${pts.length} of ${ALL.length} entries recording a posed year. `+
+    `One slot per entry in date order rather than a calendar axis, because most of them are `+
+    `dated ${yr1} and a calendar would stack them against the right edge; the rules mark the `+
+    `year boundaries. Years open is logarithmic.</p></div>`;
 }
 
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside

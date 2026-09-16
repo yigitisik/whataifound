@@ -130,14 +130,20 @@ const GRADES = {
   "2026-09-01-mckean-entropy-production":["author-verified","ai-led"],
   "2026-09-01-saxl-common-neighbour":["formal","collaborative"],
   "2026-09-02-daykin-frankl-conjecture":["author-verified","ai-led"],
+  "2026-09-02-prime-gaps-186":["claimed","ai-led"],
   "2026-09-02-qma2-oracle-separation":["author-verified","ai-assisted"],
   "2026-09-02-trautman-conjecture":["author-verified","ai-assisted"],
   "2026-09-03-catalan-constant-irrationality":["disputed","ai-assisted"],
   "2026-09-03-erdos-sos-conjecture":["formal","autonomous"],
   "2026-09-03-koethe-conjecture-matrix-form":["formal","autonomous"],
+  "2026-09-03-prime-gaps-212":["claimed","collaborative"],
+  "2026-09-03-smale-mean-value-k1":["claimed","autonomous"],
   "2026-09-04-fermat-last-theorem-lean":["formal","ai-led"],
+  "2026-09-05-ibragimov-iosifescu":["claimed","ai-led"],
+  "2026-09-06-bollobas-nikiforov":["claimed","collaborative"],
   "2026-09-08-euler-unforced-blowup":["claimed","ai-led"],
-  "2026-09-08-navier-stokes-forced-blowup":["claimed","ai-led"]
+  "2026-09-08-navier-stokes-forced-blowup":["claimed","ai-led"],
+  "2026-09-14-nivat-conjecture":["claimed","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -254,14 +260,20 @@ const ID_BY_TITLE = {
   "entropy production of the boltzmann equation is not always monotone":"2026-09-01-mckean-entropy-production",
   "common neighbour conjectures for saxl graphs fail at every base size":"2026-09-01-saxl-common-neighbour",
   "confirmation of the daykin-frankl conjecture from a language-model proof":"2026-09-02-daykin-frankl-conjecture",
+  "prime gaps at most 186, conditional on three unproved lean axioms":"2026-09-02-prime-gaps-186",
   "a quantum oracle separating qma(2) from qma":"2026-09-02-qma2-oracle-separation",
   "a smooth counterexample to the trautman conjecture":"2026-09-02-trautman-conjecture",
   "disputed claim that catalan's constant is irrational":"2026-09-03-catalan-constant-irrationality",
   "erdos-sos conjecture proved in lean, in a form marginally weaker than the classical statement":"2026-09-03-erdos-sos-conjecture",
   "lean disproof of krempa's matrix form of the koethe conjecture":"2026-09-03-koethe-conjecture-matrix-form",
+  "bounded prime gaps improved to 212, with a lean certificate of the deduction":"2026-09-03-prime-gaps-212",
+  "counterexample to smale's mean value conjecture at k = 1":"2026-09-03-smale-mean-value-k1",
   "fermat's last theorem formalized end to end in lean 4":"2026-09-04-fermat-last-theorem-lean",
+  "disproof of the ibragimov-iosifescu conjecture for phi-mixing sequences":"2026-09-05-ibragimov-iosifescu",
+  "bollobas-nikiforov conjecture claimed in full, in a weighted form":"2026-09-06-bollobas-nikiforov",
   "finite-time blowup for the unforced euler equations from smooth compactly supported data":"2026-09-08-euler-unforced-blowup",
-  "finite-time blowup for navier-stokes with smooth forcing, clay alternatives c and d":"2026-09-08-navier-stokes-forced-blowup"
+  "finite-time blowup for navier-stokes with smooth forcing, clay alternatives c and d":"2026-09-08-navier-stokes-forced-blowup",
+  "nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it":"2026-09-14-nivat-conjecture"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -378,14 +390,20 @@ const TITLE_BY_ID = {
   "2026-09-01-mckean-entropy-production":"Entropy production of the Boltzmann equation is not always monotone",
   "2026-09-01-saxl-common-neighbour":"Common neighbour conjectures for Saxl graphs fail at every base size",
   "2026-09-02-daykin-frankl-conjecture":"Confirmation of the Daykin-Frankl conjecture from a language-model proof",
+  "2026-09-02-prime-gaps-186":"Prime gaps at most 186, conditional on three unproved Lean axioms",
   "2026-09-02-qma2-oracle-separation":"A quantum oracle separating QMA(2) from QMA",
   "2026-09-02-trautman-conjecture":"A smooth counterexample to the Trautman conjecture",
   "2026-09-03-catalan-constant-irrationality":"Disputed claim that Catalan's constant is irrational",
   "2026-09-03-erdos-sos-conjecture":"Erdos-Sos conjecture proved in Lean, in a form marginally weaker than the classical statement",
   "2026-09-03-koethe-conjecture-matrix-form":"Lean disproof of Krempa's matrix form of the Koethe conjecture",
+  "2026-09-03-prime-gaps-212":"Bounded prime gaps improved to 212, with a Lean certificate of the deduction",
+  "2026-09-03-smale-mean-value-k1":"Counterexample to Smale's mean value conjecture at K = 1",
   "2026-09-04-fermat-last-theorem-lean":"Fermat's Last Theorem formalized end to end in Lean 4",
+  "2026-09-05-ibragimov-iosifescu":"Disproof of the Ibragimov-Iosifescu conjecture for phi-mixing sequences",
+  "2026-09-06-bollobas-nikiforov":"Bollobas-Nikiforov conjecture claimed in full, in a weighted form",
   "2026-09-08-euler-unforced-blowup":"Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
-  "2026-09-08-navier-stokes-forced-blowup":"Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D"
+  "2026-09-08-navier-stokes-forced-blowup":"Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D",
+  "2026-09-14-nivat-conjecture":"Nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it"
 };
 /*VOCAB:END*/
 

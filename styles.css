@@ -58,6 +58,22 @@
        already renders as small text on a tint elsewhere. */
     --foot-policy:#16705a; --foot-data:#2a6ea8; --foot-help:#5f4f9c;
     --foot-src:#8a6420; --foot-reg:#a8461f;
+    /* Categorical chart ramp. Chart furniture only, for series that are not a grade: a
+       registry, a lab, a field. Never use one of these where a verification or autonomy
+       colour belongs, and never use a grade colour here: a registry is not a grade, and
+       borrowing --formal for one would say it was.
+
+       Unlike the verification ramp above, this one is free of the pill constraint, so it
+       could be solved as a categorical palette rather than excused. Hue angles are the
+       seven a chart needs; saturation and lightness are pulled into this stylesheet's
+       register so they sit on the warm ground rather than on a white one. Ordered by
+       separation, not by hue: the first four are the ones a four-series card uses, and
+       they are the four furthest apart. Worst pair over all seven is delta E 12.5,
+       measured as the minimum across normal, deuteranope and protanope vision; every
+       value clears 4:1 against --panel, well past the 3:1 a swatch needs. Re-check both
+       if you retune one. */
+    --cat-1:#9b7a27; --cat-2:#8156b3; --cat-3:#1f7539; --cat-4:#137676;
+    --cat-5:#9e2e53; --cat-6:#793215; --cat-7:#21538c;
     --serif:'Newsreader',Georgia,'Iowan Old Style',Palatino,serif;
     --shadow:0 1px 2px rgba(30,28,24,.04),0 8px 24px rgba(30,28,24,.06);
     --shadow-card:0 1px 1px rgba(30,28,24,.04),0 2px 6px rgba(30,28,24,.05),
@@ -81,6 +97,8 @@
       --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
       --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
       --foot-src:#c9a94e; --foot-reg:#d47a45;
+      --cat-1:#d3b769; --cat-2:#bf9ee5; --cat-3:#4db26f; --cat-4:#41aaaa;
+      --cat-5:#cd708f; --cat-6:#c46731; --cat-7:#4a88cf;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
       --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -99,6 +117,8 @@
     --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
     --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
     --foot-src:#c9a94e; --foot-reg:#d47a45;
+    --cat-1:#d3b769; --cat-2:#bf9ee5; --cat-3:#4db26f; --cat-4:#41aaaa;
+    --cat-5:#cd708f; --cat-6:#c46731; --cat-7:#4a88cf;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
     --shadow-card:0 1px 1px rgba(0,0,0,.34),0 3px 8px rgba(0,0,0,.3),
       0 14px 32px rgba(0,0,0,.38),0 30px 64px rgba(0,0,0,.3);
@@ -1151,6 +1171,12 @@
     text-transform:uppercase;letter-spacing:.11em;line-height:1.35}
   .ins-n{display:block;margin-top:7px;font-family:var(--serif);font-size:.72rem;color:var(--muted);
     line-height:1.45}
+  /* The entry behind the number. Sits under the note in the same size, set apart by the
+     link colour rather than by a rule, because it is the same sentence continuing. */
+  .ins-x{display:block;margin-top:6px;font-family:var(--serif);font-size:.72rem;
+    line-height:1.4;color:var(--accent);text-decoration:none;
+    border-bottom:1px solid transparent;align-self:flex-start}
+  .ins-x:hover{border-bottom-color:currentColor}
   @media(max-width:860px){.insights{grid-template-columns:repeat(2,minmax(0,1fr))}}
   @media(max-width:460px){
     /* Two across, not stacked: four full-width cards would push the charts off the
@@ -1158,7 +1184,10 @@
        here; the number and its label carry the meaning on their own. */
     .insights{gap:8px}
     .ins{padding:10px 12px 9px;display:flex;flex-direction:column}
-    .ins b{font-size:1.3rem} .ins-l{font-size:.58rem;margin-top:4px} .ins-n{display:none}
+    .ins b{font-size:1.3rem} .ins-l{font-size:.58rem;margin-top:4px}
+    /* The exemplar goes with the note it continues. Dropping it here also keeps a link
+       out of a tile too small to give it a 44px target. */
+    .ins-n,.ins-x{display:none}
   }
 
   /* ---------- Quick view charts ---------- */
@@ -1181,6 +1210,15 @@
      from the bars above it: a hatched fill and italic label stop a "19 across 19 orgs"
      bar from reading as one organisation rivalling the 18-finding leader. */
   .hbar.is-rollup{margin-top:3px;padding-top:7px;border-top:1px dashed var(--line-strong)}
+  /* Two columns for a card whose rows are short labels and a count. A long tail in one
+     column is a third of a screen of mostly empty track on a card that is already the full
+     grid width; paired up it is half the height and the bars still share one scale, so the
+     comparison the card exists for is unchanged. Opt-in rather than applied to every wide
+     card: a card with four rows reads better as four, and halving the track length would
+     cost it the contrast between its longest and shortest bar. */
+  .qv-cols .hbars{display:grid;grid-template-columns:1fr 1fr;gap:7px 30px}
+  /* Back to one column before the track gets too short to compare anything. */
+  @media(max-width:720px){.qv-cols .hbars{display:flex}}
   .hbar.is-rollup .hbar-label{font-style:italic;color:var(--muted)}
   .hbar.is-rollup .hbar-fill{background:repeating-linear-gradient(135deg,
     var(--muted) 0 2px,transparent 2px 5px);opacity:.5}
@@ -1308,6 +1346,19 @@
   .ck-end{font-family:var(--serif);font-size:9px;font-weight:600;letter-spacing:.02em}
   .ck-tot-t{fill:var(--muted)}
   .ck-chk-t{fill:var(--src-research)}
+
+  /* The record book. The line is the subject and the cloud is the context, so the record
+     dots keep full weight and everything else is dropped back rather than recoloured:
+     fading is the one encoding that does not claim the faded entries are a second
+     category. */
+  .rc-line{fill:none;stroke:var(--accent);stroke-width:2.4;stroke-linejoin:round;
+    stroke-linecap:round}
+  circle.pt-mark.is-faint{opacity:.42}
+  circle.pt-mark.is-faint:hover,circle.pt-mark.is-faint:focus-visible{opacity:1}
+  circle.pt-mark.is-rec{stroke:var(--accent);stroke-width:2}
+  .rc-lab{font-family:var(--serif);font-size:10.5px;font-weight:600;fill:var(--ink);
+    letter-spacing:.01em;pointer-events:none;
+    font-variant-numeric:lining-nums tabular-nums}
 
   /* Topic against grade. One hue, with opacity carrying magnitude, so an empty cell reads as
      empty rather than as a second colour meaning zero. */
