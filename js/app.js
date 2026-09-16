@@ -1219,59 +1219,6 @@ function spanCard(){
     note + `</div>`;
 }
 
-// Where else each finding is recorded. The one chart here that no other registry could
-// draw, because this is the only one of the five that records the other four.
-//
-// Scaled to the whole registry rather than to the tallest bar, the way evidenceCard() is:
-// the question is what share of the registry a second project has also seen, and a
-// max-scaled bar would draw the largest registry as full coverage whatever its count.
-function registryCard(cls){
-  const n = ALL.length;
-  const order = (typeof REG_ORDER !== 'undefined' ? REG_ORDER : []);
-  const per = {};
-  order.forEach(k => { per[k] = 0; });
-  ALL.forEach(e => {
-    new Set((e.registrations||[]).map(r => r.registry)).forEach(k => {
-      if (k in per) per[k]++;
-    });
-  });
-  const rows = order.map((k, i) => ({ k, c: per[k], sw: `var(--cat-${i+1})` }))
-    .filter(r => r.c > 0)
-    // Longest bar first, but the swatch came from vocabulary order above, so a registry
-    // keeps its colour when the counts reorder it.
-    .sort((a,b) => b.c - a.c || (a.k < b.k ? -1 : 1));
-  if (!rows.length){
-    return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">Recorded elsewhere</h3>`+
-      `<p class="qv-empty">No entry carries a registration at another project yet.</p></div>`;
-  }
-
-  const nameOf = k => (typeof REG_NAME !== 'undefined' && REG_NAME[k]) || k;
-  const label = `Entries also recorded at another registry, out of ${n}. `+
-    rows.map(r => `${nameOf(r.k)}: ${r.c}`).join('; ');
-  const bars = `<div class="hbars" role="img" aria-label="${esc(label)}">` +
-    rows.map(r =>
-      `<div class="hbar" title="${esc(`${nameOf(r.k)}: ${r.c} of ${n} entries`)}">`+
-      `<span class="hbar-label"><i class="sw" style="background:${r.sw}"></i>`+
-      `${esc(nameOf(r.k))}</span>`+
-      `<span class="hbar-track"><span class="hbar-fill"`+
-      ` style="width:${Math.round(r.c/n*100)}%"></span></span>`+
-      `<span class="hbar-val">${r.c}</span></div>`).join('') + `</div>`;
-
-  // Both denominators, because the flat one understates the coverage and saying only the
-  // flat one would read as a gap these projects had left rather than one outside their
-  // scope. All four are mathematics projects.
-  const none = ALL.filter(e => !(e.registrations||[]).length).length;
-  const math = ALL.filter(e => e.field === 'mathematics');
-  const mathNone = math.filter(e => !(e.registrations||[]).length).length;
-  return `<div class="qv-card${cls?' '+cls:''}">`+
-    `<div class="qv-head"><h3 class="qv-title">Recorded elsewhere</h3></div>${bars}`+
-    `<p class="qv-foot">Of ${n} entries, counted once per registry. `+
-    `${none} are recorded nowhere else. All four projects are mathematics projects, so most `+
-    `of the ${n - math.length} entries outside mathematics are outside their scope: of the `+
-    `${math.length} mathematics entries, ${mathNone} carry no registration. `+
-    `<a href="/registries">What each one certifies</a>.</p></div>`;
-}
-
 // The record book: how old a problem this registry has seen fall, and when that last moved.
 //
 // Adapted from a running-best line rather than copied, because the record alone is six
