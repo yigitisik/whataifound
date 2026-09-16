@@ -327,10 +327,7 @@ function renderCharts(){
       topicCard(0, 'qv-wide qv-cols')) +
     section('sec-evidence', 'How solid the evidence is',
       'What has been checked, by whom, and where the checking runs out.',
-      matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard() +
-      // Wide rather than a fifth half-width card: four rows and a two-denominator
-      // footnote do not fit a column, and a fifth half card would orphan itself.
-      registryCard('qv-wide')) +
+      matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard()) +
     section('sec-autonomy', 'How much the AI did',
       'Which systems and organisations produced these results, and what they were up against.',
       // The record chart leads the section: it is the one here a reader is most likely to
