@@ -790,8 +790,18 @@
       {
         "label": "Hacker News: human search beats AlphaTensor's 5×5 result days later",
         "url": "https://news.ycombinator.com/item?id=33180316"
+      },
+      {
+        "label": "Hacker News: Discovering faster matrix multiplication algorithms with reinforcement learning",
+        "url": "https://news.ycombinator.com/item?id=33096580"
       }
     ],
+    "tags": [
+      "algorithms",
+      "linear-algebra",
+      "reinforcement-learning"
+    ],
+    "added": "2026-07-20",
     "videos": [
       {
         "label": "How AI Discovered a Faster Matrix Multiplication Algorithm",
@@ -803,13 +813,7 @@
         "channel": "Yannic Kilcher",
         "youtube_id": "3N3Bl5AA5QU"
       }
-    ],
-    "tags": [
-      "algorithms",
-      "linear-algebra",
-      "reinforcement-learning"
-    ],
-    "added": "2026-07-20"
+    ]
   },
   {
     "id": "2023-06-07-alphadev",
@@ -1435,6 +1439,12 @@
         "kind": "announcement"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: Mathematical exploration and discovery at scale",
+        "url": "https://news.ycombinator.com/item?id=45833162"
+      }
+    ],
     "tags": [
       "combinatorics",
       "geometry",
@@ -1638,6 +1648,12 @@
         "kind": "commentary"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: Gemini with Deep Think achieves gold-medal standard at the IMO",
+        "url": "https://news.ycombinator.com/item?id=44637191"
+      }
+    ],
     "tags": [
       "olympiad",
       "benchmark",
@@ -1710,6 +1726,12 @@
         "label": "google-deepmind/alphageometry (code)",
         "url": "https://github.com/google-deepmind/alphageometry",
         "kind": "research"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: AlphaGeometry, an Olympiad-level AI system for geometry",
+        "url": "https://news.ycombinator.com/item?id=39029801"
       }
     ],
     "tags": [
@@ -1925,6 +1947,12 @@
         "kind": "announcement"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: ESM3, simulating 500 million years of evolution with a language model",
+        "url": "https://news.ycombinator.com/item?id=40787800"
+      }
+    ],
     "tags": [
       "protein-design",
       "generative-biology",
@@ -2024,6 +2052,12 @@
         "label": "Google DeepMind and Isomorphic Labs introduce AlphaFold 3",
         "url": "https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/",
         "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: AlphaFold 3 code",
+        "url": "https://news.ycombinator.com/item?id=42106906"
       }
     ],
     "tags": [
@@ -2386,6 +2420,12 @@
         "kind": "announcement"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: Avoiding fusion plasma tearing instability with deep reinforcement learning",
+        "url": "https://news.ycombinator.com/item?id=39572871"
+      }
+    ],
     "tags": [
       "fusion",
       "plasma-control",
@@ -2544,6 +2584,12 @@
         "kind": "announcement"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: An entire Herculaneum scroll has been read for the first time",
+        "url": "https://news.ycombinator.com/item?id=48675179"
+      }
+    ],
     "tags": [
       "papyrology",
       "virtual-unwrapping",
@@ -2606,7 +2652,7 @@
     "autonomy": "ai-led",
     "detail": "The ten cover high-dimensional sphere packing, binary and spherical codes, non-sofic groups, Connes's rigidity conjecture, arithmetic circuit complexity, quantum parallel repetition, the closest vector problem, Ehrhart's volume conjecture, multicolor Ramsey numbers and extremal number conjectures. Soficity was introduced by Gromov in 1999 and whether a non-sofic group exists had stood open since; Connes posed his rigidity conjecture in 1980, and the disproof constructs infinitely many non-isomorphic property (T) groups sharing a von Neumann algebra. Humans used the same model to prepare the manuscripts and then to formalize each argument in Lean 4.32.0. OpenAI put the token cost of finding all ten at roughly $2,000 at Sol API rates.",
     "novelty_check": "Each of the ten is a named open problem with a documented origin: soficity from Gromov 1999, Connes rigidity from 1980, and the sphere-packing exponent improvement is the first on the general bound since 1978. The Lean repository states which prior bound each result improves. Thomas Bloom, who maintains erdosproblems.com and publicly corrected OpenAI's 2025 Erdős retrieval episode, called these results big news, which is meaningful given that he is the person who caught the previous overclaim.",
-    "caveats": "The certificates are checkable and the claim that the theorems hold is as solid as Lean makes it. The claim about provenance is not checkable: Astra is unreleased, so no outside party can test whether the model produces these results, and the account of how they were found rests entirely on OpenAI. Grading verification as formal reflects the proofs, not the provenance; a reader who cares only about who found it should read this as claimed. Specialist review of the mathematical significance is still pending in several cases. Noam Brown noted there are no Millennium Prize problems here. Press summaries of the ten disagree with the repository's own list, some substituting specific Erdős problem numbers that do not appear in it; the list above follows the repository.",
+    "caveats": "The certificates are checkable and the claim that the theorems hold is as solid as Lean makes it. The claim about provenance is not checkable: Astra is unreleased, so no outside party can test whether the model produces these results, and the account of how they were found rests entirely on OpenAI. Grading verification as formal reflects the proofs, not the provenance; a reader who cares only about who found it should read this as claimed. Specialist review of the mathematical significance is still pending in several cases. Noam Brown noted there are no Millennium Prize problems here. Press summaries of the ten disagree with the repository's own list, some substituting specific Erdős problem numbers that do not appear in it; the list above follows the repository. Andreas Thom disputed the framing of the non-sofic-group result in a guest post on Terence Tao's blog on 2026-09-11. He objects that the announcement described a decade without progress while the proof leaned on his and Gabor Kun's 2019 centralizer-rigidity paper, and he asked whether his own private ChatGPT conversations on the same techniques were available during training or solving. OpenAI's reply, that this did not happen, did not address de-identified training data. The dispute is about attribution and disclosure rather than whether the ten proofs check, so neither grade moved.",
     "sources": [
       {
         "label": "Lean 4 certificates for all ten results",
@@ -2617,6 +2663,17 @@
         "label": "OpenAI: Ten advances in mathematics and theoretical computer science",
         "url": "https://openai.com/index/ten-advances-in-mathematics/",
         "kind": "announcement"
+      },
+      {
+        "label": "Andreas Thom on the non-sofic-group result, guest post on Terence Tao's blog",
+        "url": "https://terrytao.wordpress.com/2026/09/11/on-the-existence-of-non-sofic-groups/",
+        "kind": "challenge"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Ten advances in mathematics and theoretical computer science",
+        "url": "https://news.ycombinator.com/item?id=49157930"
       }
     ],
     "tags": [
@@ -2626,7 +2683,15 @@
       "sphere-packing",
       "quantum-complexity"
     ],
-    "added": "2026-08-06"
+    "added": "2026-08-06",
+    "revisions": [
+      {
+        "date": "2026-09-15",
+        "kind": "challenge",
+        "note": "Cited Andreas Thom's guest post on Terence Tao's blog, an attribution and data-provenance dispute over the non-sofic-group result. Neither grade moved: the objection is to the framing and to what was disclosed, not to the proofs.",
+        "url": "https://terrytao.wordpress.com/2026/09/11/on-the-existence-of-non-sofic-groups/"
+      }
+    ]
   },
   {
     "id": "2026-05-18-pevac-ps-sarbecovirus",
@@ -4055,6 +4120,12 @@
         "kind": "coverage"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: A complex structure on S^6",
+        "url": "https://news.ycombinator.com/item?id=49412947"
+      }
+    ],
     "tags": [
       "complex-geometry",
       "differential-geometry",
@@ -4471,6 +4542,12 @@
         "kind": "commentary"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: An elliptic curve of rank at least 30",
+        "url": "https://news.ycombinator.com/item?id=49374873"
+      }
+    ],
     "tags": [
       "number-theory",
       "elliptic-curves",
@@ -4566,6 +4643,12 @@
         "registry": "vibemathed",
         "id": "a-counterexample-to-the-stable-forking-conjecture",
         "url": "https://vibemathed.com/problem/a-counterexample-to-the-stable-forking-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "375925",
+        "title": "The stable forking conjecture",
+        "url": "https://mathdb.com/p/375925/the-stable-forking-conjecture"
       }
     ],
     "sources": [
@@ -4586,7 +4669,15 @@
       "counterexample",
       "construction"
     ],
-    "added": "2026-09-03"
+    "added": "2026-09-03",
+    "revisions": [
+      {
+        "date": "2026-09-15",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this conjecture as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/375925/the-stable-forking-conjecture"
+      }
+    ]
   },
   {
     "id": "2026-08-26-spin-systems-girth-five",
@@ -5620,6 +5711,12 @@
         "registry": "vibemathed",
         "id": "kasami-apn-function-triple-count-conjecture",
         "url": "https://vibemathed.com/problem/kasami-apn-function-triple-count-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "383508",
+        "title": "Kasami APN function conjecture",
+        "url": "https://mathdb.com/p/383508/kasami-apn-function-conjecture"
       }
     ],
     "sources": [
@@ -5641,7 +5738,15 @@
       "lean",
       "formalization"
     ],
-    "added": "2026-09-03"
+    "added": "2026-09-03",
+    "revisions": [
+      {
+        "date": "2026-09-15",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this conjecture as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/383508/kasami-apn-function-conjecture"
+      }
+    ]
   },
   {
     "id": "2026-08-31-pisot-cantor-equidistribution",
@@ -5746,6 +5851,15 @@
         "outcome": "Ran the comparator and reports the proof checks out. States he 'manually inspected every line of the code base which (according to Claude) was not a mathematical definition or proof of a theorem', looking for soundness exploits, and that random reads of the mathematics were clearly developing FLT the classical way. Judges the mathematical contribution to be nil."
       }
     ],
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "316214",
+        "title": "Fermat's Last Theorem",
+        "url": "https://mathdb.com/p/316214/fermat-s-last-theorem",
+        "note": "Tracks the theorem itself rather than this formalization of it."
+      }
+    ],
     "sources": [
       {
         "label": "GitHub: anthropics/fermats-last-theorem",
@@ -5768,13 +5882,31 @@
         "kind": "commentary"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: Formalizing Fermat's Last Theorem",
+        "url": "https://news.ycombinator.com/item?id=49568506"
+      },
+      {
+        "label": "Hacker News: Fermat's Last Theorem in Lean 4",
+        "url": "https://news.ycombinator.com/item?id=49568697"
+      }
+    ],
     "tags": [
       "number-theory",
       "lean",
       "formalization",
       "fermat"
     ],
-    "added": "2026-09-07"
+    "added": "2026-09-07",
+    "revisions": [
+      {
+        "date": "2026-09-15",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for the underlying theorem as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/316214/fermat-s-last-theorem"
+      }
+    ]
   },
   {
     "id": "2026-08-28-percolation-critical-point",
@@ -5902,6 +6034,12 @@
         "registry": "vibemathed",
         "id": "erdos-problem-548-erdos-sos-conjecture",
         "url": "https://vibemathed.com/problem/erdos-problem-548-erdos-sos-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "392272",
+        "title": "Erdos-Sos conjecture",
+        "url": "https://mathdb.com/p/392272/erdos-sos-conjecture"
       }
     ],
     "sources": [
@@ -5924,7 +6062,15 @@
       "formalization",
       "argument"
     ],
-    "added": "2026-09-07"
+    "added": "2026-09-07",
+    "revisions": [
+      {
+        "date": "2026-09-15",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this conjecture as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/392272/erdos-sos-conjecture"
+      }
+    ]
   },
   {
     "id": "2026-09-02-qma2-oracle-separation",
@@ -6184,6 +6330,16 @@
         "kind": "challenge"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: On the Navier-Stokes Millennium Prize Problem",
+        "url": "https://news.ycombinator.com/item?id=49613262"
+      },
+      {
+        "label": "Hacker News: How an AI math breakthrough ignited a controversy",
+        "url": "https://news.ycombinator.com/item?id=49624163"
+      }
+    ],
     "tags": [
       "pde",
       "fluid-dynamics",
@@ -6246,6 +6402,16 @@
         "label": "Science: How an AI math breakthrough ignited a controversy",
         "url": "https://www.science.org/content/article/how-ai-math-breakthrough-ignited-controversy",
         "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: On the Navier-Stokes Millennium Prize Problem",
+        "url": "https://news.ycombinator.com/item?id=49613262"
+      },
+      {
+        "label": "Hacker News: How an AI math breakthrough ignited a controversy",
+        "url": "https://news.ycombinator.com/item?id=49624163"
       }
     ],
     "tags": [
