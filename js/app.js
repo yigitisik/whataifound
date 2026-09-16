@@ -53,6 +53,13 @@ const SRC_CHIP = {
   "challenge":"Challenge"
 };
 const SRC_ORDER = ["research", "announcement", "coverage", "commentary", "challenge"];
+const REG_NAME = {
+  "palomar":"Palomar",
+  "proofatlas":"ProofAtlas",
+  "mathdb":"MathDB",
+  "vibemathed":"vibemathed"
+};
+const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -309,7 +316,10 @@ function renderCharts(){
       trendCard() + mixCard() + checkedCard()) +
     section('sec-evidence', 'How solid the evidence is',
       'What has been checked, by whom, and where the checking runs out.',
-      matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard()) +
+      matrixCard() + fieldGradeCard() + evidenceCard() + coverageCard() +
+      // Wide rather than a fifth half-width card: four rows and a two-denominator
+      // footnote do not fit a column, and a fifth half card would orphan itself.
+      registryCard('qv-wide')) +
     section('sec-autonomy', 'How much the AI did',
       'Which systems and organisations produced these results, and what they were up against.',
       labGradeCard() + spanCard() + modelCard() +
@@ -317,6 +327,8 @@ function renderCharts(){
       hbarsHtml(byAut, 'By autonomy grade')+
       `<p class="qv-foot">The strictest defensible reading of what the AI did unaided. `+
       `<a href="/methodology">How these are graded</a>.</p></div>` +
+      // The record chart reads straight into the record list below it.
+      recordCard('qv-wide') +
       // 8 rather than the home page's 4, and full width: these rows carry a title, and a
       // half-width column clamps most of them to two lines.
       standingCard(8, 'qv-wide') +
@@ -346,20 +358,40 @@ function renderInsights(){
        : Math.round((spans[spans.length/2-1] + spans[spans.length/2]) / 2))
     : null;
 
+  // A number is easier to argue with than to picture, so each tile names one entry behind
+  // it. Chosen from sorted data rather than by array position, so an unrelated edit to
+  // data/entries.json cannot silently swap the example out from under a tile.
+  const newest = fn => ALL.filter(fn)
+    .sort((a,b) => (a.date < b.date ? 1 : a.date > b.date ? -1 : 0)
+                || (a.id < b.id ? -1 : 1))[0] || null;
+  // Nearest the median rather than at the middle index: for an even count the figure shown
+  // is the mean of the middle two, and naming an entry whose own span differs from the
+  // number printed above it would read as an error.
+  const nearest = v => v == null ? null : ALL.filter(e => yearsOpen(e) != null)
+    .sort((a,b) => Math.abs(yearsOpen(a)-v) - Math.abs(yearsOpen(b)-v)
+                || (a.id < b.id ? -1 : 1))[0] || null;
+
   const cards = [
     [`${strong}`, `of ${n} well verified`,
-     `Formally verified, independently checked or peer reviewed. ${pct(strong)}% of the registry.`],
+     `Formally verified, independently checked or peer reviewed. ${pct(strong)}% of the registry.`,
+     newest(e => ['formal','independent','peer-reviewed'].includes(e.verification))],
     [`${scaffold}`, 'came from search scaffolds',
-     'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.'],
+     'An LLM inside a human-built search loop (FunSearch, AlphaEvolve), not a model reasoning on its own.',
+     newest(e => e.autonomy === 'search-scaffold')],
     [`${negative}`, 'negative or contested',
-     'Already known, disputed or refuted. Kept on the record rather than deleted.'],
+     'Already known, disputed or refuted. Kept on the record rather than deleted.',
+     newest(e => ['known','disputed','refuted'].includes(e.verification))],
   ];
   if (median != null) cards.push([`${median}yr`, 'median problem age',
-    `Half the problems with a known posed year had stood longer than this before the result.`]);
+    `Half the problems with a known posed year had stood longer than this before the result.`,
+    nearest(median)]);
 
-  el.innerHTML = cards.map(([big, label, note]) =>
+  el.innerHTML = cards.map(([big, label, note, ex]) =>
     `<div class="ins"><b>${esc(big)}</b><span class="ins-l">${esc(label)}</span>`+
-    `<span class="ins-n">${esc(note)}</span></div>`).join('');
+    `<span class="ins-n">${esc(note)}</span>`+
+    // Internal path built from the entry's own id, so it needs no href validation.
+    (ex ? `<a class="ins-x" href="/finding/${encodeURIComponent(ex.id)}">${esc(ex.title)}</a>` : '')+
+    `</div>`).join('');
 }
 
 // The verification vocabulary as chart furniture: display order, colour variable and the
@@ -1165,6 +1197,211 @@ function spanCard(){
     `<p class="qv-foot">One dot per entry, coloured by grade. From the ${pts.length} of `+
     `${ALL.length} entries recording a posed year. <a href="/review">Add a missing one</a>.</p>`+
     note + `</div>`;
+}
+
+// Where else each finding is recorded. The one chart here that no other registry could
+// draw, because this is the only one of the five that records the other four.
+//
+// Scaled to the whole registry rather than to the tallest bar, the way evidenceCard() is:
+// the question is what share of the registry a second project has also seen, and a
+// max-scaled bar would draw the largest registry as full coverage whatever its count.
+function registryCard(cls){
+  const n = ALL.length;
+  const order = (typeof REG_ORDER !== 'undefined' ? REG_ORDER : []);
+  const per = {};
+  order.forEach(k => { per[k] = 0; });
+  ALL.forEach(e => {
+    new Set((e.registrations||[]).map(r => r.registry)).forEach(k => {
+      if (k in per) per[k]++;
+    });
+  });
+  const rows = order.map((k, i) => ({ k, c: per[k], sw: `var(--cat-${i+1})` }))
+    .filter(r => r.c > 0)
+    // Longest bar first, but the swatch came from vocabulary order above, so a registry
+    // keeps its colour when the counts reorder it.
+    .sort((a,b) => b.c - a.c || (a.k < b.k ? -1 : 1));
+  if (!rows.length){
+    return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">Recorded elsewhere</h3>`+
+      `<p class="qv-empty">No entry carries a registration at another project yet.</p></div>`;
+  }
+
+  const nameOf = k => (typeof REG_NAME !== 'undefined' && REG_NAME[k]) || k;
+  const label = `Entries also recorded at another registry, out of ${n}. `+
+    rows.map(r => `${nameOf(r.k)}: ${r.c}`).join('; ');
+  const bars = `<div class="hbars" role="img" aria-label="${esc(label)}">` +
+    rows.map(r =>
+      `<div class="hbar" title="${esc(`${nameOf(r.k)}: ${r.c} of ${n} entries`)}">`+
+      `<span class="hbar-label"><i class="sw" style="background:${r.sw}"></i>`+
+      `${esc(nameOf(r.k))}</span>`+
+      `<span class="hbar-track"><span class="hbar-fill"`+
+      ` style="width:${Math.round(r.c/n*100)}%"></span></span>`+
+      `<span class="hbar-val">${r.c}</span></div>`).join('') + `</div>`;
+
+  // Both denominators, because the flat one understates the coverage and saying only the
+  // flat one would read as a gap these projects had left rather than one outside their
+  // scope. All four are mathematics projects.
+  const none = ALL.filter(e => !(e.registrations||[]).length).length;
+  const math = ALL.filter(e => e.field === 'mathematics');
+  const mathNone = math.filter(e => !(e.registrations||[]).length).length;
+  return `<div class="qv-card${cls?' '+cls:''}">`+
+    `<div class="qv-head"><h3 class="qv-title">Recorded elsewhere</h3></div>${bars}`+
+    `<p class="qv-foot">Of ${n} entries, counted once per registry. `+
+    `${none} are recorded nowhere else. All four projects are mathematics projects, so most `+
+    `of the ${n - math.length} entries outside mathematics are outside their scope: of the `+
+    `${math.length} mathematics entries, ${mathNone} carry no registration. `+
+    `<a href="/registries">What each one certifies</a>.</p></div>`;
+}
+
+// The record book: how old a problem this registry has seen fall, and when that last moved.
+//
+// Adapted from a running-best line rather than copied, because the record alone is six
+// points on a ten-year axis and six points are not a chart. The dots are every entry that
+// records a posed year; the line over them is the running maximum, which is flat by
+// construction and only breaks when something older falls. Reading both at once is the
+// point: the cloud says how much is happening, the line says whether any of it was
+// unprecedented.
+function recordCard(cls){
+  const pts = ALL.map(e => ({ e, n: yearsOpen(e) })).filter(p => p.n != null)
+    .sort((a,b) => (a.e.date < b.e.date ? -1 : a.e.date > b.e.date ? 1 : 0)
+                || (a.e.id < b.e.id ? -1 : 1));
+  if (pts.length < 2){
+    return `<div class="qv-card${cls?' '+cls:''}"><h3 class="qv-title">The record book</h3>`+
+      `<p class="qv-empty">Too few entries record the year their problem was posed to draw a record.</p></div>`;
+  }
+
+  // One step per date, not per entry: three records fell on 2025-05-14, and three vertical
+  // steps at one x reads as a drawing error rather than as three results.
+  const records = [];
+  let best = -1;
+  pts.forEach((p, i) => {
+    if (p.n <= best) return;
+    if (records.length && records[records.length-1].e.date === p.e.date) records.pop();
+    records.push({ i, n: p.n, e: p.e });
+    best = p.n;
+  });
+
+  const W = 940, H = 330, PADL = 46, PADR = 18, PADT = 30, PADB = 46;
+  const x0 = PADL, x1 = W - PADR, yTop = PADT, yBot = H - PADB;
+  // One slot per entry in date order, not a calendar axis. Intake is far lumpier than the
+  // calendar: most of these entries share a handful of recent months, and on a date axis
+  // they stack into an unreadable smear against the right edge while most of the plot sits
+  // empty. Equal slots give each year the width its share of the entries earns, which is
+  // what the reader is being asked to compare; the year rules below keep the calendar
+  // visible. Safe to divide: the early return above guarantees two points.
+  const x = i => x0 + i * (x1 - x0) / (pts.length - 1);
+
+  // Log, because the range runs from a problem posed the same year to one posed in 1637,
+  // and a linear axis spends nine tenths of its height on empty space above the cloud.
+  // log(v+1) rather than log(v) so a problem closed in the year it was posed sits on the
+  // axis instead of at negative infinity.
+  const maxN = Math.max(...pts.map(p => p.n));
+  const top = maxN <= 10 ? 10 : maxN <= 100 ? Math.ceil(maxN/10)*10 : Math.ceil(maxN/100)*100;
+  const lg = v => Math.log10(v + 1);
+  const y = v => yBot - lg(v) / lg(top) * (yBot - yTop);
+  const yticks = [0, 10, 100, top].filter((v,i,a) => v <= top && a.indexOf(v) === i);
+
+  const grid = yticks.map(t =>
+    `<line x1="${x0}" y1="${y(t).toFixed(1)}" x2="${x1}" y2="${y(t).toFixed(1)}" class="mx-guide"/>`+
+    `<text x="${x0-7}" y="${(y(t)+3.5).toFixed(1)}" class="mx-tick" text-anchor="end">${t}</text>`
+  ).join('');
+
+  // A rule at every year boundary, but a label only where one fits. The early years hold
+  // one entry each, so their boundaries are a dozen pixels apart and every label would
+  // overprint its neighbour; the rules still show the reader where the years divide. The
+  // first and last are always labelled, so the axis always states the range it covers.
+  const yr0 = +pts[0].e.date.slice(0,4), yr1 = +pts[pts.length-1].e.date.slice(0,4);
+  const bounds = [];
+  for (let yr = yr0 + 1; yr <= yr1; yr++){
+    const i = pts.findIndex(p => +p.e.date.slice(0,4) >= yr);
+    if (i <= 0) continue;
+    // A year with no entries at all starts at the same slot as the year after it. Keep the
+    // later one: everything right of that rule is that year or newer, and labelling it with
+    // the empty year would say the opposite.
+    if (bounds.length && bounds[bounds.length-1].i === i) bounds[bounds.length-1].yr = yr;
+    else bounds.push({ yr, i });
+  }
+  let last = -Infinity;
+  const xticks = [{ yr: yr0, i: 0 }].concat(bounds).map((b, k, a) => {
+    const px = x(b.i);
+    const rule = b.i > 0
+      ? `<line x1="${px.toFixed(1)}" y1="${yTop}" x2="${px.toFixed(1)}" y2="${yBot}" class="mx-guide"/>` : '';
+    // Always the first and the last; anything between only if it has clear air.
+    const room = k === 0 || k === a.length - 1 || (px - last >= 46 && x(a[a.length-1].i) - px >= 46);
+    if (!room) return rule;
+    last = px;
+    return rule + `<text x="${px.toFixed(1)}" y="${yBot+16}" class="mx-tick" text-anchor="middle">${b.yr}</text>`;
+  }).join('');
+
+  const dots = pts.map((p, i) => {
+    const isRec = records.some(r => r.e.id === p.e.id);
+    const col = `var(${GRADE_VAR[p.e.verification]||'--muted'})`;
+    return `<circle class="pt-mark${isRec?' is-rec':' is-faint'}" cx="${x(i).toFixed(1)}"`+
+      ` cy="${y(p.n).toFixed(1)}" r="${isRec?5:3.4}" fill="${col}" tabindex="0" role="img"`+
+      ` data-title="${esc(p.e.title)}"`+
+      ` data-aut="${esc(`${p.n} years open`)}" data-autcol="${col}"`+
+      ` data-open="${esc(`${p.e.date} · posed ${p.e.year_posed} · ${VER_LABEL[p.e.verification]||p.e.verification}`)}"`+
+      ` aria-label="${esc(`${p.e.title}: open ${p.n} years, closed ${p.e.date}.`)}"></circle>`;
+  }).join('');
+
+  // Step, not a smoothed line: the record holds flat until it breaks, and a line that
+  // sloped between records would draw years of gradual progress that did not happen.
+  let d = `M ${x(records[0].i).toFixed(1)} ${y(records[0].n).toFixed(1)}`;
+  for (let k = 1; k < records.length; k++){
+    d += ` L ${x(records[k].i).toFixed(1)} ${y(records[k-1].n).toFixed(1)}`+
+         ` L ${x(records[k].i).toFixed(1)} ${y(records[k].n).toFixed(1)}`;
+  }
+  d += ` L ${x1} ${y(records[records.length-1].n).toFixed(1)}`;
+
+  // Direct labels rather than a legend: they are the whole point of the card, and a legend
+  // would name colours the line does not use.
+  //
+  // Not every record gets one. The early records are a handful of entries apart, so all
+  // four labels printed on top of each other in the left corner. Biggest jump first, then
+  // greedily, skipping any that would land within LAB_GAP of one already placed: the jump
+  // is what makes a record worth naming, and the ones dropped are still drawn as a ringed
+  // dot and named in full by the tooltip. Ranked by jump rather than by date so which
+  // labels survive does not depend on how many entries happen to sit between them. The
+  // first record jumps from nothing, so it competes on its own span: it set the bar.
+  const LAB_GAP = 90;
+  const placed = [];
+  records.map((r, k) => ({ r, jump: r.n - (k ? records[k-1].n : 0) }))
+    .sort((a,b) => b.jump - a.jump || a.r.i - b.r.i)
+    .forEach(({ r }) => {
+      if (placed.every(q => Math.abs(x(q.i) - x(r.i)) >= LAB_GAP)) placed.push(r);
+    });
+  placed.sort((a,b) => a.i - b.i);
+
+  // Sides alternate, so any pair the gap above still lets through is separated by a whole
+  // line without this having to measure text it has no way to measure. A label near the
+  // right edge is anchored to its end so it cannot run off.
+  const labs = placed.map((r, i) => {
+    const px = x(r.i), end = px > x1 - 150, above = i % 2 === 0;
+    const t = r.e.title.length > 30 ? r.e.title.slice(0,29).trimEnd() + '…' : r.e.title;
+    return `<text class="rc-lab" x="${(px + (end ? -8 : 8)).toFixed(1)}"`+
+      ` y="${(y(r.n) + (above ? -9 : 16)).toFixed(1)}"`+
+      ` text-anchor="${end?'end':'start'}">${esc(`${r.n} yr · ${t}`)}</text>`;
+  }).join('');
+
+  const held = records[records.length-1];
+  return `<div class="qv-card${cls?' '+cls:''}">`+
+    `<div class="qv-head"><h3 class="qv-title">The record book</h3></div>`+
+    `<div class="sc-wrap">`+
+    `<svg class="sc" viewBox="0 0 ${W} ${H}" role="img"`+
+    ` aria-label="${esc(`Years each problem had stood when it fell, for ${pts.length} entries, `+
+      `with the running record over them. The record has moved ${records.length} times, and stands at `+
+      `${held.n} years: ${held.e.title}.`)}"`+
+    ` preserveAspectRatio="xMidYMid meet">`+
+    grid + xticks +
+    `<path class="rc-line" d="${d}"/>` + dots + labs +
+    `<text x="${(x0-34).toFixed(1)}" y="${((yTop+yBot)/2).toFixed(1)}" class="sc-axis"`+
+    ` text-anchor="middle" transform="rotate(-90 ${(x0-34).toFixed(1)} ${((yTop+yBot)/2).toFixed(1)})">Years open</text>`+
+    `</svg><div class="sc-tip" hidden aria-hidden="true"></div></div>`+
+    `<p class="qv-foot">One dot per entry, coloured by grade; the line is the record. `+
+    `It has moved ${records.length} times and stands at ${held.n} years. `+
+    `Drawn from the ${pts.length} of ${ALL.length} entries recording a posed year. `+
+    `One slot per entry in date order rather than a calendar axis, because most of them are `+
+    `dated ${yr1} and a calendar would stack them against the right edge; the rules mark the `+
+    `year boundaries. Years open is logarithmic.</p></div>`;
 }
 
 // Interactive tooltip for the plots: shows on hover/focus of a mark, positioned inside

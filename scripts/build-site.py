@@ -2093,12 +2093,25 @@ def build_app_js():
                         for i in items)
         return f"const {name} = {{{rows}\n}};"
 
+    # REGISTRY is a dict keyed by slug, not an array of {slug, label}, so table() does not
+    # fit it. Its own helper rather than reshaping the vocabulary: the shape is right for
+    # every other reader of that map.
+    def named(name, mapping):
+        rows = ",".join(f"\n  {json.dumps(k)}:{json.dumps(m['name'])}"
+                        for k, m in mapping.items())
+        return f"const {name} = {{{rows}\n}};"
+
     payload = ("\n" + table("VER_LABEL", VER) + "\n" + table("AUT_LABEL", AUT) + "\n"
                + ranks("VER_SCORE", VER_SCORE) + "\n" + ranks("AUT_RANK", AUT_RANK) + "\n"
                # card() needs both forms: `chip` for the narrow card-face column and
                # `label` for the group headings inside the disclosure.
                + table("SRC_LABEL", SRC) + "\n" + chips("SRC_CHIP", SRC) + "\n"
-               + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n")
+               + f"const SRC_ORDER = {json.dumps(SRC_ORDER)};\n"
+               # registryCard() on /visuals. REG_ORDER is vocabulary order rather than
+               # descending count, because it also picks the --cat-* swatch: ordering by
+               # count would repaint every registry the first time one overtook another.
+               + named("REG_NAME", REGISTRY) + "\n"
+               + f"const REG_ORDER = {json.dumps(list(REGISTRY))};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
                  "vocabulary tables", "js/app.js")
 
