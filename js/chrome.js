@@ -279,4 +279,67 @@
   // no clock, and writes a static year that this replaces with today's date.
   const citeDate = document.getElementById('cite-date');
   if (citeDate) citeDate.textContent = new Date().toISOString().slice(0, 10);
+
+  // ---------- Page nav carriage ----------
+  // The lit bar under the nav tray. It parks under the current page and follows a mouse
+  // or keyboard focus along the row, then returns. Pointer events are filtered to a mouse
+  // on purpose: on a touch screen a tap is followed by navigation, and a bar that slid
+  // toward the tapped link first would be a flicker, not information. A finding page has
+  // no current link, so it gets no carriage and keeps the plain tray.
+  const nav = document.querySelector('.pagenav');
+  const home = nav && nav.querySelector('a[aria-current="page"]');
+  if (home && nav.querySelector('.pn-ink')) {
+    let over = null;
+    // Measured, not computed from the CSS: the links are sized by their words, and the
+    // words by a web font that may swap in after this runs, which the observer catches.
+    const settle = () => {
+      const a = over || home;
+      nav.style.setProperty('--pn-x', (a.offsetLeft + a.offsetWidth * 0.2) + 'px');
+      nav.style.setProperty('--pn-y', (a.offsetTop + a.offsetHeight - 4) + 'px');
+      nav.style.setProperty('--pn-w', (a.offsetWidth * 0.6) + 'px');
+    };
+    const aim = a => { if (a && a !== over) { over = a; settle(); } };
+    const rest = () => { if (over) { over = null; settle(); } };
+    settle();
+    nav.classList.add('has-ink');
+    // Transitions switch on two frames after the first placement, so the bar appears in
+    // place instead of sliding in from the tray's corner.
+    requestAnimationFrame(() => requestAnimationFrame(() => nav.classList.add('ink-live')));
+    if ('ResizeObserver' in window) new ResizeObserver(settle).observe(nav);
+    nav.addEventListener('pointerover', e => {
+      if (e.pointerType === 'mouse') aim(e.target.closest('a'));
+    });
+    nav.addEventListener('pointerleave', e => { if (e.pointerType === 'mouse') rest(); });
+    nav.addEventListener('focusin', e => aim(e.target.closest('a')));
+    nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) rest(); });
+  }
+
+  // ---------- Footer wordmark spotlight ----------
+  // Lights the outlined name at the foot of the page in the brand ramp around the mouse.
+  // Listened for on the whole footer rather than on the letters, so the light is already
+  // reaching down into them as the pointer approaches. One write per frame at most, and
+  // none at all under reduced motion, where a light that chases the cursor is exactly the
+  // kind of movement the setting asks to be spared.
+  const mark = document.querySelector('.foot-mark');
+  if (mark && !REDUCE) {
+    let raf = 0, mx = 0, my = 0;
+    const foot = mark.parentElement;
+    foot.addEventListener('pointermove', e => {
+      if (e.pointerType !== 'mouse') return;
+      const r = mark.getBoundingClientRect();
+      mx = e.clientX - r.left;
+      my = e.clientY - r.top;
+      if (!raf) raf = requestAnimationFrame(() => {
+        raf = 0;
+        mark.style.setProperty('--mx', mx + 'px');
+        mark.style.setProperty('--my', my + 'px');
+      });
+    });
+    foot.addEventListener('pointerleave', () => {
+      cancelAnimationFrame(raf);
+      raf = 0;
+      mark.style.removeProperty('--mx');
+      mark.style.removeProperty('--my');
+    });
+  }
 })();

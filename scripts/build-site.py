@@ -402,6 +402,10 @@ def page_nav(current):
              + (' aria-current="page"' if path == current else "")
              + f'>{esc(label)}</a>'
              for path, label, _, _ in PAGES]
+    # The carriage: one bar that chrome.js slides under whichever link the mouse is on and
+    # parks under the current page. Empty and hidden until it has been measured, so with
+    # no script the aria-current tab is the whole signal, as it always was.
+    items.append('<span class="pn-ink" aria-hidden="true"></span>')
     return (f'<nav class="pagenav" aria-label="Site">{NL}'
             + NL.join(items) + f'{NL}</nav>')
 
@@ -667,6 +671,10 @@ def site_footer():
         '<a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">'
         'confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>',
         '</div>',
+        # The name set as an outline into the foot of the card and cut off by its edge.
+        # Decoration only, so aria-hidden: the brand link in the masthead is the name a
+        # screen reader gets. chrome.js lights it in the brand ramp under a mouse.
+        '<div class="foot-mark" aria-hidden="true">what<span>ai</span>found</div>',
         '</footer>',
     ])
 

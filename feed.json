@@ -9,6 +9,94 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-09-17-talagrand-operator-cotype",
+      "url": "https://whataifound.org/finding/2026-09-17-talagrand-operator-cotype",
+      "title": "Counterexample to Talagrand's operator cotype problem",
+      "content_text": "An operator is exhibited whose Rademacher cotype is not controlled by the maximum of its Gaussian cotype and its (q,1)-summing norm, answering Talagrand's question in the negative already at q equals 2.  Talagrand asked whether the Rademacher cotype of an operator is universally controlled by the maximum of two quantities: its Gaussian cotype and its (q,1)-summing norm. The paper answers no, and does so at the smallest interesting parameter, q equals 2, rather than only for large q. The AI disclosure is a single sentence and it is the last line of the abstract: the counterexample was discovered by ChatGPT (GPT-5.6). That places the decisive step, producing the object itself, with the model, and leaves the write-up with the author.  Lab: Independent. Model: ChatGPT (GPT-5.6). Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-17T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "functional-analysis",
+        "probability",
+        "counterexample",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-17-rogers-ramanujan-torus-knot",
+      "url": "https://whataifound.org/finding/2026-09-17-rogers-ramanujan-torus-knot",
+      "title": "Huang-Jiang-Oblomkov conjecture proved for every torus-knot singularity, with a Lean formalization conditional on two literature inputs",
+      "content_text": "The geometric extension of the Rogers-Ramanujan and Andrews-Gordon identities conjectured by Huang, Jiang and Oblomkov is proved for every torus-knot singularity with coprime exponents, via a stronger finite identity.  The conjecture of Huang, Jiang and Oblomkov gives a geometric extension of the Rogers-Ramanujan and Andrews-Gordon identities for the torus-knot singularity X^a = Y^b with coprime exponents. The paper establishes a threefold equality between a normalized count of pairs of commuting nilpotent matrices over a finite field satisfying A^a = B^b, the HJO q-series, and an explicit infinite product. The main result is stated as a stronger finite identity, that the rank N HJO sum equals a q-Pochhammer factor times the generating function for balanced cylindric partitions with entries bounded by N, with the conjecture following in the limit. The proof is human mathematics: it combines the compositional rational shuffle theorem of Bergeron, Garsia, Leven and Xin and of Mellit with a multiplicativity theorem for slope operators and a determinantal model, linked by a common q-difference equation. The abstract's AI disclosure covers the formalization only: the finite identity and the HJO conjecture have been formalized in Lean by AxiomProver, conditional on two stated literature inputs.  Lab: Axiom Math. Model: AxiomProver. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-09-17T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "combinatorics",
+        "q-series",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-16-browning-sawin-hypersurfaces",
+      "url": "https://whataifound.org/finding/2026-09-16-browning-sawin-hypersurfaces",
+      "title": "Browning-Sawin conjecture on random sign-coefficient hypersurfaces proved, with a Lean formalization assuming existing literature",
+      "content_text": "Random hypersurfaces with coefficients drawn uniformly from plus and minus one are shown to be smooth with probability tending to one as the degree grows, with a quantitative rate.  Browning and Sawin conjectured that random hypersurfaces with sign coefficients are smooth with probability tending to one as the degree grows. The paper proves this and adds a rate: for each n at least 1, a degree d form in n+1 variables with independent uniform coefficients in plus and minus one defines a singular complex hypersurface with probability O_n(d^{-1/2}). Positive-dimensional singular loci are shown to occur with exponentially small probability, and for n at least 3 the same exponential bound is given for failure of absolute irreducibility. The abstract's AI disclosure is one sentence and covers the formalization: these results have been formalized in Lean by AxiomProver assuming existing literature.  Lab: Axiom Math. Model: AxiomProver. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-09-16T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "algebraic-geometry",
+        "probability",
+        "arithmetic-statistics",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-15-ipm-forced-blowup",
+      "url": "https://whataifound.org/finding/2026-09-15-ipm-forced-blowup",
+      "title": "Finite-time blowup for the IPM equation with uniformly space-time smooth forcing",
+      "content_text": "The incompressible porous medium equation on the two-dimensional torus is shown to develop a finite-time singularity under a force that is smooth in space and time together, extending a result previously available only for spatially smooth forcing.  Cordoba and Martinez-Zoroa proved finite-time blowup for the incompressible porous medium equation with a spatially smooth force. This paper adapts their technique to a force that is uniformly smooth in space and time together, which is the stronger requirement. It exhibits a smooth odd initial density, a smooth odd force on the unit time interval crossed with the two-dimensional torus, and a classical solution on the half-open interval whose density gradient and spatial velocity gradient both diverge in the supremum norm as time approaches one, while the density itself still converges in every Holder class below Lipschitz. It is one of three companion forced-blowup results from the same group covering IPM, Boussinesq and three-dimensional Euler; the other two are not yet in this registry.  Lab: Independent. Model: Not named; the arXiv comment field states only that the proof is LLM-assisted. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-09-15T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "pde",
+        "fluid-dynamics",
+        "singularity",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-10-approval-committee-core",
+      "url": "https://whataifound.org/finding/2026-09-10-approval-committee-core",
+      "title": "Existence of the core in approval-based committee elections",
+      "content_text": "Every approval-based multi-winner election is shown to admit a committee in the core, settling the main open question in the area, and one can be found in polynomial time.  The core is a stability and group-fairness notion for multi-winner elections: a committee is in the core when no group of voters large enough to deserve a different outcome all prefer one. Whether a core committee always exists was the main open question in the theory of approval-based multi-winner elections. The paper shows one always does. The proof introduces a voting rule that optimizes an entropy-like objective over committees and payment systems together, and shows every local optimum of that objective lies in the core, which also yields a polynomial-time algorithm. The arXiv comment field carries the AI disclosure in one line: the proof was obtained with GPT-6 Astra.  Lab: Independent. Model: GPT-6 Astra. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-09-10T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "social-choice",
+        "combinatorics",
+        "algorithms",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-07-complex-grothendieck-constant",
+      "url": "https://whataifound.org/finding/2026-09-07-complex-grothendieck-constant",
+      "title": "Improved lower bound for the complex Grothendieck constant",
+      "content_text": "The complex Grothendieck constant is shown to exceed 1.35584631827168, closing more than a quarter of the gap between the long-standing Davie lower bound and the Haagerup upper bound.  The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.  Lab: Independent. Model: Odin Automatic AI Research Agent. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-07T00:00:00+00:00",
+      "date_modified": "2026-09-22T00:00:00+00:00",
+      "tags": [
+        "functional-analysis",
+        "optimization",
+        "interval-arithmetic",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-14-nivat-conjecture",
       "url": "https://whataifound.org/finding/2026-09-14-nivat-conjecture",
       "title": "Nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it",

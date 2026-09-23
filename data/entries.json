@@ -2383,6 +2383,12 @@
         "kind": "challenge"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: A generative model for inorganic materials design",
+        "url": "https://news.ycombinator.com/item?id=42727329"
+      }
+    ],
     "tags": [
       "materials",
       "crystal-structure",
@@ -6328,6 +6334,11 @@
         "label": "Buckmaster and Alpoge: public statement on the priority of the forced-blowup program (PDF)",
         "url": "https://cims.nyu.edu/~tristanb/statement.pdf",
         "kind": "challenge"
+      },
+      {
+        "label": "Constantin, Ignatova and Vicol: the forcing in any construction with these features can be neither locally vanishing nor real-analytic in space",
+        "url": "https://arxiv.org/abs/2609.20803",
+        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -6356,6 +6367,12 @@
         "kind": "correction",
         "note": "Corrected what the Clay prize covers. This entry originally said the Millennium Prize attaches only to alternatives (A) and (B) and that the result therefore was not the Millennium problem. Fefferman's problem description asks for a proof of any one of four statements, and the breakdown alternatives (C) and (D) are two of them, so the result is a candidate solution to the problem as posed. Added the Clay Mathematics Institute's statement of 2026-09-11. Neither grade moved.",
         "url": "https://www.claymath.org/news/navier-stokes-announcement/"
+      },
+      {
+        "date": "2026-09-22",
+        "kind": "challenge",
+        "note": "Cited the first independent technical engagement with the construction: Constantin, Ignatova and Vicol prove that a solution with the announced anisotropic Type II bounds and a collapsing axisymmetric core is regular at the putative singular point under a real-analytic force, so the force can neither vanish near that point nor be real-analytic in space. It constrains the construction rather than refuting it, and no grade moved.",
+        "url": "https://arxiv.org/abs/2609.20803"
       }
     ]
   },
@@ -6372,6 +6389,13 @@
     "detail": "Whether the three-dimensional incompressible Euler equations can produce a singularity in finite time from smooth finite-energy data, with no forcing and no boundary, is one of the long-standing questions in mathematical fluid dynamics. The repository states the result twice: euler_breakdown_R3, that no global smooth unforced solution of uniformly bounded kinetic energy exists on R^3, and exists_compact_smooth_euler_singularity, which gives compactly supported smooth initial data with a positive finite maximal lifespan in the all-order Sobolev class, an unbounded limsup of the velocity's C^1 norm, and a divergent time integral of the vorticity's sup norm. That last condition is the Beale-Kato-Majda quantity, so the blowup is certified in the classical criterion rather than only as a loss of regularity. Both theorems are recorded with no sorry and dependence on exactly propext, Classical.choice and Quot.sound, and the Comparator config enables the independent nanoda kernel. OpenAI's account describes roughly 100 agents working about 50 hours on this result, against roughly 10,000 over 88 hours for the companion Navier-Stokes work. Euler is not one of the Clay Millennium problems; that list carries Navier-Stokes only.",
     "novelty_check": "The gap this closes is specific and the prior literature marks it clearly. Elgindi proved finite-time singularity for axisymmetric no-swirl Euler on R^3 at C^{1,alpha} regularity, and Elgindi and Pasqualotto did the analogous thing for Boussinesq, in both cases below smooth. Chen and Hou proved blowup for smooth finite-energy data by computer-assisted analysis, but in an axially periodic cylinder with an impermeable wall, so with a boundary (PNAS, 2025). What remained open was exactly the case claimed here: smooth, compactly supported data on R^3 with no boundary and no forcing. No prior claim on that case was found in the four registries or in the search behind this note. The companion result released the same week by Alpoge and Buckmaster is finite-time blowup for Euler with smooth forcing, which is a weaker and different statement, and the two should not be read as competing claims on the same theorem.",
     "caveats": "Verification is graded claimed rather than formal despite two theorems with no sorry and exactly the three standard axioms. The repository's own formalization.yaml records its review status as self-assessed, and no mathematician outside OpenAI is on record as having read the argument at entry. Statement fidelity carries more weight on this entry than on the companion Navier-Stokes one, and the difference is worth stating plainly: there, the Comparator reference statements were adapted from Google DeepMind's Formal Conjectures formalization of the Clay problem, so the statement being proved against had independent provenance. The repository records no such outside source for the Euler challenge module, so what the kernel compares against is the repository's own formalization of its own theorem, and a reader checking this should start by reading ComparatorChallenges/Euler.lean against the paper rather than by rerunning the build. The model attribution is split and both halves are recorded above: the announcement describes an unnamed next-generation model, while the repository metadata credits GPT-6 Astra through Codex under an agent method, which most plausibly describes who wrote the Lean rather than who found the proof. Autonomy is ai-led rather than autonomous because the disclosure describes an agent framework without stating the run was unsteered. The priority dispute around the same week's releases is recorded on the Navier-Stokes entry; how much of it reaches this unforced result is not clear from the public record, and the credit OpenAI gives to Diego Cordoba and Luis Martinez-Zoroa is stated for the forced program rather than for this one.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "finite-time-blowup-for-the-3d-incompressible-euler-equations-unforced",
+        "url": "https://vibemathed.com/problem/finite-time-blowup-for-the-3d-incompressible-euler-equations-unforced"
+      }
+    ],
     "sources": [
       {
         "label": "GitHub: openai/NavierStokesAndEuler, the Lean 4 formalizations",
@@ -6423,7 +6447,15 @@
       "formalization",
       "argument"
     ],
-    "added": "2026-09-10"
+    "added": "2026-09-10",
+    "revisions": [
+      {
+        "date": "2026-09-22",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It cites the same theorems and the same repository already sourced here. No grade moved.",
+        "url": "https://vibemathed.com/problem/finite-time-blowup-for-the-3d-incompressible-euler-equations-unforced"
+      }
+    ]
   },
   {
     "id": "2026-09-14-nivat-conjecture",
@@ -6695,6 +6727,13 @@
     "detail": "This is numerically the strongest of three bounded prime-gap claims from the same window, ahead of the Axiom Math 212 recorded separately here and the 246 already in the registry, and it is the weakest evidentially. The development derives DHL[40,2], and so the bound, from three stated inputs. Those inputs are not proved in Lean: the repository's own README says the results remain conditional on three explicit input axioms and that the cited estimates and numerical computations have not been turned into Lean proofs.",
     "novelty_check": "The claimed bound is below every published figure in the bounded-gaps line, which runs through Polymath8b's 246 and Stadlmann's 240, and below the Axiom Math 212 from the same window. No earlier claim at 186 or lower was found in the four registries. Priority is not really the open question here; whether the claim is established at all is, and the caveats address that.",
     "caveats": "The grade is capped by the artifact's own structure rather than by caution. Three load-bearing statements are axioms rather than theorems, so what the kernel establishes is an implication: granted those three, the bound follows. Until they are proved in Lean or cited to the literature, the development certifies a conditional statement, and the numerical work does not discharge the corresponding axiom. No human author is named on the repository, so nobody is on record as having reviewed it. Autonomy is ai-led rather than autonomous: the disclosure describes the model working to specific formalization instructions, including which inputs to retain as axioms, which is steering even without a named human.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "prime-gaps-at-most-186",
+        "url": "https://vibemathed.com/problem/prime-gaps-at-most-186"
+      }
+    ],
     "sources": [
       {
         "label": "GitHub: openai/PrimeGaps186, the conditional Lean formalization and numerical certificate",
@@ -6715,6 +6754,244 @@
       "formalization",
       "argument"
     ],
-    "added": "2026-09-15"
+    "added": "2026-09-15",
+    "revisions": [
+      {
+        "date": "2026-09-22",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. Its own label reads Lean-checked, statement unaudited, which matches the conditional grade already here. No grade moved.",
+        "url": "https://vibemathed.com/problem/prime-gaps-at-most-186"
+      }
+    ]
+  },
+  {
+    "id": "2026-09-17-talagrand-operator-cotype",
+    "title": "Counterexample to Talagrand's operator cotype problem",
+    "claim": "An operator is exhibited whose Rademacher cotype is not controlled by the maximum of its Gaussian cotype and its (q,1)-summing norm, answering Talagrand's question in the negative already at q equals 2.",
+    "field": "mathematics",
+    "date": "2026-09-17",
+    "lab": "Independent",
+    "model": "ChatGPT (GPT-5.6)",
+    "humans": [
+      "Xinglong Wu"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Talagrand asked whether the Rademacher cotype of an operator is universally controlled by the maximum of two quantities: its Gaussian cotype and its (q,1)-summing norm. The paper answers no, and does so at the smallest interesting parameter, q equals 2, rather than only for large q. The AI disclosure is a single sentence and it is the last line of the abstract: the counterexample was discovered by ChatGPT (GPT-5.6). That places the decisive step, producing the object itself, with the model, and leaves the write-up with the author.",
+    "novelty_check": "The disclosure and the attribution were read from the arXiv abstract directly rather than from an aggregator label, which matters this week: the 2026-09-23 watch run spot-checked 11 registry rows tagged as AI-discovered and found 9 of them carried no AI disclosure anywhere in the actual paper. This one does, verbatim. No prior counterexample to the operator cotype question was found in the four registries the watch reads. This is a distinct Talagrand problem from the convolution conjecture already in this registry at 2026-08-16-talagrand-convolution, which is a different question by different authors using a different system; the two should not be read as related results. The year Talagrand posed the operator cotype question is not stated in the abstract and is deliberately left unrecorded here rather than guessed.",
+    "caveats": "A preprint days old at entry, unrefereed, with no formalization and no independent check on record, so the grade is claimed on the registry's default for an announced but unverified result. Autonomy is ai-led on the author's own one-sentence attribution taken at face value; as with any such statement there is no transcript or artifact that would let a reader separate discovery from the author's own framing of it, and the model field should be read as the author's attribution rather than as a verified fact. The sole source is the preprint itself.",
+    "sources": [
+      {
+        "label": "arXiv: A Counterexample to Talagrand’s Operator Cotype Problem",
+        "url": "https://arxiv.org/abs/2609.19731",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "functional-analysis",
+      "probability",
+      "counterexample",
+      "construction"
+    ],
+    "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-07-complex-grothendieck-constant",
+    "title": "Improved lower bound for the complex Grothendieck constant",
+    "claim": "The complex Grothendieck constant is shown to exceed 1.35584631827168, closing more than a quarter of the gap between the long-standing Davie lower bound and the Haagerup upper bound.",
+    "field": "mathematics",
+    "date": "2026-09-07",
+    "lab": "Independent",
+    "model": "Odin Automatic AI Research Agent",
+    "humans": [
+      "Shengtao Guo",
+      "Ethan X. Fang",
+      "Junwei Lu"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.",
+    "novelty_check": "The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag.",
+    "caveats": "Odin is the same undocumented system credited on this registry's 2026-08-16-talagrand-convolution entry, by an overlapping author set, and the caveat recorded there applies here without change: Odin is not a publicly documented system, no vendor is named, no transcript or artifact is published, and there is no way to separate discovery from human reorganization. Read the model field as the authors' attribution rather than as a verified fact. Two further gaps are worth stating. The interval-arithmetic verification is asserted in the abstract but no code or certificate is linked from it, so the computational half of the proof is not reproducible from the sources here; editorial rule 4 caps verification at claimed on that basis. Separately, the sibling Talagrand entry is graded author-verified while this one is graded claimed, and the difference rests only on that missing artifact; a maintainer may reasonably want the two aligned in one direction or the other.",
+    "sources": [
+      {
+        "label": "arXiv: An Improved Lower Bound for the Complex Grothendieck Constant",
+        "url": "https://arxiv.org/abs/2609.07000",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "functional-analysis",
+      "optimization",
+      "interval-arithmetic",
+      "construction"
+    ],
+    "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-17-rogers-ramanujan-torus-knot",
+    "title": "Huang-Jiang-Oblomkov conjecture proved for every torus-knot singularity, with a Lean formalization conditional on two literature inputs",
+    "claim": "The geometric extension of the Rogers-Ramanujan and Andrews-Gordon identities conjectured by Huang, Jiang and Oblomkov is proved for every torus-knot singularity with coprime exponents, via a stronger finite identity.",
+    "field": "mathematics",
+    "date": "2026-09-17",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Yifeng Huang",
+      "Kenny Lau",
+      "Ken Ono"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The conjecture of Huang, Jiang and Oblomkov gives a geometric extension of the Rogers-Ramanujan and Andrews-Gordon identities for the torus-knot singularity X^a = Y^b with coprime exponents. The paper establishes a threefold equality between a normalized count of pairs of commuting nilpotent matrices over a finite field satisfying A^a = B^b, the HJO q-series, and an explicit infinite product. The main result is stated as a stronger finite identity, that the rank N HJO sum equals a q-Pochhammer factor times the generating function for balanced cylindric partitions with entries bounded by N, with the conjecture following in the limit. The proof is human mathematics: it combines the compositional rational shuffle theorem of Bergeron, Garsia, Leven and Xin and of Mellit with a multiplicativity theorem for slope operators and a determinantal model, linked by a common q-difference equation. The abstract's AI disclosure covers the formalization only: the finite identity and the HJO conjecture have been formalized in Lean by AxiomProver, conditional on two stated literature inputs.",
+    "novelty_check": "The 2026-09-23 watch run searched arXiv and the web for the a = 3 layer specifically and found two August 2026 papers by an overlapping author set, arXiv:2608.05480 and arXiv:2608.15219, which resolve individual exponent pairs rather than a full family; no prior resolution of the general coprime case was found. That search was not a systematic review of the Rogers-Ramanujan and torus-knot-singularity literature, and whether this paper generalizes rather than restates those two predecessors is the first thing a specialist should check. The year the HJO conjecture was posed is not stated in the abstract and is left unrecorded here rather than guessed.",
+    "caveats": "Autonomy is ai-assisted rather than anything stronger because the abstract places AxiomProver on the formalization, not on the discovery: the proof strategy it names is a combination of existing human theorems. Verification is claimed rather than formal for the reason the abstract itself supplies, that the Lean development is conditional on two stated literature inputs, so what the kernel establishes is an implication rather than the theorem outright, the same structure as this registry's 2026-09-02-prime-gaps-186 entry. Whether those two inputs, the collinear commutation of slope operators and the compositional rational shuffle identity, are settled literature or are doing substantive unproved work is the question that decides how much the formalization is worth. A preprint days old at entry, unrefereed, with no mathematician review found as of 2026-09-22 and no third-party audit of the Lean statements against the paper.",
+    "sources": [
+      {
+        "label": "arXiv: Rogers-Ramanujan identities from the geometry of X^a=Y^b",
+        "url": "https://arxiv.org/abs/2609.20567",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: AxiomMath/HJO, the Lean formalization",
+        "url": "https://github.com/AxiomMath/HJO",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "combinatorics",
+      "q-series",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-16-browning-sawin-hypersurfaces",
+    "title": "Browning-Sawin conjecture on random sign-coefficient hypersurfaces proved, with a Lean formalization assuming existing literature",
+    "claim": "Random hypersurfaces with coefficients drawn uniformly from plus and minus one are shown to be smooth with probability tending to one as the degree grows, with a quantitative rate.",
+    "field": "mathematics",
+    "date": "2026-09-16",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Ken Ono",
+      "Ashvin Swaminathan"
+    ],
+    "year_posed": 2025,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Browning and Sawin conjectured that random hypersurfaces with sign coefficients are smooth with probability tending to one as the degree grows. The paper proves this and adds a rate: for each n at least 1, a degree d form in n+1 variables with independent uniform coefficients in plus and minus one defines a singular complex hypersurface with probability O_n(d^{-1/2}). Positive-dimensional singular loci are shown to occur with exponentially small probability, and for n at least 3 the same exponential bound is given for failure of absolute irreducibility. The abstract's AI disclosure is one sentence and covers the formalization: these results have been formalized in Lean by AxiomProver assuming existing literature.",
+    "novelty_check": "The conjecture is attributed in the abstract to Browning and Sawin, whose 2025 preprint arXiv:2510.26191 is its source, and the 2026-09-23 watch run searched arXiv and the web for a prior proof and found none, making this the first claimed resolution. MathSciNet and Zentralblatt were not searched, and whether Browning or Sawin have themselves circulated a proof was not established.",
+    "caveats": "Autonomy is ai-assisted rather than stronger because the only AI role the abstract states is the Lean formalization. A separate and fuller disclosure describing human-AI collaboration through literature search, numerical experimentation and the proposal and rejection of candidate strategies was reported by the 2026-09-21 watch run as coming from this paper, but it does not appear in the abstract that was read directly on 2026-09-22; it may sit in the body. Until someone locates it, the autonomy grade here rests only on the formalization sentence, and a maintainer who finds that fuller text may have grounds to revisit it. Verification is claimed rather than formal because the formalization is explicitly conditional on existing literature taken as input, so the kernel certifies an implication; whether the five classical results taken as Lean axioms are standard or are doing substantive proof work is unresolved. A preprint days old at entry, unrefereed, with no specialist review and no discussion found on any tracked venue as of 2026-09-22.",
+    "sources": [
+      {
+        "label": "arXiv: On a conjecture of Browning and Sawin on random hypersurfaces with sign coefficients",
+        "url": "https://arxiv.org/abs/2609.18879",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: AxiomMath/BrowningSawin, the Lean formalization",
+        "url": "https://github.com/AxiomMath/BrowningSawin",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Browning and Sawin, Random Diophantine equations of large degree, the source of the conjecture",
+        "url": "https://arxiv.org/abs/2510.26191",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "algebraic-geometry",
+      "probability",
+      "arithmetic-statistics",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-15-ipm-forced-blowup",
+    "title": "Finite-time blowup for the IPM equation with uniformly space-time smooth forcing",
+    "claim": "The incompressible porous medium equation on the two-dimensional torus is shown to develop a finite-time singularity under a force that is smooth in space and time together, extending a result previously available only for spatially smooth forcing.",
+    "field": "mathematics",
+    "date": "2026-09-15",
+    "lab": "Independent",
+    "model": "Not named; the arXiv comment field states only that the proof is LLM-assisted",
+    "humans": [
+      "Levent Alpöge",
+      "Tristan Buckmaster",
+      "Matei P. Coiculescu"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Cordoba and Martinez-Zoroa proved finite-time blowup for the incompressible porous medium equation with a spatially smooth force. This paper adapts their technique to a force that is uniformly smooth in space and time together, which is the stronger requirement. It exhibits a smooth odd initial density, a smooth odd force on the unit time interval crossed with the two-dimensional torus, and a classical solution on the half-open interval whose density gradient and spatial velocity gradient both diverge in the supremum norm as time approaches one, while the density itself still converges in every Holder class below Lipschitz. It is one of three companion forced-blowup results from the same group covering IPM, Boussinesq and three-dimensional Euler; the other two are not yet in this registry.",
+    "novelty_check": "The paper frames itself in its own abstract as extending the Cordoba and Martinez-Zoroa IPM blowup from spatially smooth to uniformly space-time smooth forcing, so the prior state of the art is named rather than left implicit. Terence Tao's 2026-09-07 post describes the same group's work across IPM, Boussinesq and Euler and notes that the IPM case was already handled by Cordoba and Martinez-Zoroa, with the contribution here being a variant of their method that also extends to the other two equations. This is a different claim from the OpenAI results already in this registry at 2026-09-08-navier-stokes-forced-blowup and 2026-09-08-euler-unforced-blowup, which concern different equations, and the four should not be read as competing claims on one theorem.",
+    "caveats": "The AI disclosure is thin and its location matters: it is not in the abstract but in the arXiv comment field, which reads in full, 57 pages, LLM-assisted and Lean formalized proof. No model or vendor is named anywhere, which is why the model field records the absence rather than a guess, and autonomy is graded ai-assisted as the weakest reading the phrase LLM-assisted will carry. The 2026-09-21 watch run recorded this result under the date 2026-09-08 and without the third author; both were corrected here against the arXiv record on 2026-09-22, which gives a submission date of 15 September 2026 and names Coiculescu alongside Alpoge and Buckmaster. The Lean formalization is asserted in the comment field but no repository is linked from the abstract, so verification is capped at claimed under editorial rule 4 and nothing here is machine-checked for this registry's purposes. Tao's post records that the authors released preliminary preprints before the work was polished, describing their own earlier write-up in severe terms, so a reader should expect the exposition to be in flux.",
+    "sources": [
+      {
+        "label": "arXiv: Extending the Cordoba-Martinez-Zoroa IPM Blow-Up to Uniformly Space-Time Smooth Forcing",
+        "url": "https://arxiv.org/abs/2609.16470",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Cordoba and Martinez-Zoroa, the prior spatially-smooth-forcing result",
+        "url": "https://arxiv.org/abs/2410.22920",
+        "kind": "research"
+      },
+      {
+        "label": "Terence Tao on the forced-blowup results for IPM, Boussinesq and Euler",
+        "url": "https://terrytao.wordpress.com/2026/09/07/finite-time-blowup-with-smooth-forcing-term-for-the-incompressible-porous-medium-boussinesq-and-incompressible-euler-equations/",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "pde",
+      "fluid-dynamics",
+      "singularity",
+      "argument"
+    ],
+    "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-10-approval-committee-core",
+    "title": "Existence of the core in approval-based committee elections",
+    "claim": "Every approval-based multi-winner election is shown to admit a committee in the core, settling the main open question in the area, and one can be found in polynomial time.",
+    "field": "mathematics",
+    "date": "2026-09-10",
+    "lab": "Independent",
+    "model": "GPT-6 Astra",
+    "humans": [
+      "Patrick Becker",
+      "Matthias Greger",
+      "Dominik Peters"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The core is a stability and group-fairness notion for multi-winner elections: a committee is in the core when no group of voters large enough to deserve a different outcome all prefer one. Whether a core committee always exists was the main open question in the theory of approval-based multi-winner elections. The paper shows one always does. The proof introduces a voting rule that optimizes an entropy-like objective over committees and payment systems together, and shows every local optimum of that objective lies in the core, which also yields a polynomial-time algorithm. The arXiv comment field carries the AI disclosure in one line: the proof was obtained with GPT-6 Astra.",
+    "novelty_check": "The abstract states the question was the main open one in its area and that this settles it; the claim of prior status rests on that framing plus Epoch AI's listing of the problem among its FrontierMath open problems, rather than on a literature search run for this entry. Epoch AI has described the result as a Major Advance on that benchmark. Whether the authors are independent of Epoch AI, which would bear on any claim of independent verification, was not established.",
+    "caveats": "Autonomy is graded collaborative rather than ai-led on the strictest defensible reading of the public account, which describes a lengthy interactive session rather than a clean split between an AI insight and a human check: Peters is reported as saying both that he doubts the team would have found the proof without Astra and that Astra does not appear able to solve the problem from a simple prompt. Each half of that statement pulls against a stronger grade in one direction, and collaborative is where they meet. The AI disclosure lives in the arXiv comment field rather than the abstract or a dedicated statement, so it is thin relative to what this registry prefers. Verification is claimed: a preprint at entry, unrefereed, with no formalization and no independent check on record. The 2026-09-21 and 2026-09-23 watch runs both recorded this result under the date 2026-09-19 and with surnames only; the date and the full author names were corrected here against the arXiv record on 2026-09-22, which gives a submission date of 10 September 2026. Whether Epoch AI publishes rerunnable verification for its open-problem write-ups, which would bear on the verification grade, is unresolved.",
+    "sources": [
+      {
+        "label": "arXiv: Existence of the Core in Approval-Based Committee Elections",
+        "url": "https://arxiv.org/abs/2609.11912",
+        "kind": "research"
+      },
+      {
+        "label": "Epoch AI: FrontierMath open problems, committee election",
+        "url": "https://epoch.ai/frontiermath/open-problems/committee-election",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "social-choice",
+      "combinatorics",
+      "algorithms",
+      "argument"
+    ],
+    "added": "2026-09-22"
   }
 ]
