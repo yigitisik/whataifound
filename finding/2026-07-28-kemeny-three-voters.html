@@ -95,6 +95,11 @@
           "@type": "CreativeWork",
           "url": "https://arxiv.org/abs/2607.25540",
           "name": "arXiv: Kemeny Rank Aggregation is NP-Hard for Three Voters"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2607.28588",
+          "name": "arXiv: Madarasi, The complexity of Kemeny aggregation with three rankings"
         }
       ]
     },
@@ -126,7 +131,7 @@
         "worstRating": 1,
         "alternateName": "Formally verified: machine-checked proof"
       },
-      "reviewBody": "The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears."
+      "reviewBody": "The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears. Péter Madarasi posted an independent proof of the same hardness result on 2026-07-30, two days after this one."
     },
     {
       "@type": "BreadcrumbList",
@@ -225,28 +230,32 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
       <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.25540" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Kemeny Rank Aggregation is NP-Hard for Three Voters</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-commentary">Independent commentary</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.28588" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Madarasi, The complexity of Kemeny aggregation with three rankings</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
   <h2 class="lbl">What was found</h2>
   <p>Kemeny aggregation asks for the ranking minimizing total disagreement with a set of input rankings. Hardness was known for every even number of voters n at least 4, while n = 2 is solvable in polynomial time, leaving three voters as the minimal open case since 2001. GPT-5.6 Sol Ultra found the reduction from MAX CUT; Claude Fable 5 helped simplify parts of it. Combined with the earlier results, every fixed number of voters n at least 3 is now known to be hard. The reduction is Lean-checked alongside an author-written preprint.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears.</p>
+  <p>The complexity of Kemeny aggregation for three voters is a specifically tracked open case in the computational social choice literature, following Dwork, Kumar, Naor and Sivakumar's 2001 work establishing hardness for four voters and the subsequent extension to all even counts. The odd cases, and three in particular, were repeatedly noted as open. No prior hardness proof for exactly three voters appears. Péter Madarasi posted an independent proof of the same hardness result on 2026-07-30, two days after this one.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
   <p>Not peer-reviewed. The Lean check covers the reduction; it is author-produced and had no independent audit at announcement. Autonomy graded ai-led rather than autonomous: the model found the reduction, but the human author posed the problem, reviewed the argument and wrote the paper.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Péter Madarasi (independent proof): <em>Proved independently, two days later, that Kemeny Score is NP-complete for exactly three unweighted rankings, even when every candidate pair is split 2-to-1, which corroborates the result by a separate argument.</em> · <a href="https://arxiv.org/abs/2607.28588" target="_blank" rel="noopener">link ↗</a></p></div>
   <h2 class="lbl">The open problem</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/315674/kemeny-rank-aggregation-for-three-voters" target="_blank" rel="noopener">MathDB<span class="reg-id">Kemeny rank aggregation for three voters</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">315674</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div></div>
   <h2 class="lbl">Also recorded at</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/kemeny-three-voters" target="_blank" rel="noopener">vibemathed<span class="reg-id">Kemeny Rank Aggregation for Three Voters</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">kemeny-three-voters</p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-07-28-kemeny-three-voters">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-28-kemeny-three-voters">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-28-kemeny-three-voters">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-07-28-kemeny-three-voters">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -260,6 +269,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-check">Checked</span><span class="hist-note">Recorded Péter Madarasi's independent proof that Kemeny aggregation is NP-complete for three rankings, posted two days after this result. <a class="hist-src" href="https://arxiv.org/abs/2607.28588" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-11">2026-08-11</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
   </ol>

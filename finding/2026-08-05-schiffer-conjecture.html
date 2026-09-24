@@ -110,6 +110,11 @@
           "@type": "CreativeWork",
           "url": "https://en.wikipedia.org/wiki/Pompeiu_problem",
           "name": "Wikipedia: Pompeiu problem"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2608.01579",
+          "name": "arXiv: Colbrook and Stepaniants, A computer-assisted counterexample to the planar Pompeiu and Schiffer conjectures"
         }
       ]
     },
@@ -141,7 +146,7 @@
         "worstRating": 1,
         "alternateName": "Formally verified: machine-checked proof"
       },
-      "reviewBody": "Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. No prior counterexample to either appears. The construction is new."
+      "reviewBody": "Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. It is not the first counterexample. On 2026-08-03, two days before this paper, Matthew Colbrook and George Stepaniants posted an independent computer-assisted counterexample to the planar Pompeiu and Schiffer conjectures, a single ten-fold symmetric domain; this paper acknowledges it and takes a different route, bifurcation theory, to infinitely many domains. The construction is new; the disproof is not the first."
     },
     {
       "@type": "BreadcrumbList",
@@ -239,7 +244,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <div class="glance-src">
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
-      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2608.05114" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Counterexamples to Schiffer's Conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/jaumededios/Schiffer" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean 4 formalization (jaumededios/Schiffer)</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2608.05114" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Counterexamples to Schiffer's Conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/jaumededios/Schiffer" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean 4 formalization (jaumededios/Schiffer)</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2608.01579" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Colbrook and Stepaniants, A computer-assisted counterexample to the planar Pompeiu and Schiffer conjectures</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-commentary">Independent commentary</h3>
       <div class="refs"><a class="ref" href="https://en.wikipedia.org/wiki/Pompeiu_problem" target="_blank" rel="noopener"><span class="ref-dom">Wikipedia</span><span class="ref-t">Pompeiu problem</span><span class="ref-a">↗</span></a></div>
     </div>
@@ -248,22 +253,24 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <h2 class="lbl">What was found</h2>
   <p>Pompeiu asked in 1929 whether a bounded domain over which some nonzero function integrates to zero under every rigid motion must be a ball. Schiffer's 1957 reformulation asks the same thing through Neumann eigenfunctions of the Laplacian that are constant on the boundary, and appears as Problem 80 on Yau's 1982 list; Williams proved the two formulations equivalent for simply connected domains in 1976. Cao-Labora and de Dios Pont construct infinitely many N-fold symmetric planar domains, with N large, that are not balls and carry such an eigenfunction. The strategy is to relax the problem so that N may be any real number, which corresponds to the Schiffer problem only at integers, apply bifurcation theory there, and show the size of the local bifurcation branch can be taken independently of N. Their Corollary 1.2 applies Williams' equivalence to the same domains, so a single construction settles both problems.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. No prior counterexample to either appears. The construction is new.</p>
+  <p>Schiffer's conjecture is Problem 80 on Yau's list, with a partial-results literature running since the 1970s, and the Pompeiu problem has stood since 1929. Both are recorded as open in the standard references and in DeepMind's formal-conjectures repository, which carries a Lean statement of the Pompeiu problem as an unsolved challenge that this work's formalization closes. It is not the first counterexample. On 2026-08-03, two days before this paper, Matthew Colbrook and George Stepaniants posted an independent computer-assisted counterexample to the planar Pompeiu and Schiffer conjectures, a single ten-fold symmetric domain; this paper acknowledges it and takes a different route, bifurcation theory, to infinitely many domains. The construction is new; the disproof is not the first.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
   <p>A preprint, not peer-reviewed. The Lean 4 verification was written by GPT-5.6 from an early draft of the paper and lives in an author's own repository; it had no independent audit at entry time, and the same group produced both the proof and its formalization. Autonomy graded ai-assisted: the paper is explicit that the novel construction strategy is the authors' own, and that the models were used to verify the asymptotic estimates numerically, to produce first drafts of the proofs of the Bessel function estimates, and to help with exposition.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Matthew J. Colbrook and George Stepaniants (independent earlier counterexample): <em>Constructed, two days earlier and by a different method, a ten-fold symmetric planar domain with real-analytic boundary that is a counterexample to both Schiffer's conjecture and the planar Pompeiu conjecture, established by a computer-assisted contraction argument. Corroborates that planar counterexamples exist; does not check this paper's construction.</em> · <a href="https://arxiv.org/abs/2608.01579" target="_blank" rel="noopener">link ↗</a></p></div>
   <h2 class="lbl">The open problem</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/315903/pompeiu-problem" target="_blank" rel="noopener">MathDB<span class="reg-id">Pompeiu problem</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">315903</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div></div>
   <h2 class="lbl">Also recorded at</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/schiffer-conjecture" target="_blank" rel="noopener">vibemathed<span class="reg-id">schiffer-conjecture</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-08-05-schiffer-conjecture">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-08-05-schiffer-conjecture">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-08-05-schiffer-conjecture">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-08-05-schiffer-conjecture">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -277,6 +284,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Corrected the novelty check, which said no prior counterexample appears: Colbrook and Stepaniants posted an independent one two days earlier, which this paper itself acknowledges. No grade moved. <a class="hist-src" href="https://arxiv.org/abs/2608.01579" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-21">2026-08-21</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the MathDB record for the Pompeiu problem, the second of the two questions this entry settles, as a registration. No grade moved.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces was classified as commentary, which a registry listing is not.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-14">2026-08-14</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-assisted.</span></li>

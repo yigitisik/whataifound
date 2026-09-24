@@ -6,15 +6,15 @@
 <meta name="theme-color" content="#111310">
 <meta name="color-scheme" content="dark light">
 
-<title>Counterexample to the Dinitz–Garg–Goemans conjecture: graded Claimed | whataifound.org</title>
-<meta name="description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded claimed on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conj">
+<title>Counterexample to the Dinitz–Garg–Goemans conjecture: graded Formally verified | whataifound.org</title>
+<meta name="description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disprov">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="whataifound.org">
 <meta property="og:title" content="Counterexample to the Dinitz–Garg–Goemans conjecture">
-<meta property="og:description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded claimed on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conj">
+<meta property="og:description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disprov">
 <meta property="og:url" content="https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
@@ -27,7 +27,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Counterexample to the Dinitz–Garg–Goemans conjecture">
-<meta name="twitter:description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded claimed on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disproving a conj">
+<meta name="twitter:description" content="Counterexample to the Dinitz–Garg–Goemans conjecture is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. An explicit seven-node network whose cheapest single-route (unsplittable) shipping costs more than its fractional cost even under the allowed capacity slack, disprov">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
@@ -75,11 +75,11 @@
         "network-flow",
         "counterexample",
         "unsplittable-flow",
-        "Claimed",
+        "Formally verified",
         "AI-led"
       ],
       "license": "https://creativecommons.org/licenses/by/4.0/",
-      "creditText": "whataifound.org. Verification: Claimed; autonomy: AI-led.",
+      "creditText": "whataifound.org. Verification: Formally verified; autonomy: AI-led.",
       "articleBody": "Dinitz, Garg, and Goemans proved that any fractional multicommodity flow can be rounded to an unsplittable (single-path-per-demand) flow while violating each arc's capacity by at most the maximum demand. Goemans conjectured this rounding could also be done without increasing the total cost. The counterexample is a directed graph on seven nodes carrying three demands (15, 10, 15); its fractional solution costs 58, yet every unsplittable routing that stays within the allowed capacity cushion (violation ≤ 15) costs at least 60. Rybin reached it with GPT-5.6 Pro in four short prompts and reported that the model returned proof certificates, an exhaustive-enumeration verification program, machine-readable data, and LaTeX source.",
       "contributor": [
         {
@@ -101,6 +101,11 @@
           "@type": "CreativeWork",
           "url": "https://officechai.com/ai/mathematician-says-gpt-5-6-disproved-the-30-year-old-dinitz-garg-goemans-conjecture-with-4-simple-prompts/",
           "name": "Coverage: officechai"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://isa-afp.org/entries/Dinitz_Garg_Goemans_Counterexample.html",
+          "name": "Archive of Formal Proofs: a formal counterexample to the cost-preserving single-source unsplittable flow conjecture"
         }
       ]
     },
@@ -136,10 +141,10 @@
       },
       "reviewRating": {
         "@type": "Rating",
-        "ratingValue": 2,
+        "ratingValue": 5,
         "bestRating": 5,
         "worstRating": 1,
-        "alternateName": "Claimed, not independently verified"
+        "alternateName": "Formally verified: machine-checked proof"
       },
       "reviewBody": "The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example."
     },
@@ -219,7 +224,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 <main id="main">
 <article class="finding">
   <div class="finding-pills">
-    <span class="pill v v-claimed">Claimed</span>
+    <span class="pill v v-formal">Formally verified</span>
     <span class="pill a a-ai-led">AI-led</span>
   </div>
   <h1>Counterexample to the Dinitz–Garg–Goemans conjecture</h1>
@@ -238,6 +243,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     </div>
     <div class="glance-src">
       <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://isa-afp.org/entries/Dinitz_Garg_Goemans_Counterexample.html" target="_blank" rel="noopener"><span class="ref-dom">isa-afp.org</span><span class="ref-t">Archive of Formal Proofs: a formal counterexample to the cost-preserving single-source unsplittable flow conjecture</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-announcement">Announcement</h3>
       <div class="refs"><a class="ref" href="https://x.com/DmitryRybin1/status/2079907499545919968" target="_blank" rel="noopener"><span class="ref-dom">X</span><span class="ref-t">Dmitry Rybin announcement (X)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-coverage">Media coverage</h3>
@@ -251,24 +258,26 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>The Dinitz–Garg–Goemans unsplittable-flow result is from the late 1990s (D. Dinitz, N. Garg, M. Goemans, 'On the single-source unsplittable flow problem'); the cost-preserving strengthening was an open conjecture attributed to Goemans. No prior counterexample or resolution appears in the literature. The construction is a new concrete instance, not a retrieval of an existing example.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Not peer-reviewed or machine-checked in a proof assistant. Verification rests on the author's own exhaustive-enumeration program over a finite instance, which anyone can rerun but which had no logged independent replication at announcement. The result was shared informally on X with a public GPT-5.6 Pro transcript. One third party (Hensen Juang) publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim but is not a formal independent check. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified. Downgraded from 'author verified' when source classification showed no primary artifact is linked: the construction was published as a chat transcript rather than a paper or repository. Readers have checked the arithmetic and found it consistent, but there is nothing citable to point at, so the grade caps at 'claimed' until someone links a standalone write-up.</p>
+  <p>Not peer-reviewed. The counterexample was shared on X with a public GPT-5.6 Pro transcript rather than in a paper, and the entry was downgraded from author verified to claimed on 2026-08-02 because no standalone artifact was linked. That gap has since been closed by people other than the author: an Archive of Formal Proofs entry by Arthur Freitas Ramos, David Barros Hulak and Ruy de Queiroz formalizes the seven-vertex instance in Isabelle and proves that no unsplittable routing within the allowed congestion matches the fractional cost, which is the whole content of a finite counterexample, so the grade is formal. The formalization uses its own finite path-flow model of the problem, and its authors disclose AI assistance with the proof engineering. Hensen Juang publicly generalized the instance into an infinite parametric family on the same seven nodes, which is consistent with the claim. Autonomy graded ai-led: the model produced the construction; the human posed the problem and verified.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Arthur Freitas Ramos, David Barros Hulak and Ruy J. G. B. de Queiroz (Archive of Formal Proofs): <em>Formalized the seven-vertex, nine-arc instance in Isabelle/HOL and proved that its fractional flow of cost 58 cannot be rounded to any unsplittable routing that keeps the cost, even under the non-strict congestion allowance of d_max = 15. AI assistance was used for proof engineering; Isabelle checks the final statements and proofs.</em> · <a href="https://isa-afp.org/entries/Dinitz_Garg_Goemans_Counterexample.html" target="_blank" rel="noopener">link ↗</a></p></div>
   <h2 class="lbl">The open problem</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/316187/dinitz-garg-goemans-conjecture" target="_blank" rel="noopener">MathDB<span class="reg-id">Dinitz–Garg–Goemans conjecture</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">316187</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div></div>
   <h2 class="lbl">Also recorded at</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/dinitz-garg-goemans-unsplittable-flow" target="_blank" rel="noopener">vibemathed<span class="reg-id">dinitz-garg-goemans-unsplittable-flow</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-07-22-dinitz-garg-goemans">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-22-dinitz-garg-goemans">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-22-dinitz-garg-goemans">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-07-22-dinitz-garg-goemans">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
       <a href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-07-22-dinitz-garg-goemans&amp;entry=2026-07-22-dinitz-garg-goemans" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
-      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-07-22-dinitz-garg-goemans&amp;entry=2026-07-22-dinitz-garg-goemans&amp;current=verification%3A%20claimed%2C%20autonomy%3A%20ai-led" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-07-22-dinitz-garg-goemans&amp;entry=2026-07-22-dinitz-garg-goemans&amp;current=verification%3A%20formal%2C%20autonomy%3A%20ai-led" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
       <a href="https://github.com/yigitisik/whataifound/issues/new?template=correction.yml&amp;title=Correction%3A%202026-07-22-dinitz-garg-goemans&amp;entry=2026-07-22-dinitz-garg-goemans" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
       <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
     </p>
@@ -277,16 +286,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-regraded">Regraded</span><span class="hist-note">Upgraded from claimed to formally verified: an Archive of Formal Proofs entry by three authors unconnected to the announcement machine-checks the counterexample in Isabelle, supplying the standalone artifact whose absence caused the August downgrade. <a class="hist-src" href="https://isa-afp.org/entries/Dinitz_Garg_Goemans_Counterexample.html" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-21">2026-08-21</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result as a registration. It sits alongside the MathDB record already cited. No grade moved.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the MathDB record for this result as a registration.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-02">2026-08-02</time><span class="pill r r-regraded">Regraded</span><span class="hist-note">Downgraded from author verified to claimed: classifying the sources showed no primary artifact, only a chat transcript.</span></li>
-    <li class="hist-row"><time class="hist-date" datetime="2026-07-24">2026-07-24</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Claimed and AI-led.</span></li>
+    <li class="hist-row"><time class="hist-date" datetime="2026-07-24">2026-07-24</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://x.com/basedjensen/status/2080020575968543230" target="_blank" rel="noopener"><span class="ref-dom">X</span><span class="ref-t">Hensen Juang: infinite family generalizing the counterexample (X)</span><span class="ref-a">↗</span></a></div>
 
-  <p class="gradenote">Graded <strong>claimed</strong> for verification and
+  <p class="gradenote">Graded <strong>formally verified</strong> for verification and
   <strong>ai-led</strong> for autonomy.
   <a href="/methodology">What these mean</a>.</p>
 
@@ -306,7 +316,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   author       = {{whataifound.org}},
   year         = {2026},
   howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
-  note         = {Result by Independent. Verification: Claimed. Autonomy: AI-led.},
+  note         = {Result by Independent. Verification: Formally verified. Autonomy: AI-led.},
   url          = {https://whataifound.org/finding/2026-07-22-dinitz-garg-goemans}
 }</code></pre>
     </div>

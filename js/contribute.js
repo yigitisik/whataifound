@@ -75,7 +75,7 @@ const GRADES = {
   "2026-07-20-gaussian-moments":["author-verified","ai-led"],
   "2026-07-20-gaussian-product-inequality":["formal","ai-led"],
   "2026-07-20-kourovka-notebook":["formal","autonomous"],
-  "2026-07-22-dinitz-garg-goemans":["claimed","ai-led"],
+  "2026-07-22-dinitz-garg-goemans":["formal","ai-led"],
   "2026-07-27-feige-conjecture":["formal","ai-led"],
   "2026-07-28-kemeny-three-voters":["formal","ai-led"],
   "2026-07-29-sumset-difference-exponent":["formal","ai-led"],
@@ -109,7 +109,7 @@ const GRADES = {
   "2026-08-21-scl-relator-invariance":["author-verified","ai-assisted"],
   "2026-08-22-erdos-270-affine-transcendence":["claimed","ai-led"],
   "2026-08-23-elliptic-rank-31":["claimed","ai-assisted"],
-  "2026-08-23-s6-complex-structure":["claimed","ai-assisted"],
+  "2026-08-23-s6-complex-structure":["independent","ai-assisted"],
   "2026-08-24-ancheta-massey-linear-coding":["author-verified","ai-led"],
   "2026-08-25-erdos-4-prime-gaps":["independent","ai-led"],
   "2026-08-25-froberg-quintics-septics":["author-verified","collaborative"],
@@ -137,19 +137,21 @@ const GRADES = {
   "2026-09-03-erdos-sos-conjecture":["formal","autonomous"],
   "2026-09-03-koethe-conjecture-matrix-form":["formal","autonomous"],
   "2026-09-03-prime-gaps-212":["claimed","collaborative"],
-  "2026-09-03-smale-mean-value-k1":["claimed","autonomous"],
+  "2026-09-03-smale-mean-value-k1":["formal","autonomous"],
   "2026-09-04-fermat-last-theorem-lean":["formal","ai-led"],
   "2026-09-05-ibragimov-iosifescu":["claimed","ai-led"],
   "2026-09-06-bollobas-nikiforov":["claimed","collaborative"],
-  "2026-09-07-complex-grothendieck-constant":["claimed","ai-led"],
+  "2026-09-07-complex-grothendieck-constant":["author-verified","ai-led"],
   "2026-09-08-euler-unforced-blowup":["claimed","ai-led"],
   "2026-09-08-navier-stokes-forced-blowup":["claimed","ai-led"],
+  "2026-09-09-small-undecidable-groups":["author-verified","ai-led"],
   "2026-09-10-approval-committee-core":["claimed","collaborative"],
   "2026-09-14-nivat-conjecture":["claimed","ai-led"],
   "2026-09-15-ipm-forced-blowup":["claimed","ai-assisted"],
   "2026-09-16-browning-sawin-hypersurfaces":["claimed","ai-assisted"],
   "2026-09-17-rogers-ramanujan-torus-knot":["claimed","ai-assisted"],
-  "2026-09-17-talagrand-operator-cotype":["claimed","ai-led"]
+  "2026-09-17-talagrand-operator-cotype":["claimed","ai-led"],
+  "2026-09-23-array-associated-reverse-transcriptases":["claimed","collaborative"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -245,7 +247,7 @@ const ID_BY_TITLE = {
   "stable commutator length of a relator is not a one-relator group invariant":"2026-08-21-scl-relator-invariance",
   "transcendence in the affine case of erd\u0151s problem 270":"2026-08-22-erdos-270-affine-transcendence",
   "elliptic curves over the rationals of rank at least 30 and at least 31":"2026-08-23-elliptic-rank-31",
-  "a proposed complex structure on the six-sphere":"2026-08-23-s6-complex-structure",
+  "a complex structure on the six-sphere":"2026-08-23-s6-complex-structure",
   "optimal linear encoding rate for lossy compression of bernoulli sources":"2026-08-24-ancheta-massey-linear-coding",
   "improved lower bound for large gaps between consecutive primes":"2026-08-25-erdos-4-prime-gaps",
   "fr\u00f6berg's conjecture for quintics and septics in four variables":"2026-08-25-froberg-quintics-septics",
@@ -280,12 +282,14 @@ const ID_BY_TITLE = {
   "improved lower bound for the complex grothendieck constant":"2026-09-07-complex-grothendieck-constant",
   "finite-time blowup for the unforced euler equations from smooth compactly supported data":"2026-09-08-euler-unforced-blowup",
   "finite-time blowup for navier-stokes with smooth forcing, clay alternatives c and d":"2026-09-08-navier-stokes-forced-blowup",
+  "a 3-generator 9-relator group with unsolvable word problem, and smaller adian-rabin families":"2026-09-09-small-undecidable-groups",
   "existence of the core in approval-based committee elections":"2026-09-10-approval-committee-core",
   "nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it":"2026-09-14-nivat-conjecture",
   "finite-time blowup for the ipm equation with uniformly space-time smooth forcing":"2026-09-15-ipm-forced-blowup",
   "browning-sawin conjecture on random sign-coefficient hypersurfaces proved, with a lean formalization assuming existing literature":"2026-09-16-browning-sawin-hypersurfaces",
   "huang-jiang-oblomkov conjecture proved for every torus-knot singularity, with a lean formalization conditional on two literature inputs":"2026-09-17-rogers-ramanujan-torus-knot",
-  "counterexample to talagrand's operator cotype problem":"2026-09-17-talagrand-operator-cotype"
+  "counterexample to talagrand's operator cotype problem":"2026-09-17-talagrand-operator-cotype",
+  "agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages":"2026-09-23-array-associated-reverse-transcriptases"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -381,7 +385,7 @@ const TITLE_BY_ID = {
   "2026-08-21-scl-relator-invariance":"Stable commutator length of a relator is not a one-relator group invariant",
   "2026-08-22-erdos-270-affine-transcendence":"Transcendence in the affine case of Erd\u0151s Problem 270",
   "2026-08-23-elliptic-rank-31":"Elliptic curves over the rationals of rank at least 30 and at least 31",
-  "2026-08-23-s6-complex-structure":"A proposed complex structure on the six-sphere",
+  "2026-08-23-s6-complex-structure":"A complex structure on the six-sphere",
   "2026-08-24-ancheta-massey-linear-coding":"Optimal linear encoding rate for lossy compression of Bernoulli sources",
   "2026-08-25-erdos-4-prime-gaps":"Improved lower bound for large gaps between consecutive primes",
   "2026-08-25-froberg-quintics-septics":"Fr\u00f6berg's conjecture for quintics and septics in four variables",
@@ -416,12 +420,14 @@ const TITLE_BY_ID = {
   "2026-09-07-complex-grothendieck-constant":"Improved lower bound for the complex Grothendieck constant",
   "2026-09-08-euler-unforced-blowup":"Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
   "2026-09-08-navier-stokes-forced-blowup":"Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D",
+  "2026-09-09-small-undecidable-groups":"A 3-generator 9-relator group with unsolvable word problem, and smaller Adian-Rabin families",
   "2026-09-10-approval-committee-core":"Existence of the core in approval-based committee elections",
   "2026-09-14-nivat-conjecture":"Nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it",
   "2026-09-15-ipm-forced-blowup":"Finite-time blowup for the IPM equation with uniformly space-time smooth forcing",
   "2026-09-16-browning-sawin-hypersurfaces":"Browning-Sawin conjecture on random sign-coefficient hypersurfaces proved, with a Lean formalization assuming existing literature",
   "2026-09-17-rogers-ramanujan-torus-knot":"Huang-Jiang-Oblomkov conjecture proved for every torus-knot singularity, with a Lean formalization conditional on two literature inputs",
-  "2026-09-17-talagrand-operator-cotype":"Counterexample to Talagrand's operator cotype problem"
+  "2026-09-17-talagrand-operator-cotype":"Counterexample to Talagrand's operator cotype problem",
+  "2026-09-23-array-associated-reverse-transcriptases":"Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages"
 };
 /*VOCAB:END*/
 

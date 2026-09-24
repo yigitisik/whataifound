@@ -252,13 +252,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <summary>Caveats and known objections</summary>
   <p>These are predictions, not diagnoses, and DeepMind says so: ACMG/AMP guidance treats computational evidence as supporting rather than standalone. Benchmarks have been criticised for circularity, since the model trains on population frequency and is evaluated partly against datasets encoding related signals. Calibration varies by gene, and a &quot;likely pathogenic&quot; call on a variant nobody has seen in a patient remains a hypothesis.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Ljungdahl et al., Oxford, UCSF and New York Genome Center (bioRxiv, 2023): <em>Against multiplexed-assay data for 17,696 variants in five genes, AlphaMissense was consistently among the top five of 39 predictors and the best-correlated for two genes, a modest improvement, and like the others it overcalls variants as pathogenic.</em> · <a href="https://doi.org/10.1101/2023.10.24.562294" target="_blank" rel="noopener">link ↗</a></p><p>David Curtis, UCL Genetics Institute (European Journal of Human Genetics, 2024): <em>Across 18 genes with rare-variant associations to hyperlipidaemia, hypertension or type 2 diabetes, AlphaMissense gave the strongest evidence on average but the best result for only 4 genes, with marked inconsistency between genes.</em> · <a href="https://doi.org/10.1038/s41431-024-01675-y" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2023-09-19-alphamissense">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2023-09-19-alphamissense">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2023-09-19-alphamissense">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2023-09-19-alphamissense">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -270,13 +272,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2023-09-19-alphamissense" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-check">Checked</span><span class="hist-note">Recorded two independent evaluations: one finds AlphaMissense among the best predictors against functional assays with a modest margin, the other finds inconsistent performance for common disease genes. No grade moved. <a class="hist-src" href="https://doi.org/10.1101/2023.10.24.562294" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
 
   <p class="gradenote">Graded <strong>peer reviewed</strong> for verification and
   <strong>ai-led</strong> for autonomy.
@@ -306,7 +307,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2026-05-18-pevac-ps-sarbecovirus"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Phase 1 trial of a computationally designed pan-sarbecovirus vaccine</span><span class="rel-meta">University of Cambridge / DIOSynVax · 2026-05-18</span></a><a class="rel-card" href="/finding/2026-04-23-synthecin"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">An antibiotic designed by reinforcement learning clears an MRSA infection in mice</span><span class="rel-meta">McMaster University / Stanford University · 2026-04-23</span></a><a class="rel-card" href="/finding/2025-06-03-rentosertib-phase2a"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Phase 2a results for a drug whose target and molecule both came from AI</span><span class="rel-meta">Insilico Medicine · 2025-06-03</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-09-23-array-associated-reverse-transcriptases"><span class="rel-grade pill v v-claimed">Claimed</span><span class="rel-title">Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages</span><span class="rel-meta">Anthropic · 2026-09-23</span></a><a class="rel-card" href="/finding/2026-05-18-pevac-ps-sarbecovirus"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">Phase 1 trial of a computationally designed pan-sarbecovirus vaccine</span><span class="rel-meta">University of Cambridge / DIOSynVax · 2026-05-18</span></a><a class="rel-card" href="/finding/2026-04-23-synthecin"><span class="rel-grade pill v v-peer-reviewed">Peer reviewed</span><span class="rel-title">An antibiotic designed by reinforcement learning clears an MRSA infection in mice</span><span class="rel-meta">McMaster University / Stanford University · 2026-04-23</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2023-06-07-alphadev"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Faster sorting routines discovered and merged into the LLVM C++ library</span></a><a class="pn-step" href="/finding/2023-11-14-graphcast"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Medium-range weather forecasts from a graph neural network beat the operational physics model</span></a></nav>
 
   <div class="findtags"><a class="tag-chip" href="/?tag=genomics">genomics</a><a class="tag-chip" href="/?tag=variant-effect">variant-effect</a><a class="tag-chip" href="/?tag=clinical-genetics">clinical-genetics</a></div>

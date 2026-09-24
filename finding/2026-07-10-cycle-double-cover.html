@@ -122,6 +122,11 @@
           "@type": "CreativeWork",
           "url": "https://www.scientificamerican.com/article/chatgpt-just-proved-another-50-year-old-math-conjecture/",
           "name": "Scientific American: ChatGPT just proved another 50-year-old math conjecture"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2607.15399",
+          "name": "arXiv: Geelen, OpenAI's proof of the Cycle Double Cover Theorem"
         }
       ]
     },
@@ -269,7 +274,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <h3 class="lbl kind k-coverage">Media coverage</h3>
       <div class="refs"><a class="ref" href="https://www.scientificamerican.com/article/chatgpt-just-proved-another-50-year-old-math-conjecture/" target="_blank" rel="noopener"><span class="ref-dom">Scientific American</span><span class="ref-t">ChatGPT just proved another 50-year-old math conjecture</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-commentary">Independent commentary</h3>
-      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.16356" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">A proof of the cycle double cover conjecture by OpenAI: An exposition</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2607.14140" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Three-Bit Flows and Cycle Covers. Part I</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2607.16356" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">A proof of the cycle double cover conjecture by OpenAI: An exposition</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2607.14140" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Three-Bit Flows and Cycle Covers. Part I</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2607.15399" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Geelen, OpenAI's proof of the Cycle Double Cover Theorem</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
@@ -279,19 +284,21 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>The conjecture is recorded as open in the standard references, including Wolfram MathWorld, and has a documented history of proof claims posted to arXiv that were later withdrawn or found to have gaps, so the prior state was unambiguously unresolved. One thing complicates the picture rather than the novelty: Shiva Kintali posted an independent Codex-assisted proof claim of the same statement three days later (arXiv:2607.14140), also routed through nowhere-zero three-bit flows and likewise unreviewed. The result is a new proof, not a retrieval of a known one.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Not peer-reviewed. The conjecture's history of gapped proof claims is itself a reason for caution, and mathematicians are treating this one as unconfirmed pending expert review. The Lean development does check the unconditional statement for finite loopless bridgeless multigraphs, sorry-free and admit-free with no project-specific axioms, but it is first-party, produced by the same organisation as the proof, and had no independent audit at entry time. Autonomy graded ai-led rather than autonomous: the published prompt supplies more than the problem. It instructs the model to assume for purposes of the task that a complete affirmative proof exists, enumerates the approach families to explore including the flow formulations the proof in fact used, and specifies the 64-agent search strategy in detail.</p>
+  <p>Not peer-reviewed. The conjecture's history of gapped proof claims is itself a reason for caution, and mathematicians are treating this one as unconfirmed pending expert review. Two graph theorists outside OpenAI have since written the proof up themselves, Sang-il Oum as an exposition with slight modifications and Jim Geelen as notes clarifying it to himself; neither reports a gap, and neither presents the write-up as a certification. The Lean development does check the unconditional statement for finite loopless bridgeless multigraphs, sorry-free and admit-free with no project-specific axioms, but it is first-party, produced by the same organisation as the proof, and had no independent audit at entry time. Autonomy graded ai-led rather than autonomous: the published prompt supplies more than the problem. It instructs the model to assume for purposes of the task that a complete affirmative proof exists, enumerates the approach families to explore including the flow formulations the proof in fact used, and specifies the 64-agent search strategy in detail.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Sang-il Oum (exposition): <em>Presented the proof with slight modifications intended to make it more accessible, later adding consequences for the small cycle double cover conjecture and for matroids. Reports no gap; does not claim to certify correctness.</em> · <a href="https://arxiv.org/abs/2607.16356" target="_blank" rel="noopener">link ↗</a></p><p>Jim Geelen (notes): <em>Wrote three pages of notes clarifying the proof to himself, stating they offer no new insight. Reports no gap; does not claim to certify correctness.</em> · <a href="https://arxiv.org/abs/2607.15399" target="_blank" rel="noopener">link ↗</a></p></div>
   <h2 class="lbl">The open problem</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/316019/cycle-double-cover-conjecture" target="_blank" rel="noopener">MathDB<span class="reg-id">Cycle double cover conjecture</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">316019</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div></div>
   <h2 class="lbl">Also recorded at</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/cycle-double-cover-conjecture" target="_blank" rel="noopener">vibemathed<span class="reg-id">cycle-double-cover-conjecture</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-07-10-cycle-double-cover">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-10-cycle-double-cover">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-07-10-cycle-double-cover">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-07-10-cycle-double-cover">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -305,6 +312,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-check">Checked</span><span class="hist-note">Recorded independent write-ups of the proof by Sang-il Oum and Jim Geelen, neither reporting a gap. They are expositions rather than referee reports, so no grade moved. <a class="hist-src" href="https://arxiv.org/abs/2607.16356" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed and MathDB records for this result as registrations. The vibemathed link it replaces was classified as commentary, which a registry listing is not.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-14">2026-08-14</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
   </ol>
