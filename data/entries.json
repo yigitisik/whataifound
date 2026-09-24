@@ -1141,6 +1141,12 @@
         "kind": "commentary"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: AlphaFold source release",
+        "url": "https://news.ycombinator.com/item?id=27848186"
+      }
+    ],
     "tags": [
       "protein-structure",
       "biology",
@@ -1544,6 +1550,12 @@
         "label": "mathlib4 PR #41748: a finite free group scheme of order four not killed by four",
         "url": "https://github.com/leanprover-community/mathlib4/pull/41748",
         "kind": "research"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Human mathematicians are being outcounterexampled",
+        "url": "https://news.ycombinator.com/item?id=48983382"
       }
     ],
     "tags": [
@@ -2257,6 +2269,12 @@
         "label": "MIT News: Artificial intelligence yields new antibiotic",
         "url": "https://news.mit.edu/2020/artificial-intelligence-identifies-new-antibiotic-0220",
         "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Artificial intelligence yields a powerful new antibiotic",
+        "url": "https://news.ycombinator.com/item?id=22376178"
       }
     ],
     "tags": [
@@ -6746,6 +6764,12 @@
         "kind": "commentary"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: Prime Gaps at Most 186",
+        "url": "https://news.ycombinator.com/item?id=49555257"
+      }
+    ],
     "tags": [
       "number-theory",
       "prime-gaps",
@@ -6780,6 +6804,13 @@
     "detail": "Talagrand asked whether the Rademacher cotype of an operator is universally controlled by the maximum of two quantities: its Gaussian cotype and its (q,1)-summing norm. The paper answers no, and does so at the smallest interesting parameter, q equals 2, rather than only for large q. The AI disclosure is a single sentence and it is the last line of the abstract: the counterexample was discovered by ChatGPT (GPT-5.6). That places the decisive step, producing the object itself, with the model, and leaves the write-up with the author.",
     "novelty_check": "The disclosure and the attribution were read from the arXiv abstract directly rather than from an aggregator label, which matters this week: the 2026-09-23 watch run spot-checked 11 registry rows tagged as AI-discovered and found 9 of them carried no AI disclosure anywhere in the actual paper. This one does, verbatim. No prior counterexample to the operator cotype question was found in the four registries the watch reads. This is a distinct Talagrand problem from the convolution conjecture already in this registry at 2026-08-16-talagrand-convolution, which is a different question by different authors using a different system; the two should not be read as related results. The year Talagrand posed the operator cotype question is not stated in the abstract and is deliberately left unrecorded here rather than guessed.",
     "caveats": "A preprint days old at entry, unrefereed, with no formalization and no independent check on record, so the grade is claimed on the registry's default for an announced but unverified result. Autonomy is ai-led on the author's own one-sentence attribution taken at face value; as with any such statement there is no transcript or artifact that would let a reader separate discovery from the author's own framing of it, and the model field should be read as the author's attribution rather than as a verified fact. The sole source is the preprint itself.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "talagrand-operator-cotype-problem",
+        "url": "https://vibemathed.com/problem/talagrand-operator-cotype-problem"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: A Counterexample to Talagrand’s Operator Cotype Problem",
@@ -6793,7 +6824,15 @@
       "counterexample",
       "construction"
     ],
-    "added": "2026-09-22"
+    "added": "2026-09-22",
+    "revisions": [
+      {
+        "date": "2026-09-24",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It names the same model and collaborator as the preprint. No grade moved.",
+        "url": "https://vibemathed.com/problem/talagrand-operator-cotype-problem"
+      }
+    ]
   },
   {
     "id": "2026-09-07-complex-grothendieck-constant",
@@ -6808,15 +6847,27 @@
       "Ethan X. Fang",
       "Junwei Lu"
     ],
-    "verification": "claimed",
+    "verification": "author-verified",
     "autonomy": "ai-led",
     "detail": "The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.",
     "novelty_check": "The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag.",
-    "caveats": "Odin is the same undocumented system credited on this registry's 2026-08-16-talagrand-convolution entry, by an overlapping author set, and the caveat recorded there applies here without change: Odin is not a publicly documented system, no vendor is named, no transcript or artifact is published, and there is no way to separate discovery from human reorganization. Read the model field as the authors' attribution rather than as a verified fact. Two further gaps are worth stating. The interval-arithmetic verification is asserted in the abstract but no code or certificate is linked from it, so the computational half of the proof is not reproducible from the sources here; editorial rule 4 caps verification at claimed on that basis. Separately, the sibling Talagrand entry is graded author-verified while this one is graded claimed, and the difference rests only on that missing artifact; a maintainer may reasonably want the two aligned in one direction or the other.",
+    "caveats": "Odin is the same undocumented system credited on this registry's 2026-08-16-talagrand-convolution entry, by an overlapping author set, and the caveat recorded there applies here without change: Odin is not a publicly documented system, no vendor is named, no transcript or artifact is published, and there is no way to separate discovery from human reorganization. Read the model field as the authors' attribution rather than as a verified fact. Two further gaps are worth stating. The abstract links no code, but the first author's repository, found through the vibemathed record on 2026-09-24, publishes the Arb interval-arithmetic computations behind both the lower bound and the paper's restricted pointwise bound, with a single replay command; its README is explicit that the second is not an upper bound for the constant. With the artifact public, the editorial rule 4 cap no longer applies and the grade is author verified, matching the sibling Talagrand entry. It goes no further because nobody outside the author group is on record as having run the certificates.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "lower-bound-for-the-complex-grothendieck-constant",
+        "url": "https://vibemathed.com/problem/lower-bound-for-the-complex-grothendieck-constant"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: An Improved Lower Bound for the Complex Grothendieck Constant",
         "url": "https://arxiv.org/abs/2609.07000",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: shengtaoguo/complex-grothendieck-certificates, the interval-arithmetic certificates",
+        "url": "https://github.com/shengtaoguo/complex-grothendieck-certificates",
         "kind": "research"
       }
     ],
@@ -6826,7 +6877,21 @@
       "interval-arithmetic",
       "construction"
     ],
-    "added": "2026-09-22"
+    "added": "2026-09-22",
+    "revisions": [
+      {
+        "date": "2026-09-24",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record as a registration and added the certificate repository it links as a research source.",
+        "url": "https://github.com/shengtaoguo/complex-grothendieck-certificates"
+      },
+      {
+        "date": "2026-09-24",
+        "kind": "regraded",
+        "note": "Upgraded from claimed to author verified: the interval-arithmetic certificates the abstract asserted are now public, which lifts the missing-artifact cap and aligns this entry with the sibling Talagrand entry. Nobody outside the authors has run them yet.",
+        "url": "https://github.com/shengtaoguo/complex-grothendieck-certificates"
+      }
+    ]
   },
   {
     "id": "2026-09-17-rogers-ramanujan-torus-knot",
@@ -6930,7 +6995,15 @@
     "autonomy": "ai-assisted",
     "detail": "Cordoba and Martinez-Zoroa proved finite-time blowup for the incompressible porous medium equation with a spatially smooth force. This paper adapts their technique to a force that is uniformly smooth in space and time together, which is the stronger requirement. It exhibits a smooth odd initial density, a smooth odd force on the unit time interval crossed with the two-dimensional torus, and a classical solution on the half-open interval whose density gradient and spatial velocity gradient both diverge in the supremum norm as time approaches one, while the density itself still converges in every Holder class below Lipschitz. It is one of three companion forced-blowup results from the same group covering IPM, Boussinesq and three-dimensional Euler; the other two are not yet in this registry.",
     "novelty_check": "The paper frames itself in its own abstract as extending the Cordoba and Martinez-Zoroa IPM blowup from spatially smooth to uniformly space-time smooth forcing, so the prior state of the art is named rather than left implicit. Terence Tao's 2026-09-07 post describes the same group's work across IPM, Boussinesq and Euler and notes that the IPM case was already handled by Cordoba and Martinez-Zoroa, with the contribution here being a variant of their method that also extends to the other two equations. This is a different claim from the OpenAI results already in this registry at 2026-09-08-navier-stokes-forced-blowup and 2026-09-08-euler-unforced-blowup, which concern different equations, and the four should not be read as competing claims on one theorem.",
-    "caveats": "The AI disclosure is thin and its location matters: it is not in the abstract but in the arXiv comment field, which reads in full, 57 pages, LLM-assisted and Lean formalized proof. No model or vendor is named anywhere, which is why the model field records the absence rather than a guess, and autonomy is graded ai-assisted as the weakest reading the phrase LLM-assisted will carry. The 2026-09-21 watch run recorded this result under the date 2026-09-08 and without the third author; both were corrected here against the arXiv record on 2026-09-22, which gives a submission date of 15 September 2026 and names Coiculescu alongside Alpoge and Buckmaster. The Lean formalization is asserted in the comment field but no repository is linked from the abstract, so verification is capped at claimed under editorial rule 4 and nothing here is machine-checked for this registry's purposes. Tao's post records that the authors released preliminary preprints before the work was polished, describing their own earlier write-up in severe terms, so a reader should expect the exposition to be in flux.",
+    "caveats": "The AI disclosure is thin and its location matters: it is not in the abstract but in the arXiv comment field, which reads in full, 57 pages, LLM-assisted and Lean formalized proof. No model or vendor is named anywhere, which is why the model field records the absence rather than a guess, and autonomy is graded ai-assisted as the weakest reading the phrase LLM-assisted will carry. The 2026-09-21 watch run recorded this result under the date 2026-09-08 and without the third author; both were corrected here against the arXiv record on 2026-09-22, which gives a submission date of 15 September 2026 and names Coiculescu alongside Alpoge and Buckmaster. The Lean formalization is asserted in the comment field but no repository is linked from the abstract, so verification is capped at claimed under editorial rule 4 and nothing here is machine-checked for this registry's purposes. The vibemathed record for this result, added as a registration on 2026-09-24, names models (Claude, and Codex with GPT-5.6 Sol) and links tristanbuckmaster/fluid_lean as the Lean proof, but that repository contains only the companion Boussinesq and Euler formalizations, and the paper itself still names no model; the model field keeps to the paper. Tao's post records that the authors released preliminary preprints before the work was polished, describing their own earlier write-up in severe terms, so a reader should expect the exposition to be in flux.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "ipm-blowup-spacetime-smooth-forcing",
+        "url": "https://vibemathed.com/problem/ipm-blowup-spacetime-smooth-forcing",
+        "note": "The record credits Claude and Codex with GPT-5.6 Sol and labels the proof Lean-verified, linking tristanbuckmaster/fluid_lean. At commit d0124689230b58b4f86e7b90ac59de06404b3b6b that repository holds the companion Boussinesq and Euler developments and no IPM project, so neither claim is corroborated by an artifact."
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Extending the Cordoba-Martinez-Zoroa IPM Blow-Up to Uniformly Space-Time Smooth Forcing",
@@ -6954,7 +7027,15 @@
       "singularity",
       "argument"
     ],
-    "added": "2026-09-22"
+    "added": "2026-09-22",
+    "revisions": [
+      {
+        "date": "2026-09-24",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It names models and a Lean repository the paper does not, and the repository it links holds no IPM formalization, so the model field and the grade did not move.",
+        "url": "https://vibemathed.com/problem/ipm-blowup-spacetime-smooth-forcing"
+      }
+    ]
   },
   {
     "id": "2026-09-10-approval-committee-core",
@@ -6993,5 +7074,117 @@
       "argument"
     ],
     "added": "2026-09-22"
+  },
+  {
+    "id": "2026-09-09-small-undecidable-groups",
+    "title": "A 3-generator 9-relator group with unsolvable word problem, and smaller Adian-Rabin families",
+    "claim": "A group given by 3 generators and 9 relations has an unsolvable word problem, beating the 12-relation record Borisov set in 1969, and it yields families of 4-generator 11-relator and 2-generator 10-relator presentations for which no algorithm can decide whether the group is trivial.",
+    "field": "mathematics",
+    "date": "2026-09-09",
+    "lab": "Independent",
+    "model": "GPT-5.6 Sol Pro (construction); GPT-5.6 Sol in Codex (Lean formalization)",
+    "humans": [
+      "Marc Kegel",
+      "Shana Yunsheng Li",
+      "Qiuyu Ren"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "How small a finite presentation can be while still being algorithmically undecidable is a quantitative question that runs from Boone's 32-relator group through Collins to Borisov's 12. Starting from Borisov's group, the construction adds two HNN extensions and then removes seven redundant relators and six generator-relator pairs by Tietze transformations, leaving 3 generators and 9 relators. Feeding that group into Tancer's and Gordon's reductions, with two further Tietze eliminations in Tancer's case, gives the two Adian-Rabin families, improving Tancer's deficiency-9 family and Gordon's 13-relator family. By Markov's argument these give Corollary 1.5, that a connected sum of n copies of S2 x S2 is topologically unrecognizable for n at least 7 and smoothly unrecognizable for n at least 9. The three algebraic theorems, with every dependency down to Post's machine-to-Thue construction and Matiyasevich's three-rule Thue system, are formalized in about 28,000 lines of Lean.",
+    "novelty_check": "The paper fixes the prior state of the art by name: Borisov 1969 at 12 relators for the word problem, Tancer 2023 at deficiency 9 and Gordon 2022 at 13 relators for Adian-Rabin families, which gave topological unrecognizability of 9 copies and smooth unrecognizability of 12 copies of S2 x S2. The registry was searched on 2026-09-24 for Adian, Rabin, unrecognizable, word problem and 4-manifold with no hits, and a web search for recent fewest-relator results turned up only this paper and Tancer's 2023 preprint. Of the four registries the watch reads, only Palomar holds a record, and it is the authors' own formalization of this paper. The paper itself records a competing result in progress: Cameron Gordon has independently improved the smallest Adian-Rabin families along similar lines and obtained both smooth and topological unrecognizability of 8 copies, in a paper not yet out. That will leave the topological bound of 7 here as the stronger one, but will supersede the smooth bound of 9. The problem has no single origin year, so year_posed is left unrecorded.",
+    "caveats": "Graded author verified rather than formal even though the three algebraic theorems carry a Lean proof registered on Palomar. The four-manifold corollary, which the paper's title leads with, is a conventional argument on top of the formalized algebra and is not machine-checked, as Palomar's own record says. The Lean statements were checked only by the authors: the Lean comparator accepts the proof and the axiom audit reports only the three standard principles, but no third party has audited the statements against the paper, and a Palomar registration establishes that the proof typechecks against the recorded statement, not that the statement is the paper's theorem. Autonomy is graded ai-led on an explicit disclosure in section 1.5: the main construction was essentially developed by GPT-5.6 Sol Pro, which proposed the two HNN extensions, the Tietze reductions and the two extra eliminations behind Theorem 1.3, while the authors independently checked and reorganized the arguments, verified the references and take responsibility for correctness. It is not autonomous because the authors chose the problem and directed the work. The model also flagged two corrections needed in Tancer's 2023 paper, which Tancer confirmed to the authors, and the reduction behind Theorem 1.3 uses the corrected form. An unrefereed preprint at entry.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-22-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-22-000002&version=1",
+        "repository": "32805433/Adian-Rabin",
+        "commit": "fb4a401e8fbdba36e7b35c11fde2baa15592e185",
+        "theorems": [
+          "Undecidability.exists_three_generator_nine_relator_group_with_unsolvable_word_problem",
+          "Undecidability.exists_four_generator_eleven_relator_adian_rabin_family",
+          "Undecidability.exists_two_generator_ten_relator_adian_rabin_family"
+        ],
+        "checked": "2026-09-22",
+        "note": "Registered by the paper's own authors. These are Theorems 1.1, 1.3 and 1.4; the record states that the four-manifold consequences are outside the formalized scope."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Small undecidable groups and unrecognizable 4-manifolds",
+        "url": "https://arxiv.org/abs/2609.10461",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: 32805433/Adian-Rabin, the Lean 4 formalization of the algebraic results",
+        "url": "https://github.com/32805433/Adian-Rabin",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Tancer, Simpler algorithmically unrecognizable 4-manifolds, the prior deficiency-9 bound",
+        "url": "https://arxiv.org/abs/2310.07421",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "logic",
+      "construction",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-24"
+  },
+  {
+    "id": "2026-09-23-array-associated-reverse-transcriptases",
+    "title": "Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
+    "claim": "Claude agents surveying reverse transcriptase genes across 1.9 billion metagenomic protein clusters flagged a family of jumbo-phage reverse transcriptases paired with an array of repeated non-coding DNA units and a dedicated partner gene, an arrangement the authors say fits no described reverse transcriptase class.",
+    "field": "biology",
+    "date": "2026-09-23",
+    "lab": "Anthropic",
+    "model": "Claude Mythos 5",
+    "humans": [
+      "Peter H. Yoon",
+      "Januka S. Athukoralage",
+      "Emmanuel Ameisen",
+      "Eric Kauderer-Abrams",
+      "Nicholas T. Perry",
+      "Matthew G. Durrant"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "A harness of Claude Code agents, each task split between a worker and a reviewing supervisor, ran from a human-written brief asking for new partner-gene associations of reverse transcriptases. Over 119 tasks, 949 agent sessions and 21.5 hours without human intervention, the agents built their own profile models, recovered about 200,000 reverse transcriptase clusters and filed 19 reports. The defining observation was off-brief: a worker reading the raw DNA upstream of a phage reverse transcriptase noticed a tandem repeat array, checked it against known elements including CRISPR arrays, and reported it. The authors then characterized the family in interactive sessions, finding 95 related clusters, 28 with arrays of 3 to 21 repeats of 15 to 49 nucleotides separated by 120 to 220 nucleotide spacers, a clade beside retrons, and no nearby cas genes. Published infection RNA-seq for Staphylococcus phage SA1 shows the arrays highly expressed, and the authors' own small-RNA sequencing of the SA1 array expressed in E. coli shows it processed into discrete unit RNAs.",
+    "novelty_check": "The preprint states that the family belongs to no described reverse transcriptase class, and records the nearest prior work itself: the 2021 genome report for the jumbo phage MarsHill identified this reverse transcriptase and proposed an upstream non-coding RNA but described neither the repeats nor the partner gene, and arrays beside the unrelated UG27 reverse transcriptases were reported in a September 2026 bioRxiv preprint, which the authors read as the architecture arising twice. So the enzyme itself was not new; the claim is the array and partner that define the family. The registry was searched on 2026-09-24 for reverse transcriptase, retron, CRISPR and jumbo with no hits. A web search for array-associated reverse transcriptase returned only the announcement and its press coverage, and a search for jumbo-phage reverse transcriptases with tandem repeat arrays returned the DRT and retron literature, including the 2025 finding that phage infection triggers reverse transcription of a non-coding RNA into a repetitive gene. That mechanism builds repeats by reverse transcription rather than carrying them in the genome, which looks distinct, but a specialist should confirm it.",
+    "caveats": "A lab announcement about the lab's own model, so it enters at claimed under editorial rule 1. The preprint is hosted on Anthropic's own site, not a preprint server, and is unreviewed. It carries no data or code availability statement, and the session transcripts it quotes are not published, so the account of which step the agents took rests on the lab's word. The authors state the biological limit plainly: they have not shown that the reverse transcriptase is active, that the unit RNAs are its substrates, or what the system does for the phage, so what is established is a sequence-level family with transcription data, not a characterized enzyme system. Autonomy is graded collaborative, the weaker reading under editorial rule 5. An agent made the observation that defines the family, reading DNA outside what the brief asked for, but humans wrote the brief, chose which of the 19 reports to pursue, defined the family in interactive sessions with Claude and ran the experiments, and the only record of the agents' part is transcripts the lab has not published. The announcement names no model; the model field comes from the preprint. Feng Zhang, quoted in the announcement, is thanked in the preprint for reviewing an early copy, so his remark is not independent commentary. A top Hacker News comment argues for a plainer framing, that Claude identified an undescribed genomic arrangement around a known retron-like reverse transcriptase, which matches the novelty check. The preprint also attributes the recognition to specific internal Mythos 5 signals that respond to repeated DNA; that is a claim about the model, not the biology, and is not graded here.",
+    "sources": [
+      {
+        "label": "Anthropic preprint: Autonomous AI agents discover reverse transcriptases with tandem repeat arrays",
+        "url": "https://www-cdn.anthropic.com/22573675ada52a8ca8a97a1a4b4326b2f208a071.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Korn et al. 2021, the MarsHill genome report that first identified the reverse transcriptase",
+        "url": "https://doi.org/10.1128/jvi.02391-20",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Claude discovers a novel enzyme system with CRISPR-like repeats",
+        "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
+        "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Claude discovers a novel enzyme system with CRISPR-like repeats",
+        "url": "https://news.ycombinator.com/item?id=49820134"
+      }
+    ],
+    "tags": [
+      "genomics",
+      "bacteriophage",
+      "multi-agent",
+      "autonomous-discovery"
+    ],
+    "added": "2026-09-24"
   }
 ]

@@ -9,6 +9,35 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-09-23-array-associated-reverse-transcriptases",
+      "url": "https://whataifound.org/finding/2026-09-23-array-associated-reverse-transcriptases",
+      "title": "Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
+      "content_text": "Claude agents surveying reverse transcriptase genes across 1.9 billion metagenomic protein clusters flagged a family of jumbo-phage reverse transcriptases paired with an array of repeated non-coding DNA units and a dedicated partner gene, an arrangement the authors say fits no described reverse transcriptase class.  A harness of Claude Code agents, each task split between a worker and a reviewing supervisor, ran from a human-written brief asking for new partner-gene associations of reverse transcriptases. Over 119 tasks, 949 agent sessions and 21.5 hours without human intervention, the agents built their own profile models, recovered about 200,000 reverse transcriptase clusters and filed 19 reports. The defining observation was off-brief: a worker reading the raw DNA upstream of a phage reverse transcriptase noticed a tandem repeat array, checked it against known elements including CRISPR arrays, and reported it. The authors then characterized the family in interactive sessions, finding 95 related clusters, 28 with arrays of 3 to 21 repeats of 15 to 49 nucleotides separated by 120 to 220 nucleotide spacers, a clade beside retrons, and no nearby cas genes. Published infection RNA-seq for Staphylococcus phage SA1 shows the arrays highly expressed, and the authors' own small-RNA sequencing of the SA1 array expressed in E. coli shows it processed into discrete unit RNAs.  Lab: Anthropic. Model: Claude Mythos 5. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-09-23T00:00:00+00:00",
+      "date_modified": "2026-09-24T00:00:00+00:00",
+      "tags": [
+        "genomics",
+        "bacteriophage",
+        "multi-agent",
+        "autonomous-discovery"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-09-small-undecidable-groups",
+      "url": "https://whataifound.org/finding/2026-09-09-small-undecidable-groups",
+      "title": "A 3-generator 9-relator group with unsolvable word problem, and smaller Adian-Rabin families",
+      "content_text": "A group given by 3 generators and 9 relations has an unsolvable word problem, beating the 12-relation record Borisov set in 1969, and it yields families of 4-generator 11-relator and 2-generator 10-relator presentations for which no algorithm can decide whether the group is trivial.  How small a finite presentation can be while still being algorithmically undecidable is a quantitative question that runs from Boone's 32-relator group through Collins to Borisov's 12. Starting from Borisov's group, the construction adds two HNN extensions and then removes seven redundant relators and six generator-relator pairs by Tietze transformations, leaving 3 generators and 9 relators. Feeding that group into Tancer's and Gordon's reductions, with two further Tietze eliminations in Tancer's case, gives the two Adian-Rabin families, improving Tancer's deficiency-9 family and Gordon's 13-relator family. By Markov's argument these give Corollary 1.5, that a connected sum of n copies of S2 x S2 is topologically unrecognizable for n at least 7 and smoothly unrecognizable for n at least 9. The three algebraic theorems, with every dependency down to Post's machine-to-Thue construction and Matiyasevich's three-rule Thue system, are formalized in about 28,000 lines of Lean.  Lab: Independent. Model: GPT-5.6 Sol Pro (construction); GPT-5.6 Sol in Codex (Lean formalization). Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-09-09T00:00:00+00:00",
+      "date_modified": "2026-09-24T00:00:00+00:00",
+      "tags": [
+        "group-theory",
+        "logic",
+        "construction",
+        "lean",
+        "formalization"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-17-talagrand-operator-cotype",
       "url": "https://whataifound.org/finding/2026-09-17-talagrand-operator-cotype",
       "title": "Counterexample to Talagrand's operator cotype problem",
@@ -86,7 +115,7 @@
       "id": "https://whataifound.org/finding/2026-09-07-complex-grothendieck-constant",
       "url": "https://whataifound.org/finding/2026-09-07-complex-grothendieck-constant",
       "title": "Improved lower bound for the complex Grothendieck constant",
-      "content_text": "The complex Grothendieck constant is shown to exceed 1.35584631827168, closing more than a quarter of the gap between the long-standing Davie lower bound and the Haagerup upper bound.  The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.  Lab: Independent. Model: Odin Automatic AI Research Agent. Verification: Claimed. Autonomy: AI-led.",
+      "content_text": "The complex Grothendieck constant is shown to exceed 1.35584631827168, closing more than a quarter of the gap between the long-standing Davie lower bound and the Haagerup upper bound.  The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.  Lab: Independent. Model: Odin Automatic AI Research Agent. Verification: Author verified. Autonomy: AI-led.",
       "date_published": "2026-09-07T00:00:00+00:00",
       "date_modified": "2026-09-22T00:00:00+00:00",
       "tags": [
