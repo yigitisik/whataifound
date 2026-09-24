@@ -110,6 +110,11 @@
           "@type": "CreativeWork",
           "url": "https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/",
           "name": "Google DeepMind and Isomorphic Labs introduce AlphaFold 3"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://www.biorxiv.org/content/10.1101/2025.02.03.636309v3",
+          "name": "bioRxiv: Have protein-ligand co-folding methods moved beyond memorisation?"
         }
       ]
     },
@@ -246,6 +251,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-024-07487-w" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Accurate structure prediction of biomolecular interactions with AlphaFold 3</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphafold3" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AlphaFold 3 code (google-deepmind/alphafold3)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-announcement">Announcement</h3>
       <div class="refs"><a class="ref" href="https://blog.google/innovation-and-ai/products/google-deepmind-isomorphic-alphafold-3-ai-model/" target="_blank" rel="noopener"><span class="ref-dom">Google</span><span class="ref-t">Google DeepMind and Isomorphic Labs introduce AlphaFold 3</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://www.biorxiv.org/content/10.1101/2025.02.03.636309v3" target="_blank" rel="noopener"><span class="ref-dom">bioRxiv</span><span class="ref-t">Have protein-ligand co-folding methods moved beyond memorisation?</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
@@ -255,15 +262,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Docking and complex prediction had decades of specialised tools (AutoDock, RoseTTAFold All-Atom, and AlphaFold-Multimer for protein assemblies). The contribution is one model spanning molecule types at higher accuracy, not a new biological result; the structures it predicts are natural ones.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>At publication neither code nor weights were released, only a rate-limited web server, which drew an open letter from over a thousand researchers about reproducibility; weights for academic use followed in November 2024. Accuracy on antibody–antigen complexes and some nucleic-acid targets is far below the headline figures, and the model can produce confidently wrong hallucinated structure in disordered regions. Predictions are hypotheses, not measurements.</p>
+  <p>At publication neither code nor weights were released, only a rate-limited web server, which drew an open letter from over a thousand researchers about reproducibility; weights for academic use followed in November 2024. Accuracy on antibody–antigen complexes and some nucleic-acid targets is far below the headline figures, and the model can produce confidently wrong hallucinated structure in disordered regions. An independent benchmark of 2,600 protein-ligand systems released after the training cutoff found accuracy falls on complexes unlike the training data and concluded that co-folding methods including this one largely memorise ligand poses. Predictions are hypotheses, not measurements.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Škrinjar, Eberhardt, Tauriello, Schwede and Durairaj, University of Basel and SIB (Runs N' Poses benchmark): <em>On 2,600 high-resolution protein-ligand systems released after the training cutoff, accuracy of AlphaFold 3 and three similar co-folding methods declines on complexes unlike the training data; the authors conclude that these methods largely memorise ligand poses.</em> · <a href="https://www.biorxiv.org/content/10.1101/2025.02.03.636309v3" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2024-05-08-alphafold3">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2024-05-08-alphafold3">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2024-05-08-alphafold3">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2024-05-08-alphafold3">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -275,13 +284,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2024-05-08-alphafold3" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-challenge">Challenged</span><span class="hist-note">Cited an independent benchmark finding that protein-ligand accuracy falls on complexes unlike the training data. No grade moved. <a class="hist-src" href="https://www.biorxiv.org/content/10.1101/2025.02.03.636309v3" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=42106906" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaFold 3 code</span><span class="ref-a">↗</span></a></div>
 

@@ -109,6 +109,11 @@
           "@type": "CreativeWork",
           "url": "https://github.com/shengtaoguo/complex-grothendieck-certificates",
           "name": "GitHub: shengtaoguo/complex-grothendieck-certificates, the interval-arithmetic certificates"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2609.25462",
+          "name": "arXiv: Heilman, Jones and Malavolta, Sharper bounds for the complex Grothendieck constant"
         }
       ]
     },
@@ -140,7 +145,7 @@
         "worstRating": 1,
         "alternateName": "Author verified only"
       },
-      "reviewBody": "The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag."
+      "reviewBody": "The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads at entry. On 2026-09-21 Steven Heilman, Chris Jones and Giulio Malavolta posted a lower bound of 1.4, which supersedes this one; they describe this bound as an independent improvement by a different subtraction of Hermite projections. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag."
     },
     {
       "@type": "BreadcrumbList",
@@ -238,13 +243,15 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
       <div class="refs"><a class="ref" href="https://arxiv.org/abs/2609.07000" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">An Improved Lower Bound for the Complex Grothendieck Constant</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/shengtaoguo/complex-grothendieck-certificates" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">shengtaoguo/complex-grothendieck-certificates, the interval-arithmetic certificates</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-commentary">Independent commentary</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2609.25462" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Heilman, Jones and Malavolta, Sharper bounds for the complex Grothendieck constant</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
   <h2 class="lbl">What was found</h2>
   <p>The classical complex Grothendieck constant is bracketed between Davie's lower bound and Haagerup's upper bound, and the interval has been stubborn. This paper reports a new lower bound of 1.35584631827168 and states that it closes more than one quarter of that gap. The abstract records two separate facts about how it was produced: the numerical part of the proof is rigorously verified by interval arithmetic, and the lower bound and the proof were discovered by the Odin Automatic AI Research Agent.</p>
   <h2 class="lbl">Novelty check</h2>
-  <p>The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag.</p>
+  <p>The abstract fixes the prior state of the art by name, Davie below and Haagerup above, and states the improvement as a fraction of that gap rather than as an unqualified advance, which is the form that makes the claim checkable. No competing improvement was found in the four registries the watch reads at entry. On 2026-09-21 Steven Heilman, Chris Jones and Giulio Malavolta posted a lower bound of 1.4, which supersedes this one; they describe this bound as an independent improvement by a different subtraction of Hermite projections. The AI attribution was read from the arXiv abstract directly rather than from an aggregator tag.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
   <p>Odin is the same undocumented system credited on this registry's 2026-08-16-talagrand-convolution entry, by an overlapping author set, and the caveat recorded there applies here without change: Odin is not a publicly documented system, no vendor is named, no transcript or artifact is published, and there is no way to separate discovery from human reorganization. Read the model field as the authors' attribution rather than as a verified fact. Two further gaps are worth stating. The abstract links no code, but the first author's repository, found through the vibemathed record on 2026-09-24, publishes the Arb interval-arithmetic computations behind both the lower bound and the paper's restricted pointwise bound, with a single replay command; its README is explicit that the second is not an upper bound for the constant. With the artifact public, the editorial rule 4 cap no longer applies and the grade is author verified, matching the sibling Talagrand entry. It goes no further because nobody outside the author group is on record as having run the certificates.</p>
@@ -273,6 +280,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <ol class="hist">
     <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-regraded">Regraded</span><span class="hist-note">Upgraded from claimed to author verified: the interval-arithmetic certificates the abstract asserted are now public, which lifts the missing-artifact cap and aligns this entry with the sibling Talagrand entry. Nobody outside the authors has run them yet. <a class="hist-src" href="https://github.com/shengtaoguo/complex-grothendieck-certificates" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record as a registration and added the certificate repository it links as a research source. <a class="hist-src" href="https://github.com/shengtaoguo/complex-grothendieck-certificates" target="_blank" rel="noopener">source ↗</a></span></li>
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded that the bound was superseded two weeks later by Heilman, Jones and Malavolta's lower bound of 1.4. The result stands as a step, and no grade moved. <a class="hist-src" href="https://arxiv.org/abs/2609.25462" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-09-22">2026-09-22</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Author verified and AI-led.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>

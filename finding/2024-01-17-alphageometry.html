@@ -110,6 +110,11 @@
           "@type": "CreativeWork",
           "url": "https://github.com/google-deepmind/alphageometry",
           "name": "google-deepmind/alphageometry (code)"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2404.06405",
+          "name": "arXiv: Wu's method can boost symbolic AI to rival silver medalists and AlphaGeometry to outperform gold medalists"
         }
       ]
     },
@@ -246,6 +251,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
       <div class="refs"><a class="ref" href="https://www.nature.com/articles/s41586-023-06747-5" target="_blank" rel="noopener"><span class="ref-dom">Nature</span><span class="ref-t">Solving olympiad geometry without human demonstrations</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/google-deepmind/alphageometry" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">google-deepmind/alphageometry (code)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-announcement">Announcement</h3>
       <div class="refs"><a class="ref" href="https://deepmind.google/discover/blog/alphageometry-an-olympiad-level-ai-system-for-geometry/" target="_blank" rel="noopener"><span class="ref-dom">DeepMind</span><span class="ref-t">AlphaGeometry, an olympiad-level AI system for geometry</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-challenge">Challenge</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2404.06405" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Wu's method can boost symbolic AI to rival silver medalists and AlphaGeometry to outperform gold medalists</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
@@ -255,15 +262,17 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Automated geometry provers date to Wu's method in the 1970s and to GEX/Java Geometry Expert; the prior state of the art solved 10 of the 30 benchmark problems. The benchmark is IMO geometry problems from 2000–2022 with known solutions, so the contribution is the method and the score, not a new theorem.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Benchmark performance on solved problems, not a discovery. The domain is narrow: plane geometry expressible in the system's formal language, which excludes problems involving inequalities or variable numbers of points, and the benchmark set was filtered to what the language can state. Proof steps are machine-checked by the deduction engine, which is what carries the confidence; the peer-reviewed grade reflects Nature review of the system and results.</p>
+  <p>Benchmark performance on solved problems, not a discovery. An independent re-evaluation found the symbolic baseline much stronger than reported: Wu's method alone solves 15 of the 30, not 10, and with classical synthetic methods 21, which narrows the margin the headline comparison implies. The domain is narrow: plane geometry expressible in the system's formal language, which excludes problems involving inequalities or variable numbers of points, and the benchmark set was filtered to what the language can state. Proof steps are machine-checked by the deduction engine, which is what carries the confidence; the peer-reviewed grade reflects Nature review of the system and results.</p>
   </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Sinha, Prabhu, Kumaraguru, Bhat and Bethge (re-evaluation of the benchmark): <em>Revisited IMO-AG-30 and found Wu's method alone solves 15 problems, not the 10 reported as the baseline, and with classical synthetic methods solves 21 of 30 on a CPU-only laptop, four fewer than AlphaGeometry; combined with AlphaGeometry it reaches 27.</em> · <a href="https://arxiv.org/abs/2404.06405" target="_blank" rel="noopener">link ↗</a></p></div>
 
   <div class="challenge">
-    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
-    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
     <div class="challenge-acts">
-      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2024-01-17-alphageometry">Submit a check</a>
-      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2024-01-17-alphageometry">Challenge the grade</a>
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2024-01-17-alphageometry">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2024-01-17-alphageometry">Submit a check</a>
       
     </div>
     <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
@@ -275,13 +284,12 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <div class="sig" data-signals="2024-01-17-alphageometry" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
   </div>
 
-  <details class="fold">
-  <summary>Entry history (1 event)</summary>
+  <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-challenge">Challenged</span><span class="hist-note">Cited an independent re-evaluation of the benchmark finding the symbolic baseline stronger than reported, 21 of 30 rather than 10. No grade moved. <a class="hist-src" href="https://arxiv.org/abs/2404.06405" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-07-29">2026-07-29</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Peer reviewed and Search scaffold.</span></li>
   </ol>
   <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
-  </details>
   <h2 class="lbl">Community discussion</h2>
   <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=39029801" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">AlphaGeometry, an Olympiad-level AI system for geometry</span><span class="ref-a">↗</span></a></div>
 
