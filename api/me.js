@@ -5,7 +5,7 @@
 // fault. The account control reads it to swap the pre-rendered signed-out header for a
 // signed-in one, which is why it has to be cheap and never cached.
 import { db } from "./_lib/db.js";
-import { sessionFrom } from "./_lib/session.js";
+import { sessionOf } from "./_lib/session.js";
 import { json, methodNotAllowed } from "./_lib/http.js";
 import { RENAME_COOLDOWN_DAYS } from "./_lib/handles.js";
 import { entryTitle } from "./_lib/registry.js";
@@ -13,23 +13,25 @@ import { entryTitle } from "./_lib/registry.js";
 export default async function handler(req, res) {
   if (req.method !== "GET") return methodNotAllowed(res, ["GET"]);
 
-  const id = sessionFrom(req);
-  if (!id) return json(res, 200, { signedIn: false });
+  const s = sessionOf(req);
+  if (!s) return json(res, 200, { signedIn: false });
+  const id = s.id;
 
   let row;
   try {
     const rows = await db()`
       select id, handle, handle_changed_at, display_name, orcid, github_login,
              is_public, role, created_at, banned_at
-        from accounts where id = ${id} limit 1`;
+        from accounts where id = ${id} and session_version = ${s.v} limit 1`;
     row = rows[0];
   } catch (err) {
     console.error("me db", err);
     return json(res, 503, { error: "unavailable" });
   }
 
-  // A cookie that outlived its row, or a banned account. Either way the caller is not
-  // signed in; the cookie is left alone and simply stops resolving.
+  // A cookie that outlived its row, one retired by signing out, or a banned account.
+  // Either way the caller is not signed in; the cookie is left alone and simply stops
+  // resolving.
   if (!row || row.banned_at) return json(res, 200, { signedIn: false });
 
   // email is deliberately absent. Nothing in the UI needs it, and the surest way to

@@ -9,7 +9,7 @@
 // This is a GET that ends in a redirect, reached from a link or location.assign, never
 // a <form method=post>: the CSP sets `form-action 'self'` and would block the post.
 import crypto from "node:crypto";
-import { cookie, seal } from "../_lib/session.js";
+import { cookie, seal, TYP_OAUTH } from "../_lib/session.js";
 import { origin, safeReturnTo } from "../_lib/http.js";
 
 export const STATE_COOKIE = "waf_oauth";
@@ -48,8 +48,10 @@ export default async function handler(req, res) {
   // browser. seal() means a cookie we did not issue does not verify.
   //
   // seal() takes the account id as its first argument elsewhere; there is no account
-  // yet, so the subject is the literal "oauth" and the flow rides in the extras.
-  const payload = seal("oauth", { st: state, cv: verifier, rt: returnTo });
+  // yet, so the subject is the literal "oauth" and the flow rides in the extras. The
+  // type is what actually keeps this out of the session slot: sessionOf() refuses
+  // anything not sealed as a session.
+  const payload = seal("oauth", { st: state, cv: verifier, rt: returnTo }, TYP_OAUTH);
 
   const auth = new URL("https://accounts.google.com/o/oauth2/v2/auth");
   auth.searchParams.set("client_id", clientId);

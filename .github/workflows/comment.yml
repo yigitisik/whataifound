@@ -2,17 +2,28 @@ name: comment
 
 # Posts the entry summary from `build` onto the pull request.
 #
-# SECURITY: this is the only workflow in the repo with a write token, so the rules that
-# keep it safe are worth stating rather than inferring.
+# SECURITY: this holds a write token (pull-requests: write), so the rules that keep it
+# safe are worth stating rather than inferring.
 #
 #   1. It triggers on `workflow_run`, so it runs from the *base* branch. A fork PR cannot
 #      change what this file does.
 #   2. It NEVER checks out the head repository and never runs any code from the PR.
 #      There is no `actions/checkout` here on purpose. Adding one, or running any script
 #      from the PR, hands a write token to an untrusted contributor.
-#   3. The only thing it consumes is an artifact built by the untrusted job. That content
-#      is attacker-controlled, and scripts/pr-report.py already neutralises markdown and
-#      HTML in it; it is posted verbatim and never evaluated as a shell string.
+#   3. It trusts nothing in the artifact. `build` runs the PR's own copy of
+#      .github/workflows/build.yml and scripts/pr-report.py, so a PR that edits either
+#      writes whatever artifact it likes. Hence:
+#        - Which PR to comment on comes from the GitHub API, matched on the run's head
+#          commit. The artifact's pr-number is only cross-checked against it; a mismatch
+#          fails the job. Without this, a fork PR could overwrite the report on any
+#          other PR, for example making a grade upgrade there read "No entry changes".
+#        - The report is escaped here, not only by pr-report.py: raw HTML is disabled
+#          and mentions and issue references are broken, so a hostile report can
+#          neither hide text nor notify anyone from this token.
+#        - Whether the PR changes code is read from the API too, and said above the
+#          report. A PR that touches scripts/ or .github/ may have written the report,
+#          switched off check-integrity.py, or both, so for such a PR the report and the
+#          green checks are the PR's own claims, and the comment says so.
 #
 # Why not just give `build` these permissions: `build` checks out the PR's own code and
 # runs its scripts, so a token there would be a token any contributor could take.
@@ -29,12 +40,11 @@ permissions:
 jobs:
   comment:
     runs-on: ubuntu-latest
-    # No artifact means a push build rather than a PR; nothing to say.
     if: github.event.workflow_run.event == 'pull_request'
     steps:
       - name: Download report
         id: dl
-        uses: actions/download-artifact@v8
+        uses: actions/download-artifact@3e5f45b2cfb9172054b4087a40e8e0b5a5461e7c # v8.0.1
         with:
           name: pr-report
           path: pr-report
@@ -43,43 +53,89 @@ jobs:
         continue-on-error: true
 
       - name: Post or update the comment
-        if: steps.dl.outcome == 'success'
-        uses: actions/github-script@v9
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
         with:
           script: |
             const fs = require('fs');
+            const { owner, repo } = context.repo;
+            const run = context.payload.workflow_run;
+
+            // ---- Which PR: from the API, never from the artifact ------------------
+            // workflow_run.pull_requests is empty for fork PRs, so match open PRs on
+            // the commit the run built. A PR pushed again since has a new head and no
+            // match here; the run for the new head posts instead.
+            const headRepo = run.head_repository && run.head_repository.full_name;
+            const open = await github.paginate(github.rest.pulls.list,
+              { owner, repo, state: 'open', per_page: 100 });
+            const matches = open.filter(p => p.head.sha === run.head_sha
+              && p.head.repo && p.head.repo.full_name === headRepo);
+            if (matches.length !== 1) {
+              core.info(`No single open PR has head ${run.head_sha}; nothing to post.`);
+              return;
+            }
+            const issue_number = matches[0].number;
+
+            // ---- The artifact, cross-checked and escaped --------------------------
             const dir = 'pr-report';
-            if (!fs.existsSync(`${dir}/pr-number`) || !fs.existsSync(`${dir}/body.md`)) return;
+            let report = '';
+            const haveReport = fs.existsSync(`${dir}/pr-number`) && fs.existsSync(`${dir}/body.md`);
+            if (haveReport) {
+              const claimed = fs.readFileSync(`${dir}/pr-number`, 'utf8').trim();
+              if (claimed !== String(issue_number)) {
+                core.setFailed(`artifact names PR ${JSON.stringify(claimed.slice(0, 20))}, `
+                  + `but run ${run.id} built the head of PR ${issue_number}`);
+                return;
+              }
+              report = fs.readFileSync(`${dir}/body.md`, 'utf8');
+              if (report.length > 60000) report = report.slice(0, 60000) + '\n\n_(truncated)_';
+              report = report
+                // No raw HTML at all: no comments hiding text, no tags, no forged
+                // marker. pr-report.py already writes "<" as "&lt;", so real output is
+                // unchanged by this.
+                .replace(/</g, '&lt;')
+                // A zero-width space after "@" or "#" keeps the text readable and stops
+                // GitHub from treating it as a mention or an issue reference.
+                .replace(/@(?=[A-Za-z0-9])/g, '@​')
+                .replace(/#(?=\d)/g, '#​');
+            }
 
-            // Trust nothing from the artifact. The PR number must be digits, and the
-            // body is inserted as data, never interpolated into a shell or a script.
-            const raw = fs.readFileSync(`${dir}/pr-number`, 'utf8').trim();
-            if (!/^\d+$/.test(raw)) { core.setFailed('bad pr-number'); return; }
-            const issue_number = Number(raw);
-
-            let report = fs.readFileSync(`${dir}/body.md`, 'utf8');
-            if (report.length > 60000) report = report.slice(0, 60000) + '\n\n_(truncated)_';
+            // ---- Does it change code? From the API ---------------------------------
+            const files = await github.paginate(github.rest.pulls.listFiles,
+              { owner, repo, pull_number: issue_number, per_page: 100 });
+            const CODE = /^(scripts\/|\.github\/|js\/|api\/|db\/|package(-lock)?\.json$|vercel\.json$)/;
+            const code = [...new Set(files.flatMap(f => [f.filename, f.previous_filename])
+              .filter(n => n && CODE.test(n)))].sort();
 
             const MARK = '<!-- whataifound-pr-report -->';
-            const body = [
-              MARK,
-              '### Entry changes in this PR',
-              '',
-              report.trim() || '_No entry changes._',
+            const lines = [MARK, '### Entry changes in this PR', ''];
+            if (code.length) {
+              const shown = code.slice(0, 20).map(n => `- \`${n}\``);
+              if (code.length > 20) shown.push(`- and ${code.length - 20} more`);
+              lines.push(
+                '> [!WARNING]',
+                '> **This PR changes code, so review it as code, not as an entry.** CI ran '
+                + 'this PR\'s own copy of the build workflow and scripts, which means the '
+                + 'summary below and the passing checks are only as trustworthy as the '
+                + 'changed files. Read these first:',
+                '',
+                ...shown,
+                '');
+            }
+            lines.push(
+              haveReport ? (report.trim() || '_No entry changes._') : '_No report was produced._',
               '',
               '---',
               'CI checks the mechanics: that the data is valid, that the committed site',
               'matches `data/entries.json`, and that every source URL resolves. It cannot',
               'tell whether a claim is true. Open the primary sources and check the grades',
-              'against the evidence, not against the summary above.',
-            ].join('\n');
+              'against the evidence, not against the summary above.');
+            const body = lines.join('\n');
 
-            const { owner, repo } = context.repo;
-            const existing = await github.rest.issues.listComments({
-              owner, repo, issue_number, per_page: 100,
-            });
-            const mine = existing.data.find(c =>
-              c.user.type === 'Bot' && c.body && c.body.includes(MARK));
+            const existing = await github.paginate(github.rest.issues.listComments,
+              { owner, repo, issue_number, per_page: 100 });
+            const mine = existing.find(c =>
+              c.user.type === 'Bot' && c.user.login === 'github-actions[bot]'
+              && c.body && c.body.startsWith(MARK));
 
             if (mine) {
               await github.rest.issues.updateComment({

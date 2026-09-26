@@ -8,9 +8,12 @@
 // domain until the next deploy. There is no way to tell those two apart from the outside,
 // which is what this endpoint fixes.
 //
-// It reports presence, never values. A boolean saying GOOGLE_CLIENT_ID is set discloses
-// nothing an attacker did not already learn from /api/auth/start answering 503 rather
-// than redirecting, and the alternative is diagnosing a blank page by guesswork.
+// It reports presence, never values, and on production only the verdict. Which secrets a
+// deployment holds (the GitHub App key above all) is a map of what is worth attacking,
+// and the one reader who needs the itemised list is the maintainer setting it up, who
+// can get it from a preview or `vercel dev`, or from `vercel env ls`. The verdict alone
+// still answers the question this was written for: false on production after setting a
+// variable means redeploy.
 //
 // The two strings it does return are public by nature: SITE_ORIGIN is the site's own
 // domain, and the redirect URI is the value that has to be registered in Google's console
@@ -39,10 +42,21 @@ export default function handler(req, res) {
   const sessionSecretLongEnough = secret.length >= 32;
 
   const ready = REQUIRED.every(k => present[k]) && sessionSecretLongEnough;
+  const hint = ready
+    ? "Sign-in should work. If Google rejects it, the redirect URI is not registered."
+    : "A required variable is missing from THIS deployment. Adding one in the dashboard "
+      + "does not update a deployment that already exists: redeploy after setting it.";
 
   res.statusCode = 200;
   res.setHeader("Content-Type", "application/json; charset=utf-8");
   res.setHeader("Cache-Control", "no-store");
+
+  // Vercel sets VERCEL_ENV on every deployment; unset means local.
+  if (process.env.VERCEL_ENV === "production") {
+    res.end(JSON.stringify({ signInReady: ready, hint }, null, 2));
+    return;
+  }
+
   res.end(JSON.stringify({
     signInReady: ready,
     present,
@@ -54,9 +68,6 @@ export default function handler(req, res) {
     // one that is right.
     redirectUri: `${origin(req)}/api/auth/callback`,
     githubApp: githubConfigured(),
-    hint: ready
-      ? "Sign-in should work. If Google rejects it, the redirect URI above is not registered."
-      : "A required variable is missing from THIS deployment. Adding one in the dashboard "
-        + "does not update a deployment that already exists: redeploy after setting it.",
+    hint,
   }, null, 2));
 }

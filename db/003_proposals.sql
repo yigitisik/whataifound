@@ -85,7 +85,11 @@ alter table proposals add constraint proposals_decided_shape
 --
 -- Note what counts as accepted: merged, and nothing else. A pull request that is open
 -- is not a contribution yet, which is the same standard the project applies to itself.
-create or replace view account_stats as
+--
+-- security_invoker is set here rather than only in 004: CREATE OR REPLACE VIEW resets
+-- options it is not given, so re-running this file would otherwise quietly undo it. See
+-- db/004_hardening.sql for why it matters.
+create or replace view account_stats with (security_invoker = on) as
 select a.id as account_id,
        count(*) filter (where p.kind = 'check')                          as checks_submitted,
        count(*) filter (where p.kind = 'check' and p.status = 'merged')  as checks_accepted,

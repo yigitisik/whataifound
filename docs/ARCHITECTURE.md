@@ -44,9 +44,17 @@ The one JSON-LD block that *is* generated is the registry `ItemList`, between
 rewritten whenever an entry is added, so it cannot live in the hand-written graph beside the
 Organization, WebSite, Dataset and FAQPage nodes, which change by hand.
 
-So the script asserts properties of the content instead: no unexpected inline scripts, no
+So the script asserts properties of the content instead: no inline script whose sha256 the
+CSP in `vercel.json` does not list (and no `'unsafe-inline'` there to make the list moot), no
 script or frame origins outside the CSP, no inline event handlers, no executable URL schemes,
-no `<base>`/`<object>`/`<embed>`, and no `<form>` carrying an `action`.
+no `<base>`/`<object>`/`<embed>`, and no `<form>` carrying an `action`. It sweeps every
+`.html` file at the root rather than a list of them, because a list is a page someone forgot
+to add; `signin.html` and `registries.html` were exactly that for a while.
+
+The hash list is the allowlist the browser enforces, so the check and the browser can never
+disagree about which inline scripts run. Changing an inline script (the pre-paint theme
+initialiser is the usual one) means updating its hash in `vercel.json`; the check prints the
+new value.
 
 In CI it runs **before** the rebuild. A rebuild would otherwise overwrite tampering in a fully
 generated file and hide it.

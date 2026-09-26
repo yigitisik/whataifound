@@ -13,7 +13,7 @@
 // registry's open task list and it is public on /review; hiding the ordering behind a
 // sign-in would make the page worse for the reader most likely to fix something.
 import { db } from "./_lib/db.js";
-import { sessionFrom } from "./_lib/session.js";
+import { sessionOf } from "./_lib/session.js";
 import { json, methodNotAllowed, readJson, sameOrigin } from "./_lib/http.js";
 import { isEntryId, isSignalKind, SIGNAL_KINDS } from "./_lib/registry.js";
 
@@ -43,7 +43,7 @@ async function read(req, res) {
     return json(res, 200, { counts: {}, mine: {} });
   }
 
-  const id = sessionFrom(req);
+  const s = sessionOf(req);
   const sql = db();
 
   try {
@@ -53,11 +53,17 @@ async function read(req, res) {
                     from signals where entry_id = ${entry} group by 1, 2`;
 
     let mine = {};
-    if (id) {
+    if (s) {
+      // Joined to accounts for the session_version check: a retired cookie must not
+      // keep reading the account's own signals back.
       const rows = entry === null
-        ? await sql`select entry_id, kind from signals where account_id = ${id}`
-        : await sql`select entry_id, kind from signals
-                     where account_id = ${id} and entry_id = ${entry}`;
+        ? await sql`select g.entry_id, g.kind from signals g
+                      join accounts a on a.id = g.account_id
+                     where g.account_id = ${s.id} and a.session_version = ${s.v}`
+        : await sql`select g.entry_id, g.kind from signals g
+                      join accounts a on a.id = g.account_id
+                     where g.account_id = ${s.id} and a.session_version = ${s.v}
+                       and g.entry_id = ${entry}`;
       for (const r of rows) (mine[r.entry_id] ||= []).push(r.kind);
     }
     json(res, 200, { counts: shape(counts), mine });
@@ -71,9 +77,10 @@ async function read(req, res) {
 }
 
 async function toggle(req, res) {
-  const id = sessionFrom(req);
-  if (!id) return json(res, 401, { error: "signed_out" });
+  const s = sessionOf(req);
+  if (!s) return json(res, 401, { error: "signed_out" });
   if (!sameOrigin(req)) return json(res, 403, { error: "cross_origin" });
+  const id = s.id;
 
   let body;
   try {
@@ -94,7 +101,8 @@ async function toggle(req, res) {
     // A banned account keeps its session working everywhere else and is simply inert
     // here, which is the quietest way to handle it: nothing tells the holder which
     // action tripped a ban, so nothing helps them work around it.
-    const who = await sql`select banned_at from accounts where id = ${id} limit 1`;
+    const who = await sql`
+      select banned_at from accounts where id = ${id} and session_version = ${s.v} limit 1`;
     if (!who.length) return json(res, 401, { error: "signed_out" });
     if (who[0].banned_at) return json(res, 403, { error: "banned" });
 

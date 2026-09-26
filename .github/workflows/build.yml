@@ -10,9 +10,13 @@ name: build
 #   2. That rebuilding from data/entries.json reproduces those bytes, which catches a
 #      forgotten rebuild and any hand-edit inside the marker regions.
 #
-# Note on trust: `pull_request` runs the workflow file from the *base* branch for
-# fork PRs' permissions but uses the fork's file contents for the checkout. A PR that
-# edits this workflow is therefore reviewable in the diff. Treat any change to
+# Note on trust: under `pull_request`, GitHub runs the workflow file and the scripts as
+# they are in the PR's merge commit, so a PR that edits this file or anything in
+# scripts/ decides what these checks do, including whether they run at all. The token is
+# read-only and there are no secrets, so the worst it can do is report green. That makes
+# every step below a check of the *data*, trustworthy only when the PR leaves .github/
+# and scripts/ alone. comment.yml, which runs from the base branch, reads the PR's file
+# list from the API and says so above the report when it does not. Treat any change to
 # .github/ or scripts/ in a contributor PR as a code change, not an entry change.
 
 on:
@@ -27,13 +31,13 @@ jobs:
   verify:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-python@v6
+      - uses: actions/checkout@fbc6f3992d24b796d5a048ff273f7fcc4a7b6c09 # v5.1.0
+      - uses: actions/setup-python@ece7cb06caefa5fff74198d8649806c4678c61a1 # v6.3.0
         with:
           python-version: '3.x'
       # verify-parity.py runs app.js's real card() to diff it against the
       # pre-rendered markup, so Node is required for the full check.
-      - uses: actions/setup-node@v5
+      - uses: actions/setup-node@a0853c24544627f65ddf259abe73b1d18a591444 # v5.0.0
         with:
           node-version: '20'
           cache: 'npm'
@@ -73,6 +77,8 @@ jobs:
       # A PR that changes anything outside data/entries.json is a code change and
       # needs reading as one. This does not fail the build; it labels the diff so the
       # distinction is visible in the checks rather than inferred from the file list.
+      # A PR can edit this step away, so it is a convenience; the warning that counts
+      # is the one comment.yml posts from the base branch.
       - name: Classify the change
         if: github.event_name == 'pull_request'
         run: |
@@ -84,13 +90,15 @@ jobs:
           echo "Changed files:"; echo "$changed"
           # js/, not app.js: the front end lives under js/, so an anchored ^app\.js
           # could never match and every front-end PR went unlabelled.
-          if echo "$changed" | grep -qE '^(scripts/|\.github/|js/|api/|package(-lock)?\.json|vercel\.json)'; then
+          if echo "$changed" | grep -qE '^(scripts/|\.github/|js/|api/|db/|package(-lock)?\.json|vercel\.json)'; then
             echo "::warning::This PR touches build scripts, CI, the front end, the API or dependencies. Review as a code change, not an entry."
           fi
 
       # Summarise the entry changes for the reviewer. Written to a file, never posted
       # from here: this job checks out PR code, so it stays `contents: read`. The
       # privileged job that posts it lives in comment.yml and runs no PR code at all.
+      # Both files are the PR's to write, so comment.yml treats them as untrusted: it
+      # finds the PR itself and refuses a pr-number that disagrees.
       - name: Build PR report
         if: github.event_name == 'pull_request'
         run: |
@@ -101,7 +109,7 @@ jobs:
 
       - name: Upload PR report
         if: github.event_name == 'pull_request'
-        uses: actions/upload-artifact@v7
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         with:
           name: pr-report
           path: pr-report/

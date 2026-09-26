@@ -40,7 +40,7 @@
         },
         {
           "key": "Content-Security-Policy",
-          "value": "default-src 'self'; script-src 'self' 'unsafe-inline' https://va.vercel-scripts.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://vitals.vercel-insights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
+          "value": "default-src 'self'; script-src 'self' 'sha256-W0FkvG4z26WEy4ZPvm2gSm47w5XC3Z11EALzP5N5nqU=' 'sha256-YUPpzf/cTLF/L09y5I/EYwOsSFLVsXeyPHeSM66CSmk=' 'sha256-UQXmtstalwc230L3g9n98CA82DhnLOo31/xzGCOLEg4=' 'sha256-hwzzTZ3wRoKMNU8GgW6Y507IOdCgvG/G8vDGezyQyLg=' 'sha256-qA1xVLVZZkhsh2h8PEraeZsQhOHWWH9fm/J8tFPbbXg=' 'sha256-m4bpdDy8NTjHCRmRzKBHrI/87pF/6kI43yXPDJZs/bo=' https://va.vercel-scripts.com; script-src-attr 'none'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; manifest-src 'self'; frame-src https://www.youtube-nocookie.com https://www.youtube.com; connect-src 'self' https://vitals.vercel-insights.com; object-src 'none'; base-uri 'self'; form-action 'self'; frame-ancestors 'self'; upgrade-insecure-requests"
         }
       ]
     },

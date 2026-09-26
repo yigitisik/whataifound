@@ -19,10 +19,17 @@
   // Same rule api/_lib/http.js safeReturnTo() enforces, applied here as well. The server
   // is the one that counts and it re-checks this; doing it here too means a crafted URL
   // never even renders as a link that points off-site, which is the part a reader would
-  // see and trust before any redirect happens.
-  if (!rt || rt.charAt(0) !== "/" || rt.slice(0, 2) === "//" || rt.slice(0, 2) === "/\\") {
+  // see and trust before any redirect happens. See safeReturnTo() for why a prefix check
+  // is not enough ("/<tab>/evil.example" passes one), and http.test.js, which runs this
+  // file to hold the two copies to the same answers.
+  if (!rt || rt.charAt(0) !== "/" || /[\u0000-\u001f\u007f\\]/.test(rt)) return;
+  var u;
+  try {
+    u = new URL(rt, location.origin);
+  } catch (e) {
     return;
   }
+  if (u.origin !== location.origin || u.pathname.slice(0, 2) === "//") return;
 
   btn.href = "/api/auth/start?return_to=" + encodeURIComponent(rt);
 })();

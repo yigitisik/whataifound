@@ -17,7 +17,7 @@
 // Nothing here is published. A proposal becomes part of the registry when a maintainer
 // merges the pull request it became, and not before.
 import { db } from "./_lib/db.js";
-import { sessionFrom } from "./_lib/session.js";
+import { sessionOf } from "./_lib/session.js";
 import { json, methodNotAllowed, readJson, sameOrigin } from "./_lib/http.js";
 import { isEntryId, entryGrades } from "./_lib/registry.js";
 import { validateProposal, PROPOSAL_KINDS } from "./_lib/proposals.js";
@@ -30,10 +30,10 @@ const MAX_PENDING = 10;
 const MAX_PER_DAY = 20;
 
 export default async function handler(req, res) {
-  const id = sessionFrom(req);
-  if (!id) return json(res, 401, { error: "signed_out" });
-  if (req.method === "GET") return list(req, res, id);
-  if (req.method === "POST") return create(req, res, id);
+  const s = sessionOf(req);
+  if (!s) return json(res, 401, { error: "signed_out" });
+  if (req.method === "GET") return list(req, res, s);
+  if (req.method === "POST") return create(req, res, s);
   return methodNotAllowed(res, ["GET", "POST"]);
 }
 
@@ -52,12 +52,16 @@ function publicRow(r) {
   };
 }
 
-async function list(req, res, id) {
+async function list(req, res, s) {
   try {
+    // Joined to accounts for the session_version check, so a cookie retired by signing
+    // out stops reading the history as well as stops writing to it.
     const rows = await db()`
-      select id, kind, entry_id, status, pr_number, pr_url, decided_note, created_at
-        from proposals where account_id = ${id}
-       order by created_at desc, id
+      select p.id, p.kind, p.entry_id, p.status, p.pr_number, p.pr_url, p.decided_note,
+             p.created_at
+        from proposals p join accounts a on a.id = p.account_id
+       where p.account_id = ${s.id} and a.session_version = ${s.v}
+       order by p.created_at desc, p.id
        limit 100`;
     json(res, 200, { proposals: rows.map(publicRow) });
   } catch (err) {
@@ -66,8 +70,9 @@ async function list(req, res, id) {
   }
 }
 
-async function create(req, res, id) {
+async function create(req, res, s) {
   if (!sameOrigin(req)) return json(res, 403, { error: "cross_origin" });
+  const id = s.id;
 
   let body;
   try {
@@ -93,7 +98,7 @@ async function create(req, res, id) {
   try {
     const rows = await sql`
       select id, handle, display_name, orcid, github_login, role, banned_at
-        from accounts where id = ${id} limit 1`;
+        from accounts where id = ${id} and session_version = ${s.v} limit 1`;
     account = rows[0];
   } catch (err) {
     console.error("proposals account", err);

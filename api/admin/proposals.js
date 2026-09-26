@@ -209,7 +209,10 @@ async function decide(req, res, me) {
       title: summary,
       body: proposalBody(
         { kind: row.kind, entryId: row.entry_id, payload: row.payload }, author, origin(req)),
-      message: `${summary}\n\nSubmitted through the site by @${row.handle || "a contributor"}.`,
+      // Not "@handle": a site handle is not a GitHub account, and a commit message
+      // renders mentions too. The handle passed the slug rule, so it is plain text.
+      message: `${summary}\n\nSubmitted through the site by `
+        + (row.handle ? `the site account ${row.handle}.` : "a contributor."),
       entries: next,
       labels: ["submission", row.kind],
     });

@@ -223,8 +223,8 @@ them, then re-run `build.py` and `build-icons.py`.
 
 ## PRs
 
-Branch from `main`, push, open a PR. Vercel posts a preview URL. One entry or one code change
-per PR. Generated files are committed rather than built on deploy, so an entry PR carries its
+Branch from `main`, push, open a PR. A branch in this repository gets a Vercel preview URL; a
+fork's PR gets one once a maintainer authorises it. One entry or one code change per PR. Generated files are committed rather than built on deploy, so an entry PR carries its
 regenerated output with it.
 
 A PR carrying an assistant's working files gets those files removed, not rejected.
@@ -276,8 +276,17 @@ part; none of it can tell whether a *claim* is true. What a reviewer does by han
 - **Be suspicious of upgrades.** A PR raising an entry's `verification` or softening `caveats` is
   the shape a promotional edit takes. Requires new evidence, cited.
 - **Treat the diff's scope as a signal.** An entry PR should touch `data/entries.json` plus
-  generated files and nothing else. CI warns when one also touches `scripts/`, `.github/`,
-  `app.js` or `vercel.json`. Read those as code changes.
+  generated files and nothing else. The bot's "Entry changes" comment warns, above the report,
+  when one also touches `scripts/`, `.github/`, `js/`, `api/`, `db/`, the package files or
+  `vercel.json`. Read those as code changes, and read that warning literally: CI ran the PR's own
+  copy of the workflow and scripts, so for that PR the report and the green checks are its own
+  claims, not a verification.
+- **Confirm self-reported identifiers before they become permanent.** A submission from the site
+  names the account's handle, and its ORCID and GitHub username marked "self-reported, not
+  verified": nothing checks that the person owns either. Merging writes them into the registry
+  for good. Confirm an ORCID (the record names the person, or links back to the account) and a
+  GitHub username (for instance by asking on the PR) before merging a credit that carries it, or
+  remove the field from the branch.
 - **Watch for conflicts of interest.** Contributors submitting their own result are welcome and
   common, but it goes in at the grade the evidence supports, and saying so in the PR is expected.
 

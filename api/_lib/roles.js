@@ -6,7 +6,7 @@
 // only through a direct database statement: nothing user-facing writes accounts.role,
 // which is why there is no API to grant a role at all.
 import { db } from "./db.js";
-import { sessionFrom } from "./session.js";
+import { sessionOf } from "./session.js";
 import { json } from "./http.js";
 
 export const ROLES = ["reader", "contributor", "reviewer", "maintainer"];
@@ -19,8 +19,8 @@ export const ROLES = ["reader", "contributor", "reviewer", "maintainer"];
  * check is a missing early return, which is visible, rather than a permissive default.
  */
 export async function requireAccount(req, res, role = null) {
-  const id = sessionFrom(req);
-  if (!id) {
+  const s = sessionOf(req);
+  if (!s) {
     json(res, 401, { error: "signed_out" });
     return null;
   }
@@ -28,7 +28,7 @@ export async function requireAccount(req, res, role = null) {
   try {
     const rows = await db()`
       select id, handle, display_name, orcid, github_login, role, banned_at
-        from accounts where id = ${id} limit 1`;
+        from accounts where id = ${s.id} and session_version = ${s.v} limit 1`;
     row = rows[0];
   } catch (err) {
     console.error("roles lookup", err);

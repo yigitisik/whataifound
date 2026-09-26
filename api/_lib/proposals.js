@@ -414,45 +414,98 @@ export function applyProposal(entries, { kind, entryId, payload }, author, today
   return { entries: out, summary: `Correction to ${entryId}` };
 }
 
+// ---------------------------------------------------------------------------
+// Submitted text in the pull request body.
+//
+// Everything a submitter typed is data, and GitHub renders a PR body as markdown with
+// side effects: "@someone" notifies them from the bot's account, "Fixes #12" closes an
+// unrelated issue on merge, "<!-- -->" hides text from the reviewer while keeping it in
+// the source, and prose addressed to an automated reviewer reads as instructions. None
+// of that is processed inside code, so every submitted value is written as code: prose
+// in a fenced block, one-line values as an inline span. Each delimiter is one backtick
+// longer than the longest run inside the value, which is the CommonMark rule for a span
+// that cannot be closed from within.
+// ---------------------------------------------------------------------------
+
+const longestTicks = s => Math.max(0, ...(String(s).match(/`+/g) || []).map(r => r.length));
+
+/** Submitted prose, as a block nothing inside can escape. */
+function fenced(s) {
+  const fence = "`".repeat(Math.max(3, longestTicks(s) + 1));
+  return `${fence}text\n${s}\n${fence}`;
+}
+
+/** A submitted one-line value, as an inline code span. */
+function inline(s) {
+  const tick = "`".repeat(longestTicks(s) + 1);
+  return `${tick} ${s} ${tick}`;
+}
+
+/**
+ * A validated http(s) link as an explicit autolink. url() stored the parser's href, and
+ * the WHATWG serialiser percent-encodes "<", ">" and whitespace in every component, so
+ * the value cannot close the brackets or break the line.
+ */
+const link = u => `<${u}>`;
+
 /**
  * The pull request body.
  *
  * Written for the maintainer who has to decide, so it leads with what changed and what
  * the submitter says they did, and states plainly that none of it is verified. The
- * submitter is identified by handle rather than by email, which is never published.
+ * submitter is identified by site handle rather than by email, which is never
+ * published, and never as "@handle": a site handle is not a GitHub account, and that
+ * spelling would notify whichever GitHub user happens to own the same name. ORCID and
+ * GitHub username are self-reported, and labelled as such.
+ *
+ * Values the API chose from a fixed list (kind, axis, grade, target, source kind) and
+ * ids that passed the slug rule are written plainly. Everything else a person typed
+ * goes through fenced() or inline().
  */
 export function proposalBody({ kind, entryId, payload }, author, siteOrigin) {
-  const who = author.handle ? `@${author.handle}` : "a contributor";
+  const who = author.handle ? `the site account ${inline(author.handle)}` : "a contributor";
+  const selfReported = [
+    author.orcid ? `ORCID ${author.orcid}` : "",
+    author.githubLogin ? `GitHub ${inline(author.githubLogin)}` : "",
+  ].filter(Boolean).join(", ");
   const lines = [
     `Submitted through the site by ${who}`
-    + (author.orcid ? ` (ORCID ${author.orcid})` : "") + ".",
+    + (selfReported ? ` (self-reported, not verified: ${selfReported})` : "") + ".",
+    "",
+    "Everything the submitter typed is quoted as code below, so nothing in it renders, "
+    + "mentions anyone, or links an issue.",
     "",
   ];
 
   if (kind === "check") {
     lines.push(`**Independent check on \`${entryId}\`**`, "",
-      `**Checked by:** ${payload.who}`, `**Outcome:** ${payload.outcome}`,
-      payload.url ? `**Link:** ${payload.url}` : "", "",
-      "**What they checked, and how**", "", payload.evidence, "",
-      `**Conflicts of interest:** ${payload.coi || "none stated"}`);
+      `**Checked by:** ${inline(payload.who)}`, `**Outcome:** ${inline(payload.outcome)}`,
+      payload.url ? `**Link:** ${link(payload.url)}` : "", "",
+      "**What they checked, and how**", "", fenced(payload.evidence), "",
+      "**Conflicts of interest**", "",
+      payload.coi ? fenced(payload.coi) : "_none stated_");
   } else if (kind === "challenge") {
     lines.push(`**Grade challenge on \`${entryId}\`**`, "",
       `**Axis:** ${payload.axis}`, `**Proposed:** ${payload.proposed}`,
-      `**Citation:** ${payload.citation}`, "", "**Argument**", "", payload.why, "",
-      `**Conflicts of interest:** ${payload.coi || "none stated"}`);
+      `**Citation:** ${inline(payload.citationLabel)} ${link(payload.citation)}`, "",
+      "**Argument**", "", fenced(payload.why), "",
+      "**Conflicts of interest**", "",
+      payload.coi ? fenced(payload.coi) : "_none stated_");
   } else if (kind === "correction") {
     lines.push(`**Correction to \`${entryId}\`**`, "",
       `**What:** ${payload.target}`,
-      payload.url ? `**Link:** ${payload.url}` : `**Year posed:** ${payload.year}`,
-      "", payload.note);
+      payload.url
+        ? `**Link:** ${inline(payload.label)} ${link(payload.url)}`
+        : `**Year posed:** ${payload.year}`,
+      "", fenced(payload.note));
   } else {
     lines.push(`**New entry: \`${payload.id}\`**`, "",
-      `**Title:** ${payload.title}`,
+      `**Title:** ${inline(payload.title)}`,
       `**Graded:** ${payload.verification} / ${payload.autonomy}`,
-      `**Lab:** ${payload.lab}  **Model:** ${payload.model}`, "",
-      payload.claim, "",
+      `**Lab:** ${inline(payload.lab)}  **Model:** ${inline(payload.model)}`, "",
+      "**Claim**", "", fenced(payload.claim), "",
       "**Sources**", "",
-      ...payload.sources.map(s => `- \`${s.kind}\` [${s.label}](${s.url})`));
+      ...payload.sources.map(s => `- \`${s.kind}\` ${inline(s.label)} ${link(s.url)}`));
   }
 
   lines.push("",

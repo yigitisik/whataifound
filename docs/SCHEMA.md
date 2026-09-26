@@ -318,8 +318,9 @@ deliberately strict:
 - `id` must be unique and URL-safe (lowercase letters, digits, `-`, `_`, `.`). It becomes both a
   filename and a URL path segment.
 - Every `url` in `sources`, `discussion` and `independent_checks` must start with `http://` or
-  `https://`. `javascript:` and `data:` are rejected: these become `href`s on the page, and the
-  site's CSP allows `'unsafe-inline'`, so they would be live links. An `independent_checks` entry
+  `https://`. `javascript:` and `data:` are rejected: these become `href`s on the page. The CSP
+  would block a `javascript:` link on click, but the build refuses one anyway rather than rest
+  on a header being deployed correctly. An `independent_checks` entry
   may omit `url` entirely (an in-house recomputation or a blind assessment has none).
 - `youtube_id` must be a valid 11-character YouTube id: it is interpolated into an iframe `src`.
 

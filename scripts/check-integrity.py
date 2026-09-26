@@ -16,12 +16,18 @@ not a *malicious* one. Two gaps it does not close:
    machine-written HTML. A reviewer skimming that is who a smuggled <script> is aimed at.
 
 So this asserts properties of the *content*, independent of whether it was generated: no
-unexpected inline scripts, no external script/frame origins outside the CSP, no
-javascript:/data: links, no stray markup in the registry data, and the house rule on em
-dashes and control characters.
+inline script the CSP does not name by hash, no external script/frame origins outside the
+CSP, no javascript:/data: links, no stray markup in the registry data, and the house rule
+on em dashes and control characters.
+
+Every .html file at the root is swept, not a list of them. A list is a page someone forgot
+to add: signin.html and registries.html shipped unswept for exactly that reason, and both
+are partly hand-written, so a payload there survived the rebuild with a clean diff.
 
 Exits non-zero and names the file and line on any violation.
 """
+import base64
+import hashlib
 import json
 import os
 import re
@@ -29,22 +35,14 @@ import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
-# The only inline <script> blocks the site is supposed to contain. Anything else in a
-# deployed HTML file is a finding, not a style preference. Matched as substrings against
-# the script body, so incidental whitespace differences do not trip it.
-ALLOWED_INLINE = (
-    "localStorage.getItem('theme')",          # pre-paint theme initialiser
-    "window.va=window.va||function()",        # Vercel Web Analytics shim
-    "window.si=window.si||function()",        # Vercel Speed Insights shim
-)
 # Origins the CSP in vercel.json already permits for scripts and frames.
 ALLOWED_SRC_HOSTS = ("https://va.vercel-scripts.com",)
 ALLOWED_FRAME_HOSTS = ("https://www.youtube-nocookie.com", "https://www.youtube.com")
 
-DEPLOYED_HTML = ["index.html", "methodology.html", "visuals.html", "review.html",
-                 "contributors.html", "account.html", "privacy.html",
-                 "contribute.html", "admin.html", "404.html",
-                 "developers.html", "contact.html"]
+# The one page assembled at request time rather than committed. Its HTML lives in a
+# JavaScript template, so it is not swept as a page, but the inline scripts in it are
+# served under the same CSP and have to be hashed there like everyone else's.
+RUNTIME_PAGES = [os.path.join("api", "u", "[handle].js")]
 
 # Directories the em dash sweep never descends into: version control, build caches, and
 # anything a local tool dropped in. All are either untracked or not prose.
@@ -56,10 +54,9 @@ EM_DASH = "\u2014"
 
 
 def html_files():
-    for name in DEPLOYED_HTML:
-        p = os.path.join(ROOT, name)
-        if os.path.exists(p):
-            yield p
+    for name in sorted(os.listdir(ROOT)):
+        if name.endswith(".html"):
+            yield os.path.join(ROOT, name)
     # Every generated directory, not just finding/. A page that ships unswept is a page
     # this check does not cover, which is the whole point of the check.
     for sub in ("finding", "topic", "lab"):
@@ -93,7 +90,72 @@ def line_of(text, index):
     return text.count("\n", 0, index) + 1
 
 
-def check_html(path, problems):
+def csp_script_hashes(problems):
+    """The sha256 sources in the site-wide CSP's script-src, from vercel.json.
+
+    The CSP is the allowlist: an inline script runs in a browser only if its hash is
+    listed there, so the check asserts the same thing the browser will enforce, and a new
+    inline script is a visible one-line change to vercel.json rather than a substring
+    match in here. 'unsafe-inline' is refused outright, because it would make every hash
+    moot and let any injected inline script run.
+    """
+    with open(os.path.join(ROOT, "vercel.json")) as f:
+        config = json.load(f)
+    csp = next((h["value"] for block in config.get("headers", [])
+                if block.get("source") == "/(.*)"
+                for h in block.get("headers", [])
+                if h.get("key", "").lower() == "content-security-policy"), None)
+    if csp is None:
+        problems.append("vercel.json: no site-wide Content-Security-Policy header on /(.*)")
+        return set()
+    directives = {}
+    for part in csp.split(";"):
+        words = part.split()
+        if words:
+            directives[words[0].lower()] = words[1:]
+    script_src = directives.get("script-src", [])
+    if "'unsafe-inline'" in script_src:
+        problems.append("vercel.json: script-src allows 'unsafe-inline'. Inline scripts are "
+                        "allowed by sha256 hash instead; list the hash this check names")
+    return {w[len("'sha256-"):-1] for w in script_src
+            if w.startswith("'sha256-") and w.endswith("'")}
+
+
+def script_hash(body):
+    """What a browser hashes: the exact text between the tags, as UTF-8."""
+    return base64.b64encode(hashlib.sha256(body.encode("utf-8")).digest()).decode("ascii")
+
+
+def check_inline_script(rel, line, body, allowed, used, problems):
+    digest = script_hash(body)
+    if digest in allowed:
+        used.add(digest)
+        return
+    snippet = " ".join(body.split())[:90]
+    problems.append(f"{rel}:{line}: inline <script> is not allowed by the CSP: {snippet!r}. "
+                    f"If it is meant to be there, add 'sha256-{digest}' to script-src in "
+                    "vercel.json")
+
+
+def check_runtime_pages(allowed, used, problems):
+    for rel in RUNTIME_PAGES:
+        path = os.path.join(ROOT, rel)
+        if not os.path.exists(path):
+            continue
+        src = open(path, encoding="utf-8").read()
+        for m in re.finditer(r"<script>(.*?)</script>", src, re.S):
+            body = m.group(1)
+            # The body is hashed as written in the source, which is only what the browser
+            # receives if nothing in it is a template substitution or an escape.
+            if "${" in body or "\\" in body or "`" in body:
+                problems.append(f"{rel}:{line_of(src, m.start())}: inline <script> in a "
+                                "template contains ${, a backslash or a backtick, so its "
+                                "served hash cannot be checked from the source")
+                continue
+            check_inline_script(rel, line_of(src, m.start()), body, allowed, used, problems)
+
+
+def check_html(path, problems, allowed, used):
     rel = os.path.relpath(path, ROOT)
     src = open(path).read()
 
@@ -117,9 +179,8 @@ def check_html(path, problems):
             # Same-origin ("/js/app.js", "x.js") is fine; anything else must be allowlisted.
             if re.match(r"^(?:[a-z]+:)?//", url, re.I) and not url.startswith(ALLOWED_SRC_HOSTS):
                 problems.append(f"{rel}:{line}: external script src {url!r} is not in the CSP allowlist")
-        elif body.strip() and not any(a in body for a in ALLOWED_INLINE):
-            snippet = " ".join(body.split())[:90]
-            problems.append(f"{rel}:{line}: unexpected inline <script>: {snippet!r}")
+        elif body.strip():
+            check_inline_script(rel, line, body, allowed, used, problems)
 
     for m in re.finditer(r'\b(?:href|src|action|formaction)\s*=\s*["\']\s*'
                          r'(javascript:|data:(?!image/)|vbscript:)', src, re.I):
@@ -245,8 +306,16 @@ def check_control_chars(problems):
 
 def main():
     problems = []
+    allowed = csp_script_hashes(problems)
+    used = set()
     for path in html_files():
-        check_html(path, problems)
+        check_html(path, problems, allowed, used)
+    check_runtime_pages(allowed, used, problems)
+    # A hash nothing uses is a standing permission for a script that no longer exists,
+    # and the one thing it can still do is let that exact script back in unnoticed.
+    for digest in sorted(allowed - used):
+        problems.append(f"vercel.json: script-src allows 'sha256-{digest}', which no page "
+                        "uses. Remove it")
     check_data(problems)
     check_em_dashes(problems)
     check_control_chars(problems)
@@ -256,8 +325,8 @@ def main():
         for p in problems:
             print(f"  - {p}", file=sys.stderr)
         sys.exit(1)
-    print("Integrity check passed: no unexpected scripts, origins, handlers, URL schemes, "
-          "em dashes or control characters.")
+    print("Integrity check passed: every inline script is hashed in the CSP; no unexpected "
+          "origins, handlers, URL schemes, em dashes or control characters.")
 
 
 if __name__ == "__main__":

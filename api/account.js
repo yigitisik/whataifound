@@ -5,7 +5,7 @@
 // the way out. `role` is absent on purpose: it mirrors the ladder in GOVERNANCE.md and
 // only a maintainer can move someone along it.
 import { db } from "./_lib/db.js";
-import { sessionFrom, cookie, SESSION_COOKIE } from "./_lib/session.js";
+import { sessionOf, cookie, SESSION_COOKIE } from "./_lib/session.js";
 import { json, methodNotAllowed, readJson, sameOrigin, origin } from "./_lib/http.js";
 import { validateHandle, normaliseHandle, RENAME_COOLDOWN_DAYS } from "./_lib/handles.js";
 import { validateDisplayName, normaliseDisplayName } from "./_lib/names.js";
@@ -16,16 +16,17 @@ const ORCID_RE = /^[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]$/;
 const GITHUB_RE = /^[A-Za-z0-9](?:[A-Za-z0-9-]{0,37}[A-Za-z0-9])?$/;
 
 export default async function handler(req, res) {
-  const id = sessionFrom(req);
-  if (!id) return json(res, 401, { error: "signed_out" });
+  const s = sessionOf(req);
+  if (!s) return json(res, 401, { error: "signed_out" });
   if (!sameOrigin(req)) return json(res, 403, { error: "cross_origin" });
 
-  if (req.method === "PATCH") return patch(req, res, id);
-  if (req.method === "DELETE") return remove(req, res, id);
+  if (req.method === "PATCH") return patch(req, res, s);
+  if (req.method === "DELETE") return remove(req, res, s);
   return methodNotAllowed(res, ["PATCH", "DELETE"]);
 }
 
-async function patch(req, res, id) {
+async function patch(req, res, s) {
+  const id = s.id;
   let body;
   try {
     body = await readJson(req);
@@ -35,9 +36,14 @@ async function patch(req, res, id) {
 
   const sql = db();
   const rows = await sql`
-    select handle, handle_changed_at from accounts where id = ${id} limit 1`;
+    select handle, handle_changed_at, banned_at from accounts
+     where id = ${id} and session_version = ${s.v} limit 1`;
   if (!rows.length) return json(res, 401, { error: "signed_out" });
   const current = rows[0];
+  // /api/me already treats a banned account as signed out. Without this the same cookie
+  // could still rename the account, or switch on a public profile, from a request the
+  // UI never makes.
+  if (current.banned_at) return json(res, 403, { error: "banned" });
 
   const patchFields = {};
 
@@ -75,6 +81,11 @@ async function patch(req, res, id) {
     }
     patchFields.display_name = normaliseDisplayName(body.displayName) || null;
   }
+
+  // ---- ORCID and GitHub ---------------------------------------------------
+  // Both are self-reported: checked for shape here, never for ownership. Anything that
+  // shows them says so, and a maintainer confirms them before a credit carrying them is
+  // merged. See docs/CONTRIBUTING.md.
 
   // ---- ORCID -------------------------------------------------------------
   if (body.orcid !== undefined) {
@@ -129,9 +140,16 @@ async function patch(req, res, id) {
  * there is a statement about who did a piece of work, not personal data we can retract,
  * and the privacy page says so in those words.
  */
-async function remove(req, res, id) {
+async function remove(req, res, s) {
   try {
-    await db()`delete from accounts where id = ${id}`;
+    // Not for a banned account. banned_at is kept on the row precisely so the same
+    // Google account cannot sign up again with a clean history; deleting the row would
+    // hand that back. The version check keeps a retired cookie from deleting anything.
+    const gone = await db()`
+      delete from accounts
+       where id = ${s.id} and session_version = ${s.v} and banned_at is null
+      returning 1`;
+    if (!gone.length) return json(res, 401, { error: "signed_out" });
   } catch (err) {
     console.error("account delete", err);
     return json(res, 503, { error: "unavailable" });

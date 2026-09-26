@@ -97,7 +97,8 @@
       <p class="ad-who">${who}${name}
         <span class="ad-record">${esc(record)}</span>
         ${a.orcid ? `<a class="credit-orcid" href="https://orcid.org/${esc(a.orcid)}"
-           target="_blank" rel="noopener">iD</a>` : ''}
+           target="_blank" rel="noopener"
+           title="ORCID ${esc(a.orcid)}, self-reported: confirm it before merging">iD</a>` : ''}
       </p>
       <dl class="ad-fields">${fieldRows(kind, p.payload)}${sourceRows(p.payload)}</dl>
       ${decided}

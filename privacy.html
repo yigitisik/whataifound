@@ -162,7 +162,8 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   row and nothing else: no email, no name, no tracking identifier. It is
   <code>HttpOnly</code>, so no script on the page, ours or anyone else's, can read it. It
   is <code>SameSite=Lax</code>, so other sites cannot use it to act as you. It lasts 30
-  days. It is not an advertising cookie and is not shared with anyone.</p>
+  days, or until you sign out, which ends it on every device at once. It is not an
+  advertising cookie and is not shared with anyone.</p>
   <p>The round trip through Google sets a second one, <code>waf_oauth</code>, with the same
   protections. It exists only to prove that the reply coming back from Google belongs to a
   sign-in this browser started. It lasts five minutes and is deleted the moment you land
@@ -173,6 +174,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   described above immediately: the Google identifier, your email, your handle, your
   settings, every signal you have cast and every submission you have made, accepted or
   not. No confirmation email, no waiting period, no retention window.</p>
+  <p>One exception: if your handle is on a pull request or a merged credit, the handle
+  itself is kept, with nothing linking it to you, so that nobody else can take the name
+  your public credits point to.</p>
   <p><strong>What it cannot remove, and you should know before you contribute.</strong>
   Anything already approved has left the database by then. A pull request that has been
   opened stays on GitHub whether or not it was merged, and if it was merged, the credit for

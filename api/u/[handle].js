@@ -137,14 +137,16 @@ export default async function handler(req, res) {
     ? `<ul class="feed">${rows.map(row).join("")}</ul>`
     : '<p class="c-empty">Nothing merged yet.</p>';
 
+  // Both are typed in on /account and checked for shape only, so the page says so. A
+  // profile is exactly where a borrowed ORCID would do its work.
   const marks = [];
   if (account.orcid) {
     marks.push(`<a href="https://orcid.org/${esc(account.orcid)}" target="_blank" `
-      + `rel="noopener me">ORCID ${esc(account.orcid)}</a>`);
+      + `rel="noopener me" title="Self-reported, not verified">ORCID ${esc(account.orcid)}</a>`);
   }
   if (account.github_login) {
     marks.push(`<a href="https://github.com/${esc(account.github_login)}" target="_blank" `
-      + `rel="noopener me">GitHub</a>`);
+      + `rel="noopener me" title="Self-reported, not verified">GitHub</a>`);
   }
 
   const desc = rows.length
@@ -169,7 +171,7 @@ export default async function handler(req, res) {
     <p class="prof-sub"><span class="prof-handle">@${esc(account.handle)}</span>
       ${joined ? `<span class="prof-joined">joined ${esc(joined)}</span>` : ""}
       <span class="pill r r-added">${esc(ROLE_LABEL[account.role] || "Reader")}</span></p>
-    ${marks.length ? `<p class="prof-marks">${marks.join("")}</p>` : ""}
+    ${marks.length ? `<p class="prof-marks">${marks.join("")}<span>(self-reported)</span></p>` : ""}
   </div>
 </div>
 

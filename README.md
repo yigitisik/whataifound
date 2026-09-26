@@ -144,12 +144,13 @@ it. That is why `chrome.js` exists.
 ## Deployment (Vercel)
 
 Static, no build command: the generated files are committed, so a deploy just serves them. Push to
-`main` deploys production; each PR gets a preview.
+`main` deploys production. Branches get a preview, which runs without production's credentials; a
+fork's PR gets one only once a maintainer authorises it ([docs/SETUP.md](docs/SETUP.md)).
 
 - Caching: fonts immutable for a year; brand assets a day; the root pages, `data/entries.json`
   and `finding/` `must-revalidate`; feeds and `llms.txt` 30 min.
-- Security headers on every response: CSP (including `script-src-attr 'none'` and `object-src
-  'none'`), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
+- Security headers on every response: CSP (inline scripts allowed by sha256 hash only, never
+  `'unsafe-inline'`, plus `script-src-attr 'none'` and `object-src 'none'`), `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`,
   `Strict-Transport-Security`, `Permissions-Policy`. A new external resource needs its CSP directive
   in `vercel.json` widened, or it is blocked.
 - Deployment records: the Vercel integration opens one per push and never closes them, so
@@ -187,8 +188,8 @@ Static, no build command: the generated files are committed, so a deploy just se
 ## Contributing
 
 See [docs/CONTRIBUTING.md](docs/CONTRIBUTING.md). Fork, branch, run `python3 scripts/build.py`,
-commit the regenerated files alongside your entry, open a PR. Each PR gets a Vercel preview URL and
-the CI checks above.
+commit the regenerated files alongside your entry, open a PR. It gets the CI checks above, and a
+Vercel preview once a maintainer has looked at it.
 
 The lowest-friction contribution is an independent check: the
 [review queue](https://whataifound.org/review) lists every entry nobody outside the announcing lab

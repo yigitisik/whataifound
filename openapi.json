@@ -191,7 +191,7 @@
       "get": {
         "operationId": "getHealth",
         "summary": "Report which optional services this deployment was given",
-        "description": "Presence booleans for the environment this deployment was built with, never values. Sign-in and submissions need a database and OAuth credentials; the registry itself does not, and the whole static site plus /api/dataset work with all of it absent. Useful for telling 'not configured' apart from 'configured after this deployment was built'.",
+        "description": "Whether this deployment was built with what sign-in needs. Sign-in and submissions need a database and OAuth credentials; the registry itself does not, and the whole static site plus /api/dataset work with all of it absent. Useful for telling 'not configured' apart from 'configured after this deployment was built'. Production answers with the verdict only; preview and local deployments add per-variable presence booleans, never values.",
         "responses": {
           "200": {
             "description": "Configuration report.",
@@ -523,7 +523,7 @@
         "type": "object",
         "required": [
           "signInReady",
-          "present"
+          "hint"
         ],
         "properties": {
           "signInReady": {
@@ -533,7 +533,8 @@
             "type": "object",
             "additionalProperties": {
               "type": "boolean"
-            }
+            },
+            "description": "Omitted on production, like every field below it."
           },
           "sessionSecretLongEnough": {
             "type": "boolean"

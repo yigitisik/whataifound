@@ -381,8 +381,40 @@ test("the pull request body never claims the submission was verified", () => {
   const payload = validateProposal("check", goodCheck).value;
   const body = proposalBody({ kind: "check", entryId: REAL_ID, payload }, AUTHOR,
     "https://whataifound.org");
-  assert.match(body, /@patient-lemma/);
+  assert.match(body, /site account `+ patient-lemma `+/);
+  assert.doesNotMatch(body, /@patient-lemma/,
+    "a site handle is not a GitHub account; @ would notify whoever owns that name there");
+  assert.match(body, /self-reported, not verified/);
   assert.match(body, /has been verified/, "it says so in as many words");
   assert.match(body, /0000-0002-1825-0097/);
   assert.ok(!body.includes(String(AUTHOR.email)), "no email, ever");
+});
+
+test("submitted text in the pull request body is inert", () => {
+  // Each of these does something on GitHub when it appears in a PR body as markdown:
+  // notifies a stranger from the bot's account, closes an issue on merge, hides text
+  // from the reviewer, or breaks out of the quoting meant to contain it.
+  const hostile = "Looks fine. @octocat Fixes #1 <!-- hidden --> ```` # Heading";
+  const checked = validateProposal("check", {
+    ...goodCheck,
+    who: "Mallory `@octocat` Fixes #1",
+    evidence: goodCheck.evidence + " " + hostile,
+    coi: "none ``` @octocat",
+  });
+  assert.ok(checked.value, JSON.stringify(checked.error));
+  const payload = checked.value;
+  const body = proposalBody({ kind: "check", entryId: REAL_ID, payload }, AUTHOR,
+    "https://whataifound.org");
+
+  // Every occurrence of the payload sits inside code: strip the fenced blocks and the
+  // inline spans, and none of the dangerous text is left in rendered markdown.
+  const outside = body
+    .replace(/^(`{3,})text\n[\s\S]*?\n\1$/gm, "")
+    .replace(/(`+) .*? \1/g, "");
+  for (const bad of ["@octocat", "Fixes #1", "<!--", "# Heading"]) {
+    assert.ok(!outside.includes(bad), `${JSON.stringify(bad)} escaped the quoting`);
+  }
+  // The fence is longer than any run of backticks the submitter typed, so their own
+  // four-backtick line cannot close it.
+  assert.match(body, /^`{5}text$/m);
 });

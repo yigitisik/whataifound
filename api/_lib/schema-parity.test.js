@@ -58,3 +58,27 @@ test("the account table never gains a plaintext-secret-looking column", () => {
     assert.doesNotMatch(SQL, new RegExp(`^\\s+${bad}\\s`, "mi"), `accounts gained a ${bad} column`);
   }
 });
+
+const HARDENING = fs.readFileSync(path.join(ROOT, "db/004_hardening.sql"), "utf8");
+
+test("the session_version column every session check reads is created by a migration", () => {
+  // sessionOf() callers compare accounts.session_version on every signed-in request. A
+  // column the code reads and no migration creates is an outage on the next deploy.
+  assert.match(HARDENING,
+    /alter table accounts add column if not exists session_version integer not null default 0;/);
+  for (const f of ["api/me.js", "api/account.js", "api/signals.js", "api/proposals.js",
+                   "api/_lib/roles.js", "api/auth/signout.js"]) {
+    const src = fs.readFileSync(path.join(ROOT, f), "utf8");
+    assert.match(src, /session_version/, `${f} resolves a session without the version check`);
+    assert.doesNotMatch(src, /sessionFrom\(/, `${f} still calls the unversioned sessionFrom()`);
+  }
+});
+
+test("a retired handle is refused with the error both callers already handle", () => {
+  // Signup retries on 23505 and a rename answers 409 on it, so the trigger has to raise
+  // exactly that. Any other code would surface as a failed sign-in or a 503.
+  assert.match(HARDENING, /using errcode = 'unique_violation'/);
+  const callback = fs.readFileSync(path.join(ROOT, "api/auth/callback.js"), "utf8");
+  assert.match(callback, /err\?\.code === "23505"\) continue/);
+  assert.match(ACCOUNT, /err\?\.code === "23505"/);
+});

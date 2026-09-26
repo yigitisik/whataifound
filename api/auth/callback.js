@@ -10,7 +10,7 @@
 // audience is still the wrong token.
 import crypto from "node:crypto";
 import { db } from "../_lib/db.js";
-import { cookie, seal, unseal, parseCookies, SESSION_COOKIE } from "../_lib/session.js";
+import { cookie, seal, unseal, parseCookies, SESSION_COOKIE, TYP_OAUTH } from "../_lib/session.js";
 import { origin, safeReturnTo } from "../_lib/http.js";
 import { generateHandle } from "../_lib/handles.js";
 import { sanitiseDisplayName } from "../_lib/names.js";
@@ -54,7 +54,7 @@ export default async function handler(req, res) {
 
   // unseal() verifies the HMAC and the age before we look at anything inside, so a
   // cookie this server did not issue is indistinguishable from no cookie at all.
-  const flow = unseal(raw);
+  const flow = unseal(raw, TYP_OAUTH);
   if (!flow || flow.sub !== "oauth") return fail(res, site, "state");
   // unseal() enforces the *session* lifetime, which is thirty days. A half-finished
   // sign-in has no business living that long, and the cookie's own Max-Age is a request
@@ -122,7 +122,7 @@ export default async function handler(req, res) {
         update accounts
            set email = ${claims.email || ""}, last_seen_at = now()
          where id = ${found[0].id}
-        returning id`;
+        returning id, session_version`;
       account = row;
     } else {
       account = await createAccount(sql, claims);
@@ -137,7 +137,9 @@ export default async function handler(req, res) {
   res.setHeader("Location", safeReturnTo(flow.rt));
   res.setHeader("Cache-Control", "no-store");
   res.setHeader("Set-Cookie", [
-    cookie(SESSION_COOKIE, seal(account.id), { secure }),
+    // The version the row holds now. Signing out bumps it, which is what makes every
+    // cookie issued before that moment stop resolving. See sessionOf().
+    cookie(SESSION_COOKIE, seal(account.id, { v: account.session_version }), { secure }),
     cookie(STATE_COOKIE, "", { maxAge: 0, secure }),
   ]);
   res.end();
@@ -164,7 +166,7 @@ async function createAccount(sql, claims) {
         insert into accounts (google_sub, email, handle, display_name)
         values (${claims.sub}, ${claims.email || ""}, ${handle},
                 ${sanitiseDisplayName(claims.name)})
-        returning id`;
+        returning id, session_version`;
       return row;
     } catch (err) {
       if (err?.code === "23505") continue;

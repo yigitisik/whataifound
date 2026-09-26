@@ -29,16 +29,40 @@ export function methodNotAllowed(res, allowed) {
   json(res, 405, { error: "method_not_allowed" });
 }
 
+// Resolved against, never fetched. Any origin works; .invalid is reserved and so can
+// never be a real host a return address might legitimately name.
+const RETURN_BASE = "https://return-to.invalid";
+
 /**
  * Where to send the browser after sign-in.
  *
- * Only a same-site path is ever accepted, and it must start with a single "/". A bare
- * "//evil.example" is a protocol-relative URL that a naive startsWith("/") check lets
- * through, which is the standard open-redirect bug, so it is rejected explicitly.
+ * Only a same-site path is ever accepted. Prefix checks on the raw string are not
+ * enough, because the browser does not read the Location header as a string: it parses
+ * it, and the parser strips tab, newline and carriage return anywhere in the value and
+ * reads a backslash as "/". So "/\t/evil.example" passes a startsWith("//") test and then
+ * lands on https://evil.example/. The rule is therefore:
+ *
+ *   1. No control characters and no backslash at all. A real path on this site never
+ *      contains either, so there is nothing to normalise, only something to refuse.
+ *   2. Parsed with the same WHATWG parser the browser uses, the value must stay on the
+ *      base origin, and its path must not begin with "//" once dot segments resolve.
+ *
+ * The raw value is returned, not the parser's normalised one: "/.//evil.example"
+ * normalises to "//evil.example", which is exactly the protocol-relative URL this
+ * exists to refuse. Step 2 rejects that case outright rather than relying on it.
+ *
+ * js/signin.js applies the same rule in the browser; http.test.js pins both cases.
  */
 export function safeReturnTo(value) {
   const v = String(value || "");
-  if (!v.startsWith("/") || v.startsWith("//") || v.startsWith("/\\")) return "/";
+  if (!v.startsWith("/") || /[\u0000-\u001f\u007f\\]/.test(v)) return "/";
+  let u;
+  try {
+    u = new URL(v, RETURN_BASE);
+  } catch {
+    return "/";
+  }
+  if (u.origin !== RETURN_BASE || u.pathname.startsWith("//")) return "/";
   return v;
 }
 

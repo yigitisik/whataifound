@@ -2258,6 +2258,7 @@
   .prof-handle{font-family:var(--mono,var(--serif));color:var(--accent)}
   .prof-marks{display:flex;flex-wrap:wrap;gap:12px;margin:9px 0 0;font-size:.78rem}
   .prof-marks a{color:var(--muted);text-decoration:none}
+  .prof-marks span{color:var(--muted)}
   .prof-marks a:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
   /* Fewer than four tiles is normal here: only the kinds someone has actually
      contributed are shown, so a profile never displays a row of zeroes. */

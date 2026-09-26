@@ -13,7 +13,9 @@ Credentials → **Create credentials** → **OAuth client ID**.
 - Authorised redirect URIs, all three:
   - `https://whataifound.org/api/auth/callback`
   - `http://localhost:3000/api/auth/callback` (for `vercel dev`)
-  - your Vercel preview domain, if you want sign-in on previews
+  - your Vercel preview domain, if you want sign-in on previews. Use a **second OAuth
+    client** for that rather than this one: a preview runs the branch's own code, and
+    its secret should not be the one production signs in with.
 
 On the OAuth consent screen, request only `openid`, `email` and `profile`. Those three
 need no Google verification review. Anything more does, and the site does not use it.
@@ -32,10 +34,23 @@ and run it. All of them are idempotent, so re-running one is safe.
 | `001_accounts.sql` | Accounts. Sign-in needs this and nothing else. |
 | `002_signals.sql` | The three triage signals on a finding page. |
 | `003_proposals.sql` | Submissions, and the `account_stats` view the profile reads. |
+| `004_hardening.sql` | Revocable sessions, permanently retired credited handles, and no access through Supabase's Data API. |
 
 Running only 001 gives you a working sign-in; the signal buttons and the contribution
 list stay empty rather than erroring, because the endpoints that read those tables
 degrade instead of failing.
+
+**004 is the exception, and has a deploy order.** The functions read
+`accounts.session_version` on every signed-in request, so run `004_hardening.sql` before
+deploying code that expects it; the other way round, signed-in requests answer 503 until
+you do. Everyone already signed in is signed out once when that code ships, because
+session cookies now carry a type and a version that older ones lack.
+
+**Leave the Data API unused.** Nothing in this project talks to Supabase's REST or GraphQL
+endpoints; every query runs from a function over `DATABASE_URL`. `004` revokes the `anon`
+and `authenticated` roles' access to every table and view, and it is worth also turning
+the Data API off (Project Settings → Data API), since the anon key Supabase generates is
+treated as public.
 
 **b. Get the connection string.** Project Settings → Database → Connection string →
 **Transaction pooler** (port 6543).
@@ -52,6 +67,12 @@ node -e "console.log(require('crypto').randomBytes(48).toString('base64url'))"
 ```
 
 Rotating this signs every existing session out, which is the intended emergency lever.
+Signing out also retires every session that one account holds, on every device, by bumping
+`accounts.session_version`; to do that for someone else, run
+`update accounts set session_version = session_version + 1 where handle = '...'`.
+
+Generate a **separate** secret for Preview (see below). Anyone who holds this value can
+mint a session for any account, maintainers included.
 
 ## 4. GitHub App, for the submission bot
 
@@ -80,6 +101,13 @@ failing at the click. Signing in, signals, submitting and rejecting all work wit
 Then: **Generate a private key** (downloads a `.pem`), and **Install App** on this
 repository only. The installation id is the number at the end of the URL you land on.
 
+**Protect `main` from the App.** Contents write lets it push to any branch, and
+`rebuild-bot.yml` only guards `submission/**`. Settings → Rules → Rulesets → new branch
+ruleset targeting the default branch: require a pull request before merging, require the
+`verify` status check, block force pushes, and leave the App **off** the bypass list. A
+submission then reaches `main` only the way any other change does, through a reviewed
+merge.
+
 ## Wiring it up
 
 Locally, copy `.env.example` to `.env.local` and fill it in. `.env*` is gitignored apart
@@ -91,19 +119,31 @@ npm run dev          # vercel dev: static site plus /api on one origin
 npm test             # the pure logic: session signing, handles, payload rules, redirect safety
 ```
 
-On Vercel, Project Settings → Environment Variables, set for Production and Preview:
+On Vercel, Project Settings → Environment Variables. **Production and Preview get
+different values, and some get none on Preview at all.** A preview deployment runs the
+branch's own `api/` code, and that includes a fork's pull request once someone authorises
+its deployment. Whatever Preview is given, a hostile branch can read. With production's
+values it could mint a session for any account, read and write every row including
+people's email addresses, and push to the repository as the App.
 
-| Name | From | Required |
-|---|---|---|
-| `GOOGLE_CLIENT_ID` | step 1 | yes |
-| `GOOGLE_CLIENT_SECRET` | step 1 | yes |
-| `DATABASE_URL` | step 2b, the pooler URL | yes |
-| `SESSION_SECRET` | step 3 | yes |
-| `SITE_ORIGIN` | `https://whataifound.org` (omit on preview to use the preview's own origin) | yes |
-| `GH_APP_ID` | step 4 | no |
-| `GH_APP_PRIVATE_KEY` | step 4, the whole `.pem` | no |
-| `GH_INSTALLATION_ID` | step 4 | no |
-| `GH_REPO` | `yigitisik/whataifound` | no |
+| Name | From | Production | Preview |
+|---|---|---|---|
+| `GOOGLE_CLIENT_ID` | step 1 | yes | only a second OAuth client's, if you want sign-in on previews |
+| `GOOGLE_CLIENT_SECRET` | step 1 | yes | as above |
+| `DATABASE_URL` | step 2b, the pooler URL | yes | only a **separate** Supabase project's |
+| `SESSION_SECRET` | step 3 | yes | only a **different** value |
+| `SITE_ORIGIN` | `https://whataifound.org` | yes | never: previews use their own origin |
+| `GH_APP_ID` | step 4 | optional | **never** |
+| `GH_APP_PRIVATE_KEY` | step 4, the whole `.pem` | optional | **never** |
+| `GH_INSTALLATION_ID` | step 4 | optional | **never** |
+| `GH_REPO` | `yigitisik/whataifound` | optional | **never** |
+
+With nothing set on Preview, a preview is the static site with the header reporting that
+accounts are not configured, which is all a reviewer needs from it.
+
+Also keep **Git Fork Protection** on (Project Settings → Git). It is what stops a fork's
+pull request from deploying before someone has read it. Authorise a fork's preview only
+after reading its changes to `api/`, and not at all for a first-time contributor's.
 
 ## Making yourself a maintainer
 
@@ -137,7 +177,7 @@ If it persists, work down this list:
 
 | Check | How |
 |---|---|
-| Set for **Production**, not only Preview or Development | the Environment column in `vercel env ls` |
+| Set for **Production** | the Environment column in `vercel env ls` |
 | Named exactly `GOOGLE_CLIENT_ID` | no `NEXT_PUBLIC_` prefix, no trailing space |
 | The redirect URI is registered with Google | must be exactly `https://<your-domain>/api/auth/callback` |
 
@@ -145,12 +185,23 @@ If it persists, work down this list:
 tests `GOOGLE_CLIENT_ID` before signing the flow cookie, so while that 503 shows you cannot
 tell whether `SESSION_SECRET` is set. Confirm all five together, not one at a time.
 
-**`/api/health` answers this directly**, reporting which variables the running deployment
-received, as booleans, never values:
+**`/api/health` answers this directly.** On production it gives only the verdict, because
+an itemised list of which secrets a deployment holds is a map of what to attack:
 
 ```bash
 curl -s https://<your-domain>/api/health
 ```
+
+```json
+{
+  "signInReady": false,
+  "hint": "A required variable is missing from THIS deployment. ..."
+}
+```
+
+`false` after you set everything is the redeploy case above. For the itemised version,
+ask a preview or `vercel dev`, which add which variables the deployment received, as
+booleans, never values, and the redirect URI to register with Google:
 
 ```json
 {
@@ -166,8 +217,8 @@ curl -s https://<your-domain>/api/health
 }
 ```
 
-A `false` next to a variable you know you set is the redeploy case above. `redirectUri`
-is the value to register with Google, built the way `api/auth/start.js` builds it.
+On production, `vercel env ls` answers the same question, and the redirect URI is
+`https://<your-domain>/api/auth/callback`, character for character.
 
 **Other endpoints narrow it further**, without exposing any value:
 
@@ -194,7 +245,9 @@ curl -so /dev/null -w '%{http_code}\n' \
    OAuth exchange happens server-side, which is what keeps the CSP at `connect-src 'self'`.
 6. Change your handle, save, reload. Change it again: it should be refused with a date,
    because renames are limited to one per 30 days.
-7. Delete the account. The row goes; you are signed out and returned to the registry.
+7. Sign in from a second browser, then sign out in the first. Reload the second: it should
+   be signed out too.
+8. Delete the account. The row goes; you are signed out and returned to the registry.
 
 ## Checking the contribution path
 
@@ -230,4 +283,5 @@ Every external dependency degrades rather than breaking the site:
 | Everything | The static site is exactly what it was. The Google door in the header reports that accounts are not configured. |
 | `db/002` | Signal buttons stay hidden. The review queue is its ordinary evidence-ordered list. |
 | `db/003` | `/account` shows zeroes and no contributions. Submitting reports the queue is unavailable. |
+| `db/004` | Not optional once the code expecting it is deployed: signed-in requests answer 503. |
 | GitHub App | `/admin` works, and says approving cannot open a pull request. |

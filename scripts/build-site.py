@@ -692,7 +692,8 @@ def person(p):
 
     Both values become an href, so both are matched against their own character set rather
     than trusted. An ORCID gets a separate mark because it identifies a researcher rather
-    than an account.
+    than an account. The mark says the iD is self-reported: nothing here authenticates it
+    through ORCID, and a bare iD mark reads as a claim that something did.
     """
     name = esc(p.get("name"))
     handle = str(p.get("handle") or "").lstrip("@")
@@ -708,7 +709,8 @@ def person(p):
     orcid = str(p.get("orcid") or "")
     if re.fullmatch(r"[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{3}[0-9X]", orcid):
         marks += (f' <a class="credit-orcid" href="https://orcid.org/{esc(orcid)}" '
-                  f'target="_blank" rel="noopener" title="ORCID {esc(orcid)}">iD</a>')
+                  f'target="_blank" rel="noopener" '
+                  f'title="ORCID {esc(orcid)}, self-reported">iD</a>')
     note = f' <span class="credit-note">{esc(p["note"])}</span>' if p.get("note") else ""
     return f'<li>{name}{marks}{note}</li>'
 
@@ -2697,12 +2699,14 @@ def openapi_spec(entries, updated):
                     "operationId": "getHealth",
                     "summary": "Report which optional services this deployment was given",
                     "description": (
-                        "Presence booleans for the environment this deployment was built "
-                        "with, never values. Sign-in and submissions need a database and "
-                        "OAuth credentials; the registry itself does not, and the whole "
-                        "static site plus /api/dataset work with all of it absent. Useful "
-                        "for telling 'not configured' apart from 'configured after this "
-                        "deployment was built'."
+                        "Whether this deployment was built with what sign-in needs. "
+                        "Sign-in and submissions need a database and OAuth credentials; "
+                        "the registry itself does not, and the whole static site plus "
+                        "/api/dataset work with all of it absent. Useful for telling 'not "
+                        "configured' apart from 'configured after this deployment was "
+                        "built'. Production answers with the verdict only; preview and "
+                        "local deployments add per-variable presence booleans, never "
+                        "values."
                     ),
                     "responses": {
                         "200": {
@@ -2789,11 +2793,13 @@ def openapi_spec(entries, updated):
                 },
                 "Health": {
                     "type": "object",
-                    "required": ["signInReady", "present"],
+                    "required": ["signInReady", "hint"],
                     "properties": {
                         "signInReady": {"type": "boolean"},
                         "present": {"type": "object",
-                                    "additionalProperties": {"type": "boolean"}},
+                                    "additionalProperties": {"type": "boolean"},
+                                    "description": "Omitted on production, like every "
+                                                   "field below it."},
                         "sessionSecretLongEnough": {"type": "boolean"},
                         "siteOrigin": {"type": "string"},
                         "redirectUri": {"type": "string"},
@@ -3684,8 +3690,9 @@ def build_index(entries, updated):
 # Only these schemes may appear in a link the site renders. Everything an entry cites
 # is a public web document, so this is not restrictive in practice, but `javascript:`
 # and `data:` URLs in a source link become executable hrefs on both the registry page
-# and the entry page, and the site's CSP allows 'unsafe-inline', so it would not stop
-# them. A contributor sends URLs; a reviewer skimming a large JSON diff can miss one.
+# and the entry page. The CSP allows inline scripts only by hash, which would block a
+# javascript: link on click, but that is a header on one host, and this data is
+# mirrored. A contributor sends URLs; a reviewer skimming a large JSON diff can miss one.
 SAFE_SCHEMES = ("https://", "http://")
 
 
