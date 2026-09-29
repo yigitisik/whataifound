@@ -4494,6 +4494,10 @@
       {
         "label": "Hacker News: A complex structure on S^6",
         "url": "https://news.ycombinator.com/item?id=49412947"
+      },
+      {
+        "label": "Hacker News: Formalization of the Solution to the Hopf Problem",
+        "url": "https://news.ycombinator.com/item?id=49467053"
       }
     ],
     "tags": [
@@ -7826,5 +7830,276 @@
       "autonomous-discovery"
     ],
     "added": "2026-09-24"
+  },
+  {
+    "id": "2026-09-15-bit-php-resolution-over-parities",
+    "title": "Exponential lower bound for the bit pigeonhole principle in unrestricted resolution over parities",
+    "claim": "Any refutation of the bit pigeonhole principle in resolution over parities, a proof system whose lines are disjunctions of linear equations mod 2, must be exponentially long even with no restriction on its depth or regularity; the mathematics was produced by AI models and the main theorem is checked in Lean.",
+    "field": "computer-science",
+    "date": "2026-09-15",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (mathematics, version 1 formalization and drafting); Claude Fable 5.1 and Claude Opus 5 (revision 1 formalization)",
+    "humans": [
+      "Kamil Braun"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Resolution over parities, Res(⊕), extends resolution by letting clauses be disjunctions of affine equations over F2. Superpolynomial size lower bounds were previously known only for restricted refutations: tree-like, regular, or of bounded depth. The paper claims that every DAG-like Res(⊕) refutation of the bit pigeonhole principle with n+1 pigeons and n = 2^l holes has more than exp(n/(32768 l^2)) clauses for every l of at least 32. The argument translates a refutation into a low-degree polynomial calculus refutation over extension variables in the style of Buss, Impagliazzo, Krajicek, Pudlak, Razborov and Sgall, removes the extension variables with one substitution, and closes with a Razborov-style degree lower bound proved through the homology of chessboard complexes. The main theorem, a general sufficient condition for Res(⊕) size lower bounds, and their dependencies are formalized in Lean 4 in the author's repository.",
+    "novelty_check": "The 2026-09-28 watch run surfaced this through vibemathed; this check read the paper's related-work section and searched arXiv and the web. The closest prior results found keep a restriction: Byramji and Impagliazzo (arXiv:2511.20023, November 2025) prove exponential bounds for bit pigeonhole principles only in bounded-depth Res(⊕), and the paper itself surveys regular and bounded-depth results by Efremenko, Garlík, Itsykson, Alekseev and others, each with a regularity or depth restriction. No earlier superpolynomial lower bound for unrestricted DAG-like Res(⊕) was found, which matches the abstract's framing. The year the question was first posed is not stated in the paper and is left unrecorded rather than guessed: Raz and Tzameret introduced the integer version in 2008 and Itsykson and Sokolov studied the F2 version from 2014. This was not a systematic review of the proof-complexity literature.",
+    "caveats": "The author states that he does not have the expertise to check the mathematics and did not check it, and that his confidence rests on the Lean formalization. The paper also says what that formalization does not cover: the prose, the claims about the literature, and the fidelity of the formal definitions to the standard proof system. That last point decides what the Lean is worth, and no third party has audited the Lean definitions of Res(⊕) or of the bit pigeonhole principle; there is no Palomar registration. The review rounds recorded in the repository were conversations with Claude and ChatGPT, which the author labels as not independent. Autonomy is ai-led rather than autonomous on the strictest defensible reading: the author chose the problem and steered the research loop, while his disclosure attributes all mathematical derivations to the models, with GPT-6 Astra the main contributor to version 1. A self-published claim on a well-studied problem, unrefereed and under two weeks old at entry.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "superpolynomial-lower-bounds-for-bit-php-in-unrestricted-resolution-over-paritie",
+        "url": "https://vibemathed.com/problem/superpolynomial-lower-bounds-for-bit-php-in-unrestricted-resolution-over-paritie"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: An exponential lower bound for the bit pigeonhole principle in resolution over parities",
+        "url": "https://arxiv.org/abs/2609.23015",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: kbr-/math-research, the preprint sources and Lean formalization",
+        "url": "https://github.com/kbr-/math-research",
+        "kind": "research"
+      },
+      {
+        "label": "Byramji and Impagliazzo: the prior bounded-depth result",
+        "url": "https://arxiv.org/abs/2511.20023",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "proof-complexity",
+      "pigeonhole-principle",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-28"
+  },
+  {
+    "id": "2026-09-16-four-color-theorem-lean",
+    "title": "Four Color Theorem formalized in Lean 4 by AI agents, in two independent developments",
+    "claim": "Two independent Lean 4 proofs of the Four Color Theorem, each following Gonthier and Werner's Coq proof and each written almost entirely by a Claude model under one person's direction, resting only on Lean's three standard axioms.",
+    "field": "mathematics",
+    "date": "2026-09-16",
+    "lab": "Independent",
+    "model": "Claude Fable 5.1 and Claude Opus 5 (Emery); Claude Opus 5.5 (Barish)",
+    "humans": [
+      "Chris Emery",
+      "Robert D. Barish"
+    ],
+    "year_posed": 1852,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Chris Emery's corun1024/4ct, public on 2026-09-16, proves FourColor.fourColorTheorem from a 195-line statement file that transcribes Gonthier's real-plane statement and proves its elementary topological notions equal to Mathlib's IsOpen, closure and IsPreconnected. Its README reports 115,342 declarations checked with no sorry and no extra axiom; its reducibility certificates are produced by C and Python tools and then checked by the Lean kernel. Robert D. Barish's port, public on 2026-09-26, transcribes Coq's realplane.v one for one in a 220-line Challenge.lean and computes all 633 reducibility certificates inside Lean during the build, so the Lean toolchain alone checks it. Its README reports a local rehearsal of Palomar's pipeline in which leanchecker, nanoda and con-ron accept the proof, and it carries a Palomar registration. Neither development uses native_decide.",
+    "novelty_check": "This is a formalization of a known theorem, not new mathematics, and is graded as such. Appel and Haken proved the theorem in 1976, Robertson, Sanders, Seymour and Thomas gave a simplified proof in 1997, and Gonthier and Werner machine-checked it in Coq in 2005; both Lean developments follow that Coq proof. A web search and the two READMEs found no earlier complete Lean 4 proof: Barish's README names Emery's as public before his own, and Emery's repository was created on 2026-09-16, ten days before Barish's. The 2026-09-28 watch run surfaced only Barish's port, through its Palomar registration.",
+    "caveats": "No human has reviewed either development. Barish's README says the final comparison of the statements against Gonthier's was done by a separate Claude Opus 5.5 agent that had not written the proof, and Emery's asks readers not to take the theorem on his authority or the model's. The checks recorded are the authors' own runs; nothing here has been rebuilt. Graded claimed rather than formal, following this registry's practice for Palomar-registered proofs: a registration shows the proof typechecks against a recorded statement, not that the statement is the theorem, and no third party has audited either statement file. What would move the grade is small by design, since each statement is about 200 lines of elementary definitions. Autonomy is ai-led rather than autonomous because in both cases a human set the goal and constraints and ran the final builds, while the disclosures credit the models with essentially all of the code.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-27-000005",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-27-000005&version=1",
+        "repository": "RBarish-UTokyo/FourColorTheorem-Lean4",
+        "commit": "20fa34599f5189dd569d96dd22f306c94ab1c446",
+        "theorems": [
+          "FourColor.RealPlane.four_color"
+        ],
+        "checked": "2026-09-27",
+        "note": "Covers Barish's port only; Emery's development carries no registration."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: corun1024/4ct, Chris Emery's Lean 4 proof",
+        "url": "https://github.com/corun1024/4ct",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: RBarish-UTokyo/FourColorTheorem-Lean4, Robert D. Barish's port",
+        "url": "https://github.com/RBarish-UTokyo/FourColorTheorem-Lean4",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: math-comp/fourcolor, Gonthier and Werner's Coq proof that both follow",
+        "url": "https://github.com/math-comp/fourcolor",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "four-color-theorem",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-28"
+  },
+  {
+    "id": "2026-09-26-erdos-1220-not-provable",
+    "title": "Erdős Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
+    "claim": "A Lean 4 formalization shows that ZFC cannot prove a positive answer to Erdős Problem #1220 on partition relations for singular cardinals, by formalizing Shelah and Stanley's 1987 forcing construction, with AI models assisting on the Lean code.",
+    "field": "mathematics",
+    "date": "2026-09-26",
+    "lab": "Independent",
+    "model": "Claude Opus 5.5 (Claude Code); Astra (OpenAI Codex)",
+    "humans": [
+      "Ji Ho Bae"
+    ],
+    "year_posed": 1971,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Erdős Problem #1220, from Erdős and Hajnal in 1971, asks whether λ → (λ, ℵ1)^2 holds for every singular cardinal λ with λ and cf(λ) both ℵ0-inaccessible. The repository proves, inside Mathlib's first-order logic, that ZFC does not prove the affirmative sentence, and a second target certifies that the sentence is equivalent in Mathlib's ZFSet to a Mathlib-level statement of the problem as posed on erdosproblems.com. The construction follows Shelah and Stanley (Sh:258, section 3) with the ground-model witness λ = beth of c+, and builds a Boolean-valued model using the Lean 4 port of Flypitch vendored through Elliot Glazer's Erdős #501 development. Only non-provability is formalized: consistency of the positive answer, and so full independence, is outside its scope.",
+    "novelty_check": "The mathematics is not new: Shelah and Stanley established the consistency of a negative answer in 1987 (Ann. Pure Appl. Logic 36), and the repository credits them for it. erdosproblems.com/1220, read on 2026-09-28, still lists the problem as open, cites only a Shelah theorem on a special case, records no formalized statement and does not mention Shelah-Stanley, so the connection the repository draws between the 1987 result and the problem as tracked is not yet reflected there. No earlier Lean formalization was found. The closest precedent is this registry's 2026-08-19-erdos-501-independence, whose Flypitch port and ZFC encoding this work reuses.",
+    "caveats": "Graded author verified rather than formal. The author reports comparator and nanoda accepting both targets under the three standard axioms, and a Palomar registration records the proof, but no third party has audited the Mathlib-level statement of the problem against erdosproblems.com's wording, and unlike the #501 entry there is no Formal Conjectures statement to anchor it to. The result is non-provability only, so the problem is settled in the sense the repository states, not by an outright answer. Autonomy is ai-assisted: the README credits the author with the problem, the literature connection, the mathematical direction and the review, and credits the models with writing Lean code under his direction, running builds and audits, and cross-reviewing. Unrefereed, and published as a repository rather than a paper.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-26-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-26-000001&version=1",
+        "repository": "jbaelaw/erdos1220-lean",
+        "commit": "9cb81ffa48ffb766127c7e485ccef77bd4160868",
+        "theorems": [
+          "erdos1220_not_provable",
+          "erdos1220_sentence_faithful"
+        ],
+        "checked": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: jbaelaw/erdos1220-lean",
+        "url": "https://github.com/jbaelaw/erdos1220-lean",
+        "kind": "research"
+      },
+      {
+        "label": "Erdős Problems: problem #1220",
+        "url": "https://www.erdosproblems.com/1220",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "set-theory",
+      "erdos",
+      "lean",
+      "formalization",
+      "forcing"
+    ],
+    "added": "2026-09-28"
+  },
+  {
+    "id": "2026-09-26-lovasz-cayley-polylog-degree",
+    "title": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lovász conjecture",
+    "claim": "Every connected Cayley graph on n vertices with degree at least C(log n)^13/log log n has a Hamilton cycle, lowering the degree threshold in the Cayley-graph form of the Lovász conjecture from a power of n to a power of log n; the manuscript was drafted by GPT 6 Pro and the proof formalized in Lean by Claude agents.",
+    "field": "mathematics",
+    "date": "2026-09-26",
+    "lab": "Independent",
+    "model": "GPT 6 Pro (manuscript draft); Claude Opus 5.5 agents in Grok Build (Lean formalization)",
+    "humans": [
+      "Domagoj Bradač",
+      "Matija Bucić",
+      "Micha Christoph",
+      "Zach Hunter",
+      "Oliver Janzer",
+      "Alp Müyesser",
+      "Shengtong Zhang"
+    ],
+    "year_posed": 1969,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "Lovász asked in 1969 whether every connected vertex-transitive graph has a Hamilton path; the Cayley-graph form asks whether every connected Cayley graph on at least three vertices is Hamiltonian. For arbitrary connected Cayley graphs this was known for linear degree (Christofides, Hladký and Máthé, 2014) and for degree at least n^(1-c) (Bedert, Draganić, Müyesser and Pavez-Signé, arXiv:2603.08675). The research draft dated 25 September 2026 lowers the threshold to C(log n)^13/log log n through local absorption, signed rounding, a weighted partition and a connecting system. The repository formalizes the whole draft as a DAG of about 55 lemmas in roughly 36,500 lines, including classical inputs the paper uses without proof, and states the theorem in a Mathlib-only Challenge.lean using Mathlib's own Cayley graph and Hamiltonicity definitions.",
+    "novelty_check": "The README's context section and a web search place the result in an active 2026 line of work: the n^(1-c) threshold of arXiv:2603.08675, Hamiltonicity of regular sublinear expanders (arXiv:2605.15043), a sublinear-expander approach to the Lovász conjecture (arXiv:2606.09742) and almost Hamilton cycles at polylogarithmic degree (arXiv:2609.30165). Each of those papers has at least one of the draft's named authors, so the draft reads as the continuation of that program rather than a result competing with it; the 2026-09-28 watch run's concern that it might be superseded by that literature confused the two. No earlier result giving full Hamiltonicity at polylogarithmic degree was found. The draft builds on three unpublished manuscripts listed in its bibliography, which are not public, so what is new in the draft relative to them cannot be checked.",
+    "caveats": "The draft calls its own proof a consolidated proposed proof, not an independently verified theorem, and the PDF carries no author line: the six authors are named by the repository's maintainer, Shengtong Zhang, who directed the formalization, wrote no Lean and is not an author of the manuscript. No human has reviewed the Lean statement or proof; the statement was audited by the formalizing agent and by agent runs of Palomar's review policy. Graded claimed for that reason, since a Palomar registration shows the proof typechecks against the recorded statement, not that the statement is the theorem. Autonomy is collaborative on the disclosure's own wording, that GPT 6 Pro prepared the draft with significant input from the authors including unpublished human manuscripts; how much of the argument is the model's and how much the manuscripts' is not documented, and if it proves to be mostly the latter the grade should move down to ai-assisted. The formalization is entirely agent-written, by 38 parallel subagents under a coordinating agent. Unrefereed, and days old at entry.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-26-000003",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-26-000003&version=1",
+        "repository": "ShengtongZhang-alt/lovasz-opus",
+        "commit": "ee0085ddec79996279c7b52044659032e5cf8431",
+        "theorems": [
+          "Lovasz.hamiltonian_of_polylog_degree"
+        ],
+        "checked": "2026-09-26"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: ShengtongZhang-alt/lovasz-opus, the draft and its Lean formalization",
+        "url": "https://github.com/ShengtongZhang-alt/lovasz-opus",
+        "kind": "research"
+      },
+      {
+        "label": "Bedert, Draganić, Müyesser and Pavez-Signé: the prior n^(1-c) threshold",
+        "url": "https://arxiv.org/abs/2603.08675",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "combinatorics",
+      "lovasz-conjecture",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-09-28"
+  },
+  {
+    "id": "2026-08-27-norm-variation-ergodic-averages-lean",
+    "title": "Norm-variation of multiple ergodic averages, including Tao's norm-convergence theorem, autoformalized in Lean in one week",
+    "claim": "A Lean 4 proof of about 107,000 lines of a new norm-variation estimate for multiple ergodic averages of commuting transformations, which strengthens Tao's 2008 norm-convergence theorem, was produced by coding agents in one week from a human-written blueprint and hand-formalized statements.",
+    "field": "mathematics",
+    "date": "2026-08-27",
+    "lab": "Independent",
+    "model": "Coding agents, models not stated",
+    "humans": [
+      "Floris van Doorn",
+      "Polona Durcik",
+      "Joris Roos",
+      "Lenka Slavíková",
+      "Christoph Thiele"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "The companion arXiv paper (2608.27321) is a blueprint for a forthcoming traditional paper by the same authors. It proves r-variation bounds in L^2 for multiple ergodic averages of n commuting measure-preserving transformations, strengthening Tao's norm-convergence theorem and, per its abstract, resolving an open question, through an explicit real-variable estimate for twisted multilinear averages tied to singular Brascamp-Lieb inequalities. In the repository the statements of the three main theorems, nCT.main_ergodic_theorem, nCT.tao_norm_convergence and nCT.main_twisted_theorem, were formalized by hand, and the proofs were autoformalized over one week by coding agents under human supervision, about 107,000 lines excluding comments and blank lines. That includes prerequisites not in Mathlib: multilinear complex interpolation, the Calderón transference principle and properties of Wiener space functions.",
+    "novelty_check": "The formalized mathematics is the human authors', not the models': the blueprint's abstract attributes the new estimate to the authors and says the formalization was completed largely automatically using frontier large language models. Only the blueprint's abstract, the repository and this registry were checked; no search for earlier formalizations of Tao's theorem was made, and that is the first gap to close. The 2026-09-28 watch run surfaced this through its Palomar registration.",
+    "caveats": "Which models were used is not stated in the repository, the Palomar abstract or the arXiv abstract, which say only coding agents and frontier large language models, and the model field records exactly that. Graded author verified: the statements were formalized by hand by the authors and the proof carries a Palomar registration, but no third party has audited the statements or rebuilt the development. Autonomy is ai-led on the same reading as this registry's Fermat's Last Theorem entry, with the models writing essentially all of the proof code while the humans wrote the blueprint, formalized the statements and supervised; it is not autonomous because the mathematics being formalized is the authors'. The traditional paper the blueprint accompanies had not appeared at entry, and the new estimate is unrefereed.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-09-15-000008",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-09-15-000008&version=1",
+        "repository": "roos-j/lean-nct",
+        "commit": "3e09aa52c478ec69abb02eb250c5e5ed06653c3a",
+        "theorems": [
+          "nCT.main_ergodic_theorem",
+          "nCT.tao_norm_convergence",
+          "nCT.main_twisted_theorem"
+        ],
+        "checked": "2026-09-15"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: A blueprint for the formalization of norm-variation of multiple ergodic averages for commuting transformations",
+        "url": "https://arxiv.org/abs/2608.27321",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: roos-j/lean-nct",
+        "url": "https://github.com/roos-j/lean-nct",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ergodic-theory",
+      "harmonic-analysis",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-09-28"
   }
 ]

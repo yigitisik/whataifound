@@ -121,6 +121,7 @@ const GRADES = {
   "2026-08-27-entanglement-supporting-functional":["author-verified","ai-assisted"],
   "2026-08-27-intuitionistic-higher-order-truth":["author-verified","ai-assisted"],
   "2026-08-27-large-systoles":["author-verified","ai-led"],
+  "2026-08-27-norm-variation-ergodic-averages-lean":["author-verified","ai-led"],
   "2026-08-28-percolation-critical-point":["claimed","ai-led"],
   "2026-08-29-dean-conjecture-k5":["claimed","ai-led"],
   "2026-08-29-metric-distortion-23282":["author-verified","ai-led"],
@@ -147,11 +148,15 @@ const GRADES = {
   "2026-09-09-small-undecidable-groups":["author-verified","ai-led"],
   "2026-09-10-approval-committee-core":["claimed","collaborative"],
   "2026-09-14-nivat-conjecture":["claimed","ai-led"],
+  "2026-09-15-bit-php-resolution-over-parities":["claimed","ai-led"],
   "2026-09-15-ipm-forced-blowup":["claimed","ai-assisted"],
   "2026-09-16-browning-sawin-hypersurfaces":["claimed","ai-assisted"],
+  "2026-09-16-four-color-theorem-lean":["claimed","ai-led"],
   "2026-09-17-rogers-ramanujan-torus-knot":["claimed","ai-assisted"],
   "2026-09-17-talagrand-operator-cotype":["claimed","ai-led"],
-  "2026-09-23-array-associated-reverse-transcriptases":["claimed","collaborative"]
+  "2026-09-23-array-associated-reverse-transcriptases":["claimed","collaborative"],
+  "2026-09-26-erdos-1220-not-provable":["author-verified","ai-assisted"],
+  "2026-09-26-lovasz-cayley-polylog-degree":["claimed","collaborative"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -259,6 +264,7 @@ const ID_BY_TITLE = {
   "supporting affine functionals for entanglement of formation need not exist":"2026-08-27-entanglement-supporting-functional",
   "not every heyting algebra is the subterminal lattice of a topos":"2026-08-27-intuitionistic-higher-order-truth",
   "hyperbolic surfaces with large systoles in every large genus":"2026-08-27-large-systoles",
+  "norm-variation of multiple ergodic averages, including tao's norm-convergence theorem, autoformalized in lean in one week":"2026-08-27-norm-variation-ergodic-averages-lean",
   "lean proof that the percolation probability vanishes at the critical point in every dimension":"2026-08-28-percolation-critical-point",
   "dean's conjecture for k = 5, cycles of length divisible by five":"2026-08-29-dean-conjecture-k5",
   "randomized metric distortion improved to 2.3282":"2026-08-29-metric-distortion-23282",
@@ -285,11 +291,15 @@ const ID_BY_TITLE = {
   "a 3-generator 9-relator group with unsolvable word problem, and smaller adian-rabin families":"2026-09-09-small-undecidable-groups",
   "existence of the core in approval-based committee elections":"2026-09-10-approval-committee-core",
   "nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it":"2026-09-14-nivat-conjecture",
+  "exponential lower bound for the bit pigeonhole principle in unrestricted resolution over parities":"2026-09-15-bit-php-resolution-over-parities",
   "finite-time blowup for the ipm equation with uniformly space-time smooth forcing":"2026-09-15-ipm-forced-blowup",
   "browning-sawin conjecture on random sign-coefficient hypersurfaces proved, with a lean formalization assuming existing literature":"2026-09-16-browning-sawin-hypersurfaces",
+  "four color theorem formalized in lean 4 by ai agents, in two independent developments":"2026-09-16-four-color-theorem-lean",
   "huang-jiang-oblomkov conjecture proved for every torus-knot singularity, with a lean formalization conditional on two literature inputs":"2026-09-17-rogers-ramanujan-torus-knot",
   "counterexample to talagrand's operator cotype problem":"2026-09-17-talagrand-operator-cotype",
-  "agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages":"2026-09-23-array-associated-reverse-transcriptases"
+  "agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages":"2026-09-23-array-associated-reverse-transcriptases",
+  "erd\u0151s problem #1220 formalized as not provable in zfc, from a 1987 shelah-stanley consistency result":"2026-09-26-erdos-1220-not-provable",
+  "hamilton cycles in connected cayley graphs of polylogarithmic degree, toward the lov\u00e1sz conjecture":"2026-09-26-lovasz-cayley-polylog-degree"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -397,6 +407,7 @@ const TITLE_BY_ID = {
   "2026-08-27-entanglement-supporting-functional":"Supporting affine functionals for entanglement of formation need not exist",
   "2026-08-27-intuitionistic-higher-order-truth":"Not every Heyting algebra is the subterminal lattice of a topos",
   "2026-08-27-large-systoles":"Hyperbolic surfaces with large systoles in every large genus",
+  "2026-08-27-norm-variation-ergodic-averages-lean":"Norm-variation of multiple ergodic averages, including Tao's norm-convergence theorem, autoformalized in Lean in one week",
   "2026-08-28-percolation-critical-point":"Lean proof that the percolation probability vanishes at the critical point in every dimension",
   "2026-08-29-dean-conjecture-k5":"Dean's conjecture for k = 5, cycles of length divisible by five",
   "2026-08-29-metric-distortion-23282":"Randomized metric distortion improved to 2.3282",
@@ -423,11 +434,15 @@ const TITLE_BY_ID = {
   "2026-09-09-small-undecidable-groups":"A 3-generator 9-relator group with unsolvable word problem, and smaller Adian-Rabin families",
   "2026-09-10-approval-committee-core":"Existence of the core in approval-based committee elections",
   "2026-09-14-nivat-conjecture":"Nivat's conjecture claimed in its sharp form, with the submitter stating he cannot check it",
+  "2026-09-15-bit-php-resolution-over-parities":"Exponential lower bound for the bit pigeonhole principle in unrestricted resolution over parities",
   "2026-09-15-ipm-forced-blowup":"Finite-time blowup for the IPM equation with uniformly space-time smooth forcing",
   "2026-09-16-browning-sawin-hypersurfaces":"Browning-Sawin conjecture on random sign-coefficient hypersurfaces proved, with a Lean formalization assuming existing literature",
+  "2026-09-16-four-color-theorem-lean":"Four Color Theorem formalized in Lean 4 by AI agents, in two independent developments",
   "2026-09-17-rogers-ramanujan-torus-knot":"Huang-Jiang-Oblomkov conjecture proved for every torus-knot singularity, with a Lean formalization conditional on two literature inputs",
   "2026-09-17-talagrand-operator-cotype":"Counterexample to Talagrand's operator cotype problem",
-  "2026-09-23-array-associated-reverse-transcriptases":"Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages"
+  "2026-09-23-array-associated-reverse-transcriptases":"Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
+  "2026-09-26-erdos-1220-not-provable":"Erd\u0151s Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
+  "2026-09-26-lovasz-cayley-polylog-degree":"Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture"
 };
 /*VOCAB:END*/
 
