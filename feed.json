@@ -9,6 +9,80 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-09-26-erdos-1220-not-provable",
+      "url": "https://whataifound.org/finding/2026-09-26-erdos-1220-not-provable",
+      "title": "Erdős Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
+      "content_text": "A Lean 4 formalization shows that ZFC cannot prove a positive answer to Erdős Problem #1220 on partition relations for singular cardinals, by formalizing Shelah and Stanley's 1987 forcing construction, with AI models assisting on the Lean code.  Erdős Problem #1220, from Erdős and Hajnal in 1971, asks whether λ → (λ, ℵ1)^2 holds for every singular cardinal λ with λ and cf(λ) both ℵ0-inaccessible. The repository proves, inside Mathlib's first-order logic, that ZFC does not prove the affirmative sentence, and a second target certifies that the sentence is equivalent in Mathlib's ZFSet to a Mathlib-level statement of the problem as posed on erdosproblems.com. The construction follows Shelah and Stanley (Sh:258, section 3) with the ground-model witness λ = beth of c+, and builds a Boolean-valued model using the Lean 4 port of Flypitch vendored through Elliot Glazer's Erdős #501 development. Only non-provability is formalized: consistency of the positive answer, and so full independence, is outside its scope.  Lab: Independent. Model: Claude Opus 5.5 (Claude Code); Astra (OpenAI Codex). Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2026-09-26T00:00:00+00:00",
+      "date_modified": "2026-09-28T00:00:00+00:00",
+      "tags": [
+        "set-theory",
+        "erdos",
+        "lean",
+        "formalization",
+        "forcing"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-26-lovasz-cayley-polylog-degree",
+      "url": "https://whataifound.org/finding/2026-09-26-lovasz-cayley-polylog-degree",
+      "title": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lovász conjecture",
+      "content_text": "Every connected Cayley graph on n vertices with degree at least C(log n)^13/log log n has a Hamilton cycle, lowering the degree threshold in the Cayley-graph form of the Lovász conjecture from a power of n to a power of log n; the manuscript was drafted by GPT 6 Pro and the proof formalized in Lean by Claude agents.  Lovász asked in 1969 whether every connected vertex-transitive graph has a Hamilton path; the Cayley-graph form asks whether every connected Cayley graph on at least three vertices is Hamiltonian. For arbitrary connected Cayley graphs this was known for linear degree (Christofides, Hladký and Máthé, 2014) and for degree at least n^(1-c) (Bedert, Draganić, Müyesser and Pavez-Signé, arXiv:2603.08675). The research draft dated 25 September 2026 lowers the threshold to C(log n)^13/log log n through local absorption, signed rounding, a weighted partition and a connecting system. The repository formalizes the whole draft as a DAG of about 55 lemmas in roughly 36,500 lines, including classical inputs the paper uses without proof, and states the theorem in a Mathlib-only Challenge.lean using Mathlib's own Cayley graph and Hamiltonicity definitions.  Lab: Independent. Model: GPT 6 Pro (manuscript draft); Claude Opus 5.5 agents in Grok Build (Lean formalization). Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-09-26T00:00:00+00:00",
+      "date_modified": "2026-09-28T00:00:00+00:00",
+      "tags": [
+        "graph-theory",
+        "combinatorics",
+        "lovasz-conjecture",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-16-four-color-theorem-lean",
+      "url": "https://whataifound.org/finding/2026-09-16-four-color-theorem-lean",
+      "title": "Four Color Theorem formalized in Lean 4 by AI agents, in two independent developments",
+      "content_text": "Two independent Lean 4 proofs of the Four Color Theorem, each following Gonthier and Werner's Coq proof and each written almost entirely by a Claude model under one person's direction, resting only on Lean's three standard axioms.  Chris Emery's corun1024/4ct, public on 2026-09-16, proves FourColor.fourColorTheorem from a 195-line statement file that transcribes Gonthier's real-plane statement and proves its elementary topological notions equal to Mathlib's IsOpen, closure and IsPreconnected. Its README reports 115,342 declarations checked with no sorry and no extra axiom; its reducibility certificates are produced by C and Python tools and then checked by the Lean kernel. Robert D. Barish's port, public on 2026-09-26, transcribes Coq's realplane.v one for one in a 220-line Challenge.lean and computes all 633 reducibility certificates inside Lean during the build, so the Lean toolchain alone checks it. Its README reports a local rehearsal of Palomar's pipeline in which leanchecker, nanoda and con-ron accept the proof, and it carries a Palomar registration. Neither development uses native_decide.  Lab: Independent. Model: Claude Fable 5.1 and Claude Opus 5 (Emery); Claude Opus 5.5 (Barish). Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-16T00:00:00+00:00",
+      "date_modified": "2026-09-28T00:00:00+00:00",
+      "tags": [
+        "graph-theory",
+        "four-color-theorem",
+        "lean",
+        "formalization"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-15-bit-php-resolution-over-parities",
+      "url": "https://whataifound.org/finding/2026-09-15-bit-php-resolution-over-parities",
+      "title": "Exponential lower bound for the bit pigeonhole principle in unrestricted resolution over parities",
+      "content_text": "Any refutation of the bit pigeonhole principle in resolution over parities, a proof system whose lines are disjunctions of linear equations mod 2, must be exponentially long even with no restriction on its depth or regularity; the mathematics was produced by AI models and the main theorem is checked in Lean.  Resolution over parities, Res(⊕), extends resolution by letting clauses be disjunctions of affine equations over F2. Superpolynomial size lower bounds were previously known only for restricted refutations: tree-like, regular, or of bounded depth. The paper claims that every DAG-like Res(⊕) refutation of the bit pigeonhole principle with n+1 pigeons and n = 2^l holes has more than exp(n/(32768 l^2)) clauses for every l of at least 32. The argument translates a refutation into a low-degree polynomial calculus refutation over extension variables in the style of Buss, Impagliazzo, Krajicek, Pudlak, Razborov and Sgall, removes the extension variables with one substitution, and closes with a Razborov-style degree lower bound proved through the homology of chessboard complexes. The main theorem, a general sufficient condition for Res(⊕) size lower bounds, and their dependencies are formalized in Lean 4 in the author's repository.  Lab: Independent. Model: GPT-6 Astra (mathematics, version 1 formalization and drafting); Claude Fable 5.1 and Claude Opus 5 (revision 1 formalization). Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-09-15T00:00:00+00:00",
+      "date_modified": "2026-09-28T00:00:00+00:00",
+      "tags": [
+        "proof-complexity",
+        "pigeonhole-principle",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-27-norm-variation-ergodic-averages-lean",
+      "url": "https://whataifound.org/finding/2026-08-27-norm-variation-ergodic-averages-lean",
+      "title": "Norm-variation of multiple ergodic averages, including Tao's norm-convergence theorem, autoformalized in Lean in one week",
+      "content_text": "A Lean 4 proof of about 107,000 lines of a new norm-variation estimate for multiple ergodic averages of commuting transformations, which strengthens Tao's 2008 norm-convergence theorem, was produced by coding agents in one week from a human-written blueprint and hand-formalized statements.  The companion arXiv paper (2608.27321) is a blueprint for a forthcoming traditional paper by the same authors. It proves r-variation bounds in L^2 for multiple ergodic averages of n commuting measure-preserving transformations, strengthening Tao's norm-convergence theorem and, per its abstract, resolving an open question, through an explicit real-variable estimate for twisted multilinear averages tied to singular Brascamp-Lieb inequalities. In the repository the statements of the three main theorems, nCT.main_ergodic_theorem, nCT.tao_norm_convergence and nCT.main_twisted_theorem, were formalized by hand, and the proofs were autoformalized over one week by coding agents under human supervision, about 107,000 lines excluding comments and blank lines. That includes prerequisites not in Mathlib: multilinear complex interpolation, the Calderón transference principle and properties of Wiener space functions.  Lab: Independent. Model: Coding agents, models not stated. Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-08-27T00:00:00+00:00",
+      "date_modified": "2026-09-28T00:00:00+00:00",
+      "tags": [
+        "ergodic-theory",
+        "harmonic-analysis",
+        "lean",
+        "formalization"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-23-array-associated-reverse-transcriptases",
       "url": "https://whataifound.org/finding/2026-09-23-array-associated-reverse-transcriptases",
       "title": "Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
