@@ -166,9 +166,11 @@ schema = {
             "id": {"type": "string", "pattern": "^[a-z0-9][a-z0-9._-]*$",
                    "description": "Stable slug, never reused. YYYY-MM-DD-short-name."},
             "title": {"type": "string", "minLength": 1,
-                      "description": "Plain and factual. No hype verbs."},
+                      "description": ("Plain and factual. No hype verbs. Plain text: write "
+                                      "notation in Unicode (2\u207f, SOP\u2082), never TeX.")},
             "claim": {"type": "string", "minLength": 1,
-                      "description": "One sentence a smart non-expert can read."},
+                      "description": ("One sentence a smart non-expert can read. Any "
+                                      "formula is TeX between \\( and \\), as in detail.")},
             "field": {"type": "string", "enum": FIELDS,
                       "description": "A new value needs a display name in data/vocab.json."},
             "date": {"type": "string", "pattern": "^\\d{4}-\\d{2}-\\d{2}$",
@@ -190,7 +192,10 @@ schema = {
                        "description": "Named human collaborators on the discovery."},
             "year_posed": {"type": "integer",
                            "description": "Year the problem was first posed. Omit if there is no single origin year."},
-            "detail": {"type": "string", "description": "2-5 sentences. What was actually new."},
+            "detail": {"type": "string",
+                       "description": ("2-5 sentences. What was actually new. Write each formula "
+                                       "as TeX between \\( and \\) (inline) or \\[ and \\] "
+                                       "(display, this field only); the build typesets it.")},
             "novelty_check": {"type": "string",
                               "description": "What was searched and what turned up. Write it even when clean."},
             "caveats": {"type": "string", "description": "Known objections, disputes, unreplicated parts."},

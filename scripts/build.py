@@ -6,6 +6,7 @@
 Adding, editing or removing a finding is: edit data/entries.json, run this, commit.
 No HTML is ever edited by hand. This runs, in order:
 
+    build-math.mjs      typesets every \\(formula\\) in the entries into data/math.json
     build-site.py       validates the data, pre-renders index.html, writes finding/,
                         llms.txt and sitemap.xml
     build-feed.py       regenerates feed.xml and feed.json
@@ -21,6 +22,8 @@ No HTML is ever edited by hand. This runs, in order:
 Any step failing stops the run, so a bad entry never reaches a commit. verify-parity
 needs Node; if it is missing the build still succeeds and the check is reported as
 skipped, since it guards a developer-side invariant rather than the output itself.
+build-math.mjs needs Node too; without it the committed data/math.json is reused, and
+build-site.py fails, naming the entry, only if a formula is missing from it.
 
 """
 import os
@@ -45,6 +48,13 @@ STEPS = [
 
 def main():
     failed = False
+    if shutil.which("node"):
+        print("- typeset math (build-math.mjs)", flush=True)
+        r = subprocess.run(["node", os.path.join(HERE, "build-math.mjs")])
+        if r.returncode != 0:
+            sys.exit("\nBuild failed in build-math.mjs. Nothing further was run.")
+    else:
+        print("- typeset math: skipped (Node not installed; reusing data/math.json)")
     for script, what, required in STEPS:
         if script == "verify-parity.py" and not shutil.which("node"):
             print(f"- {what}: skipped (Node not installed)")

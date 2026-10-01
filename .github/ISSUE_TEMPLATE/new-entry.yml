@@ -41,6 +41,7 @@ body:
       label: What was found
       description: >
         Optional. The longer version, with the construction, the method and the numbers.
+        Write any formula as TeX between \( and \), for example \(O(n \log n)\).
     validations:
       required: false
 

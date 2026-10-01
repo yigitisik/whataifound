@@ -15,6 +15,9 @@ from datetime import datetime, timezone
 from email.utils import format_datetime
 from xml.sax.saxutils import escape
 
+# Formulas reach a feed reader as readable Unicode (dᵏ, ≤), not TeX source: see texmath.py.
+from texmath import plain
+
 SITE = "https://whataifound.org"
 # Repo root is the parent of scripts/; data/ and the generated feeds live there.
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -53,9 +56,9 @@ def dt(datestr):
 def summary(e):
     ver = VER_LABEL.get(e["verification"], e["verification"])
     aut = AUT_LABEL.get(e["autonomy"], e["autonomy"])
-    parts = [e.get("claim", "")]
+    parts = [plain(e.get("claim", ""))]
     if e.get("detail"):
-        parts.append(e["detail"])
+        parts.append(plain(e["detail"]))
     tail = f"Lab: {e.get('lab','')}. Model: {e.get('model','')}. Verification: {ver}. Autonomy: {aut}."
     parts.append(tail)
     return "  ".join(p for p in parts if p)

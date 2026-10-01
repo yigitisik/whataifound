@@ -72,7 +72,7 @@ accounts and UI contributions stay off git's critical path: [docs/ARCHITECTURE.m
 ### Generated files: never hand-edit
 
 `finding/`, `topic/`, `lab/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`,
-`entry.schema.json`, `openapi.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
+`entry.schema.json`, `openapi.json`, `data/math.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
 `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`, `contributors.html`,
 `methodology.html`, `visuals.html`, `contribute.html`, `developers.html`, `contact.html` or the
 GitHub issue templates. That includes
@@ -95,6 +95,7 @@ whataifound/
 │   └── u|me|signals|proposals|account|admin
 ├── db/                     # run in number order against Postgres; each is idempotent
 ├── data/                   # entries.json (the registry) + vocab.json (the grades)
+│                           #   + math.json (typeset formulas, GENERATED)
 ├── finding/ topic/ lab/    # one page each, generated
 ├── assets/                 # brand/ · fonts/ · external-logos/
 ├── scripts/                # authoring toolchain, not deployed. build.py runs the rest

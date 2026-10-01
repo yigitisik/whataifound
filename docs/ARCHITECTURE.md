@@ -32,6 +32,37 @@ closure inside a function that writes to the DOM cannot be called from outside i
 obligation: a source from a host missing from that table renders as a bare domain, and an
 86px chart label column cannot hold "Materials science". Adding one means adding it to both.
 
+## Math: typeset once, at build time, as MathML
+
+Entry prose writes formulas as TeX between `\(` `\)` (see `docs/SCHEMA.md`). Neither the Python
+build nor the browser parses TeX. `scripts/build-math.mjs` renders every formula once, with a
+vendored copy of Temml, into native MathML in `data/math.json`. Both renderers splice the
+MathML in from there through `prose()`, which exists twice like `card()` and is diffed with it.
+The browser lays MathML out itself, so there is no math script and no runtime request, and
+nothing in the CSP had to move.
+
+Why MathML rather than KaTeX's HTML output, which vibemathed and MathDB use: MathML Core ships in
+every current engine, a screen reader reads it as math, its markup is several times smaller, and
+a crawler that never runs JavaScript still gets the formula. The cost is that spacing can differ
+slightly between browsers. The font is STIX Two Math, self-hosted and subset with its MATH table
+intact, and a face downloads only when a glyph uses it, so a page with no formula never fetches
+it.
+
+Four details are easy to undo:
+
+- **`data/math.json` is the only writer's output, and Node is the only writer.** `build.py` runs
+  `build-math.mjs` when Node is installed. Without Node the committed file is reused, and
+  `build-site.py` fails, naming the entry, only for a formula missing from it. Python stays the
+  only requirement for anyone not adding math.
+- **`scripts/vendor/temml.mjs` is ASCII.** Upstream contains literal em dashes, which
+  `check-integrity.py` rejects anywhere in the repository, so every non-ASCII character is
+  rewritten as a `\u` escape. Upgrading means rerunning that conversion on a new release.
+- **Plain text is derived from the MathML, in Python only** (`plain()` in `scripts/texmath.py`).
+  Meta descriptions, JSON-LD and the feeds cannot carry markup, and stripping the TeX would leave
+  a sentence with a hole in it. The browser never needs this form.
+- **Search highlighting skips `<math>`.** A `<mark>` is HTML, and inside MathML it splits a token
+  the layout needs whole.
+
 ## What `check-integrity.py` guards
 
 About a quarter of `index.html` (the `<head>`, most of the JSON-LD, the nav, the footer, the

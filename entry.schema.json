@@ -29,12 +29,12 @@
       "title": {
         "type": "string",
         "minLength": 1,
-        "description": "Plain and factual. No hype verbs."
+        "description": "Plain and factual. No hype verbs. Plain text: write notation in Unicode (2ⁿ, SOP₂), never TeX."
       },
       "claim": {
         "type": "string",
         "minLength": 1,
-        "description": "One sentence a smart non-expert can read."
+        "description": "One sentence a smart non-expert can read. Any formula is TeX between \\( and \\), as in detail."
       },
       "field": {
         "type": "string",
@@ -148,7 +148,7 @@
       },
       "detail": {
         "type": "string",
-        "description": "2-5 sentences. What was actually new."
+        "description": "2-5 sentences. What was actually new. Write each formula as TeX between \\( and \\) (inline) or \\[ and \\] (display, this field only); the build typesets it."
       },
       "novelty_check": {
         "type": "string",

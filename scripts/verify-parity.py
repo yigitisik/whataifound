@@ -3,7 +3,8 @@
 
 Several renderers in build-site.py are hand-ports of functions in app.js:
 
-    card()        the entry cards. If these drift, the DOM visibly changes the moment
+    card()        the entry cards, and prose() inside them, which splices each typeset
+                  formula from data/math.json into the escaped text. If these drift, the DOM visibly changes the moment
                   app.js re-renders (any search or filter), which is exactly the bug
                   pre-rendering was meant to avoid.
     matrix_card() the evidence/autonomy chart in the homepage hero. app.js owns the copy
@@ -98,8 +99,14 @@ def cap(name):
 TOPIC_ROWS = cap("TOPIC_ROWS")
 STANDING_ROWS = cap("STANDING_ROWS")
 
+# The typeset formulas card() splices in through prose(). Read from the same committed
+# file build-site.py used, so a card with a formula is compared like any other.
+math_path = os.path.join(ROOT, "data", "math.json")
+math = json.load(open(math_path)) if os.path.exists(math_path) else {}
+
 script = (head + "\nconst DATA = " + json.dumps(entries) + ";\n"
           + "ALL = DATA;\n"
+          + "MATH = " + json.dumps(math) + ";\n"
           + "process.stdout.write([DATA.map(card).join('\\n'), matrixCard(), tableView(DATA),"
           + f" yearCard(), topicCard({TOPIC_ROWS}), evidenceCard(),"
           + f" standingCard({STANDING_ROWS})].join(" + json.dumps(SPLIT) + "));\n")

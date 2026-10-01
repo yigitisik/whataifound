@@ -225,6 +225,35 @@ This column is the whole point. Most breathless claims collapse here.
 5. **`autonomy` is graded on the strictest defensible reading.** When a human posed the problem,
    suggested the approach, and checked the algebra, that is not `autonomous`.
 
+## Math notation
+
+Formulas in `claim`, `detail`, `novelty_check`, `caveats` and `independent_checks[].outcome` are
+written as TeX and typeset by the build. Do not use ASCII stand-ins (`d^k`, `sqrt 2`, `<=`) or
+Unicode approximations (`d²`, `≤`): they render as plain text and cannot be laid out as math.
+
+- **Inline** is `\(...\)`: `the record \(G(T) \gg \log T \log_2 T\)`. In the JSON every
+  backslash is doubled, so that is `"\\(G(T) \\gg \\log T\\)"`.
+- **Display** is `\[...\]`, in `detail` only, for a formula too long to sit in a line. On a phone
+  it scrolls sideways rather than widening the page.
+- **Not `$...$`.** The registry uses `$` as a currency sign, and a price must not turn into
+  italics.
+- **Inline fractions use a slash**, `\(1/L\)` or `\(\tfrac32\)`, never `\frac`, which forces the
+  line apart.
+- **A comma between digits needs a space**: `\((0, 0, -1/4)\)`. Written `(0,0,-1/4)`, it reads as
+  one number with a decimal comma, and the build rejects it. A thousands separator is `1{,}076`.
+- **Typeset variables in running text too**: `degree \(d\) and diameter \(k\)`, not `degree d`.
+- **`title`, source labels and discussion labels stay plain text.** They become page titles,
+  link names and chart labels, none of which can carry markup, so notation there is Unicode:
+  `SOP₂ and SOP₃`, `below the 2ⁿ barrier`, `4×4`. The build rejects `\(` in any of them.
+- Lean identifiers (`euler_breakdown_R3`) are names, not math: leave them as they are.
+
+Common macros: `\mathbb{R}`, `\mathbb{Z}`, `\mathbb{E}`, `\log`, `\exp`, `\le`, `\ge`, `\gg`,
+`\to`, `\infty`, `\varepsilon`, `\mathrm{SOP}_2` for a named class.
+
+Where there is no markup, the formula is rewritten as readable Unicode rather than dropped: a
+search snippet, a social card, JSON-LD and the feeds show `G(T) ≫ log T log₂ T`. `llms.txt`
+and the API return the TeX source, which a language model or a script reads directly.
+
 ## Method tags
 
 `tags` is free-form and stays that way, but four of them describe *how* the result was reached
@@ -323,6 +352,9 @@ deliberately strict:
   on a header being deployed correctly. An `independent_checks` entry
   may omit `url` entirely (an in-house recomputation or a blind assessment has none).
 - `youtube_id` must be a valid 11-character YouTube id: it is interpolated into an iframe `src`.
+- Every formula must parse, and its `\(` / `\[` must be matched and not nested. Display math is
+  `detail`-only, a title or link label may not contain TeX, and a comma between two digits
+  inside a formula is rejected (see [Math notation](#math-notation)).
 
 Entry *text* (`title`, `claim`, `detail`, `novelty_check`, `caveats`) is escaped at render time, so
 markup in it is displayed rather than executed. It is still flagged for review by

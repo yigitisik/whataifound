@@ -70,6 +70,25 @@ let ALL = [], first = true;
 
 function esc(s){ return String(s??'').replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c])); }
 
+// Entry prose may carry formulas as TeX between \( \) or \[ \]. scripts/build-math.mjs
+// typesets each one into MathML ahead of time, in data/math.json, which ensureData()
+// loads beside the entries; the browser lays the MathML out natively, so no TeX is
+// parsed here. prose() is esc() for prose fields: escaped words, MathML formulas.
+// Ported as prose() in build-site.py; TEX must match scripts/texmath.py. A formula the
+// file lacks shows as its escaped source, which is also what a failed load looks like.
+let MATH = {};
+const TEX = /\\\((.+?)\\\)|\\\[(.+?)\\\]/gs;
+function prose(s){
+  s = String(s ?? '');
+  let out = '', pos = 0;
+  for (const m of s.matchAll(TEX)){
+    const hit = m[1] !== undefined ? MATH.inline?.[m[1]] : MATH.display?.[m[2]];
+    out += esc(s.slice(pos, m.index)) + (hit ?? esc(m[0]));
+    pos = m.index + m[0].length;
+  }
+  return out + esc(s.slice(pos));
+}
+
 // Official symbol marks (Wikimedia Commons, cropped; see assets/external-logos/README.md).
 // Trademarks of their owners, shown for identification only.
 const LAB_LOGO = {
@@ -192,9 +211,9 @@ function openMeta(e){
 }
 
 function card(e){
-  const f = (label, val) => val ? `<div class="field reveal"><b>${label}</b><p>${esc(val)}</p></div>` : '';
+  const f = (label, val) => val ? `<div class="field reveal"><b>${label}</b><p>${prose(val)}</p></div>` : '';
   const checks = (e.independent_checks||[]).map(c =>
-    `<p>${esc(c.who)}: <em>${esc(c.outcome)}</em>${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">link ↗</a>`:''}</p>`).join('');
+    `<p>${esc(c.who)}: <em>${prose(c.outcome)}</em>${c.url?` · <a href="${esc(c.url)}" target="_blank" rel="noopener">link ↗</a>`:''}</p>`).join('');
   const refs = arr => `<div class="refs">${(arr||[]).map(refRow).join('')}</div>`;
   return `<article class="entry" id="e-${esc(e.id)}" data-ver="${esc(e.verification)}">
     <div class="rail">
@@ -212,8 +231,8 @@ function card(e){
     </div>
     <div class="body">
       <h2><a class="entry-link" href="/finding/${esc(e.id)}">${esc(e.title)}</a><a class="permalink" href="#e-${esc(e.id)}" data-permalink="e-${esc(e.id)}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
-      <p class="claim">${esc(e.claim)}</p>
-      ${e.detail ? `<p class="detail">${esc(e.detail)}</p>` : ''}
+      <p class="claim">${prose(e.claim)}</p>
+      ${e.detail ? `<p class="detail">${prose(e.detail)}</p>` : ''}
       ${e.humans?.length ? `<p class="withppl"><span>With</span><b>${esc(e.humans.join(', '))}</b></p>` : ''}
       ${e.tags?.length ? `<div class="tags">${e.tags.map(t=>`<a class="tag-chip" href="/?tag=${encodeURIComponent(t)}">${esc(t)}</a>`).join('')}</div>` : ''}
       ${receipts(e)}
@@ -1619,7 +1638,10 @@ function highlight(root, q){
   const needle = (q || '').toLowerCase();
   if (!needle) return;
   for (const el of root.querySelectorAll('.entry h2 .entry-link, .entry .claim, .entry .detail')){
-    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT);
+    // Never inside a formula: a <mark> is HTML, and dropped into MathML it would split a
+    // token the math layout needs whole.
+    const walker = document.createTreeWalker(el, NodeFilter.SHOW_TEXT, {acceptNode: n =>
+      n.parentElement.closest('math') ? NodeFilter.FILTER_REJECT : NodeFilter.FILTER_ACCEPT});
     const nodes = [];
     for (let n = walker.nextNode(); n; n = walker.nextNode()) nodes.push(n);
     for (const n of nodes){
@@ -2334,9 +2356,13 @@ let dataPromise = null;
 
 function ensureData(){
   if (dataPromise) return dataPromise;
-  dataPromise = fetch('data/entries.json')
-    .then(r => r.json())
-    .then(bootData)
+  // The typeset formulas come alongside. Optional: if they fail to load, a formula
+  // re-rendered by a filter or search shows as its TeX source rather than costing the list.
+  dataPromise = Promise.all([
+    fetch('data/entries.json').then(r => r.json()),
+    fetch('data/math.json').then(r => r.json()).catch(() => ({}))
+  ])
+    .then(([data, math]) => { MATH = math; return bootData(data); })
     .catch(() => {
       // Only replace the list if it is genuinely empty. On the built site the entries
       // are already in the markup, so a failed fetch costs search and filtering but
