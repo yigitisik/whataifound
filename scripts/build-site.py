@@ -39,6 +39,8 @@ from decimal import ROUND_HALF_UP, Decimal
 # later day. See build_sitemap().
 from urllib.parse import quote, urlparse
 
+import texmath
+
 SITE = "https://whataifound.org"
 # Where a reader is sent to contest a grade. Every finding page links here with the entry
 # and its current grades prefilled, so a challenge arrives as a reviewable issue rather
@@ -280,6 +282,20 @@ def esc(s):
         return ""
     return (str(s).replace("&", "&amp;").replace("<", "&lt;")
             .replace(">", "&gt;").replace('"', "&quot;"))
+
+
+def prose(s):
+    """Entry prose as HTML: esc() on the words, MathML for each \\(formula\\).
+
+    The port of prose() in app.js. card() runs every prose field through it, so the
+    card parity check in verify-parity.py covers this too. See scripts/texmath.py.
+    """
+    return texmath.prose(s, esc)
+
+
+# The same prose with each formula as readable Unicode, for surfaces that cannot carry
+# markup: meta descriptions and JSON-LD. Python-only; app.js never needs it.
+plain = texmath.plain
 
 
 def attr(s):
@@ -823,10 +839,10 @@ def video_rows(e, pad):
 def card(e):
     """Port of card() in app.js. Output must match it character for character."""
     def f(label, val):
-        return f'<div class="field reveal"><b>{label}</b><p>{esc(val)}</p></div>' if val else ""
+        return f'<div class="field reveal"><b>{label}</b><p>{prose(val)}</p></div>' if val else ""
 
     checks = "".join(
-        f'<p>{esc(c.get("who"))}: <em>{esc(c.get("outcome"))}</em>'
+        f'<p>{esc(c.get("who"))}: <em>{prose(c.get("outcome"))}</em>'
         + (f' · <a href="{esc(c["url"])}" target="_blank" rel="noopener">link ↗</a>' if c.get("url") else "")
         + "</p>"
         for c in (e.get("independent_checks") or []))
@@ -840,7 +856,7 @@ def card(e):
             + "".join(f'<a class="tag-chip" href="/?tag={enc_uri_component(t)}">{esc(t)}</a>'
                       for t in e["tags"])
             + "</div>") if e.get("tags") else ""
-    detail = f'<p class="detail">{esc(e["detail"])}</p>' if e.get("detail") else ""
+    detail = f'<p class="detail">{prose(e["detail"])}</p>' if e.get("detail") else ""
     checks_block = (f'<div class="field checks reveal"><b>Independent checks</b>{checks}</div>'
                     if checks else "")
     sources_block = grouped_refs(e.get("sources"))
@@ -871,7 +887,7 @@ def card(e):
     </div>
     <div class="body">
       <h2><a class="entry-link" href="/finding/{esc(e["id"])}">{esc(e["title"])}</a><a class="permalink" href="#e-{esc(e["id"])}" data-permalink="e-{esc(e["id"])}" aria-label="Copy link to this entry" title="Copy link to this entry">#</a></h2>
-      <p class="claim">{esc(e["claim"])}</p>
+      <p class="claim">{prose(e["claim"])}</p>
       {detail}
       {humans}
       {tags}
@@ -1288,7 +1304,7 @@ def claim_review(e, url):
         "@type": "ClaimReview",
         "@id": f"{url}#claimreview",
         "url": url,
-        "claimReviewed": e["claim"],
+        "claimReviewed": plain(e["claim"]),
         "datePublished": e.get("added") or e.get("date"),
         "author": {"@type": "Organization", "name": "whataifound.org", "url": f"{SITE}/"},
         "itemReviewed": {
@@ -1312,7 +1328,7 @@ def claim_review(e, url):
         },
     }
     if e.get("novelty_check"):
-        review["reviewBody"] = e["novelty_check"]
+        review["reviewBody"] = plain(e["novelty_check"])
     return review
 
 
@@ -1326,8 +1342,8 @@ def entry_jsonld(e, url):
         "url": url,
         "headline": e["title"],
         "name": e["title"],
-        "abstract": e["claim"],
-        "description": e["claim"],
+        "abstract": plain(e["claim"]),
+        "description": plain(e["claim"]),
         "datePublished": e.get("date"),
         "dateModified": e.get("added") or e.get("date"),
         "inLanguage": "en",
@@ -1348,7 +1364,7 @@ def entry_jsonld(e, url):
         "creditText": f"whataifound.org. Verification: {ver}; autonomy: {aut}.",
     }
     if e.get("detail"):
-        article["articleBody"] = e["detail"]
+        article["articleBody"] = plain(e["detail"])
     contributors = [{"@type": "Organization", "name": e["lab"]}] if e.get("lab") else []
     contributors += [{"@type": "Person", "name": h} for h in (e.get("humans") or [])]
     if contributors:
@@ -1609,7 +1625,7 @@ def entry_page(e, entries, updated):
 
     verdict = (f"{e['title']} is graded {ver.lower()} on whataifound.org, with the AI's "
                f"role graded {aut.lower()}.")
-    meta_desc = f"{verdict} {e['claim']}"[:300]
+    meta_desc = f"{verdict} {plain(e['claim'])}"[:300]
 
     ld = json_ld(entry_jsonld(e, url))
 
@@ -1645,14 +1661,14 @@ def entry_page(e, entries, updated):
     facts_cls = f"finding-facts n{len(shown)}"
 
     def section(title, body):
-        return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{esc(body)}</p>' if body else ""
+        return f'\n  <h2 class="lbl">{esc(title)}</h2>\n  <p>{prose(body)}</p>' if body else ""
 
     # Folded, not dropped: the text ships in the markup, so a crawler that does not run
     # scripts reads it and print still expands it. The summary says what is inside rather
     # than naming the section, because a closed row is all some readers will ever see.
     def fold(summary, body):
         return (f'\n  <details class="fold">\n  <summary>{esc(summary)}</summary>'
-                f'\n  <p>{esc(body)}</p>\n  </details>') if body else ""
+                f'\n  <p>{prose(body)}</p>\n  </details>') if body else ""
 
     # Grouped by what each link is, and uncapped: the finding page is the citable
     # record, so it shows every source rather than the card's first three per kind.
@@ -1671,7 +1687,7 @@ def entry_page(e, entries, updated):
     checks = ""
     if e.get("independent_checks"):
         rows = "".join(
-            f'<p>{esc(c.get("who"))}: <em>{esc(c.get("outcome"))}</em>'
+            f'<p>{esc(c.get("who"))}: <em>{prose(c.get("outcome"))}</em>'
             + (f' · <a href="{esc(c["url"])}" target="_blank" rel="noopener">link ↗</a>'
                if c.get("url") else "") + "</p>"
             for c in e["independent_checks"])
@@ -1820,7 +1836,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
     <span class="pill a a-{esc(e["autonomy"])}">{esc(aut)}</span>
   </div>
   <h1>{esc(e["title"])}</h1>
-  <p class="claim">{esc(e.get("claim"))}</p>
+  <p class="claim">{prose(e.get("claim"))}</p>
 
   <section class="glance">
     <div class="glance-facts">
@@ -2520,7 +2536,9 @@ def openapi_spec(entries, updated):
                "description": "Stable slug, YYYY-MM-DD-short-name. Never reused."},
         "title": {"type": "string", "description": "The finding, stated without hype verbs."},
         "claim": {"type": "string",
-                  "description": "One sentence: what was found, specifically enough to check."},
+                  "description": ("One sentence: what was found, specifically enough to check. "
+                                  "Formulas in this and the other prose fields are TeX between "
+                                  "\\( and \\), or \\[ and \\] for display math.")},
         "field": {"type": "string", "enum": sorted(FIELD_LABEL),
                   "description": "Subject area."},
         "date": {"type": "string", "format": "date",
@@ -3859,6 +3877,7 @@ def validate(entries):
     for n, e in enumerate(entries):
         where = e.get("id") or f"entry #{n} (no id)"
         check_urls(e, where, problems)
+        problems.extend(texmath.problems(e, where))
         for field in ("id", "title", "claim", "date", "field", "lab",
                       "model", "verification", "autonomy"):
             if not e.get(field):

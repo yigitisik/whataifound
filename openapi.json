@@ -247,7 +247,7 @@
           },
           "claim": {
             "type": "string",
-            "description": "One sentence: what was found, specifically enough to check."
+            "description": "One sentence: what was found, specifically enough to check. Formulas in this and the other prose fields are TeX between \\( and \\), or \\[ and \\] for display math."
           },
           "field": {
             "type": "string",

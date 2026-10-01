@@ -7,6 +7,11 @@
     font-weight:500;font-style:normal;font-display:swap}
   @font-face{font-family:'Newsreader';src:url('assets/fonts/news-600.woff2') format('woff2');
     font-weight:600;font-style:normal;font-display:swap}
+  /* Formulas: STIX Two Math (OFL, assets/fonts/OFL-STIX.txt), subset to Latin, Greek and
+     the math blocks with its MATH table intact. A face downloads only when a glyph on the
+     page uses it, so a page without a formula never fetches this. */
+  @font-face{font-family:'STIX Two Math';src:url('assets/fonts/stix-math.woff2') format('woff2');
+    font-weight:400;font-style:normal;font-display:swap}
 
   /* Tells the browser which palette its own widgets should use. Without it the native
      scrollbars, the filter <select> dropdown lists, focus rings and form controls all
@@ -1593,6 +1598,27 @@
     box-shadow:0 0 0 1px var(--accent),0 16px 40px rgba(30,28,24,.12)!important}
   .claim{margin:0;color:var(--ink);max-width:66ch;line-height:1.55;font-weight:500}
   .detail{margin:13px 0 0;color:var(--muted);font-size:1rem;line-height:1.58;max-width:72ch}
+  /* Typeset formulas in entry prose: MathML from scripts/build-math.mjs, laid out by the
+     browser. Upright and regular whatever the paragraph is (a claim is weight 500, and
+     the math font has one weight), and lining figures: the body's oldstyle numerals
+     would drop exponents and indices below the baseline. The colour is inherited, so
+     both themes need nothing here. */
+  math{font-family:'STIX Two Math',math;font-size:1.04em;font-weight:normal;font-style:normal;
+    font-variant-numeric:normal;letter-spacing:normal;text-indent:0;
+    /* Firefox otherwise drops the dot from an italic i or j. */
+    font-feature-settings:"dtls" off}
+  math .mathscr{font-feature-settings:'ss01'}
+  math mo.tml-prime{font-feature-settings:'ss04'}
+  /* Italic correction before a superscript, which Chromium and WebKit do not apply. */
+  @supports (not (-moz-appearance:none)){
+    math .tml-sml-pad{padding-left:.05em}
+    math .tml-med-pad{padding-left:.1em}
+    math .tml-lrg-pad{padding-left:.15em}
+  }
+  /* A display formula is wrapped in this by build-math.mjs. It scrolls sideways rather
+     than widening the page at 320px, where a long one cannot otherwise fit. */
+  .math-block{display:block;overflow-x:auto;overflow-y:hidden;max-width:100%;
+    margin:.55em 0;padding:.15em 0}
   .withppl{margin:12px 0 0;font-family:var(--serif);font-size:.76rem;color:var(--muted);line-height:1.4}
   .withppl b{color:var(--ink);font-weight:500}
   .withppl span{text-transform:uppercase;letter-spacing:.11em;font-size:.6rem;margin-right:7px}

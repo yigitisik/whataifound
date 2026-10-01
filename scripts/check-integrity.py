@@ -238,9 +238,11 @@ def check_data(problems):
                                     "is not an http(s) link")
         # Entry text is escaped at render time, so markup here is not an injection,
         # but it is a sign of a copy-paste that should be read before it is merged.
+        # <math> included: a formula is written as TeX and typeset by the build, so raw
+        # MathML in an entry is pasted output rather than source.
         for field in ("title", "claim", "detail", "novelty_check", "caveats"):
             v = e.get(field)
-            if isinstance(v, str) and re.search(r"<\s*(script|iframe|img|svg|object|embed)\b", v, re.I):
+            if isinstance(v, str) and re.search(r"<\s*(script|iframe|img|svg|math|object|embed)\b", v, re.I):
                 problems.append(f"data/entries.json: {eid}: {field} contains raw markup "
                                 f"({v[:60]!r}). Review before merging")
 
