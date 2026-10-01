@@ -154,6 +154,7 @@ export const ENTRY_IDS = new Set([
   "2026-09-17-rogers-ramanujan-torus-knot",
   "2026-09-17-talagrand-operator-cotype",
   "2026-09-23-array-associated-reverse-transcriptases",
+  "2026-09-25-nine-loop-hexagon-amplitude",
   "2026-09-26-erdos-1220-not-provable",
   "2026-09-26-lovasz-cayley-polylog-degree"
 ]);
@@ -297,6 +298,7 @@ export const ENTRY_GRADES = {
   "2026-09-17-rogers-ramanujan-torus-knot": ["claimed", "ai-assisted"],
   "2026-09-17-talagrand-operator-cotype": ["claimed", "ai-led"],
   "2026-09-23-array-associated-reverse-transcriptases": ["claimed", "collaborative"],
+  "2026-09-25-nine-loop-hexagon-amplitude": ["author-verified", "ai-led"],
   "2026-09-26-erdos-1220-not-provable": ["author-verified", "ai-assisted"],
   "2026-09-26-lovasz-cayley-polylog-degree": ["claimed", "collaborative"]
 };
@@ -440,6 +442,7 @@ export const ENTRY_TITLES = {
   "2026-09-17-rogers-ramanujan-torus-knot": "Huang-Jiang-Oblomkov conjecture proved for every torus-knot singularity, with a Lean formalization conditional on two literature inputs",
   "2026-09-17-talagrand-operator-cotype": "Counterexample to Talagrand's operator cotype problem",
   "2026-09-23-array-associated-reverse-transcriptases": "Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
+  "2026-09-25-nine-loop-hexagon-amplitude": "Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
   "2026-09-26-erdos-1220-not-provable": "Erd\u0151s Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
   "2026-09-26-lovasz-cayley-polylog-degree": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture"
 };

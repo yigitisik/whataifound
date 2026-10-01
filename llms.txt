@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 141 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 142 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -79,7 +79,7 @@ Every finding credited to one organisation, on one page.
 
 - [Google DeepMind](https://whataifound.org/lab/google-deepmind): 23 findings
 - [OpenAI](https://whataifound.org/lab/openai): 14 findings
-- [Anthropic](https://whataifound.org/lab/anthropic): 6 findings
+- [Anthropic](https://whataifound.org/lab/anthropic): 7 findings
 - [Axiom Math](https://whataifound.org/lab/axiom-math): 4 findings
 - [MIT](https://whataifound.org/lab/mit): 3 findings
 
@@ -272,8 +272,9 @@ All 1 in one page: https://whataifound.org/topic/neuroscience
 
 ### Physics
 
-All 6 in one page: https://whataifound.org/topic/physics
+All 7 in one page: https://whataifound.org/topic/physics
 
+- [Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops](https://whataifound.org/finding/2026-09-25-nine-loop-hexagon-amplitude): Claude computed the six-particle maximally-helicity-violating amplitude in planar N=4 super Yang-Mills theory at nine loops, one loop beyond the previous record, from a single prompt naming the problem. (Anthropic, Claude Fable 5.1 (in Claude Science), 2026-09-25; verification: Author verified; autonomy: AI-led)
 - [Supporting affine functionals for entanglement of formation need not exist](https://whataifound.org/finding/2026-08-27-entanglement-supporting-functional): An explicit two-qubit state has no global supporting affine functional for the entanglement of formation, contradicting an assumption used in several papers. (Independent, Claude Fable 5, 2026-08-27; verification: Author verified; autonomy: AI-assisted; also listed at: vibemathed supporting-affine-functionals-for-entanglement-of-formation)
 - [Counterexamples to the fractional colouring conjecture for Pauli shadow tomography](https://whataifound.org/finding/2026-08-20-pauli-fractional-colouring): The fractional chromatic number of the anticommutation graph of large-expectation Pauli observables is not bounded by a constant over epsilon squared, removing a proposed route to triply efficient shadow tomography. (Independent, GPT-5.6 Sol, 2026-08-20; verification: Author verified; autonomy: Collaborative; also listed at: vibemathed fractional-colouring-pauli-shadow-tomography)
 - [Identity for the critical exponents of jamming derived analytically](https://whataifound.org/finding/2026-06-02-jamming-exponent-identity): The relation a + b = 1 between critical exponents at the jamming transition, previously seen only numerically in the full replica-symmetry-breaking solution of hard spheres, is derived from the scaling equations and published after peer review. (Independent, Claude Sonnet 4.6, Claude Opus 4.7, 2026-06-02; verification: Peer reviewed; autonomy: Collaborative; also listed at: vibemathed fullrsb-jamming-identity)

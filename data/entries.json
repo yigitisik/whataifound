@@ -8159,5 +8159,60 @@
       "formalization"
     ],
     "added": "2026-09-28"
+  },
+  {
+    "id": "2026-09-25-nine-loop-hexagon-amplitude",
+    "title": "Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
+    "claim": "Claude computed the six-particle maximally-helicity-violating amplitude in planar N=4 super Yang-Mills theory at nine loops, one loop beyond the previous record, from a single prompt naming the problem.",
+    "field": "physics",
+    "date": "2026-09-25",
+    "lab": "Anthropic",
+    "model": "Claude Fable 5.1 (in Claude Science)",
+    "humans": [
+      "Liam Fitzpatrick",
+      "Siddharth Mishra-Sharma"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Two Anthropic physicists gave Claude one prompt, \"The problem is to compute the Six-particle (hexagon) amplitude in planar N=4 SYM at nine loops\", and afterwards only told it to keep working. It did the calculation two ways: the original hexagon bootstrap, and the indirect route of bootstrapping the three-point form factor of the chiral stress-tensor multiplet, mapping it to the amplitude by antipodal duality and lifting it with pentagon operator product expansion data. The bootstrap ran in Python with SymPy on about $100 of compute, 96 CPUs for a week. The data page records the checks Claude ran before handing the result over: rational reconstruction at three 31-bit primes, agreement between independent prime computations, a reproduction of the published eight-loop amplitude on 1,000 random words, and symmetry and vanishing tests. Lance Dixon, who set the eight-loop record, then validated the result, mostly by mapping the amplitude back to the form factor. The symbol and function files are public on Zenodo under CC BY 4.0.",
+    "novelty_check": "Searched arXiv on 2026-10-01 (abstract query \"nine loops\" AND amplitude) and read the announcement and both data deposits. The previous record for this amplitude is eight loops, arXiv:2308.08199 (Dixon and Liu, 2023), built on the eight-loop form factor of arXiv:2204.11901. The only arXiv hit at nine or more loops, arXiv:1609.00007, determines loop integrands of four- and five-point quantities, not integrated six-point functions, and is not prior art. The result is not uniquely first: He, Jing and Li deposited the symbols of the six-gluon MHV amplitudes through nine loops on Zenodo on 2026-09-17 (doi:10.5281/zenodo.22800071), and Claude's own data page is dated 2026-09-16. Dixon writes that the He group used GPT-6-based assistance and computed the symbol, the part of the amplitude below the full function; their deposit itself carries no AI disclosure. Neither group has posted a paper, and no statement that the two symbols agree was found.",
+    "caveats": "Verification is author-verified rather than independent. The one outside expert who checked the result, Lance Dixon, was asked to by Anthropic, received Claude usage credits, and writes in the announcement itself, while the independent grade asks for several unaffiliated people. The concurrent He-Jing-Li symbol is the obvious second check, but no comparison between the two has been published. Autonomy is ai-led rather than autonomous on the stricter reading. The post describes no human mathematical input beyond posing the problem, and Claude chose both methods, but both the bootstrap and the antipodal-duality route were developed by humans and used for the eight-loop result, so the contribution is carrying an established programme one order further rather than a new idea. The physicists also asked Claude which open problem it was most likely to manage before posing this one, so the choice of problem was partly the model's. Nothing has been refereed and there is no paper. The announcement is a guest post on the lab's blog by the science writer Matt von Hippel, whose earlier post had set the challenge. The Zenodo deposit is data with validation records, not a rerunnable pipeline, so reproducing the computation rather than checking its output would need independent code.",
+    "independent_checks": [
+      {
+        "who": "Lance Dixon (SLAC), at Anthropic's request and with Claude usage credits",
+        "url": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
+        "outcome": "validated the nine-loop result, mostly by mapping the amplitude back to the three-point form factor"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Anthropic: Yes, Claude can do nine loops",
+        "url": "https://www.anthropic.com/research/yes-claude-can-do-nine-loops",
+        "kind": "announcement"
+      },
+      {
+        "label": "Zenodo: nine-loop six-gluon MHV amplitude, large data files",
+        "url": "https://zenodo.org/records/22949278",
+        "kind": "research"
+      },
+      {
+        "label": "Cosmic9: symbol and function files with validation records",
+        "url": "https://smsharma.io/cosmic-nine-loops/",
+        "kind": "research"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News",
+        "url": "https://news.ycombinator.com/item?id=49848033"
+      }
+    ],
+    "tags": [
+      "scattering-amplitudes",
+      "quantum-field-theory",
+      "agents",
+      "computation"
+    ],
+    "added": "2026-10-01"
   }
 ]

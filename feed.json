@@ -9,6 +9,20 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-09-25-nine-loop-hexagon-amplitude",
+      "url": "https://whataifound.org/finding/2026-09-25-nine-loop-hexagon-amplitude",
+      "title": "Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
+      "content_text": "Claude computed the six-particle maximally-helicity-violating amplitude in planar N=4 super Yang-Mills theory at nine loops, one loop beyond the previous record, from a single prompt naming the problem.  Two Anthropic physicists gave Claude one prompt, \"The problem is to compute the Six-particle (hexagon) amplitude in planar N=4 SYM at nine loops\", and afterwards only told it to keep working. It did the calculation two ways: the original hexagon bootstrap, and the indirect route of bootstrapping the three-point form factor of the chiral stress-tensor multiplet, mapping it to the amplitude by antipodal duality and lifting it with pentagon operator product expansion data. The bootstrap ran in Python with SymPy on about $100 of compute, 96 CPUs for a week. The data page records the checks Claude ran before handing the result over: rational reconstruction at three 31-bit primes, agreement between independent prime computations, a reproduction of the published eight-loop amplitude on 1,000 random words, and symmetry and vanishing tests. Lance Dixon, who set the eight-loop record, then validated the result, mostly by mapping the amplitude back to the form factor. The symbol and function files are public on Zenodo under CC BY 4.0.  Lab: Anthropic. Model: Claude Fable 5.1 (in Claude Science). Verification: Author verified. Autonomy: AI-led.",
+      "date_published": "2026-09-25T00:00:00+00:00",
+      "date_modified": "2026-10-01T00:00:00+00:00",
+      "tags": [
+        "scattering-amplitudes",
+        "quantum-field-theory",
+        "agents",
+        "computation"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-26-erdos-1220-not-provable",
       "url": "https://whataifound.org/finding/2026-09-26-erdos-1220-not-provable",
       "title": "Erdős Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
