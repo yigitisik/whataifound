@@ -1436,6 +1436,57 @@
         "outcome": "tracked among AI contributions to Erdős problems"
       }
     ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "erdos-12",
+        "url": "https://vibemathed.com/problem/erdos-12",
+        "title": "Erdős Problem #12"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "erdos-138",
+        "url": "https://vibemathed.com/problem/erdos-138",
+        "title": "Erdős Problem #138"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "green-open-problem-57",
+        "url": "https://vibemathed.com/problem/green-open-problem-57",
+        "title": "Ben Green's Open Problem 57"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "wow-graph-conjecture-2",
+        "url": "https://vibemathed.com/problem/wow-graph-conjecture-2",
+        "title": "Written on the Wall II, Graph Conjecture 2"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "monochromatic-quantum-graphs-diagonal",
+        "url": "https://vibemathed.com/problem/monochromatic-quantum-graphs-diagonal",
+        "title": "Monochromatic Quantum Graphs in the Diagonal Family"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "monochromatic-quantum-graphs-four-particles",
+        "url": "https://vibemathed.com/problem/monochromatic-quantum-graphs-four-particles",
+        "title": "Four-Particle Monochromatic Quantum Graphs"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "pure-o-sequences-log-concavity",
+        "url": "https://vibemathed.com/problem/pure-o-sequences-log-concavity",
+        "title": "Log-Concavity of Codimension-Three Pure O-Sequences"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "anchored-gda-last-iterate",
+        "url": "https://vibemathed.com/problem/anchored-gda-last-iterate",
+        "title": "Last-Iterate Rate for Anchored Gradient Descent-Ascent",
+        "note": "This record cites the team's April preprint, arXiv:2604.03782, which the AlphaProof Nexus report refers to for this result; the Lean proof sits in the same results repository."
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Advancing Mathematics Research with AI-Driven Formal Proof Search",
@@ -1459,7 +1510,14 @@
       "erdos-problems",
       "combinatorics"
     ],
-    "added": "2026-07-27"
+    "added": "2026-07-27",
+    "revisions": [
+      {
+        "date": "2026-10-01",
+        "kind": "correction",
+        "note": "Recorded the eight vibemathed records that cover parts of this result as registrations. vibemathed describes the work as autonomous, which does not move the search-scaffold grade for the reasons given in the caveats."
+      }
+    ]
   },
   {
     "id": "2025-11-03-alphaevolve-at-scale",
