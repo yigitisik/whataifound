@@ -157,7 +157,10 @@ const GRADES = {
   "2026-09-23-array-associated-reverse-transcriptases":["claimed","collaborative"],
   "2026-09-25-nine-loop-hexagon-amplitude":["author-verified","ai-led"],
   "2026-09-26-erdos-1220-not-provable":["author-verified","ai-assisted"],
-  "2026-09-26-lovasz-cayley-polylog-degree":["claimed","collaborative"]
+  "2026-09-26-lovasz-cayley-polylog-degree":["claimed","collaborative"],
+  "2026-09-30-pinwheel-kernel-conjecture":["formal","ai-led"],
+  "2026-10-01-anisotropic-watson-integral":["claimed","ai-assisted"],
+  "2026-10-02-squares-in-circle-packings":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -301,7 +304,10 @@ const ID_BY_TITLE = {
   "agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages":"2026-09-23-array-associated-reverse-transcriptases",
   "six-particle mhv amplitude in planar n=4 super yang-mills computed at nine loops":"2026-09-25-nine-loop-hexagon-amplitude",
   "erd\u0151s problem #1220 formalized as not provable in zfc, from a 1987 shelah-stanley consistency result":"2026-09-26-erdos-1220-not-provable",
-  "hamilton cycles in connected cayley graphs of polylogarithmic degree, toward the lov\u00e1sz conjecture":"2026-09-26-lovasz-cayley-polylog-degree"
+  "hamilton cycles in connected cayley graphs of polylogarithmic degree, toward the lov\u00e1sz conjecture":"2026-09-26-lovasz-cayley-polylog-degree",
+  "six-task counterexample to the kernel conjecture of pinwheel scheduling":"2026-09-30-pinwheel-kernel-conjecture",
+  "closed form for the anisotropic watson integral of the cubic lattice":"2026-10-01-anisotropic-watson-integral",
+  "optimal packings of one to seven unit squares in a circle, proved in lean":"2026-10-02-squares-in-circle-packings"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -445,7 +451,10 @@ const TITLE_BY_ID = {
   "2026-09-23-array-associated-reverse-transcriptases":"Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
   "2026-09-25-nine-loop-hexagon-amplitude":"Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
   "2026-09-26-erdos-1220-not-provable":"Erd\u0151s Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
-  "2026-09-26-lovasz-cayley-polylog-degree":"Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture"
+  "2026-09-26-lovasz-cayley-polylog-degree":"Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture",
+  "2026-09-30-pinwheel-kernel-conjecture":"Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
+  "2026-10-01-anisotropic-watson-integral":"Closed form for the anisotropic Watson integral of the cubic lattice",
+  "2026-10-02-squares-in-circle-packings":"Optimal packings of one to seven unit squares in a circle, proved in Lean"
 };
 /*VOCAB:END*/
 

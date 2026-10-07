@@ -9,6 +9,51 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-02-squares-in-circle-packings",
+      "url": "https://whataifound.org/finding/2026-10-02-squares-in-circle-packings",
+      "title": "Optimal packings of one to seven unit squares in a circle, proved in Lean",
+      "content_text": "Machine-checked proofs of the smallest circle that holds n unit squares, and of every packing that attains it, for n = 1 to 7; for five, six and seven squares no earlier proof of optimality was known.  The question is the least radius of a disk that holds n non-overlapping unit squares, each free to move and rotate. The library proves the radii √2/2, √5/2, 5√17/16, √2, √(5/2), √(q^*) with q^* a quartic irrational near 2.851, and √13/2. The optimal packing is unique up to rotation and relabelling for n ≤ 6; for n = 7 the optimal packings form a family in which the three middle squares slide along their column. For three to seven squares the proofs place a small circle about the disk centre and count how much of it each square avoiding the centre must hold; for seven squares a pair theorem on the directions of neighbouring squares is by far the longest part. The repository reports that the arc idea came from Claude, that ChatGPT first applied it to five squares, and that the models wrote the proofs and all of the Lean code, with the owner directing and reviewing.  Lab: Independent. Model: ChatGPT (GPT-6 Pro) and Claude Opus 5 and 5.5. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-02T00:00:00+00:00",
+      "date_modified": "2026-10-06T00:00:00+00:00",
+      "tags": [
+        "discrete-geometry",
+        "packing",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-01-anisotropic-watson-integral",
+      "url": "https://whataifound.org/finding/2026-10-01-anisotropic-watson-integral",
+      "title": "Closed form for the anisotropic Watson integral of the cubic lattice",
+      "content_text": "The return probability of a random walk on the cubic lattice with three unequal hopping rates, open since Watson's 1939 solution of the symmetric case, is given in closed form through periods of a genus-two curve, with a proof that no formula in elliptic integrals exists for generic rates.  The lattice Green's function W(α₁, α₂, α₃;w) = 1/π³∫_([0, π]³)d³k/(w − α₁cos k₁ − α₂cos k₂ − α₃cos k₃) gives the return probability R = 1 − 1/(w^(⋆)W) at the band edge w^(⋆) = α₁ + α₂ + α₃. Closed forms were known when one rate vanishes or when two or three are equal (Watson 1939, Joyce 1973, Delves and Joyce 2001), each an algebraic function times at most two complete elliptic integrals. The authors' summary states that for generic rates wW satisfies a fifth-order differential equation whose group has connected part SO(5), so no such elliptic formula exists, and gives W instead through a minor of the period matrix of a genus-two curve built from the rates. At rates in the ratio 1:5:7 the walker returns with probability about 0.4394, against 0.3405 at equal rates. The result is one of roughly fourteen in a guest essay by Schwartz on Anthropic's blog describing work with Claude through his BootLoops harness.  Lab: Independent. Model: Claude (the announcement names Claude Fable 5). Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-01T00:00:00+00:00",
+      "date_modified": "2026-10-06T00:00:00+00:00",
+      "tags": [
+        "lattice-green-functions",
+        "random-walks",
+        "algebraic-geometry",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-30-pinwheel-kernel-conjecture",
+      "url": "https://whataifound.org/finding/2026-09-30-pinwheel-kernel-conjecture",
+      "title": "Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
+      "content_text": "A six-task pinwheel scheduling instance with periods (3, 4, 5, 20, 22, 36) can be scheduled, but not once its longest period is cut to 32, which refutes the Kernel Conjecture and the equivalent 2ᵏ Conjecture of Gąsieniec, Smith and Wild.  In pinwheel scheduling one task is performed per day, and a task with period aᵢ must be performed at least once in every aᵢ consecutive days. Gąsieniec, Smith and Wild conjectured that every schedulable instance with k tasks is dominated by a schedulable one, with no period longer, whose largest period is at most 2^(k − 1), and proved this equivalent to the claim that a loosely schedulable instance always has a schedule with a free day at least every 2ᵏ days. For six tasks the cap is 32. A 36-day repeating word schedules (3, 4, 5, 20, 22, 36), while finite certificates show that (3, 4, 5, 20, 22, b) cannot be scheduled for b = 32 or b = 35, so the threshold for the sixth period is exactly 36 and every dominated instance capped at 32 fails by monotonicity. Each certificate lists every reachable state with a rank that strictly decreases along every legal move, which rules out non-periodic schedules too. The repository carries a Lean 4 formalization of the certificate argument and of both endpoints, built against the standard library alone.  Lab: Independent. Model: GPT-6 Astra (in OpenAI Codex). Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-09-30T00:00:00+00:00",
+      "date_modified": "2026-10-06T00:00:00+00:00",
+      "tags": [
+        "scheduling",
+        "algorithms",
+        "counterexample",
+        "lean",
+        "formalization",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-09-25-nine-loop-hexagon-amplitude",
       "url": "https://whataifound.org/finding/2026-09-25-nine-loop-hexagon-amplitude",
       "title": "Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
