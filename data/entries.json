@@ -8214,5 +8214,163 @@
       "computation"
     ],
     "added": "2026-10-01"
+  },
+  {
+    "id": "2026-09-30-pinwheel-kernel-conjecture",
+    "title": "Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
+    "claim": "A six-task pinwheel scheduling instance with periods \\((3, 4, 5, 20, 22, 36)\\) can be scheduled, but not once its longest period is cut to 32, which refutes the Kernel Conjecture and the equivalent \\(2^k\\) Conjecture of Gąsieniec, Smith and Wild.",
+    "field": "computer-science",
+    "date": "2026-09-30",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (in OpenAI Codex)",
+    "year_posed": 2021,
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "In pinwheel scheduling one task is performed per day, and a task with period \\(a_i\\) must be performed at least once in every \\(a_i\\) consecutive days. Gąsieniec, Smith and Wild conjectured that every schedulable instance with \\(k\\) tasks is dominated by a schedulable one, with no period longer, whose largest period is at most \\(2^{k-1}\\), and proved this equivalent to the claim that a loosely schedulable instance always has a schedule with a free day at least every \\(2^k\\) days. For six tasks the cap is 32. A 36-day repeating word schedules \\((3, 4, 5, 20, 22, 36)\\), while finite certificates show that \\((3, 4, 5, 20, 22, b)\\) cannot be scheduled for \\(b = 32\\) or \\(b = 35\\), so the threshold for the sixth period is exactly 36 and every dominated instance capped at 32 fails by monotonicity. Each certificate lists every reachable state with a rank that strictly decreases along every legal move, which rules out non-periodic schedules too. The repository carries a Lean 4 formalization of the certificate argument and of both endpoints, built against the standard library alone.",
+    "novelty_check": "Read Conjectures 2.2 and 2.3 and Proposition 2.4 of arXiv:2111.01784 (Gąsieniec, Smith and Wild, 2021; ALENEX 2022) on 2026-10-06 and confirmed that the instance contradicts them as stated, domination meaning componentwise at most. Web searches for the Kernel Conjecture and the \\(2^k\\) Conjecture, and an arXiv title scan of pinwheel scheduling papers from 2024 to 2026, found no earlier counterexample or resolution; the 2026 papers on pinwheel density thresholds address, by their titles, a different conjecture. That is not a systematic review of the scheduling literature.",
+    "caveats": "No paper and no peer review: the evidence is a GitHub repository holding the certificates, a Python checker and a Lean development, all produced by the workflow that found the example. The human who directed it is not named. The repository credits the model with discovering the example, writing the searches, certificates and checker, and developing the formalization, and the human with setting the objective, supervising, and asking for the prior-work and formal checks, which is why autonomy is ai-led rather than autonomous. The Lean build was run by the authors on a cloud worker and replayed through the Nanoda kernel, also by the authors; nobody outside has compiled it or audited that the Lean statements match the conjecture. Graded formal because the finite claim is exactly rerunnable, and this registry reran it with separate code. The result bounds any universal six-task cap from below by 36; it does not show that 36 suffices.",
+    "independent_checks": [
+      {
+        "who": "whataifound.org (independent recomputation, Python)",
+        "outcome": "Wrote a feasibility search sharing no code with the repository. From the all-zero age vector, \\((3, 4, 5, 20, 22, 32)\\) and \\((3, 4, 5, 20, 22, 35)\\) reach 50,881 and 56,284 states, the counts the two certificates report, and in both every walk dies out once dead ends are pruned; \\((3, 4, 5, 20, 22, 36)\\) keeps an infinite walk, and the repository's 36-day witness word meets every period. This checks the finite claim, not the Lean development."
+      },
+      {
+        "who": "Nanoda kernel replay (author-run, reports public)",
+        "url": "https://github.com/MathIsEvenEasier/pinwheel-kernel-counterexample",
+        "outcome": "Replayed the four endpoint theorems and their dependencies, 6,850 declarations, on 2026-10-01, admitting only propext and Quot.sound."
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-pinwheel-kernel-conjecture-a-six-task-counterexample",
+        "url": "https://vibemathed.com/problem/the-pinwheel-kernel-conjecture-a-six-task-counterexample"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: MathIsEvenEasier/pinwheel-kernel-counterexample",
+        "url": "https://github.com/MathIsEvenEasier/pinwheel-kernel-counterexample",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "scheduling",
+      "algorithms",
+      "counterexample",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-10-06"
+  },
+  {
+    "id": "2026-10-02-squares-in-circle-packings",
+    "title": "Optimal packings of one to seven unit squares in a circle, proved in Lean",
+    "claim": "Machine-checked proofs of the smallest circle that holds \\(n\\) unit squares, and of every packing that attains it, for \\(n = 1\\) to \\(7\\); for five, six and seven squares no earlier proof of optimality was known.",
+    "field": "mathematics",
+    "date": "2026-10-02",
+    "lab": "Independent",
+    "model": "ChatGPT (GPT-6 Pro) and Claude Opus 5 and 5.5",
+    "humans": [
+      "The-Anh Vu-Le"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The question is the least radius of a disk that holds \\(n\\) non-overlapping unit squares, each free to move and rotate. The library proves the radii \\(\\sqrt{2}/2\\), \\(\\sqrt{5}/2\\), \\(5\\sqrt{17}/16\\), \\(\\sqrt{2}\\), \\(\\sqrt{5/2}\\), \\(\\sqrt{q^*}\\) with \\(q^*\\) a quartic irrational near \\(2.851\\), and \\(\\sqrt{13}/2\\). The optimal packing is unique up to rotation and relabelling for \\(n \\le 6\\); for \\(n = 7\\) the optimal packings form a family in which the three middle squares slide along their column. For three to seven squares the proofs place a small circle about the disk centre and count how much of it each square avoiding the centre must hold; for seven squares a pair theorem on the directions of neighbouring squares is by far the longest part. The repository reports that the arc idea came from Claude, that ChatGPT first applied it to five squares, and that the models wrote the proofs and all of the Lean code, with the owner directing and reviewing.",
+    "novelty_check": "Read the repository's prior-work review, current to September 2026, and checked Erich Friedman's Squares in Circles page on 2026-10-06. One and two squares are folklore and four squares were Problem 6 of the 2026 International Mathematics Summer Camp. For three squares Montanher, Neumaier, Markót, Domes and Schichl (J. Global Optim., 2019) enclosed the radius by computer-assisted interval arithmetic, without an exact value or exact uniqueness. For five, six and seven squares the review finds no earlier proof: Friedman's page listed his 1997 packings only as the best known in its July 2026 snapshot, and now records three, five, six and seven squares as proved by The-Anh Vu-Le in September 2026. No earlier proof-assistant verification of any optimal packing of squares or circles in a circle was found. The year the question was first posed is left unrecorded rather than guessed.",
+    "caveats": "Not peer-reviewed, and there is no paper; the proofs are written up as a textbook inside the repository. Graded formal on the Palomar registration, which checks the proofs against a separate statement file importing only Mathlib and replays them through three kernels. What that certifies is the statement in that file: the kernel checks the proofs, not that the definitions of square, disk and packing capture the intended problem, and no outside audit of those definitions was found. For seven squares, uniqueness holds only up to the heights of the three middle squares. The four-square uniqueness argument matches an unpublished July 2026 note by Wei Zhao that was also developed with Claude, and the repository itself says the two may not be independent. Autonomy is ai-led rather than autonomous because the owner directed and reviewed the work.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-02-000002",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-02-000002&version=1",
+        "repository": "vltanh/lean4-squares-in-circles",
+        "commit": "621f2340a12f661a51b613719107a75cf40ab03a",
+        "theorems": [
+          "SquaresInCircles.optimal_radius",
+          "SquaresInCircles.optimal_packings"
+        ],
+        "checked": "2026-10-02",
+        "note": "Registered against Challenge.lean, which restates the definitions of Geometry.lean word for word and states both theorems with sorry. Permitted axioms are propext, Classical.choice and Quot.sound."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: vltanh/lean4-squares-in-circles",
+        "url": "https://github.com/vltanh/lean4-squares-in-circles",
+        "kind": "research"
+      },
+      {
+        "label": "Erich Friedman: Squares in Circles",
+        "url": "https://erich-friedman.github.io/packing/squincir/",
+        "kind": "commentary"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Reddit r/math: AI in mathematics, October 3, 2026",
+        "url": "https://www.reddit.com/r/math/comments/1wwqvov/ai_in_mathematics_october_03_2026/pdnjvo8/"
+      }
+    ],
+    "tags": [
+      "discrete-geometry",
+      "packing",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-06"
+  },
+  {
+    "id": "2026-10-01-anisotropic-watson-integral",
+    "title": "Closed form for the anisotropic Watson integral of the cubic lattice",
+    "claim": "The return probability of a random walk on the cubic lattice with three unequal hopping rates, open since Watson's 1939 solution of the symmetric case, is given in closed form through periods of a genus-two curve, with a proof that no formula in elliptic integrals exists for generic rates.",
+    "field": "mathematics",
+    "date": "2026-10-01",
+    "lab": "Independent",
+    "model": "Claude (the announcement names Claude Fable 5)",
+    "humans": [
+      "Noam Elkies",
+      "Thomas W. Grimm",
+      "Matthew D. Schwartz"
+    ],
+    "year_posed": 1939,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The lattice Green's function \\[W(\\alpha_1, \\alpha_2, \\alpha_3; w) = \\frac{1}{\\pi^3}\\int_{[0, \\pi]^3} \\frac{d^3k}{w - \\alpha_1\\cos k_1 - \\alpha_2\\cos k_2 - \\alpha_3\\cos k_3}\\] gives the return probability \\(R = 1 - 1/(w^\\star W)\\) at the band edge \\(w^\\star = \\alpha_1 + \\alpha_2 + \\alpha_3\\). Closed forms were known when one rate vanishes or when two or three are equal (Watson 1939, Joyce 1973, Delves and Joyce 2001), each an algebraic function times at most two complete elliptic integrals. The authors' summary states that for generic rates \\(wW\\) satisfies a fifth-order differential equation whose group has connected part \\(\\mathrm{SO}(5)\\), so no such elliptic formula exists, and gives \\(W\\) instead through a minor of the period matrix of a genus-two curve built from the rates. At rates in the ratio \\(1:5:7\\) the walker returns with probability about \\(0.4394\\), against \\(0.3405\\) at equal rates. The result is one of roughly fourteen in a guest essay by Schwartz on Anthropic's blog describing work with Claude through his BootLoops harness.",
+    "novelty_check": "Read the announcement and the authors' BootLoops summary on 2026-10-06 and searched the web for closed forms of the anisotropic simple cubic lattice Green's function. The solved cases are documented: Watson (1939) for equal rates at the band edge, Joyce (1973) for equal rates at every \\(w\\), Glasser and Zucker (1977) in gamma functions, and Delves and Joyce (2001) for two equal rates. Zucker's survey '70+ years of the Watson integrals' (J. Stat. Phys., 2011) called the three-rate case the final problem and judged its difficulties insuperable. No earlier closed form for three unequal rates was found. The paper is not yet public, so the claim could not be checked against its own literature review.",
+    "caveats": "Claimed because there is no paper yet, only a summary that lists it as in preparation, so the proofs of the fifth-order equation, of the absence of an elliptic formula and of the closed form itself are not public. What is public is the formula as runnable code, and agreement to many digits is a numerical check rather than a proof, as the summary itself says; one further statement there, an absolute theta identity, is left as a conjecture. The published script handles generic rates only: on the walls where two or three rates are equal, the cases the classical formulas already cover, it raised an error or, at one equal-rate point tried here, returned a wrong value. That is a limit of the script, not evidence against the theorem, which the summary says holds on the walls too. Autonomy is graded ai-assisted, the weaker defensible reading: the summary says only that the authors used AI tools interactively and that the code was written by Claude under Schwartz's supervision, the essay frames the problem as one Claude found through the harness, and the division of labour on the proofs is not documented. The essay is on Anthropic's blog, Schwartz is a visiting researcher there and the code is copyright Anthropic, although the essay states that BootLoops is not an Anthropic project. The essay's other results are not entered here and need separate grading as their manuscripts appear.",
+    "independent_checks": [
+      {
+        "who": "whataifound.org (numerical comparison, mpmath)",
+        "url": "https://www.bootloops.ai/files/lgf/WatsonW.py",
+        "outcome": "Evaluated the published closed form and compared it with the classical Bessel-function form \\(\\int_0^\\infty e^{-wt} I_0(\\alpha_1 t) I_0(\\alpha_2 t) I_0(\\alpha_3 t)\\,dt\\), computed separately by quadrature that reproduces Watson's \\(0.5054620197\\) at equal rates. At the summary's points \\((1, 5, 7; 17)\\) and \\((5, 6, 9; 22)\\) the two agree to 24 and 23 digits, and at four further generic rate triples, two of them close to the walls, to at least 15. On the walls the script fails. Numerical agreement only, not a check of the proof."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Anthropic: Claude-shaped science (guest essay by Matthew Schwartz)",
+        "url": "https://www.anthropic.com/research/claude-shaped-science",
+        "kind": "announcement"
+      },
+      {
+        "label": "BootLoops: The Watson integral (authors' summary)",
+        "url": "https://www.bootloops.ai/summaries/watson.html",
+        "kind": "announcement"
+      },
+      {
+        "label": "BootLoops: WatsonW.py, the closed form as code",
+        "url": "https://www.bootloops.ai/files/lgf/WatsonW.py",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "lattice-green-functions",
+      "random-walks",
+      "algebraic-geometry",
+      "argument"
+    ],
+    "added": "2026-10-06"
   }
 ]

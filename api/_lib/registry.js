@@ -156,7 +156,10 @@ export const ENTRY_IDS = new Set([
   "2026-09-23-array-associated-reverse-transcriptases",
   "2026-09-25-nine-loop-hexagon-amplitude",
   "2026-09-26-erdos-1220-not-provable",
-  "2026-09-26-lovasz-cayley-polylog-degree"
+  "2026-09-26-lovasz-cayley-polylog-degree",
+  "2026-09-30-pinwheel-kernel-conjecture",
+  "2026-10-01-anisotropic-watson-integral",
+  "2026-10-02-squares-in-circle-packings"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -300,7 +303,10 @@ export const ENTRY_GRADES = {
   "2026-09-23-array-associated-reverse-transcriptases": ["claimed", "collaborative"],
   "2026-09-25-nine-loop-hexagon-amplitude": ["author-verified", "ai-led"],
   "2026-09-26-erdos-1220-not-provable": ["author-verified", "ai-assisted"],
-  "2026-09-26-lovasz-cayley-polylog-degree": ["claimed", "collaborative"]
+  "2026-09-26-lovasz-cayley-polylog-degree": ["claimed", "collaborative"],
+  "2026-09-30-pinwheel-kernel-conjecture": ["formal", "ai-led"],
+  "2026-10-01-anisotropic-watson-integral": ["claimed", "ai-assisted"],
+  "2026-10-02-squares-in-circle-packings": ["formal", "ai-led"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -444,7 +450,10 @@ export const ENTRY_TITLES = {
   "2026-09-23-array-associated-reverse-transcriptases": "Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages",
   "2026-09-25-nine-loop-hexagon-amplitude": "Six-particle MHV amplitude in planar N=4 super Yang-Mills computed at nine loops",
   "2026-09-26-erdos-1220-not-provable": "Erd\u0151s Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result",
-  "2026-09-26-lovasz-cayley-polylog-degree": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture"
+  "2026-09-26-lovasz-cayley-polylog-degree": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture",
+  "2026-09-30-pinwheel-kernel-conjecture": "Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
+  "2026-10-01-anisotropic-watson-integral": "Closed form for the anisotropic Watson integral of the cubic lattice",
+  "2026-10-02-squares-in-circle-packings": "Optimal packings of one to seven unit squares in a circle, proved in Lean"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
