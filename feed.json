@@ -9,6 +9,51 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-06-openai-math-collection",
+      "url": "https://whataifound.org/finding/2026-10-06-openai-math-collection",
+      "title": "722 manuscripts in 372 result families from an unreleased OpenAI model",
+      "content_text": "OpenAI published 722 manuscripts grouped into 372 claimed results across number theory, algebraic geometry, analysis, combinatorics, theoretical computer science and mathematical physics, all produced by an unreleased internal model, with Lean formalizations attached to 235 of the families and none yet checked by anyone outside the company.  The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, L = RL = BPL, matrix multiplication with exponent at most 9/4, Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the ℜs > 11/12 zero-free region was edited by humans for readability.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-07T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "formalization",
+        "argument",
+        "number-theory",
+        "complexity-theory"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-quasi-riemann-hypothesis",
+      "url": "https://whataifound.org/finding/2026-10-06-quasi-riemann-hypothesis",
+      "title": "Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
+      "content_text": "A Lean-formalized proof that neither the Riemann zeta function nor any Dirichlet L-function has a zero with real part greater than 7/8, the first fixed zero-free half-plane short of the line where real part equals 1, which also rules out Landau-Siegel zeros but leaves the Riemann hypothesis itself open.  The main theorem states that every finite-order Hecke L-function over ℚ(√(−3)) and every Dirichlet L-function, including ζ(s), is zero-free in ℜs > 7/8, the principal pole at s = 1 excepted. The quasi-Riemann hypothesis asks for any fixed σ₀ < 1 with no zeros to the right of it; the classical zero-free regions of de la Vallée Poussin and Vinogradov-Korobov shrink toward ℜs = 1 with height, and zero-density estimates such as Guth and Maynard's bound how many zeros there are rather than excluding them. A fixed half-plane gives the prime number theorem with error O(x^(7/8 + ε)). The paper works through Kubota's metaplectic theory and Patterson's cubic theta series, with sextic large-sieve estimates extending Goldmakher, Louvel and Blomer, using Dunn and Radziwiłł's unconditional cusp expansions. A companion manuscript reaches the weaker half-plane ℜs > 11/12 by a different proof, and a third proves (1 − β)log q ≥ c for every real zero β of every primitive real character of conductor q ≥ 3. The Lean statement for zeta is a single line against Mathlib's own definition, OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re, with separate Comparator challenges for the Dirichlet and Hecke versions and for the Siegel-zero bound, each permitting only propext, Quot.sound and Classical.choice.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-07T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "riemann-zeta",
+        "l-functions",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-kakeya-3d-maximal-4d",
+      "url": "https://whataifound.org/finding/2026-10-06-kakeya-3d-maximal-4d",
+      "title": "Kakeya maximal conjecture in three dimensions and the Kakeya set conjecture in four",
+      "content_text": "Two manuscripts claim that every set in four-dimensional space containing a unit segment in every direction has full Hausdorff dimension, and that the Kakeya maximal function estimate holds in three dimensions, extending Wang and Zahl's 2025 resolution of the three-dimensional set conjecture.  The four-dimensional paper proves that every K ⊂ ℝ⁴ containing a unit segment in every direction has dim_H K = 4, with no measurability assumed on the set or on the choice of segments. Its introduction gives the best earlier lower bound as 3.059, from Katz and Zahl's planebrush argument, against Wolff's 3 from 1995; Rai Choudhuri's 13/4 covers only sticky sets. The three-dimensional paper proves the stronger maximal form: for every ε > 0 the radius-δ tube maximal operator maps L³(ℝ³) to L³(S²) with norm O_ε(δ^(−ε)). It builds on the streamlined Guth, Wang and Zahl proof of the set estimate and addresses the gap Wang and Zahl state after their own theorem, replacing a density loss λ^(K(ε)) by λ³. Scientific American's report names only the four-dimensional result.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-07T00:00:00+00:00",
+      "tags": [
+        "harmonic-analysis",
+        "kakeya",
+        "geometric-measure-theory",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-02-squares-in-circle-packings",
       "url": "https://whataifound.org/finding/2026-10-02-squares-in-circle-packings",
       "title": "Optimal packings of one to seven unit squares in a circle, proved in Lean",
