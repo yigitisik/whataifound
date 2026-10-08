@@ -8372,5 +8372,180 @@
       "argument"
     ],
     "added": "2026-10-06"
+  },
+  {
+    "id": "2026-10-06-openai-math-collection",
+    "title": "722 manuscripts in 372 result families from an unreleased OpenAI model",
+    "claim": "OpenAI published 722 manuscripts grouped into 372 claimed results across number theory, algebraic geometry, analysis, combinatorics, theoretical computer science and mathematical physics, all produced by an unreleased internal model, with Lean formalizations attached to 235 of the families and none yet checked by anyone outside the company.",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, \\(\\mathsf{L}=\\mathsf{RL}=\\mathsf{BPL}\\), matrix multiplication with exponent at most \\(9/4\\), Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the \\(\\Re s > 11/12\\) zero-free region was edited by humans for readability.",
+    "novelty_check": "Read the README, the manuscript map CONTENTS.md and the Lean catalogue lean/formalization.yaml at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. Novelty was not checked family by family, which at this scale is beyond one entry; the families split out as their own entries carry their own checks, starting with the quasi-Riemann hypothesis and Kakeya. A Hacker News commenter cross-referenced the list against ProofAtlas's ranking of 500 open problems and counted about 90 claimed full resolutions, among them Hilbert's tenth problem over the rationals, Unique Games, Landau-Siegel zeros, Baum-Connes and Hadwiger's conjecture; that count was not reproduced here. OpenAI said on 2026-09-21, when the Advisory Group on Mathematics and AI was announced, that an internal model had resolved more than 100 open problems; the registry carries no entry for that statement, which came without manuscripts.",
+    "caveats": "Graded claimed throughout, because nothing in the release has been read by a mathematician outside OpenAI on the record, and the Lean catalogue records its own review status as unchecked, the same self-assessment that kept the Navier-Stokes entry at claimed. The README says plainly that some of the unformalized results could have issues. Where Lean exists it covers the main result of a paper rather than every claim in it, and the Comparator statements were written by OpenAI alongside the proofs, so whether each one says what the literature means by the named conjecture is a separate question for each family. A text search of the Lean library found no sorry and no axiom declarations, which is not a build and not a statement audit. The account of provenance is not checkable: the model is unreleased, a spokesperson told Scientific American that almost every result came from a single prompt to a single agent and then that some may have taken multiple attempts, and Andrew Sutherland told the magazine that one-shot claims should be treated as unverified until the model is released and the results replicated. The Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study, recommended on 2026-09-29 that labs publish the model name, prompts, a summarized chain of thought, the time taken and the estimated compute cost, and asked labs to stop testing advanced problems on proprietary models; the release gives average compute and ten reasoning summaries, not per-result prompts or costs, and Scientific American reports OpenAI saying it is not bound by the recommendations. Terence Tao has criticized the pace of releases of this kind, while Daniel Litt argued in the same article that withholding results would harm mathematics. Autonomy is graded ai-led rather than autonomous because humans chose the 4,000 problems, aggregated the output and applied the significance filter, and because the README names exceptions to the fixed procedure without describing them. This entry is a container for the release; individual families will diverge from its grades as checks land.",
+    "sources": [
+      {
+        "label": "GitHub: openai/math, the 722 manuscripts, Lean library and reasoning summaries",
+        "url": "https://github.com/openai/math",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: openai/math formalization catalogue, review status unchecked",
+        "url": "https://github.com/openai/math/blob/main/lean/formalization.yaml",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Advisory Group on Mathematics and AI: recommendations of 2026-09-29",
+        "url": "https://agmai.org/general-sep29/",
+        "kind": "commentary"
+      },
+      {
+        "label": "Scientific American: OpenAI unleashes hundreds more math results upon a field already in shock",
+        "url": "https://www.scientificamerican.com/article/openai-unleashes-hundreds-more-math-results-upon-a-field-already-in-shock/",
+        "kind": "coverage"
+      },
+      {
+        "label": "The Decoder: OpenAI dumps 372 AI-generated math proofs on GitHub",
+        "url": "https://the-decoder.com/openai-dumps-372-ai-generated-math-proofs-on-github-telling-the-academic-world-to-keep-up/",
+        "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Sharing AI progress in mathematics",
+        "url": "https://news.ycombinator.com/item?id=49984923"
+      }
+    ],
+    "tags": [
+      "lean",
+      "formalization",
+      "argument",
+      "number-theory",
+      "complexity-theory"
+    ],
+    "added": "2026-10-07"
+  },
+  {
+    "id": "2026-10-06-quasi-riemann-hypothesis",
+    "title": "Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
+    "claim": "A Lean-formalized proof that neither the Riemann zeta function nor any Dirichlet L-function has a zero with real part greater than 7/8, the first fixed zero-free half-plane short of the line where real part equals 1, which also rules out Landau-Siegel zeros but leaves the Riemann hypothesis itself open.",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 1859,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The main theorem states that every finite-order Hecke L-function over \\(\\mathbb{Q}(\\sqrt{-3})\\) and every Dirichlet L-function, including \\(\\zeta(s)\\), is zero-free in \\(\\Re s > 7/8\\), the principal pole at \\(s=1\\) excepted. The quasi-Riemann hypothesis asks for any fixed \\(\\sigma_0 < 1\\) with no zeros to the right of it; the classical zero-free regions of de la Vallée Poussin and Vinogradov-Korobov shrink toward \\(\\Re s = 1\\) with height, and zero-density estimates such as Guth and Maynard's bound how many zeros there are rather than excluding them. A fixed half-plane gives the prime number theorem with error \\(O(x^{7/8+\\varepsilon})\\). The paper works through Kubota's metaplectic theory and Patterson's cubic theta series, with sextic large-sieve estimates extending Goldmakher, Louvel and Blomer, using Dunn and Radziwiłł's unconditional cusp expansions. A companion manuscript reaches the weaker half-plane \\(\\Re s > 11/12\\) by a different proof, and a third proves \\((1-\\beta)\\log q \\ge c\\) for every real zero \\(\\beta\\) of every primitive real character of conductor \\(q \\ge 3\\). The Lean statement for zeta is a single line against Mathlib's own definition, OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re, with separate Comparator challenges for the Dirichlet and Hecke versions and for the Siegel-zero bound, each permitting only propext, Quot.sound and Classical.choice.",
+    "novelty_check": "Read the three manuscripts' introductions and the Lean scope note lean/docs/003.md at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. The paper takes the name quasi-Riemann hypothesis from Billington, Cheng, Schettler and Suriajaya (2025) and the uniform formulation over Dirichlet characters from Friedlander and Goldston (1997), and cites no earlier proof of any fixed half-plane; none was found in a web search, and no such half-plane is known unconditionally in the standard literature. For Landau-Siegel zeros the unconditional state of the art before this was Siegel's ineffective 1935 bound; Yitang Zhang's 2022 preprint claims a weaker bound of polylogarithmic strength. No prior registry entry covers either statement; 2026-08-10-zeta-zeros-critical-line concerns the proportion of zeros on the critical line, a different question.",
+    "caveats": "Graded claimed despite a Lean development, for the reason the Navier-Stokes entry set: the catalogue records its review status as unchecked and nobody outside OpenAI is on record as having run the Comparator challenge or read the argument. What would move it is narrow here, because the zeta statement is anchored on Mathlib's own riemannZeta, so a successful independent Comparator run would support formal on its own. The formalization is very large, about 2,900 Lean files and 487,000 lines under the Dirichlet L-function directory and about 70,000 more for the Siegel-zero bound; a text search found no sorry or axiom declarations, which is not a build. The Siegel-zero manuscript gives no explicit constant, though the half-plane alone already implies \\(1-\\beta \\ge 1/8\\) for every real zero, so its interest lies in the independent route rather than the bound. Autonomy is graded collaborative, the weakest reading consistent with OpenAI's account that the model produced the result: the README names the zero-free-region work as an exception to the fixed single-agent procedure without saying what was done differently, and says the \\(11/12\\) write-up was edited by humans. Nothing here bears on the Riemann hypothesis, which places the zeros on \\(\\Re s = 1/2\\); press summaries describing this as progress toward it overstate the connection.",
+    "sources": [
+      {
+        "label": "The Quasi-Riemann Hypothesis: a zero-free half-plane Re(s) > 7/8 (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/The-Quasi-Riemann-Hypothesis-September-30-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Uniform exclusion of Landau-Siegel zeros (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Uniform-exclusion-of-Landau-Siegel-zeros-October-1-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "The Quasi-Riemann Hypothesis, alternate 11/12 proof (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/The-Quasi-Riemann-Hypothesis-October-5-2026/paper2.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Lean scope note and Comparator links for family 003",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/003.md",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Scientific American: OpenAI unleashes hundreds more math results upon a field already in shock",
+        "url": "https://www.scientificamerican.com/article/openai-unleashes-hundreds-more-math-results-upon-a-field-already-in-shock/",
+        "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Sharing AI progress in mathematics",
+        "url": "https://news.ycombinator.com/item?id=49984923"
+      },
+      {
+        "label": "Hacker News: The Quasi-Riemann Hypothesis [pdf]",
+        "url": "https://news.ycombinator.com/item?id=49985397"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "riemann-zeta",
+      "l-functions",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-07"
+  },
+  {
+    "id": "2026-10-06-kakeya-3d-maximal-4d",
+    "title": "Kakeya maximal conjecture in three dimensions and the Kakeya set conjecture in four",
+    "claim": "Two manuscripts claim that every set in four-dimensional space containing a unit segment in every direction has full Hausdorff dimension, and that the Kakeya maximal function estimate holds in three dimensions, extending Wang and Zahl's 2025 resolution of the three-dimensional set conjecture.",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The four-dimensional paper proves that every \\(K \\subset \\mathbb{R}^4\\) containing a unit segment in every direction has \\(\\dim_H K = 4\\), with no measurability assumed on the set or on the choice of segments. Its introduction gives the best earlier lower bound as \\(3.059\\), from Katz and Zahl's planebrush argument, against Wolff's \\(3\\) from 1995; Rai Choudhuri's \\(13/4\\) covers only sticky sets. The three-dimensional paper proves the stronger maximal form: for every \\(\\varepsilon > 0\\) the radius-\\(\\delta\\) tube maximal operator maps \\(L^3(\\mathbb{R}^3)\\) to \\(L^3(S^2)\\) with norm \\(O_\\varepsilon(\\delta^{-\\varepsilon})\\). It builds on the streamlined Guth, Wang and Zahl proof of the set estimate and addresses the gap Wang and Zahl state after their own theorem, replacing a density loss \\(\\lambda^{K(\\varepsilon)}\\) by \\(\\lambda^3\\). Scientific American's report names only the four-dimensional result.",
+    "novelty_check": "Read both manuscripts' introductions at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. Wang and Zahl's 2025 preprint resolved the Hausdorff and Minkowski dimension Kakeya set conjecture in three dimensions; the maximal conjecture in three dimensions and the set conjecture in four were open, and both papers say so with citations. No earlier claim of either result was found in a web search or in the registry; 2025-11-03-alphaevolve-at-scale mentions Kakeya only for an explicit construction that turned out to match prior work, not for a dimension bound.",
+    "caveats": "No Lean formalization accompanies either paper, unlike much of the release, so the only check available is reading them, and both are long multiscale harmonic-analysis arguments of the kind that take specialists months: the source of the four-dimensional paper runs to about 640,000 characters and the three-dimensional one to about 340,000. Nobody outside OpenAI is on record as having read either. Autonomy is graded ai-led because the README places neither among the exceptions to its single-agent procedure, but that account rests on OpenAI alone and the model is unreleased; it is not graded autonomous because humans chose the problems and filtered the output. The three-dimensional result depends directly on the Guth, Wang and Zahl set estimate, which is itself recent.",
+    "sources": [
+      {
+        "label": "Every four-dimensional Kakeya set has full Hausdorff dimension (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Every-four-dimensional-Kakeya-set-has-full-Hausdorff-dimension-September-24-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "The Kakeya maximal conjecture in three dimensions (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/The-Kakeya-maximal-conjecture-in-three-dimensions-September-23-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Scientific American: OpenAI unleashes hundreds more math results upon a field already in shock",
+        "url": "https://www.scientificamerican.com/article/openai-unleashes-hundreds-more-math-results-upon-a-field-already-in-shock/",
+        "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Sharing AI progress in mathematics",
+        "url": "https://news.ycombinator.com/item?id=49984923"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "kakeya",
+      "geometric-measure-theory",
+      "argument"
+    ],
+    "added": "2026-10-07"
   }
 ]

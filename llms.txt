@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 145 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 148 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -78,7 +78,7 @@ Autonomy, most to least AI-driven:
 Every finding credited to one organisation, on one page.
 
 - [Google DeepMind](https://whataifound.org/lab/google-deepmind): 23 findings
-- [OpenAI](https://whataifound.org/lab/openai): 14 findings
+- [OpenAI](https://whataifound.org/lab/openai): 17 findings
 - [Anthropic](https://whataifound.org/lab/anthropic): 7 findings
 - [Axiom Math](https://whataifound.org/lab/axiom-math): 4 findings
 - [MIT](https://whataifound.org/lab/mit): 3 findings
@@ -159,8 +159,11 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 95 in one page: https://whataifound.org/topic/mathematics
+All 98 in one page: https://whataifound.org/topic/mathematics
 
+- [722 manuscripts in 372 result families from an unreleased OpenAI model](https://whataifound.org/finding/2026-10-06-openai-math-collection): OpenAI published 722 manuscripts grouped into 372 claimed results across number theory, algebraic geometry, analysis, combinatorics, theoretical computer science and mathematical physics, all produced by an unreleased internal model, with Lean formalizations attached to 235 of the families and none yet checked by anyone outside the company. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led)
+- [Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8](https://whataifound.org/finding/2026-10-06-quasi-riemann-hypothesis): A Lean-formalized proof that neither the Riemann zeta function nor any Dirichlet L-function has a zero with real part greater than 7/8, the first fixed zero-free half-plane short of the line where real part equals 1, which also rules out Landau-Siegel zeros but leaves the Riemann hypothesis itself open. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: Collaborative)
+- [Kakeya maximal conjecture in three dimensions and the Kakeya set conjecture in four](https://whataifound.org/finding/2026-10-06-kakeya-3d-maximal-4d): Two manuscripts claim that every set in four-dimensional space containing a unit segment in every direction has full Hausdorff dimension, and that the Kakeya maximal function estimate holds in three dimensions, extending Wang and Zahl's 2025 resolution of the three-dimensional set conjecture. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led)
 - [Optimal packings of one to seven unit squares in a circle, proved in Lean](https://whataifound.org/finding/2026-10-02-squares-in-circle-packings): Machine-checked proofs of the smallest circle that holds \(n\) unit squares, and of every packing that attains it, for \(n = 1\) to \(7\); for five, six and seven squares no earlier proof of optimality was known. (Independent, ChatGPT (GPT-6 Pro) and Claude Opus 5 and 5.5, 2026-10-02; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-10-02-000002)
 - [Closed form for the anisotropic Watson integral of the cubic lattice](https://whataifound.org/finding/2026-10-01-anisotropic-watson-integral): The return probability of a random walk on the cubic lattice with three unequal hopping rates, open since Watson's 1939 solution of the symmetric case, is given in closed form through periods of a genus-two curve, with a proof that no formula in elliptic integrals exists for generic rates. (Independent, Claude (the announcement names Claude Fable 5), 2026-10-01; verification: Claimed; autonomy: AI-assisted)
 - [Erdős Problem #1220 formalized as not provable in ZFC, from a 1987 Shelah-Stanley consistency result](https://whataifound.org/finding/2026-09-26-erdos-1220-not-provable): A Lean 4 formalization shows that ZFC cannot prove a positive answer to Erdős Problem #1220 on partition relations for singular cardinals, by formalizing Shelah and Stanley's 1987 forcing construction, with AI models assisting on the Lean code. (Independent, Claude Opus 5.5 (Claude Code); Astra (OpenAI Codex), 2026-09-26; verification: Author verified; autonomy: AI-assisted; machine-checked record: Palomar PALOMAR-2026-09-26-000001)

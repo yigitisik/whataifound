@@ -159,7 +159,10 @@ export const ENTRY_IDS = new Set([
   "2026-09-26-lovasz-cayley-polylog-degree",
   "2026-09-30-pinwheel-kernel-conjecture",
   "2026-10-01-anisotropic-watson-integral",
-  "2026-10-02-squares-in-circle-packings"
+  "2026-10-02-squares-in-circle-packings",
+  "2026-10-06-kakeya-3d-maximal-4d",
+  "2026-10-06-openai-math-collection",
+  "2026-10-06-quasi-riemann-hypothesis"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -306,7 +309,10 @@ export const ENTRY_GRADES = {
   "2026-09-26-lovasz-cayley-polylog-degree": ["claimed", "collaborative"],
   "2026-09-30-pinwheel-kernel-conjecture": ["formal", "ai-led"],
   "2026-10-01-anisotropic-watson-integral": ["claimed", "ai-assisted"],
-  "2026-10-02-squares-in-circle-packings": ["formal", "ai-led"]
+  "2026-10-02-squares-in-circle-packings": ["formal", "ai-led"],
+  "2026-10-06-kakeya-3d-maximal-4d": ["claimed", "ai-led"],
+  "2026-10-06-openai-math-collection": ["claimed", "ai-led"],
+  "2026-10-06-quasi-riemann-hypothesis": ["claimed", "collaborative"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -453,7 +459,10 @@ export const ENTRY_TITLES = {
   "2026-09-26-lovasz-cayley-polylog-degree": "Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture",
   "2026-09-30-pinwheel-kernel-conjecture": "Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
   "2026-10-01-anisotropic-watson-integral": "Closed form for the anisotropic Watson integral of the cubic lattice",
-  "2026-10-02-squares-in-circle-packings": "Optimal packings of one to seven unit squares in a circle, proved in Lean"
+  "2026-10-02-squares-in-circle-packings": "Optimal packings of one to seven unit squares in a circle, proved in Lean",
+  "2026-10-06-kakeya-3d-maximal-4d": "Kakeya maximal conjecture in three dimensions and the Kakeya set conjecture in four",
+  "2026-10-06-openai-math-collection": "722 manuscripts in 372 result families from an unreleased OpenAI model",
+  "2026-10-06-quasi-riemann-hypothesis": "Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
