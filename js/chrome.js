@@ -313,33 +313,4 @@
     nav.addEventListener('focusin', e => aim(e.target.closest('a')));
     nav.addEventListener('focusout', e => { if (!nav.contains(e.relatedTarget)) rest(); });
   }
-
-  // ---------- Footer wordmark spotlight ----------
-  // Lights the outlined name at the foot of the page in the brand ramp around the mouse.
-  // Listened for on the whole footer rather than on the letters, so the light is already
-  // reaching down into them as the pointer approaches. One write per frame at most, and
-  // none at all under reduced motion, where a light that chases the cursor is exactly the
-  // kind of movement the setting asks to be spared.
-  const mark = document.querySelector('.foot-mark');
-  if (mark && !REDUCE) {
-    let raf = 0, mx = 0, my = 0;
-    const foot = mark.parentElement;
-    foot.addEventListener('pointermove', e => {
-      if (e.pointerType !== 'mouse') return;
-      const r = mark.getBoundingClientRect();
-      mx = e.clientX - r.left;
-      my = e.clientY - r.top;
-      if (!raf) raf = requestAnimationFrame(() => {
-        raf = 0;
-        mark.style.setProperty('--mx', mx + 'px');
-        mark.style.setProperty('--my', my + 'px');
-      });
-    });
-    foot.addEventListener('pointerleave', () => {
-      cancelAnimationFrame(raf);
-      raf = 0;
-      mark.style.removeProperty('--mx');
-      mark.style.removeProperty('--my');
-    });
-  }
 })();

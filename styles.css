@@ -56,13 +56,11 @@
        entry has one and a feed of them should not look like five alarms. */
     --rev-added:#5b5f57; --rev-regraded:#83681d; --rev-check:#16705a;
     --rev-challenge:#a8461f; --rev-correction:#5f4f9c;
-    /* Footer cells. Their own family for the same reason source kinds have one: the footer
-       is navigation, not evidence, and a cell sharing a swatch with "Formally verified"
-       would imply the two mean something to each other. Hues are drawn from the palette
-       already in use so the page keeps one voice, and each is a value this stylesheet
-       already renders as small text on a tint elsewhere. */
-    --foot-policy:#16705a; --foot-data:#2a6ea8; --foot-help:#5f4f9c;
-    --foot-src:#8a6420; --foot-reg:#a8461f;
+    /* Footer columns. Their own family for the same reason source kinds have one: the
+       footer is navigation, not evidence, and a column sharing a swatch with "Formally
+       verified" would imply the two mean something to each other. Values this stylesheet
+       already renders as small text elsewhere, so each clears AA in its theme. */
+    --foot-site:#16705a; --foot-data:#2a6ea8; --foot-help:#5f4f9c; --foot-reg:#a8461f;
     /* Categorical chart ramp. Chart furniture only, for series that are not a grade: a
        registry, a lab, a field. Never use one of these where a verification or autonomy
        colour belongs, and never use a grade colour here: a registry is not a grade, and
@@ -100,8 +98,7 @@
       --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
       --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
       --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
-      --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
-      --foot-src:#c9a94e; --foot-reg:#d47a45;
+      --foot-site:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0; --foot-reg:#d47a45;
       --cat-1:#d3b769; --cat-2:#bf9ee5; --cat-3:#4db26f; --cat-4:#41aaaa;
       --cat-5:#cd708f; --cat-6:#c46731; --cat-7:#4a88cf;
       --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
@@ -120,8 +117,7 @@
     --aut-ai-assisted:#c9a94e; --aut-search-scaffold:#d47a45; --aut-retrieval:#da6b6b;
     --rev-added:#8f8d82; --rev-regraded:#c9a94e; --rev-check:#4fbf9a;
     --rev-challenge:#d47a45; --rev-correction:#9b8ae0;
-    --foot-policy:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0;
-    --foot-src:#c9a94e; --foot-reg:#d47a45;
+    --foot-site:#4fbf9a; --foot-data:#5c9dd6; --foot-help:#9b8ae0; --foot-reg:#d47a45;
     --cat-1:#d3b769; --cat-2:#bf9ee5; --cat-3:#4db26f; --cat-4:#41aaaa;
     --cat-5:#cd708f; --cat-6:#c46731; --cat-7:#4a88cf;
     --shadow:0 1px 2px rgba(0,0,0,.3),0 10px 30px rgba(0,0,0,.35);
@@ -137,8 +133,10 @@
     overflow-wrap:break-word;-webkit-tap-highlight-color:rgba(18,81,58,.14);position:relative;}
   /* Plotting-paper background: '+' coordinate marks, tinted with the theme line colour so it
      recolours in light/dark (including the manual toggle). Absolute (scrolls with the page)
-     rather than fixed: fixed layers misrender in scrolled iframes and on mobile Safari. */
-  body::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
+     rather than fixed: fixed layers misrender in scrolled iframes and on mobile Safari.
+     Landing page only: behind the reading pages (findings, topics, methodology) the marks
+     compete with dense text, references and code blocks. */
+  body.home::before{content:"";position:absolute;inset:0;z-index:-1;pointer-events:none;
     background-color:var(--line-strong);
     -webkit-mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 13v8M13 17h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
     mask-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='34' height='34'%3E%3Cpath d='M17 13v8M13 17h8' stroke='black' stroke-width='1'/%3E%3C/svg%3E");
@@ -278,9 +276,8 @@
   /* Crop marks. The page is drawn as plotting paper, so the masthead is set on it the way
      a plate is set on a sheet: four corner ticks just inside the card edge. One bordered
      box masked down to its four corners, which draws all eight strokes with no markup
-     and keeps them on the card's own inset whatever the breakpoint does to its padding.
-     footer::after uses the same construction, so the two ends of every page match. */
-  header::before,footer::after{content:"";position:absolute;inset:9px;pointer-events:none;
+     and keeps them on the card's own inset whatever the breakpoint does to its padding. */
+  header::before{content:"";position:absolute;inset:9px;pointer-events:none;
     border:1px solid var(--line-strong);
     -webkit-mask:linear-gradient(#000 0 0) 0 0/11px 11px no-repeat,
       linear-gradient(#000 0 0) 100% 0/11px 11px no-repeat,
@@ -295,11 +292,10 @@
     color:var(--muted);padding-bottom:13px;margin-bottom:12px;position:relative}
   /* The rule under the eyebrow separates it from the page title beneath, and it is drawn
      as a graduated scale rather than a plain line: minor ticks every 8px, a major one
-     every 40px, hanging off a hairline. It is the axis of the chart below, and the
-     footer's top edge carries the same scale. Absolutely positioned, so it is not a flex
-     item and cannot move the row it sits under. The mask dissolves both ends, which is
+     every 40px, hanging off a hairline. It is the axis of the chart below. Absolutely
+     positioned, so it is not a flex item and cannot move the row it sits under. The mask dissolves both ends, which is
      what keeps the ticks from reading as a border that stops abruptly at the card edge. */
-  .eyebrow::after,footer::before{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;
+  .eyebrow::after{content:"";position:absolute;left:0;right:0;bottom:0;height:7px;
     pointer-events:none;
     background:linear-gradient(var(--line-strong),var(--line-strong)) 0 100%/100% 1px no-repeat,
       repeating-linear-gradient(90deg,var(--line-strong) 0 1px,transparent 1px 40px) 0 100%/100% 7px no-repeat,
@@ -382,6 +378,14 @@
     /* The tray scrolls here, and a bar positioned in its coordinates would slide out of
        step with the links it points at. The aria-current tab carries the page alone. */
     .pn-ink{display:none}
+  }
+  /* Between the phone layout and a full desktop row, brand, tray and controls need about
+     870px together and the masthead has less, so flex-wrap broke the row at the controls:
+     they landed under the brand, on the scale, with the tray stranded beside them. Send
+     the tray to its own row instead, the way the 720px block already does, so the brand
+     and the controls keep their corners and the second row is one whole control. */
+  @media(min-width:721px) and (max-width:1000px){
+    .pagenav{order:3;margin-top:10px}
   }
   /* The two contribution doors, in one segment. Same construction as .theme-seg on
      purpose: a bordered group reads as one control containing alternatives, which is what
@@ -1781,110 +1785,50 @@
   .hub-grid:has(.qv-card:only-child){grid-template-columns:1fr}
   @media(max-width:640px){.hub-grid{grid-template-columns:1fr}}
 
-  /* overflow:hidden is for .foot-mark, which is set into the bottom edge and cut by it.
-     Nothing in the footer opens a popup, so there is nothing else for it to clip.
-     container-type lets the wordmark size to the card rather than to the viewport, which
-     is the only way one line of display type fits every width from 320 to 1180 exactly. */
-  footer{border:1px solid var(--line-strong);margin-top:56px;padding:34px 40px 0;
-    color:var(--muted);font-size:.94rem;background:var(--panel);border-radius:16px;box-shadow:var(--shadow);
-    position:relative;overflow:hidden;container-type:inline-size}
-  /* The masthead's scale again, hanging from the top edge: the page opens and closes on
-     the same axis. No hairline this time, the card's own border is the line. */
-  footer::before{top:0;bottom:auto;left:32px;right:32px;
-    background:repeating-linear-gradient(90deg,var(--line-strong) 0 1px,transparent 1px 40px) 0 0/100% 7px no-repeat,
-      repeating-linear-gradient(90deg,var(--line) 0 1px,transparent 1px 8px) 0 0/100% 4px no-repeat}
-  footer p{max-width:70ch}
-  footer a{color:var(--accent)}
-  footer .lbl{font-weight: bold;font-family:var(--serif);font-size:.62rem;text-transform:uppercase;letter-spacing:.13em;
-    color:var(--muted);display:block;margin:22px 0 6px}
-  footer .lbl:first-child{margin-top:0}
-  /* About: four short cells side by side rather than six stacked paragraphs, so each answers
-     one question and carries its own links. The disclaimer stays full width and complete.
-     Set as a numbered index, the way a paper numbers its sections: the four answer
-     unrelated questions, and a numeral says "four separate things" more quietly than the
-     four tinted panels this used to be. */
-  .about-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));counter-reset:cell;
-    border-top:1px solid var(--line)}
-  /* One colour per cell, carried on --cc, and now spent only where the eye lands: the
-     numeral, the label, the links and a short rule down the left edge. The rule runs the
-     cell's full height on hover. Height and colour only, nothing lifts, so it needs no
-     @media(hover:hover) guard. */
-  .about-cell{--cc:var(--accent);position:relative;padding:20px 24px 22px 26px;
-    border-bottom:1px solid var(--line)}
-  .about-cell:nth-child(odd){border-right:1px solid var(--line)}
-  .about-cell::before{content:"";position:absolute;left:0;top:22px;width:2px;height:30px;
-    background:var(--cc);transition:height .35s var(--ease)}
-  .about-cell:hover::before,.about-cell:focus-within::before{height:calc(100% - 44px)}
-  .c-policy{--cc:var(--foot-policy)}
-  .c-data{--cc:var(--foot-data)}
-  .c-help{--cc:var(--foot-help)}
-  .c-src{--cc:var(--foot-src)}
-  /* Bigger and in the cell's colour, not muted: this is the word a reader scans for. */
-  .about-cell .lbl{margin:0 0 7px;color:var(--cc);font-size:.68rem}
-  .about-cell .lbl::before{counter-increment:cell;content:counter(cell,decimal-leading-zero);
-    display:block;margin:0 0 6px;font-size:1.85rem;font-weight:400;font-style:italic;
-    letter-spacing:0;line-height:1;font-variant-numeric:oldstyle-nums}
-  /* --ink, not the footer's inherited --muted. Four paragraphs of muted 0.88rem is what
-     made this read as fine print rather than as the four things it actually says. */
-  .about-cell p{margin:0;font-size:.88rem;line-height:1.55;max-width:46ch;color:var(--ink)}
-  .about-links{margin-top:10px !important;display:flex;flex-wrap:wrap;gap:6px 16px}
-  .about-links a{font-family:var(--serif);font-size:.8rem;font-weight:600;text-decoration:none;
-    display:inline-flex;align-items:center;gap:6px}
-  .about-cell .about-links a{color:var(--cc)}
-  .about-links a:hover{text-decoration:underline;text-underline-offset:3px}
-  .about-note{margin-top:16px;padding:15px 18px;border:1px solid var(--line);border-radius:13px;
-    background:var(--panel-2)}
-  .about-note .lbl{margin:0 0 6px}
-  .about-note p{margin:0;font-size:.8rem;line-height:1.6;max-width:none}
-  /* The registries band. A ruled left edge in its own colour, the same device the cells
-     above use, plus the four names as chips: they are a list of destinations rather than
-     prose, and four bare links in a row are the one thing on this page a reader is most
-     likely to skim straight past. The disclaimer below keeps the plain .about-note,
-     deliberately: a disclaimer should not be inviting. */
-  .reg-note{--cc:var(--foot-reg);background:transparent;border:0;border-left:2px solid var(--cc);
-    border-radius:0;margin-top:22px;padding:2px 0 2px 20px}
-  .reg-note .lbl{color:var(--cc);font-size:.68rem}
-  .reg-note p{color:var(--ink)}
-  .reg-note .about-links{gap:8px}
-  .reg-note .about-links a{color:var(--cc);border:1px solid color-mix(in srgb, var(--cc) 36%, transparent);
-    background:var(--panel);border-radius:999px;padding:5px 12px;font-size:.78rem}
-  /* Colour-only on hover, so it needs no @media (hover: hover) guard: nothing moves and
-     no shadow appears, which is what iOS holding :hover after a tap actually spoils. */
-  .reg-note .about-links a:hover{background:color-mix(in srgb, var(--cc) 14%, var(--panel));
-    text-decoration:none}
-  .about-foot{display:flex;flex-wrap:wrap;align-items:center;gap:12px 20px;margin-top:18px}
-  .cite{flex:1 1 460px;font-family:var(--serif);font-size:.78rem;line-height:1.55;color:var(--ink);
-    background:var(--panel-2);border:1px solid var(--line);border-radius:11px;
-    padding:11px 14px;word-break:break-word;margin:0}
-  .colophon{flex:1 1 auto;min-width:0;font-family:var(--serif);font-size:.7rem;letter-spacing:.04em;margin:0}
-  /* The name in display type, drawn as an outline and cut off by the card's bottom edge,
-     so the footer ends on the site's name rather than on its fine print. Sized in cqi, a
-     share of the footer's own width, so the one line always fits the card: the 12vw in
-     front is only for a browser without container units, where it is a close guess.
-     Outline only by default, which is what a phone and a keyboard reader see. Under a
-     mouse, chrome.js writes the pointer position into --mx/--my and a spotlight in the
-     brand ramp fills the letters it passes over; the "ai" keeps a faint ramp of its own
-     either way, the same ai the masthead wordmark lights. */
-  .foot-mark{--mx:-999px;--my:-999px;margin:30px -6px -.14em;font-family:var(--serif);
-    font-weight:600;font-size:12vw;font-size:18cqi;line-height:.92;letter-spacing:-.035em;
-    text-align:center;white-space:nowrap;-webkit-user-select:none;user-select:none;
-    color:transparent;-webkit-text-fill-color:transparent;
-    -webkit-text-stroke:1px color-mix(in srgb,var(--muted) 45%,transparent);
-    background:radial-gradient(circle 200px at var(--mx) var(--my),#5aa9e6,#7c6cf0 45%,#d98a4a 78%,transparent) no-repeat;
-    -webkit-background-clip:text;background-clip:text}
-  .foot-mark span{background:linear-gradient(100deg,rgba(90,169,230,.4),rgba(124,108,240,.4),rgba(217,138,74,.4));
-    -webkit-background-clip:text;background-clip:text}
+  /* Compact, not a card: a rule, a link index and the fine print. The rule is the brand
+     ramp from the accent bar at the top of the page, drifting slowly, so the page opens
+     and closes on the same stripe. Each column carries one hue on --cc for its heading,
+     a short tick before it that runs out on hover, and its links' hover state. */
+  footer{position:relative;margin-top:64px;padding:28px 0 0;
+    color:var(--muted);font-size:.8rem;line-height:1.55}
+  footer::before{content:"";position:absolute;top:0;left:0;right:0;height:2px;border-radius:2px;
+    background:linear-gradient(90deg,#5aa9e6,#7c6cf0 25%,#d98a4a 50%,#7c6cf0 75%,#5aa9e6);
+    background-size:200% 100%;opacity:.8;
+    -webkit-mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+    mask-image:linear-gradient(90deg,transparent,#000 10%,#000 90%,transparent);
+    animation:footRamp 16s linear infinite}
+  @keyframes footRamp{to{background-position:-200% 0}}
+  footer p{margin:0}
+  footer a{color:var(--muted);text-decoration:none}
+  footer a:hover{color:var(--accent)}
+  footer .lbl{font-family:var(--serif);font-size:.62rem;font-weight:700;text-transform:uppercase;
+    letter-spacing:.13em;color:var(--cc,var(--ink));margin:0 0 10px;
+    display:flex;align-items:center;gap:8px}
+  footer .lbl::before{content:"";flex:none;width:12px;height:2px;border-radius:2px;
+    background:var(--cc,var(--line-strong));transition:width .3s var(--ease)}
+  .about-col:hover .lbl::before,.about-col:focus-within .lbl::before{width:26px}
+  .f-site{--cc:var(--foot-site)}
+  .f-data{--cc:var(--foot-data)}
+  .f-help{--cc:var(--foot-help)}
+  .f-reg{--cc:var(--foot-reg)}
+  .about-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:22px 28px}
+  .about-links{display:flex;flex-direction:column;align-items:flex-start;gap:5px}
+  /* The underline is a background in the column colour, grown from the left on hover.
+     Size and colour only, nothing moves, so it needs no @media(hover:hover) guard. */
+  .about-links a{display:inline-flex;align-items:center;gap:6px;
+    background:linear-gradient(var(--cc),var(--cc)) 0 100%/0 1px no-repeat;
+    transition:color .2s var(--ease),background-size .3s var(--ease)}
+  .about-col .about-links a:hover{color:var(--cc);background-size:100% 1px}
+  .about-fine{margin-top:26px;padding-top:16px;border-top:1px solid var(--line);
+    display:grid;gap:6px;font-size:.72rem;line-height:1.6}
+  .about-fine p{max-width:110ch}
+  .about-fine a{text-decoration:underline;text-decoration-color:var(--line-strong);
+    text-underline-offset:2px}
+  .about-fine a:hover{text-decoration-color:currentColor}
+  .cite{word-break:break-word}
+  .colophon{letter-spacing:.03em}
   @media(max-width:720px){
-    .about-grid{grid-template-columns:1fr}
-    .about-cell:nth-child(odd){border-right:0}
-    .about-cell{padding:18px 4px 20px 22px}
-    /* Column flips the main axis, which turns .cite's 460px flex-basis into a 460px MIN
-       HEIGHT: the citation is three lines, so the footer rendered about 400px of empty
-       card between the disclaimer and the colophon. Basis back to auto, the same reset
-       .rc-k takes when .rc-row stacks. width:100% keeps the card full-bleed, which is
-       what the 460px basis was buying on the row. */
-    .about-foot{flex-direction:column;align-items:flex-start}
-    .cite{flex:0 1 auto;width:100%}
+    .about-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
   }
   /* ---------- /signin ----------
      Two doors, side by side, deliberately the same size and weight. CONTRIBUTING.md's
@@ -2471,8 +2415,6 @@
     .hbar{grid-template-columns:94px 1fr 22px;gap:8px}
     .labcard{padding:15px 16px}
     .labs-hub{padding:24px 18px}
-    footer{padding:26px 20px 0}
-    footer::before{left:16px;right:16px}
   }
   /* ---------- Touch ----------
      Apple's HIG asks for 44x44pt, Material for 48x48dp. Two ways to get there, and which
@@ -2548,10 +2490,10 @@
     .permalink{position:relative}
     .permalink::after{content:"";position:absolute;top:50%;left:50%;
       transform:translate(-50%,-50%);width:44px;height:44px}
-    /* The tag row and the footer link rows wrap, so their expanded targets would overlap
-       into each other's rows. Give the rows the vertical room the targets need. */
+    /* The tag row wraps and the footer links stack, so their expanded targets would
+       overlap into each other's rows. Give the rows the vertical room the targets need. */
     .tags,.findtags{gap:10px 6px}
-    .about-links{gap:10px 14px}
+    .about-links{gap:14px}
   }
   @media(prefers-reduced-motion:reduce){
     *{animation:none!important;transition:none!important;scroll-behavior:auto!important}
@@ -2575,13 +2517,13 @@
        body::before, and a bare * selector never reaches a pseudo-element. */
     *,*::before,*::after{background:transparent!important;box-shadow:none!important;
       color:#000!important;text-shadow:none!important;filter:none!important}
-    body::before{display:none!important}
+    body.home::before{display:none!important}
     /* !important, and after the reset above: the * rule would otherwise leave the page
        canvas transparent and the dark theme would print through it. */
     html,body{background:#fff!important}
     .spectrum,.sitenav,.controls,.chips,.pagenav,.theme-seg,.doors,.totop,.keys,.cmdk,.listfoot,.keyhint,
     .view-seg,.hero-chart,.qv-card,.charts,#charts,.insights,.vid,.vid-frame,
-    .permalink,.skip,.hero-feed,.foot-mark,.pn-ink,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
+    .permalink,.skip,.hero-feed,.pn-ink,.reports,.labs-hub,.srclegend,.crumb{display:none!important}
     a{text-decoration:underline}
     /* Open every disclosure: a printed page cannot be expanded.
        ::details-content is what actually does this. A closed <details> hides its content
@@ -2610,6 +2552,6 @@
     .cite-copy,.cite-head{display:none}
     .cite-pre{padding:8px 0}
     .relgrid,.pagenav-steps{display:none}
-    footer,.about-grid{font-size:.85em}
+    footer{font-size:.7rem}
     @page{margin:16mm}
   }

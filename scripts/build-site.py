@@ -440,7 +440,7 @@ def page_nav(current):
 #
 # Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
 # .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
-# .about-links flex, .about-foot flex, footer and .about-cell block.
+# .about-links flex, footer, .about-col and .about-fine block.
 NL = "\n"
 
 # The gradient id has to be unique within a page (a duplicate collides and the second
@@ -579,103 +579,77 @@ def site_header(current, extra_class=""):
 def site_footer():
     """One footer on every page.
 
-    Every cell is a site-level statement (editorial policy, the licence, how to help, the
-    source), so there is no page for which a reduced version would be more honest. It
-    costs about 3 KB, which is the right trade on a leaf page that until now offered no
-    way back into the site at all.
+    Compact: a link index, one line of fine print and the operator line, under a rule
+    rather than in a card. Colour lives in the column headings and the hover states. The reading pages (a finding,
+    its sources and citation) end just above it, and a footer that competed for attention
+    there was costing more than it gave. The editorial policy and the contribution pitch
+    each have a page of their own, so the footer links to them instead of restating them.
     """
-    # One line per element, per the rule on NL above. The cells are grid items and the
-    # .about-links rows are flex containers, so every break here falls between flex, grid
+    # One line per element, per the rule on NL above. The columns are grid items and the
+    # .about-links lists are flex containers, so every break here falls between flex, grid
     # or block children and none of them renders as a space. The prose paragraphs stay
     # whole: their content is inline, and breaking inside one would show up on the page.
     return NL.join([
         '<footer id="about">',
         '<div class="about-grid">',
 
-        '<section class="about-cell c-policy">',
-        '<h2 class="lbl">Editorial policy</h2>',
-        '<p>Announcements enter as <em>claimed</em>, however confident they sound. Nothing is '
-        'ever deleted: entries are downgraded and annotated, and the history stays public. '
-        'Every entry carries a novelty check, including when it comes back clean.</p>',
-        '<p class="about-links"><a href="/methodology">Full rules →</a></p>',
+        '<section class="about-col f-site">',
+        '<h2 class="lbl">Registry</h2>',
+        '<p class="about-links">',
+        '<a href="/methodology">Methodology</a>',
+        '<a href="/review">Review queue</a>',
+        '<a href="/contributors">Contributors</a>',
+        '<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>',
+        # The only route to /privacy from a page that is not /account or /contribute.
+        '<a href="/privacy">Privacy</a>',
+        '</p>',
         '</section>',
 
-        '<section class="about-cell c-data">',
-        '<h2 class="lbl">Use the data</h2>',
-        '<p>The whole registry is one open file under '
-        '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
-        ' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> and can be reused anywhere with '
-        'attribution. Take the file if you want everything; the API answers a narrower '
-        'question, and promises a fixed set of fields the file does not.</p>',
+        '<section class="about-col f-data">',
+        '<h2 class="lbl">Data</h2>',
         '<p class="about-links">',
         '<a href="/data/entries.json" download>Download JSON</a>',
         '<a href="/api/dataset">API</a>',
         '<a href="/developers">Developers</a>',
         '<a href="/feed.xml">RSS</a>',
         '<a href="/feed.json">JSON Feed</a>',
-        f'<a href="{SITE}/LICENSE">License</a>',
         '</p>',
         '</section>',
 
-        '<section class="about-cell c-help">',
+        '<section class="about-col f-help">',
         '<h2 class="lbl">Contribute</h2>',
-        '<p>Most entries have never been checked outside the lab that announced them. A check '
-        'takes one form to submit, needs no GitHub account, and is credited on the entry '
-        'and on the contributors page.</p>',
         '<p class="about-links">',
-        '<a href="/contribute">Contribute →</a>',
-        '<a href="/review">Review queue</a>',
-        '<a href="/contributors">Contributors</a>',
+        '<a href="/contribute">Submit a check</a>',
         f'<a href="{REPO}/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>',
+        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}Repository</a>',
         '</p>',
         '</section>',
 
-        '<section class="about-cell c-src">',
-        '<h2 class="lbl">Source</h2>',
-        '<p>Site and registry are open on GitHub. Corrections and new entries are welcome by '
-        'pull request.</p>',
+        # Outbound, on every page including every finding page. Linking to the
+        # neighbours is what makes this the place to start rather than one of five
+        # places to check. Generated from the registries map so the list cannot drift
+        # from the one the finding pages and /registries render from.
+        '<section class="about-col f-reg">',
+        '<h2 class="lbl">Other registries</h2>',
         '<p class="about-links">',
-        f'<a class="gh-link" href="{REPO}" target="_blank" rel="noopener">{GH_MARK}Repository</a>',
-        # The only route to /privacy from a page that is not /account or /contribute.
-        # It is a footer link by design (see CHROME_PAGES) and was not actually in the
-        # footer, so a reader on the registry had no way to reach it at all.
-        '<a href="/privacy">Privacy</a>',
-        '<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>',
+        *[f'<a href="{esc(m["home"])}" target="_blank" rel="noopener">{esc(m["name"])}</a>'
+          for m in REGISTRY.values()],
+        '<a href="/registries">What each one checks</a>',
         '</p>',
         '</section>',
 
         '</div>',
 
-        # Outbound, on every page including all 70 finding pages. Linking to the
-        # neighbours is what makes this the place to start rather than one of five
-        # places to check: the registry that joins the others up is the one worth
-        # opening first. Generated from the registries map so the list cannot drift
-        # from the one the finding pages and /registries render from.
-        '<section class="about-note reg-note">',
-        '<h2 class="lbl">Other registries</h2>',
-        '<p>Four other projects record the same results, and each certifies something '
-        'different.</p>',
-        '<p class="about-links">',
-        *[f'<a href="{esc(m["home"])}" target="_blank" rel="noopener">{esc(m["name"])}</a>'
-          for m in REGISTRY.values()],
-        '<a href="/registries">What each one checks →</a>',
-        '</p>',
-        '</section>',
-
-        '<section class="about-note">',
-        '<h2 class="lbl">Disclaimer</h2>',
-        '<p>We run whataifound.org as an independent editorial project, as volunteer work. '
-        'Verification and autonomy grades are our good-faith judgments from public '
-        'information, provided "as is" without warranty, and may change as new evidence '
-        'emerges. Nothing here is scientific, legal, or investment advice. We are not '
-        'affiliated with, sponsored by, or endorsed by any laboratory or company mentioned; '
-        'logos and names are trademarks of their owners and appear for identification only. '
-        '<a href="mailto:misik6@gatech.edu">Get in touch</a></p>',
-        '</section>',
-
-        '<div class="about-foot">',
-        '<p class="cite">whataifound.org (2026). <em>whataifound.org: A Registry of AI '
-        'Scientific and Mathematical Discoveries.</em> Retrieved '
+        '<div class="about-fine">',
+        '<p>An independent, volunteer editorial project. Grades are good-faith judgments from '
+        'public information, provided "as is" without warranty, and may change as evidence '
+        'emerges; nothing here is scientific, legal or investment advice. Not affiliated '
+        'with or endorsed by any laboratory or company named; names and logos are their '
+        'owners\' trademarks, used for identification only. Data under '
+        '<a href="https://creativecommons.org/licenses/by/4.0/" target="_blank"'
+        f' rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> (<a href="{SITE}/LICENSE">license</a>).</p>',
+        '<p class="cite">Cite as: whataifound.org (2026). <em>whataifound.org: A Registry of '
+        'AI Scientific and Mathematical Discoveries.</em> Retrieved '
         f'<span id="cite-date">2026</span> from {SITE}/</p>',
         # The operator line, kept in step with the footer on isik.co: same identity, same
         # one-line descriptor, same sibling-project link. Naming the company is the point of
@@ -687,10 +661,6 @@ def site_footer():
         '<a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">'
         'confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>',
         '</div>',
-        # The name set as an outline into the foot of the card and cut off by its edge.
-        # Decoration only, so aria-hidden: the brand link in the masthead is the name a
-        # screen reader gets. chrome.js lights it in the brand ramp under a mouse.
-        '<div class="foot-mark" aria-hidden="true">what<span>ai</span>found</div>',
         '</footer>',
     ])
 

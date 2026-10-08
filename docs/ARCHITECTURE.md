@@ -144,7 +144,7 @@ written.
 
 Verified against `styles.css`: `.eyebrow` flex, `.brand` inline-flex, `.pagenav`
 inline-flex, `.eyebrow-right` flex, `.doors` inline-flex, `.theme-seg` inline-flex,
-`.about-grid` grid, `.about-links` flex, `.about-foot` flex, `footer` and `.about-cell`
+`.about-grid` grid, `.about-links` flex, `footer`, `.about-col` and `.about-fine`
 block. `.updated` has no display of its own, so its children are inline: do not break it.
 
 ## Mobile: three rules that are easy to undo by accident
