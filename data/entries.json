@@ -8588,7 +8588,24 @@
       "geometric-measure-theory",
       "argument"
     ],
-    "added": "2026-10-07"
+    "added": "2026-10-07",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "kakeya-maximal-conjecture-r3",
+        "url": "https://vibemathed.com/problem/kakeya-maximal-conjecture-r3",
+        "title": "The Kakeya maximal conjecture in three dimensions",
+        "note": "Covers the three-dimensional maximal half of this entry only, recorded there as unreviewed; vibemathed keeps the four-dimensional set result as a separate record."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-10-12",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for the three-dimensional maximal result as a registration. It carries the same claim and the same unreleased-model attribution this entry does. No grade moved.",
+        "url": "https://vibemathed.com/problem/kakeya-maximal-conjecture-r3"
+      }
+    ]
   },
   {
     "id": "2026-08-27-lyons-white-conjecture",
