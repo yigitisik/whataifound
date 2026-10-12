@@ -9,10 +9,173 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-07-matmul-exponent-2371045",
+      "url": "https://whataifound.org/finding/2026-10-07-matmul-exponent-2371045",
+      "title": "Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring",
+      "content_text": "A Lean development produced largely by AI systems under two researchers' direction proves that the matrix multiplication exponent is below 2.3710449 over every commutative ring, improving DeepMind's 2.371177 of August 2026 by sharing extraction across recursion levels of the laser method.  The previous record came from combination-loss analysis of the laser method, extracting independent matrix products one recursion level at a time. This work shares the extraction across levels and keeps the same source tensor, the eighth tensor power of the Coppersmith-Winograd tensor CW₅, for the level-four construction. The exponent is defined through the exact tensor rank of n × n × n matrix multiplication over an arbitrary commutative ring K, and the Lean theorem states ω_K < 23710449/10⁷. The development is 2,170 modules on Mathlib; the large numerical tables are checked in the kernel by generic, once-proved checkers on packed natural numbers rather than by native_decide, and the README reports no sorry, admit or custom axiom. The accompanying paper, 'Cross-Level Laser Extraction for Faster Matrix Multiplication', states the rounded bound 2.371045.  Lab: Independent. Model: GPT-6 Astra, Claude Fable 5.1, Claude Opus 5 and Opus 5.5; Meta Muse Spark 1.3 for the final numerical search. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-07T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "matrix-multiplication",
+        "complexity",
+        "lean",
+        "formalization",
+        "computation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-borel-conjecture-four-manifolds",
+      "url": "https://whataifound.org/finding/2026-10-06-borel-conjecture-four-manifolds",
+      "title": "Counterexample to the Borel conjecture in dimension four",
+      "content_text": "An OpenAI manuscript constructs two closed aspherical topological four-manifolds that are homotopy equivalent but not homeomorphic, which would disprove the four-dimensional case of the Borel conjecture even in the weak form Borel first raised in a 1953 letter to Serre.  The Borel conjecture asks that homotopy equivalences between closed aspherical manifolds be homotopic to homeomorphisms; the weaker homeomorphism-existence form asks only that homotopy-equivalent ones be homeomorphic. It holds in dimensions up to three, and in dimensions five and above it is known for large classes of fundamental groups, including word-hyperbolic groups by Bartels and Lück. The manuscript gives a pair M, N with a common word-hyperbolic fundamental group, plus a self-homotopy equivalence of M not homotopic to any homeomorphism. The construction applies Davis's reflection trick to a four-dimensional Poincaré chamber whose cyclic covers have a manifold filling in degree two but none in odd degree, glues the degree-two filling in two different ways, and separates the results by showing the outer automorphism group of the fundamental group is finite and computing a normalizer inside it. It is a topological statement, distinct from the 2026 smooth examples of Davis, Hayden, Huang, Ruberman and Sunukjian, which are homeomorphic but not diffeomorphic.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "topology",
+        "four-manifolds",
+        "geometric-group-theory",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-artin-primitive-root",
+      "url": "https://whataifound.org/finding/2026-10-06-artin-primitive-root",
+      "title": "Artin's primitive root conjecture: infinitely many primes for every admissible base",
+      "content_text": "An OpenAI manuscript claims that every integer other than −1 and the perfect squares is a primitive root modulo infinitely many primes, the qualitative half of Artin's 1927 conjecture, which until now was known unconditionally for no single prescribed base.  For each admissible a the manuscript proves at least cₐx/(log x)² primes in (x, 2x) with primitive root a, against the predicted x/log x. Hooley proved the full predicted asymptotic in 1967 under the generalized Riemann hypothesis; unconditionally, Heath-Brown showed in 1986 that at most two prime bases fail, so one of 2, 3 and 5 works without saying which. The analytic core is a separate theorem: for every cyclotomic field containing the twelfth roots of unity and every finite-order Hecke character, the L-function has no zeros with ℜs > 1 − 10⁻⁶, a strip of uniform width with no exceptional zero. It is built from the cubic-theta and coefficient-reflection machinery of the release's quasi-Riemann hypothesis manuscript, extended from ℚ(√(−3)) to these fields. A companion manuscript gives a conditional result for simultaneous primitive roots.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "analytic-number-theory",
+        "primitive-roots",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-modularity-imaginary-quadratic",
+      "url": "https://whataifound.org/finding/2026-10-06-modularity-imaginary-quadratic",
+      "title": "Modularity of every elliptic curve over every imaginary quadratic field",
+      "content_text": "An OpenAI manuscript claims that every elliptic curve over every imaginary quadratic field is modular, with the expected local parameters at every place, removing the restrictions on the curve and the field left by Caraiani and Newton's theorem.  The theorem attaches to each curve E over an imaginary quadratic field K an isobaric automorphic representation of GL₂(𝔸_K) realizing its cohomology, with local-global compatibility at every finite place and L(E/K, s) = L(π_E, s − 1/2); it is cuspidal when E has no complex multiplication. Over ℚ this is the theorem of Wiles, Taylor and Wiles and of Breuil, Conrad, Diamond and Taylor. Over imaginary quadratic fields, potential modularity follows from the ten-author theorem of Allen, Calegari, Caraiani, Gee, Helm, Le Hung, Newton, Scholze, Taylor and Thorne; Allen, Khare and Thorne proved modularity for a positive proportion of curves; and Caraiani and Newton proved it for every curve over fields where X₀(15)(K) has rank zero. The manuscript keeps Caraiani and Newton's lifting theorem and residual criterion as inputs and supplies a geometric prime switch, in the spirit of Wiles's 3-5 switch, to reach the curves they could not.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "langlands-program",
+        "elliptic-curves",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-hyperinvariant-subspace-problem",
+      "url": "https://whataifound.org/finding/2026-10-06-hyperinvariant-subspace-problem",
+      "title": "Negative answer to the hyperinvariant subspace problem on Hilbert space",
+      "content_text": "An OpenAI manuscript constructs, on every infinite-dimensional separable complex Hilbert space, a nonzero quasinilpotent operator with no nontrivial closed subspace invariant under every operator commuting with it, answering the hyperinvariant subspace problem in the negative, with a Lean formalization of the statement attached.  An operator has no nontrivial hyperinvariant subspace exactly when its commutant is a transitive algebra. The construction takes bilateral weighted shifts on ℓ²(ℤ) fibered over the 2-adic integers, whose invariant subspaces in each fiber are exactly the coordinate tails, and adds a commuting contraction that moves every tail one step backward while the base is shifted by the odometer; a subspace invariant under the whole commutant would then need a tail index that strictly decreases along an ergodic, measure-preserving map, which is impossible. The operator satisfies ‖Sⁿ‖ ≤ exp(−10⌊(n + 1)²/4⌋). Since its commutant is a proper, strongly closed, transitive unital algebra, the same example answers negatively the transitive algebra question of whether every such algebra is strongly dense. A companion manuscript in the family gives operators in the hyperfinite type II₁ factor with no nontrivial invariant projection, answering a question of Zhu, Fang and Shi.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "operator-theory",
+        "functional-analysis",
+        "invariant-subspaces",
+        "lean",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-o3-model-mass-gap",
+      "url": "https://whataifound.org/finding/2026-10-06-o3-model-mass-gap",
+      "title": "Massive continuum limit of the two-dimensional O(3) model",
+      "content_text": "OpenAI manuscripts claim to construct the continuum limit of the two-dimensional O(3) sigma model as an interacting relativistic quantum field theory with a unique vacuum and a positive mass gap, the long-standing simpler analogue of the Yang-Mills mass gap problem, and to prove exponential decay of correlations in the classical O(n) models for n at least 3 at every temperature.  The main manuscript takes the nearest-neighbor lattice O(3) model, normalizes by susceptibility and second-moment correlation length, and proves the limit exists as the coupling tends to infinity through all real values, without passing to subsequences; the limiting fields satisfy the Osterwalder-Schrader axioms, have a nonzero connected four-point function, and reconstruct to a theory with a unique vacuum and a positive Hamiltonian gap. A companion proves an isolated one-particle pole. Two further manuscripts treat O(4), ending with the exact asymptotic mₗₐₜ(β) ∼ 32e^(π/4 − 1/2)√β e^(−πβ) for the lattice mass gap. A fifth proves exponential decay of two-point correlations for the classical O(n) model with n ≥ 3 at every finite inverse temperature, uniformly over finite subgraphs, the absence of a low-temperature ordered phase that physicists have expected since Polyakov's work of the 1970s.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "mathematical-physics",
+        "quantum-field-theory",
+        "statistical-mechanics",
+        "mass-gap",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-barnette-conjecture",
+      "url": "https://whataifound.org/finding/2026-10-06-barnette-conjecture",
+      "title": "Proof of Barnette's conjecture on Hamiltonian cycles in cubic bipartite planar graphs",
+      "content_text": "An OpenAI manuscript claims that every cubic, bipartite, planar, 3-connected graph has a Hamiltonian cycle, proving a conjecture recorded in 1969, with a Lean formalization of the full statement attached.  Barnette's conjecture, recorded by Grünbaum in the 1969 Waterloo proceedings, is the bipartite survivor of Tait's conjecture, which Tutte disproved in 1946. Earlier work settled it under face-size restrictions: Goodey for faces of size four and six, Feder and Subi for a broader face colouring, and Schnieders in 2025 for faces of size at most eight. The manuscript passes to the dual triangulation, where by the Alt, Payne, Schmidt and Wood formulation Hamiltonicity becomes a partition of the vertices into two induced trees, and analyses one finite exponential sum over pairs of Tutte states in two ways: pairs whose associated edge set contains a cycle cancel in sign, which forces a pair giving a forest. The proof also yields the known equivalent strengthenings that a Hamiltonian cycle can avoid any prescribed edge and that every three-edge path in a cubic 3-connected bipartite Pfaffian graph lies on one. The family's Lean scope document says the formalization proves the conjecture for every such graph.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "graph-theory",
+        "hamiltonian-cycles",
+        "planar-graphs",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-shelah-eventual-categoricity",
+      "url": "https://whataifound.org/finding/2026-10-06-shelah-eventual-categoricity",
+      "title": "Shelah's eventual categoricity conjecture for abstract elementary classes",
+      "content_text": "An OpenAI manuscript claims a ZFC proof of Shelah's eventual categoricity conjecture, that an abstract elementary class categorical in one sufficiently large cardinal is categorical in every larger one, a statement for which Christian Espíndola has had a claimed ZFC proof posted since 2019.  The main theorem gives, for every infinite λ, a threshold μ(λ) such that any abstract elementary class with Löwenheim-Skolem number at most λ that is categorical in one cardinal at or above μ(λ) is categorical in all of them, with no amalgamation, joint embedding, tameness or no-maximal-models hypothesis and no restriction on the starting cardinal. It is the nonelementary analogue of Morley's theorem and covers L_(ω₁, ω) sentences in countable languages. A companion manuscript shows the threshold cannot be prescribed in general: under the continuum hypothesis there is a class with Löwenheim-Skolem number ℵ₀ categorical on a tail of cardinals but not at ℶ_ω₂, so the prescribed-threshold form is not provable in ZFC if ZFC is consistent. Earlier positive results needed large cardinals (Makkai and Shelah; Boney), tameness with amalgamation (Grossberg and VanDieren), or special classes (Vasey for universal classes; Shelah and Vasey for excellent ones).  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "model-theory",
+        "logic",
+        "set-theory",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-matmul-exponent-nine-fourths",
+      "url": "https://whataifound.org/finding/2026-10-06-matmul-exponent-nine-fourths",
+      "title": "Matrix multiplication exponent bounded by 9/4",
+      "content_text": "An OpenAI manuscript proves that two n × n complex matrices can be multiplied with O(n^(9/4 + ε)) arithmetic operations, lowering the best bound on the matrix multiplication exponent from 2.371177 to 2.25, with a Lean proof that two outside researchers rebuilt and extended to every field within two days.  Every improvement since Coppersmith and Winograd's 2.376 of 1990 has come from refining the laser method and has moved the third or fourth decimal place; this proof does not use that route. It works in Strassen's asymptotic spectrum, with tensor characters that add on direct sums, multiply on tensor products and are monotone under restriction. A Fourier-projection separation turns blocks that share variables on one leg into independent blocks, and applied to polynomial multiplication it gives a profile P(a, b) with P(a, 3h + a − 1) ≥ 3P(a, h) and P(1, b) = b, which force P(a, a) ≥ a^(4/3); comparing with the interpolation bound gives t ≤ 3/4 for every character and hence ω ≤ 9/4. Two companions in the family give ω < 2.258 and α > 0.465 in characteristic zero, and ω < 2.371054886006746 over every field. The result concerns the arithmetic exponent and says nothing about practical matrix sizes.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "matrix-multiplication",
+        "complexity",
+        "tensors",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-04-kls-conjecture",
+      "url": "https://whataifound.org/finding/2026-10-04-kls-conjecture",
+      "title": "Kannan–Lovász–Simonovits conjecture proved in two preprints posted the same day",
+      "content_text": "Two preprints posted on 4 October 2026, one by Bizeul, Klartag and Lehec and one by Song and Zhang, prove the Kannan–Lovász–Simonovits conjecture that every isotropic log-concave measure satisfies a Poincaré inequality with a dimension-free constant, and both say AI systems produced much of the mathematics.  The conjecture, formulated in 1995, says that isoperimetry in a convex body is saturated by half-spaces up to a universal constant; equivalently C_P(μ) ≤ C for every isotropic log-concave μ on ℝⁿ, so that the Poincaré constant is determined by testing linear functions. It sits above Bourgain's slicing problem and the thin-shell conjecture, both resolved by Klartag and Lehec in the past two years. The bound on the KLS constant ψₙ, the reciprocal Cheeger constant, had fallen from Kannan, Lovász and Simonovits's √n through Lee and Vempala's n^(1/4), Chen's subpolynomial bound, Klartag and Lehec's polylogarithm and Klartag's √(log n) to Letwin's (log n)^(1/4) of July 2026. Song and Zhang's first version, posted on 1 October, gave an iterated-logarithm bound. Bizeul, Klartag and Lehec (posted 19:30 UTC on 4 October) complete the proof using Song and Zhang's criterion on high-order derivatives of tilt averages and a suspension idea they credit to themselves; their acknowledgements say most proofs and mathematical ideas were found by ChatGPT and that the authors' role was mostly to understand the proofs and improve the exposition. Song and Zhang's second version (21:21 UTC the same day, 140 pages) reaches a universal constant by applying their log-star refinement repeatedly; their disclosure describes exploring more than 100 approaches with AI tools since 28 July, with candidates generated collaboratively and the authors choosing which to pursue.  Lab: Independent. Model: ChatGPT, version not stated (Bizeul, Klartag and Lehec); GPT-6 Astra, GPT-5.6 Sol, Claude Fable 5 and Fable 5.1 (Song and Zhang). Verification: Author verified. Autonomy: Collaborative.",
+      "date_published": "2026-10-04T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "convex-geometry",
+        "high-dimensional-probability",
+        "functional-inequalities",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-08-27-lyons-white-conjecture",
+      "url": "https://whataifound.org/finding/2026-08-27-lyons-white-conjecture",
+      "title": "Proof of the Lyons–White conjecture on rate-monotonic random walks",
+      "content_text": "For continuous-time random walks on dihedral groups, raising the jump rates never increases the ℓᵖ distance from the uniform distribution when p is an even integer, and for every other p ≥ 1 some dihedral group breaks this, which answers a question Lyons and White left open; all three theorems come with a Lean formalization produced by AxiomProver.  Lyons and White proved that for every finite group the ℓ² and ℓ^(∞) distances to stationarity are monotone in the rates, and found dihedral groups where monotonicity fails for exponents in [1, 1.997], [2.001, 3.999] and [4.001, 5.995], but none at p = 4 or p = 6, and asked why. Defant and Ono prove that (Dₙ, 2m) is rate-monotonic for all positive integers m and n, extend this to every inversion extension of a finite abelian group by an involution (a family containing the generalized dihedral, dicyclic and generalized quaternion groups), and prove the converse: for every real p ≥ 1 that is not an even integer, some Dₙ fails. The paper's appendix says the proofs were generated through human-AI collaboration, with the authors developing and formalizing the three main theorems in dialogue with AxiomProver. The repository's challenge file, which it describes as written by humans, states those three theorems against Mathlib alone, and its Comparator configuration permits only propext, Quot.sound and Classical.choice, with the independent nanoda kernel enabled.  Lab: Axiom Math. Model: AxiomProver. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-08-27T00:00:00+00:00",
+      "date_modified": "2026-10-12T00:00:00+00:00",
+      "tags": [
+        "probability",
+        "random-walks",
+        "group-theory",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-06-openai-math-collection",
       "url": "https://whataifound.org/finding/2026-10-06-openai-math-collection",
-      "title": "722 manuscripts in 372 result families from an unreleased OpenAI model",
-      "content_text": "OpenAI published 722 manuscripts grouped into 372 claimed results across number theory, algebraic geometry, analysis, combinatorics, theoretical computer science and mathematical physics, all produced by an unreleased internal model, with Lean formalizations attached to 235 of the families and none yet checked by anyone outside the company.  The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, L = RL = BPL, matrix multiplication with exponent at most 9/4, Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the ℜs > 11/12 zero-free region was edited by humans for readability.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "title": "719 manuscripts in 372 result families from an unreleased OpenAI model",
+      "content_text": "OpenAI published 722 manuscripts, 719 after three were withdrawn the next day, grouped into 372 claimed results across number theory, algebraic geometry, analysis, combinatorics, theoretical computer science and mathematical physics, all produced by an unreleased internal model, with Lean formalizations attached to 235 of the families and none yet checked by anyone outside the company.  The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, L = RL = BPL, matrix multiplication with exponent at most 9/4, Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the ℜs > 11/12 zero-free region was edited by humans for readability. On 2026-10-07 OpenAI withdrew three manuscripts after a sign error in 'Algebraicity of Weil classes on split abelian eightfolds' invalidated a cancellation argument used by two dependent papers, 'Algebraicity of Kuga-Satake Correspondences for K3 Surfaces' and 'The rational Hodge conjecture for products of K3 surfaces'; revised 14 others with proof repairs and corrected statements; and added formalizations, bringing the share of top-line results formalized, by its own count, to 300 of 719. At commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb the manuscript map links Lean from 242 families.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
       "date_published": "2026-10-06T00:00:00+00:00",
       "date_modified": "2026-10-07T00:00:00+00:00",
       "tags": [
@@ -1418,7 +1581,7 @@
       "id": "https://whataifound.org/finding/2025-09-25-qma-amplification-limits",
       "url": "https://whataifound.org/finding/2025-09-25-qma-amplification-limits",
       "title": "Limits to black-box amplification in QMA, with the key step written by GPT-5",
-      "content_text": "A quantum complexity paper proving black-box error amplification for QMA cannot push completeness closer to certainty than doubly exponentially, in which the pivotal technical step was produced by GPT-5 in about half an hour.  The authors were stuck on how the largest eigenvalue of a matrix behaved as a parameter varied. GPT-5 proposed reformulating the quantity so that a complex approximation-theory bound applied, and that reformulation became the technical core of the oracle separation. Aaronson wrote that the step would have cost him or a graduate student a couple of weeks and that it was the first substantive AI contribution to a paper of his. The result makes his 2008 oracle separation quantitative and shows recent amplification results are optimal for black-box procedures.  Lab: UT Austin / CWI Amsterdam. Model: GPT-5 Thinking. Verification: Author verified. Autonomy: AI-assisted.",
+      "content_text": "A quantum complexity paper proving black-box error amplification for QMA cannot push completeness closer to certainty than doubly exponentially, in which the pivotal technical step of the first version was produced by GPT-5 in about half an hour; the published version replaces that step with a simpler one suggested by a human coauthor.  The authors were stuck on how the largest eigenvalue of a matrix behaved as a parameter varied. GPT-5 proposed reformulating the quantity so that a complex approximation-theory bound applied, and that reformulation became the technical core of the oracle separation. Aaronson wrote that the step would have cost him or a graduate student a couple of weeks and that it was the first substantive AI contribution to a paper of his. The result makes his 2008 oracle separation quantitative and shows recent amplification results are optimal for black-box procedures.  Lab: UT Austin / CWI Amsterdam / University of Bonn. Model: GPT-5 Thinking. Verification: Peer reviewed. Autonomy: AI-assisted.",
       "date_published": "2025-09-25T00:00:00+00:00",
       "date_modified": "2026-07-29T00:00:00+00:00",
       "tags": [
