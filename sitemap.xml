@@ -2,67 +2,67 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
     <loc>https://whataifound.org/</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
     <loc>https://whataifound.org/review</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://whataifound.org/visuals</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://whataifound.org/methodology</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
   <url>
     <loc>https://whataifound.org/contributors</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://whataifound.org/privacy</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.2</priority>
   </url>
   <url>
     <loc>https://whataifound.org/contribute</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
   <url>
     <loc>https://whataifound.org/signin</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
     <loc>https://whataifound.org/registries</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
   </url>
   <url>
     <loc>https://whataifound.org/developers</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
     <loc>https://whataifound.org/contact</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
@@ -74,7 +74,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/lab/axiom-math</loc>
-    <lastmod>2026-09-22</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/lab/openai</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -128,7 +128,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/computer-science</loc>
-    <lastmod>2026-10-06</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -140,7 +140,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/mathematics</loc>
-    <lastmod>2026-10-07</lastmod>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -163,6 +163,12 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-10-07-matmul-exponent-2371045</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-10-06-openai-math-collection</loc>
     <lastmod>2026-10-07</lastmod>
     <changefreq>monthly</changefreq>
@@ -177,6 +183,60 @@
   <url>
     <loc>https://whataifound.org/finding/2026-10-06-kakeya-3d-maximal-4d</loc>
     <lastmod>2026-10-07</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-borel-conjecture-four-manifolds</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-artin-primitive-root</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-modularity-imaginary-quadratic</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-hyperinvariant-subspace-problem</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-o3-model-mass-gap</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-barnette-conjecture</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-shelah-eventual-categoricity</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-06-matmul-exponent-nine-fourths</loc>
+    <lastmod>2026-10-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-04-kls-conjecture</loc>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -435,6 +495,12 @@
   <url>
     <loc>https://whataifound.org/finding/2026-08-27-norm-variation-ergodic-averages-lean</loc>
     <lastmod>2026-09-28</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-08-27-lyons-white-conjecture</loc>
+    <lastmod>2026-10-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

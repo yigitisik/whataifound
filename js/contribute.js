@@ -53,7 +53,7 @@ const GRADES = {
   "2025-09-11-gauss-strong-pnt":["author-verified","ai-assisted"],
   "2025-09-17-evo-phage-genomes":["peer-reviewed","ai-led"],
   "2025-09-17-unstable-singularities":["author-verified","search-scaffold"],
-  "2025-09-25-qma-amplification-limits":["author-verified","ai-assisted"],
+  "2025-09-25-qma-amplification-limits":["peer-reviewed","ai-assisted"],
   "2025-10-19-gpt5-erdos-retrieval":["known","retrieval"],
   "2025-11-03-alphaevolve-at-scale":["independent","search-scaffold"],
   "2025-11-gpt5-science-acceleration":["peer-reviewed","ai-assisted"],
@@ -121,6 +121,7 @@ const GRADES = {
   "2026-08-27-entanglement-supporting-functional":["author-verified","ai-assisted"],
   "2026-08-27-intuitionistic-higher-order-truth":["author-verified","ai-assisted"],
   "2026-08-27-large-systoles":["author-verified","ai-led"],
+  "2026-08-27-lyons-white-conjecture":["formal","ai-assisted"],
   "2026-08-27-norm-variation-ergodic-averages-lean":["author-verified","ai-led"],
   "2026-08-28-percolation-critical-point":["claimed","ai-led"],
   "2026-08-29-dean-conjecture-k5":["claimed","ai-led"],
@@ -161,9 +162,19 @@ const GRADES = {
   "2026-09-30-pinwheel-kernel-conjecture":["formal","ai-led"],
   "2026-10-01-anisotropic-watson-integral":["claimed","ai-assisted"],
   "2026-10-02-squares-in-circle-packings":["formal","ai-led"],
+  "2026-10-04-kls-conjecture":["author-verified","collaborative"],
+  "2026-10-06-artin-primitive-root":["claimed","ai-led"],
+  "2026-10-06-barnette-conjecture":["claimed","ai-led"],
+  "2026-10-06-borel-conjecture-four-manifolds":["claimed","ai-led"],
+  "2026-10-06-hyperinvariant-subspace-problem":["claimed","ai-led"],
   "2026-10-06-kakeya-3d-maximal-4d":["claimed","ai-led"],
+  "2026-10-06-matmul-exponent-nine-fourths":["formal","ai-led"],
+  "2026-10-06-modularity-imaginary-quadratic":["claimed","ai-led"],
+  "2026-10-06-o3-model-mass-gap":["claimed","ai-led"],
   "2026-10-06-openai-math-collection":["claimed","ai-led"],
-  "2026-10-06-quasi-riemann-hypothesis":["claimed","collaborative"]
+  "2026-10-06-quasi-riemann-hypothesis":["claimed","collaborative"],
+  "2026-10-06-shelah-eventual-categoricity":["claimed","ai-led"],
+  "2026-10-07-matmul-exponent-2371045":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -271,6 +282,7 @@ const ID_BY_TITLE = {
   "supporting affine functionals for entanglement of formation need not exist":"2026-08-27-entanglement-supporting-functional",
   "not every heyting algebra is the subterminal lattice of a topos":"2026-08-27-intuitionistic-higher-order-truth",
   "hyperbolic surfaces with large systoles in every large genus":"2026-08-27-large-systoles",
+  "proof of the lyons\u2013white conjecture on rate-monotonic random walks":"2026-08-27-lyons-white-conjecture",
   "norm-variation of multiple ergodic averages, including tao's norm-convergence theorem, autoformalized in lean in one week":"2026-08-27-norm-variation-ergodic-averages-lean",
   "lean proof that the percolation probability vanishes at the critical point in every dimension":"2026-08-28-percolation-critical-point",
   "dean's conjecture for k = 5, cycles of length divisible by five":"2026-08-29-dean-conjecture-k5",
@@ -311,9 +323,19 @@ const ID_BY_TITLE = {
   "six-task counterexample to the kernel conjecture of pinwheel scheduling":"2026-09-30-pinwheel-kernel-conjecture",
   "closed form for the anisotropic watson integral of the cubic lattice":"2026-10-01-anisotropic-watson-integral",
   "optimal packings of one to seven unit squares in a circle, proved in lean":"2026-10-02-squares-in-circle-packings",
+  "kannan\u2013lov\u00e1sz\u2013simonovits conjecture proved in two preprints posted the same day":"2026-10-04-kls-conjecture",
+  "artin's primitive root conjecture: infinitely many primes for every admissible base":"2026-10-06-artin-primitive-root",
+  "proof of barnette's conjecture on hamiltonian cycles in cubic bipartite planar graphs":"2026-10-06-barnette-conjecture",
+  "counterexample to the borel conjecture in dimension four":"2026-10-06-borel-conjecture-four-manifolds",
+  "negative answer to the hyperinvariant subspace problem on hilbert space":"2026-10-06-hyperinvariant-subspace-problem",
   "kakeya maximal conjecture in three dimensions and the kakeya set conjecture in four":"2026-10-06-kakeya-3d-maximal-4d",
-  "722 manuscripts in 372 result families from an unreleased openai model":"2026-10-06-openai-math-collection",
-  "quasi-riemann hypothesis: no zeros of zeta or any dirichlet l-function with real part above 7/8":"2026-10-06-quasi-riemann-hypothesis"
+  "matrix multiplication exponent bounded by 9/4":"2026-10-06-matmul-exponent-nine-fourths",
+  "modularity of every elliptic curve over every imaginary quadratic field":"2026-10-06-modularity-imaginary-quadratic",
+  "massive continuum limit of the two-dimensional o(3) model":"2026-10-06-o3-model-mass-gap",
+  "719 manuscripts in 372 result families from an unreleased openai model":"2026-10-06-openai-math-collection",
+  "quasi-riemann hypothesis: no zeros of zeta or any dirichlet l-function with real part above 7/8":"2026-10-06-quasi-riemann-hypothesis",
+  "shelah's eventual categoricity conjecture for abstract elementary classes":"2026-10-06-shelah-eventual-categoricity",
+  "matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring":"2026-10-07-matmul-exponent-2371045"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -421,6 +443,7 @@ const TITLE_BY_ID = {
   "2026-08-27-entanglement-supporting-functional":"Supporting affine functionals for entanglement of formation need not exist",
   "2026-08-27-intuitionistic-higher-order-truth":"Not every Heyting algebra is the subterminal lattice of a topos",
   "2026-08-27-large-systoles":"Hyperbolic surfaces with large systoles in every large genus",
+  "2026-08-27-lyons-white-conjecture":"Proof of the Lyons\u2013White conjecture on rate-monotonic random walks",
   "2026-08-27-norm-variation-ergodic-averages-lean":"Norm-variation of multiple ergodic averages, including Tao's norm-convergence theorem, autoformalized in Lean in one week",
   "2026-08-28-percolation-critical-point":"Lean proof that the percolation probability vanishes at the critical point in every dimension",
   "2026-08-29-dean-conjecture-k5":"Dean's conjecture for k = 5, cycles of length divisible by five",
@@ -461,9 +484,19 @@ const TITLE_BY_ID = {
   "2026-09-30-pinwheel-kernel-conjecture":"Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
   "2026-10-01-anisotropic-watson-integral":"Closed form for the anisotropic Watson integral of the cubic lattice",
   "2026-10-02-squares-in-circle-packings":"Optimal packings of one to seven unit squares in a circle, proved in Lean",
+  "2026-10-04-kls-conjecture":"Kannan\u2013Lov\u00e1sz\u2013Simonovits conjecture proved in two preprints posted the same day",
+  "2026-10-06-artin-primitive-root":"Artin's primitive root conjecture: infinitely many primes for every admissible base",
+  "2026-10-06-barnette-conjecture":"Proof of Barnette's conjecture on Hamiltonian cycles in cubic bipartite planar graphs",
+  "2026-10-06-borel-conjecture-four-manifolds":"Counterexample to the Borel conjecture in dimension four",
+  "2026-10-06-hyperinvariant-subspace-problem":"Negative answer to the hyperinvariant subspace problem on Hilbert space",
   "2026-10-06-kakeya-3d-maximal-4d":"Kakeya maximal conjecture in three dimensions and the Kakeya set conjecture in four",
-  "2026-10-06-openai-math-collection":"722 manuscripts in 372 result families from an unreleased OpenAI model",
-  "2026-10-06-quasi-riemann-hypothesis":"Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8"
+  "2026-10-06-matmul-exponent-nine-fourths":"Matrix multiplication exponent bounded by 9/4",
+  "2026-10-06-modularity-imaginary-quadratic":"Modularity of every elliptic curve over every imaginary quadratic field",
+  "2026-10-06-o3-model-mass-gap":"Massive continuum limit of the two-dimensional O(3) model",
+  "2026-10-06-openai-math-collection":"719 manuscripts in 372 result families from an unreleased OpenAI model",
+  "2026-10-06-quasi-riemann-hypothesis":"Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
+  "2026-10-06-shelah-eventual-categoricity":"Shelah's eventual categoricity conjecture for abstract elementary classes",
+  "2026-10-07-matmul-exponent-2371045":"Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring"
 };
 /*VOCAB:END*/
 
