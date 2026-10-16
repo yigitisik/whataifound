@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof: graded Claimed | whataifound.org</title>
+<meta name="description" content="Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multi">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof">
+<meta property="og:description" content="Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multi">
+<meta property="og:url" content="https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+<meta property="article:published_time" content="2026-10-12">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof">
+<meta name="twitter:description" content="Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multi">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2026-10-09-polya-simply-connected">
+<link rel="next" href="https://whataifound.org/finding/2026-10-12-dedekind-zeta-quasi-riemann">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21#article",
+      "url": "https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21",
+      "headline": "Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof",
+      "name": "Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof",
+      "abstract": "Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two 3 × 3 matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003.",
+      "description": "Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two 3 × 3 matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003.",
+      "datePublished": "2026-10-12",
+      "dateModified": "2026-10-16",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#dataset"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Independent"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "image": "https://whataifound.org/assets/brand/og.png",
+      "about": "Computer science",
+      "keywords": [
+        "algorithms",
+        "matrix-multiplication",
+        "tensor-rank",
+        "lower-bounds",
+        "lean",
+        "formalization",
+        "argument",
+        "Claimed",
+        "Collaborative"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creditText": "whataifound.org. Verification: Claimed; autonomy: Collaborative.",
+      "articleBody": "The bilinear complexity, or tensor rank, of 3 × 3 matrix multiplication sits below Laderman's 1976 algorithm with 23 multiplications, which works over every field, and over every field the best lower bound was Bläser's 19 from 2003. During 2026 a run of field-specific results closed the gap over 𝔽₂: 21 by Chengu Wang, 22 over 𝔽₂ and for integer coefficients by Rudich and Rousseau, and the exact rank 23 by Tomar on 2026-10-08, each by exhaustive or certified search tied to the field. This result is uniform: the Lean theorem takes any field K, any finite index set I, arbitrary linear forms aᵢ and bᵢ and matrices Wᵢ with AB = ∑ᵢaᵢ(A)bᵢ(B)Wᵢ for all A and B, and concludes |I| ≥ 21, with no assumption of minimality, nonzero terms or coefficient ranks. The argument passes to an algebraic closure, picks a decomposition minimizing a rank sum in its first coefficient family, and rules out 20 or fewer terms through what the author calls conductor growth and residual reconstruction. It concerns exact bilinear complexity, not border rank or the asymptotic exponent.",
+      "contributor": [
+        {
+          "@type": "Organization",
+          "name": "Independent"
+        },
+        {
+          "@type": "Person",
+          "name": "Andrey Ivanov"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/AIV5/mmrank21",
+          "name": "GitHub: AIV5/mmrank21, the Lean proof"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://doi.org/10.5281/zenodo.23324839",
+          "name": "Zenodo: archived release 0.1.1"
+        }
+      ]
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21#claimreview",
+      "url": "https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21",
+      "claimReviewed": "Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two 3 × 3 matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003.",
+      "datePublished": "2026-10-16",
+      "author": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "itemReviewed": {
+        "@type": "Claim",
+        "name": "Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof",
+        "author": {
+          "@type": "Organization",
+          "name": "Independent (OpenAI models through ChatGPT and Codex, versions not recorded in the repository (GPT-6 Astra and GPT-6 Sol by the author's later account to vibemathed))"
+        },
+        "datePublished": "2026-10-12",
+        "appearance": []
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 2,
+        "bestRating": 5,
+        "worstRating": 1,
+        "alternateName": "Claimed, not independently verified"
+      },
+      "reviewBody": "Read the README, formalization.yaml and Challenge.lean at commit cb1557b7ea80ea66fae4714628663d8c1df7a48d on 2026-10-16, and the abstracts of the field-specific papers the repository cites (arXiv:2609.06725, 2610.01639 and 2610.11823). Those concern 𝔽₂ or integer coefficients and do not give 21 over an arbitrary field. The repository dates the result to its Zenodo release of 2026-10-12 and makes no claim of exhaustive priority verification. Nothing in the registry covered the rank of 3 × 3 matrix multiplication; its matrix multiplication entries concern the asymptotic exponent."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Computer science",
+          "item": "https://whataifound.org/topic/computer-science"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof",
+          "item": "https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="finding-page">
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header><div class="eyebrow">
+<a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs>
+<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/>
+<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
+</svg>
+<span class="wm">what<span class="ai">ai</span>found.org</span></a>
+<nav class="pagenav" aria-label="Site">
+<a href="/">Registry</a>
+<a href="/review">Review queue</a>
+<a href="/visuals">Visuals</a>
+<a href="/methodology">Methodology</a>
+<a href="/contributors">Contributors</a>
+<span class="pn-ink" aria-hidden="true"></span>
+</nav>
+<span class="eyebrow-right">
+<span class="doors" role="group" aria-label="Ways to contribute">
+<a class="door" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source and pull requests on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+<span class="acct" data-acct><a class="door door-in" href="/signin" data-signin aria-label="Sign in" title="Sign in"><span>Sign in</span></a></span>
+</span>
+<span class="theme-seg" role="group" aria-label="Colour theme">
+<button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>
+<button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
+<button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
+</span>
+</span></div></header>
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/topic/computer-science">Computer science</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
+</nav>
+
+<main id="main">
+<article class="finding">
+  <div class="finding-pills">
+    <span class="pill v v-claimed">Claimed</span>
+    <span class="pill a a-collaborative">Collaborative</span>
+  </div>
+  <h1>Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof</h1>
+  <p class="claim">Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two <math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3 \times 3</annotation></semantics></math> matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003.</p>
+
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts n5">
+      <div><dt>Lab</dt><dd><a href="/?lab=Independent">Independent</a></dd></div>
+      <div><dt>Model</dt><dd>OpenAI models through ChatGPT and Codex, versions not recorded in the repository (GPT-6 Astra and GPT-6 Sol by the author's later account to vibemathed)</dd></div>
+      <div><dt>Field</dt><dd>Computer science</dd></div>
+      <div><dt>Date</dt><dd>2026-10-12</dd></div>
+      <div><dt>Human collaborators</dt><dd>Andrey Ivanov</dd></div>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://github.com/AIV5/mmrank21" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">AIV5/mmrank21, the Lean proof</span><span class="ref-a">↗</span></a><a class="ref" href="https://doi.org/10.5281/zenodo.23324839" target="_blank" rel="noopener"><span class="ref-dom">DOI</span><span class="ref-t">Zenodo: archived release 0.1.1</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The bilinear complexity, or tensor rank, of <math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3 \times 3</annotation></semantics></math> matrix multiplication sits below Laderman's 1976 algorithm with 23 multiplications, which works over every field, and over every field the best lower bound was Bläser's 19 from 2003. During 2026 a run of field-specific results closed the gap over <math><semantics><msub><mi>𝔽</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathbb{F}_2</annotation></semantics></math>: 21 by Chengu Wang, 22 over <math><semantics><msub><mi>𝔽</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathbb{F}_2</annotation></semantics></math> and for integer coefficients by Rudich and Rousseau, and the exact rank 23 by Tomar on 2026-10-08, each by exhaustive or certified search tied to the field. This result is uniform: the Lean theorem takes any field <math><semantics><mi>K</mi><annotation encoding="application/x-tex">K</annotation></semantics></math>, any finite index set <math><semantics><mi>I</mi><annotation encoding="application/x-tex">I</annotation></semantics></math>, arbitrary linear forms <math><semantics><msub><mi>a</mi><mi>i</mi></msub><annotation encoding="application/x-tex">a_i</annotation></semantics></math> and <math><semantics><msub><mi>b</mi><mi>i</mi></msub><annotation encoding="application/x-tex">b_i</annotation></semantics></math> and matrices <math><semantics><msub><mi>W</mi><mi>i</mi></msub><annotation encoding="application/x-tex">W_i</annotation></semantics></math> with <math><semantics><mrow><mi>A</mi><mi>B</mi><mo>=</mo><msub><mo movablelimits="false">∑</mo><mi>i</mi></msub><msub><mi>a</mi><mi>i</mi></msub><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>A</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><msub><mi>b</mi><mi>i</mi></msub><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>B</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><msub><mi>W</mi><mi>i</mi></msub></mrow><annotation encoding="application/x-tex">AB = \sum_i a_i(A) b_i(B) W_i</annotation></semantics></math> for all <math><semantics><mi>A</mi><annotation encoding="application/x-tex">A</annotation></semantics></math> and <math><semantics><mi>B</mi><annotation encoding="application/x-tex">B</annotation></semantics></math>, and concludes <math><semantics><mrow><mi>|</mi><mi>I</mi><mi>|</mi><mo>≥</mo><mn>21</mn></mrow><annotation encoding="application/x-tex">|I| \ge 21</annotation></semantics></math>, with no assumption of minimality, nonzero terms or coefficient ranks. The argument passes to an algebraic closure, picks a decomposition minimizing a rank sum in its first coefficient family, and rules out 20 or fewer terms through what the author calls conductor growth and residual reconstruction. It concerns exact bilinear complexity, not border rank or the asymptotic exponent.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>Read the README, formalization.yaml and Challenge.lean at commit cb1557b7ea80ea66fae4714628663d8c1df7a48d on 2026-10-16, and the abstracts of the field-specific papers the repository cites (arXiv:2609.06725, 2610.01639 and 2610.11823). Those concern <math><semantics><msub><mi>𝔽</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathbb{F}_2</annotation></semantics></math> or integer coefficients and do not give 21 over an arbitrary field. The repository dates the result to its Zenodo release of 2026-10-12 and makes no claim of exhaustive priority verification. Nothing in the registry covered the rank of <math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3 \times 3</annotation></semantics></math> matrix multiplication; its matrix multiplication entries concern the asymptotic exponent.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Graded claimed rather than formal. The Palomar registration replayed the proof at commit cb1557b against the Mathlib-only statement in Challenge.lean with Comparator, and that statement, read by vibemathed and here, is as far as either reading goes exactly the unrestricted bilinear rank of the <math><semantics><mrow><mn>3</mn><mo>×</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">3 \times 3</annotation></semantics></math> matrix multiplication tensor over an arbitrary field, finite fields and characteristic 2 included. But the theorem's shape is the author's own, and this registry held 2026-09-06-bollobas-nikiforov at claimed on the same kind of evidence because a curator's reading is not a named expert's; 2026-10-07-matmul-exponent-2371045 was graded formal on comparable evidence, so the precedents disagree and the weaker grade is used. An algebraic complexity theorist confirming the short statement would support formal. The repository records its review status as self-assessed, no mathematician is on record as having read the argument, and the Lean comments are mostly in Russian. Over <math><semantics><msub><mi>𝔽</mi><mn>2</mn></msub><annotation encoding="application/x-tex">\mathbb{F}_2</annotation></semantics></math> the bound is already superseded by Tomar's exact rank of 23, so what is new is the uniformity across fields; whether 22 or 23 holds over every field remains open. Autonomy is graded collaborative: the repository says the research and formalization were developed with substantial AI assistance in mathematical exploration and Lean under the author's direction, and records neither model versions nor prompts. vibemathed reports the author's later account that GPT-6 Astra did most of the work, with GPT-6 Sol for part of it, while he redirected dead ends and supplied missed literature; that account is not in the repository at the registered commit, and although it would make ai-led defensible, the weaker grade stands.</p>
+  </details>
+  <h2 class="lbl">Machine-checked elsewhere</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-10-13-000009&amp;version=1" target="_blank" rel="noopener">Palomar<span class="reg-id">PALOMAR-2026-10-13-000009</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m"><span class="reg-repo">AIV5/mmrank21</span> at <code>cb1557b7ea80</code> · checked 2026-10-13</p><p class="reg-t"><span class="reg-t-k">Proved</span><code>MMRank.Palomar.lower_bound</code></p><p class="reg-w">A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review. It does not certify that a result is new or of research interest: the only filter on that is a language-model screen, and Palomar states that it adds no human editorial step.</p><p class="reg-n">Permitted axioms are exactly propext, Quot.sound and Classical.choice.</p></div></div>
+  <h2 class="lbl">Also recorded at</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://vibemathed.com/problem/a-lower-bound-of-21-for-3-3-matrix-multiplication-over-every-field" target="_blank" rel="noopener">vibemathed<span class="reg-id">a-lower-bound-of-21-for-3-3-matrix-multiplication-over-every-field</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-w">Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check.</p></div></div>
+
+  <div class="challenge">
+    <p class="challenge-t">Nobody outside the lab has checked this yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-10-12-matmul-3x3-rank-21">Submit a check</a>
+      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-10-12-matmul-3x3-rank-21">Challenge the grade</a>
+      
+    </div>
+    <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-10-12-matmul-3x3-rank-21&amp;entry=2026-10-12-matmul-3x3-rank-21" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-10-12-matmul-3x3-rank-21&amp;entry=2026-10-12-matmul-3x3-rank-21&amp;current=verification%3A%20claimed%2C%20autonomy%3A%20collaborative" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=correction.yml&amp;title=Correction%3A%202026-10-12-matmul-3x3-rank-21&amp;entry=2026-10-12-matmul-3x3-rank-21" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
+    </p>
+  <div class="sig" data-signals="2026-10-12-matmul-3x3-rank-21" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
+  </div>
+
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
+  <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-10-16">2026-10-16</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Claimed and Collaborative.</span></li>
+  </ol>
+  <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
+  </details>
+
+  <p class="gradenote">Graded <strong>claimed</strong> for verification and
+  <strong>collaborative</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
+
+
+  <h2 class="lbl">Cite this entry</h2>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2026). Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21</code></pre>
+    </div>
+    <details class="fold cite-fold">
+    <summary>BibTeX</summary>
+    <div class="cite-block">
+      <div class="cite-head"><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-independent-2026-21,
+  title        = {Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof},
+  author       = {{whataifound.org}},
+  year         = {2026},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Independent. Verification: Claimed. Autonomy: Collaborative.},
+  url          = {https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21}
+}</code></pre>
+    </div>
+    </details>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-10-07-matmul-exponent-2371045"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring</span><span class="rel-meta">Independent · 2026-10-07</span></a><a class="rel-card" href="/finding/2026-10-06-matmul-exponent-nine-fourths"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Matrix multiplication exponent bounded by 9/4</span><span class="rel-meta">OpenAI · 2026-10-06</span></a><a class="rel-card" href="/finding/2026-10-05-3sum-apsp-hypotheses"><span class="rel-grade pill v v-author-verified">Author verified</span><span class="rel-title">Truly subquadratic 3SUM and truly subcubic APSP, refuting two central fine-grained complexity hypotheses</span><span class="rel-meta">Anthropic · 2026-10-05</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-10-09-polya-simply-connected"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Strict Pólya inequalities claimed for simply connected planar domains, Dirichlet and Neumann, with Lean formalizations</span></a><a class="pn-step" href="/finding/2026-10-12-dedekind-zeta-quasi-riemann"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=algorithms">algorithms</a><a class="tag-chip" href="/?tag=matrix-multiplication">matrix-multiplication</a><a class="tag-chip" href="/?tag=tensor-rank">tensor-rank</a><a class="tag-chip" href="/?tag=lower-bounds">lower-bounds</a><a class="tag-chip" href="/?tag=lean">lean</a><a class="tag-chip" href="/?tag=formalization">formalization</a><a class="tag-chip" href="/?tag=argument">argument</a></div>
+
+  <p class="finding-back"><a href="/topic/computer-science">← All computer science findings in the registry</a></p>
+</article>
+</main>
+
+<footer id="about">
+<div class="about-grid">
+<section class="about-col f-site">
+<h2 class="lbl">Registry</h2>
+<p class="about-links">
+<a href="/methodology">Methodology</a>
+<a href="/review">Review queue</a>
+<a href="/contributors">Contributors</a>
+<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>
+<a href="/privacy">Privacy</a>
+</p>
+</section>
+<section class="about-col f-data">
+<h2 class="lbl">Data</h2>
+<p class="about-links">
+<a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
+<a href="/developers">Developers</a>
+<a href="/feed.xml">RSS</a>
+<a href="/feed.json">JSON Feed</a>
+</p>
+</section>
+<section class="about-col f-help">
+<h2 class="lbl">Contribute</h2>
+<p class="about-links">
+<a href="/contribute">Submit a check</a>
+<a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>
+<a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a>
+</p>
+</section>
+<section class="about-col f-reg">
+<h2 class="lbl">Other registries</h2>
+<p class="about-links">
+<a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
+<a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
+<a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
+<a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="/registries">What each one checks</a>
+</p>
+</section>
+</div>
+<div class="about-fine">
+<p>An independent, volunteer editorial project. Grades are good-faith judgments from public information, provided "as is" without warranty, and may change as evidence emerges; nothing here is scientific, legal or investment advice. Not affiliated with or endorsed by any laboratory or company named; names and logos are their owners' trademarks, used for identification only. Data under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> (<a href="https://whataifound.org/LICENSE">license</a>).</p>
+<p class="cite">Cite as: whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p>
+<p class="colophon">© 2026 <a href="https://isik.co" target="_blank" rel="noopener">Isik &amp; Co.</a> · Technology, manufacturing, consulting and trade · <a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>
+</div>
+</footer>
+</div>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
+</body>
+</html>

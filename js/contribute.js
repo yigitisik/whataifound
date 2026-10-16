@@ -83,6 +83,7 @@ const GRADES = {
   "2026-08-04-moore-bound":["formal","ai-assisted"],
   "2026-08-05-schiffer-conjecture":["formal","ai-assisted"],
   "2026-08-05-sendov-conjecture":["formal","collaborative"],
+  "2026-08-06-hjo-a3-rogers-ramanujan":["claimed","ai-assisted"],
   "2026-08-06-kreiss-constant-separation":["author-verified","ai-assisted"],
   "2026-08-08-petersen-coloring":["formal","ai-assisted"],
   "2026-08-10-zeta-zeros-critical-line":["formal","ai-led"],
@@ -161,8 +162,10 @@ const GRADES = {
   "2026-09-26-lovasz-cayley-polylog-degree":["claimed","collaborative"],
   "2026-09-30-pinwheel-kernel-conjecture":["formal","ai-led"],
   "2026-10-01-anisotropic-watson-integral":["claimed","ai-assisted"],
+  "2026-10-01-bootloops-manuscripts":["claimed","ai-assisted"],
   "2026-10-02-squares-in-circle-packings":["formal","ai-led"],
   "2026-10-04-kls-conjecture":["author-verified","collaborative"],
+  "2026-10-05-3sum-apsp-hypotheses":["author-verified","ai-led"],
   "2026-10-06-artin-primitive-root":["claimed","ai-led"],
   "2026-10-06-barnette-conjecture":["claimed","ai-led"],
   "2026-10-06-borel-conjecture-four-manifolds":["claimed","ai-led"],
@@ -174,7 +177,10 @@ const GRADES = {
   "2026-10-06-openai-math-collection":["claimed","ai-led"],
   "2026-10-06-quasi-riemann-hypothesis":["claimed","collaborative"],
   "2026-10-06-shelah-eventual-categoricity":["claimed","ai-led"],
-  "2026-10-07-matmul-exponent-2371045":["formal","ai-led"]
+  "2026-10-07-matmul-exponent-2371045":["formal","ai-led"],
+  "2026-10-09-polya-simply-connected":["claimed","ai-assisted"],
+  "2026-10-12-dedekind-zeta-quasi-riemann":["formal","collaborative"],
+  "2026-10-12-matmul-3x3-rank-21":["claimed","collaborative"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -244,6 +250,7 @@ const ID_BY_TITLE = {
   "asymptotic degree-diameter problem resolved for fixed diameter":"2026-08-04-moore-bound",
   "counterexamples to schiffer's conjecture and the pompeiu problem":"2026-08-05-schiffer-conjecture",
   "sendov's conjecture proved for every degree":"2026-08-05-sendov-conjecture",
+  "huang-jiang-oblomkov conjecture for a = 3: a new infinite family of rogers-ramanujan identities, with a lean certificate conditional on eight literature facts":"2026-08-06-hjo-a3-rogers-ramanujan",
   "separation between the ordinary and strong kreiss constants":"2026-08-06-kreiss-constant-separation",
   "a 112-vertex counterexample to the petersen coloring conjecture":"2026-08-08-petersen-coloring",
   "proportion of zeta zeros on the critical line raised to 67.25%":"2026-08-10-zeta-zeros-critical-line",
@@ -322,8 +329,10 @@ const ID_BY_TITLE = {
   "hamilton cycles in connected cayley graphs of polylogarithmic degree, toward the lov\u00e1sz conjecture":"2026-09-26-lovasz-cayley-polylog-degree",
   "six-task counterexample to the kernel conjecture of pinwheel scheduling":"2026-09-30-pinwheel-kernel-conjecture",
   "closed form for the anisotropic watson integral of the cubic lattice":"2026-10-01-anisotropic-watson-integral",
+  "36 manuscripts across 18 fields from the bootloops harness run with claude":"2026-10-01-bootloops-manuscripts",
   "optimal packings of one to seven unit squares in a circle, proved in lean":"2026-10-02-squares-in-circle-packings",
   "kannan\u2013lov\u00e1sz\u2013simonovits conjecture proved in two preprints posted the same day":"2026-10-04-kls-conjecture",
+  "truly subquadratic 3sum and truly subcubic apsp, refuting two central fine-grained complexity hypotheses":"2026-10-05-3sum-apsp-hypotheses",
   "artin's primitive root conjecture: infinitely many primes for every admissible base":"2026-10-06-artin-primitive-root",
   "proof of barnette's conjecture on hamiltonian cycles in cubic bipartite planar graphs":"2026-10-06-barnette-conjecture",
   "counterexample to the borel conjecture in dimension four":"2026-10-06-borel-conjecture-four-manifolds",
@@ -335,7 +344,10 @@ const ID_BY_TITLE = {
   "719 manuscripts in 372 result families from an unreleased openai model":"2026-10-06-openai-math-collection",
   "quasi-riemann hypothesis: no zeros of zeta or any dirichlet l-function with real part above 7/8":"2026-10-06-quasi-riemann-hypothesis",
   "shelah's eventual categoricity conjecture for abstract elementary classes":"2026-10-06-shelah-eventual-categoricity",
-  "matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring":"2026-10-07-matmul-exponent-2371045"
+  "matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring":"2026-10-07-matmul-exponent-2371045",
+  "strict p\u00f3lya inequalities claimed for simply connected planar domains, dirichlet and neumann, with lean formalizations":"2026-10-09-polya-simply-connected",
+  "no zeros of any dedekind zeta function with real part above 31/32, machine-checked in lean":"2026-10-12-dedekind-zeta-quasi-riemann",
+  "lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a lean proof":"2026-10-12-matmul-3x3-rank-21"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -405,6 +417,7 @@ const TITLE_BY_ID = {
   "2026-08-04-moore-bound":"Asymptotic degree-diameter problem resolved for fixed diameter",
   "2026-08-05-schiffer-conjecture":"Counterexamples to Schiffer's conjecture and the Pompeiu problem",
   "2026-08-05-sendov-conjecture":"Sendov's conjecture proved for every degree",
+  "2026-08-06-hjo-a3-rogers-ramanujan":"Huang-Jiang-Oblomkov conjecture for a = 3: a new infinite family of Rogers-Ramanujan identities, with a Lean certificate conditional on eight literature facts",
   "2026-08-06-kreiss-constant-separation":"Separation between the ordinary and strong Kreiss constants",
   "2026-08-08-petersen-coloring":"A 112-vertex counterexample to the Petersen coloring conjecture",
   "2026-08-10-zeta-zeros-critical-line":"Proportion of zeta zeros on the critical line raised to 67.25%",
@@ -483,8 +496,10 @@ const TITLE_BY_ID = {
   "2026-09-26-lovasz-cayley-polylog-degree":"Hamilton cycles in connected Cayley graphs of polylogarithmic degree, toward the Lov\u00e1sz conjecture",
   "2026-09-30-pinwheel-kernel-conjecture":"Six-task counterexample to the Kernel Conjecture of pinwheel scheduling",
   "2026-10-01-anisotropic-watson-integral":"Closed form for the anisotropic Watson integral of the cubic lattice",
+  "2026-10-01-bootloops-manuscripts":"36 manuscripts across 18 fields from the BootLoops harness run with Claude",
   "2026-10-02-squares-in-circle-packings":"Optimal packings of one to seven unit squares in a circle, proved in Lean",
   "2026-10-04-kls-conjecture":"Kannan\u2013Lov\u00e1sz\u2013Simonovits conjecture proved in two preprints posted the same day",
+  "2026-10-05-3sum-apsp-hypotheses":"Truly subquadratic 3SUM and truly subcubic APSP, refuting two central fine-grained complexity hypotheses",
   "2026-10-06-artin-primitive-root":"Artin's primitive root conjecture: infinitely many primes for every admissible base",
   "2026-10-06-barnette-conjecture":"Proof of Barnette's conjecture on Hamiltonian cycles in cubic bipartite planar graphs",
   "2026-10-06-borel-conjecture-four-manifolds":"Counterexample to the Borel conjecture in dimension four",
@@ -496,7 +511,10 @@ const TITLE_BY_ID = {
   "2026-10-06-openai-math-collection":"719 manuscripts in 372 result families from an unreleased OpenAI model",
   "2026-10-06-quasi-riemann-hypothesis":"Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
   "2026-10-06-shelah-eventual-categoricity":"Shelah's eventual categoricity conjecture for abstract elementary classes",
-  "2026-10-07-matmul-exponent-2371045":"Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring"
+  "2026-10-07-matmul-exponent-2371045":"Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring",
+  "2026-10-09-polya-simply-connected":"Strict P\u00f3lya inequalities claimed for simply connected planar domains, Dirichlet and Neumann, with Lean formalizations",
+  "2026-10-12-dedekind-zeta-quasi-riemann":"No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
+  "2026-10-12-matmul-3x3-rank-21":"Lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a Lean proof"
 };
 /*VOCAB:END*/
 

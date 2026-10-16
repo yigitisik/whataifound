@@ -299,6 +299,12 @@
         "kind": "coverage"
       }
     ],
+    "discussion": [
+      {
+        "label": "Hacker News: The AI revolution in math has arrived",
+        "url": "https://news.ycombinator.com/item?id=47759292"
+      }
+    ],
     "tags": [
       "discrete-geometry",
       "combinatorics",
@@ -413,6 +419,12 @@
         "label": "Quanta: The AI Revolution in Math Has Arrived",
         "url": "https://www.quantamagazine.org/the-ai-revolution-in-math-has-arrived-20260413/",
         "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: The AI revolution in math has arrived",
+        "url": "https://news.ycombinator.com/item?id=47759292"
       }
     ],
     "tags": [
@@ -6921,7 +6933,7 @@
     "autonomy": "ai-led",
     "detail": "Fefferman's Clay problem description asks for a proof of one of four statements, offered as leeway to solvers while, in his words, retaining the heart of the problem. This work settles (C) and (D), the two breakdown alternatives, both of which permit a smooth external force meeting the decay conditions the description imposes: for every positive viscosity there exist smooth initial data and forcing admitting no global smooth solution of uniformly bounded kinetic energy on \\(\\mathbb{R}^3\\), and smooth periodic data and forcing admitting no global smooth solution on \\(\\mathbb{R}^3/\\mathbb{Z}^3\\). The repository carries Lean 4 proofs of both, declared as navier_stokes_breakdown_R3 and navier_stokes_breakdown_periodic, each recorded with no sorry and depending on exactly propext, Classical.choice and Quot.sound. The Comparator reference statements were adapted from Google DeepMind's Formal Conjectures formalization of the Clay problem rather than written for this repository, and the challenge config enables the independent nanoda kernel. The same repository also carries two theorems on unforced Euler blowup, which are a separate result and are not covered by this entry.",
     "novelty_check": "The alternatives settled here are Clay's own (C) and (D), stated in Fefferman's 2000 problem description, which the repository cites and links directly; the underlying regularity question goes back to Leray in 1934. The prior literature on forced or modified blowup is substantial but does not reach full three-dimensional Navier-Stokes with smooth forcing: blowup is known for the hypodissipative equations with a force (arXiv:2407.06776), for solutions with linear growth at infinity (arXiv:2103.12237), and for model equations (arXiv:1811.09394), and Tao's averaged Navier-Stokes construction is of the same character. No prior claim on (C) or (D) themselves was found in the four registries or in that search. The live novelty question is not priority over the classical literature but priority within the past year: OpenAI's own account credits the basic idea of the program to Diego Cordoba and Luis Martinez-Zoroa, and how much is owed to that program is publicly disputed, which the caveats record.",
-    "caveats": "What this settles, and what it does not, needs stating carefully. Fefferman's problem description asks for a proof of any one of four statements, and the breakdown alternatives (C) and (D) are two of them, so on the problem as officially posed this is a candidate solution to the Millennium Prize Problem rather than something adjacent to it. The Clay Mathematics Institute said as much on 2026-09-11, that the problem has 'apparently been settled', while noting that its own process for evaluating the work and assigning credit is deliberately unhurried. What the result is not is a resolution of the unforced regularity question, alternatives (A) and (B), which is what the phrase 'the Navier-Stokes problem' is usually taken to name and what a reader of the press coverage would most likely assume was meant. The repository's README names the alternatives precisely and links Clay's own description, which is more care than most of that coverage took. Verification is graded claimed rather than formal despite four theorems carrying no sorry and exactly the three standard axioms, for the reason the repository itself supplies: its formalization.yaml records the review status as self-assessed, and no mathematician outside OpenAI is on record as having read the argument. Clay's own acceptance process additionally requires journal publication and two years of community acceptance. The statement-fidelity worry is smaller here than on a self-stated formalization, because the Comparator challenge statements were adapted from DeepMind's independent Formal Conjectures formalization rather than authored alongside the proof, and vibemathed has since diffed the adaptation: the two compared theorems and the conditions they depend on are byte-identical to DeepMind's file, the only difference being nine deleted lines carrying alternatives (A) and (B), which OpenAI does not claim. The model attribution is split, and both halves are recorded above because they may describe different steps: the announcement describes an unnamed next-generation model more capable than GPT-6 Astra, reported as roughly 10,000 coordinating agents over 88 hours, while the repository's own metadata credits GPT-6 Astra through Codex under an agent method, which most plausibly describes who wrote the Lean rather than who found the proof. Autonomy is ai-led rather than autonomous because the disclosure describes an agent framework without stating that the run was unsteered, so the strictest defensible reading is not autonomous. Priority is contested in public and unresolved at entry: the entangled Alpoge and Buckmaster results released the same week drew allegations, on r/math and in the comments of Terence Tao's blog, that the Cordoba and Martinez-Zoroa program was worked from for roughly a year before a denial that several commenters read as evasive, and Andreas Thom has publicly described asking OpenAI whether his own private conversations on an adjacent problem were drawn on and being told they were not, without further explanation. None of that bears on whether the Lean compiles. Bastounis, Circelli and Hansen (arXiv:2610.08144) compare two estimates in the natural-language paper with the Lean declarations cited for them at commit f9e8bc5 and find that they do not match: for Lemma 8.6 the Lean bound needs one more input derivative than the paper states, and for the pressure-flux bound (10.19) both the bound and the argument differ. Their conclusion is that the Lean development does not certify the written proof. They do not claim the Lean theorems are false or that blowup fails, and the Clay alternatives are checked against DeepMind's independent statements rather than the paper's lemmas, so the objection bears on the manuscript, not on what the kernel checked. The grade stays claimed, which already reflects that nobody outside OpenAI has read the argument.",
+    "caveats": "What this settles, and what it does not, needs stating carefully. Fefferman's problem description asks for a proof of any one of four statements, and the breakdown alternatives (C) and (D) are two of them, so on the problem as officially posed this is a candidate solution to the Millennium Prize Problem rather than something adjacent to it. The Clay Mathematics Institute said as much on 2026-09-11, that the problem has 'apparently been settled', while noting that its own process for evaluating the work and assigning credit is deliberately unhurried. What the result is not is a resolution of the unforced regularity question, alternatives (A) and (B), which is what the phrase 'the Navier-Stokes problem' is usually taken to name and what a reader of the press coverage would most likely assume was meant. The repository's README names the alternatives precisely and links Clay's own description, which is more care than most of that coverage took. Verification is graded claimed rather than formal despite four theorems carrying no sorry and exactly the three standard axioms, for the reason the repository itself supplies: its formalization.yaml records the review status as self-assessed, and no mathematician outside OpenAI is on record as having read the argument. Clay's own acceptance process additionally requires journal publication and two years of community acceptance. The statement-fidelity worry is smaller here than on a self-stated formalization, because the Comparator challenge statements were adapted from DeepMind's independent Formal Conjectures formalization rather than authored alongside the proof, and vibemathed has since diffed the adaptation: the two compared theorems and the conditions they depend on are byte-identical to DeepMind's file, the only difference being nine deleted lines carrying alternatives (A) and (B), which OpenAI does not claim. The model attribution is split, and both halves are recorded above because they may describe different steps: the announcement describes an unnamed next-generation model more capable than GPT-6 Astra, reported as roughly 10,000 coordinating agents over 88 hours, while the repository's own metadata credits GPT-6 Astra through Codex under an agent method, which most plausibly describes who wrote the Lean rather than who found the proof. Autonomy is ai-led rather than autonomous because the disclosure describes an agent framework without stating that the run was unsteered, so the strictest defensible reading is not autonomous. Priority is contested in public and unresolved at entry: the entangled Alpoge and Buckmaster results released the same week drew allegations, on r/math and in the comments of Terence Tao's blog, that the Cordoba and Martinez-Zoroa program was worked from for roughly a year before a denial that several commenters read as evasive, and Andreas Thom has publicly described asking OpenAI whether his own private conversations on an adjacent problem were drawn on and being told they were not, without further explanation. Scientific American reported on 2026-10-13 that the experts it spoke to who are working through the paper find that it builds its forcing in a way distinct from the Cordoba and Martinez-Zoroa program, so the resemblance to Buckmaster and Alpoge's work is superficial, although some of them say that a smaller earlier run, which proved an intermediate result, did follow the program; Camillo De Lellis told the magazine he sees no factual resolution of the priority question. None of that bears on whether the Lean compiles. Bastounis, Circelli and Hansen (arXiv:2610.08144) compare two estimates in the natural-language paper with the Lean declarations cited for them at commit f9e8bc5 and find that they do not match: for Lemma 8.6 the Lean bound needs one more input derivative than the paper states, and for the pressure-flux bound (10.19) both the bound and the argument differ. Their conclusion is that the Lean development does not certify the written proof. They do not claim the Lean theorems are false or that blowup fails, and the Clay alternatives are checked against DeepMind's independent statements rather than the paper's lemmas, so the objection bears on the manuscript, not on what the kernel checked. The grade stays claimed, which already reflects that nobody outside OpenAI has read the argument.",
     "independent_checks": [
       {
         "who": "vibemathed.com statement audit",
@@ -6994,6 +7006,11 @@
         "kind": "coverage"
       },
       {
+        "label": "Scientific American: OpenAI's blockbuster Navier-Stokes proof isn't what we thought it was",
+        "url": "https://www.scientificamerican.com/article/openais-blockbuster-navier-stokes-proof-isnt-what-we-thought-it-was/",
+        "kind": "coverage"
+      },
+      {
         "label": "Buckmaster and Alpoge: public statement on the priority of the forced-blowup program (PDF)",
         "url": "https://cims.nyu.edu/~tristanb/statement.pdf",
         "kind": "challenge"
@@ -7057,6 +7074,12 @@
         "kind": "challenge",
         "note": "Cited Bastounis, Circelli and Hansen, who show two places where the Lean development proves a different estimate from the one the paper states, so the formalization does not certify the written proof. They do not dispute the Lean theorems themselves, so no grade moved.",
         "url": "https://arxiv.org/abs/2610.08144"
+      },
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Cited Scientific American's report that experts reading the paper find the proof does not follow the Cordoba and Martinez-Zoroa program, which weakens the priority dispute recorded in the caveats without settling it. No grade moved.",
+        "url": "https://www.scientificamerican.com/article/openais-blockbuster-navier-stokes-proof-isnt-what-we-thought-it-was/"
       }
     ]
   },
@@ -7245,6 +7268,13 @@
         "registry": "vibemathed",
         "id": "smale-s-mean-value-conjecture-k-1",
         "url": "https://vibemathed.com/problem/smale-s-mean-value-conjecture-k-1"
+      },
+      {
+        "registry": "mathdb",
+        "id": "359693",
+        "title": "Smale's mean value conjecture",
+        "url": "https://mathdb.com/p/359693/smale-s-mean-value-conjecture",
+        "note": "MathDB states the sharp form with constant n/(n+1), which a counterexample at K = 1 also refutes."
       }
     ],
     "sources": [
@@ -7273,6 +7303,11 @@
         "kind": "regraded",
         "note": "Upgraded from claimed to formally verified: the compared statement was audited against the literature, by vibemathed and here, and is Formal Conjectures' formalization verbatim, which clears the only reason the entry gave for withholding the formal grade.",
         "url": "https://vibemathed.com/problem/smale-s-mean-value-conjecture-k-1"
+      },
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this conjecture as a registration. No grade moved."
       }
     ]
   },
@@ -7298,6 +7333,12 @@
         "registry": "vibemathed",
         "id": "ibragimov-iosifescu-varphi-mixing-clt-conjecture",
         "url": "https://vibemathed.com/problem/ibragimov-iosifescu-varphi-mixing-clt-conjecture"
+      },
+      {
+        "registry": "mathdb",
+        "id": "316044",
+        "title": "Ibragimov–Iosifescu conjecture for φ-mixing sequences",
+        "url": "https://mathdb.com/p/316044/ibragimov-iosifescu-conjecture-for-mixing-sequences"
       }
     ],
     "sources": [
@@ -7319,7 +7360,14 @@
       "formalization",
       "construction"
     ],
-    "added": "2026-09-15"
+    "added": "2026-09-15",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for this conjecture as a registration. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-09-06-bollobas-nikiforov",
@@ -7640,7 +7688,7 @@
     "verification": "claimed",
     "autonomy": "ai-assisted",
     "detail": "The conjecture of Huang, Jiang and Oblomkov gives a geometric extension of the Rogers-Ramanujan and Andrews-Gordon identities for the torus-knot singularity \\(X^a = Y^b\\) with coprime exponents. The paper establishes a threefold equality between a normalized count of pairs of commuting nilpotent matrices over a finite field satisfying \\(A^a = B^b\\), the HJO \\(q\\)-series, and an explicit infinite product. The main result is stated as a stronger finite identity, that the rank \\(N\\) HJO sum equals a \\(q\\)-Pochhammer factor times the generating function for balanced cylindric partitions with entries bounded by \\(N\\), with the conjecture following in the limit. The proof is human mathematics: it combines the compositional rational shuffle theorem of Bergeron, Garsia, Leven and Xin and of Mellit with a multiplicativity theorem for slope operators and a determinantal model, linked by a common \\(q\\)-difference equation. The abstract's AI disclosure covers the formalization only: the finite identity and the HJO conjecture have been formalized in Lean by AxiomProver, conditional on two stated literature inputs.",
-    "novelty_check": "The 2026-09-23 watch run searched arXiv and the web for the \\(a = 3\\) layer specifically and found two August 2026 papers by an overlapping author set, arXiv:2608.05480 and arXiv:2608.15219, which resolve individual exponent pairs rather than a full family; no prior resolution of the general coprime case was found. That search was not a systematic review of the Rogers-Ramanujan and torus-knot-singularity literature, and whether this paper generalizes rather than restates those two predecessors is the first thing a specialist should check. The year the HJO conjecture was posed is not stated in the abstract and is left unrecorded here rather than guessed.",
+    "novelty_check": "The 2026-09-23 watch run searched arXiv and the web for the \\(a = 3\\) layer specifically and found two August 2026 papers by an overlapping author set, arXiv:2608.05480 and arXiv:2608.15219, which resolve individual exponent pairs rather than a full family; no prior resolution of the general coprime case was found. That search was not a systematic review of the Rogers-Ramanujan and torus-knot-singularity literature, and whether this paper generalizes rather than restates those two predecessors is the first thing a specialist should check. The year the HJO conjecture was posed is not stated in the abstract and is left unrecorded here rather than guessed. The first of those, the \\(a = 3\\) layer, has its own entry, 2026-08-06-hjo-a3-rogers-ramanujan.",
     "caveats": "Autonomy is ai-assisted rather than anything stronger because the abstract places AxiomProver on the formalization, not on the discovery: the proof strategy it names is a combination of existing human theorems. Verification is claimed rather than formal for the reason the abstract itself supplies, that the Lean development is conditional on two stated literature inputs, so what the kernel establishes is an implication rather than the theorem outright, the same structure as this registry's 2026-09-02-prime-gaps-186 entry. Whether those two inputs, the collinear commutation of slope operators and the compositional rational shuffle identity, are settled literature or are doing substantive unproved work is the question that decides how much the formalization is worth. A preprint days old at entry, unrefereed, with no mathematician review found as of 2026-09-22 and no third-party audit of the Lean statements against the paper.",
     "sources": [
       {
@@ -7933,7 +7981,7 @@
     "autonomy": "ai-led",
     "detail": "Resolution over parities, \\(\\mathrm{Res}(\\oplus)\\), extends resolution by letting clauses be disjunctions of affine equations over \\(\\mathbb{F}_2\\). Superpolynomial size lower bounds were previously known only for restricted refutations: tree-like, regular, or of bounded depth. The paper claims that every DAG-like \\(\\mathrm{Res}(\\oplus)\\) refutation of the bit pigeonhole principle with \\(n+1\\) pigeons and \\(n = 2^l\\) holes has more than \\(\\exp(n/(32768\\,l^2))\\) clauses for every \\(l\\) of at least 32. The argument translates a refutation into a low-degree polynomial calculus refutation over extension variables in the style of Buss, Impagliazzo, Krajicek, Pudlak, Razborov and Sgall, removes the extension variables with one substitution, and closes with a Razborov-style degree lower bound proved through the homology of chessboard complexes. The main theorem, a general sufficient condition for \\(\\mathrm{Res}(\\oplus)\\) size lower bounds, and their dependencies are formalized in Lean 4 in the author's repository.",
     "novelty_check": "The 2026-09-28 watch run surfaced this through vibemathed; this check read the paper's related-work section and searched arXiv and the web. The closest prior results found keep a restriction: Byramji and Impagliazzo (arXiv:2511.20023, November 2025) prove exponential bounds for bit pigeonhole principles only in bounded-depth \\(\\mathrm{Res}(\\oplus)\\), and the paper itself surveys regular and bounded-depth results by Efremenko, Garlík, Itsykson, Alekseev and others, each with a regularity or depth restriction. No earlier superpolynomial lower bound for unrestricted DAG-like \\(\\mathrm{Res}(\\oplus)\\) was found, which matches the abstract's framing. The year the question was first posed is not stated in the paper and is left unrecorded rather than guessed: Raz and Tzameret introduced the integer version in 2008 and Itsykson and Sokolov studied the \\(\\mathbb{F}_2\\) version from 2014. This was not a systematic review of the proof-complexity literature.",
-    "caveats": "The author states that he does not have the expertise to check the mathematics and did not check it, and that his confidence rests on the Lean formalization. The paper also says what that formalization does not cover: the prose, the claims about the literature, and the fidelity of the formal definitions to the standard proof system. That last point decides what the Lean is worth, and no third party has audited the Lean definitions of \\(\\mathrm{Res}(\\oplus)\\) or of the bit pigeonhole principle; there is no Palomar registration. The review rounds recorded in the repository were conversations with Claude and ChatGPT, which the author labels as not independent. Autonomy is ai-led rather than autonomous on the strictest defensible reading: the author chose the problem and steered the research loop, while his disclosure attributes all mathematical derivations to the models, with GPT-6 Astra the main contributor to version 1. A self-published claim on a well-studied problem, unrefereed and under two weeks old at entry.",
+    "caveats": "The author states that he does not have the expertise to check the mathematics and did not check it, and that his confidence rests on the Lean formalization. The paper also says what that formalization does not cover: the prose, the claims about the literature, and the fidelity of the formal definitions to the standard proof system. That last point decides what the Lean is worth. vibemathed audited those definitions at commit 54f0937 and reports that the formal proof system admits every dag-like \\(\\mathrm{Res}(\\oplus)\\) step and more besides, which can only strengthen a lower bound, and that the clauses are the standard bit pigeonhole axioms; it also cites two GitHub Actions builds of the main theorems on clean runners, from a workflow in the author's own repository. That is one curator's reading rather than a proof-complexity specialist's, the standard this registry applied to 2026-09-06-bollobas-nikiforov, and there is no Palomar registration, so the grade stays claimed. The review rounds recorded in the repository were conversations with Claude and ChatGPT, which the author labels as not independent. Autonomy is ai-led rather than autonomous on the strictest defensible reading: the author chose the problem and steered the research loop, while his disclosure attributes all mathematical derivations to the models, with GPT-6 Astra the main contributor to version 1. A self-published claim on a well-studied problem, unrefereed and under two weeks old at entry.",
     "registrations": [
       {
         "registry": "vibemathed",
@@ -7965,7 +8013,15 @@
       "formalization",
       "argument"
     ],
-    "added": "2026-09-28"
+    "added": "2026-09-28",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "check",
+        "note": "Recorded vibemathed's audit of the Lean definitions of resolution over parities and of the bit pigeonhole principle, and two clean CI builds of the main theorems; the caveat had said no third party had audited them. No specialist has read the argument, so no grade moved.",
+        "url": "https://vibemathed.com/problem/superpolynomial-lower-bounds-for-bit-php-in-unrestricted-resolution-over-paritie"
+      }
+    ]
   },
   {
     "id": "2026-09-16-four-color-theorem-lean",
@@ -8488,7 +8544,7 @@
     "autonomy": "collaborative",
     "detail": "The main theorem states that every finite-order Hecke L-function over \\(\\mathbb{Q}(\\sqrt{-3})\\) and every Dirichlet L-function, including \\(\\zeta(s)\\), is zero-free in \\(\\Re s > 7/8\\), the principal pole at \\(s=1\\) excepted. The quasi-Riemann hypothesis asks for any fixed \\(\\sigma_0 < 1\\) with no zeros to the right of it; the classical zero-free regions of de la Vallée Poussin and Vinogradov-Korobov shrink toward \\(\\Re s = 1\\) with height, and zero-density estimates such as Guth and Maynard's bound how many zeros there are rather than excluding them. A fixed half-plane gives the prime number theorem with error \\(O(x^{7/8+\\varepsilon})\\). The paper works through Kubota's metaplectic theory and Patterson's cubic theta series, with sextic large-sieve estimates extending Goldmakher, Louvel and Blomer, using Dunn and Radziwiłł's unconditional cusp expansions. A companion manuscript reaches the weaker half-plane \\(\\Re s > 11/12\\) by a different proof, and a third proves \\((1-\\beta)\\log q \\ge c\\) for every real zero \\(\\beta\\) of every primitive real character of conductor \\(q \\ge 3\\). The Lean statement for zeta is a single line against Mathlib's own definition, OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re, with separate Comparator challenges for the Dirichlet and Hecke versions and for the Siegel-zero bound, each permitting only propext, Quot.sound and Classical.choice.",
     "novelty_check": "Read the three manuscripts' introductions and the Lean scope note lean/docs/003.md at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. The paper takes the name quasi-Riemann hypothesis from Billington, Cheng, Schettler and Suriajaya (2025) and the uniform formulation over Dirichlet characters from Friedlander and Goldston (1997), and cites no earlier proof of any fixed half-plane; none was found in a web search, and no such half-plane is known unconditionally in the standard literature. For Landau-Siegel zeros the unconditional state of the art before this was Siegel's ineffective 1935 bound; Yitang Zhang's 2022 preprint claims a weaker bound of polylogarithmic strength. No prior registry entry covers either statement; 2026-08-10-zeta-zeros-critical-line concerns the proportion of zeros on the critical line, a different question.",
-    "caveats": "Graded claimed despite a Lean development, for the reason the Navier-Stokes entry set: the catalogue records its review status as unchecked and nobody outside OpenAI is on record as having run the Comparator challenge or read the argument. What would move it is narrow here, because the zeta statement is anchored on Mathlib's own riemannZeta, so a successful independent Comparator run would support formal on its own. The formalization is very large, about 2,900 Lean files and 487,000 lines under the Dirichlet L-function directory and about 70,000 more for the Siegel-zero bound; a text search found no sorry or axiom declarations, which is not a build. The Siegel-zero manuscript gives no explicit constant, though the half-plane alone already implies \\(1-\\beta \\ge 1/8\\) for every real zero, so its interest lies in the independent route rather than the bound. Autonomy is graded collaborative, the weakest reading consistent with OpenAI's account that the model produced the result: the README names the zero-free-region work as an exception to the fixed single-agent procedure without saying what was done differently, and says the \\(11/12\\) write-up was edited by humans. Nothing here bears on the Riemann hypothesis, which places the zeros on \\(\\Re s = 1/2\\); press summaries describing this as progress toward it overstate the connection.",
+    "caveats": "Graded claimed despite a Lean development, for the reason the Navier-Stokes entry set: the catalogue records its review status as unchecked and nobody outside OpenAI is on record as having run the Comparator challenge or read the argument. What would move it is narrow here, because the zeta statement is anchored on Mathlib's own riemannZeta, so a successful independent Comparator run would support formal on its own. The formalization is very large, about 2,900 Lean files and 487,000 lines under the Dirichlet L-function directory and about 70,000 more for the Siegel-zero bound; a text search found no sorry or axiom declarations, which is not a build. The Siegel-zero manuscript gives no explicit constant, though the half-plane alone already implies \\(1-\\beta \\ge 1/8\\) for every real zero, so its interest lies in the independent route rather than the bound. Autonomy is graded collaborative, the weakest reading consistent with OpenAI's account that the model produced the result: the README names the zero-free-region work as an exception to the fixed single-agent procedure without saying what was done differently, and says the \\(11/12\\) write-up was edited by humans. Nothing here bears on the Riemann hypothesis, which places the zeros on \\(\\Re s = 1/2\\); press summaries describing this as progress toward it overstate the connection. Axiom Math has since Palomar-registered a Lean proof, adapting code from this release, that every Dedekind zeta function, \\(\\zeta\\) included, has no zeros with \\(\\Re s > 31/32\\) (2026-10-12-dedekind-zeta-quasi-riemann). That half-plane is narrower than \\(7/8\\), and the development does not run this entry's Comparator challenges, so it does not move this grade.",
     "sources": [
       {
         "label": "The Quasi-Riemann Hypothesis: a zero-free half-plane Re(s) > 7/8 (PDF)",
@@ -8596,6 +8652,12 @@
         "url": "https://vibemathed.com/problem/kakeya-maximal-conjecture-r3",
         "title": "The Kakeya maximal conjecture in three dimensions",
         "note": "Covers the three-dimensional maximal half of this entry only, recorded there as unreviewed; vibemathed keeps the four-dimensional set result as a separate record."
+      },
+      {
+        "registry": "mathdb",
+        "id": "367525",
+        "title": "The maximal Kakeya conjecture",
+        "url": "https://mathdb.com/p/367525/the-maximal-kakeya-conjecture"
       }
     ],
     "revisions": [
@@ -8604,6 +8666,11 @@
         "kind": "correction",
         "note": "Recorded the vibemathed record for the three-dimensional maximal result as a registration. It carries the same claim and the same unreleased-model attribution this entry does. No grade moved.",
         "url": "https://vibemathed.com/problem/kakeya-maximal-conjecture-r3"
+      },
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for the maximal conjecture as a registration. No grade moved."
       }
     ]
   },
@@ -8671,6 +8738,19 @@
     "detail": "The Borel conjecture asks that homotopy equivalences between closed aspherical manifolds be homotopic to homeomorphisms; the weaker homeomorphism-existence form asks only that homotopy-equivalent ones be homeomorphic. It holds in dimensions up to three, and in dimensions five and above it is known for large classes of fundamental groups, including word-hyperbolic groups by Bartels and Lück. The manuscript gives a pair \\(M\\), \\(N\\) with a common word-hyperbolic fundamental group, plus a self-homotopy equivalence of \\(M\\) not homotopic to any homeomorphism. The construction applies Davis's reflection trick to a four-dimensional Poincaré chamber whose cyclic covers have a manifold filling in degree two but none in odd degree, glues the degree-two filling in two different ways, and separates the results by showing the outer automorphism group of the fundamental group is finite and computing a normalizer inside it. It is a topological statement, distinct from the 2026 smooth examples of Davis, Hayden, Huang, Ruberman and Sunukjian, which are homeomorphic but not diffeomorphic.",
     "novelty_check": "Read the introduction and bibliography at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12. The history it gives matches the standard account: Hsiang and Wall and Farrell and Jones in high dimensions, Bartels and Lück's theorem with a good-fundamental-group hypothesis in dimension four, and Khan's rigidity up to topological s-cobordism for torsion-free hyperbolic groups. No earlier counterexample in dimension four was found in the registry or in that literature. The family is a disproof, not a proof: the manuscript map and the paper both say so.",
     "caveats": "The argument rests on two companion manuscripts in the same release, 'A marked tensor obstruction to four-dimensional disk embedding' and 'A PD4 group without an aspherical manifold model', which claim respectively that the unrestricted four-dimensional disk-embedding conjecture fails (so that the free group on two generators is not good in Freedman and Quinn's sense) and that Wall's conjecture fails. Either would be a major result in four-manifold topology on its own, neither has been checked outside OpenAI, and this counterexample inherits whatever they contain. No Lean formalization accompanies the manuscript or its companions. Nobody outside OpenAI is on record as having read it. Autonomy is graded ai-led rather than autonomous because humans chose the problems and filtered the output; the README places this family under its single-agent procedure, an account that rests on OpenAI alone.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "316143",
+        "title": "Borel conjecture",
+        "url": "https://mathdb.com/p/316143/borel-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "borel-conjecture-dimension-four",
+        "url": "https://vibemathed.com/problem/borel-conjecture-dimension-four"
+      }
+    ],
     "sources": [
       {
         "label": "Nonhomeomorphic closed aspherical four-manifolds with the same homotopy type (PDF)",
@@ -8705,7 +8785,14 @@
       "geometric-group-theory",
       "construction"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-artin-primitive-root",
@@ -8721,6 +8808,19 @@
     "detail": "For each admissible \\(a\\) the manuscript proves at least \\(c_a x/(\\log x)^2\\) primes in \\((x, 2x)\\) with primitive root \\(a\\), against the predicted \\(x/\\log x\\). Hooley proved the full predicted asymptotic in 1967 under the generalized Riemann hypothesis; unconditionally, Heath-Brown showed in 1986 that at most two prime bases fail, so one of 2, 3 and 5 works without saying which. The analytic core is a separate theorem: for every cyclotomic field containing the twelfth roots of unity and every finite-order Hecke character, the \\(L\\)-function has no zeros with \\(\\Re s > 1 - 10^{-6}\\), a strip of uniform width with no exceptional zero. It is built from the cubic-theta and coefficient-reflection machinery of the release's quasi-Riemann hypothesis manuscript, extended from \\(\\mathbb{Q}(\\sqrt{-3})\\) to these fields. A companion manuscript gives a conditional result for simultaneous primitive roots.",
     "novelty_check": "Read the introduction at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12. Its account of prior work (Hooley, Gupta and Murty, Heath-Brown, and the averaged results of Goldfeld, Stephens and of Klurman, Shparlinski and Teräväinen) matches the standard one, in which no specific base such as 2 is known unconditionally. No earlier unconditional claim for a prescribed base was found in the registry.",
     "caveats": "The uniform zero-free strip is itself a statement of the same kind as the quasi-Riemann hypothesis and depends on the methods of that companion manuscript, so this entry stands or falls with 2026-10-06-quasi-riemann-hypothesis, which is also unchecked. No Lean formalization accompanies the family. The bound is a lower bound of the wrong order for the density conjecture; the quantitative half of Artin's conjecture is untouched. Nobody outside OpenAI is on record as having read the argument. Autonomy is graded ai-led for the same reasons as the other families split from this release: humans chose the problems and filtered the output, and the single-agent account rests on OpenAI alone.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "370026",
+        "title": "Artin's primitive root conjecture",
+        "url": "https://mathdb.com/p/370026/artin-s-primitive-root-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "artin-primitive-root-infinitude",
+        "url": "https://vibemathed.com/problem/artin-primitive-root-infinitude"
+      }
+    ],
     "sources": [
       {
         "label": "Primitive roots for every admissible integer base (PDF)",
@@ -8755,7 +8855,14 @@
       "primitive-roots",
       "argument"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. vibemathed cites the same manuscript and grades it partial, as this entry does. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-modularity-imaginary-quadratic",
@@ -8770,6 +8877,13 @@
     "detail": "The theorem attaches to each curve \\(E\\) over an imaginary quadratic field \\(K\\) an isobaric automorphic representation of \\(\\mathrm{GL}_2(\\mathbb{A}_K)\\) realizing its cohomology, with local-global compatibility at every finite place and \\(L(E/K, s) = L(\\pi_E, s - 1/2)\\); it is cuspidal when \\(E\\) has no complex multiplication. Over \\(\\mathbb{Q}\\) this is the theorem of Wiles, Taylor and Wiles and of Breuil, Conrad, Diamond and Taylor. Over imaginary quadratic fields, potential modularity follows from the ten-author theorem of Allen, Calegari, Caraiani, Gee, Helm, Le Hung, Newton, Scholze, Taylor and Thorne; Allen, Khare and Thorne proved modularity for a positive proportion of curves; and Caraiani and Newton proved it for every curve over fields where \\(X_0(15)(K)\\) has rank zero. The manuscript keeps Caraiani and Newton's lifting theorem and residual criterion as inputs and supplies a geometric prime switch, in the spirit of Wiles's 3-5 switch, to reach the curves they could not.",
     "novelty_check": "Read the introduction at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12; it cites the line of work above and states that Caraiani and Newton's lifting theorem remains essential. No earlier claim of the full statement was found in the registry. This is an area of intense current human work, so the main novelty risk is not an old result but concurrent unpublished progress by the people working on it, which a registry search cannot see.",
     "caveats": "No Lean formalization accompanies the family, and an argument of this kind, resting on a deep stack of published automorphy lifting results, is checkable only by the small community that works in it. Nobody outside OpenAI is on record as having read it. Autonomy is graded ai-led for the same reasons as the other families split from this release: humans chose the problems and filtered the output, and the single-agent account rests on OpenAI alone.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "modularity-elliptic-curves-imaginary-quadratic",
+        "url": "https://vibemathed.com/problem/modularity-elliptic-curves-imaginary-quadratic"
+      }
+    ],
     "sources": [
       {
         "label": "Modularity of elliptic curves over imaginary quadratic fields (PDF)",
@@ -8794,7 +8908,14 @@
       "elliptic-curves",
       "argument"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It cites the same manuscript. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-hyperinvariant-subspace-problem",
@@ -8809,6 +8930,13 @@
     "detail": "An operator has no nontrivial hyperinvariant subspace exactly when its commutant is a transitive algebra. The construction takes bilateral weighted shifts on \\(\\ell^2(\\mathbb{Z})\\) fibered over the 2-adic integers, whose invariant subspaces in each fiber are exactly the coordinate tails, and adds a commuting contraction that moves every tail one step backward while the base is shifted by the odometer; a subspace invariant under the whole commutant would then need a tail index that strictly decreases along an ergodic, measure-preserving map, which is impossible. The operator satisfies \\(\\|S^n\\| \\le \\exp(-10\\lfloor (n+1)^2/4 \\rfloor)\\). Since its commutant is a proper, strongly closed, transitive unital algebra, the same example answers negatively the transitive algebra question of whether every such algebra is strongly dense. A companion manuscript in the family gives operators in the hyperfinite type \\(\\mathrm{II}_1\\) factor with no nontrivial invariant projection, answering a question of Zhu, Fang and Shi.",
     "novelty_check": "Read the introduction at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12. It situates the result against Douglas and Pearcy's 1972 work, Arveson's 1967 density theorem (whose maximal abelian hypothesis the construction avoids), and Atzmon and Sodin's 1999 shifts, whose hyperinvariant subspaces were left open, and notes that a Kérchy and Pearcy preprint claiming the invariant and hyperinvariant problems are equivalent was withdrawn. No earlier negative answer was found in the registry.",
     "caveats": "This does not touch the invariant subspace problem itself: the operator has many ordinary invariant subspaces, the tails, and the paper says plainly that the two problems are distinct. The family's Lean formalization includes Comparator statements for a quasinilpotent operator with transitive commutant on every separable infinite-dimensional Hilbert space, which is the headline claim, but the catalogue records its own review status as unchecked and no outside audit of those statements was found. The formal statement is short, so such an audit is unusually tractable here and would be the natural next check. Nobody outside OpenAI is on record as having read the argument. Autonomy is graded ai-led for the same reasons as the other families split from this release.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "hyperinvariant-subspace-problem-hilbert-space",
+        "url": "https://vibemathed.com/problem/hyperinvariant-subspace-problem-hilbert-space"
+      }
+    ],
     "sources": [
       {
         "label": "Backward intertwiners and a transitive commutant (PDF)",
@@ -8844,7 +8972,14 @@
       "lean",
       "construction"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It cites the same manuscript and labels it Lean-checked, which is the attached formalization rather than an outside review. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-o3-model-mass-gap",
@@ -8859,6 +8994,13 @@
     "detail": "The main manuscript takes the nearest-neighbor lattice \\(O(3)\\) model, normalizes by susceptibility and second-moment correlation length, and proves the limit exists as the coupling tends to infinity through all real values, without passing to subsequences; the limiting fields satisfy the Osterwalder-Schrader axioms, have a nonzero connected four-point function, and reconstruct to a theory with a unique vacuum and a positive Hamiltonian gap. A companion proves an isolated one-particle pole. Two further manuscripts treat \\(O(4)\\), ending with the exact asymptotic \\(m_{\\mathrm{lat}}(\\beta) \\sim 32 e^{\\pi/4 - 1/2} \\sqrt{\\beta}\\, e^{-\\pi\\beta}\\) for the lattice mass gap. A fifth proves exponential decay of two-point correlations for the classical \\(O(n)\\) model with \\(n \\ge 3\\) at every finite inverse temperature, uniformly over finite subgraphs, the absence of a low-temperature ordered phase that physicists have expected since Polyakov's work of the 1970s.",
     "novelty_check": "Read CONTENTS.md and the family's Lean scope document at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12; the TeX introduction of the main manuscript could not be fetched from the repository's storage, so its account of prior work was not read. No earlier construction of the massive \\(O(3)\\) continuum limit, and no proof of all-temperature decay for \\(n \\ge 3\\), was found in the registry; both are standing open problems of constructive field theory and statistical mechanics in the literature the release cites.",
     "caveats": "The Lean formalization covers only the classical \\(O(n)\\) decay theorem on finite square-lattice subgraphs; its scope document says the infinite-volume limit and the \\(O(4)\\) spectral-gap claims are not included, and nothing about the continuum limit, the Osterwalder-Schrader axioms or the mass gap is formalized. The catalogue records its review status as unchecked. Roland Bauerschmidt told Scientific American that one of the papers seemed very reasonable on a first read, while saying the details were not yet digested, and called another 'horrible', saying the rest were too hard for even an expert to verify; that is the only named outside assessment found. Michael Douglas described the problem to the same magazine as the widely accepted warm-up for Yang-Mills. Autonomy is graded ai-led for the same reasons as the other families split from this release.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "o3-sigma-model-continuum-limit-mass-gap",
+        "url": "https://vibemathed.com/problem/o3-sigma-model-continuum-limit-mass-gap"
+      }
+    ],
     "sources": [
       {
         "label": "The canonical massive continuum limit of the two-dimensional O(3) model (PDF)",
@@ -8904,7 +9046,14 @@
       "mass-gap",
       "argument"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It cites the same manuscript. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-04-kls-conjecture",
@@ -8927,6 +9076,19 @@
     "detail": "The conjecture, formulated in 1995, says that isoperimetry in a convex body is saturated by half-spaces up to a universal constant; equivalently \\(C_P(\\mu) \\le C\\) for every isotropic log-concave \\(\\mu\\) on \\(\\mathbb{R}^n\\), so that the Poincaré constant is determined by testing linear functions. It sits above Bourgain's slicing problem and the thin-shell conjecture, both resolved by Klartag and Lehec in the past two years. The bound on the KLS constant \\(\\psi_n\\), the reciprocal Cheeger constant, had fallen from Kannan, Lovász and Simonovits's \\(\\sqrt n\\) through Lee and Vempala's \\(n^{1/4}\\), Chen's subpolynomial bound, Klartag and Lehec's polylogarithm and Klartag's \\(\\sqrt{\\log n}\\) to Letwin's \\((\\log n)^{1/4}\\) of July 2026. Song and Zhang's first version, posted on 1 October, gave an iterated-logarithm bound. Bizeul, Klartag and Lehec (posted 19:30 UTC on 4 October) complete the proof using Song and Zhang's criterion on high-order derivatives of tilt averages and a suspension idea they credit to themselves; their acknowledgements say most proofs and mathematical ideas were found by ChatGPT and that the authors' role was mostly to understand the proofs and improve the exposition. Song and Zhang's second version (21:21 UTC the same day, 140 pages) reaches a universal constant by applying their log-star refinement repeatedly; their disclosure describes exploring more than 100 approaches with AI tools since 28 July, with candidates generated collaboratively and the authors choosing which to pursue.",
     "novelty_check": "Read both papers' sources on arXiv: arXiv:2610.05474 v1 and arXiv:2610.01447 v2, with the latter's submission history. Each introduction gives the same ladder of prior bounds, ending at Letwin's, and neither cites an earlier resolution. The two are not independent of each other: the Bizeul, Klartag and Lehec proof takes Song and Zhang's first-version criterion as its crucial step, and Song and Zhang's second version finishes the same programme by a different route.",
     "caveats": "Neither preprint is refereed, and the two together are under ten days old at entry. Verification is author-verified: Klartag and Lehec are among the people who built this area, which carries weight, but their own account is that ChatGPT found most of the proof and they checked and rewrote it, while Song and Zhang write that the proofs were verified by the authors and several AI tools. No outside reader is on record for either. Autonomy is graded collaborative on the weaker of the two disclosures: the Bizeul, Klartag and Lehec wording on its own reads as ai-led, but the decisive criterion is Song and Zhang's, whose disclosure describes a human-steered search and credits the log-star and height-reduction ideas to the authors' earlier work. The Bizeul, Klartag and Lehec introduction opens by saying the conjecture 'poses little challenge for contemporary AI tools', given recent progress, which is a striking thing for two of the field's leading figures to put in print. The ChatGPT version used is not stated.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "363363",
+        "title": "Kannan–Lovász–Simonovits conjecture",
+        "url": "https://mathdb.com/p/363363/kannan-lovasz-simonovits-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "kannan-lovasz-simonovits-conjecture",
+        "url": "https://vibemathed.com/problem/kannan-lovasz-simonovits-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "arXiv: Bizeul, Klartag and Lehec, Presenting a proof of the Kannan-Lovász-Simonovits conjecture",
@@ -8945,7 +9107,14 @@
       "functional-inequalities",
       "argument"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-barnette-conjecture",
@@ -9011,6 +9180,19 @@
     "detail": "The main theorem gives, for every infinite \\(\\lambda\\), a threshold \\(\\mu(\\lambda)\\) such that any abstract elementary class with Löwenheim-Skolem number at most \\(\\lambda\\) that is categorical in one cardinal at or above \\(\\mu(\\lambda)\\) is categorical in all of them, with no amalgamation, joint embedding, tameness or no-maximal-models hypothesis and no restriction on the starting cardinal. It is the nonelementary analogue of Morley's theorem and covers \\(L_{\\omega_1,\\omega}\\) sentences in countable languages. A companion manuscript shows the threshold cannot be prescribed in general: under the continuum hypothesis there is a class with Löwenheim-Skolem number \\(\\aleph_0\\) categorical on a tail of cardinals but not at \\(\\beth_{\\omega_2}\\), so the prescribed-threshold form is not provable in ZFC if ZFC is consistent. Earlier positive results needed large cardinals (Makkai and Shelah; Boney), tameness with amalgamation (Grossberg and VanDieren), or special classes (Vasey for universal classes; Shelah and Vasey for excellent ones).",
     "novelty_check": "Read the main manuscript's introduction and bibliography at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb on 2026-10-12. The live novelty question is Christian Espíndola's 'A proof of Shelah's eventual categoricity conjecture and an extension to accessible categories with directed colimits', arXiv:1906.09169, first posted in 2019 and in a seventh version since April 2022, which states a ZFC proof for abstract elementary classes. The OpenAI manuscript cites it, calls it a separate public claim, and says none of its interfaces are imported from it; it does not say whether that proof is correct. Whether this is the first proof or a second one cannot be settled until someone qualified checks one or both.",
     "caveats": "The family's Lean formalization covers only the companion CH obstruction, not the eventual categoricity theorem: its scope document says the separate eventual-categoricity theorem is not included. The main manuscript runs to fourteen sections and roughly 460,000 characters of source, and builds its own amalgamation, independence calculus and geometry from the axioms rather than importing them, which is exactly where earlier attempts in this area have had gaps; the manuscript itself notes Boney and Vasey's identification of a gap in Shelah's own Chapter IV. Nobody outside OpenAI is on record as having read it. Autonomy is graded ai-led for the same reasons as the other families split from this release.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "389081",
+        "title": "Shelah's eventual categoricity conjecture",
+        "url": "https://mathdb.com/p/389081/shelah-s-eventual-categoricity-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "shelah-eventual-categoricity-conjecture",
+        "url": "https://vibemathed.com/problem/shelah-eventual-categoricity-conjecture"
+      }
+    ],
     "sources": [
       {
         "label": "Eventual categoricity for abstract elementary classes (PDF)",
@@ -9050,7 +9232,14 @@
       "set-theory",
       "argument"
     ],
-    "added": "2026-10-12"
+    "added": "2026-10-12",
+    "revisions": [
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. No grade moved."
+      }
+    ]
   },
   {
     "id": "2026-10-06-matmul-exponent-nine-fourths",
@@ -9114,6 +9303,11 @@
         ],
         "checked": "2026-10-11",
         "note": "The same author's further extension to every ring."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "matrix-multiplication-exponent-9-4",
+        "url": "https://vibemathed.com/problem/matrix-multiplication-exponent-9-4"
       }
     ],
     "sources": [
@@ -9169,6 +9363,11 @@
         "kind": "check",
         "note": "Recorded Jeroen Zuiddam's rebuild of the Lean proof over every field and Sela Navot's two Palomar-registered extensions, which are why this family is graded formal while the rest of the release stays claimed.",
         "url": "https://github.com/jzuiddam/omega-nine-quarters-all-fields"
+      },
+      {
+        "date": "2026-10-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for this result as a registration. It cites the same manuscript. No grade moved."
       }
     ]
   },
@@ -9224,5 +9423,373 @@
       "computation"
     ],
     "added": "2026-10-12"
+  },
+  {
+    "id": "2026-10-05-3sum-apsp-hypotheses",
+    "title": "Truly subquadratic 3SUM and truly subcubic APSP, refuting two central fine-grained complexity hypotheses",
+    "claim": "A preprint by Josh Alman and Virginia Vassilevska Williams gives deterministic algorithms that solve 3SUM on polynomially bounded integers in time \\(O(n^{1.9992})\\) and all-pairs shortest paths with polynomially bounded integer weights in time \\(O(n^{2.9995})\\), refuting the 3SUM and APSP hypotheses, from an algorithm the paper says an internal Anthropic model found on its own.",
+    "field": "computer-science",
+    "date": "2026-10-05",
+    "lab": "Anthropic",
+    "model": "Unreleased internal Anthropic research model (Claude), not named in the paper",
+    "humans": [
+      "Josh Alman",
+      "Virginia Vassilevska Williams"
+    ],
+    "year_posed": 1995,
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "Both hypotheses say the textbook algorithms are essentially optimal: 3SUM, deciding whether three of \\(n\\) integers sum to zero, needs time \\(n^{2-o(1)}\\), and APSP needs \\(n^{3-o(1)}\\). Fine-grained complexity has used them, together with the Exact Triangle hypothesis, as the starting points of many conditional lower bounds, and the abstract describes these as the first polynomial improvements over the textbook algorithms. Everything follows from one new algorithm for thin matrix products: for an \\(N \\times D\\) integer matrix \\(X\\) and a \\(D \\times N\\) matrix \\(Y\\) with \\(D \\le N^{1/18}\\), it computes the entries of \\(XY\\) at any set of at most \\(N^2/\\sqrt{D}\\) prescribed positions in \\(O(N^2/D^{0.063})\\) operations, by modifying a variant of Coppersmith's rectangular matrix multiplication algorithm built on a ten-multiplication identity of Schönhage. Read as a graph algorithm, it finds all triangles in sparse lopsided tripartite graphs in truly subquadratic time, and known reductions carry that to Exact Triangle, 3SUM and APSP, and further to the real-valued versions of 3SUM and APSP, the Zero-Weight \\(k\\)-Clique hypotheses and three hinted Online Matrix-Vector conjectures. According to the paper's methodology section, an Anthropic employee had an internal research model working on cryptographic constructions based on the average-case hardness of Zero-\\(k\\)-Clique; asked to verify and improve them, it instead developed this algorithm, first for the average case and then for the worst case, in one session of 16 million output tokens with no human input. Anthropic shared it with the authors in September 2026, and they simplified, strengthened and extended it and derived the further consequences. After the paper was written, an internal Anthropic model produced a Lean 4 formalization of five headline running-time claims on a word RAM defined in Lean.",
+    "novelty_check": "Read the abstract, the introduction and the 'Acknowledgments and Methodology' section of arXiv:2610.06783 v1 on 2026-10-16, and the README of the Lean formalization. The abstract presents these as the first polynomial improvements over the textbook algorithms for either problem, and Vassilevska Williams is a co-author of the 2010 work on subcubic equivalences through which the APSP hypothesis is usually stated, so the account of prior work comes from the area's own authorities. The registry had no entry citing this paper and none on either hypothesis. The two Hacker News threads on the preprint raise no technical objection.",
+    "caveats": "Graded author-verified rather than formal or claimed. The paper is by two researchers outside Anthropic who are leading figures in fine-grained complexity and who take full responsibility for it, which is the human check this grade records; nobody outside the author group is on record as having read the argument, and the preprint is unrefereed and eleven days old at entry. The Lean development is large, about 102,000 lines by vibemathed's count, and states the five headline claims in a 139-line file that imports nothing, but it was written by Anthropic, the party that found the algorithm, and no Comparator run or third-party registration is recorded; an independent replay against an audited statement file would support formal. The Lean machine is a word RAM with nine instructions and no division, shift or bitwise operation, which the formalization's documentation compares with the standard model point by point; a weaker machine only strengthens an upper bound. The running times for real-valued inputs and the printed running times of the two reduction theorems are not formalized. Autonomy is graded ai-led rather than autonomous: the account that the algorithm came out of one unsupervised session aimed at a different question rests on Anthropic alone and the session is not public, and the authors strengthened and extended what they were given, using known reductions in place of a different one that was shared with them. The paper says slightly better but more complicated algorithms generated with Claude were left out. Anthropic shared the algorithm under a confidentiality agreement, offered the authors compensation and gave them access to the public Claude model, all disclosed in the paper. The exponent savings are tiny and the algorithms are not practical; the consequence is for the conditional lower bounds that were derived from these hypotheses.",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "388643",
+        "title": "3SUM Hard Problems",
+        "url": "https://mathdb.com/p/388643/3sum-hard-problems"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "3sum-hypothesis",
+        "url": "https://vibemathed.com/problem/3sum-hypothesis"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "apsp-hypothesis",
+        "url": "https://vibemathed.com/problem/apsp-hypothesis"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Alman and Vassilevska Williams, Truly Subquadratic 3SUM and Truly Subcubic APSP via Triangles in Sparse Lopsided Graphs",
+        "url": "https://arxiv.org/abs/2610.06783",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: anthropics/formal-math, the Lean formalization of the headline running-time claims",
+        "url": "https://github.com/anthropics/formal-math/tree/main/3sum-apsp",
+        "kind": "research"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Subquadratic 3SUM and Subcubic APSP",
+        "url": "https://news.ycombinator.com/item?id=49977437"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "fine-grained-complexity",
+      "3sum",
+      "shortest-paths",
+      "matrix-multiplication",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-10-12-dedekind-zeta-quasi-riemann",
+    "title": "No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
+    "claim": "A Lean-formalized proof generated by Axiom Math's AxiomProver under two investigators' direction shows that for every number field \\(K\\) the Dedekind zeta function \\(\\zeta_K(s)\\) has no zeros with \\(\\Re s > 31/32\\).",
+    "field": "mathematics",
+    "date": "2026-10-12",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Dean Cureton",
+      "Jesse Thorner"
+    ],
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "The manuscript takes its strategy from OpenAI's Artin manuscript (2026-10-06-artin-primitive-root), which claims a zero-free strip \\(\\Re s > 1 - 10^{-6}\\) for finite-order Hecke \\(L\\)-functions over cyclotomic fields containing the twelfth roots of unity, and extends it to every number field with the wider half-plane \\(\\Re s > 31/32\\). It says the hardest part was formalizing Kazhdan and Patterson's metaplectic forms over number fields containing the twelfth roots of unity; abelian descent then reaches arbitrary number fields, and the Hecke corollary follows by factoring \\(\\zeta_L\\) for the cyclic extension \\(L/K\\) cut out by the character. For \\(K = \\mathbb{Q}\\) the half-plane is narrower than the \\(7/8\\) that 2026-10-06-quasi-riemann-hypothesis claims for the Riemann zeta function, but the result covers every number field and, unlike the OpenAI manuscripts it builds on, carries a third-party registration. The Lean statement is anchored on Mathlib's own NumberField.dedekindZeta: it asserts a function holomorphic away from \\(s = 1\\) that agrees with \\(\\zeta_K\\) for \\(\\Re s > 1\\) and does not vanish for \\(\\Re s > 31/32\\), which by uniqueness of analytic continuation is the continued zeta function. The repository credits code adapted from openai/math, Tau Ceti and LeanPool, and vendors a class field theory development from the Palomar archive. A corollary extending the half-plane to every finite-order Hecke \\(L\\)-function over \\(K\\), wherever it is holomorphic, is also formalized and registered, against a definition of ray class characters written in the challenge file.",
+    "novelty_check": "Read the Hexagon record (hexagon:2610.00200, versions 1 and 2, both dated 2026-10-12), the manuscript's abstract, first page and Section 15, the repository README, formalization.yaml and Challenge file on 2026-10-16. The manuscript presents the result as following the openai/math Artin strategy, and its references include the classical zero-free regions for Hecke \\(L\\)-functions of Hinz and Coleman, which shrink toward \\(\\Re s = 1\\) with height. No earlier fixed zero-free half-plane for Dedekind zeta functions of arbitrary number fields was found in the registry, whose closest entries are the two OpenAI manuscripts named above.",
+    "caveats": "Graded formal for the zeta theorem only, on the Palomar registration, which replays the proof against the Challenge statement with Comparator, and on that statement, which uses only Mathlib's definition of the Dedekind zeta function in an existence-of-continuation form that determines the function uniquely. That is the anchoring 2026-10-06-quasi-riemann-hypothesis names as enough for formal on its own zeta statement, and it is why this entry differs from Palomar-registered results whose statements rest on their authors' own definitions. The repository's own review status is agent-reviewed rather than human-reviewed, and the Hexagon record labels the text a mix of human-written and AI-generated with human understanding of some parts only, so the formal grade certifies the theorem, not the manuscript's prose argument. The Hecke corollary is not covered by the grade and is kept out of the claim: it defines ray class characters in the Challenge file itself rather than through Mathlib; read here, the definition encodes characters of the narrow ray class group modulo \\(\\mathfrak{m}\\), which covers every finite-order Hecke character, but nobody without a stake has confirmed it. The checked development compiles OpenAI's analytic number theory code and a vendored class field theory library rather than assuming them, and it does not check the OpenAI manuscripts' own \\(7/8\\) or \\(1 - 10^{-6}\\) statements. Autonomy is graded collaborative, the strictest defensible reading: the investigators directed the research and made the mathematical judgments while AxiomProver generated the proofs and the Lean, and the strategy itself came from OpenAI's manuscripts.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-13-000010",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-13-000010&version=2",
+        "repository": "AxiomMath/DedekindZetaZeroFree",
+        "commit": "09afbb4ce6570c1615d58509dc197fc9f0956b7d",
+        "theorems": [
+          "DedekindZetaZeroFree.main",
+          "DedekindZetaZeroFree.heckeCorollary"
+        ],
+        "checked": "2026-10-14",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon: Cureton and Thorner, A quasi-Riemann hypothesis for Dedekind zeta functions",
+        "url": "https://hexagonmath.org/2610.00200v2",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: AxiomMath/DedekindZetaZeroFree, the Lean formalization",
+        "url": "https://github.com/AxiomMath/DedekindZetaZeroFree",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "analytic-number-theory",
+      "zero-free-regions",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-10-09-polya-simply-connected",
+    "title": "Strict Pólya inequalities claimed for simply connected planar domains, Dirichlet and Neumann, with Lean formalizations",
+    "claim": "Quanyu Tang and Zuoqin Wang, working with ChatGPT, claim Pólya's 1954 eigenvalue conjecture in strict form for the Dirichlet Laplacian on every bounded simply connected planar domain and for the Neumann Laplacian on every bounded simply connected planar Lipschitz domain, with Palomar-registered Lean formalizations of both.",
+    "field": "mathematics",
+    "date": "2026-10-09",
+    "lab": "Independent",
+    "model": "ChatGPT for the mathematics, version not stated; Aristotle (Harmonic) and Codex for the Lean",
+    "humans": [
+      "Quanyu Tang",
+      "Zuoqin Wang"
+    ],
+    "year_posed": 1954,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Pólya conjectured that the Dirichlet eigenvalues of a planar domain of area \\(|\\Omega|\\) satisfy \\(\\lambda_j(\\Omega) \\ge 4\\pi j/|\\Omega|\\) and the Neumann eigenvalues \\(\\mu_j(\\Omega) \\le 4\\pi j/|\\Omega|\\), the bounds that Weyl's law approaches from either side; it was proved for domains that tile the plane and is open for general domains. The Dirichlet paper proves \\(|\\Omega|\\lambda_j(\\Omega) > 4\\pi j\\) for every \\(j \\ge 1\\) on every bounded simply connected planar domain, with no boundary regularity, through a unitary boundary-transport formulation of the Helmholtz equation that relates Dirichlet resonances to eigenphase crossings via the Dirichlet-to-Neumann map: an exact area identity gives the sharp Weyl coefficient, a Ky Fan estimate leaves a strictly positive remainder, and conformal exhaustion handles general domains. The Neumann result proves \\(|\\Omega|\\mu_j(\\Omega) < 4\\pi j\\) for \\(j \\ge 1\\) on bounded simply connected Lipschitz domains, indexed from \\(\\mu_0 = 0\\), together with the equivalent counting form; its manuscript is not yet on arXiv, and a draft sits in the registered repository. Before this the conjecture was known for tiling domains, disks and a few further families such as annuli, and on 2026-10-05 Speciel proved two thirds of the Dirichlet bound for every planar domain. The two Lean developments are about 27,000 and 100,000 lines.",
+    "novelty_check": "Searched arXiv on 2026-10-16 for Pólya's conjecture and planar eigenvalue bounds since 2024. Found the ball and annulus results of Filonov, Levitin, Polterovich and Sher, Jiang and Lin's result up to an \\(\\varepsilon\\)-loss for large eigenvalues, and Speciel's two-thirds bound for all planar domains (arXiv:2610.05636), posted four days before the Dirichlet preprint; none proves the full bound for a class as wide as simply connected domains. MathDB's record for the conjecture lists it as open for general domains. Nothing in the registry covered Pólya's conjecture.",
+    "caveats": "Graded claimed rather than formal, on this registry's precedent for 2026-09-06-bollobas-nikiforov, which shares an author and has the same shape. Both statements carry Palomar registrations that replay the proofs against Mathlib-only Challenge files with Comparator, and vibemathed read both Challenge files, as was done here, but the definitions of the eigenvalues, of \\(H^1\\) and of Lipschitz domains are the authors' own, and a curator's reading is not a named expert's confirmation that they say what Pólya's conjecture says. A spectral geometer with no stake confirming the two files would support formal. The Dirichlet statement defines \\(\\lambda_j\\) by min-max of the Rayleigh quotient over \\(j\\)-dimensional spaces of smooth compactly supported functions in \\(\\Omega\\), with Lebesgue area; the Neumann statement defines Lipschitz domains explicitly, \\(H^1\\) through weak gradients and \\(\\mu_j\\) by min-max over \\((j+1)\\)-dimensional subspaces. Neither informal proof has been read by anyone outside the authors, and the Neumann manuscript is not yet public. Multiply connected domains and higher dimensions remain open, so this is not Pólya's conjecture in general. Autonomy is graded ai-assisted on the authors' own wording, that the result and its informal proof were developed by the authors with assistance from ChatGPT and the Lean with Aristotle and Codex; the division of labour on the mathematics is not described further, and the repositories add that some Lean code and proof steps were AI-generated rather than written line by line.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-09-000003",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-09-000003&version=1",
+        "repository": "QuanyuTang/polya-dirichlet-simply-connected-formalization-Palomar-version",
+        "commit": "ba3690bfd48618cf48da07fa4555382bd9852ff3",
+        "theorems": [
+          "PalomarDirichlet.main_result"
+        ],
+        "checked": "2026-10-09",
+        "note": "The Dirichlet result. Permitted axioms are exactly propext, Quot.sound and Classical.choice."
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-09-000007",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-09-000007&version=1",
+        "repository": "QuanyuTang/polya-neumann-simply-connected-formalization-Palomar-version-v2",
+        "commit": "f07f1c7051862ba146429db6eda5dc4e8b020f74",
+        "theorems": [
+          "PalomarPolyaNeumann.strict_neumann_polya",
+          "PalomarPolyaNeumann.strict_neumann_polya_count"
+        ],
+        "checked": "2026-10-09",
+        "note": "The Neumann result, for Lipschitz domains. Permitted axioms are exactly propext, Quot.sound and Classical.choice."
+      },
+      {
+        "registry": "mathdb",
+        "id": "383222",
+        "title": "Pólya's conjecture",
+        "url": "https://mathdb.com/p/383222/polya-s-conjecture"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "strict-dirichlet-polya-inequality-on-simply-connected-planar-domains",
+        "url": "https://vibemathed.com/problem/strict-dirichlet-polya-inequality-on-simply-connected-planar-domains"
+      },
+      {
+        "registry": "vibemathed",
+        "id": "strict-neumann-polya-inequality-on-simply-connected-planar-lipschitz-domains",
+        "url": "https://vibemathed.com/problem/strict-neumann-polya-inequality-on-simply-connected-planar-lipschitz-domains"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Tang and Wang, Strict Dirichlet Pólya Inequality for Simply Connected Planar Domains",
+        "url": "https://arxiv.org/abs/2610.13139",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: the Lean formalization of the Dirichlet result",
+        "url": "https://github.com/QuanyuTang/polya-dirichlet-simply-connected-formalization-Palomar-version",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: the Lean formalization of the Neumann result, with the draft manuscript",
+        "url": "https://github.com/QuanyuTang/polya-neumann-simply-connected-formalization-Palomar-version-v2",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "spectral-geometry",
+      "eigenvalues",
+      "pde",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-10-12-matmul-3x3-rank-21",
+    "title": "Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof",
+    "claim": "Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two \\(3 \\times 3\\) matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003.",
+    "field": "computer-science",
+    "date": "2026-10-12",
+    "lab": "Independent",
+    "model": "OpenAI models through ChatGPT and Codex, versions not recorded in the repository (GPT-6 Astra and GPT-6 Sol by the author's later account to vibemathed)",
+    "humans": [
+      "Andrey Ivanov"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The bilinear complexity, or tensor rank, of \\(3 \\times 3\\) matrix multiplication sits below Laderman's 1976 algorithm with 23 multiplications, which works over every field, and over every field the best lower bound was Bläser's 19 from 2003. During 2026 a run of field-specific results closed the gap over \\(\\mathbb{F}_2\\): 21 by Chengu Wang, 22 over \\(\\mathbb{F}_2\\) and for integer coefficients by Rudich and Rousseau, and the exact rank 23 by Tomar on 2026-10-08, each by exhaustive or certified search tied to the field. This result is uniform: the Lean theorem takes any field \\(K\\), any finite index set \\(I\\), arbitrary linear forms \\(a_i\\) and \\(b_i\\) and matrices \\(W_i\\) with \\(AB = \\sum_i a_i(A) b_i(B) W_i\\) for all \\(A\\) and \\(B\\), and concludes \\(|I| \\ge 21\\), with no assumption of minimality, nonzero terms or coefficient ranks. The argument passes to an algebraic closure, picks a decomposition minimizing a rank sum in its first coefficient family, and rules out 20 or fewer terms through what the author calls conductor growth and residual reconstruction. It concerns exact bilinear complexity, not border rank or the asymptotic exponent.",
+    "novelty_check": "Read the README, formalization.yaml and Challenge.lean at commit cb1557b7ea80ea66fae4714628663d8c1df7a48d on 2026-10-16, and the abstracts of the field-specific papers the repository cites (arXiv:2609.06725, 2610.01639 and 2610.11823). Those concern \\(\\mathbb{F}_2\\) or integer coefficients and do not give 21 over an arbitrary field. The repository dates the result to its Zenodo release of 2026-10-12 and makes no claim of exhaustive priority verification. Nothing in the registry covered the rank of \\(3 \\times 3\\) matrix multiplication; its matrix multiplication entries concern the asymptotic exponent.",
+    "caveats": "Graded claimed rather than formal. The Palomar registration replayed the proof at commit cb1557b against the Mathlib-only statement in Challenge.lean with Comparator, and that statement, read by vibemathed and here, is as far as either reading goes exactly the unrestricted bilinear rank of the \\(3 \\times 3\\) matrix multiplication tensor over an arbitrary field, finite fields and characteristic 2 included. But the theorem's shape is the author's own, and this registry held 2026-09-06-bollobas-nikiforov at claimed on the same kind of evidence because a curator's reading is not a named expert's; 2026-10-07-matmul-exponent-2371045 was graded formal on comparable evidence, so the precedents disagree and the weaker grade is used. An algebraic complexity theorist confirming the short statement would support formal. The repository records its review status as self-assessed, no mathematician is on record as having read the argument, and the Lean comments are mostly in Russian. Over \\(\\mathbb{F}_2\\) the bound is already superseded by Tomar's exact rank of 23, so what is new is the uniformity across fields; whether 22 or 23 holds over every field remains open. Autonomy is graded collaborative: the repository says the research and formalization were developed with substantial AI assistance in mathematical exploration and Lean under the author's direction, and records neither model versions nor prompts. vibemathed reports the author's later account that GPT-6 Astra did most of the work, with GPT-6 Sol for part of it, while he redirected dead ends and supplied missed literature; that account is not in the repository at the registered commit, and although it would make ai-led defensible, the weaker grade stands.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-13-000009",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-13-000009&version=1",
+        "repository": "AIV5/mmrank21",
+        "commit": "cb1557b7ea80ea66fae4714628663d8c1df7a48d",
+        "theorems": [
+          "MMRank.Palomar.lower_bound"
+        ],
+        "checked": "2026-10-13",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "a-lower-bound-of-21-for-3-3-matrix-multiplication-over-every-field",
+        "url": "https://vibemathed.com/problem/a-lower-bound-of-21-for-3-3-matrix-multiplication-over-every-field"
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: AIV5/mmrank21, the Lean proof",
+        "url": "https://github.com/AIV5/mmrank21",
+        "kind": "research"
+      },
+      {
+        "label": "Zenodo: archived release 0.1.1",
+        "url": "https://doi.org/10.5281/zenodo.23324839",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "matrix-multiplication",
+      "tensor-rank",
+      "lower-bounds",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-10-01-bootloops-manuscripts",
+    "title": "36 manuscripts across 18 fields from the BootLoops harness run with Claude",
+    "claim": "Matthew Schwartz's open-source BootLoops harness, operated by Claude, produced 36 manuscripts with 19 coauthors between July and September 2026, mostly exact or certified computations carried from physics and computer science into fields such as population genetics, phylogenetics, ecology and health policy; eight are still in preparation and none is yet listed as published in a journal.",
+    "field": "physics",
+    "date": "2026-10-01",
+    "lab": "Independent",
+    "model": "Claude (the essay names Claude Fable 5 for the initial porting; versions per result are not recorded)",
+    "humans": [
+      "Matthew D. Schwartz"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "BootLoops pools programs from particle physics, experimental mathematics, computer algebra and numerical analysis in one toolkit that a language-model agent can operate and extend. The overview paper (arXiv:2610.02286) says the computations were run by Claude with a human setting the targets and the standards, and that the package itself was written by AI apart from forks of public codes. The essay on Anthropic's blog counts 36 manuscripts in 18 fields with 19 coauthors over three months, chosen from about 400 candidate problems; the project's manuscript index lists the overview and 35 papers in nine groups, eight marked in preparation, and says every manuscript has been read by humans for accuracy, that many were drafted first by language models, and that those not yet fully checked are watermarked preliminary. The recurring move is to replace an estimate by an exact or certified answer: Feynman integrals in closed form by bootstrap, Bayesian evidence for four- and five-species phylogenetic trees as exact rational numbers, the site-frequency spectrum of a selected allele at any selection strength, Medicare star-rating cut points at the true optimum of their clustering criterion, and exact operating characteristics of published adaptive trial designs. Coauthors include Scott Edwards and Paul Lewis on phylogenetics, Michael Desai on population genetics, James O'Dwyer on ecology and Isaiah Andrews on economics. This registry's 2026-10-01-anisotropic-watson-integral is one result from the project.",
+    "novelty_check": "Read the BootLoops manuscript index, the overview paper's model and methods sections and the Anthropic essay on 2026-10-16. The registry carried one result from the project, 2026-10-01-anisotropic-watson-integral, and nothing else citing bootloops.ai or the overview. Novelty was not checked manuscript by manuscript: each needs its own check against its field's literature before it is entered, and several recompute published or regulatory numbers rather than claim new theory, which changes what such a check means for them. Science's article on the project could not be read from here.",
+    "caveats": "A container for the release, graded claimed: the essay and the index are the authors' own account, nothing is refereed, eight manuscripts are not public, and the index itself says some drafts have not been fully checked by humans. The strength of the work varies by kind, which is why each manuscript needs separate grading: exact rational evidences, interval-certified integrals and proven enumerations can be rerun by anyone with the published code, while the ecology fits and policy reanalyses rest on modelling choices. The overview names the failure mode its methods guard against, a bug in a computer-assisted search that silently skips part of the space, and uses planted synthetic targets as controls. Autonomy is graded ai-assisted, the weakest reading that fits the whole release: the overview says Claude ran the computations and wrote the package with a human setting targets and standards, while the essay warns that the automated checks still cannot be trusted and that Claude's conclusions can be wrong, and says the human supplies the taste in choosing problems; how much each manuscript owes to the model is not documented per paper. Schwartz is a visiting researcher at Anthropic and the essay ran on Anthropic's blog, but it states that BootLoops is not an Anthropic project and is owned and maintained by Schwartz. Which model versions produced which results is not recorded.",
+    "sources": [
+      {
+        "label": "arXiv: Schwartz, BootLoops: an LLM-driven toolkit for exact quantitative science",
+        "url": "https://arxiv.org/abs/2610.02286",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: BootLoops-ai, the toolkit's code",
+        "url": "https://github.com/BootLoops-ai",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Claude-shaped science (guest essay by Matthew Schwartz)",
+        "url": "https://www.anthropic.com/research/claude-shaped-science",
+        "kind": "announcement"
+      },
+      {
+        "label": "BootLoops: the manuscript index",
+        "url": "https://bootloops.ai/papers.html",
+        "kind": "announcement"
+      },
+      {
+        "label": "Science: Problems in 22 scientific fields had solutions hiding in plain sight. An AI has found them",
+        "url": "https://www.science.org/content/article/problems-22-scientific-fields-had-solutions-hiding-plain-sight-ai-has-found-them",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "interdisciplinary",
+      "exact-computation",
+      "agents",
+      "computation"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-08-06-hjo-a3-rogers-ramanujan",
+    "title": "Huang-Jiang-Oblomkov conjecture for a = 3: a new infinite family of Rogers-Ramanujan identities, with a Lean certificate conditional on eight literature facts",
+    "claim": "Kenny Lau and Ken Ono prove the \\(a = 3\\) layer of the Huang-Jiang-Oblomkov conjecture, which equates a count of commuting nilpotent matrix pairs with \\(X^3 = Y^b\\) over finite fields with an explicit theta quotient, giving a new infinite family of Rogers-Ramanujan identities; AxiomProver produced a Lean certificate of the deduction from eight cited literature facts.",
+    "field": "mathematics",
+    "date": "2026-08-06",
+    "lab": "Axiom Math",
+    "model": "AxiomProver",
+    "humans": [
+      "Kenny Lau",
+      "Ken Ono"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "For coprime \\(1 < a < b\\), Huang, Jiang and Oblomkov assembled the normalized counts of commuting nilpotent \\(n \\times n\\) matrix pairs over \\(\\mathbb{F}_q\\) with \\(X^a = Y^b\\) into a \\(q\\)-series \\(Z_{a,b}(q)\\) and conjectured that it equals an explicit product \\(P_{a,b}(q)\\) built from Jacobi's theta function and Dedekind's eta function, which would make the point count essentially a modular function on \\(\\Gamma(a+b)\\). The conjecture is layered in \\(a\\): the \\(a = 2\\) layer is classical, containing the Rogers-Ramanujan and Andrews-Gordon identities, and the abstract says nothing was known for \\(a \\ge 3\\). This paper proves the \\(a = 3\\) layer in full, which the abstract describes as a new infinite family of Rogers-Ramanujan identities and a geometric origin for Warnaar's products. A companion paper by Huang, Lau, Ono and Paule (arXiv:2608.15219) proves the cases \\((a, b) = (3, 4)\\), \\((3, 5)\\), \\((3, 7)\\) and \\((3, 8)\\) through a finer sum-to-sum identity, and 2026-09-17-rogers-ramanujan-torus-knot later claims every coprime pair, which contains this layer.",
+    "novelty_check": "Read the arXiv abstracts of arXiv:2608.05480 and of the companion arXiv:2608.15219, and the Lean repository's formalization.yaml, on 2026-10-16. The first states that nothing was known for \\(a \\ge 3\\), and the companion's abstract agrees that no case with \\(a > 2\\) was known. The registry's 2026-09-17-rogers-ramanujan-torus-knot, which claims every coprime pair, cites this paper as a predecessor; no earlier claim of the \\(a = 3\\) layer was found in the registry. This was not a systematic review of the Rogers-Ramanujan literature, and the year the conjecture was posed is left unrecorded, as on the general entry.",
+    "caveats": "Graded claimed because the Lean certificate is explicitly conditional: its formalization.yaml says it proves the implication from eight cited facts, which its source list traces to Schilling, Warnaar, Huang, Andrews and Ramírez Alfonsín, to the paper's Theorem 1.1, so the kernel establishes the deduction rather than the theorem outright, the same structure that keeps 2026-09-17-rogers-ramanujan-torus-knot and 2026-09-02-prime-gaps-186 at claimed. The formal statements were generated by AxiomProver, the system that produced the proofs, and no third party has audited them against the paper; there is no Palomar registration. Autonomy is graded ai-assisted: the abstract, and the paper as vibemathed quotes it, place AxiomProver on the certificate only, and the mathematics is the authors'. Only the abstract was read for this entry, not the paper. The result is contained in the general case claimed a month later by an overlapping author group; it is entered separately as the first case beyond the classical \\(a = 2\\) layer to be claimed. Unrefereed.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "huang-jiang-oblomkov-a3-layer",
+        "url": "https://vibemathed.com/problem/huang-jiang-oblomkov-a3-layer"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Lau and Ono, Modularity of Point Counts for the Curves Xᵃ = Yᵇ: New Rogers-Ramanujan Identities",
+        "url": "https://arxiv.org/abs/2608.05480",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: AxiomMath/RR_a3, the conditional Lean certificate",
+        "url": "https://github.com/AxiomMath/RR_a3",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Huang, Lau, Ono and Paule, Algebraic geometric framework of Rogers-Ramanujan identities, the companion cases",
+        "url": "https://arxiv.org/abs/2608.15219",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "combinatorics",
+      "q-series",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-16"
   }
 ]
