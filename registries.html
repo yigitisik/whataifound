@@ -7,15 +7,15 @@
 <meta name="color-scheme" content="dark light">
 
 <!-- Canonical domain: https://whataifound.org -->
-<title>Other registries: Palomar, MathDB, vibemathed, ProofAtlas | whataifound.org</title>
-<meta name="description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do. Four projects record AI contributions to mathematics; each checks something different.">
+<title>Other registries: Palomar, MathDB, vibemathed, ProofAtlas, ClinicalTrials.gov, FDA | whataifound.org</title>
+<meta name="description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify for AI mathematics, what ClinicalTrials.gov and the FDA device list certify for medicine, and what none of them do.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <link rel="canonical" href="https://whataifound.org/registries">
 
 <meta property="og:type" content="article">
 <meta property="og:site_name" content="whataifound.org">
 <meta property="og:title" content="Other registries">
-<meta property="og:description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do.">
+<meta property="og:description" content="What Palomar, MathDB, vibemathed, ProofAtlas, ClinicalTrials.gov and the FDA device list each certify, and what none of them do.">
 <meta property="og:url" content="https://whataifound.org/registries">
 <meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
 <meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
@@ -27,7 +27,7 @@
 
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Other registries">
-<meta name="twitter:description" content="What Palomar, MathDB, vibemathed and ProofAtlas each certify, and what none of them do.">
+<meta name="twitter:description" content="What Palomar, MathDB, vibemathed, ProofAtlas, ClinicalTrials.gov and the FDA device list each certify, and what none of them do.">
 <meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
 <meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
 
@@ -115,8 +115,9 @@
 </span>
 </span></div><!--HEADER:END-->
   <h1 class="meth-title">Other registries</h1>
-  <p class="lede">Four other projects record AI contributions to mathematics, and each certifies
-  something different. What each one checks, and what none of them do.</p>
+  <p class="lede">Four other projects record AI contributions to mathematics, and two public
+  records anchor claims in medicine. Each certifies something different. What each one checks,
+  and what none of them do.</p>
 </header>
 
 <main id="main">
@@ -129,6 +130,14 @@
 <div class="regcards">
 <div class="regcard" id="palomar"><p class="regcard-h"><a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">Incubated by the Lean FRO and ICARM, with a scientific advisory board of nine mathematicians.</p><p class="regcard-s">Snapshots of public Lean repositories, mathematics only. Open to any submitter since August 2026, so the pool mixes new results with formalizations of long-settled ones.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review. It does not certify that a result is new or of research interest: the only filter on that is a language-model screen, and Palomar states that it adds no human editorial step.</p></div>
 <div class="regcard" id="proofatlas"><p class="regcard-h"><a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">A platform publishing authored formalizations, in read-only beta.</p><p class="regcard-s">Lean formalizations and the proof routes behind them, mathematics only.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>That a recorded Lean build passed with no unfinished proof steps, under its own evidence contract, which a record can satisfy for checking while still failing for acceptance.</p></div>
+</div>
+<h3 class="lbl">Trial registration</h3>
+<div class="regcards">
+<div class="regcard" id="clinicaltrials-gov"><p class="regcard-h"><a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">The US National Library of Medicine, part of the National Institutes of Health.</p><p class="regcard-s">Registrations of clinical studies run anywhere in the world, with their protocols, prespecified outcomes, status history and, for some, posted results.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>That a study was registered, with the outcomes it declared and the date it declared them, so a published endpoint can be checked against the one planned. It does not certify the results, their analysis, or any clinical benefit; registry records are submitted by the sponsor and are not peer reviewed.</p></div>
+</div>
+<h3 class="lbl">Regulatory authorization</h3>
+<div class="regcards">
+<div class="regcard" id="fda-ai-devices"><p class="regcard-h"><a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices" target="_blank" rel="noopener">FDA AI-enabled devices<span class="reg-a" aria-hidden="true">↗</span></a></p><p class="regcard-o">The US Food and Drug Administration, Center for Devices and Radiological Health.</p><p class="regcard-s">Medical devices incorporating AI that the FDA has authorized for marketing in the United States, through 510(k) clearance, De Novo classification or premarket approval.</p><p class="regcard-c"><span class="reg-t-k">Certifies</span>That the FDA authorized the device for marketing in the US for a stated indication, on the evidence the manufacturer submitted. Most AI devices reach the market by 510(k), which requires substantial equivalence to an earlier device rather than new clinical evidence, so an authorization is not evidence of clinical benefit.</p></div>
 </div>
 <h3 class="lbl">The open problem</h3>
 <div class="regcards">
@@ -171,7 +180,10 @@
     <p>We also carry the case against: every source is labelled with what it is, and
     <em>challenge</em> is one of the labels. Where an entry has no counterargument, the
     <a href="/review">review queue</a> says so rather than letting silence read as consensus.</p>
-    <p>Every project above is mathematics only. Half this registry is not.</p>
+    <p>The four projects above that record AI work are mathematics only, and a third of this
+    registry is not. The two medical records are not about AI at all: they list every registered
+    trial and every authorized device, which is what makes them a fixed point to check a claim
+    against.</p>
   </section>
 
   <section class="meth-sec" aria-labelledby="corr-h">
@@ -221,6 +233,8 @@
 <a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
 <a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
 <a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+<a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices" target="_blank" rel="noopener">FDA AI-enabled devices</a>
 <a href="/registries">What each one checks</a>
 </p>
 </section>

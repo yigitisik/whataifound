@@ -138,6 +138,7 @@ def check_tap_targets(css, problems):
         (".sig-b", "grow", None, "triage buttons, sized by padding"),
         (".empty-act", "grow", None, "clear-filters button"),
         (".csv-btn", "grow", None, "export button"),
+        (".more-btn", "grow", "height", "the show-all button under the capped list"),
         (".keycap", "grow", "height",
          "the palette and shortcut buttons: small text, so padding alone lands at 42px"),
         (".th-sort", "grow", None, "table column sort"),

@@ -23,9 +23,11 @@
     "names the other registries a result can also be recorded in, and states in one",
     "sentence what each registration mechanically guarantees. An entry's `registrations`",
     "cite one of these by slug. Nothing ranks an entry by which registries it appears in,",
-    "and an absent registration is not a mark against a finding: most of the registry is",
-    "outside mathematics, where no such registry exists. Modelled on `fields` rather than",
-    "on the graded arrays above, so a new registry needs no pill colour in styles.css."
+    "and an absent registration is not a mark against a finding: many fields have no such",
+    "registry at all. Modelled on `fields` rather than on the graded arrays above, so a new",
+    "registry needs no pill colour in styles.css. Its `role` picks the heading it renders",
+    "under, and a new role needs a line in REG_ROLE_HEADING and REG_ROLE_SHORT in",
+    "build-site.py."
   ],
   "verification": [
     {
@@ -42,7 +44,7 @@
       "rating": 5,
       "rating_label": "Independently checked by third parties",
       "short": "checked by third parties who were not the authors",
-      "definition": "Multiple qualified people unaffiliated with the announcing lab have checked the result and confirmed it."
+      "definition": "Multiple qualified people unaffiliated with the announcing lab have checked the result and confirmed it. For a clinical result, an external validation or replication by investigators unaffiliated with the developer counts."
     },
     {
       "slug": "peer-reviewed",
@@ -98,13 +100,13 @@
       "slug": "autonomous",
       "label": "Autonomous",
       "short": "the AI did it without human problem-setting or steering",
-      "definition": "The AI produced the core idea and the result with no human mathematical input beyond posing the problem."
+      "definition": "The AI produced the core idea and the result with no human research input beyond posing the problem. In a clinical study, the AI made the call the study measured with no clinician reviewing it."
     },
     {
       "slug": "ai-led",
       "label": "AI-led",
       "short": "the AI produced the core idea; humans framed or checked it",
-      "definition": "The AI produced the key insight; humans formalised, checked, or cleaned it up."
+      "definition": "The AI produced the key insight; humans formalised, checked, or cleaned it up. In a clinical study, the AI's output drove the measured decision and a clinician or a confirmatory test checked it."
     },
     {
       "slug": "collaborative",
@@ -116,19 +118,19 @@
       "slug": "ai-assisted",
       "label": "AI-assisted",
       "short": "humans led; the AI helped with parts",
-      "definition": "A human drove the research; the AI accelerated search, algebra, or literature review."
+      "definition": "A human drove the research; the AI accelerated search, algebra, or literature review. In a clinical study, clinicians made the call and the AI flagged, triaged, or drafted."
     },
     {
       "slug": "search-scaffold",
       "label": "Search scaffold",
       "short": "a human-built search harness (FunSearch, AlphaEvolve) with an LLM inside",
-      "definition": "The AI is a component inside a human-designed search loop (FunSearch, AlphaEvolve). The system found it, but the framing was human."
+      "definition": "The AI is a component inside a human-designed search loop (FunSearch, AlphaEvolve, a generative chemistry pipeline). The system found it, but the framing was human."
     },
     {
       "slug": "retrieval",
       "label": "Retrieval",
       "short": "the AI located an existing result rather than producing a new one",
-      "definition": "The AI surfaced an existing result humans had overlooked. Valuable, but not new mathematics."
+      "definition": "The AI surfaced an existing result humans had overlooked. Valuable, but not a new result."
     }
   ],
   "source_kinds": [
@@ -275,6 +277,22 @@
       "operator": "Community-curated, maintained by Rasmus Lindahl.",
       "scope": "Mathematics problems first closed with AI in the loop.",
       "certifies": "Nothing mechanically. It is a parallel listing of the same result, carrying its own verification label rather than an independent check."
+    },
+    "clinicaltrials-gov": {
+      "name": "ClinicalTrials.gov",
+      "home": "https://clinicaltrials.gov/",
+      "role": "trial",
+      "operator": "The US National Library of Medicine, part of the National Institutes of Health.",
+      "scope": "Registrations of clinical studies run anywhere in the world, with their protocols, prespecified outcomes, status history and, for some, posted results.",
+      "certifies": "That a study was registered, with the outcomes it declared and the date it declared them, so a published endpoint can be checked against the one planned. It does not certify the results, their analysis, or any clinical benefit; registry records are submitted by the sponsor and are not peer reviewed."
+    },
+    "fda-ai-devices": {
+      "name": "FDA AI-enabled devices",
+      "home": "https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices",
+      "role": "regulatory",
+      "operator": "The US Food and Drug Administration, Center for Devices and Radiological Health.",
+      "scope": "Medical devices incorporating AI that the FDA has authorized for marketing in the United States, through 510(k) clearance, De Novo classification or premarket approval.",
+      "certifies": "That the FDA authorized the device for marketing in the US for a stated indication, on the evidence the manufacturer submitted. Most AI devices reach the market by 510(k), which requires substantial equivalence to an earlier device rather than new clinical evidence, so an authorization is not evidence of clinical benefit."
     }
   }
 }

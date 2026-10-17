@@ -62,6 +62,11 @@ Requirements:
 - A `novelty_check` recording what you searched, even when nothing turned up. State the
   searches: "MathSciNet + arXiv, dimension-3 constructions; nearest is Wang 1980 (degree 2
   only)", not "appears novel".
+  For a medical entry, name the literature and trial databases: "Europe PMC, (artificial
+  intelligence OR deep learning) AND mammography AND randomised; ClinicalTrials.gov, same
+  terms; no earlier randomised trial of AI-supported double reading".
+- A medical entry also states the study design, sponsor and endpoint, and records its evidence
+  stage in `tags`. See [medical entries](SCHEMA.md#medical-entries).
 
 Negative results (`known`, `disputed`, `refuted`) are in scope and welcome.
 

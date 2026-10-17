@@ -324,12 +324,14 @@
             "registry": {
               "type": "string",
               "enum": [
+                "clinicaltrials-gov",
+                "fda-ai-devices",
                 "mathdb",
                 "palomar",
                 "proofatlas",
                 "vibemathed"
               ],
-              "description": "One of: `mathdb` MathDB; `palomar` Palomar; `proofatlas` ProofAtlas; `vibemathed` vibemathed. A new one goes in the 'registries' map in data/vocab.json."
+              "description": "One of: `clinicaltrials-gov` ClinicalTrials.gov; `fda-ai-devices` FDA AI-enabled devices; `mathdb` MathDB; `palomar` Palomar; `proofatlas` ProofAtlas; `vibemathed` vibemathed. A new one goes in the 'registries' map in data/vocab.json."
             },
             "id": {
               "type": "string",

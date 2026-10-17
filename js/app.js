@@ -57,9 +57,11 @@ const REG_NAME = {
   "palomar":"Palomar",
   "proofatlas":"ProofAtlas",
   "mathdb":"MathDB",
-  "vibemathed":"vibemathed"
+  "vibemathed":"vibemathed",
+  "clinicaltrials-gov":"ClinicalTrials.gov",
+  "fda-ai-devices":"FDA AI-enabled devices"
 };
-const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed"];
+const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed", "clinicaltrials-gov", "fda-ai-devices"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -141,7 +143,12 @@ const DOMAIN_NAME = {
   'vibemathed.com':'VibeMathed','www-cdn.anthropic.com':'Anthropic',
   'chatgpt.com':'ChatGPT','primegaps.axiommath.ai':'Axiom Math',
   'news.mcmaster.ca':'McMaster University','alpo.ge':'Levent Alpöge',
-  'researchgate.net':'ResearchGate'
+  'researchgate.net':'ResearchGate',
+  'thelancet.com':'The Lancet','nejm.org':'NEJM','ai.nejm.org':'NEJM AI',
+  'medrxiv.org':'medRxiv','frontiersin.org':'Frontiers',
+  'lunduniversity.lu.se':'Lund University','ascopost.com':'The ASCO Post',
+  'healthcaredive.com':'Healthcare Dive','contagionlive.com':'Contagion Live',
+  'research.google':'Google Research'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }
@@ -1802,6 +1809,35 @@ function exportCsv(){
   requestAnimationFrame(() => URL.revokeObjectURL(url));
 }
 
+// ---------- The list's first screen ----------
+// The home page used to show every finding, which made it ten thousand pixels tall and put
+// everything under the list out of reach. It now shows the first few of whatever the
+// controls select, newest first by default, and a button for the rest. Hidden, never
+// removed: every entry stays in the markup, which is what the AI crawlers this page is
+// pre-rendered for read, and a reader without JavaScript never gets the class that hides
+// them. DOM-only on purpose, because it has to work before the registry JSON has loaded.
+// The counts are repeated in the #list.capped rule in styles.css; change both together.
+const LIST_CAP = { cards: 10, table: 20 };
+let listExpanded = false;
+
+function capList(){
+  const list = document.getElementById('list'), more = document.getElementById('listmore');
+  if (!list || !more) return;
+  const table = document.documentElement.getAttribute('data-view') === 'table';
+  const n = table ? list.querySelectorAll('.regtable tbody tr').length
+                  : list.querySelectorAll('article.entry').length;
+  const cap = LIST_CAP[table ? 'table' : 'cards'];
+  const over = n > cap;
+  list.classList.toggle('capped', over && !listExpanded);
+  more.hidden = !over;
+  if (!over) return;
+  const btn = more.querySelector('button');
+  btn.textContent = listExpanded ? `Show only the first ${cap}` : `Show all ${n} entries`;
+  btn.setAttribute('aria-expanded', String(listExpanded));
+  more.querySelector('.listmore-note').textContent =
+    listExpanded ? `Showing all ${n}` : `Showing ${cap} of ${n}`;
+}
+
 function render(){
   // Before the registry has loaded there is nothing to render *from*, and the markup
   // already on the page is correct for the unfiltered view. Rewriting it from an empty
@@ -1843,6 +1879,7 @@ function render(){
     list.classList.remove('animate');
   }
   first = false;
+  capList();
 }
 
 // The single entry point for a state change: URL, controls, chips and list, in that
@@ -1870,6 +1907,9 @@ function syncControls(){
   // in place this is what actually swaps the two layouts, so switching view is instant
   // and works before the registry JSON has loaded.
   document.documentElement.setAttribute('data-view', STATE.view);
+  // The cap differs by layout, and switching layout works before the data has loaded,
+  // when render() returns early, so it is re-applied here as well as after a render.
+  capList();
 }
 
 // Chips and the empty state both clear filters, and the empty state lives inside #list,
@@ -2168,15 +2208,31 @@ function bootStatic(){
       target = document.getElementById(location.hash.slice(1));
     }
     if (!target) return;
+    // A permalink to an entry past the first screen: show the whole list, or the link
+    // lands on nothing.
+    if (!target.offsetParent && !listExpanded){ listExpanded = true; capList(); }
     target.querySelector('details')?.setAttribute('open', '');
     requestAnimationFrame(() => {
       target.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
+      // Entries below the fold skip layout (content-visibility in styles.css) and are
+      // measured at an assumed height, so a long scroll aims at an estimate and stops
+      // short once the real heights arrive. Aim once more after it settles.
+      setTimeout(() => target.scrollIntoView({ block: 'start' }), REDUCE ? 50 : 900);
       target.classList.add('entry-focus');
       setTimeout(() => target.classList.remove('entry-focus'), 1600);
     });
   };
   revealFromHash();
-  addEventListener('hashchange', revealFromHash);}
+  addEventListener('hashchange', revealFromHash);
+
+  document.querySelector('#listmore button')?.addEventListener('click', ev => {
+    listExpanded = !listExpanded;
+    capList();
+    // Collapsing from the bottom of a long list would leave the reader far below the
+    // button they just pressed, deep in the hubs, so bring it back into view.
+    if (!listExpanded) ev.currentTarget.scrollIntoView({ block: 'center', behavior: REDUCE ? 'auto' : 'smooth' });
+  });
+  capList();}
 
 // ---------- Command palette ----------
 // One keystroke to the thing you wanted, without learning where the site put it. Every
