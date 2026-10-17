@@ -79,6 +79,18 @@
     <priority>0.6</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/lab/epic-systems</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/lab/google</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/lab/google-deepmind</loc>
     <lastmod>2026-08-21</lastmod>
     <changefreq>monthly</changefreq>
@@ -146,7 +158,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/medicine</loc>
-    <lastmod>2026-08-21</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -176,6 +188,12 @@
   </url>
   <url>
     <loc>https://whataifound.org/finding/2026-10-09-polya-simply-connected</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-08-amie-primary-care-feasibility</loc>
     <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -847,6 +865,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-06-26-penda-ai-consult-cluster-rct</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-06-25-herculaneum-scroll-read</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -889,6 +913,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-02-02-epic-sepsis-model-v2</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-01-30-masai-ai-mammography</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-01-alphaevolve-bruhat</loc>
     <lastmod>2026-07-20</lastmod>
     <changefreq>monthly</changefreq>
@@ -897,6 +933,12 @@
   <url>
     <loc>https://whataifound.org/finding/2026-01-erdos-728</loc>
     <lastmod>2026-07-20</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2025-11-26-ambient-ai-scribes-rct</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -937,8 +979,20 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2025-09-17-delphi-2m-disease-trajectories</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2025-09-11-gauss-strong-pnt</loc>
     <lastmod>2026-07-27</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2025-08-16-epic-cosmos-medical-event-models</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -991,6 +1045,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2025-04-09-amie-diagnostic-dialogue</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2025-03-12-ai-scientist-workshop-paper</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -1029,6 +1089,12 @@
   <url>
     <loc>https://whataifound.org/finding/2024-10-02-flywire-connectome</loc>
     <lastmod>2026-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2024-09-25-txgnn-drug-repurposing</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
@@ -1117,6 +1183,12 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2022-07-21-trews-sepsis-early-warning</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2022-02-16-tokamak-plasma-control</loc>
     <lastmod>2026-07-21</lastmod>
     <changefreq>monthly</changefreq>
@@ -1135,6 +1207,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2021-06-21-epic-sepsis-model-v1</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2021-05-06-eagle-ai-ecg-low-ejection-fraction</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2021-04-29-wagner-combinatorics</loc>
     <lastmod>2026-07-29</lastmod>
     <changefreq>monthly</changefreq>
@@ -1143,6 +1227,18 @@
   <url>
     <loc>https://whataifound.org/finding/2020-02-20-halicin</loc>
     <lastmod>2026-07-29</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2020-02-04-baricitinib-covid19</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2018-08-28-idx-dr-autonomous-diagnostic</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>

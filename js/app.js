@@ -57,9 +57,11 @@ const REG_NAME = {
   "palomar":"Palomar",
   "proofatlas":"ProofAtlas",
   "mathdb":"MathDB",
-  "vibemathed":"vibemathed"
+  "vibemathed":"vibemathed",
+  "clinicaltrials-gov":"ClinicalTrials.gov",
+  "fda-ai-devices":"FDA AI-enabled devices"
 };
-const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed"];
+const REG_ORDER = ["palomar", "proofatlas", "mathdb", "vibemathed", "clinicaltrials-gov", "fda-ai-devices"];
 /*VOCAB:END*/
 const REDUCE = matchMedia('(prefers-reduced-motion: reduce)').matches;
 let ALL = [], first = true;
@@ -141,7 +143,12 @@ const DOMAIN_NAME = {
   'vibemathed.com':'VibeMathed','www-cdn.anthropic.com':'Anthropic',
   'chatgpt.com':'ChatGPT','primegaps.axiommath.ai':'Axiom Math',
   'news.mcmaster.ca':'McMaster University','alpo.ge':'Levent Alpöge',
-  'researchgate.net':'ResearchGate'
+  'researchgate.net':'ResearchGate',
+  'thelancet.com':'The Lancet','nejm.org':'NEJM','ai.nejm.org':'NEJM AI',
+  'medrxiv.org':'medRxiv','frontiersin.org':'Frontiers',
+  'lunduniversity.lu.se':'Lund University','ascopost.com':'The ASCO Post',
+  'healthcaredive.com':'Healthcare Dive','contagionlive.com':'Contagion Live',
+  'research.google':'Google Research'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }

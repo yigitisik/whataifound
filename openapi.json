@@ -373,6 +373,8 @@
                 "registry": {
                   "type": "string",
                   "enum": [
+                    "clinicaltrials-gov",
+                    "fda-ai-devices",
                     "mathdb",
                     "palomar",
                     "proofatlas",

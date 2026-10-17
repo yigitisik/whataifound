@@ -163,18 +163,26 @@ REGISTRY = VOCAB.get("registries") or {}
 # a parallel listing of the same result. Calling all three "machine-checked elsewhere"
 # would have been false for two of them, so the role picks the heading.
 #
+# Medicine adds two more of the same kind of distinction. A trial registration fixes what a
+# study said it would measure before it reported, and a regulatory record says a device may
+# be sold; neither is a check of the result, and neither belongs under "also recorded at".
+#
 # Display order, not importance: the mechanical check is the load-bearing one, so it
 # leads, and the parallel listing is the weakest evidence, so it closes.
 REG_ROLE_HEADING = {
     "verification": "Machine-checked elsewhere",
+    "trial": "Trial registration",
+    "regulatory": "Regulatory authorization",
     "problem": "The open problem",
     "registry": "Also recorded at",
 }
 REG_ROLE_ORDER = list(REG_ROLE_HEADING)
-# The short form for llms.txt, where the line has no room for a heading. Same three roles,
-# and validate_vocab() pins both tables to the vocabulary so neither can fall behind it.
+# The short form for llms.txt, where the line has no room for a heading. Same roles, and
+# validate_vocab() pins both tables to the vocabulary so neither can fall behind it.
 REG_ROLE_SHORT = {
     "verification": "machine-checked record",
+    "trial": "trial registration",
+    "regulatory": "regulatory record",
     "problem": "open-problem record",
     "registry": "also listed at",
 }
@@ -258,6 +266,11 @@ DOMAIN_NAME = {
     "chatgpt.com": "ChatGPT", "primegaps.axiommath.ai": "Axiom Math",
     "news.mcmaster.ca": "McMaster University", "alpo.ge": "Levent Alpöge",
     "researchgate.net": "ResearchGate",
+    "thelancet.com": "The Lancet", "nejm.org": "NEJM", "ai.nejm.org": "NEJM AI",
+    "medrxiv.org": "medRxiv", "frontiersin.org": "Frontiers",
+    "lunduniversity.lu.se": "Lund University", "ascopost.com": "The ASCO Post",
+    "healthcaredive.com": "Healthcare Dive", "contagionlive.com": "Contagion Live",
+    "research.google": "Google Research",
 }
 
 
@@ -1926,8 +1939,9 @@ def build_llms_txt(entries):
         f"- [Visuals]({SITE}/visuals): the registry as charts",
         f"- [Open review queue]({SITE}/review): entries still needing an independent check",
         f"- [Contributors]({SITE}/contributors): who builds and checks the registry",
-        f"- [Other registries]({SITE}/registries): Palomar, MathDB, vibemathed and "
-        "ProofAtlas, what each one certifies, and what none of them do",
+        f"- [Other registries]({SITE}/registries): Palomar, MathDB, vibemathed, "
+        "ProofAtlas, ClinicalTrials.gov and the FDA AI-enabled device list, what each "
+        "one certifies, and what none of them do",
         f"- [Developers]({SITE}/developers): the API, the bulk downloads and the "
         "machine-readable formats, in one place",
         f"- [Contact]({SITE}/contact): corrections, submissions and who maintains this",
@@ -2448,6 +2462,16 @@ LAB_HUB = {
     "Tencent Hunyuan": "https://hunyuan.tencent.com/",
     "Axiom Math": "https://axiommath.ai/",
     "McMaster University": "https://healthsci.mcmaster.ca/research/",
+    "BenevolentAI": "https://www.benevolent.com/",
+    "Epic Systems": "https://www.epicresearch.org/",
+    "German Cancer Research Center": "https://www.dkfz.de/en/",
+    "Harvard Medical School": "https://hms.harvard.edu/news",
+    "IDx": "https://www.digitaldiagnostics.com/",
+    "Johns Hopkins University": "https://hub.jhu.edu/",
+    "KEMRI-Wellcome Trust Research Programme": "https://kemri-wellcome.org/",
+    "Lund University": "https://www.lunduniversity.lu.se/",
+    "Mayo Clinic": "https://newsnetwork.mayoclinic.org/",
+    "UCLA Health": "https://www.uclahealth.org/news",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

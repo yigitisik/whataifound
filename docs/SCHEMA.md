@@ -73,8 +73,8 @@ work to find.
 
 ## `registrations`: what a machine checked elsewhere
 
-Four other projects record neighbouring facts about the results in this registry, and each one
-establishes something different. A registration cites one of their records and prints, beside
+Four other projects record neighbouring facts about the mathematics in this registry, two
+public records do the same for medicine, and each one establishes something different. A registration cites one of their records and prints, beside
 it, what that record does and does not establish.
 
 A registration is **evidence about one record, not a verdict on the finding**. Nothing here
@@ -84,12 +84,15 @@ the finding page comes from the `registries` map in `data/vocab.json`, so the li
 travels with the claim.
 
 Each registry carries a `role`, which decides the heading its records render under. This is
-the part that matters: three of these things are not the same, and one heading over all of
-them would say a problem tracker had machine-checked something.
+the part that matters: these things are not the same, and one heading over all of them would
+say a problem tracker had machine-checked something, or that a cleared device had been shown
+to help patients.
 
 | `role` | heading | who | what it establishes |
 |---|---|---|---|
 | `verification` | Machine-checked elsewhere | Palomar, ProofAtlas | a proof typechecks against a recorded statement |
+| `trial` | Trial registration | ClinicalTrials.gov | what a study declared it would measure, and when |
+| `regulatory` | Regulatory authorization | FDA AI-enabled devices | that a device may be marketed in the US for a stated use |
 | `problem` | The open problem | MathDB | the problem's standing in the literature |
 | `registry` | Also recorded at | vibemathed | that a parallel list holds the same result |
 
@@ -115,6 +118,23 @@ claim mentions the Jacobian conjecture as context.
   }
 ]
 ```
+
+A trial registration needs only the identifier and its record. The `certifies` sentence beside
+it says what a registration does not establish, so the entry does not have to:
+
+```json
+"registrations": [
+  {
+    "registry": "clinicaltrials-gov",
+    "id": "NCT04838756",
+    "url": "https://clinicaltrials.gov/study/NCT04838756",
+    "title": "Mammography Screening with Artificial Intelligence (MASAI)"
+  }
+]
+```
+
+FDA records use the submission number as `id` (`K` for 510(k), `DEN` for De Novo, `P` for
+premarket approval) and the FDA database page for that submission as `url`.
 
 `registry` must be a slug in the `registries` map in `data/vocab.json`; adding a registry is a
 one-object edit there (`name`, `home`, `role`, `operator`, `scope`, `certifies`), and it needs
@@ -186,7 +206,8 @@ Ordered strongest to weakest. Be conservative; downgrade when unsure.
 - **`formal`**: Machine-checked proof (Lean, Coq, Isabelle) or exact symbolic/computational
   verification that anyone can rerun. The gold standard.
 - **`independent`**: Multiple qualified humans unaffiliated with the announcing lab have
-  checked and confirmed it.
+  checked and confirmed it. For a clinical result, an external validation or replication by
+  investigators unaffiliated with the developer counts.
 - **`peer-reviewed`**: Published in a venue with real review. Note that this is *weaker* than
   `formal` for math but stronger for empirical claims.
 - **`author-verified`**: The human collaborator checked it, no independent confirmation yet.
@@ -201,15 +222,20 @@ Ordered strongest to weakest. Be conservative; downgrade when unsure.
 
 This column is the whole point. Most breathless claims collapse here.
 
-- **`autonomous`**: AI produced the core idea and the proof/result with no human mathematical
-  input beyond posing the problem.
-- **`ai-led`**: AI produced the key insight; humans formalized, checked, or cleaned up.
+- **`autonomous`**: AI produced the core idea and the proof/result with no human research
+  input beyond posing the problem. In a clinical study, the AI made the call the study measured
+  with no clinician reviewing it.
+- **`ai-led`**: AI produced the key insight; humans formalized, checked, or cleaned up. In a
+  clinical study, the AI's output drove the measured decision and a clinician or a confirmatory
+  test checked it.
 - **`collaborative`**: Genuine back-and-forth. Neither party would have gotten there alone.
 - **`ai-assisted`**: Human drove the research; AI accelerated search, algebra, or literature review.
+  In a clinical study, clinicians made the call and the AI flagged, triaged, or drafted.
 - **`search-scaffold`**: AI is a component inside a human-designed search loop
-  (FunSearch, AlphaEvolve). The system found it; the framing was human.
-- **`retrieval`**: AI surfaced an existing result humans had overlooked. Valuable, but not new
-  mathematics.
+  (FunSearch, AlphaEvolve, a generative chemistry pipeline). The system found it; the framing
+  was human.
+- **`retrieval`**: AI surfaced an existing result humans had overlooked. Valuable, but not a new
+  result.
 
 ## Editorial rules
 
@@ -224,6 +250,69 @@ This column is the whole point. Most breathless claims collapse here.
 4. **Lab-announced results start at `claimed`** regardless of how confident the blog post sounds.
 5. **`autonomy` is graded on the strictest defensible reading.** When a human posed the problem,
    suggested the approach, and checked the algebra, that is not `autonomous`.
+
+## Medical entries
+
+Medicine is graded on the same two scales as everything else. What changes is what counts as a
+result, what counts as an independent check, and which facts a reader needs before trusting
+either.
+
+**What is in scope.** Two kinds of result:
+
+- *A finding an AI produced*: a drug, a target, a variant classification, a signal clinicians
+  could not see. Halicin, rentosertib and AlphaMissense are this kind.
+- *Clinical validation of an AI system*: a peer-reviewed study measuring what the system did
+  in care, or against clinicians on real or standardised patients. The result is the measured
+  effect, negative ones included.
+
+Benchmark and exam scores (MedQA, USMLE-style questions, published case challenges scored
+without patients) are not clinical results and are out of scope. A product launch, a
+deployment announcement or a regulatory clearance with no study behind it is not an entry
+either. Products enter the registry through the studies that tested them, and their trial and
+FDA records attach as [`registrations`](#registrations-what-a-machine-checked-elsewhere).
+
+**`medicine` or `biology`.** `medicine` when the result has a clinical or therapeutic endpoint:
+a drug, a diagnosis, a trial, a patient outcome, a model run on patient records. `biology` for
+basic science that has not reached one, such as a protein structure or a phage genome.
+
+**Evidence stage goes in `tags`.** The verification scale cannot tell a retrospective accuracy
+study from a randomised trial, since both are `peer-reviewed`. The design is recorded with these
+tags, as many as apply:
+
+| tag | meaning |
+|---|---|
+| `preclinical`, `in-vivo` | laboratory or animal evidence only |
+| `retrospective` | a model scored on data collected before the study |
+| `prospective` | the system ran forward in time on new patients |
+| `external-validation` | tested at sites or on data the developers did not train on |
+| `rct` | randomised controlled trial |
+| `phase-1`, `phase-2`, `phase-3` | drug trial phase |
+| `real-world-data` | electronic health records, claims or registries at scale |
+| `fda-cleared` | the system holds an FDA marketing authorization |
+
+**Autonomy for a clinical study** grades the AI's role in the care decision the study
+measured, not in writing the paper. An autonomous diagnostic that issues a result with no
+clinician reading it is `autonomous`. A model whose output a clinician or a confirmatory test
+then checks is `ai-led`. Triage, alerts, second reads and drafted notes that clinicians act on
+are `ai-assisted`. When the study let clinicians override the system, the weaker grade wins.
+
+**`independent` in medicine** means an external validation or replication by investigators
+unaffiliated with the developer: another health system, another trial group, another country.
+A developer's own held-out test set, or a second site the developer ran, is not independent.
+
+**Novelty checks** name PubMed or Europe PMC and the query, and ClinicalTrials.gov when a
+trial is involved. For a drug or a target, say whether it had been proposed before for the
+same indication.
+
+**Caveats every medical entry states**, because they decide how far a result travels:
+
+- who funded and ran the study, and whether the vendor or developer was among the authors;
+- the design (retrospective, prospective, randomised) and the comparator;
+- how many sites and patients, and in which health system or country;
+- whether the endpoint is a hard outcome (deaths, cancers found, disease progression) or a
+  surrogate (an accuracy score, time saved, a lab value);
+- for a model run on records, whether anyone outside the developer can access the data or the
+  weights.
 
 ## Math notation
 

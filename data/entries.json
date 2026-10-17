@@ -9791,5 +9791,665 @@
       "argument"
     ],
     "added": "2026-10-16"
+  },
+  {
+    "id": "2020-02-04-baricitinib-covid19",
+    "title": "Baricitinib for COVID-19, named by a knowledge-graph search and confirmed in randomised trials",
+    "claim": "A search of BenevolentAI's machine-learning-built biomedical knowledge graph named the rheumatoid arthritis drug baricitinib as a candidate COVID-19 treatment within weeks of the outbreak; randomised trials run by groups unconnected to BenevolentAI later found it lowered 28-day mortality in hospitalised patients, from 14% to 12% among 8,156 patients in RECOVERY.",
+    "field": "medicine",
+    "date": "2020-02-04",
+    "lab": "BenevolentAI",
+    "model": "BenevolentAI biomedical knowledge graph with machine-learning literature extraction",
+    "humans": [
+      "Peter Richardson",
+      "Justin Stebbing"
+    ],
+    "verification": "independent",
+    "autonomy": "ai-assisted",
+    "detail": "The Lancet letter describes the knowledge graph as a repository of structured medical information including connections extracted from the literature by machine learning, queried by algorithms with customisations for the new virus. The team looked for approved drugs that might block viral entry through AAK1, a regulator of the endocytosis the virus was expected to use. Of 378 AAK1 inhibitors in the graph, 47 were approved drugs and six bound AAK1 with high affinity; the oncology drugs among them needed doses the authors judged unsafe, while baricitinib reaches AAK1-inhibiting plasma concentrations at its normal 2 mg or 4 mg dose and also inhibits JAK1/2, so the letter proposed it to reduce both viral entry and inflammation. The company's later account calls the method human-guided iterative queries of the graph. Three randomised trials followed: NIAID's ACTT-2 (1,033 patients) found baricitinib plus remdesivir shortened median recovery from 8 to 7 days; Eli Lilly's COV-BARRIER (1,525 patients) missed its primary endpoint but found 28-day mortality of 8% against 13% on placebo; and the UK RECOVERY platform trial (8,156 patients) found 12% against 14%, an age-adjusted rate ratio of 0.87.",
+    "novelty_check": "Europe PMC, baricitinib AND (coronavirus OR 2019-nCoV OR COVID*), first published up to 10 February 2020: the Lancet letter of 4 February is the earliest record naming baricitinib for the disease; the other early hits are general repurposing reviews. JAK inhibitors as a class were soon tested for COVID-19, and RECOVERY's meta-analysis of nine trials pools baricitinib with other JAK inhibitors (a 20% mortality reduction), so the benefit belongs to the class as much as to this pick; the specific early proposal of baricitinib was this group's.",
+    "caveats": "The AI's part was retrieval and ranking in a graph that humans queried iteratively; the mechanistic argument and the decision to publish were human, which is why autonomy is ai-assisted. The letter's case rested on blocking viral entry through AAK1, but the clinical benefit is usually attributed to baricitinib's anti-inflammatory JAK inhibition, and no trial isolated an antiviral effect. COV-BARRIER was sponsored by the drug's maker and missed its primary endpoint, with mortality a secondary outcome. RECOVERY's 13% proportional reduction was smaller than earlier, smaller trials had suggested.",
+    "independent_checks": [
+      {
+        "who": "Kalil et al., ACTT-2 Study Group, NIAID (New England Journal of Medicine, 2021)",
+        "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2031994",
+        "outcome": "Double-blind trial in 1,033 hospitalised adults: baricitinib plus remdesivir shortened median time to recovery to 7 days from 8 with remdesivir alone (rate ratio 1.16), with fewer serious adverse events."
+      },
+      {
+        "who": "RECOVERY Collaborative Group, University of Oxford (The Lancet, 2022)",
+        "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(22)01109-6/fulltext",
+        "outcome": "Open-label platform trial in 8,156 hospitalised patients, 95% already on corticosteroids: 28-day mortality 12% with baricitinib against 14% with usual care, age-adjusted rate ratio 0.87 (95% CI 0.77 to 0.99)."
+      }
+    ],
+    "sources": [
+      {
+        "label": "The Lancet: Baricitinib as potential treatment for 2019-nCoV acute respiratory disease",
+        "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(20)30304-4/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "Frontiers in Pharmacology: Expert-augmented computational drug repurposing identified baricitinib as a treatment for COVID-19",
+        "url": "https://www.frontiersin.org/articles/10.3389/fphar.2021.709856/full",
+        "kind": "research"
+      },
+      {
+        "label": "The Lancet: Baricitinib in patients admitted to hospital with COVID-19 (RECOVERY)",
+        "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(22)01109-6/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "NEJM: Baricitinib plus remdesivir for hospitalized adults with Covid-19 (ACTT-2)",
+        "url": "https://www.nejm.org/doi/full/10.1056/NEJMoa2031994",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "drug-repurposing",
+      "knowledge-graph",
+      "covid-19",
+      "rct",
+      "phase-3"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2024-09-25-txgnn-drug-repurposing",
+    "title": "Zero-shot drug repurposing predictions across 17,080 diseases (TxGNN)",
+    "claim": "A graph foundation model trained on a medical knowledge graph ranks drugs as likely indications and contraindications for 17,080 diseases, including ones with no approved treatment, improving indication prediction by 49.2% over eight earlier methods under zero-shot evaluation; many of its new predictions match off-label prescribing in 1.27 million patient records at Mount Sinai.",
+    "field": "medicine",
+    "date": "2024-09-25",
+    "lab": "Harvard Medical School",
+    "model": "TxGNN (graph neural network with metric learning)",
+    "humans": [
+      "Kexin Huang",
+      "Payal Chandak",
+      "Marinka Zitnik"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-led",
+    "detail": "Most repurposing models score drugs for diseases that already have treatments. TxGNN is evaluated zero-shot, on diseases whose known treatments are withheld, which is the situation for most rare diseases. It improved contraindication prediction by 35.1% as well as indication prediction by 49.2% against eight benchmark methods. An Explainer module shows the multi-hop paths through the knowledge graph behind each prediction, and clinicians evaluated those explanations. For the records check, the authors matched graph drugs and diseases to Mount Sinai's electronic health records, a cohort of 1,272,085 adults spanning 478 diseases and 1,290 drugs, and computed how much more often each drug is used for a given disease than for others; FDA-approved pairs scored far higher than other pairs, and many of the model's new predictions showed the same enrichment, consistent with existing off-label use. Code and the model are public.",
+    "novelty_check": "Europe PMC, titles (graph neural network OR knowledge graph OR deep learning) AND drug repurposing AND (zero-shot OR rare disease* OR foundation model), to 24 September 2024: no earlier match. Knowledge-graph repurposing models predate it, and the paper benchmarks eight; a medRxiv preprint of this work appeared in March 2023. The distinctive part is the zero-shot evaluation on diseases with no known treatment.",
+    "caveats": "Retrospective. Agreement with off-label prescribing shows the predictions resemble what clinicians already do, which is evidence of plausibility rather than efficacy, and drug-diagnosis co-occurrence in records can reflect confounding as well as use. No prediction was tested in a trial in this work. The records analysis was run by co-authors at Mount Sinai, not by an independent group. Autonomy is ai-led because the rankings are the model's own, but humans built the graph, chose the evaluations and interpreted the results.",
+    "sources": [
+      {
+        "label": "Nature Medicine: A foundation model for clinician-centered drug repurposing",
+        "url": "https://www.nature.com/articles/s41591-024-03233-x",
+        "kind": "research"
+      },
+      {
+        "label": "TxGNN code and model (mims-harvard/TxGNN)",
+        "url": "https://github.com/mims-harvard/TxGNN",
+        "kind": "research"
+      },
+      {
+        "label": "medRxiv: preprint of the TxGNN study",
+        "url": "https://www.medrxiv.org/content/10.1101/2023.03.19.23287458v1",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "drug-repurposing",
+      "graph-neural-network",
+      "knowledge-graph",
+      "rare-disease",
+      "retrospective",
+      "real-world-data"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-01-30-masai-ai-mammography",
+    "title": "Randomised trial of AI-supported mammography screening in 105,934 women (MASAI)",
+    "claim": "In a Swedish screening trial that randomised 105,934 women, AI triage and detection support found 29% more cancers than standard double reading, cut radiologists' reading workload by 44%, and met its primary endpoint of a non-inferior interval cancer rate, 1.55 against 1.76 per 1,000, with sensitivity of 80.5% against 73.8% at the same 98.5% specificity.",
+    "field": "medicine",
+    "date": "2026-01-30",
+    "lab": "Lund University",
+    "model": "Transpara 1.7.0 (ScreenPoint Medical)",
+    "humans": [
+      "Kristina Lång",
+      "Veronica Hernström",
+      "Jessie Gommers"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Women screened at four sites in southwest Sweden between April 2021 and December 2022 were randomised 1:1. In the AI arm, Transpara gave each examination a malignancy risk score from 1 to 10: scores 1 to 9 went to a single radiologist and score 10 to two, and radiologists saw the scores and, for high scores, the system's marks on suspicious areas. The control arm was the Swedish standard of independent double reading without AI. Results came in three papers. A 2023 safety analysis of the first 80,033 women (Lancet Oncology) found the AI arm safe, with a 44.3% lower reading workload. A 2025 analysis of all participants (Lancet Digital Health) found 338 cancers against 262, a detection rate of 6.4 against 5.0 per 1,000 (ratio 1.29), mostly small node-negative invasive cancers, with no significant rise in recalls or false positives and 61,248 against 109,692 screen readings. The 2026 primary-endpoint paper (The Lancet) reports interval cancers, those surfacing between screening rounds: a proportion ratio of 0.88 (95% CI 0.65 to 1.18) within a 20% non-inferiority margin, with descriptively fewer invasive (75 against 89), large (38 against 48) and non-luminal A (43 against 59) interval cancers.",
+    "novelty_check": "Europe PMC, (artificial intelligence OR deep learning OR AI) AND mammograph* in titles, with randomised in the title or as publication type, to July 2023: no earlier randomised trial; the single hit is a retrospective model study. The 2023 safety paper states that no randomised trial had been done. ScreenTrustCAD in Stockholm evaluated AI as an independent reader prospectively but with a paired, not randomised, design.",
+    "caveats": "One country whose standard of care is double reading, four sites and one AI product and version, so the gain over single-reader programmes such as the US one is not measured here. The trial was designed for non-inferiority, and the interval cancer reduction is not statistically significant: the confidence interval runs from a 35% reduction to an 18% increase, so coverage reporting 12% fewer interval cancers overstates what the trial showed. The breakdown by cancer type is descriptive. Radiologists were not masked to allocation, since they saw the AI scores. The trial was publicly funded and run by academic investigators; the AI is ScreenPoint Medical's commercial product. Autonomy is ai-assisted because radiologists read every examination and made every recall decision.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT04838756",
+        "url": "https://clinicaltrials.gov/study/NCT04838756",
+        "title": "Mammography Screening with Artificial Intelligence (MASAI)"
+      },
+      {
+        "registry": "fda-ai-devices",
+        "id": "K210404",
+        "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K210404",
+        "title": "Transpara 1.7.0",
+        "note": "The version used in the trial. Later versions hold their own clearances, the most recent in the FDA list being K241831 for Transpara 2.1.0."
+      }
+    ],
+    "sources": [
+      {
+        "label": "The Lancet: Interval cancer, sensitivity, and specificity in the MASAI study",
+        "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(25)02464-X/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "Lancet Digital Health: Screening performance and characteristics of breast cancer detected in MASAI",
+        "url": "https://www.thelancet.com/journals/landig/article/PIIS2589-7500(24)00267-X/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "Lancet Oncology: AI-supported screen reading versus standard double reading in MASAI, clinical safety analysis",
+        "url": "https://www.thelancet.com/journals/lanonc/article/PIIS1470-2045(23)00298-X/fulltext",
+        "kind": "research"
+      },
+      {
+        "label": "Lund University: AI support in breast cancer screening leads to fewer missed cancer cases",
+        "url": "https://www.lunduniversity.lu.se/article/ai-support-breast-cancer-screening-fewer-missed-cancer-cases",
+        "kind": "announcement"
+      },
+      {
+        "label": "The ASCO Post: Interval cancer rate with AI-supported mammography screening",
+        "url": "https://ascopost.com/news/february-2026/interval-cancer-rate-with-ai-supported-mammography-screening/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "breast-cancer",
+      "screening",
+      "mammography",
+      "rct",
+      "prospective",
+      "fda-cleared"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2018-08-28-idx-dr-autonomous-diagnostic",
+    "title": "Pivotal trial of an autonomous AI diagnostic for diabetic retinopathy (IDx-DR)",
+    "claim": "In a prospective trial at 10 US primary care offices, an AI system that grades retinal photographs with no clinician reading them detected more-than-mild diabetic retinopathy with 87.2% sensitivity and 90.7% specificity against a specialist reading-centre reference, exceeding every prespecified endpoint; the results were the basis for the first FDA authorization of an autonomous AI diagnostic.",
+    "field": "medicine",
+    "date": "2018-08-28",
+    "lab": "IDx / University of Iowa",
+    "model": "IDx-DR",
+    "humans": [
+      "Michael D. Abràmoff",
+      "James C. Folk"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "autonomous",
+    "detail": "900 people with diabetes and no known retinopathy were enrolled, of whom 819 could be fully analysed. Existing primary care staff, after standardised training, took the photographs with instant image-quality feedback from the system, which then returned a disease-level result, positive or negative for more-than-mild retinopathy or diabetic macular oedema, with no clinician interpreting the images. The reference standard was widefield stereoscopic photography and macular OCT graded by the Wisconsin Fundus Photograph Reading Center. Prespecified superiority endpoints were sensitivity above 85% and specificity above 82.5%; imageability was 96.1%. The FDA granted De Novo authorization in April 2018, before the paper appeared. Later versions were cleared by 510(k), including IDx-DR v2.3 in 2022.",
+    "novelty_check": "Europe PMC, titles (artificial intelligence OR deep learning OR autonomous) AND diabetic retinopathy AND (prospective OR pivotal, or clinical-trial publication type), before 28 August 2018: no hits. Retrospective deep-learning grading of retinal photographs had been published (Gulshan et al., JAMA, 2016). What was new was a prospective, preregistered trial in primary care with the AI as the only reader, and the authorization that followed.",
+    "caveats": "Funded by IDx, whose founder, Michael Abràmoff, led the study; the reference grading was done by an independent reading centre. This entry found no published real-world accuracy study of the system by an unaffiliated group. Sensitivity of 87% means roughly one referable case in eight was missed against the reference standard, at the 24% prevalence of this trial population. Autonomy is graded autonomous for the diagnostic read only: who was screened, and what happened after a referral, followed a pathway clinicians designed.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT02963441",
+        "url": "https://clinicaltrials.gov/study/NCT02963441"
+      },
+      {
+        "registry": "fda-ai-devices",
+        "id": "DEN180001",
+        "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/denovo.cfm?id=DEN180001",
+        "title": "IDx-DR",
+        "note": "De Novo classification, 11 April 2018. Digital Diagnostics now holds the later 510(k) clearances, K203629 (2021) and K213037 (IDx-DR v2.3, 2022)."
+      }
+    ],
+    "sources": [
+      {
+        "label": "npj Digital Medicine: Pivotal trial of an autonomous AI-based diagnostic system for detection of diabetic retinopathy in primary care offices",
+        "url": "https://www.nature.com/articles/s41746-018-0040-6",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "diabetic-retinopathy",
+      "ophthalmology",
+      "autonomous-diagnosis",
+      "prospective",
+      "fda-cleared"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2021-05-06-eagle-ai-ecg-low-ejection-fraction",
+    "title": "Pragmatic randomised trial of an AI-ECG for low ejection fraction in primary care (EAGLE)",
+    "claim": "Giving primary care teams the output of an AI that reads routine 12-lead ECGs for signs of a weak heart raised new diagnoses of low ejection fraction within 90 days from 1.6% to 2.1% of 22,641 patients, in a cluster-randomised trial across 120 teams at 45 Mayo Clinic clinics and hospitals, without increasing echocardiogram use overall.",
+    "field": "medicine",
+    "date": "2021-05-06",
+    "lab": "Mayo Clinic",
+    "model": "AI-ECG convolutional neural network for left ventricular systolic dysfunction",
+    "humans": [
+      "Xiaoxi Yao",
+      "Paul A. Friedman",
+      "Peter A. Noseworthy"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "120 primary care teams (358 clinicians) were randomised. ECGs taken in routine care for adults with no prior heart failure were run through the algorithm, and clinicians in the intervention arm had access to its results; 6% of patients were flagged as likely to have low ejection fraction. The primary outcome, a new diagnosis of ejection fraction of 50% or less within 90 days, rose from 1.6% to 2.1% overall (odds ratio 1.32) and from 14.5% to 19.5% among AI-positive patients. Echocardiogram use was similar overall (18.2% against 19.2%) but higher for AI-positive patients (38.1% against 49.6%). The model is the one Mayo published retrospectively in 2019. Anumana, a company formed by Mayo Clinic and nference, holds an FDA clearance for a low ejection fraction AI-ECG algorithm developed from this work.",
+    "novelty_check": "Europe PMC, titles (artificial intelligence OR deep learning OR neural network) AND (electrocardiogram OR ECG) AND (ejection fraction OR ventricular dysfunction), before 6 May 2021: seven hits, all retrospective development or external validation studies, plus this trial's own design paper (Data Brief, 2019); the model itself was published by Attia et al. (Nature Medicine, 2019). No earlier randomised trial of an AI-ECG.",
+    "caveats": "One health system that both developed the model and ran the trial. The outcome is a diagnosis, a process measure; the trial did not measure heart failure events or survival. Clinicians acted on only about half of positive results, so the effect depends on uptake as much as on the model. Autonomy is graded ai-assisted, the weaker reading: the AI detects a pattern clinicians cannot see on an ECG, but the measured outcome needed a clinician to act on the alert and an echocardiogram to confirm it. The FDA-cleared Anumana algorithm is a commercial descendant of the Mayo model, not necessarily the version tested here.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT04000087",
+        "url": "https://clinicaltrials.gov/study/NCT04000087"
+      },
+      {
+        "registry": "fda-ai-devices",
+        "id": "K232699",
+        "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K232699",
+        "title": "Low Ejection Fraction AI-ECG Algorithm (Anumana)",
+        "note": "Anumana's commercial algorithm, cleared in September 2023 and developed from the Mayo Clinic AI-ECG; the FDA record does not identify it with the trial version."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Nature Medicine: AI-enabled electrocardiograms for identification of patients with low ejection fraction, a pragmatic randomized trial",
+        "url": "https://www.nature.com/articles/s41591-021-01335-4",
+        "kind": "research"
+      },
+      {
+        "label": "Nature Medicine: Screening for cardiac contractile dysfunction using an AI-enabled electrocardiogram (the model)",
+        "url": "https://www.nature.com/articles/s41591-018-0240-2",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "ecg",
+      "heart-failure",
+      "rct",
+      "prospective",
+      "fda-cleared"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2022-07-21-trews-sepsis-early-warning",
+    "title": "Prospective multi-site study of the TREWS sepsis early-warning system",
+    "claim": "Across five hospitals that monitored 590,736 patients with a machine-learning sepsis alert, patients with sepsis whose alert a clinician confirmed within three hours had 3.3 percentage points lower adjusted in-hospital mortality, an 18.7% relative reduction, than patients whose alert was not confirmed in that time.",
+    "field": "medicine",
+    "date": "2022-07-21",
+    "lab": "Johns Hopkins University",
+    "model": "TREWS (Targeted Real-time Early Warning System)",
+    "humans": [
+      "Roy Adams",
+      "Katharine E. Henry",
+      "Suchi Saria"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "TREWS runs on electronic health record data and alerts the care team, who then confirm or dismiss it. The analysis focused on 6,877 patients with sepsis who were flagged before antibiotics had started. Adjusting for presentation and severity, those whose alert was confirmed within three hours also had less organ failure and shorter stays, and the mortality difference was larger, 4.5 percentage points, among patients the system additionally flagged as high risk. A companion paper in the same issue studied how clinicians adopted the alerts. In April 2026 the FDA cleared Bayesian Health's sepsis flagging device, part of the TREWS platform, by 510(k).",
+    "novelty_check": "Europe PMC, titles (machine learning OR artificial intelligence) AND sepsis AND (randomised OR prospective), before 21 July 2022: three hits, including a small single-centre randomised trial of a machine-learning sepsis predictor in intensive care (Shimabukuro et al., BMJ Open Respiratory Research, 2017). This study's novelty is scale, five hospitals and more than half a million monitored patients, not being the first prospective evaluation.",
+    "caveats": "Not randomised. The comparison is between alerts clinicians confirmed quickly and alerts they did not, and the patients clinicians chose to act on promptly may differ in ways the adjustment does not capture, so the mortality difference is an association rather than a measured effect of deploying the system. The senior author, Suchi Saria, founded Bayesian Health, which commercialises TREWS. Europe PMC, TREWS in titles and abstracts: the published evaluations come from the developers' group, and this search found no validation by an unaffiliated health system, unlike Epic's sepsis model.",
+    "registrations": [
+      {
+        "registry": "fda-ai-devices",
+        "id": "K250680",
+        "url": "https://www.accessdata.fda.gov/scripts/cdrh/cfdocs/cfpmn/pmn.cfm?ID=K250680",
+        "title": "Bayesian Health Sepsis Flagging Device",
+        "note": "Cleared 30 April 2026 and announced by the company on 12 May 2026 as part of the TREWS platform; the FDA record itself does not name TREWS."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Nature Medicine: Prospective, multi-site study of patient outcomes after implementation of the TREWS early warning system for sepsis",
+        "url": "https://www.nature.com/articles/s41591-022-01894-0",
+        "kind": "research"
+      },
+      {
+        "label": "Healthcare Dive: Bayesian Health gets FDA nod for AI sepsis detection tool",
+        "url": "https://www.healthcaredive.com/news/bayesian-health-gets-fda-nod-for-ai-sepsis-detection-tool/820107/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "sepsis",
+      "early-warning",
+      "prospective",
+      "fda-cleared"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2021-06-21-epic-sepsis-model-v1",
+    "title": "Epic Sepsis Model, version 1, disputed by external validation",
+    "claim": "Epic's proprietary sepsis prediction model, deployed at hundreds of US hospitals with a publicly reported area under the curve of 0.76 to 0.83, scored 0.63 in its first external validation, at Michigan Medicine, missing 67% of sepsis cases while alerting on 18% of all hospitalised patients.",
+    "field": "medicine",
+    "date": "2021-06-21",
+    "lab": "Epic Systems",
+    "model": "Epic Sepsis Model v1 (proprietary penalized logistic regression)",
+    "verification": "disputed",
+    "autonomy": "ai-assisted",
+    "detail": "Epic released the model in 2018 and it was implemented at hundreds of hospitals; it computes a score every 15 minutes from data already in the record. The Michigan study covered 27,697 patients and 38,455 hospitalisations from December 2018 to October 2019, 7% of them with sepsis. At the alerting threshold of 6, the model fired for 18% of all hospitalised patients and missed 1,709 of the 2,552 sepsis cases; it flagged only 183 sepsis patients (7%) whom clinicians had not already treated with timely antibiotics, the cases where an alert could add something. A 2023 study across nine hospitals of one network found discrimination as low as 0.55 at the largest hospital and no higher than 0.73, worse where sepsis, comorbidity and cancer were more common. Epic disputed the Michigan analysis, saying the investigators' approach cast a wide net that produced more false positives, and that it was continually improving implementations of the model. In 2022 Epic released a retrained version 2, recorded as a separate entry.",
+    "novelty_check": "Not a discovery claim, so the question is what had been checked before. Europe PMC, \"Epic Sepsis Model\": no external validation precedes the Michigan study, whose authors say the model had not been adequately evaluated despite widespread use. Later validations at other systems are listed under independent checks.",
+    "caveats": "Epic's own validation figures were never published in a peer-reviewed venue, so the claim under dispute is known through vendor documentation as the study authors and the press reported it. Epic's objection is a real methodological point: a fixed-threshold evaluation measures the model as configured, not as it could be tuned. The later version 2 validation attributes part of the gap between internal and external figures to version 1's use of antibiotic orders as predictors and to internal validation against non-clinical outcome labels. Graded disputed rather than refuted because no common analysis has reconciled the developer's and the independent figures, and Epic replaced version 1 with a retrained model rather than settling the question; more than 100 organisations still used version 1 in 2025. Penalized logistic regression is a modest machine-learning model; it is in the registry because it is among the most widely deployed clinical prediction tools in the US and the clearest public record of the gap between vendor-reported and real-world performance.",
+    "independent_checks": [
+      {
+        "who": "Wong et al., Michigan Medicine (JAMA Internal Medicine, 2021)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8218233/",
+        "outcome": "Retrospective cohort of 38,455 hospitalisations: hospitalisation-level area under the curve 0.63 (95% CI 0.62 to 0.64), poor calibration, 67% of sepsis cases missed at the default threshold and alerts on 18% of all patients."
+      },
+      {
+        "who": "Lyons et al., Washington University School of Medicine and BJC HealthCare (JAMA Internal Medicine, 2023)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10071393/",
+        "outcome": "806,696 encounters at nine networked hospitals: discrimination varied from 0.55 at the largest hospital to at most 0.73, and fell with higher sepsis incidence, comorbidity burden and cancer prevalence."
+      }
+    ],
+    "sources": [
+      {
+        "label": "JAMA Internal Medicine: External validation of a widely implemented proprietary sepsis prediction model in hospitalized patients",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC8218233/",
+        "kind": "challenge"
+      },
+      {
+        "label": "JAMA Internal Medicine: Variability in the performance of a proprietary sepsis prediction model across 9 networked hospitals",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC10071393/",
+        "kind": "challenge"
+      },
+      {
+        "label": "Contagion Live: Evaluation of sepsis prediction tool raises questions about proprietary tools",
+        "url": "https://www.contagionlive.com/view/evaluation-of-sepsis-prediction-tool-raises-questions-about-proprietary-tools",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "sepsis",
+      "early-warning",
+      "external-validation",
+      "retrospective",
+      "real-world-data"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-02-02-epic-sepsis-model-v2",
+    "title": "Multicenter prospective validation of Epic's retrained sepsis model (version 2)",
+    "claim": "Epic's retrained sepsis model, gradient-boosted trees fine-tuned on each hospital's own data, discriminated sepsis at encounter-level AUROCs of 0.82 to 0.92 across 227,091 inpatient encounters at four large US health systems, in line with or above the 0.83 to 0.86 Epic reports internally, but with positive predictive values of only 0.13 to 0.26 and a high alert burden.",
+    "field": "medicine",
+    "date": "2026-02-02",
+    "lab": "Epic Systems",
+    "model": "Epic Sepsis Model v2 (gradient-boosted trees with local fine-tuning)",
+    "verification": "independent",
+    "autonomy": "ai-assisted",
+    "detail": "Version 2, released in 2022, replaced the penalized logistic regression of version 1, addressed the methodological criticisms raised against it, and lets each site fine-tune on its own historical data. Investigators at four health systems collected data for a consecutive period right after each site went live, between August 2023 and March 2025, and scored the model against Sepsis-3 criteria; 7,401 of the 227,091 encounters (3.3%) met them. At the prediction level, with a 12-hour horizon, AUROC ranged from 0.75 to 0.85; measured against clinicians' own recognition of sepsis (antibiotic, lactate and culture orders), encounter-level AUROC was 0.80 to 0.90. According to Epic, as cited in the paper, 95 organisations representing 731 hospitals used version 2 as of August 2025, while more than 100 organisations still ran version 1.",
+    "novelty_check": "Europe PMC, \"Epic Sepsis Model\": the authors and this search found no earlier multicenter external validation of version 2. Epic's internal figures of 0.83 to 0.86 are cited in the paper from a meeting with Epic staff, not from a publication.",
+    "caveats": "Discrimination is not benefit: the study measured no patient outcome such as mortality or time to antibiotics. A positive predictive value of 0.13 to 0.26 means roughly four to eight alerts for every true sepsis case. The spread across sites reflects local fine-tuning, so the result describes the model as each site configured it, and a hospital adopting it inherits the need to validate locally. Measuring a live model means clinicians' responses to its alerts can change the outcomes it predicts. The investigators are unaffiliated with Epic, which is why this is graded independent, but several of them also wrote the version 1 validations, so this is one research community's check repeated rather than a fully separate one.",
+    "independent_checks": [
+      {
+        "who": "Wong et al., investigators at four US health systems (JAMA Network Open, 2026)",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12949446/",
+        "outcome": "Encounter-level AUROC 0.82 to 0.92 across four health systems, at or above Epic's internally reported 0.83 to 0.86, with positive predictive values of 0.13 to 0.26 and high institutional variability."
+      }
+    ],
+    "sources": [
+      {
+        "label": "JAMA Network Open: Multicenter prospective validation of an updated proprietary sepsis prediction model",
+        "url": "https://pmc.ncbi.nlm.nih.gov/articles/PMC12949446/",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "sepsis",
+      "early-warning",
+      "external-validation",
+      "prospective",
+      "real-world-data"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2025-08-16-epic-cosmos-medical-event-models",
+    "title": "Generative medical event models trained on 118 million patients in Epic Cosmos (CoMET, renamed Curiosity)",
+    "claim": "Decoder-only transformers of up to 1 billion parameters, pretrained on 115 billion medical events from 118 million patients in Epic's Cosmos dataset, followed power-law scaling and, by simulating each patient's next events, generally matched or outperformed task-specific supervised models on 78 clinical prediction tasks without task-specific training.",
+    "field": "medicine",
+    "date": "2025-08-16",
+    "lab": "Epic Systems / Microsoft Research / Yale School of Medicine",
+    "model": "Curiosity, first presented as CoMET (Cosmos Medical Event Transformer), up to 1B parameters",
+    "humans": [
+      "Shane Waxler",
+      "Hoifung Poon",
+      "Seth Hain",
+      "Rahul Shah"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Cosmos holds de-identified records of 16.3 billion encounters for more than 300 million patients from 310 health systems that use Epic. The models treat a patient's history as a sequence of discrete events (151 billion tokens in pretraining) and predict the next event autoregressively, so a forecast is made by simulating many possible timelines and counting outcomes. The authors present it as the largest scaling-law study of medical event data, fitting power laws for compute, data and model size and training compute-optimal models from those fits. The 78 evaluation tasks span diagnosis prediction, disease prognosis and healthcare operations, and performance improved with model and data scale. The preprint has since been revised, and later versions call the model family Curiosity.",
+    "novelty_check": "Europe PMC, titles (transformer OR generative OR foundation model) AND (health records OR medical events OR disease trajectories OR patient timelines), to 15 August 2025, plus the paper's related work: generative models of patient timelines predate it, including BEHRT (Scientific Reports, 2020), Foresight (Lancet Digital Health, 2024) and ETHOS (npj Digital Medicine, 2024), and Delphi-2M followed a month later. What is new is scale, about 118 million patients against hundreds of thousands to a few million, and the scaling-law study.",
+    "caveats": "A preprint, not peer reviewed, announced by the developers, so it enters at claimed. Cosmos is open only to researchers at Epic customer organisations under Epic's terms and the weights are not released, so no outside group can reproduce the results. The evaluation is retrospective, on held-out Cosmos data, and outperforming supervised baselines is a statement about prediction, not about clinical benefit. Autonomy is ai-led on the same reading as other model-output entries: the forecasts are the model's own, while the data, tasks and evaluation were chosen by people.",
+    "sources": [
+      {
+        "label": "arXiv: Generative medical event models improve with scale",
+        "url": "https://arxiv.org/abs/2508.12104",
+        "kind": "research"
+      },
+      {
+        "label": "Microsoft Research: Generative medical event models improve with scale (CoMET)",
+        "url": "https://www.microsoft.com/en-us/research/publication/generative-medical-event-models-improve-with-scale/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "foundation-model",
+      "real-world-data",
+      "retrospective",
+      "scaling-laws",
+      "ehr"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2025-09-17-delphi-2m-disease-trajectories",
+    "title": "A generative transformer modelling the course of more than 1,000 diseases (Delphi-2M)",
+    "claim": "A GPT-style model trained on 0.4 million UK Biobank participants predicts each person's rates of more than 1,000 diseases from their past diagnoses, with an average age-stratified AUC of about 0.76 and accuracy comparable to single-disease models, and held up on 1.9 million Danish registry records with no retraining (AUC 0.67 against 0.69 on UK longitudinal testing).",
+    "field": "medicine",
+    "date": "2025-09-17",
+    "lab": "German Cancer Research Center (DKFZ) / EMBL-EBI / University of Copenhagen",
+    "model": "Delphi-2M (modified GPT-2 architecture)",
+    "humans": [
+      "Artem Shmatko",
+      "Ewan Birney",
+      "Tom Fitzgerald",
+      "Moritz Gerstung"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-led",
+    "detail": "Each health history is a sequence of top-level ICD-10 diagnoses plus sex, body mass, smoking, alcohol and death, each at the age it was recorded, and the architecture is changed from GPT-2 to model continuous time and competing risks. Death is the most confidently predicted event, with an AUC of 0.97, and accuracy falls from 0.76 to 0.70 for predictions ten years ahead. Because it is generative, the model can sample synthetic future health trajectories up to 20 years ahead, which the authors use to estimate disease burden and to train other models that never see real records. Explainability analyses recover clusters of co-occurring diseases and their effects over time, and also show biases inherited from UK Biobank. Code is public. A correction was published in November 2025.",
+    "novelty_check": "Europe PMC, titles (transformer OR generative OR foundation model) AND (health records OR medical events OR disease trajectories OR patient timelines), to 16 September 2025: transformer models of health records predate it, including BEHRT (2020), Foresight (Lancet Digital Health, 2024) and ETHOS (npj Digital Medicine, 2024), and Epic's much larger CoMET preprint appeared a month earlier. Delphi-2M's distinct parts are joint modelling of more than 1,000 diseases with competing risks in continuous time and a no-retraining test on a national registry.",
+    "caveats": "Retrospective, and not used in care. UK Biobank volunteers are older, healthier and less diverse than the UK population, and the authors show the model inherits those biases. The Danish test was run by co-authors at the University of Copenhagen and Statistics Denmark, so it is external data but not an independent check. Accuracy comparable to single-disease models is an average over many diseases, some of which are predicted poorly.",
+    "sources": [
+      {
+        "label": "Nature: Learning the natural history of human disease with generative transformers",
+        "url": "https://www.nature.com/articles/s41586-025-09529-3",
+        "kind": "research"
+      },
+      {
+        "label": "Delphi code (gerstung-lab/Delphi)",
+        "url": "https://github.com/gerstung-lab/Delphi",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "foundation-model",
+      "disease-prediction",
+      "real-world-data",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2025-04-09-amie-diagnostic-dialogue",
+    "title": "Randomised comparison of an LLM diagnostic-dialogue system with primary care physicians (AMIE)",
+    "claim": "In a randomised, double-blind crossover study of text consultations with trained patient-actors across 159 case scenarios, Google's AMIE was more accurate in diagnosis than 20 primary care physicians and was rated better on 30 of 32 axes by specialist physicians and on 25 of 26 axes by the patient-actors.",
+    "field": "medicine",
+    "date": "2025-04-09",
+    "lab": "Google",
+    "model": "AMIE (Articulate Medical Intelligence Explorer), fine-tuned from PaLM 2",
+    "humans": [
+      "Tao Tu",
+      "Mike Schaekermann",
+      "Alan Karthikesalingam",
+      "Vivek Natarajan"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "autonomous",
+    "detail": "AMIE was trained for diagnostic conversation partly through self-play in a simulated environment with automated feedback, then evaluated in the format of an objective structured clinical examination. Validated patient-actors worked through scenarios from examination providers in Canada, the UK and India by text chat with either AMIE or a primary care physician, double-blind, and specialist physicians and the patient-actors rated history-taking, diagnostic accuracy, management, communication and empathy. The paper first appeared as an arXiv preprint in January 2024. Later work extended AMIE to multi-visit disease management (Nature, 2026) and tested it with real patients (separate entry).",
+    "novelty_check": "Europe PMC, (large language model OR LLM OR chatbot OR conversational) AND diagnos* AND randomised, with physician, clinician or primary care in the title, to 8 April 2025: the randomised trials found give physicians an LLM on written cases (Goh et al., JAMA Network Open, 2024; Nature Medicine, February 2025) rather than letting the LLM conduct the consultation. No earlier randomised comparison of an LLM taking histories from patient-actors turned up.",
+    "caveats": "Patient-actors, not patients, and synchronous text chat, which the authors note is unfamiliar in clinical practice and so may not reflect how physicians normally consult. All authors are Google employees and the evaluation framework is the developers' own. Autonomy is graded autonomous because AMIE ran each consultation and produced its diagnosis and plan with no clinician involved, which holds only inside this simulated setting.",
+    "sources": [
+      {
+        "label": "Nature: Towards conversational diagnostic artificial intelligence",
+        "url": "https://www.nature.com/articles/s41586-025-08866-7",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Towards conversational diagnostic AI (preprint)",
+        "url": "https://arxiv.org/abs/2401.05654",
+        "kind": "research"
+      },
+      {
+        "label": "Google Research: AMIE, a research AI system for diagnostic medical reasoning and conversations",
+        "url": "https://research.google/blog/amie-a-research-ai-system-for-diagnostic-medical-reasoning-and-conversations/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "large-language-model",
+      "diagnosis",
+      "conversational-ai",
+      "rct",
+      "simulated-patients"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-10-08-amie-primary-care-feasibility",
+    "title": "AMIE with real patients before urgent primary care visits: a prospective feasibility study",
+    "claim": "In a single-arm study at Beth Israel Deaconess Medical Center, 98 patients completed a text conversation with Google's AMIE in the five days before an urgent primary care visit, under live physician supervision; no conversation needed a safety stop under prespecified criteria, supervisors noted one hallucination, and physicians found the transcript helpful for preparation in 33 of the 44 cases where they reviewed it.",
+    "field": "medicine",
+    "date": "2026-10-08",
+    "lab": "Google / Beth Israel Deaconess Medical Center",
+    "model": "AMIE (Articulate Medical Intelligence Explorer)",
+    "humans": [
+      "Peter G. Brodeur",
+      "Alan Karthikesalingam",
+      "Adam Rodman"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Adults with a single-complaint urgent appointment talked with AMIE beforehand, and the transcript and a summary went to their physician before the visit. 114 patients were enrolled between April and November 2025. Physician safety supervisors watched every conversation and were trained to intervene on predefined criteria; they intervened to add clinical information in five conversations. Clinical evaluators rated AMIE's conversations favourably in 87% to 100% of cases across 17 criteria, and patients in 48% to 96% across 16. Patients' attitudes towards AI improved after the conversation and stayed higher after their visit. Physicians returned surveys in 60 of 98 cases, read the transcript in 44, and said it might have changed their behaviour in 25. Funded by Alphabet.",
+    "novelty_check": "Europe PMC, (conversational OR chatbot OR large language model) with prospective and (primary care OR patients OR diagnosis) in titles, 2023 to 7 October 2026: prospective clinic studies of LLM diagnosis exist, for example in vestibular disorders (Journal of Medical Internet Research, August 2026), and so do shadow evaluations, but this search found no earlier prospective study of a patient-facing diagnostic conversational agent in primary care.",
+    "caveats": "Single site, single arm, no comparison group and 98 patients, so it measures feasibility and acceptance, not diagnostic accuracy or outcomes. A physician who could stop it watched every conversation live, so safety was shown under supervision, not unsupervised. Funded by Alphabet with Google co-authors. Autonomy is ai-assisted: AMIE talked to patients on its own, but the physicians made every care decision. Published eight days before this entry was added, with no independent check yet.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT06911398",
+        "url": "https://clinicaltrials.gov/study/NCT06911398"
+      }
+    ],
+    "sources": [
+      {
+        "label": "The Lancet: Conversational diagnostic AI in ambulatory primary care, a prospective feasibility study",
+        "url": "https://www.thelancet.com/journals/lancet/article/PIIS0140-6736(26)01535-7/fulltext",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "large-language-model",
+      "conversational-ai",
+      "primary-care",
+      "prospective"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2026-06-26-penda-ai-consult-cluster-rct",
+    "title": "Cluster-randomised trial of an LLM decision-support tool in Kenyan primary care finds no reduction in treatment failure",
+    "claim": "In a pragmatic trial at 16 Penda Health clinics in Kenya, clinical officers randomised to a GPT-4o-based decision-support tool in the medical record saw 14-day treatment failure in 2.2% of 4,693 patients against 2.0% of 4,654 without it, an adjusted odds ratio of 0.77 (95% CI 0.55 to 1.08); the tool was safe but did not significantly reduce treatment failure.",
+    "field": "medicine",
+    "date": "2026-06-26",
+    "lab": "KEMRI-Wellcome Trust Research Programme / Penda Health / PATH",
+    "model": "AI Consult (GPT-4o)",
+    "humans": [
+      "Ambrose Agweyu",
+      "Robert Korom",
+      "Xiaoxuan Liu",
+      "Bilal A. Mateen"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "AI Consult is built into the cloud medical record Penda Health uses and reviews the clinician's notes, diagnosis and treatment at decision points. 103 clinical officers, the diploma-trained clinicians who staff much of Kenyan primary care, were randomised: 52 with the tool and 51 without. 9,691 patients were enrolled between April and July 2025. The primary outcome was an expert-adjudicated composite of treatment failure within 14 days. No serious adverse event was judged related to the tool, and independent review of adverse events found no safety signal. The trial was funded by the Gates Foundation and registered with the Pan-African Clinical Trials Registry (202502499779176). An earlier 2025 quality-improvement study at 15 Penda clinics, run with OpenAI, reported 16% fewer diagnostic errors and 13% fewer treatment errors across 39,849 visits by clinicians who had the tool, as rated by independent physicians; that measured errors in documented care, a different and softer outcome than this trial's.",
+    "novelty_check": "Europe PMC, (large language model OR LLM OR GPT*) AND randomised, with primary care, clinical decision support or clinic in the title, 2023 to 25 June 2026: earlier randomised trials gave clinicians an LLM on written cases (Goh et al., JAMA Network Open, 2024), tested patient-facing chatbots (Nature Health, January 2026), or measured process outcomes. This search found no earlier randomised trial of clinician-facing LLM decision support with a patient outcome as the primary endpoint.",
+    "caveats": "A negative primary result, recorded as such. One clinic network in one country. Treatment failure is a hard but rare outcome, about 2%, and the trial may have been too small to detect a modest benefit, which the authors say is probably the most any benefit would be. The unadjusted rates point slightly the other way from the adjusted odds ratio. Penda Health staff, who run the clinics and the tool, are among the authors. The earlier OpenAI study's error reductions are a different result on a softer endpoint and are not confirmed by this trial.",
+    "sources": [
+      {
+        "label": "Nature Medicine: Generative AI-enabled clinical decision support system in primary care, a pragmatic, cluster-randomized trial",
+        "url": "https://www.nature.com/articles/s41591-026-04503-6",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: AI-based clinical decision support for primary care, a real-world study (the earlier 2025 quality-improvement study)",
+        "url": "https://arxiv.org/abs/2507.16947",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "large-language-model",
+      "clinical-decision-support",
+      "primary-care",
+      "rct",
+      "global-health"
+    ],
+    "added": "2026-10-16"
+  },
+  {
+    "id": "2025-11-26-ambient-ai-scribes-rct",
+    "title": "Randomised trial of two ambient AI scribes in outpatient practice",
+    "claim": "In a pragmatic three-arm trial of 238 UCLA outpatient physicians, the Nabla scribe cut time spent writing notes by 9.5% against usual care while Microsoft's DAX Copilot made no significant difference; both were associated with modest improvements in burnout and task-load scores, and physicians reported occasional clinically significant inaccuracies with either.",
+    "field": "medicine",
+    "date": "2025-11-26",
+    "lab": "UCLA Health",
+    "model": "Microsoft Dragon Ambient eXperience (DAX) Copilot; Nabla",
+    "humans": [
+      "Paul J. Lukac",
+      "John N. Mafi"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Ambient scribes record the visit and draft the clinical note, which the physician then edits. Physicians from 14 specialties were assigned 1:1:1 by covariate-constrained randomisation to DAX, Nabla or usual care from November 2024 to January 2025. The primary outcome was the change from baseline in log time-in-note, measured from record audit logs. DAX was used in 33.5% of 24,696 visits and Nabla in 29.5% of 23,653. Secondary survey outcomes, the Mini-Z burnout score, physician task load and work exhaustion, improved for users of either scribe against control. One mild adverse event was reported. A preprint appeared on medRxiv in July 2025.",
+    "novelty_check": "The authors state that no randomised trial of ambient scribes preceded theirs. Europe PMC, (ambient OR scribe) in the title with a randomised design, to 26 November 2025: only this trial and its July 2025 preprint; observational evaluations at large health systems came earlier, and a randomised crossover trial at Duke (JAMIA, 2026) followed.",
+    "caveats": "Two months at one health system, with the scribes used in only about a third of eligible visits, so the intention-to-treat effects are small partly because uptake was. The burnout findings are secondary survey endpoints that the authors say need confirmation in larger multicenter trials, and physicians knew their allocation. Time-in-note does not capture time spent checking drafts outside the note. Autonomy is ai-assisted: the scribe drafts and the physician edits and signs.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT06792890",
+        "url": "https://clinicaltrials.gov/study/NCT06792890"
+      }
+    ],
+    "sources": [
+      {
+        "label": "NEJM AI: Ambient AI scribes in clinical practice, a randomized trial",
+        "url": "https://ai.nejm.org/doi/full/10.1056/AIoa2501000",
+        "kind": "research"
+      },
+      {
+        "label": "medRxiv: A randomized clinical trial of two ambient AI scribes (preprint)",
+        "url": "https://www.medrxiv.org/content/10.1101/2025.07.10.25331333v1",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ambient-scribe",
+      "large-language-model",
+      "documentation",
+      "rct",
+      "physician-burnout"
+    ],
+    "added": "2026-10-16"
   }
 ]
