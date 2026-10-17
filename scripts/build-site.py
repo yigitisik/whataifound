@@ -2915,7 +2915,11 @@ def build_lab_hub(entries):
         print(f"  note: no hub URL for {', '.join(missing)} "
               f"(add to LAB_HUB in {os.path.basename(__file__)})")
 
-    cards = ""
+    # Two tiers. An organisation with its own hub page gets a card; the long tail, most of
+    # it one entry each, gets a row in a dense list. Thirty-eight equal cards made the tail
+    # look as weighty as the labs the registry actually has something to say about, and
+    # truncated the longest names ("German Cancer Research Center") to fit a card.
+    cards, rows = "", ""
     for org in sorted(groups, key=lambda o: (-len(groups[o]), o)):
         hub, ext = lab_hub_url(groups, org), LAB_HUB.get(org)
         # An organisation with neither has nowhere to send anyone. It keeps its entries in
@@ -2923,20 +2927,30 @@ def build_lab_hub(entries):
         if not hub and not ext:
             continue
         n = len(groups[org])
-        href = hub or ext
-        away = "" if hub else ' target="_blank" rel="noopener"'
-        # The arrow is a second destination, not decoration, so it carries its own label.
-        arrow = (f'<a class="labcard-go" href="{esc(ext)}" target="_blank" rel="noopener" '
-                 f'aria-label="{attr(org)} research site" title="{attr(org)} research site">'
-                 f'↗</a>') if ext else ""
-        cards += (
-            f'<div class="labcard">'
-            f'<a class="labcard-main" href="{esc(href)}"{away}>'
-            f'{hub_mark(org)}'
-            f'<span class="labcard-meta"><b>{esc(org)}</b>'
-            f'<span>{n} {"entry" if n == 1 else "entries"}</span></span></a>'
-            f'{arrow}</div>')
-    return cards
+        count = f'{n} {"entry" if n == 1 else "entries"}'
+        if hub:
+            # The arrow is a second destination, not decoration, so it carries its own label.
+            arrow = (f'<a class="labcard-go" href="{esc(ext)}" target="_blank" rel="noopener" '
+                     f'aria-label="{attr(org)} research site" title="{attr(org)} research site">'
+                     f'↗</a>') if ext else ""
+            cards += (
+                f'<div class="labcard">'
+                f'<a class="labcard-main" href="{esc(hub)}">'
+                f'{hub_mark(org)}'
+                f'<span class="labcard-meta"><b>{esc(org)}</b>'
+                f'<span>{count}</span></span></a>'
+                f'{arrow}</div>')
+        else:
+            # One destination, the lab's own site, so one link: the old card carried a
+            # second arrow pointing at the same place. The glyph marks it as off-site.
+            rows += (
+                f'<li><a class="labrow" href="{esc(ext)}" target="_blank" rel="noopener" '
+                f'title="{attr(org)}: {count}, opens its research site">'
+                f'{hub_mark(org)}<span class="labrow-name">{esc(org)}</span>'
+                f'<span class="labrow-n">{n}<span class="vh"> {"entry" if n == 1 else "entries"}'
+                f'</span></span><span class="labrow-go" aria-hidden="true">↗</span></a></li>')
+    return (f'<div class="labgrid labgrid-hubs">{cards}</div>'
+            + (f'<ul class="lablist">{rows}</ul>' if rows else ""))
 
 
 # ------------------------------------------------------------------ hub pages

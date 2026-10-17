@@ -1735,35 +1735,54 @@
   .labs-hub .lbl.subhead{margin-top:30px}
   /* minmax(0,1fr): a bare 1fr track floors at its content's min-content width, which let the
      longest lab label ('GitHub (e.g: Deepmind)') push the grid wider than the viewport. */
-  .labgrid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+  /* auto-fill rather than fixed counts with breakpoints: four columns on a desktop, two at
+     tablet width, one on a phone, and min(100%,...) keeps a track from outgrowing 320px. */
+  .labgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,220px),1fr));gap:8px}
   /* Two destinations, so two links: the body goes to this site's hub for the lab and the
      arrow goes to the lab's own research site. Anchors cannot nest, which is why the card
      itself is a div and .labcard-main carries the layout the card used to. */
-  .labcard{display:flex;align-items:center;gap:14px;padding:18px 20px;min-width:0;border:1px solid var(--line-strong);
-    border-radius:15px;background:var(--panel-2);box-shadow:var(--shadow);
+  .labcard{display:flex;align-items:center;gap:10px;padding:10px 12px;min-width:0;border:1px solid var(--line-strong);
+    border-radius:12px;background:var(--panel-2);box-shadow:var(--shadow);
     transition:transform .16s var(--ease),border-color .16s,box-shadow .16s}
-  .labcard-main{display:flex;align-items:center;gap:14px;flex:1;min-width:0;text-decoration:none}
+  .labcard-main{display:flex;align-items:center;gap:10px;flex:1;min-width:0;text-decoration:none}
+  /* The hand-written cards under the hub ("Also watched", "Reference") are a single anchor
+     each, and inherited the body link underline through every line of text in them. */
+  a.labcard{text-decoration:none}
   @media(hover:hover){
     .labcard:hover{transform:translateY(-2px);border-color:var(--accent);
       box-shadow:0 2px 4px rgba(30,28,24,.05),0 14px 34px rgba(30,28,24,.10)}
   }
-  .labcard-logo{width:34px;height:34px;flex:0 0 auto;border-radius:11px;background:#fff;
-    display:grid;place-items:center;padding:6px;box-shadow:inset 0 0 0 1px var(--line)}
+  .labcard-logo{width:30px;height:30px;flex:0 0 auto;border-radius:9px;background:#fff;
+    display:grid;place-items:center;padding:5px;box-shadow:inset 0 0 0 1px var(--line)}
   .labcard-logo img{width:100%;height:100%;object-fit:contain;display:block}
   /* Monogram chip for organisations with no logo file. Hue is derived from the name in
      build-site.py, so two organisations starting with the same letter still differ. */
   .labcard-logo.mono{background:var(--lc,#7c7a72);color:#fff;display:grid;place-items:center;
-    font-family:var(--serif);font-size:.82rem;font-weight:600;letter-spacing:.02em;
+    font-family:var(--serif);font-size:.74rem;font-weight:600;letter-spacing:.02em;padding:0;
     box-shadow:inset 0 0 0 1px rgba(255,255,255,.16),0 1px 2px rgba(0,0,0,.14)}
   .labcard-meta{flex:1;display:flex;flex-direction:column;line-height:1.2;min-width:0}
-  .labcard-meta b{color:var(--ink);font-family:var(--serif);font-size:1rem;font-weight:600;
+  .labcard-meta b{color:var(--ink);font-family:var(--serif);font-size:.94rem;font-weight:600;
     white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-  .labcard-meta span{font-family:var(--serif);font-size:.78rem;color:var(--muted);letter-spacing:.04em}
+  .labcard-meta span{font-family:var(--serif);font-size:.74rem;color:var(--muted);letter-spacing:.04em}
   .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem;
     text-decoration:none;display:grid;place-items:center;width:28px;height:28px;border-radius:9px}
   .labcard-go:hover{background:var(--panel);color:var(--accent)}
   .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
-  @media(max-width:640px){.labgrid{grid-template-columns:1fr}}
+  /* The long tail of the lab hub: organisations under the hub-page bar, most with one
+     entry, as a dense list under the cards. Names wrap rather than truncate, since a row
+     has the width a card spent on its padding. Colour-only hover, so no hover guard. */
+  .lablist{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line);
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:1px 14px}
+  .labrow{display:flex;align-items:center;gap:9px;min-width:0;padding:5px 8px;border-radius:8px;
+    color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:.86rem;line-height:1.25;
+    transition:background-color .16s var(--ease)}
+  .labrow:hover{background:var(--panel-2)}
+  .labrow .labcard-logo{width:22px;height:22px;border-radius:6px;padding:3px}
+  .labrow .labcard-logo.mono{font-size:.56rem;letter-spacing:0;padding:0}
+  .labrow-name{flex:1;min-width:0;overflow-wrap:anywhere}
+  .labrow-n{flex:0 0 auto;font-size:.74rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
+  .labrow-go{flex:0 0 auto;width:12px;color:var(--accent);font-size:.78rem;opacity:.45}
+  .labrow:hover .labrow-go,.labrow:focus-visible .labrow-go{opacity:1}
   /* Topic row above the lab grid: chips rather than cards, because there are eleven of
      them and they are internal links to a derived page, not outbound links to a lab. */
   .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
@@ -2413,7 +2432,6 @@
     .rc-row{flex-direction:column;gap:1px;padding:4px 0}
     .rc-k{flex-basis:auto}
     .hbar{grid-template-columns:94px 1fr 22px;gap:8px}
-    .labcard{padding:15px 16px}
     .labs-hub{padding:24px 18px}
   }
   /* ---------- Touch ----------
@@ -2432,7 +2450,9 @@
        specificity: .finding details.fold>summary sets its own padding, and a bare
        summary loses to it on weight no matter which rule comes last in the file. */
     summary,.finding details.fold>summary{padding-top:13px;padding-bottom:11px}
-    .labcard{padding:18px}
+    .labcard{padding:8px 12px}
+    /* The tail rows are whole links, so the row itself takes the target. */
+    .labrow{min-height:44px}
 
     /* Room to grow: take the real 44px. */
     .totop{width:44px;height:44px}
