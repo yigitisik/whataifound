@@ -8680,6 +8680,9 @@ el.setAttribute('data-view',vw==='cards'?'cards':'table');}catch(e){}</script>
       <td title="astronomy">astronomy</td>
     </tr></tbody></table></div><!--TABLE:END--></div>
   </main>
+  <!-- The rest of the list, behind one button. capList() in app.js fills it in and unhides
+       it; without JavaScript it stays hidden and nothing in the list is capped. -->
+  <div class="listmore" id="listmore" hidden><button type="button" class="more-btn" aria-controls="list" aria-expanded="false">Show all entries</button><span class="listmore-note"></span></div>
   <!-- Export sits under the results, not in the toolbar: it applies to what you have
        just narrowed down, and the sticky bar has no room left. Label is rewritten by
        app.js to name the actual number.

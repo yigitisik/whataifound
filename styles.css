@@ -1092,6 +1092,33 @@
   html[data-view="table"] #list > .v-cards{display:none}
   html:not([data-view="table"]) #list > .v-table{display:none}
 
+  /* ---------- The list's first screen ----------
+     The first ten cards or twenty table rows, and a button for the rest; capList() in
+     app.js adds .capped and the counts must match its LIST_CAP. Screen only, so printing
+     the page prints the whole registry. */
+  @media screen{
+    #list.capped article.entry:nth-of-type(n+11),
+    #list.capped .regtable tbody tr:nth-child(n+21){display:none}
+  }
+  .listmore{display:flex;flex-direction:column;align-items:center;gap:8px;margin:22px 0 0}
+  .listmore[hidden]{display:none}
+  .more-btn{font-family:var(--serif);font-size:.88rem;font-weight:600;padding:10px 24px;
+    border:1px solid var(--line-strong);border-radius:999px;background:var(--panel);color:var(--ink);
+    cursor:pointer;box-shadow:var(--shadow);transition:border-color .16s var(--ease),color .16s var(--ease)}
+  .more-btn:hover{border-color:var(--accent);color:var(--accent)}
+  .listmore-note{font-family:var(--serif);font-size:.74rem;color:var(--muted);
+    font-variant-numeric:lining-nums tabular-nums}
+
+  /* In the list a card leads with its title and claim, and the long account is clamped to
+     three lines. It opens in full with the card's own fold, or when a search matched inside
+     it; the finding page always shows it whole. */
+  @media screen{
+    #list .entry .detail{display:-webkit-box;-webkit-box-orient:vertical;-webkit-line-clamp:3;
+      line-clamp:3;overflow:hidden}
+    #list .entry:has(details.fold[open]) .detail,
+    #list .entry .detail:has(mark){display:block;-webkit-line-clamp:unset;line-clamp:unset;overflow:visible}
+  }
+
   /* ---------- Export and share ---------- */
   /* Two buttons, right aligned, wrapping to their own lines rather than overflowing when
      the column is narrow. flex-end reproduces what text-align:right did for the single
@@ -2451,6 +2478,7 @@
        summary loses to it on weight no matter which rule comes last in the file. */
     summary,.finding details.fold>summary{padding-top:13px;padding-bottom:11px}
     .labcard{padding:8px 12px}
+    .more-btn{min-height:44px}
     /* The tail rows are whole links, so the row itself takes the target. */
     .labrow{min-height:44px}
 
