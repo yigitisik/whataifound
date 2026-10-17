@@ -33,11 +33,16 @@ User-agent: ChatGPT-User
 Allow: /
 User-agent: ClaudeBot
 Allow: /
-User-agent: Claude-Web
+User-agent: Claude-SearchBot
 Allow: /
-User-agent: anthropic-ai
+# The -User agents fetch a page live because a person asked about it in a chat. A name
+# missing here falls back to the * group above, which would turn away a tag link the
+# answer it is reading just cited.
+User-agent: Claude-User
 Allow: /
 User-agent: PerplexityBot
+Allow: /
+User-agent: Perplexity-User
 Allow: /
 User-agent: Google-Extended
 Allow: /

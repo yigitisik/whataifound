@@ -504,6 +504,18 @@ GH_MARK = (
     '.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46'
     '.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>')
 
+# Page counts and Core Web Vitals, the same block the hand-written pages carry. A finding
+# page is what an answer engine links to, so without it a visit from a chat lands
+# uncounted. The two stubs are inline scripts the CSP allows by hash, so they must stay
+# byte-identical to index.html's or check-integrity.py stops the build.
+ANALYTICS = NL.join([
+    '<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->',
+    '<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>',
+    '<script defer src="/_vercel/insights/script.js"></script>',
+    '<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>',
+    '<script defer src="/_vercel/speed-insights/script.js"></script>',
+])
+
 # Light / System / Dark. Wired by chrome.js, which loads on every page: app.js owns 47 KB
 # of filtering and charts and is not on the sub-pages, which is exactly why the switcher
 # used to be missing from them.
@@ -1870,6 +1882,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 <script src="/js/chrome.js" defer></script>
 <script src="/js/entry.js" defer></script>
 <script src="/js/signals.js" defer></script>
+{ANALYTICS}
 </body>
 </html>
 '''
@@ -3114,6 +3127,7 @@ if(lt){{var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#
 {site_footer()}
 </div>
 <script src="/js/chrome.js" defer></script>
+{ANALYTICS}
 </body>
 </html>
 '''
