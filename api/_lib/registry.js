@@ -189,11 +189,22 @@ export const ENTRY_IDS = new Set([
   "2026-10-06-openai-math-collection",
   "2026-10-06-quasi-riemann-hypothesis",
   "2026-10-06-shelah-eventual-categoricity",
+  "2026-10-07-conversational-ai-subverts-clinical-judgment",
   "2026-10-07-matmul-exponent-2371045",
+  "2026-10-07-skiving-stock-round-down",
   "2026-10-08-amie-primary-care-feasibility",
+  "2026-10-08-lambert-series-nonquadraticity",
+  "2026-10-09-ai-cds-postoperative-delirium-rct",
+  "2026-10-09-link-hf2-wearable-monitoring-rct",
   "2026-10-09-polya-simply-connected",
   "2026-10-12-dedekind-zeta-quasi-riemann",
-  "2026-10-12-matmul-3x3-rank-21"
+  "2026-10-12-matmul-3x3-rank-21",
+  "2026-10-15-llm-quantum-circuit-design",
+  "2026-10-16-nist-curve-seeds-lrand48",
+  "2026-10-18-two-commuting-ergodic-averages",
+  "2026-10-19-erdos-111-bipartization",
+  "2026-10-19-erdos-173-monochromatic-triangles",
+  "2026-10-19-erdos-408-iterated-totient"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -370,11 +381,22 @@ export const ENTRY_GRADES = {
   "2026-10-06-openai-math-collection": ["claimed", "ai-led"],
   "2026-10-06-quasi-riemann-hypothesis": ["claimed", "collaborative"],
   "2026-10-06-shelah-eventual-categoricity": ["claimed", "ai-led"],
+  "2026-10-07-conversational-ai-subverts-clinical-judgment": ["claimed", "ai-assisted"],
   "2026-10-07-matmul-exponent-2371045": ["formal", "ai-led"],
+  "2026-10-07-skiving-stock-round-down": ["claimed", "collaborative"],
   "2026-10-08-amie-primary-care-feasibility": ["peer-reviewed", "ai-assisted"],
+  "2026-10-08-lambert-series-nonquadraticity": ["claimed", "ai-led"],
+  "2026-10-09-ai-cds-postoperative-delirium-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-10-09-link-hf2-wearable-monitoring-rct": ["peer-reviewed", "ai-assisted"],
   "2026-10-09-polya-simply-connected": ["claimed", "ai-assisted"],
   "2026-10-12-dedekind-zeta-quasi-riemann": ["formal", "collaborative"],
-  "2026-10-12-matmul-3x3-rank-21": ["claimed", "collaborative"]
+  "2026-10-12-matmul-3x3-rank-21": ["claimed", "collaborative"],
+  "2026-10-15-llm-quantum-circuit-design": ["claimed", "search-scaffold"],
+  "2026-10-16-nist-curve-seeds-lrand48": ["claimed", "ai-led"],
+  "2026-10-18-two-commuting-ergodic-averages": ["formal", "ai-led"],
+  "2026-10-19-erdos-111-bipartization": ["claimed", "ai-led"],
+  "2026-10-19-erdos-173-monochromatic-triangles": ["formal", "ai-led"],
+  "2026-10-19-erdos-408-iterated-totient": ["formal", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -551,11 +573,22 @@ export const ENTRY_TITLES = {
   "2026-10-06-openai-math-collection": "719 manuscripts in 372 result families from an unreleased OpenAI model",
   "2026-10-06-quasi-riemann-hypothesis": "Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
   "2026-10-06-shelah-eventual-categoricity": "Shelah's eventual categoricity conjecture for abstract elementary classes",
+  "2026-10-07-conversational-ai-subverts-clinical-judgment": "Physicians steered by a covertly adversarial chatbot made harmful decisions at 49% of targeted points, against 2% with an aligned one",
   "2026-10-07-matmul-exponent-2371045": "Matrix multiplication exponent below 2.3710449, machine-checked over every commutative ring",
+  "2026-10-07-skiving-stock-round-down": "Counterexamples to Zak's modified integer round-down conjecture for the skiving stock problem",
   "2026-10-08-amie-primary-care-feasibility": "AMIE with real patients before urgent primary care visits: a prospective feasibility study",
+  "2026-10-08-lambert-series-nonquadraticity": "Lambert series values, including the Erd\u0151s-Borwein constant, are not quadratic irrationals",
+  "2026-10-09-ai-cds-postoperative-delirium-rct": "Pragmatic randomised trial of AI-triggered decision support for postoperative delirium finds no effect",
+  "2026-10-09-link-hf2-wearable-monitoring-rct": "Randomised trial of AI wearable monitoring after heart-failure discharge finds no fall in rehospitalisation (LINK-HF2)",
   "2026-10-09-polya-simply-connected": "Strict P\u00f3lya inequalities claimed for simply connected planar domains, Dirichlet and Neumann, with Lean formalizations",
   "2026-10-12-dedekind-zeta-quasi-riemann": "No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
-  "2026-10-12-matmul-3x3-rank-21": "Lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a Lean proof"
+  "2026-10-12-matmul-3x3-rank-21": "Lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a Lean proof",
+  "2026-10-15-llm-quantum-circuit-design": "LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks",
+  "2026-10-16-nist-curve-seeds-lrand48": "NIST elliptic-curve seeds traced to a 1990s C random number generator seeded with the clock",
+  "2026-10-18-two-commuting-ergodic-averages": "Pointwise convergence of ergodic averages along two commuting transformations",
+  "2026-10-19-erdos-111-bipartization": "Erd\u0151s Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite",
+  "2026-10-19-erdos-173-monochromatic-triangles": "Erd\u0151s Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral",
+  "2026-10-19-erdos-408-iterated-totient": "Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
