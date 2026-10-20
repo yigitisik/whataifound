@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Erdős Problem 408: an unconditional normal order for the number of totient iterations: graded Formally verified | whataifound.org</title>
+<meta name="description" content="Erdős Problem 408: an unconditional normal order for the number of totient iterations is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-assisted. A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering t">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Erdős Problem 408: an unconditional normal order for the number of totient iterations">
+<meta property="og:description" content="Erdős Problem 408: an unconditional normal order for the number of totient iterations is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-assisted. A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering t">
+<meta property="og:url" content="https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+<meta property="article:published_time" content="2026-10-19">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Erdős Problem 408: an unconditional normal order for the number of totient iterations">
+<meta name="twitter:description" content="Erdős Problem 408: an unconditional normal order for the number of totient iterations is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-assisted. A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering t">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2026-10-18-two-commuting-ergodic-averages">
+<link rel="next" href="https://whataifound.org/finding/2026-10-19-erdos-111-bipartization">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient#article",
+      "url": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient",
+      "headline": "Erdős Problem 408: an unconditional normal order for the number of totient iterations",
+      "name": "Erdős Problem 408: an unconditional normal order for the number of totient iterations",
+      "abstract": "A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results.",
+      "description": "A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results.",
+      "datePublished": "2026-10-19",
+      "dateModified": "2026-10-20",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#dataset"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Plasma AI"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "image": "https://whataifound.org/assets/brand/og.png",
+      "about": "Mathematics",
+      "keywords": [
+        "number-theory",
+        "analytic-number-theory",
+        "erdos-problems",
+        "lean",
+        "formalization",
+        "argument",
+        "Formally verified",
+        "AI-assisted"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creditText": "whataifound.org. Verification: Formally verified; autonomy: AI-assisted.",
+      "articleBody": "Let f(n) be the least k ≥ 1 with φₖ(n) = 1. Pillai showed in 1929 that f(n) lies between about log n/log 3 and log n/log 2, and Erdős, Granville, Pomerance and Spiro proved in 1990 that it has normal order α log n conditionally on a form of the Elliott-Halberstam conjecture. This development removes the condition, with mean-square error O(x(log x)²/(log log x)⁵), so f(n)/log n tends to α on a set of density one and its distribution function is the point mass at α. The inputs that replace Elliott-Halberstam are OpenAI's zero-free half-plane Re s \u003e 7/8 for Dirichlet L-functions and the transference machinery of two OpenAI shifted-prime preprints of 24 September 2026, extended here. The Lean proofs of the half-plane, and Yao Xu's formalization of one of those preprints, are vendored and build with the project, so neither is assumed. The third, open-ended question of the problem is not formalized.",
+      "contributor": [
+        {
+          "@type": "Organization",
+          "name": "Plasma AI"
+        },
+        {
+          "@type": "Person",
+          "name": "Jacob Parish"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/plasma-ai/erdos-408",
+          "name": "GitHub: plasma-ai/erdos-408, the Lean development"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/plasma-ai/erdos-408/blob/main/paper/totient_iterates.pdf",
+          "name": "Plasma AI: The normal order of the number of iterations of Euler's function (PDF)"
+        }
+      ]
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient#claimreview",
+      "url": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient",
+      "claimReviewed": "A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results.",
+      "datePublished": "2026-10-20",
+      "author": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "itemReviewed": {
+        "@type": "Claim",
+        "name": "Erdős Problem 408: an unconditional normal order for the number of totient iterations",
+        "author": {
+          "@type": "Organization",
+          "name": "Plasma AI (Claude Opus 5.5 (Lean formalization); the argument is credited to Plasma AI without naming a model)"
+        },
+        "datePublished": "2026-10-19",
+        "appearance": []
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1,
+        "alternateName": "Formally verified: machine-checked proof"
+      },
+      "reviewBody": "On 2026-10-20 erdosproblems.com listed Problem 408 as open, citing only the conditional 1990 result, with no proof claims, and Formal Conjectures lists both questions as open. The paper says that to its authors' knowledge the unconditional normal order has not been recorded before. A web search on 2026-10-20 found no competing claim."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mathematics",
+          "item": "https://whataifound.org/topic/mathematics"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Erdős Problem 408: an unconditional normal order for the number of totient iterations",
+          "item": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="finding-page">
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header><div class="eyebrow">
+<a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs>
+<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/>
+<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
+</svg>
+<span class="wm">what<span class="ai">ai</span>found.org</span></a>
+<nav class="pagenav" aria-label="Site">
+<a href="/">Registry</a>
+<a href="/review">Review queue</a>
+<a href="/visuals">Visuals</a>
+<a href="/methodology">Methodology</a>
+<a href="/contributors">Contributors</a>
+<span class="pn-ink" aria-hidden="true"></span>
+</nav>
+<span class="eyebrow-right">
+<span class="doors" role="group" aria-label="Ways to contribute">
+<a class="door" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source and pull requests on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+<span class="acct" data-acct><a class="door door-in" href="/signin" data-signin aria-label="Sign in" title="Sign in"><span>Sign in</span></a></span>
+</span>
+<span class="theme-seg" role="group" aria-label="Colour theme">
+<button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>
+<button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
+<button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
+</span>
+</span></div></header>
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/topic/mathematics">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
+</nav>
+
+<main id="main">
+<article class="finding">
+  <div class="finding-pills">
+    <span class="pill v v-formal">Formally verified</span>
+    <span class="pill a a-ai-assisted">AI-assisted</span>
+  </div>
+  <h1>Erdős Problem 408: an unconditional normal order for the number of totient iterations</h1>
+  <p class="claim">A Lean-checked proof that the least <math><semantics><mi>k</mi><annotation encoding="application/x-tex">k</annotation></semantics></math> with <math><semantics><mrow><msub><mi>φ</mi><mi>k</mi></msub><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>n</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\varphi_k(n) = 1</annotation></semantics></math> has normal order <math><semantics><mrow><mi>α</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">\alpha \log n</annotation></semantics></math> for a constant <math><semantics><mrow><mn>1</mn><mi>/</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mn>3</mn><mo>≤</mo><mi>α</mi><mo>≤</mo><mn>1</mn><mi>/</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">1/\log 3 \le \alpha \le 1/\log 2</annotation></semantics></math>, answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results.</p>
+
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts n6">
+      <div><dt>Lab</dt><dd><a href="/lab/plasma-ai">Plasma AI</a></dd></div>
+      <div><dt>Model</dt><dd>Claude Opus 5.5 (Lean formalization); the argument is credited to Plasma AI without naming a model</dd></div>
+      <div><dt>Field</dt><dd>Mathematics</dd></div>
+      <div><dt>Date</dt><dd>2026-10-19</dd></div>
+      <div><dt>Human collaborators</dt><dd>Jacob Parish</dd></div>
+      <div><dt>Problem posed</dt><dd>1980 · open 46 yrs</dd></div>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://github.com/plasma-ai/erdos-408" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">plasma-ai/erdos-408, the Lean development</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/plasma-ai/erdos-408/blob/main/paper/totient_iterates.pdf" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Plasma AI: The normal order of the number of iterations of Euler's function (PDF)</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Let <math><semantics><mrow><mi>f</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>n</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math> be the least <math><semantics><mrow><mi>k</mi><mo>≥</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">k \ge 1</annotation></semantics></math> with <math><semantics><mrow><msub><mi>φ</mi><mi>k</mi></msub><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>n</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">\varphi_k(n) = 1</annotation></semantics></math>. Pillai showed in 1929 that <math><semantics><mrow><mi>f</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>n</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">f(n)</annotation></semantics></math> lies between about <math><semantics><mrow><mrow><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>n</mi><mi>/</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mn>3</mn></mrow><annotation encoding="application/x-tex">\log n/\log 3</annotation></semantics></math> and <math><semantics><mrow><mrow><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>n</mi><mi>/</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mn>2</mn></mrow><annotation encoding="application/x-tex">\log n/\log 2</annotation></semantics></math>, and Erdős, Granville, Pomerance and Spiro proved in 1990 that it has normal order <math><semantics><mrow><mi>α</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">\alpha \log n</annotation></semantics></math> conditionally on a form of the Elliott-Halberstam conjecture. This development removes the condition, with mean-square error <math><semantics><mrow><mi>O</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>x</mi><msup><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mrow><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>x</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><mn>2</mn></msup><mi>/</mi><msup><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mrow><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mrow><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>x</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><mn>5</mn></msup><mo fence="true" form="postfix" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">O(x (\log x)^2/(\log \log x)^5)</annotation></semantics></math>, so <math><semantics><mrow><mi>f</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>n</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow><mi>/</mi><mrow><mspace width="0.1667em"></mspace><mi>log</mi><mo>⁡</mo><mspace width="0.1667em"></mspace></mrow><mi>n</mi></mrow><annotation encoding="application/x-tex">f(n)/\log n</annotation></semantics></math> tends to <math><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math> on a set of density one and its distribution function is the point mass at <math><semantics><mi>α</mi><annotation encoding="application/x-tex">\alpha</annotation></semantics></math>. The inputs that replace Elliott-Halberstam are OpenAI's zero-free half-plane <math><semantics><mrow><mi>Re</mi><mo>⁡</mo><mspace width="0.1667em"></mspace><mi>s</mi><mo>&gt;</mo><mn>7</mn><mi>/</mi><mn>8</mn></mrow><annotation encoding="application/x-tex">\operatorname{Re} s &gt; 7/8</annotation></semantics></math> for Dirichlet L-functions and the transference machinery of two OpenAI shifted-prime preprints of 24 September 2026, extended here. The Lean proofs of the half-plane, and Yao Xu's formalization of one of those preprints, are vendored and build with the project, so neither is assumed. The third, open-ended question of the problem is not formalized.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>On 2026-10-20 erdosproblems.com listed Problem 408 as open, citing only the conditional 1990 result, with no proof claims, and Formal Conjectures lists both questions as open. The paper says that to its authors' knowledge the unconditional normal order has not been recorded before. A web search on 2026-10-20 found no competing claim.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Graded formal on the Palomar registration and on the statement: the definition of <math><semantics><mi>f</mi><annotation encoding="application/x-tex">f</annotation></semantics></math> and the statements erdos_408.parts.i and parts.ii are Formal Conjectures' at commit 7db2ea3b91, except that its Set.HasDensity is written out in place, and with its default reference set of all naturals that definition reduces to the inlined one. The normal_order_rate theorem with its explicit rate is the authors' own statement, in Mathlib terms. The grade certifies the theorems, not the paper, which is self-published and unrefereed; the repository's review status is self-assessed and no mathematician is on record as having read it. The mathematics leans heavily on OpenAI's quasi-Riemann hypothesis and Poisson-Dirichlet preprints, produced by an unreleased model and unrefereed; their Lean proofs build here, so the theorems stand on them formally, but nobody outside OpenAI has read their exposition either. Autonomy is graded ai-assisted on what is disclosed: unlike its two sibling repositories, this one credits the argument to Plasma AI without saying whether models found it, and records only that Claude Opus 5.5 led the formalization, with parallel subagents writing proofs. The grade should be revisited if the discovery is disclosed.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>whataifound.org (statement comparison): <em>Compared Challenge.lean at commit 4ea44bf9 with Formal Conjectures' ErdosProblems/408.lean at 7db2ea3b: the definition of f is identical, and parts.i and parts.ii differ only in writing Set.HasDensity out as a ratio of counts below b, which is Formal Conjectures' own definition with its default reference set of all naturals.</em> · <a href="https://github.com/google-deepmind/formal-conjectures/blob/7db2ea3b91bfbd0ab620215163e6c488bbb916d5/FormalConjectures/ErdosProblems/408.lean" target="_blank" rel="noopener">link ↗</a></p></div>
+  <h2 class="lbl">Machine-checked elsewhere</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-10-19-000009&amp;version=1" target="_blank" rel="noopener">Palomar<span class="reg-id">PALOMAR-2026-10-19-000009</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m"><span class="reg-repo">plasma-ai/erdos-408</span> at <code>4ea44bf911f8</code> · checked 2026-10-19</p><p class="reg-t"><span class="reg-t-k">Proved</span><code>Erdos408.normal_order_rate</code><code>Erdos408.erdos_408.parts.i</code><code>Erdos408.erdos_408.parts.ii</code></p><p class="reg-w">A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review. It does not certify that a result is new or of research interest: the only filter on that is a language-model screen, and Palomar states that it adds no human editorial step.</p><p class="reg-n">Permitted axioms are exactly propext, Quot.sound and Classical.choice. parts.i and parts.ii are Formal Conjectures' statements; normal_order_rate is the authors' own.</p></div></div>
+
+  <div class="challenge">
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-10-19-erdos-408-iterated-totient">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-10-19-erdos-408-iterated-totient">Submit a check</a>
+      
+    </div>
+    <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-10-19-erdos-408-iterated-totient&amp;entry=2026-10-19-erdos-408-iterated-totient" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-10-19-erdos-408-iterated-totient&amp;entry=2026-10-19-erdos-408-iterated-totient&amp;current=verification%3A%20formal%2C%20autonomy%3A%20ai-assisted" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=correction.yml&amp;title=Correction%3A%202026-10-19-erdos-408-iterated-totient&amp;entry=2026-10-19-erdos-408-iterated-totient" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
+    </p>
+  <div class="sig" data-signals="2026-10-19-erdos-408-iterated-totient" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
+  </div>
+
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
+  <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-10-20">2026-10-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-assisted.</span></li>
+  </ol>
+  <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
+  </details>
+
+  <p class="gradenote">Graded <strong>formally verified</strong> for verification and
+  <strong>ai-assisted</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
+
+
+  <h2 class="lbl">Cite this entry</h2>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2026). Erdős Problem 408: an unconditional normal order for the number of totient iterations. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient</code></pre>
+    </div>
+    <details class="fold cite-fold">
+    <summary>BibTeX</summary>
+    <div class="cite-block">
+      <div class="cite-head"><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-plasmaai-2026-totient,
+  title        = {Erdős Problem 408: an unconditional normal order for the number of totient iterations},
+  author       = {{whataifound.org}},
+  year         = {2026},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Plasma AI. Verification: Formally verified. Autonomy: AI-assisted.},
+  url          = {https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient}
+}</code></pre>
+    </div>
+    </details>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-10-12-dedekind-zeta-quasi-riemann"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean</span><span class="rel-meta">Axiom Math · 2026-10-12</span></a><a class="rel-card" href="/finding/2026-10-19-erdos-173-monochromatic-triangles"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral</span><span class="rel-meta">Plasma AI · 2026-10-19</span></a><a class="rel-card" href="/finding/2026-10-08-lambert-series-nonquadraticity"><span class="rel-grade pill v v-claimed">Claimed</span><span class="rel-title">Lambert series values, including the Erdős-Borwein constant, are not quadratic irrationals</span><span class="rel-meta">Independent · 2026-10-08</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-10-18-two-commuting-ergodic-averages"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Pointwise convergence of ergodic averages along two commuting transformations</span></a><a class="pn-step" href="/finding/2026-10-19-erdos-111-bipartization"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Erdős Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite</span></a></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=number-theory">number-theory</a><a class="tag-chip" href="/?tag=analytic-number-theory">analytic-number-theory</a><a class="tag-chip" href="/?tag=erdos-problems">erdos-problems</a><a class="tag-chip" href="/?tag=lean">lean</a><a class="tag-chip" href="/?tag=formalization">formalization</a><a class="tag-chip" href="/?tag=argument">argument</a></div>
+
+  <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
+</article>
+</main>
+
+<footer id="about">
+<div class="about-grid">
+<section class="about-col f-site">
+<h2 class="lbl">Registry</h2>
+<p class="about-links">
+<a href="/methodology">Methodology</a>
+<a href="/review">Review queue</a>
+<a href="/contributors">Contributors</a>
+<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>
+<a href="/privacy">Privacy</a>
+</p>
+</section>
+<section class="about-col f-data">
+<h2 class="lbl">Data</h2>
+<p class="about-links">
+<a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
+<a href="/developers">Developers</a>
+<a href="/feed.xml">RSS</a>
+<a href="/feed.json">JSON Feed</a>
+</p>
+</section>
+<section class="about-col f-help">
+<h2 class="lbl">Contribute</h2>
+<p class="about-links">
+<a href="/contribute">Submit a check</a>
+<a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>
+<a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a>
+</p>
+</section>
+<section class="about-col f-reg">
+<h2 class="lbl">Other registries</h2>
+<p class="about-links">
+<a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
+<a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
+<a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
+<a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+<a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices" target="_blank" rel="noopener">FDA AI-enabled devices</a>
+<a href="/registries">What each one checks</a>
+</p>
+</section>
+</div>
+<div class="about-fine">
+<p>An independent, volunteer editorial project. Grades are good-faith judgments from public information, provided "as is" without warranty, and may change as evidence emerges; nothing here is scientific, legal or investment advice. Not affiliated with or endorsed by any laboratory or company named; names and logos are their owners' trademarks, used for identification only. Data under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> (<a href="https://whataifound.org/LICENSE">license</a>).</p>
+<p class="cite">Cite as: whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p>
+<p class="colophon">© 2026 <a href="https://isik.co" target="_blank" rel="noopener">Isik &amp; Co.</a> · Technology, manufacturing, consulting and trade · <a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>
+</div>
+</footer>
+</div>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
+<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

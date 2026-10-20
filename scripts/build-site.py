@@ -2485,6 +2485,10 @@ LAB_HUB = {
     "Lund University": "https://www.lunduniversity.lu.se/",
     "Mayo Clinic": "https://newsnetwork.mayoclinic.org/",
     "UCLA Health": "https://www.uclahealth.org/news",
+    "Plasma AI": "https://github.com/plasma-ai",
+    "Icahn School of Medicine at Mount Sinai": "https://www.mountsinai.org/about/newsroom",
+    "US Department of Veterans Affairs": "https://www.research.va.gov/",
+    "University of California, San Francisco": "https://www.ucsf.edu/news",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

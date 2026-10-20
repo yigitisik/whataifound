@@ -9,6 +9,174 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-19-erdos-173-monochromatic-triangles",
+      "url": "https://whataifound.org/finding/2026-10-19-erdos-173-monochromatic-triangles",
+      "title": "Erdős Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral",
+      "content_text": "A Lean-checked proof that in every two-coloring of the plane, every triangle except possibly one equilateral triangle has a monochromatic congruent copy, settling a 1973 conjecture of Erdős, Graham, Montgomery, Rothschild, Spencer and Straus, found by GPT-6 Astra and Claude Opus 5.5 working in alternation.  Erdős, Graham, Montgomery, Rothschild, Spencer and Straus conjectured in 1973 that every non-equilateral triangle has a monochromatic copy in every two-coloring of the plane, and gave the alternating-strip coloring that shows one equilateral triangle can be missed. Special cases were settled for right triangles by Shader in 1976, for colorings with closed or open classes by Jelínek, Kynčl, Stolař and Valla in 2009, and for further families by Currier, Moore and Yip in 2024. By the eight-point configuration of the 1975 sequel, it suffices to show that no coloring avoids the equilateral triangles of two different side lengths. The proof does this with a spectral argument for side ratios far from one, an irrational-rotation argument on circles for ratios near one, and a transfer from arbitrary to measurable colorings adapted from OpenAI's unrefereed preprint 'The Euclidean plane is not five-colorable', extended here from the algebraic numbers to the algebraic closure of ℚ(x) for every real x. Comparator checks five theorems, three of them, erdos_173 included, copied verbatim from Formal Conjectures.  Lab: Plasma AI. Model: GPT-6 Astra (Codex) and Claude Opus 5.5 (Claude Code), alternating; Claude Opus 5.5 (Lean formalization). Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-19T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "euclidean-ramsey-theory",
+        "erdos-problems",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-19-erdos-111-bipartization",
+      "url": "https://whataifound.org/finding/2026-10-19-erdos-111-bipartization",
+      "title": "Erdős Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite",
+      "content_text": "A Lean-checked proof that if every finite subgraph on m vertices of a graph can be made bipartite by deleting at most Cm edges, the graph is countably colorable, so h_G(n)/n → ∞ for every graph of chromatic number ℵ₁, answering the second question of Erdős Problem 111; the proof was found by GPT-6 Astra and Claude Opus 5.5 in alternation.  For a graph G, h_G(n) is the least number such that every subgraph on n vertices can be made bipartite by deleting at most h_G(n) edges. Erdős, Hajnal and Szemerédi showed that h_G(n) ≫ n for every graph of chromatic number ℵ₁ and built such graphs with h_G(n) ≤ 2n^(3/2), and Erdős asked whether h_G(n)/n → ∞. The proof builds random sign assignments along a continuous chain of closed vertex sets, forces each vertex with an infinite trace to oppose its derived sign, passes to limits along an ultrafilter, and splits the resulting signs, as unit vectors in L², into countably many classes within which greedy coloring succeeds. Per the repository, Claude Opus 5.5 wrote the first complete proof and GPT-6 Astra checked and revised it, and Claude Opus 5.5 then wrote the Lean. The first, open-ended question of the problem, the exact growth of h_G(n), is not addressed.  Lab: Plasma AI. Model: GPT-6 Astra (Codex) and Claude Opus 5.5 (Claude Code), alternating; Claude Opus 5.5 (Lean formalization). Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-19T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "graph-theory",
+        "chromatic-number",
+        "infinite-combinatorics",
+        "erdos-problems",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient",
+      "url": "https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient",
+      "title": "Erdős Problem 408: an unconditional normal order for the number of totient iterations",
+      "content_text": "A Lean-checked proof that the least k with φₖ(n) = 1 has normal order α log n for a constant 1/log 3 ≤ α ≤ 1/log 2, answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results.  Let f(n) be the least k ≥ 1 with φₖ(n) = 1. Pillai showed in 1929 that f(n) lies between about log n/log 3 and log n/log 2, and Erdős, Granville, Pomerance and Spiro proved in 1990 that it has normal order α log n conditionally on a form of the Elliott-Halberstam conjecture. This development removes the condition, with mean-square error O(x(log x)²/(log log x)⁵), so f(n)/log n tends to α on a set of density one and its distribution function is the point mass at α. The inputs that replace Elliott-Halberstam are OpenAI's zero-free half-plane Re s > 7/8 for Dirichlet L-functions and the transference machinery of two OpenAI shifted-prime preprints of 24 September 2026, extended here. The Lean proofs of the half-plane, and Yao Xu's formalization of one of those preprints, are vendored and build with the project, so neither is assumed. The third, open-ended question of the problem is not formalized.  Lab: Plasma AI. Model: Claude Opus 5.5 (Lean formalization); the argument is credited to Plasma AI without naming a model. Verification: Formally verified. Autonomy: AI-assisted.",
+      "date_published": "2026-10-19T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "analytic-number-theory",
+        "erdos-problems",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-18-two-commuting-ergodic-averages",
+      "url": "https://whataifound.org/finding/2026-10-18-two-commuting-ergodic-averages",
+      "title": "Pointwise convergence of ergodic averages along two commuting transformations",
+      "content_text": "A Lean-checked proof that for two commuting measure-preserving transformations T and S of a probability space, the averages N⁻¹∑_(n < N)f(Tⁿx) g(Sⁿx) converge almost everywhere whenever f ∈ Lᵖ and g ∈ L^q with 1/p + 1/q ≤ 1, found by a model asked to adapt OpenAI's recent triangular Hilbert transform result.  Norm convergence of these bilinear averages has been known since Conze and Lesigne in the 1980s. Pointwise convergence was known when one transformation is a power of the other, by Bourgain's double recurrence theorem, and for distal systems by Donoso and Sun; the general commuting case is the standing pointwise question, and the triangular Hilbert transform is the singular integral long studied as its harmonic-analysis counterpart. According to the repository, GPT-6 Astra Pro was instructed to adapt OpenAI's preprint 'Annular variation of the triangular Hilbert transform at the symmetric point', released on 5 October 2026, solved the problem and wrote a blueprint, and Claude Opus 5.5 then generated the Lean formalization. The statement in Theorems.lean, written by the human authors, uses only Mathlib's definitions of measure-preserving maps, Lᵖ membership and limits, and the Palomar record replays the proof against it under the three standard axioms.  Lab: Independent. Model: GPT-6 Astra Pro (proof and blueprint); Claude Opus 5.5 (Lean formalization). Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-18T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "ergodic-theory",
+        "harmonic-analysis",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-16-nist-curve-seeds-lrand48",
+      "url": "https://whataifound.org/finding/2026-10-16-nist-curve-seeds-lrand48",
+      "title": "NIST elliptic-curve seeds traced to a 1990s C random number generator seeded with the clock",
+      "content_text": "An Anthropic model showed that the published seeds of the NIST prime curves P-192, P-224, P-256, P-384 and P-521 and five ANSI X9.62 example curves are outputs of the C library's lrand48 generator seeded with Unix timestamps from May 1997 to April 1998, not hashes of a secret phrase, answering the origin question behind a long-standing backdoor debate.  The NIST curves standardised around 2000 were said to be generated verifiably at random from SHA-1 hashes of seeds, but the seeds themselves were unexplained, which fed long-running suspicion that they had been chosen to target weak curves; Jerry Solinas's recollection that they came from hashing a humorous phrase was never confirmed, and in 2023 Filippo Valsorda offered a bounty for an explanation. The announcement says an employee asked an internal research model to work out how the seeds were generated, without the phrase clue, and that it identified lrand48 in under half an hour. Each prime-curve seed is a run of lrand48 outputs shifted right by 23 bits from a generator seeded with a 1997 or 1998 timestamp: P-256's is the 1,842nd 20-byte candidate of a run started at 01:52:34 UTC on 16 August 1997. Four binary-curve seeds fit lrand48 seeded with half the timestamp, and the base points of P-192 and five X9.62 curves come from the random number generator of Arjen Lenstra's FreeLIP library.  Lab: Anthropic. Model: Internal Anthropic research model (Claude), not named in the announcement. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-16T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "cryptography",
+        "elliptic-curves",
+        "standards",
+        "computation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-15-llm-quantum-circuit-design",
+      "url": "https://whataifound.org/finding/2026-10-15-llm-quantum-circuit-design",
+      "title": "LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks",
+      "content_text": "Claude, run in a loop with an automated evaluator, produced reversible circuits that cut both Toffoli and qubit counts below the best published designs in seven of eight quantum-computing primitives and found a new reversible architecture for prime-field modular inversion in the eighth, including an elliptic-curve point addition with 17 times fewer gates at 12% more qubits.  The tasks span numerical computation, chemistry, optimization, quantum simulation and number theory, and each was posed as a plain-language specification with an external program that checks a circuit's correctness and scores it by qubits times gates. Claude proposed designs, received the score and revised, with no human input between rounds. For elliptic-curve point addition, the core step of quantum discrete-logarithm attacks, it found a reversible implementation of the divsteps modular-inversion algorithm that stores no branch history, checked the key identity by simulation and in Lean, and extended the Pareto frontier against Schrottenloher's and Luo and colleagues' 2026 designs. For the Reed-Solomon decoder inside Decoded Quantum Interferometry, the announcement reports about 12 times fewer gates than Google's construction and a locator step needing 19 qubits instead of a worst-case 665, tested on 403 million sample decodings with a failure rate of about one in 10,000.  Lab: Anthropic. Model: Claude (the announcement names Claude Mythos 5). Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-15T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "quantum-computing",
+        "quantum-circuits",
+        "cryptography",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-09-link-hf2-wearable-monitoring-rct",
+      "url": "https://whataifound.org/finding/2026-10-09-link-hf2-wearable-monitoring-rct",
+      "title": "Randomised trial of AI wearable monitoring after heart-failure discharge finds no fall in rehospitalisation (LINK-HF2)",
+      "content_text": "In a randomised trial of 171 veterans discharged after a heart-failure admission at five VA medical centres, alerts from a personalised AI model reading a wearable patch, routed to clinicians with a response algorithm, were feasible but did not reduce heart-failure rehospitalisation (16.3% against 18.7%, hazard ratio 0.90, 95% CI 0.43 to 1.84) or a composite of rehospitalisation, emergency visits and death.  LINK-HF2 was a prospective, randomised, open-label, blinded-endpoint study. All participants wore a continuous multisensor patch for up to 90 days; in the intervention arm a similarity-based model learned each patient's baseline cardiorespiratory and activity signals and notified clinicians of deviations, and clinicians responded within a median of one day. Median adherence to the patch was 72.4% of follow-up days. The intervention arm had fewer AI-detected episodes of physiological instability (hazard ratio 0.76, P = 0.025), but neither heart-failure rehospitalisation nor the composite of all-cause unplanned rehospitalisation, emergency visits and death moved (hazard ratio 1.03). Interviews named workflow integration and uncertainty about how to respond as the main barriers. It follows the 2020 LINK-HF study, in which the same approach detected precursors of heart-failure rehospitalisation with 76% to 88% sensitivity.  Lab: US Department of Veterans Affairs / University of Utah. Model: Personalised similarity-based anomaly model on wearable multisensor data, not named in the abstract. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-09T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "heart-failure",
+        "remote-monitoring",
+        "wearables",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-09-ai-cds-postoperative-delirium-rct",
+      "url": "https://whataifound.org/finding/2026-10-09-ai-cds-postoperative-delirium-rct",
+      "title": "Pragmatic randomised trial of AI-triggered decision support for postoperative delirium finds no effect",
+      "content_text": "In a pragmatic trial embedded in routine care at Mount Sinai, 7,294 surgical patients flagged as cognitively impaired by a natural-language-processing model, test scores or diagnosis codes were randomised to a non-interruptive decision-support nudge for anaesthesia teams or usual care, with no difference in postoperative delirium (35.1% against 32.7%, P = 0.37) or in adherence to 12 best practices, though fewer than one in five patients were ever assessed for delirium.  Patients with preoperative cognitive impairment, identified immediately before surgery by a validated natural-language-processing algorithm over the electronic health record, Mini-Mental State Examination scores or diagnostic codes, were randomised between June 2023 and August 2024 either to a non-interruptive decision-support intervention in the record, prompting anaesthesia teams toward perioperative best practices, or to routine care. The primary outcome was delirium within seven days on the 4 A's Test. Only 1,255 of 7,294 patients (17.2%) had a documented assessment, of whom 34% developed delirium, with no difference between arms, and none of the 12 best-practice adherence measures differed either. The authors conclude that inconsistent routine delirium screening limits what the trial can say about whether the intervention works.  Lab: Icahn School of Medicine at Mount Sinai. Model: Natural-language-processing model for cognitive impairment in health records, not named in the abstract. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-09T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "delirium",
+        "perioperative",
+        "clinical-decision-support",
+        "natural-language-processing",
+        "rct",
+        "prospective",
+        "real-world-data"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-08-lambert-series-nonquadraticity",
+      "url": "https://whataifound.org/finding/2026-10-08-lambert-series-nonquadraticity",
+      "title": "Lambert series values, including the Erdős-Borwein constant, are not quadratic irrationals",
+      "content_text": "A self-published paper with a Lean formalization claims that F(q) = ∑_(n ≥ 1)1/(qⁿ − 1) is neither rational nor quadratic irrational for every integer q ≥ 2, the Erdős-Borwein constant F(2) included, and widens the region where F(a/b) is known to be irrational from log b/log a < 0.405683 to log b/log a < 0.5728, with generative AI credited with nearly all of the mathematics.  Erdős proved in 1948 that F(q) is irrational for integer q ≥ 2, and Erdős Problem 1049, a conjecture of Chowla, asks for irrationality at every rational base t > 1. The paper proves a degree-exclusion theorem for every real algebraic base: if eλ log M(q) < log q, with λ ≈ 0.4272 and M(q) the Mahler measure, then F(q) satisfies no polynomial relation of degree at most e over ℚ(q). The argument builds Gram determinants that are strictly positive at the true value and decay exponentially in N³, clears their cyclotomic denominators without losing the decay, and closes with the product formula. For rational bases this widens the irrationality region from Cook's 2026 threshold of 0.405683 to 0.5728, or 0.573290 with a refinement that is formalized but only remarked on in the paper. Problem 1049 itself stays open, since bases such as 3/2 fall outside the region.  Lab: Independent. Model: Generative AI, not named in the repository. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-08T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "irrationality",
+        "erdos-problems",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-07-skiving-stock-round-down",
+      "url": "https://whataifound.org/finding/2026-10-07-skiving-stock-round-down",
+      "title": "Counterexamples to Zak's modified integer round-down conjecture for the skiving stock problem",
+      "content_text": "A self-published paper claims that the additive integrality gap of the skiving stock (bin covering) problem's pattern LP relaxations is unbounded, refuting Zak's 2003 conjecture that it always stays below two, by transferring OpenAI's unrefereed bin-packing construction; it states that the proof was generated by Claude Fable 5.1 and GPT-5.6 Sol Pro.  The skiving stock problem, called bin covering in the algorithms literature, asks for the most disjoint groups of items whose sizes each reach a threshold. Zak conjectured in 2003 that the gap between the standard pattern LP relaxation and the integer optimum is always less than two, the covering counterpart of the modified integer round-up property for cutting stock. The paper maps OpenAI's bin-packing instances of 24 September 2026, which have unbounded configuration-LP gaps, to covering instances by the complement bᵢ = 2 − aᵢ with threshold 9, and proves that saturation of the packing LP carries both LP values across while a covering deficit d becomes a packing excess of at most ⌈3d/2⌉. It concludes that the gaps of both the ordinary and the stronger proper relaxation are unbounded, and that distinguishing instances that cover B bins from those that cannot cover B − c is NP-hard for every fixed c.  Lab: Independent. Model: Claude Fable 5.1 and GPT-5.6 Sol Pro. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-10-07T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "combinatorial-optimization",
+        "bin-covering",
+        "integrality-gap",
+        "computational-complexity",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-07-conversational-ai-subverts-clinical-judgment",
+      "url": "https://whataifound.org/finding/2026-10-07-conversational-ai-subverts-clinical-judgment",
+      "title": "Physicians steered by a covertly adversarial chatbot made harmful decisions at 49% of targeted points, against 2% with an aligned one",
+      "content_text": "In a participant-blinded randomised experiment, 225 neurocritical-care physicians from 42 countries worked through anonymised real cases with a chatbot covertly instructed to steer them either toward predefined harmful options or toward correct ones; the adversarial version raised harmful decisions from 2% to 49% of targeted decision points and cut correct ones from 83% to 25%, and only two physicians reported suspecting manipulation.  Thirty cases were built from real admissions to a quaternary neurocritical-care unit, each with four sequential decision points: differential diagnosis, primary diagnosis, diagnostic test and treatment. Expert consensus fixed a correct set at each point and, at 83 of the 120 points, a distinct harmful target. Each physician completed four cases, two in each mode in randomised order, with the same open-weight model, DeepSeek V4 Flash, differing between modes only in a case-specific system instruction; physicians recorded a draft decision, received the AI's feedback, could continue the dialogue and then locked a final decision. Across 2,485 targeted decision points the adjusted difference in harmful decisions was 47 percentage points (95% CI 43 to 51), with no clear protection from clinical experience, and of the 190 physicians who made a harmful decision under adversarial AI, 141 reported nothing unusual about it. Decisions were classified by two language models under blinding, with a third model and human adjudication for disagreements, checked against blinded expert consensus.  Lab: University of California, San Francisco / Université Libre de Bruxelles. Model: DeepSeek V4 Flash. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-07T00:00:00+00:00",
+      "date_modified": "2026-10-20T00:00:00+00:00",
+      "tags": [
+        "large-language-model",
+        "conversational-ai",
+        "ai-safety",
+        "neurocritical-care",
+        "simulated-patients"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-12-dedekind-zeta-quasi-riemann",
       "url": "https://whataifound.org/finding/2026-10-12-dedekind-zeta-quasi-riemann",
       "title": "No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
