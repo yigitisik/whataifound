@@ -1601,13 +1601,13 @@ def entry_page(e, entries, updated):
                          + enc_uri_component(f"About {url}\n\nCurrently graded {grades}.\n\n"))
                    + '" target="_blank" rel="noopener">or discuss it'
                    + '<span aria-hidden="true"> ↗</span></a>')
-    # An entry nobody has checked is the one most worth checking, so the ask leads with
-    # that. Once a check exists the panel reverts to leading with the challenge, since
+    # An entry with no recorded independent check is worth checking, so the ask leads
+    # with that. Once a check exists the panel leads with the challenge, since
     # the open question is then whether the grade is right rather than whether anyone
     # has looked. Both actions are always present; only the order and framing change.
     unchecked = not e.get("independent_checks")
     if unchecked:
-        ask_title = "Nobody outside the lab has checked this yet."
+        ask_title = "No independent check is recorded on this entry yet."
         ask_body = ("Reading the primary source closely enough to say whether it supports the "
                     "claim counts as a check, and you are credited on the entry.")
     else:
