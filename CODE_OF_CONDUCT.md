@@ -36,7 +36,7 @@ private correspondence about the project.
 
 ## Enforcement
 
-Report to misik6@gatech.edu, or privately to any maintainer listed in
+Report to support@isik.co, or privately to any maintainer listed in
 [CITATION.cff](CITATION.cff). Reports are handled confidentially. If your report concerns a
 maintainer, send it to a different one.
 
