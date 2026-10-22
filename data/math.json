@@ -360,6 +360,7 @@
   "n^{3-o(1)}": "<math><semantics><msup><mi>n</mi><mrow><mn>3</mn><mo>−</mo><mi>o</mi><mrow><mo fence=\"true\" form=\"prefix\" stretchy=\"false\">(</mo><mn>1</mn><mo fence=\"true\" form=\"postfix\" stretchy=\"false\">)</mo></mrow></mrow></msup><annotation encoding=\"application/x-tex\">n^{3-o(1)}</annotation></semantics></math>",
   "n_k(d)/d^k": "<math><semantics><mrow><msub><mi>n</mi><mi>k</mi></msub><mrow><mo fence=\"true\" form=\"prefix\" stretchy=\"false\">(</mo><mi>d</mi><mo fence=\"true\" form=\"postfix\" stretchy=\"false\">)</mo></mrow><mi>/</mi><msup><mi>d</mi><mi class=\"tml-lrg-pad\">k</mi></msup></mrow><annotation encoding=\"application/x-tex\">n_k(d)/d^k</annotation></semantics></math>",
   "p": "<math><semantics><mi>p</mi><annotation encoding=\"application/x-tex\">p</annotation></semantics></math>",
+  "p < 0.0001": "<math><semantics><mrow><mi>p</mi><mo>&lt;</mo><mn>0.0001</mn></mrow><annotation encoding=\"application/x-tex\">p &lt; 0.0001</annotation></semantics></math>",
   "p = 1/2": "<math><semantics><mrow><mi>p</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding=\"application/x-tex\">p = 1/2</annotation></semantics></math>",
   "p = 4": "<math><semantics><mrow><mi>p</mi><mo>=</mo><mn>4</mn></mrow><annotation encoding=\"application/x-tex\">p = 4</annotation></semantics></math>",
   "p = 6": "<math><semantics><mrow><mi>p</mi><mo>=</mo><mn>6</mn></mrow><annotation encoding=\"application/x-tex\">p = 6</annotation></semantics></math>",

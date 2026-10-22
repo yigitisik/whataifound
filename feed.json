@@ -9,6 +9,67 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
+      "url": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
+      "title": "Claude-designed protein binders against five scorpion neurotoxins",
+      "content_text": "A generative design campaign run by an internal Anthropic model produced 318,484 candidate proteins against five scorpion-venom neurotoxins; of the 211 that were synthesised and tested, 17 met the binding criterion at both contract laboratories, the tightest at single-digit nanomolar affinity, and none was tested for venom neutralisation.  Anthropic's initial prompt named five neurotoxins from four regions, Cn2 from Centruroides noxius in Mexico, Ts1 from Brazil, AaH I and AaH II from North Africa and LqhIII from the Middle East, along with the protein design and folding tools to use and the rules for novelty, scoring and filtering. The model chose the target structures from the PDB and the AlphaFold database, picked five hotspots per toxin, set its own quality thresholds, drove 12 design tools to 318,484 designs and co-folded 553,052 design-toxin pairs, using on the order of 10,000 GPU hours. It selected 180 designs for synthesis 64 hours after the first prompt, and 31 more were added with its help, for 211 tested in total. Of those, 17 met the hit criterion: binding in every replicate at both laboratories with every dissociation constant at 1 micromolar or tighter, and no signal against an off-target stickiness control. All 17 bound a single toxin, seven against Cn2, four against AaH II, four against AaH I and two against LqhIII, with Cn2-B1 and Cn2-B2 in the single-digit nanomolar range, while every design intended to bind more than one toxin failed.  Lab: Anthropic. Model: Internal Anthropic research model operating within Claude Science, not named or versioned in the post. Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-20T00:00:00+00:00",
+      "date_modified": "2026-10-22T00:00:00+00:00",
+      "tags": [
+        "protein-design",
+        "de-novo-binders",
+        "scorpion-toxins",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-13-neonatal-radiograph-continual-learning",
+      "url": "https://whataifound.org/finding/2026-10-13-neonatal-radiograph-continual-learning",
+      "title": "Adapting an adult chest-radiograph model to neonatal intensive care across 30 units",
+      "content_text": "A model trained to assess endotracheal tube position on adult chest radiographs was retrained in sequence at 30 neonatal intensive care units in 20 countries and territories, 50 radiographs per site and with no pooling of patient data, reaching a mean landmark localisation error of 0.67 cm against 1.29 cm for hospital-specific fine-tuning and 4.30 cm for the unadapted adult model.  Fewer than one in five commercially available radiology AI models are cleared for paediatric use, models trained on adults generalise poorly to neonates, and neonatal images are scarce in public datasets, so the gap is usually closed by local data curation that most units cannot do. This international retrospective study evaluated continual learning as a privacy-preserving way to adapt an adult endotracheal-tube assessment model to neonatal care: each of 30 neonatal intensive care units across 20 countries and territories contributed 50 radiographs, and the model was retrained sequentially from site to site with no centralised pooling. Continual learning reached a mean anatomical landmark localisation error of 0.67 cm, against 1.29 cm for hospital-specific fine-tuning and 4.30 cm for the adult-only model, and was better at 29 of the 30 sites. Detection of deep intubations improved at 27 of 30 sites. The authors present this as evidence that collaborative learning without data sharing can address a paediatric deployment gap, not as a clinical outcome result.  Lab: International NICU continual-learning consortium. Model: Adult endotracheal-tube assessment deep learning model adapted by continual learning; the base model is not named in the abstract. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-13T00:00:00+00:00",
+      "date_modified": "2026-10-22T00:00:00+00:00",
+      "tags": [
+        "external-validation",
+        "retrospective",
+        "radiology",
+        "neonatal",
+        "continual-learning",
+        "privacy-preserving"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-12-ai-retinopathy-screening-tanzania-rct",
+      "url": "https://whataifound.org/finding/2026-10-12-ai-retinopathy-screening-tanzania-rct",
+      "title": "Randomised trial of AI-supported diabetic retinopathy screening in Tanzania",
+      "content_text": "In a randomised trial at 24 Tanzanian hospitals, giving people an AI screening result during the visit with face-to-face counselling roughly doubled the share of those with genuinely referable diabetic retinopathy who reached the referral eye clinic within eight weeks, from 18.2% to 35.9%.  Non-attendance after referral is one of the main failure points of diabetic retinopathy screening programmes in Africa, and an AI grader can return a result during the screening visit rather than weeks later. This two-arm, parallel-group, individually randomised trial ran at non-communicable disease and diabetic clinics in 24 hospitals in the Kilimanjaro and Arusha regions between 8 March 2023 and 31 August 2024. Both arms had retinal photographs taken of both eyes; in the intervention arm the images went to the AI software and the participant was given a non-referable, referable or ungradable result with face-to-face counselling before leaving the photography room, and was referred if the output was referable or ungradable, while the standard-of-care arm received deferred human grading and a telephone result typically two to four weeks later. Of 2,378 participants enrolled, 1,192 were assigned to the AI arm and 1,186 to standard care, and 904 were classified by masked UK-certified graders as having true referable disease. Among those, attendance at the central ophthalmology clinic within eight weeks was 157 of 437 (35.9%) in the AI arm against 85 of 467 (18.2%) under standard care, an absolute difference of 17.7 percentage points (95% CI 12.0 to 23.4) and an odds ratio of 2.52 (95% CI 1.86 to 3.42), with p < 0.0001.  Lab: London School of Hygiene and Tropical Medicine / Kilimanjaro Christian Medical Centre. Model: Unknown. Verification: Peer reviewed. Autonomy: AI-led.",
+      "date_published": "2026-10-12T00:00:00+00:00",
+      "date_modified": "2026-10-22T00:00:00+00:00",
+      "tags": [
+        "rct",
+        "prospective",
+        "diabetic-retinopathy",
+        "screening",
+        "low-resource-setting"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-01-27-conversational-epilepsy-device-prototype",
+      "url": "https://whataifound.org/finding/2026-01-27-conversational-epilepsy-device-prototype",
+      "title": "Inpatient prototype of a conversational EEG device that retrains its own seizure detector",
+      "content_text": "A prototype linking inpatient scalp and intracranial EEG to large language models let 13 epilepsy patients exchange messages with their monitoring system through a phone app, and the seizure-detection algorithms improved their precision over several days from that feedback without expert reprogramming.  Implantable epilepsy devices can detect impending seizures, missed medication and impaired cognition, but have no way to tell the person carrying them in real time, which the authors describe as a limitation common to most medical devices. The prototype links scalp and intracranial EEG to secure large language models that communicate bidirectionally with patients through a smartphone app, with an AI agent consuming biomarkers of sleep, medication level, cognition and seizure risk extracted from brain activity. Either side can begin a conversation: the agent reports clinical events and physiological trends, records symptoms, responses and behaviours, and retrains itself on what it gathers. The authors demonstrate the platform in 13 patients undergoing inpatient video-EEG monitoring and report that seizure-detection algorithms optimised their precision over several days without expert intervention, which they contrast with the months of iterative in-person physician programming currently required. Patients rated the system highly usable and responded positively to messages about sleep, cognition and seizure risk, and the authors describe safeguards including efficient expert review for further fine-tuning and controls on communication content.  Lab: University of Pennsylvania. Model: Unnamed secure large language models behind an AI agent; no vendor or version is given in the preprint abstract. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-01-27T00:00:00+00:00",
+      "date_modified": "2026-10-22T00:00:00+00:00",
+      "tags": [
+        "prospective",
+        "large-language-model",
+        "conversational-ai",
+        "epilepsy",
+        "medical-device",
+        "preprint"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-19-erdos-173-monochromatic-triangles",
       "url": "https://whataifound.org/finding/2026-10-19-erdos-173-monochromatic-triangles",
       "title": "Erdős Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral",

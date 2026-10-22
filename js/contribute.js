@@ -68,6 +68,7 @@ const GRADES = {
   "2025-11-26-ambient-ai-scribes-rct":["peer-reviewed","ai-assisted"],
   "2025-11-gpt5-science-acceleration":["peer-reviewed","ai-assisted"],
   "2025-robin-macular":["peer-reviewed","ai-led"],
+  "2026-01-27-conversational-epilepsy-device-prototype":["claimed","ai-assisted"],
   "2026-01-30-masai-ai-mammography":["peer-reviewed","ai-assisted"],
   "2026-01-alphaevolve-bruhat":["independent","search-scaffold"],
   "2026-01-erdos-728":["formal","autonomous"],
@@ -198,14 +199,17 @@ const GRADES = {
   "2026-10-09-ai-cds-postoperative-delirium-rct":["peer-reviewed","ai-assisted"],
   "2026-10-09-link-hf2-wearable-monitoring-rct":["peer-reviewed","ai-assisted"],
   "2026-10-09-polya-simply-connected":["claimed","ai-assisted"],
+  "2026-10-12-ai-retinopathy-screening-tanzania-rct":["peer-reviewed","ai-led"],
   "2026-10-12-dedekind-zeta-quasi-riemann":["formal","collaborative"],
   "2026-10-12-matmul-3x3-rank-21":["claimed","collaborative"],
+  "2026-10-13-neonatal-radiograph-continual-learning":["peer-reviewed","ai-assisted"],
   "2026-10-15-llm-quantum-circuit-design":["claimed","search-scaffold"],
   "2026-10-16-nist-curve-seeds-lrand48":["claimed","ai-led"],
   "2026-10-18-two-commuting-ergodic-averages":["formal","ai-led"],
   "2026-10-19-erdos-111-bipartization":["claimed","ai-led"],
   "2026-10-19-erdos-173-monochromatic-triangles":["formal","ai-led"],
-  "2026-10-19-erdos-408-iterated-totient":["formal","ai-assisted"]
+  "2026-10-19-erdos-408-iterated-totient":["formal","ai-assisted"],
+  "2026-10-20-claude-scorpion-toxin-binders":["claimed","search-scaffold"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -260,6 +264,7 @@ const ID_BY_TITLE = {
   "randomised trial of two ambient ai scribes in outpatient practice":"2025-11-26-ambient-ai-scribes-rct",
   "early science acceleration experiments with gpt-5":"2025-11-gpt5-science-acceleration",
   "candidate treatment for dry age-related macular degeneration":"2025-robin-macular",
+  "inpatient prototype of a conversational eeg device that retrains its own seizure detector":"2026-01-27-conversational-epilepsy-device-prototype",
   "randomised trial of ai-supported mammography screening in 105,934 women (masai)":"2026-01-30-masai-ai-mammography",
   "structure in bruhat intervals of permutation groups":"2026-01-alphaevolve-bruhat",
   "erd\u0151s problem #728 resolved and formalized in lean":"2026-01-erdos-728",
@@ -390,14 +395,17 @@ const ID_BY_TITLE = {
   "pragmatic randomised trial of ai-triggered decision support for postoperative delirium finds no effect":"2026-10-09-ai-cds-postoperative-delirium-rct",
   "randomised trial of ai wearable monitoring after heart-failure discharge finds no fall in rehospitalisation (link-hf2)":"2026-10-09-link-hf2-wearable-monitoring-rct",
   "strict p\u00f3lya inequalities claimed for simply connected planar domains, dirichlet and neumann, with lean formalizations":"2026-10-09-polya-simply-connected",
+  "randomised trial of ai-supported diabetic retinopathy screening in tanzania":"2026-10-12-ai-retinopathy-screening-tanzania-rct",
   "no zeros of any dedekind zeta function with real part above 31/32, machine-checked in lean":"2026-10-12-dedekind-zeta-quasi-riemann",
   "lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a lean proof":"2026-10-12-matmul-3x3-rank-21",
+  "adapting an adult chest-radiograph model to neonatal intensive care across 30 units":"2026-10-13-neonatal-radiograph-continual-learning",
   "llm-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks":"2026-10-15-llm-quantum-circuit-design",
   "nist elliptic-curve seeds traced to a 1990s c random number generator seeded with the clock":"2026-10-16-nist-curve-seeds-lrand48",
   "pointwise convergence of ergodic averages along two commuting transformations":"2026-10-18-two-commuting-ergodic-averages",
   "erd\u0151s problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite":"2026-10-19-erdos-111-bipartization",
   "erd\u0151s problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral":"2026-10-19-erdos-173-monochromatic-triangles",
-  "erd\u0151s problem 408: an unconditional normal order for the number of totient iterations":"2026-10-19-erdos-408-iterated-totient"
+  "erd\u0151s problem 408: an unconditional normal order for the number of totient iterations":"2026-10-19-erdos-408-iterated-totient",
+  "claude-designed protein binders against five scorpion neurotoxins":"2026-10-20-claude-scorpion-toxin-binders"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -452,6 +460,7 @@ const TITLE_BY_ID = {
   "2025-11-26-ambient-ai-scribes-rct":"Randomised trial of two ambient AI scribes in outpatient practice",
   "2025-11-gpt5-science-acceleration":"Early science acceleration experiments with GPT-5",
   "2025-robin-macular":"Candidate treatment for dry age-related macular degeneration",
+  "2026-01-27-conversational-epilepsy-device-prototype":"Inpatient prototype of a conversational EEG device that retrains its own seizure detector",
   "2026-01-30-masai-ai-mammography":"Randomised trial of AI-supported mammography screening in 105,934 women (MASAI)",
   "2026-01-alphaevolve-bruhat":"Structure in Bruhat intervals of permutation groups",
   "2026-01-erdos-728":"Erd\u0151s problem #728 resolved and formalized in Lean",
@@ -582,14 +591,17 @@ const TITLE_BY_ID = {
   "2026-10-09-ai-cds-postoperative-delirium-rct":"Pragmatic randomised trial of AI-triggered decision support for postoperative delirium finds no effect",
   "2026-10-09-link-hf2-wearable-monitoring-rct":"Randomised trial of AI wearable monitoring after heart-failure discharge finds no fall in rehospitalisation (LINK-HF2)",
   "2026-10-09-polya-simply-connected":"Strict P\u00f3lya inequalities claimed for simply connected planar domains, Dirichlet and Neumann, with Lean formalizations",
+  "2026-10-12-ai-retinopathy-screening-tanzania-rct":"Randomised trial of AI-supported diabetic retinopathy screening in Tanzania",
   "2026-10-12-dedekind-zeta-quasi-riemann":"No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
   "2026-10-12-matmul-3x3-rank-21":"Lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a Lean proof",
+  "2026-10-13-neonatal-radiograph-continual-learning":"Adapting an adult chest-radiograph model to neonatal intensive care across 30 units",
   "2026-10-15-llm-quantum-circuit-design":"LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks",
   "2026-10-16-nist-curve-seeds-lrand48":"NIST elliptic-curve seeds traced to a 1990s C random number generator seeded with the clock",
   "2026-10-18-two-commuting-ergodic-averages":"Pointwise convergence of ergodic averages along two commuting transformations",
   "2026-10-19-erdos-111-bipartization":"Erd\u0151s Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite",
   "2026-10-19-erdos-173-monochromatic-triangles":"Erd\u0151s Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral",
-  "2026-10-19-erdos-408-iterated-totient":"Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations"
+  "2026-10-19-erdos-408-iterated-totient":"Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations",
+  "2026-10-20-claude-scorpion-toxin-binders":"Claude-designed protein binders against five scorpion neurotoxins"
 };
 /*VOCAB:END*/
 

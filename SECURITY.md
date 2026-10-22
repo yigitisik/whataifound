@@ -4,7 +4,7 @@
 
 Report privately through
 [GitHub's advisory form](https://github.com/yigitisik/whataifound/security/advisories/new),
-or by email to misik6@gatech.edu. Please do not open a public issue for anything exploitable.
+or by email to support@isik.co. Please do not open a public issue for anything exploitable.
 
 Say what you found, how to reproduce it, and what it lets an attacker do. You will get an
 acknowledgement within a few days, and credit in the fix unless you would rather not have it.

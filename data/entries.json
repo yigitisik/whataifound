@@ -8585,7 +8585,7 @@
     "autonomy": "collaborative",
     "detail": "The main theorem states that every finite-order Hecke L-function over \\(\\mathbb{Q}(\\sqrt{-3})\\) and every Dirichlet L-function, including \\(\\zeta(s)\\), is zero-free in \\(\\Re s > 7/8\\), the principal pole at \\(s=1\\) excepted. The quasi-Riemann hypothesis asks for any fixed \\(\\sigma_0 < 1\\) with no zeros to the right of it; the classical zero-free regions of de la Vallée Poussin and Vinogradov-Korobov shrink toward \\(\\Re s = 1\\) with height, and zero-density estimates such as Guth and Maynard's bound how many zeros there are rather than excluding them. A fixed half-plane gives the prime number theorem with error \\(O(x^{7/8+\\varepsilon})\\). The paper works through Kubota's metaplectic theory and Patterson's cubic theta series, with sextic large-sieve estimates extending Goldmakher, Louvel and Blomer, using Dunn and Radziwiłł's unconditional cusp expansions. A companion manuscript reaches the weaker half-plane \\(\\Re s > 11/12\\) by a different proof, and a third proves \\((1-\\beta)\\log q \\ge c\\) for every real zero \\(\\beta\\) of every primitive real character of conductor \\(q \\ge 3\\). The Lean statement for zeta is a single line against Mathlib's own definition, OAI.riemannZeta_ne_zero_of_seven_eighths_lt_re, with separate Comparator challenges for the Dirichlet and Hecke versions and for the Siegel-zero bound, each permitting only propext, Quot.sound and Classical.choice.",
     "novelty_check": "Read the three manuscripts' introductions and the Lean scope note lean/docs/003.md at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. The paper takes the name quasi-Riemann hypothesis from Billington, Cheng, Schettler and Suriajaya (2025) and the uniform formulation over Dirichlet characters from Friedlander and Goldston (1997), and cites no earlier proof of any fixed half-plane; none was found in a web search, and no such half-plane is known unconditionally in the standard literature. For Landau-Siegel zeros the unconditional state of the art before this was Siegel's ineffective 1935 bound; Yitang Zhang's 2022 preprint claims a weaker bound of polylogarithmic strength. No prior registry entry covers either statement; 2026-08-10-zeta-zeros-critical-line concerns the proportion of zeros on the critical line, a different question.",
-    "caveats": "Graded claimed despite a Lean development, for the reason the Navier-Stokes entry set: the catalogue records its review status as unchecked and nobody outside OpenAI is on record as having run the Comparator challenge or read the argument. What would move it is narrow here, because the zeta statement is anchored on Mathlib's own riemannZeta, so a successful independent Comparator run would support formal on its own. The formalization is very large, about 2,900 Lean files and 487,000 lines under the Dirichlet L-function directory and about 70,000 more for the Siegel-zero bound; a text search found no sorry or axiom declarations, which is not a build. The Siegel-zero manuscript gives no explicit constant, though the half-plane alone already implies \\(1-\\beta \\ge 1/8\\) for every real zero, so its interest lies in the independent route rather than the bound. Autonomy is graded collaborative, the weakest reading consistent with OpenAI's account that the model produced the result: the README names the zero-free-region work as an exception to the fixed single-agent procedure without saying what was done differently, and says the \\(11/12\\) write-up was edited by humans. Nothing here bears on the Riemann hypothesis, which places the zeros on \\(\\Re s = 1/2\\); press summaries describing this as progress toward it overstate the connection. Axiom Math has since Palomar-registered a Lean proof, adapting code from this release, that every Dedekind zeta function, \\(\\zeta\\) included, has no zeros with \\(\\Re s > 31/32\\) (2026-10-12-dedekind-zeta-quasi-riemann). That half-plane is narrower than \\(7/8\\), and the development does not run this entry's Comparator challenges, so it does not move this grade.",
+    "caveats": "Graded claimed despite a Lean development, for the reason the Navier-Stokes entry set: the catalogue records its review status as unchecked and nobody outside OpenAI is on record as having run the Comparator challenge or read the argument. What would move it is narrow here, because the zeta statement is anchored on Mathlib's own riemannZeta, so a successful independent Comparator run would support formal on its own. The formalization is very large, about 2,900 Lean files and 487,000 lines under the Dirichlet L-function directory and about 70,000 more for the Siegel-zero bound; a text search found no sorry or axiom declarations, which is not a build. The Siegel-zero manuscript gives no explicit constant, though the half-plane alone already implies \\(1-\\beta \\ge 1/8\\) for every real zero, so its interest lies in the independent route rather than the bound. Autonomy is graded collaborative, the weakest reading consistent with OpenAI's account that the model produced the result: the README names the zero-free-region work as an exception to the fixed single-agent procedure without saying what was done differently, and says the \\(11/12\\) write-up was edited by humans. Nothing here bears on the Riemann hypothesis, which places the zeros on \\(\\Re s = 1/2\\); press summaries describing this as progress toward it overstate the connection. Axiom Math has since Palomar-registered a Lean proof, adapting code from this release, that every Dedekind zeta function, \\(\\zeta\\) included, has no zeros with \\(\\Re s > 31/32\\) (2026-10-12-dedekind-zeta-quasi-riemann). That half-plane is narrower than \\(7/8\\), and the development does not run this entry's Comparator challenges, so it does not move this grade. Two weeks after the release Tao published a sketch of Ben Green's formulation of the Siegel-zero argument, which he calls particularly elegant, while writing that the quasi-Riemann hypothesis arguments themselves are still in the process of being fully digested and that he would not discuss them further, so that post explains the companion result rather than checking this one. Quanta reports that mathematicians have set the 7/8 paper aside to work through the shorter 11/12 companion, that Radziwill calls both papers badly written while judging the result correct, and that Sarnak will not call it a theorem until humans have checked and understood the details, which is the position this grade already records. Neither source reports anyone outside OpenAI running the Comparator challenges or checking the Lean development.",
     "sources": [
       {
         "label": "The Quasi-Riemann Hypothesis: a zero-free half-plane Re(s) > 7/8 (PDF)",
@@ -8616,6 +8616,16 @@
         "label": "Scientific American: OpenAI unleashes hundreds more math results upon a field already in shock",
         "url": "https://www.scientificamerican.com/article/openai-unleashes-hundreds-more-math-results-upon-a-field-already-in-shock/",
         "kind": "coverage"
+      },
+      {
+        "label": "Terence Tao: A sketch of the proof of non-existence of Siegel zeroes",
+        "url": "https://terrytao.wordpress.com/2026/10/19/a-sketch-of-the-proof-of-non-existence-of-siegel-zeroes/",
+        "kind": "commentary"
+      },
+      {
+        "label": "Quanta Magazine: AI Proved the Quasi-Riemann Hypothesis. What Happens Now?",
+        "url": "https://www.quantamagazine.org/ai-proved-the-quasi-riemann-hypothesis-what-happens-now-20261019/",
+        "kind": "coverage"
       }
     ],
     "discussion": [
@@ -8626,6 +8636,10 @@
       {
         "label": "Hacker News: The Quasi-Riemann Hypothesis [pdf]",
         "url": "https://news.ycombinator.com/item?id=49985397"
+      },
+      {
+        "label": "Hacker News: AI Proved the Quasi-Riemann Hypothesis. What Happens Now?",
+        "url": "https://news.ycombinator.com/item?id=50154982"
       }
     ],
     "tags": [
@@ -10903,7 +10917,7 @@
     "autonomy": "ai-led",
     "detail": "The NIST curves standardised around 2000 were said to be generated verifiably at random from SHA-1 hashes of seeds, but the seeds themselves were unexplained, which fed long-running suspicion that they had been chosen to target weak curves; Jerry Solinas's recollection that they came from hashing a humorous phrase was never confirmed, and in 2023 Filippo Valsorda offered a bounty for an explanation. The announcement says an employee asked an internal research model to work out how the seeds were generated, without the phrase clue, and that it identified lrand48 in under half an hour. Each prime-curve seed is a run of lrand48 outputs shifted right by 23 bits from a generator seeded with a 1997 or 1998 timestamp: P-256's is the 1,842nd 20-byte candidate of a run started at 01:52:34 UTC on 16 August 1997. Four binary-curve seeds fit lrand48 seeded with half the timestamp, and the base points of P-192 and five X9.62 curves come from the random number generator of Arjen Lenstra's FreeLIP library.",
     "novelty_check": "The question was open: Valsorda's bounty, announced in July 2023, stood unclaimed until the Anthropic team claimed it on 15 October 2026. Valsorda's post confirming the result says the seeds were the output of the drand48 family seeded with the time, not the hash of a sentence.",
-    "caveats": "Entered at claimed under the rule that lab announcements start there, not out of doubt about the computation: the claim is an exact calculation anyone can rerun, and it has been rerun independently twice, by Valsorda in Go and here with the system C library, so it is a candidate for formal. A chance match of five 160-bit values from a search over about a year of timestamps is not a live possibility. Not explained: the B-163 seed, the base points of P-224 through P-521 and of the binary curves, why some valid candidates were skipped, and how many runs there were; Valsorda notes roughly twice as many valid seeds exist as were published and that one acceptance criterion still escapes them. The account of how the result was found rests on Anthropic alone: the model is internal and unnamed, ten staff are credited with the work, and Valsorda's post credits the team without mentioning a model, which is why autonomy is ai-led rather than autonomous. This is not a cryptographic break; Valsorda concludes the process left its operator barely 30 bits of freedom, too few to target a weak class of curves.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there, not out of doubt about the computation: the claim is an exact calculation anyone can rerun, and it has been rerun independently twice, by Valsorda in Go and here with the system C library, so it is a candidate for formal. A chance match of five 160-bit values from a search over about a year of timestamps is not a live possibility. Not explained: the B-163 seed, the base points of P-224 through P-521 and of the binary curves, why some valid candidates were skipped, and how many runs there were; Valsorda notes roughly twice as many valid seeds exist as were published and that one acceptance criterion still escapes them. The account of how the result was found rests on Anthropic alone: the model is internal and unnamed, ten staff are credited with the work, and Valsorda's post credits the team without mentioning a model, which is why autonomy is ai-led rather than autonomous. This is not a cryptographic break; Valsorda concludes the process left its operator barely 30 bits of freedom, too few to target a weak class of curves. The Hacker News thread on the announcement adds two things to Valsorda's post. Valsorda himself puts the operator's freedom at roughly 30 bits under stated assumptions and cites Koblitz and Menezes (eprint 2015/1018, section 3.1), who argued that the selection concern was already implausible at 160 bits. A commenter, cyphar, notes that almost all of the lower candidate indices were not valid curve values at all, so the search was for valid seeds rather than for chosen ones, and that about half of the valid seeds were nonetheless discarded for reasons still unknown, with a buggy validity check the suggested explanation. Neither is an objection to the lrand48 finding.",
     "independent_checks": [
       {
         "who": "Filippo Valsorda (bounty organiser, reimplementation in Go)",
@@ -10934,7 +10948,13 @@
       "standards",
       "computation"
     ],
-    "added": "2026-10-20"
+    "added": "2026-10-20",
+    "discussion": [
+      {
+        "label": "Hacker News: Claude reveals ECDSA curve origins",
+        "url": "https://news.ycombinator.com/item?id=50122800"
+      }
+    ]
   },
   {
     "id": "2026-10-09-link-hf2-wearable-monitoring-rct",
@@ -11053,5 +11073,164 @@
       "simulated-patients"
     ],
     "added": "2026-10-20"
+  },
+  {
+    "id": "2026-10-20-claude-scorpion-toxin-binders",
+    "title": "Claude-designed protein binders against five scorpion neurotoxins",
+    "claim": "A generative design campaign run by an internal Anthropic model produced 318,484 candidate proteins against five scorpion-venom neurotoxins; of the 211 that were synthesised and tested, 17 met the binding criterion at both contract laboratories, the tightest at single-digit nanomolar affinity, and none was tested for venom neutralisation.",
+    "field": "biology",
+    "date": "2026-10-20",
+    "lab": "Anthropic",
+    "model": "Internal Anthropic research model operating within Claude Science, not named or versioned in the post",
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "Anthropic's initial prompt named five neurotoxins from four regions, Cn2 from Centruroides noxius in Mexico, Ts1 from Brazil, AaH I and AaH II from North Africa and LqhIII from the Middle East, along with the protein design and folding tools to use and the rules for novelty, scoring and filtering. The model chose the target structures from the PDB and the AlphaFold database, picked five hotspots per toxin, set its own quality thresholds, drove 12 design tools to 318,484 designs and co-folded 553,052 design-toxin pairs, using on the order of 10,000 GPU hours. It selected 180 designs for synthesis 64 hours after the first prompt, and 31 more were added with its help, for 211 tested in total. Of those, 17 met the hit criterion: binding in every replicate at both laboratories with every dissociation constant at 1 micromolar or tighter, and no signal against an off-target stickiness control. All 17 bound a single toxin, seven against Cn2, four against AaH II, four against AaH I and two against LqhIII, with Cn2-B1 and Cn2-B2 in the single-digit nanomolar range, while every design intended to bind more than one toxin failed.",
+    "novelty_check": "Searched Europe PMC on 2026-10-22 for de novo binders against scorpion toxins (\"de novo\" AND scorpion AND (binder OR \"protein design\"), 87 hits) and for the prior art the post itself cites (\"de novo designed proteins\" AND neurotoxin, 23 hits). The closest published work is Vazquez Torres et al., \"De novo designed proteins neutralize lethal snake venom toxins\", Nature, January 2025 (doi 10.1038/s41586-024-08393-x), which reached neutralisation and protected mice against snake three-finger toxins; no published de novo binder campaign against scorpion alpha or beta neurotoxins turned up. Anthropic's post cites that paper as the earlier effort, and its first author, Susana Vazquez Torres, is one of the two outside experts Anthropic quotes reviewing this work, so the nearest prior art and part of the review are not independent of each other. No prior registry entry covers scorpion toxins; 2026-09-23-array-associated-reverse-transcriptases is the registry's other Anthropic agent-run biology result and concerns phage genomics.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. The evidence is binding and nothing else: surface plasmon resonance against recombinant toxins, run at two contract research organisations commissioned by Anthropic, Adaptyv Bio by cell-free expression and Twist Bioscience in mammalian cells as Fc fusions, so the two-laboratory requirement is a paid second vendor rather than an independent check, and LqhIII was assessed at Adaptyv Bio only. The post states that no design was tested for neutralisation in vitro or for efficacy in vivo and that it does not claim to have produced an antivenom. A competition experiment places the Cn2 binders on or near the epitope of antibody LR, which has been reported to neutralise Cn2 in mice; that is suggestive and is not a neutralisation result. Binding was shown against recombinant toxins rather than venom-purified ones. All multi-toxin designs failed, and the post offers its own prompting, the limits of the available tools and the biological feasibility of multi-toxin design as candidate explanations. Autonomy is graded search-scaffold on the strictest defensible reading: the humans' prompt fixed the targets, the tool set and the rules for novelty, scoring and filtering, which is the human-designed loop that grade describes, even though the model chose hotspots, thresholds and which designs to synthesise. A reading that weighted those choices would reach ai-assisted, and the post's own framing, that the model worked from a prompt and four follow-ups under supervision and then analysed the data and drafted the report, is why the weaker grade was taken. No model name or version is given and no Anthropic authors are named on the post, so the only named people are the two outside reviewers, who are not collaborators and are therefore not listed here. The technical report PDF exceeded the fetch size limit and was not read for this entry, so every count and criterion above comes from the post and the released dataset.",
+    "sources": [
+      {
+        "label": "Anthropic: How Claude designed protein binders against scorpion neurotoxins",
+        "url": "https://www.anthropic.com/research/claude-scorpion-toxin-binder-design",
+        "kind": "announcement"
+      },
+      {
+        "label": "Anthropic technical report (PDF)",
+        "url": "https://www-cdn.anthropic.com/31ac578806cffd8b3d92d8affe6edc4c04d502e1.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Hugging Face: scorpion-toxin-binder-design dataset, 211 designs with SPR results, CC-BY-4.0",
+        "url": "https://huggingface.co/datasets/Anthropic/scorpion-toxin-binder-design",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "protein-design",
+      "de-novo-binders",
+      "scorpion-toxins",
+      "construction"
+    ],
+    "added": "2026-10-22"
+  },
+  {
+    "id": "2026-10-12-ai-retinopathy-screening-tanzania-rct",
+    "title": "Randomised trial of AI-supported diabetic retinopathy screening in Tanzania",
+    "claim": "In a randomised trial at 24 Tanzanian hospitals, giving people an AI screening result during the visit with face-to-face counselling roughly doubled the share of those with genuinely referable diabetic retinopathy who reached the referral eye clinic within eight weeks, from 18.2% to 35.9%.",
+    "field": "medicine",
+    "date": "2026-10-12",
+    "lab": "London School of Hygiene and Tropical Medicine / Kilimanjaro Christian Medical Centre",
+    "model": "Unknown",
+    "humans": [
+      "Charles R Cleland",
+      "Matthew J Burton"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-led",
+    "detail": "Non-attendance after referral is one of the main failure points of diabetic retinopathy screening programmes in Africa, and an AI grader can return a result during the screening visit rather than weeks later. This two-arm, parallel-group, individually randomised trial ran at non-communicable disease and diabetic clinics in 24 hospitals in the Kilimanjaro and Arusha regions between 8 March 2023 and 31 August 2024. Both arms had retinal photographs taken of both eyes; in the intervention arm the images went to the AI software and the participant was given a non-referable, referable or ungradable result with face-to-face counselling before leaving the photography room, and was referred if the output was referable or ungradable, while the standard-of-care arm received deferred human grading and a telephone result typically two to four weeks later. Of 2,378 participants enrolled, 1,192 were assigned to the AI arm and 1,186 to standard care, and 904 were classified by masked UK-certified graders as having true referable disease. Among those, attendance at the central ophthalmology clinic within eight weeks was 157 of 437 (35.9%) in the AI arm against 85 of 467 (18.2%) under standard care, an absolute difference of 17.7 percentage points (95% CI 12.0 to 23.4) and an odds ratio of 2.52 (95% CI 1.86 to 3.42), with \\(p < 0.0001\\).",
+    "novelty_check": "Searched Europe PMC on 2026-10-22 (\"diabetic retinopathy\" AND \"artificial intelligence\" AND \"randomised controlled trial\" AND Africa, 43 hits). This trial and its own 2024 BMJ Open protocol are the only randomised comparison of an AI-supported screening pathway against deferred human grading in sub-Saharan Africa that the search returned; the same group's 2025 implementation report in Transactions of the Royal Society of Tropical Medicine and Hygiene (doi 10.1093/trstmh/trae132) describes putting an AI system into the Tanzanian programme but is not randomised. The trial is registered with the ISRCTN Registry as ISRCTN18317152 and has no ClinicalTrials.gov record; ISRCTN is not a slug in this registry's registries vocabulary, so it is recorded here rather than under registrations. The registry already carries 2018-08-28-idx-dr-autonomous-diagnostic, the pivotal trial of an autonomous diabetic retinopathy diagnostic in United States primary care, which measured diagnostic accuracy rather than whether referred patients reached a clinic.",
+    "caveats": "Funded by the British Council for the Prevention of Blindness, Christian Blind Mission and the Sir Halley Stewart Trust, with the Wellcome Trust and the British Council also recorded in Crossref's funder list. No AI vendor appears among the funders, and the grading software is not named in either the published abstract or the trial protocol, so neither the system nor any vendor role could be established for this entry: that is why model is Unknown, and it means a reader cannot tell which algorithm was tested or how it would be obtained. The endpoint is attendance at the referral clinic, an access outcome, not sight saved: no visual-acuity or disease-progression result is reported. The trial compares two whole pathways, an immediate AI result with face-to-face counselling against deferred human grading with a telephone result, so the effect cannot be attributed to AI grading alone rather than to same-visit delivery and in-person counselling. Participants were referred on an ungradable output as well as a referable one, and masked UK-certified graders rather than the AI defined true referable disease for the primary outcome, which is why autonomy is ai-led and not autonomous: the model's output drove the referral and a human reference standard checked it. The trial was single-masked and ran in two regions of one country, so nothing here establishes how the pathway behaves elsewhere. Sensitivity, specificity and the number of false-positive referrals were pre-specified secondary outcomes and are not in the abstract, and the full text was not readable for this entry, so those figures and the authors' own limitations section remain unchecked.",
+    "sources": [
+      {
+        "label": "The Lancet Global Health: Artificial intelligence-supported diabetic retinopathy screening in Tanzania, a randomised controlled trial",
+        "url": "https://doi.org/10.1016/j.langlo.2026.104062",
+        "kind": "research"
+      },
+      {
+        "label": "BMJ Open: trial rationale and design (protocol, 2024)",
+        "url": "https://doi.org/10.1136/bmjopen-2023-075055",
+        "kind": "research"
+      },
+      {
+        "label": "LSHTM: AI screening helps more people with diabetes access sight-saving eye care",
+        "url": "https://www.lshtm.ac.uk/newsevents/news/2026/ai-screening-helps-more-people-diabetes-access-sight-saving-eye-care",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "rct",
+      "prospective",
+      "diabetic-retinopathy",
+      "screening",
+      "low-resource-setting"
+    ],
+    "added": "2026-10-22"
+  },
+  {
+    "id": "2026-10-13-neonatal-radiograph-continual-learning",
+    "title": "Adapting an adult chest-radiograph model to neonatal intensive care across 30 units",
+    "claim": "A model trained to assess endotracheal tube position on adult chest radiographs was retrained in sequence at 30 neonatal intensive care units in 20 countries and territories, 50 radiographs per site and with no pooling of patient data, reaching a mean landmark localisation error of 0.67 cm against 1.29 cm for hospital-specific fine-tuning and 4.30 cm for the unadapted adult model.",
+    "field": "medicine",
+    "date": "2026-10-13",
+    "lab": "International NICU continual-learning consortium",
+    "model": "Adult endotracheal-tube assessment deep learning model adapted by continual learning; the base model is not named in the abstract",
+    "humans": [
+      "Vishwanatha M Rao",
+      "Pranav Rajpurkar"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Fewer than one in five commercially available radiology AI models are cleared for paediatric use, models trained on adults generalise poorly to neonates, and neonatal images are scarce in public datasets, so the gap is usually closed by local data curation that most units cannot do. This international retrospective study evaluated continual learning as a privacy-preserving way to adapt an adult endotracheal-tube assessment model to neonatal care: each of 30 neonatal intensive care units across 20 countries and territories contributed 50 radiographs, and the model was retrained sequentially from site to site with no centralised pooling. Continual learning reached a mean anatomical landmark localisation error of 0.67 cm, against 1.29 cm for hospital-specific fine-tuning and 4.30 cm for the adult-only model, and was better at 29 of the 30 sites. Detection of deep intubations improved at 27 of 30 sites. The authors present this as evidence that collaborative learning without data sharing can address a paediatric deployment gap, not as a clinical outcome result.",
+    "novelty_check": "Searched Europe PMC on 2026-10-22 (TITLE:\"continual learning\" AND TITLE:neonatal, which returns this paper alone, and \"endotracheal tube\" AND \"continual learning\", which returns this paper plus a governance review and no other multicentre neonatal adaptation study). The nearest prior work the searches surfaced is federated continual learning for chest-radiograph classification in Scientific Reports (doi 10.1038/s41598-026-55211-7), a classification task rather than neonatal tube placement. No prior registry entry covers paediatric radiology AI or continual learning, and none of the registry's existing imaging entries concerns neonates.",
+    "caveats": "Retrospective throughout, with no prospective deployment and no clinical outcome: the endpoints are localisation error in centimetres and deep-intubation detection, both surrogates for correct tube placement rather than measures of harm avoided. Fifty radiographs per site is a small adaptation set, and the 30 units were not sampled to be representative of neonatal intensive care anywhere. The base adult model is not named in the abstract. A Chinese-language reprint of the paper identifies it as CarinaNet, a RetinaNet detector described in Critical Care in 2023 (doi 10.1186/s13054-023-04320-0), which would make it an academic rather than a commercial system, but the paper itself was not readable for this entry, so that identification is unconfirmed, as are the per-site figures the same reprint gives, several of which disagree with the published abstract. Sponsor and vendor roles, the funding statement and the authors' own limitations section are therefore unchecked here. Autonomy is ai-assisted: the model localises anatomical landmarks for a clinician assessing tube position, and no care decision was measured. The paper is not open access and the abstract does not say whether the site data or the adapted weights will be released, so a reader outside the consortium cannot obtain either.",
+    "sources": [
+      {
+        "label": "Nature Biomedical Engineering: Repurposing adult AI radiograph models for neonatal care through continual learning, an international multicentre study",
+        "url": "https://doi.org/10.1038/s41551-026-01812-6",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "external-validation",
+      "retrospective",
+      "radiology",
+      "neonatal",
+      "continual-learning",
+      "privacy-preserving"
+    ],
+    "added": "2026-10-22"
+  },
+  {
+    "id": "2026-01-27-conversational-epilepsy-device-prototype",
+    "title": "Inpatient prototype of a conversational EEG device that retrains its own seizure detector",
+    "claim": "A prototype linking inpatient scalp and intracranial EEG to large language models let 13 epilepsy patients exchange messages with their monitoring system through a phone app, and the seizure-detection algorithms improved their precision over several days from that feedback without expert reprogramming.",
+    "field": "medicine",
+    "date": "2026-01-27",
+    "lab": "University of Pennsylvania",
+    "model": "Unnamed secure large language models behind an AI agent; no vendor or version is given in the preprint abstract",
+    "humans": [
+      "Zack Goldblum",
+      "Brian Litt"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Implantable epilepsy devices can detect impending seizures, missed medication and impaired cognition, but have no way to tell the person carrying them in real time, which the authors describe as a limitation common to most medical devices. The prototype links scalp and intracranial EEG to secure large language models that communicate bidirectionally with patients through a smartphone app, with an AI agent consuming biomarkers of sleep, medication level, cognition and seizure risk extracted from brain activity. Either side can begin a conversation: the agent reports clinical events and physiological trends, records symptoms, responses and behaviours, and retrains itself on what it gathers. The authors demonstrate the platform in 13 patients undergoing inpatient video-EEG monitoring and report that seizure-detection algorithms optimised their precision over several days without expert intervention, which they contrast with the months of iterative in-person physician programming currently required. Patients rated the system highly usable and responded positively to messages about sleep, cognition and seizure risk, and the authors describe safeguards including efficient expert review for further fine-tuning and controls on communication content.",
+    "novelty_check": "Searched Europe PMC and Crossref on 2026-10-22 for a journal version (Europe PMC TITLE:\"Co-Manage Epilepsy\", and a Crossref bibliographic search on the full title). Both return only the medRxiv preprint, doi 10.64898/2026.01.26.26344234, posted 27 January 2026 and indexed by Europe PMC as PMID 41646755 and PMC12870640 with its journal field reading medRxiv. Penn Medicine's October 2026 announcement reports publication in Nature Medicine, and no such record exists in either index as of that date, so the published version is unconfirmed. No prior registry entry covers an implantable or conversational seizure-monitoring device, and the registry's other conversational-AI medical entries concern diagnostic dialogue rather than device telemetry.",
+    "caveats": "Graded claimed: the only artifact this entry can point to is a preprint, so nothing here has been through peer review. Penn Medicine's announcement says the work appeared in Nature Medicine, and no journal record was found in Crossref or Europe PMC, both searched on 2026-10-22; confirming that publication would move the grade to peer-reviewed, and nothing else needs to change for it. Thirteen inpatients at a single centre, all of them already admitted to an epilepsy monitoring unit, which measures a prototype under continuous observation and says nothing about use at home. The endpoints are the detector's own precision and usability ratings, both surrogates, with no seizure-control, safety or other patient outcome. The abstract reports the precision gain without numbers, and the roughly 80% reduction in false seizure alarms that press coverage attributes to the study could not be verified for this entry: the NIH and Penn Medicine pages refuse automated fetch and the PubMed Central copy serves a bot check, so that figure is deliberately not stated above. Funded by NIH NINDS grants to the investigators, with no company role recorded in the indexed metadata. Autonomy is ai-assisted: the system messages patients and tunes its own detector while clinicians retain oversight and expert review is built into further fine-tuning. The device is investigational, and nothing here bears on a marketing authorisation.",
+    "sources": [
+      {
+        "label": "medRxiv: An Implantable Device that Converses with Patients and Learns to Co-Manage Epilepsy (preprint)",
+        "url": "https://doi.org/10.64898/2026.01.26.26344234",
+        "kind": "research"
+      },
+      {
+        "label": "Europe PMC record (PMID 41646755)",
+        "url": "https://europepmc.org/article/MED/41646755",
+        "kind": "research"
+      },
+      {
+        "label": "NIH: Patients engage with epilepsy monitor in real time, improving seizure detection",
+        "url": "https://www.nih.gov/news-events/news-releases/patients-engage-epilepsy-monitor-real-time-improving-seizure-detection",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "prospective",
+      "large-language-model",
+      "conversational-ai",
+      "epilepsy",
+      "medical-device",
+      "preprint"
+    ],
+    "added": "2026-10-22"
   }
 ]
