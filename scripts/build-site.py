@@ -2489,6 +2489,8 @@ LAB_HUB = {
     "Icahn School of Medicine at Mount Sinai": "https://www.mountsinai.org/about/newsroom",
     "US Department of Veterans Affairs": "https://www.research.va.gov/",
     "University of California, San Francisco": "https://www.ucsf.edu/news",
+    "London School of Hygiene and Tropical Medicine": "https://www.lshtm.ac.uk/research",
+    "University of Pennsylvania": "https://www.pennmedicine.org/news",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
@@ -2497,8 +2499,9 @@ LAB_ALIAS = {
     "Google Brain": "Google",
     "Institute for Protein Design, University of Washington": "Institute for Protein Design",
 }
-# Not an organisation with a research hub: an entry credited to nobody in particular.
-LAB_HUB_SKIP = {"Independent"}
+# Not an organisation with a research hub: an entry credited to nobody in particular, or to a
+# one-off collaboration of sites with no shared home page to send a reader to.
+LAB_HUB_SKIP = {"Independent", "International NICU continual-learning consortium"}
 
 
 def dataset_constants():
