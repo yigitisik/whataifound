@@ -11345,5 +11345,77 @@
       "argument"
     ],
     "added": "2026-10-26"
+  },
+  {
+    "id": "2026-10-21-php2shell-rce",
+    "title": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
+    "claim": "Two security teams working independently, each using frontier language models to review PHP's source, found two unauthenticated remote code execution flaws in the runtime behind a large share of the web; both were rated 9.2 critical, and PHP shipped patches on 2026-10-21 under coordinated disclosure.",
+    "field": "computer-science",
+    "date": "2026-10-21",
+    "lab": "Calif / Wiz Research / OpenAI",
+    "model": "Gemini 4 Argon and GPT-5.6 Sol, with the Wiz Atlas tool; which model did what differs by source, see caveats",
+    "humans": [
+      "Ryan Austin",
+      "Michal Zalewski",
+      "Sagi Tzadik",
+      "Shir Tamari",
+      "Nir Ohfeld",
+      "Tomer Schwartz"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The two flaws are separate root causes in PHP's request lifecycle. CVE-2026-109618, which PHP titles \"RCE via OOM corruption\", turns on PHP using longjmp() to abandon a request on an out-of-memory error: some contexts leave request memory uninitialized before an allocation, the cleanup that follows reads or branches on it, and the advisory states that multiple out-of-memory strategies trigger this consistently enough to reach remote code execution. CVE-2026-109619, \"RCE via stale global state\", covers global state that temporarily points into request memory and is then either not reset or repopulated after being reset, so a later request reads or branches on a pointer into memory that has been freed. Both carry a CVSS 4.0 base score of 9.2, neither needs authentication, and both were patched on 2026-10-21 in PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. The two teams arrived separately: Calif dates its discovery to 1 August 2026, reported the first flaw to PHP on 11 August and shared a working proof of concept that PHP confirmed on 15 August, while Wiz discovered its first on 19 August and reported on 24 August, with public disclosure held until the patched releases were out.",
+    "novelty_check": "Both records were read from the NVD API on 2026-10-26 (CVE-2026-109618 and CVE-2026-109619, source security@php.net, published 2026-10-21), together with PHP's own advisories GHSA-w8hw-w9fx-j79w and GHSA-6wmf-4rv5-p3rp. The bug class is not new and this entry does not claim it is: Calif's write-up traces the territory to Stefan Esser's 2004 memory-limit remote code execution, to php-src bug #78876 in 2020, and to a 2024 OSTIF and Quarkslab audit that found a related out-of-memory issue without establishing that it was exploitable. What is new is a set of concrete exploitable paths in that long-suspected area, reached with model assistance. No prior registry entry covers a software vulnerability; the nearest neighbour is 2026-10-16-nist-curve-seeds-lrand48, also an AI-driven finding about widely deployed cryptographic infrastructure rather than a theorem.",
+    "caveats": "Graded claimed because the vulnerabilities are solid while the AI's role is not independently established. The flaws themselves are not in question: PHP assigned both CVEs, each advisory credits four reporters, and patched releases shipped. What the AI did is where the sources diverge, and that divergence is the reason to read this entry rather than the coverage. Neither PHP advisory mentions AI anywhere; both credit four human reporters, lcfr-hax, sagitzadik-wiz, tomash-areion and amyb-oai, plus four remediation developers. Wiz's write-up says \"We used Wiz Atlas, Gemini 4 Argon and GPT-5.6 Sol throughout this research\" and singles out Google DeepMind's model rather than OpenAI's for the find: \"Notably, Gemini 4 Argon made an invaluable contribution to finding the vulnerability\". Calif's own write-up names no model or version at all, referring only to an \"LLM companion\" and to \"our agent\" noticing an ordering and tracing a code path. OpenAI's announcement states that \"Calif identified a critical flaw using GPT-5.6 Sol as part of our Patch the Planet initiative\", an attribution Calif's own post does not make, so press coverage crediting GPT-5.6 Sol with finding the flaws is following OpenAI rather than either finder. Autonomy is ai-assisted on the strictest defensible reading: humans scoped and ran the audits, built the exploits and handled reporting, while the models reviewed source, flagged an ordering, traced paths and generalized a pattern. No reproducible artifact of the AI's contribution exists, with no transcripts, no technical report, and deliberately no public proof of concept from either team, though OpenAI's framework describes sharing working proof-of-concept exploits privately with selected defenders ahead of disclosure. The finders also characterise the bugs differently from PHP: Wiz describes an upload-progress unserializer use-after-free with memory disclosure and a fatal-error backtrace use-after-free with OPcache type confusion, which read as the chains built on the root causes PHP's advisories state, so a reader should take PHP's wording as the authority on what was fixed. Dual use here is stated by the sources rather than inferred: OpenAI writes that this \"highlights how AI can uncover security flaws with internet-scale impact, but the same capabilities can also help attackers rapidly develop offensive tools and exploits\", and Wiz writes that \"Frontier AI models substantially reduced that barrier, turning a longstanding flaw into an exploit\". Wiz's headline claim that the flaws affect 70% of the internet is a vendor figure and is not checked here.",
+    "sources": [
+      {
+        "label": "PHP advisory GHSA-w8hw-w9fx-j79w: RCE via OOM corruption (CVE-2026-109618)",
+        "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+        "kind": "research"
+      },
+      {
+        "label": "PHP advisory GHSA-6wmf-4rv5-p3rp: RCE via stale global state (CVE-2026-109619)",
+        "url": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp",
+        "kind": "research"
+      },
+      {
+        "label": "NVD record for CVE-2026-109618",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618",
+        "kind": "research"
+      },
+      {
+        "label": "NVD record for CVE-2026-109619",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109619",
+        "kind": "research"
+      },
+      {
+        "label": "Wiz Research: PHP2Shell, the finders' write-up naming the models used",
+        "url": "https://www.wiz.io/blog/php2shell-php-rce",
+        "kind": "announcement"
+      },
+      {
+        "label": "Calif: PHP2Shell, a tale of two PHP remote vulnerabilities",
+        "url": "https://calif.io/php2shell/",
+        "kind": "announcement"
+      },
+      {
+        "label": "OpenAI: Coordinated disclosure of critical vulnerabilities",
+        "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/",
+        "kind": "announcement"
+      },
+      {
+        "label": "The PHP Foundation: today's security release and strengthening PHP security",
+        "url": "https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "security",
+      "memory-safety",
+      "vulnerability-discovery",
+      "coordinated-disclosure",
+      "php"
+    ],
+    "added": "2026-10-26"
   }
 ]

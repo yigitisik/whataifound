@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 195 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 196 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -129,8 +129,9 @@ All 1 in one page: https://whataifound.org/topic/climate
 
 ### Computer science
 
-All 27 in one page: https://whataifound.org/topic/computer-science
+All 28 in one page: https://whataifound.org/topic/computer-science
 
+- [PHP2Shell: two critical PHP remote code execution flaws found with AI assistance](https://whataifound.org/finding/2026-10-21-php2shell-rce): Two security teams working independently, each using frontier language models to review PHP's source, found two unauthenticated remote code execution flaws in the runtime behind a large share of the web; both were rated 9.2 critical, and PHP shipped patches on 2026-10-21 under coordinated disclosure. (Calif / Wiz Research / OpenAI, Gemini 4 Argon and GPT-5.6 Sol, with the Wiz Atlas tool; which model did what differs by source, see caveats, 2026-10-21; verification: Claimed; autonomy: AI-assisted)
 - [NIST elliptic-curve seeds traced to a 1990s C random number generator seeded with the clock](https://whataifound.org/finding/2026-10-16-nist-curve-seeds-lrand48): An Anthropic model showed that the published seeds of the NIST prime curves P-192, P-224, P-256, P-384 and P-521 and five ANSI X9.62 example curves are outputs of the C library's lrand48 generator seeded with Unix timestamps from May 1997 to April 1998, not hashes of a secret phrase, answering the origin question behind a long-standing backdoor debate. (Anthropic, Internal Anthropic research model (Claude), not named in the announcement, 2026-10-16; verification: Claimed; autonomy: AI-led)
 - [LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks](https://whataifound.org/finding/2026-10-15-llm-quantum-circuit-design): Claude, run in a loop with an automated evaluator, produced reversible circuits that cut both Toffoli and qubit counts below the best published designs in seven of eight quantum-computing primitives and found a new reversible architecture for prime-field modular inversion in the eighth, including an elliptic-curve point addition with 17 times fewer gates at 12% more qubits. (Anthropic, Claude (the announcement names Claude Mythos 5), 2026-10-15; verification: Claimed; autonomy: Search scaffold)
 - [Lower bound of 21 multiplications for 3×3 matrix multiplication over every field, with a Lean proof](https://whataifound.org/finding/2026-10-12-matmul-3x3-rank-21): Andrey Ivanov, working with OpenAI models through ChatGPT and Codex, claims that every exact bilinear algorithm for multiplying two \(3 \times 3\) matrices over any field uses at least 21 multiplications, with a Palomar-registered Lean proof, which would raise the bound that holds over every field from Bläser's 19 of 2003. (Independent, OpenAI models through ChatGPT and Codex, versions not recorded in the repository (GPT-6 Astra and GPT-6 Sol by the author's later account to vibemathed), 2026-10-12; verification: Claimed; autonomy: Collaborative; machine-checked record: Palomar PALOMAR-2026-10-13-000009; also listed at: vibemathed a-lower-bound-of-21-for-3-3-matrix-multiplication-over-every-field)

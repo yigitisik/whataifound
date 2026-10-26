@@ -2491,6 +2491,8 @@ LAB_HUB = {
     "University of California, San Francisco": "https://www.ucsf.edu/news",
     "London School of Hygiene and Tropical Medicine": "https://www.lshtm.ac.uk/research",
     "University of Pennsylvania": "https://www.pennmedicine.org/news",
+    "Calif": "https://calif.io/research/",
+    "Wiz Research": "https://www.wiz.io/blog/tag/research",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
