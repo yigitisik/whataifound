@@ -9,6 +9,21 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-20-trilinear-hilbert-transform-lean",
+      "url": "https://whataifound.org/finding/2026-10-20-trilinear-hilbert-transform-lean",
+      "title": "Lean formalization of the L³ bound for the trilinear Hilbert transform",
+      "content_text": "An independent mathematician machine-checked one of the 372 claimed results in OpenAI's October 2026 mathematics release, the L³ boundedness of the trilinear Hilbert transform with slopes 1, 2 and 3, writing the theorem statement by hand and having coding agents generate roughly 194,000 lines of Lean proof from a blueprint another model wrote.  OpenAI's release carried an L³ bound for the trilinear Hilbert transform with fixed slopes 1, 2 and 3 as family 086, published on 2026-10-05 with no formalization attached. Joris Roos stated the theorem and the operator by hand in Lean 4 against Mathlib, as an a priori estimate on Schwartz functions, then had coding agents prove it from a blueprint that GPT-6 Astra Pro generated from the OpenAI manuscript and from a shorter version of the argument the same model produced. The proof runs to about 194,000 lines over 61 files, built between 8 and 16 October, first by Codex with GPT-6 Astra Light and then by Claude Opus 5.5; machine-generated code is confined to an Auto namespace and directory, and the README is human-written. The author records that Claude at medium reasoning effort stalled without disclosing it, building redundant wrappers and revisiting the same parts of the blueprint, which human monitoring of an agent-maintained status file caught and a large refactor at higher effort repaired. The Comparator challenge file states the theorem with its proof omitted and a solution module supplies it, permitting only propext, Quot.sound and Classical.choice.  Lab: Independent. Model: GPT-6 Astra Pro for the blueprint, with GPT-6 Astra Light and Claude Opus 5.5 autoformalizing the proof. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-20T00:00:00+00:00",
+      "date_modified": "2026-10-26T00:00:00+00:00",
+      "tags": [
+        "harmonic-analysis",
+        "singular-integrals",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
       "url": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
       "title": "Claude-designed protein binders against five scorpion neurotoxins",

@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 194 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 195 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -170,8 +170,9 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 115 in one page: https://whataifound.org/topic/mathematics
+All 116 in one page: https://whataifound.org/topic/mathematics
 
+- [Lean formalization of the L³ bound for the trilinear Hilbert transform](https://whataifound.org/finding/2026-10-20-trilinear-hilbert-transform-lean): An independent mathematician machine-checked one of the 372 claimed results in OpenAI's October 2026 mathematics release, the \(L^3\) boundedness of the trilinear Hilbert transform with slopes 1, 2 and 3, writing the theorem statement by hand and having coding agents generate roughly 194,000 lines of Lean proof from a blueprint another model wrote. (Independent, GPT-6 Astra Pro for the blueprint, with GPT-6 Astra Light and Claude Opus 5.5 autoformalizing the proof, 2026-10-20; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-10-20-000001)
 - [Erdős Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral](https://whataifound.org/finding/2026-10-19-erdos-173-monochromatic-triangles): A Lean-checked proof that in every two-coloring of the plane, every triangle except possibly one equilateral triangle has a monochromatic congruent copy, settling a 1973 conjecture of Erdős, Graham, Montgomery, Rothschild, Spencer and Straus, found by GPT-6 Astra and Claude Opus 5.5 working in alternation. (Plasma AI, GPT-6 Astra (Codex) and Claude Opus 5.5 (Claude Code), alternating; Claude Opus 5.5 (Lean formalization), 2026-10-19; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-10-19-000008)
 - [Erdős Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite](https://whataifound.org/finding/2026-10-19-erdos-111-bipartization): A Lean-checked proof that if every finite subgraph on \(m\) vertices of a graph can be made bipartite by deleting at most \(Cm\) edges, the graph is countably colorable, so \(h_G(n)/n \to \infty\) for every graph of chromatic number \(\aleph_1\), answering the second question of Erdős Problem 111; the proof was found by GPT-6 Astra and Claude Opus 5.5 in alternation. (Plasma AI, GPT-6 Astra (Codex) and Claude Opus 5.5 (Claude Code), alternating; Claude Opus 5.5 (Lean formalization), 2026-10-19; verification: Claimed; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-10-19-000007)
 - [Erdős Problem 408: an unconditional normal order for the number of totient iterations](https://whataifound.org/finding/2026-10-19-erdos-408-iterated-totient): A Lean-checked proof that the least \(k\) with \(\varphi_k(n) = 1\) has normal order \(\alpha \log n\) for a constant \(1/\log 3 \le \alpha \le 1/\log 2\), answering the first two questions of Erdős Problem 408 without the Elliott-Halberstam hypothesis a 1990 proof needed, by building on OpenAI's unrefereed zero-free half-plane and shifted-prime results. (Plasma AI, Claude Opus 5.5 (Lean formalization); the argument is credited to Plasma AI without naming a model, 2026-10-19; verification: Formally verified; autonomy: AI-assisted; machine-checked record: Palomar PALOMAR-2026-10-19-000009)
