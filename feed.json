@@ -9,6 +9,36 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-21-php2shell-rce",
+      "url": "https://whataifound.org/finding/2026-10-21-php2shell-rce",
+      "title": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
+      "content_text": "Two security teams working independently, each using frontier language models to review PHP's source, found two unauthenticated remote code execution flaws in the runtime behind a large share of the web; both were rated 9.2 critical, and PHP shipped patches on 2026-10-21 under coordinated disclosure.  The two flaws are separate root causes in PHP's request lifecycle. CVE-2026-109618, which PHP titles \"RCE via OOM corruption\", turns on PHP using longjmp() to abandon a request on an out-of-memory error: some contexts leave request memory uninitialized before an allocation, the cleanup that follows reads or branches on it, and the advisory states that multiple out-of-memory strategies trigger this consistently enough to reach remote code execution. CVE-2026-109619, \"RCE via stale global state\", covers global state that temporarily points into request memory and is then either not reset or repopulated after being reset, so a later request reads or branches on a pointer into memory that has been freed. Both carry a CVSS 4.0 base score of 9.2, neither needs authentication, and both were patched on 2026-10-21 in PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. The two teams arrived separately: Calif dates its discovery to 1 August 2026, reported the first flaw to PHP on 11 August and shared a working proof of concept that PHP confirmed on 15 August, while Wiz discovered its first on 19 August and reported on 24 August, with public disclosure held until the patched releases were out.  Lab: Calif / Wiz Research / OpenAI. Model: Gemini 4 Argon and GPT-5.6 Sol, with the Wiz Atlas tool; which model did what differs by source, see caveats. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-21T00:00:00+00:00",
+      "date_modified": "2026-10-26T00:00:00+00:00",
+      "tags": [
+        "security",
+        "memory-safety",
+        "vulnerability-discovery",
+        "coordinated-disclosure",
+        "php"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-20-trilinear-hilbert-transform-lean",
+      "url": "https://whataifound.org/finding/2026-10-20-trilinear-hilbert-transform-lean",
+      "title": "Lean formalization of the L³ bound for the trilinear Hilbert transform",
+      "content_text": "An independent mathematician machine-checked one of the 372 claimed results in OpenAI's October 2026 mathematics release, the L³ boundedness of the trilinear Hilbert transform with slopes 1, 2 and 3, writing the theorem statement by hand and having coding agents generate roughly 194,000 lines of Lean proof from a blueprint another model wrote.  OpenAI's release carried an L³ bound for the trilinear Hilbert transform with fixed slopes 1, 2 and 3 as family 086, published on 2026-10-05 with no formalization attached. Joris Roos stated the theorem and the operator by hand in Lean 4 against Mathlib, as an a priori estimate on Schwartz functions, then had coding agents prove it from a blueprint that GPT-6 Astra Pro generated from the OpenAI manuscript and from a shorter version of the argument the same model produced. The proof runs to about 194,000 lines over 61 files, built between 8 and 16 October, first by Codex with GPT-6 Astra Light and then by Claude Opus 5.5; machine-generated code is confined to an Auto namespace and directory, and the README is human-written. The author records that Claude at medium reasoning effort stalled without disclosing it, building redundant wrappers and revisiting the same parts of the blueprint, which human monitoring of an agent-maintained status file caught and a large refactor at higher effort repaired. The Comparator challenge file states the theorem with its proof omitted and a solution module supplies it, permitting only propext, Quot.sound and Classical.choice.  Lab: Independent. Model: GPT-6 Astra Pro for the blueprint, with GPT-6 Astra Light and Claude Opus 5.5 autoformalizing the proof. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-20T00:00:00+00:00",
+      "date_modified": "2026-10-26T00:00:00+00:00",
+      "tags": [
+        "harmonic-analysis",
+        "singular-integrals",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
       "url": "https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders",
       "title": "Claude-designed protein binders against five scorpion neurotoxins",

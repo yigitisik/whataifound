@@ -209,7 +209,9 @@ const GRADES = {
   "2026-10-19-erdos-111-bipartization":["claimed","ai-led"],
   "2026-10-19-erdos-173-monochromatic-triangles":["formal","ai-led"],
   "2026-10-19-erdos-408-iterated-totient":["formal","ai-assisted"],
-  "2026-10-20-claude-scorpion-toxin-binders":["claimed","search-scaffold"]
+  "2026-10-20-claude-scorpion-toxin-binders":["claimed","search-scaffold"],
+  "2026-10-20-trilinear-hilbert-transform-lean":["formal","ai-led"],
+  "2026-10-21-php2shell-rce":["claimed","ai-assisted"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -405,7 +407,9 @@ const ID_BY_TITLE = {
   "erd\u0151s problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite":"2026-10-19-erdos-111-bipartization",
   "erd\u0151s problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral":"2026-10-19-erdos-173-monochromatic-triangles",
   "erd\u0151s problem 408: an unconditional normal order for the number of totient iterations":"2026-10-19-erdos-408-iterated-totient",
-  "claude-designed protein binders against five scorpion neurotoxins":"2026-10-20-claude-scorpion-toxin-binders"
+  "claude-designed protein binders against five scorpion neurotoxins":"2026-10-20-claude-scorpion-toxin-binders",
+  "lean formalization of the l\u00b3 bound for the trilinear hilbert transform":"2026-10-20-trilinear-hilbert-transform-lean",
+  "php2shell: two critical php remote code execution flaws found with ai assistance":"2026-10-21-php2shell-rce"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -601,7 +605,9 @@ const TITLE_BY_ID = {
   "2026-10-19-erdos-111-bipartization":"Erd\u0151s Problem 111: graphs that are not countably colorable need superlinear deletions to become bipartite",
   "2026-10-19-erdos-173-monochromatic-triangles":"Erd\u0151s Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral",
   "2026-10-19-erdos-408-iterated-totient":"Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations",
-  "2026-10-20-claude-scorpion-toxin-binders":"Claude-designed protein binders against five scorpion neurotoxins"
+  "2026-10-20-claude-scorpion-toxin-binders":"Claude-designed protein binders against five scorpion neurotoxins",
+  "2026-10-20-trilinear-hilbert-transform-lean":"Lean formalization of the L\u00b3 bound for the trilinear Hilbert transform",
+  "2026-10-21-php2shell-rce":"PHP2Shell: two critical PHP remote code execution flaws found with AI assistance"
 };
 /*VOCAB:END*/
 

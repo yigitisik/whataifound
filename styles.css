@@ -2362,8 +2362,11 @@
   .c-tier h2{font-size:1.18rem;font-weight:600;letter-spacing:-.01em;margin:0 0 14px}
   .c-blurb{color:var(--muted);margin:-10px 0 16px;max-width:74ch;font-size:.9rem;line-height:1.55}
   .c-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px}
-  .c-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px 16px}
-  .c-name{margin:0;font-weight:600;line-height:1.3}
+  /* min-width:0 because a grid item sizes to its content by default, so one long name or
+     handle widened the track and pushed the card past the edge its neighbours line up on. */
+  .c-card{background:var(--panel);border:1px solid var(--line);border-radius:12px;
+    padding:13px 15px;min-width:0}
+  .c-name{margin:0;font-weight:600;line-height:1.3;overflow-wrap:anywhere}
   .c-count{margin:3px 0 0;font-family:var(--serif);font-size:.68rem;text-transform:uppercase;
     letter-spacing:.11em;color:var(--muted)}
   .c-links{margin:9px 0 0;font-size:.8rem;line-height:1.6;color:var(--muted)}

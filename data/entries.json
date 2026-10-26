@@ -8511,7 +8511,7 @@
     "autonomy": "ai-led",
     "detail": "The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, \\(\\mathsf{L}=\\mathsf{RL}=\\mathsf{BPL}\\), matrix multiplication with exponent at most \\(9/4\\), Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the \\(\\Re s > 11/12\\) zero-free region was edited by humans for readability. On 2026-10-07 OpenAI withdrew three manuscripts after a sign error in 'Algebraicity of Weil classes on split abelian eightfolds' invalidated a cancellation argument used by two dependent papers, 'Algebraicity of Kuga-Satake Correspondences for K3 Surfaces' and 'The rational Hodge conjecture for products of K3 surfaces'; revised 14 others with proof repairs and corrected statements; and added formalizations, bringing the share of top-line results formalized, by its own count, to 300 of 719. At commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb the manuscript map links Lean from 242 families. External reports now include MathVet's model-assisted, pre-referee statement readings and Comparator records, and Carlos Toledo's cert-machine kernel checks and family-level statement readings. For example, for family 049, MathVet reports Comparator acceptance of AbhyankarSathaye on 2026-10-08 at OpenAI commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; cert-machine reports Lean and nanoda acceptance on 2026-10-10 at fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb. These are reports about that individual challenge, not kernel verdicts on the whole paper or collection.",
     "novelty_check": "Read the README, the manuscript map CONTENTS.md and the Lean catalogue lean/formalization.yaml at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. Novelty was not checked family by family, which at this scale is beyond one entry; the families split out as their own entries carry their own checks, starting with the quasi-Riemann hypothesis and Kakeya, then Artin's primitive root conjecture, modularity over imaginary quadratic fields, the Borel conjecture in dimension four, the hyperinvariant subspace problem, the \\(O(3)\\) model, Barnette's conjecture, eventual categoricity and the \\(9/4\\) matrix multiplication bound. A Hacker News commenter cross-referenced the list against ProofAtlas's ranking of 500 open problems and counted about 90 claimed full resolutions, among them Hilbert's tenth problem over the rationals, Unique Games, Landau-Siegel zeros, Baum-Connes and Hadwiger's conjecture; that count was not reproduced here. OpenAI said on 2026-09-21, when the Advisory Group on Mathematics and AI was announced, that an internal model had resolved more than 100 open problems; the registry carries no entry for that statement, which came without manuscripts.",
-    "caveats": "Graded claimed throughout. The external sources cited here report checker outcomes and attributed statement readings, not a completed human referee review of the collection. MathVet's readings remain pre-referee, and cert-machine separates its statement readings from its kernel certificates. The cited OpenAI catalogue recorded its own review status as unchecked. The README says plainly that some of the unformalized results could have issues. Where Lean exists it covers the main result of a paper rather than every claim in it, and the Comparator statements were written by OpenAI alongside the proofs, so whether each one says what the literature means by the named conjecture is a separate question for each family. A text search of the Lean library found no sorry and no axiom declarations, which is not a build and not a statement audit. The account of provenance is not checkable: the model is unreleased, a spokesperson told Scientific American that almost every result came from a single prompt to a single agent and then that some may have taken multiple attempts, and Andrew Sutherland told the magazine that one-shot claims should be treated as unverified until the model is released and the results replicated. The Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study, recommended on 2026-09-29 that labs publish the model name, prompts, a summarized chain of thought, the time taken and the estimated compute cost, and asked labs to stop testing advanced problems on proprietary models; the release gives average compute and ten reasoning summaries, not per-result prompts or costs, and Scientific American reports OpenAI saying it is not bound by the recommendations. Terence Tao has criticized the pace of releases of this kind, while Daniel Litt argued in the same article that withholding results would harm mathematics. Autonomy is graded ai-led rather than autonomous because humans chose the 4,000 problems, aggregated the output and applied the significance filter, and because the README names exceptions to the fixed procedure without describing them. This entry is a container for the release; individual families will diverge from its grades as checks land. The first withdrawals came within a day of release, on OpenAI's own initiative after a sign error, which shows both that the unformalized results can fail and that the company is correcting them.",
+    "caveats": "Graded claimed throughout. The external sources cited here report checker outcomes and attributed statement readings, not a completed human referee review of the collection. MathVet's readings remain pre-referee, and cert-machine separates its statement readings from its kernel certificates. The cited OpenAI catalogue recorded its own review status as unchecked. The README says plainly that some of the unformalized results could have issues. Where Lean exists it covers the main result of a paper rather than every claim in it, and the Comparator statements were written by OpenAI alongside the proofs, so whether each one says what the literature means by the named conjecture is a separate question for each family. A text search of the Lean library found no sorry and no axiom declarations, which is not a build and not a statement audit. The account of provenance is not checkable: the model is unreleased, a spokesperson told Scientific American that almost every result came from a single prompt to a single agent and then that some may have taken multiple attempts, and Andrew Sutherland told the magazine that one-shot claims should be treated as unverified until the model is released and the results replicated. The Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study, recommended on 2026-09-29 that labs publish the model name, prompts, a summarized chain of thought, the time taken and the estimated compute cost, and asked labs to stop testing advanced problems on proprietary models; the release gives average compute and ten reasoning summaries, not per-result prompts or costs, and Scientific American reports OpenAI saying it is not bound by the recommendations. Terence Tao has criticized the pace of releases of this kind, while Daniel Litt argued in the same article that withholding results would harm mathematics. Autonomy is graded ai-led rather than autonomous because humans chose the 4,000 problems, aggregated the output and applied the significance filter, and because the README names exceptions to the fixed procedure without describing them. This entry is a container for the release; individual families will diverge from its grades as checks land. The first withdrawals came within a day of release, on OpenAI's own initiative after a sign error, which shows both that the unformalized results can fail and that the company is correcting them. Of the 242 families cert-machine read at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, it records 127 whose Lean statements match the headline OpenAI wrote for them, 100 narrower than that headline, 11 different from it and 4 stating only a supporting result, so a kernel acceptance and a faithful statement of the advertised claim are not the same thing, and that spread is the reason this entry stays a container. The unchecked self-assessment in the catalogue is the same one that keeps 2026-09-08-navier-stokes-forced-blowup at claimed. One family has since been machine-checked outside the company: the \\(L^3\\) bound for the trilinear Hilbert transform, family 086, now carries an independent Lean formalization registered at Palomar, recorded here as 2026-10-20-trilinear-hilbert-transform-lean.",
     "sources": [
       {
         "label": "GitHub: openai/math, the 722 manuscripts, Lean library and reasoning summaries",
@@ -8600,6 +8600,12 @@
         "kind": "correction",
         "note": "Dated the initial no-outside-checks assessment and added MathVet and Carlos Toledo's cert-machine reports at their recorded OpenAI revisions, distinguishing checker outcomes and statement readings from completed human refereeing without changing either grade.",
         "url": "https://github.com/mathvet/mathvet/blob/8c4a1593acc3374a5cd23ca78bfe1f00d0e1b77b/reviews/openai-math/evidence/cloud/AbhyankarSathaye.comparator.txt"
+      },
+      {
+        "date": "2026-10-26",
+        "kind": "correction",
+        "note": "Added cert-machine's family-level statement-reading counts, restored the Navier-Stokes precedent for the claimed grade, and pointed at the one family now independently machine-checked. No grade moved.",
+        "url": "https://github.com/carlostoledo1891/cert-machine/blob/341b738c618319bd392dd66d84812153659f8655/certs/openai-math-statements.json"
       }
     ],
     "contributors": [
@@ -10910,7 +10916,7 @@
     "autonomy": "search-scaffold",
     "detail": "The tasks span numerical computation, chemistry, optimization, quantum simulation and number theory, and each was posed as a plain-language specification with an external program that checks a circuit's correctness and scores it by qubits times gates. Claude proposed designs, received the score and revised, with no human input between rounds. For elliptic-curve point addition, the core step of quantum discrete-logarithm attacks, it found a reversible implementation of the divsteps modular-inversion algorithm that stores no branch history, checked the key identity by simulation and in Lean, and extended the Pareto frontier against Schrottenloher's and Luo and colleagues' 2026 designs. For the Reed-Solomon decoder inside Decoded Quantum Interferometry, the announcement reports about 12 times fewer gates than Google's construction and a locator step needing 19 qubits instead of a worst-case 665, tested on 403 million sample decodings with a failure rate of about one in 10,000.",
     "novelty_check": "The baselines are the ones the announcement and paper name: Schrottenloher (arXiv:2606.02235) and Luo et al. (arXiv:2607.13816) for point addition, and Khattar et al.'s 2025 decoder for DQI. Those comparisons were not re-derived here, and the other six tasks' baselines were not checked. A web search on 2026-10-20 found earlier work using language models to search for quantum circuits, including evolutionary state-preparation searches, but none claiming these primitives.",
-    "caveats": "A lab announcement with an unrefereed arXiv preprint, so claimed. The evaluator checks each circuit's correctness on test inputs, which is strong evidence for these deterministic tasks but not a proof for every input, and only the divsteps identity is said to be Lean-checked. The gains are not uniform: the headline point-addition design trades 12% more qubits for fewer gates, and the DQI decoder accepts a small failure rate. Autonomy is search-scaffold: the paper describes an evolutionary framework in which language models propose designs and an independent evaluator scores them, and the humans wrote the specifications and the evaluator, required several qualitatively different approaches in parallel, and occasionally prompted broader search. The announcement links no code.",
+    "caveats": "A lab announcement with an unrefereed arXiv preprint, so claimed. The evaluator checks each circuit's correctness on test inputs, which is strong evidence for these deterministic tasks but not a proof for every input, and only the divsteps identity is said to be Lean-checked. The gains are not uniform: the headline point-addition design trades 12% more qubits for fewer gates, and the DQI decoder accepts a small failure rate. Autonomy is search-scaffold: the paper describes an evolutionary framework in which language models propose designs and an independent evaluator scores them, and the humans wrote the specifications and the evaluator, required several qualitatively different approaches in parallel, and occasionally prompted broader search. The announcement links no code. In discussion of the announcement a reader objected that removing components needed only for extremely rare inputs means the redesigned circuit no longer computes the same function. A quantum-computing specialist replied that this is strictly true but immaterial for the Shor-type subroutine at issue, where success is self-evident because a key is either recovered or not, while agreeing that chemistry simulation tolerates such approximations less well; that is this entry's test-input caveat seen from the other side. A reader also noted that the announcement frames the work as Anthropic's while the preprint's acknowledgements credit the lead author's Anthropic fellowship for part of it and IARPA and the Army Research Office for the Harvard work, so lab here names the announcing organisation rather than the sole sponsor.",
     "sources": [
       {
         "label": "arXiv: Discovering state-of-the-art quantum circuits with large language models",
@@ -10929,7 +10935,13 @@
       "cryptography",
       "construction"
     ],
-    "added": "2026-10-20"
+    "added": "2026-10-20",
+    "discussion": [
+      {
+        "label": "Hacker News: Designing more efficient quantum circuits with Claude",
+        "url": "https://news.ycombinator.com/item?id=50121939"
+      }
+    ]
   },
   {
     "id": "2026-10-16-nist-curve-seeds-lrand48",
@@ -11124,7 +11136,7 @@
     "autonomy": "search-scaffold",
     "detail": "Anthropic's initial prompt named five neurotoxins from four regions, Cn2 from Centruroides noxius in Mexico, Ts1 from Brazil, AaH I and AaH II from North Africa and LqhIII from the Middle East, along with the protein design and folding tools to use and the rules for novelty, scoring and filtering. The model chose the target structures from the PDB and the AlphaFold database, picked five hotspots per toxin, set its own quality thresholds, drove 12 design tools to 318,484 designs and co-folded 553,052 design-toxin pairs, using on the order of 10,000 GPU hours. It selected 180 designs for synthesis 64 hours after the first prompt, and 31 more were added with its help, for 211 tested in total. Of those, 17 met the hit criterion: binding in every replicate at both laboratories with every dissociation constant at 1 micromolar or tighter, and no signal against an off-target stickiness control. All 17 bound a single toxin, seven against Cn2, four against AaH II, four against AaH I and two against LqhIII, with Cn2-B1 and Cn2-B2 in the single-digit nanomolar range, while every design intended to bind more than one toxin failed.",
     "novelty_check": "Searched Europe PMC on 2026-10-22 for de novo binders against scorpion toxins (\"de novo\" AND scorpion AND (binder OR \"protein design\"), 87 hits) and for the prior art the post itself cites (\"de novo designed proteins\" AND neurotoxin, 23 hits). The closest published work is Vazquez Torres et al., \"De novo designed proteins neutralize lethal snake venom toxins\", Nature, January 2025 (doi 10.1038/s41586-024-08393-x), which reached neutralisation and protected mice against snake three-finger toxins; no published de novo binder campaign against scorpion alpha or beta neurotoxins turned up. Anthropic's post cites that paper as the earlier effort, and its first author, Susana Vazquez Torres, is one of the two outside experts Anthropic quotes reviewing this work, so the nearest prior art and part of the review are not independent of each other. No prior registry entry covers scorpion toxins; 2026-09-23-array-associated-reverse-transcriptases is the registry's other Anthropic agent-run biology result and concerns phage genomics.",
-    "caveats": "Entered at claimed under the rule that lab announcements start there. The evidence is binding and nothing else: surface plasmon resonance against recombinant toxins, run at two contract research organisations commissioned by Anthropic, Adaptyv Bio by cell-free expression and Twist Bioscience in mammalian cells as Fc fusions, so the two-laboratory requirement is a paid second vendor rather than an independent check, and LqhIII was assessed at Adaptyv Bio only. The post states that no design was tested for neutralisation in vitro or for efficacy in vivo and that it does not claim to have produced an antivenom. A competition experiment places the Cn2 binders on or near the epitope of antibody LR, which has been reported to neutralise Cn2 in mice; that is suggestive and is not a neutralisation result. Binding was shown against recombinant toxins rather than venom-purified ones. All multi-toxin designs failed, and the post offers its own prompting, the limits of the available tools and the biological feasibility of multi-toxin design as candidate explanations. Autonomy is graded search-scaffold on the strictest defensible reading: the humans' prompt fixed the targets, the tool set and the rules for novelty, scoring and filtering, which is the human-designed loop that grade describes, even though the model chose hotspots, thresholds and which designs to synthesise. A reading that weighted those choices would reach ai-assisted, and the post's own framing, that the model worked from a prompt and four follow-ups under supervision and then analysed the data and drafted the report, is why the weaker grade was taken. No model name or version is given and no Anthropic authors are named on the post, so the only named people are the two outside reviewers, who are not collaborators and are therefore not listed here. The technical report PDF exceeded the fetch size limit and was not read for this entry, so every count and criterion above comes from the post and the released dataset.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. The evidence is binding and nothing else: surface plasmon resonance against recombinant toxins, run at two contract research organisations commissioned by Anthropic, Adaptyv Bio by cell-free expression and Twist Bioscience in mammalian cells as Fc fusions, so the two-laboratory requirement is a paid second vendor rather than an independent check, and LqhIII was assessed at Adaptyv Bio only. The post states that no design was tested for neutralisation in vitro or for efficacy in vivo and that it does not claim to have produced an antivenom. A competition experiment places the Cn2 binders on or near the epitope of antibody LR, which has been reported to neutralise Cn2 in mice; that is suggestive and is not a neutralisation result. Binding was shown against recombinant toxins rather than venom-purified ones. All multi-toxin designs failed, and the post offers its own prompting, the limits of the available tools and the biological feasibility of multi-toxin design as candidate explanations. Autonomy is graded search-scaffold on the strictest defensible reading: the humans' prompt fixed the targets, the tool set and the rules for novelty, scoring and filtering, which is the human-designed loop that grade describes, even though the model chose hotspots, thresholds and which designs to synthesise. A reading that weighted those choices would reach ai-assisted, and the post's own framing, that the model worked from a prompt and four follow-ups under supervision and then analysed the data and drafted the report, is why the weaker grade was taken. No model name or version is given and no Anthropic authors are named on the post, so the only named people are the two outside reviewers, who are not collaborators and are therefore not listed here. The technical report PDF exceeded the fetch size limit and was not read for this entry, so every count and criterion above comes from the post and the released dataset. Discussion of the announcement pressed the same point this grade records. One commenter quotes the technical report saying the prompt specified the targets, the design sets and their sizes, the rules for each design, the tools, the scores and ranking formulas and the novelty and diversity rules, and argues that crediting the designs to the model rather than to the people who specified the workflow is misleading; another reports running a similar pipeline over the same class of open tools on a single consumer graphics card. Neither disputes the binding results, and both support search-scaffold over a stronger grade.",
     "sources": [
       {
         "label": "Anthropic: How Claude designed protein binders against scorpion neurotoxins",
@@ -11148,7 +11160,13 @@
       "scorpion-toxins",
       "construction"
     ],
-    "added": "2026-10-22"
+    "added": "2026-10-22",
+    "discussion": [
+      {
+        "label": "Hacker News: Claude designed protein binders against scorpion neurotoxins",
+        "url": "https://news.ycombinator.com/item?id=50170021"
+      }
+    ]
   },
   {
     "id": "2026-10-12-ai-retinopathy-screening-tanzania-rct",
@@ -11270,5 +11288,134 @@
       "preprint"
     ],
     "added": "2026-10-22"
+  },
+  {
+    "id": "2026-10-20-trilinear-hilbert-transform-lean",
+    "title": "Lean formalization of the L³ bound for the trilinear Hilbert transform",
+    "claim": "An independent mathematician machine-checked one of the 372 claimed results in OpenAI's October 2026 mathematics release, the \\(L^3\\) boundedness of the trilinear Hilbert transform with slopes 1, 2 and 3, writing the theorem statement by hand and having coding agents generate roughly 194,000 lines of Lean proof from a blueprint another model wrote.",
+    "field": "mathematics",
+    "date": "2026-10-20",
+    "lab": "Independent",
+    "model": "GPT-6 Astra Pro for the blueprint, with GPT-6 Astra Light and Claude Opus 5.5 autoformalizing the proof",
+    "humans": [
+      "Joris Roos"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "OpenAI's release carried an \\(L^3\\) bound for the trilinear Hilbert transform with fixed slopes 1, 2 and 3 as family 086, published on 2026-10-05 with no formalization attached. Joris Roos stated the theorem and the operator by hand in Lean 4 against Mathlib, as an a priori estimate on Schwartz functions, then had coding agents prove it from a blueprint that GPT-6 Astra Pro generated from the OpenAI manuscript and from a shorter version of the argument the same model produced. The proof runs to about 194,000 lines over 61 files, built between 8 and 16 October, first by Codex with GPT-6 Astra Light and then by Claude Opus 5.5; machine-generated code is confined to an Auto namespace and directory, and the README is human-written. The author records that Claude at medium reasoning effort stalled without disclosing it, building redundant wrappers and revisiting the same parts of the blueprint, which human monitoring of an agent-maintained status file caught and a large refactor at higher effort repaired. The Comparator challenge file states the theorem with its proof omitted and a solution module supplies it, permitting only propext, Quot.sound and Classical.choice.",
+    "novelty_check": "Searched arXiv on 2026-10-26: ti:\"trilinear Hilbert\" returns three papers and all:\"trilinear Hilbert transform\" five, none of them a positive \\(L^3\\) bound for the straight trilinear Hilbert transform at slopes 1, 2 and 3. The nearest published results point the other way or sit beside it: Demeter proved in 2007 that the operator is unbounded in a range of \\(L^p\\) spaces with \\(p\\) near 1 (arXiv 0712.2494), and Hu and Lie bound curved variants under a non-resonance assumption of pairwise distinct exponents (arXiv 2308.10706 and 2511.07373), which excludes the equal-slope straight case at issue. The mathematical claim here is OpenAI's rather than this author's; what is new is a machine-checked proof of it. The registry already carries two Lean formalizations from the same group, 2026-08-27-norm-variation-ergodic-averages-lean and 2026-10-18-two-commuting-ergodic-averages, both registered at Palomar from repositories under roos-j, and no entry covers the trilinear Hilbert transform.",
+    "caveats": "What was proved is what the Lean statement says, an a priori bound on Schwartz functions. That is common practice in the field and it is narrower than a bound on all of \\(L^3\\), so whether it is what the literature means by the trilinear Hilbert transform conjecture at these slopes stays a separate reading. Graded formal on the Palomar registration, which certifies that the proof typechecks against the recorded statement under the three permitted axioms; a scan of all 61 Lean files at the registered commit found no axiom declarations and no sorry outside the Comparator challenge file, where one is there by construction. Two limits on that evidence: the repository's own Lean build workflow has no run recorded against the registered commit, whose later green builds differ from it only in the README, and its Palomar comparator workflow shows no run at all in the repository's Actions history, so the registration is the record here rather than a rerun a reader can point to. The proof has not been read by a human. The author says so, says the agent-written log of discrepancies between blueprint and formalization has not been human-reviewed, and notes that those logs were written by weaker models than the one credited with the original manuscript. A formalization that follows a blueprint derived from OpenAI's argument is evidence that the argument goes through as written, not an independent route to the result. Autonomy is ai-led: the human posed the problem, wrote the statement and definitions, monitored the run and ordered the refactor, while the proof itself was machine-generated throughout.",
+    "sources": [
+      {
+        "label": "roos-j/lean-trilinearht at the registered commit",
+        "url": "https://github.com/roos-j/lean-trilinearht/tree/0fac9f4ed4aa3391931897a681ce547981fb5f46",
+        "kind": "research"
+      },
+      {
+        "label": "Main theorem statement, human-written (TrilinearHT/Theorems.lean)",
+        "url": "https://github.com/roos-j/lean-trilinearht/blob/0fac9f4ed4aa3391931897a681ce547981fb5f46/TrilinearHT/Theorems.lean",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: An L³ bound for the trilinear Hilbert transform (PDF)",
+        "url": "https://github.com/openai/math/blob/fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb/preprints/An-L3-bound-for-the-trilinear-Hilbert-transform-October-5-2026/paper.pdf",
+        "kind": "research"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-20-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-20-000001",
+        "title": "Formalization of L^3 boundedness of the trilinear Hilbert transform",
+        "repository": "roos-j/lean-trilinearht",
+        "commit": "0fac9f4ed4aa3391931897a681ce547981fb5f46",
+        "theorems": [
+          "TrilinearHT.trilinear_ht_bound"
+        ],
+        "checked": "2026-10-20",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice. Palomar records trust level high and archives a fork of the repository."
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "singular-integrals",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-26"
+  },
+  {
+    "id": "2026-10-21-php2shell-rce",
+    "title": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
+    "claim": "Two security teams working independently, each using frontier language models to review PHP's source, found two unauthenticated remote code execution flaws in the runtime behind a large share of the web; both were rated 9.2 critical, and PHP shipped patches on 2026-10-21 under coordinated disclosure.",
+    "field": "computer-science",
+    "date": "2026-10-21",
+    "lab": "Calif / Wiz Research / OpenAI",
+    "model": "Gemini 4 Argon and GPT-5.6 Sol, with the Wiz Atlas tool; which model did what differs by source, see caveats",
+    "humans": [
+      "Ryan Austin",
+      "Michal Zalewski",
+      "Sagi Tzadik",
+      "Shir Tamari",
+      "Nir Ohfeld",
+      "Tomer Schwartz"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The two flaws are separate root causes in PHP's request lifecycle. CVE-2026-109618, which PHP titles \"RCE via OOM corruption\", turns on PHP using longjmp() to abandon a request on an out-of-memory error: some contexts leave request memory uninitialized before an allocation, the cleanup that follows reads or branches on it, and the advisory states that multiple out-of-memory strategies trigger this consistently enough to reach remote code execution. CVE-2026-109619, \"RCE via stale global state\", covers global state that temporarily points into request memory and is then either not reset or repopulated after being reset, so a later request reads or branches on a pointer into memory that has been freed. Both carry a CVSS 4.0 base score of 9.2, neither needs authentication, and both were patched on 2026-10-21 in PHP 8.2.35, 8.3.36, 8.4.27 and 8.5.12. The two teams arrived separately: Calif dates its discovery to 1 August 2026, reported the first flaw to PHP on 11 August and shared a working proof of concept that PHP confirmed on 15 August, while Wiz discovered its first on 19 August and reported on 24 August, with public disclosure held until the patched releases were out.",
+    "novelty_check": "Both records were read from the NVD API on 2026-10-26 (CVE-2026-109618 and CVE-2026-109619, source security@php.net, published 2026-10-21), together with PHP's own advisories GHSA-w8hw-w9fx-j79w and GHSA-6wmf-4rv5-p3rp. The bug class is not new and this entry does not claim it is: Calif's write-up traces the territory to Stefan Esser's 2004 memory-limit remote code execution, to php-src bug #78876 in 2020, and to a 2024 OSTIF and Quarkslab audit that found a related out-of-memory issue without establishing that it was exploitable. What is new is a set of concrete exploitable paths in that long-suspected area, reached with model assistance. No prior registry entry covers a software vulnerability; the nearest neighbour is 2026-10-16-nist-curve-seeds-lrand48, also an AI-driven finding about widely deployed cryptographic infrastructure rather than a theorem.",
+    "caveats": "Graded claimed because the vulnerabilities are solid while the AI's role is not independently established. The flaws themselves are not in question: PHP assigned both CVEs, each advisory credits four reporters, and patched releases shipped. What the AI did is where the sources diverge, and that divergence is the reason to read this entry rather than the coverage. Neither PHP advisory mentions AI anywhere; both credit four human reporters, lcfr-hax, sagitzadik-wiz, tomash-areion and amyb-oai, plus four remediation developers. Wiz's write-up says \"We used Wiz Atlas, Gemini 4 Argon and GPT-5.6 Sol throughout this research\" and singles out Google DeepMind's model rather than OpenAI's for the find: \"Notably, Gemini 4 Argon made an invaluable contribution to finding the vulnerability\". Calif's own write-up names no model or version at all, referring only to an \"LLM companion\" and to \"our agent\" noticing an ordering and tracing a code path. OpenAI's announcement states that \"Calif identified a critical flaw using GPT-5.6 Sol as part of our Patch the Planet initiative\", an attribution Calif's own post does not make, so press coverage crediting GPT-5.6 Sol with finding the flaws is following OpenAI rather than either finder. Autonomy is ai-assisted on the strictest defensible reading: humans scoped and ran the audits, built the exploits and handled reporting, while the models reviewed source, flagged an ordering, traced paths and generalized a pattern. No reproducible artifact of the AI's contribution exists, with no transcripts, no technical report, and deliberately no public proof of concept from either team, though OpenAI's framework describes sharing working proof-of-concept exploits privately with selected defenders ahead of disclosure. The finders also characterise the bugs differently from PHP: Wiz describes an upload-progress unserializer use-after-free with memory disclosure and a fatal-error backtrace use-after-free with OPcache type confusion, which read as the chains built on the root causes PHP's advisories state, so a reader should take PHP's wording as the authority on what was fixed. Dual use here is stated by the sources rather than inferred: OpenAI writes that this \"highlights how AI can uncover security flaws with internet-scale impact, but the same capabilities can also help attackers rapidly develop offensive tools and exploits\", and Wiz writes that \"Frontier AI models substantially reduced that barrier, turning a longstanding flaw into an exploit\". Wiz's headline claim that the flaws affect 70% of the internet is a vendor figure and is not checked here.",
+    "sources": [
+      {
+        "label": "PHP advisory GHSA-w8hw-w9fx-j79w: RCE via OOM corruption (CVE-2026-109618)",
+        "url": "https://github.com/php/php-src/security/advisories/GHSA-w8hw-w9fx-j79w",
+        "kind": "research"
+      },
+      {
+        "label": "PHP advisory GHSA-6wmf-4rv5-p3rp: RCE via stale global state (CVE-2026-109619)",
+        "url": "https://github.com/php/php-src/security/advisories/GHSA-6wmf-4rv5-p3rp",
+        "kind": "research"
+      },
+      {
+        "label": "NVD record for CVE-2026-109618",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109618",
+        "kind": "research"
+      },
+      {
+        "label": "NVD record for CVE-2026-109619",
+        "url": "https://nvd.nist.gov/vuln/detail/CVE-2026-109619",
+        "kind": "research"
+      },
+      {
+        "label": "Wiz Research: PHP2Shell, the finders' write-up naming the models used",
+        "url": "https://www.wiz.io/blog/php2shell-php-rce",
+        "kind": "announcement"
+      },
+      {
+        "label": "Calif: PHP2Shell, a tale of two PHP remote vulnerabilities",
+        "url": "https://calif.io/php2shell/",
+        "kind": "announcement"
+      },
+      {
+        "label": "OpenAI: Coordinated disclosure of critical vulnerabilities",
+        "url": "https://openai.com/index/coordinated-disclosure-of-critical-vulnerabilities/",
+        "kind": "announcement"
+      },
+      {
+        "label": "The PHP Foundation: today's security release and strengthening PHP security",
+        "url": "https://thephp.foundation/blog/2026/10/21/todays-php-security-release-and-how-were-strengthening-php-security/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "security",
+      "memory-safety",
+      "vulnerability-discovery",
+      "coordinated-disclosure",
+      "php"
+    ],
+    "added": "2026-10-26"
   }
 ]

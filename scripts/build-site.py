@@ -723,7 +723,11 @@ def person(p):
                   f'target="_blank" rel="noopener" '
                   f'title="ORCID {esc(orcid)}, self-reported">iD</a>')
     note = f' <span class="credit-note">{esc(p["note"])}</span>' if p.get("note") else ""
-    return f'<li>{name}{marks}{note}</li>'
+    # Inline content only, no list item. Two callers want this: credit_block() puts it in a
+    # <ul> and wraps each in <li> itself, and the contributor roll puts it in a <p>. An <li>
+    # returned from here landed inside that <p>, which is invalid and renders a stray list
+    # marker hanging outside the card's padding.
+    return f'{name}{marks}{note}'
 
 
 def credit_block(e):
@@ -738,8 +742,9 @@ def credit_block(e):
     for field, label in (("contributors", "Contributed by"), ("reviewers", "Reviewed by")):
         people = e.get(field) or []
         if people:
+            items = "".join(f'<li>{person(p)}</li>' for p in people)
             rows += (f'<div class="credit-row"><b>{label}</b>'
-                     f'<ul>{"".join(person(p) for p in people)}</ul></div>')
+                     f'<ul>{items}</ul></div>')
     if not rows:
         return ""
     return (f'<h2 class="lbl">Credit</h2><div class="credit">{rows}</div>')
@@ -2491,6 +2496,8 @@ LAB_HUB = {
     "University of California, San Francisco": "https://www.ucsf.edu/news",
     "London School of Hygiene and Tropical Medicine": "https://www.lshtm.ac.uk/research",
     "University of Pennsylvania": "https://www.pennmedicine.org/news",
+    "Calif": "https://calif.io/research/",
+    "Wiz Research": "https://www.wiz.io/blog/tag/research",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
