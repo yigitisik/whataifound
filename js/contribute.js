@@ -211,7 +211,12 @@ const GRADES = {
   "2026-10-19-erdos-408-iterated-totient":["formal","ai-assisted"],
   "2026-10-20-claude-scorpion-toxin-binders":["claimed","search-scaffold"],
   "2026-10-20-trilinear-hilbert-transform-lean":["formal","ai-led"],
-  "2026-10-21-php2shell-rce":["claimed","ai-assisted"]
+  "2026-10-21-php2shell-rce":["claimed","ai-assisted"],
+  "2026-10-26-eth-refuted-claude":["formal","ai-led"],
+  "2026-10-26-eth-refuted-openai":["claimed","ai-led"],
+  "2026-10-27-bighat-antibody-fragment-optimisation":["claimed","ai-assisted"],
+  "2026-10-27-car-intracellular-domain-refactor":["claimed","ai-assisted"],
+  "2026-10-27-ige-dislodging-antibody-designs":["claimed","search-scaffold"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -409,7 +414,12 @@ const ID_BY_TITLE = {
   "erd\u0151s problem 408: an unconditional normal order for the number of totient iterations":"2026-10-19-erdos-408-iterated-totient",
   "claude-designed protein binders against five scorpion neurotoxins":"2026-10-20-claude-scorpion-toxin-binders",
   "lean formalization of the l\u00b3 bound for the trilinear hilbert transform":"2026-10-20-trilinear-hilbert-transform-lean",
-  "php2shell: two critical php remote code execution flaws found with ai assistance":"2026-10-21-php2shell-rce"
+  "php2shell: two critical php remote code execution flaws found with ai assistance":"2026-10-21-php2shell-rce",
+  "a subexponential algorithm for counting 3-sat solutions, refuting the exponential time hypothesis":"2026-10-26-eth-refuted-claude",
+  "a subexponential counting algorithm for fixed-width cnf, refuting the exponential time hypothesis":"2026-10-26-eth-refuted-openai",
+  "antibody fragment leads optimised with claude on affinity, stability and aggregation":"2026-10-27-bighat-antibody-fragment-optimisation",
+  "a shortened car intracellular domain designed with claude code":"2026-10-27-car-intracellular-domain-refactor",
+  "claude-generated antibody designs that dislodge receptor-bound ige":"2026-10-27-ige-dislodging-antibody-designs"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -607,7 +617,12 @@ const TITLE_BY_ID = {
   "2026-10-19-erdos-408-iterated-totient":"Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations",
   "2026-10-20-claude-scorpion-toxin-binders":"Claude-designed protein binders against five scorpion neurotoxins",
   "2026-10-20-trilinear-hilbert-transform-lean":"Lean formalization of the L\u00b3 bound for the trilinear Hilbert transform",
-  "2026-10-21-php2shell-rce":"PHP2Shell: two critical PHP remote code execution flaws found with AI assistance"
+  "2026-10-21-php2shell-rce":"PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
+  "2026-10-26-eth-refuted-claude":"A subexponential algorithm for counting 3-SAT solutions, refuting the Exponential Time Hypothesis",
+  "2026-10-26-eth-refuted-openai":"A subexponential counting algorithm for fixed-width CNF, refuting the Exponential Time Hypothesis",
+  "2026-10-27-bighat-antibody-fragment-optimisation":"Antibody fragment leads optimised with Claude on affinity, stability and aggregation",
+  "2026-10-27-car-intracellular-domain-refactor":"A shortened CAR intracellular domain designed with Claude Code",
+  "2026-10-27-ige-dislodging-antibody-designs":"Claude-generated antibody designs that dislodge receptor-bound IgE"
 };
 /*VOCAB:END*/
 
