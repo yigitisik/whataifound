@@ -14,6 +14,13 @@ scripts/*
 # and be on disk when Vercel looks for it.
 !scripts/vercel-ignore-build.sh
 
+# The stylesheet's commented source. Pages link styles.css, which build-css.py writes
+# from it and which changes in the same commit, so the deploy still sees every edit.
+styles.src.css
+
+# The same for the scripts: pages link js/<name>.js, which build-js.mjs writes from these.
+js/*.src.js
+
 # CI runs on GitHub, not Vercel.
 .github/
 

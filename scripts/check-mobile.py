@@ -26,7 +26,7 @@ import re
 import sys
 
 ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-CSS = os.path.join(ROOT, "styles.css")
+CSS = os.path.join(ROOT, "styles.src.css")
 
 # Apple HIG asks 44x44pt, Material 48x48dp. 44 is the floor enforced here.
 MIN_TARGET = 44
@@ -94,7 +94,7 @@ def check_hover(css, problems):
             continue
         sel = " ".join(m.group(1).split())[:70]
         problems.append(
-            f"styles.css:{line_of(css, m.start())}: '{sel}' moves or elevates on hover "
+            f"styles.src.css:{line_of(css, m.start())}: '{sel}' moves or elevates on hover "
             f"outside @media(hover:hover). On a touch screen the state sticks after a tap")
 
 
@@ -108,7 +108,7 @@ def check_tap_targets(css, problems):
     flagged `.theme-seg .th svg`, which is a 15px icon inside a control, as a 15px control.
 
     So the controls are named, with what each one needs. Adding a control means adding a
-    line, which is the same contract `data/vocab.json` already has with `styles.css`: the
+    line, which is the same contract `data/vocab.json` already has with `styles.src.css`: the
     build tells you what is missing rather than letting it ship.
 
     Two ways to satisfy a row:
@@ -117,7 +117,7 @@ def check_tap_targets(css, problems):
     """
     coarse = blocks(css, r"@media\s*\(\s*pointer\s*:\s*coarse\s*\)")
     if not coarse:
-        problems.append("styles.css: no @media(pointer:coarse) block; touch sizing is unset")
+        problems.append("styles.src.css: no @media(pointer:coarse) block; touch sizing is unset")
         return
     coarse_text = "".join(css[a:b] for a, b in coarse)
 
@@ -155,18 +155,18 @@ def check_tap_targets(css, problems):
         if how == "expand":
             if not re.search(rf"{pat}\s*::after", coarse_text):
                 problems.append(
-                    f"styles.css: '{sel}' has no ::after hit-area expander in the "
+                    f"styles.src.css: '{sel}' has no ::after hit-area expander in the "
                     f"@media(pointer:coarse) block ({why})")
             continue
         # grow: find the rule and read the dimension it sets
         rule = re.search(rf"(?:^|[,{{}}\s]){pat}\s*\{{([^{{}}]*)\}}", coarse_text)
         if not rule:
             problems.append(
-                f"styles.css: '{sel}' is not sized in the @media(pointer:coarse) block ({why})")
+                f"styles.src.css: '{sel}' is not sized in the @media(pointer:coarse) block ({why})")
             continue
         if dim is None:
             if not re.search(r"padding\s*:", rule.group(1)):
-                problems.append(f"styles.css: '{sel}' has no padding at coarse pointer ({why})")
+                problems.append(f"styles.src.css: '{sel}' has no padding at coarse pointer ({why})")
             continue
         # min-height counts as much as height: a text control that grows with its content
         # is sized correctly by a floor, and demanding a fixed height would force a wrong
@@ -175,10 +175,10 @@ def check_tap_targets(css, problems):
         v = (re.search(rf"(?<![-a-z]){dim}\s*:\s*(\d+)px", rule.group(1))
              or re.search(rf"(?<![-a-z])min-{dim}\s*:\s*(\d+)px", rule.group(1)))
         if not v:
-            problems.append(f"styles.css: '{sel}' sets no {dim} at coarse pointer ({why})")
+            problems.append(f"styles.src.css: '{sel}' sets no {dim} at coarse pointer ({why})")
         elif int(v.group(1)) < MIN_TARGET:
             problems.append(
-                f"styles.css: '{sel}' is {v.group(1)}px {dim} at coarse pointer, "
+                f"styles.src.css: '{sel}' is {v.group(1)}px {dim} at coarse pointer, "
                 f"under the {MIN_TARGET}px minimum ({why})")
 
 
@@ -203,7 +203,7 @@ def check_safe_area(css, problems):
             continue
         sel = " ".join(m.group(1).split())[:50]
         problems.append(
-            f"styles.css:{line_of(css, m.start())}: '{sel}' is fixed at bottom:{val.strip()} "
+            f"styles.src.css:{line_of(css, m.start())}: '{sel}' is fixed at bottom:{val.strip()} "
             f"without env(safe-area-inset-bottom); it can land under the home indicator")
 
 
@@ -222,7 +222,7 @@ def check_overflow(css, problems):
         if re.search(r"overflow-x\s*:\s*(auto|scroll)", css):
             continue
         problems.append(
-            f"styles.css:{line_of(css, m.start())}: '{base}' is min-width:{w.group(1)}px "
+            f"styles.src.css:{line_of(css, m.start())}: '{base}' is min-width:{w.group(1)}px "
             f"with no horizontal scroll container; it will overflow a {NARROW}px screen")
 
 
@@ -241,7 +241,7 @@ def check_viewport(problems):
         content = m.group(1)
         if "viewport-fit=cover" not in content:
             problems.append(f"{name}: viewport meta lacks viewport-fit=cover, so the "
-                            f"safe-area insets used in styles.css resolve to zero")
+                            f"safe-area insets used in styles.src.css resolve to zero")
         # Pinch-zoom is an accessibility feature, not a polish problem.
         for bad in ("user-scalable=no", "user-scalable=0", "maximum-scale=1"):
             if bad in content.replace(" ", ""):

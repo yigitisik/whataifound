@@ -18,7 +18,7 @@ for something the pre-render is not, and must render before it is seen.
 
 ## Why `card()` exists twice
 
-`card()` lives in both `js/app.js` and `scripts/build-site.py`. They must stay in step, or the
+`card()` lives in both `js/app.src.js` and `scripts/build-site.py`. They must stay in step, or the
 markup visibly changes the first time a visitor filters. `scripts/verify-parity.py` is what
 enforces that: it runs the real `app.js` functions under Node and diffs each against the
 pre-rendered markup, byte for byte.
@@ -142,7 +142,7 @@ layout. `NL` in `build-site.py` carries this note; `.updated` and the interior o
 prose `<p>` are left on one line for exactly this reason, and each says so where it is
 written.
 
-Verified against `styles.css`: `.eyebrow` flex, `.brand` inline-flex, `.pagenav`
+Verified against `styles.src.css`: `.eyebrow` flex, `.brand` inline-flex, `.pagenav`
 inline-flex, `.eyebrow-right` flex, `.doors` inline-flex, `.theme-seg` inline-flex,
 `.about-grid` grid, `.about-links` flex, `footer`, `.about-col` and `.about-fine`
 block. `.updated` has no display of its own, so its children are inline: do not break it.

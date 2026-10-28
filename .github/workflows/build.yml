@@ -47,6 +47,12 @@ jobs:
       - name: Check committed files for smuggled markup
         run: python3 scripts/check-integrity.py
 
+      # Before the rebuild: build-js.mjs minifies js/*.src.js with terser from
+      # devDependencies, and without it the rebuild would reuse the committed js/*.js and
+      # the drift check below could not see a source change that was never rebuilt.
+      - name: Install build tools
+        run: npm ci
+
       - name: Rebuild from data/entries.json
         run: python3 scripts/build.py
 
@@ -55,9 +61,7 @@ jobs:
       # build cannot verify by rebuilding, so they carry unit tests. Runs after the
       # rebuild because registry.test.js reads the generated api/_lib/registry.js.
       - name: Test the Vercel functions
-        run: |
-          npm ci
-          npm test
+        run: npm test
 
       - name: Fail if the committed site is out of date
         run: |

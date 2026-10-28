@@ -18,6 +18,10 @@ sitemap.xml                linguist-generated=true
 llms.txt                   linguist-generated=true
 entry.schema.json          linguist-generated=true
 openapi.json               linguist-generated=true
+styles.css                 linguist-generated=true
+js/*.js                    linguist-generated=true
+# The sources sit beside them and match the line above; they are written by hand.
+js/*.src.js                linguist-generated=false
 
 # Deliberately absent from the list above:
 #

@@ -72,7 +72,7 @@ accounts and UI contributions stay off git's critical path: [docs/ARCHITECTURE.m
 ### Generated files: never hand-edit
 
 `finding/`, `topic/`, `lab/`, `llms.txt`, `sitemap.xml`, `feed.xml`, `feed.json`,
-`entry.schema.json`, `openapi.json`, `data/math.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
+`entry.schema.json`, `openapi.json`, `styles.css`, `js/*.js` (but not `js/*.src.js`), `data/math.json`, `api/_lib/registry.js`, `api/_lib/shell.js`, and anything between
 `<!--…:START-->` / `<!--…:END-->` markers in `index.html`, `review.html`, `contributors.html`,
 `methodology.html`, `visuals.html`, `contribute.html`, `developers.html`, `contact.html` or the
 GitHub issue templates. That includes
@@ -86,8 +86,10 @@ whataifound/
 ├── index.html              # registry: SEO head, JSON-LD, pre-rendered hero, reports, entries
 ├── *.html                  # methodology · review · contributors · visuals · account
 │                           # contribute · admin · privacy · 404 (self-contained)
-├── styles.css              # all styles
-├── js/                     # every browser script; nothing bundled or minified
+├── styles.src.css          # all styles; edit this one
+├── styles.css              # GENERATED from styles.src.css (minified); what every page links
+├── js/                     # browser scripts, nothing bundled: edit <name>.src.js;
+│                           # <name>.js beside it is GENERATED (minified) and what pages link
 ├── api/                    # Vercel functions. Server-side only, never sent to a browser
 │   ├── _lib/               #   session, handles, db, http, roles, github, proposal rules
 │   │                       #   registry.js and shell.js in here are GENERATED
