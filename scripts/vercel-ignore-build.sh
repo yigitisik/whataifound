@@ -39,7 +39,7 @@ CHANGED=$(git diff --name-only HEAD^ HEAD -- . \
   ':(exclude)*.md' ':(exclude)**/*.md' \
   ':(exclude)LICENSE' ':(exclude)CITATION.cff' \
   ':(exclude).gitignore' ':(exclude).gitattributes' \
-  ':(exclude)favicon.ico' ':(exclude)apple-touch-icon.png' \
+  ':(exclude)styles.src.css' ':(exclude)favicon.ico' ':(exclude)apple-touch-icon.png' \
   '.vercelignore' 'scripts/vercel-ignore-build.sh')
 
 if [ -z "$CHANGED" ]; then

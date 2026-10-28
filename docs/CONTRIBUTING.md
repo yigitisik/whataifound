@@ -152,7 +152,7 @@ together is in [ARCHITECTURE.md](ARCHITECTURE.md). Constraints:
   `localStorage`. A change that needs a new origin is a change to the site's security posture.
 - WCAG 2.1 AA: keep focus rings, heading order, chart labels, `prefers-reduced-motion`.
 - Works in both light and dark themes. A new colour needs adding to all three colour blocks of
-  [styles.css](../styles.css).
+  [styles.src.css](../styles.src.css).
 - Layout holds at 320, 560, 640, 720, 860 and 1180px. The sticky filter bar is the tight one: it
   holds six controls in 1056px with no slack, so anything added has to take room from something
   else.
@@ -194,7 +194,7 @@ a link, and nothing scores or ranks an entry by it. Each kind carries a `label` 
 and a `chip` (the short form for the narrow card row); the build fails if either is missing.
 
 Adding or removing a value in any vocabulary is a code change: it also needs a colour rule in
-[styles.css](../styles.css) and the build fails until it has one (`.v-`, `.a-`, `.k-`, `.r-`).
+[styles.src.css](../styles.src.css) and the build fails until it has one (`.v-`, `.a-`, `.k-`, `.r-`).
 The families are rendered with one palette at three weights: a filled pill for verification, a
 tinted pill for autonomy, a coloured dot for source kinds.
 

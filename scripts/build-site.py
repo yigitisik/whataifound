@@ -451,7 +451,7 @@ def page_nav(current):
 # elements a newline renders as a space and moves the layout. The interior of any <p> is
 # where this bites, and those are left whole on purpose.
 #
-# Checked against styles.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
+# Checked against styles.src.css: .eyebrow flex, .brand inline-flex, .pagenav inline-flex,
 # .eyebrow-right flex, .doors inline-flex, .theme-seg inline-flex, .about-grid grid,
 # .about-links flex, footer, .about-col and .about-fine block.
 NL = "\n"
@@ -1657,7 +1657,7 @@ def entry_page(e, entries, updated):
     # The strip is four cells wide and the four required fields fill it exactly. Human
     # collaborators and a posed year are optional, so the row can also be five or six, and
     # an auto-fitting grid left the leftovers sitting beside two or three empty cells.
-    # styles.css widens the last row to close that, and needs the count to do it.
+    # styles.src.css widens the last row to close that, and needs the count to do it.
     facts_cls = f"finding-facts n{len(shown)}"
 
     def section(title, body):
@@ -3014,7 +3014,7 @@ def hub_page(title, lede, entries, url, back):
     for e in entries:
         gm[e["verification"]] = gm.get(e["verification"], 0) + 1
     # VER is in display order, strongest first. The colour variable matches the pill's,
-    # with the one abbreviation styles.css uses for it.
+    # with the one abbreviation styles.src.css uses for it.
     rows = [(v["label"], gm[v["slug"]],
              f"var(--{'peer' if v['slug'] == 'peer-reviewed' else v['slug']})")
             for v in VER if gm.get(v["slug"])]
@@ -3791,7 +3791,7 @@ def validate_vocab():
     """Check data/vocab.json is complete and that every grade can actually render.
 
     Adding a grade is a code change, not an entry change: a verification slug also
-    needs a .v-<slug> pill colour in styles.css. Without one the pill renders unstyled
+    needs a .v-<slug> pill colour in styles.src.css. Without one the pill renders unstyled
     and the omission is invisible until someone looks at that grade on the page, so it
     is caught here instead.
     """
@@ -3879,7 +3879,7 @@ def validate_vocab():
     # Every value in every vocabulary needs a colour rule, or it renders as an unstyled pill or
     # a colourless dot -- invisible until someone happens to look at that value on the page.
     # Autonomy went years rendering one flat accent for all six because nothing checked it.
-    css_path = os.path.join(ROOT, "styles.css")
+    css_path = os.path.join(ROOT, "styles.src.css")
     if os.path.exists(css_path):
         css = open(css_path).read()
         for axis, items, prefix, what in (
@@ -3891,7 +3891,7 @@ def validate_vocab():
                 if f".{prefix}-{item['slug']}" not in css:
                     problems.append(
                         f"vocab.json: {axis} '{item['slug']}' has no .{prefix}-{item['slug']} rule "
-                        f"in styles.css, so its {what} would render unstyled")
+                        f"in styles.src.css, so its {what} would render unstyled")
 
     if problems:
         print(f"data/vocab.json has {len(problems)} problem(s):", file=sys.stderr)

@@ -18,6 +18,7 @@ sitemap.xml                linguist-generated=true
 llms.txt                   linguist-generated=true
 entry.schema.json          linguist-generated=true
 openapi.json               linguist-generated=true
+styles.css                 linguist-generated=true
 
 # Deliberately absent from the list above:
 #

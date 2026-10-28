@@ -5,7 +5,7 @@
     "build-site.py's, the methodology page, llms.txt, and the ClaimReview ratings.",
     "Edit a label or definition here and run scripts/build.py; nothing else needs touching.",
     "Adding or removing a grade is a code change, not an entry change: it also needs a",
-    "v-<slug> pill colour in styles.css, which the build will tell you about.",
+    "v-<slug> pill colour in styles.src.css, which the build will tell you about.",
     "Array order is display order (strongest to weakest / most to least AI-driven).",
     "",
     "source_kinds is not a third grade. It classifies a *link*, not a result: nothing",
@@ -25,7 +25,7 @@
     "cite one of these by slug. Nothing ranks an entry by which registries it appears in,",
     "and an absent registration is not a mark against a finding: many fields have no such",
     "registry at all. Modelled on `fields` rather than on the graded arrays above, so a new",
-    "registry needs no pill colour in styles.css. Its `role` picks the heading it renders",
+    "registry needs no pill colour in styles.src.css. Its `role` picks the heading it renders",
     "under, and a new role needs a line in REG_ROLE_HEADING and REG_ROLE_SHORT in",
     "build-site.py."
   ],

@@ -142,7 +142,7 @@ layout. `NL` in `build-site.py` carries this note; `.updated` and the interior o
 prose `<p>` are left on one line for exactly this reason, and each says so where it is
 written.
 
-Verified against `styles.css`: `.eyebrow` flex, `.brand` inline-flex, `.pagenav`
+Verified against `styles.src.css`: `.eyebrow` flex, `.brand` inline-flex, `.pagenav`
 inline-flex, `.eyebrow-right` flex, `.doors` inline-flex, `.theme-seg` inline-flex,
 `.about-grid` grid, `.about-links` flex, `footer`, `.about-col` and `.about-fine`
 block. `.updated` has no display of its own, so its children are inline: do not break it.

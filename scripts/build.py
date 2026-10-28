@@ -9,6 +9,7 @@ No HTML is ever edited by hand. This runs, in order:
     build-math.mjs      typesets every \\(formula\\) in the entries into data/math.json
     build-site.py       validates the data, pre-renders index.html, writes finding/,
                         llms.txt and sitemap.xml
+    build-css.py        minifies styles.src.css into styles.css, the copy pages link
     build-feed.py       regenerates feed.xml and feed.json
     verify-parity.py    asserts the pre-rendered cards still match app.js's card()
     verify-doors.py     asserts the GitHub issue templates and /contribute ask the
@@ -34,6 +35,9 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 STEPS = [
     ("build-site.py", "pre-render site", True),
+    # styles.src.css is the commented source that the checks below read by line number;
+    # pages link styles.css, the minified copy regenerated here so it cannot go stale.
+    ("build-css.py", "minify stylesheet", True),
     ("build-feed.py", "generate feeds", True),
     # Regenerated every build so the editor schema cannot fall behind data/vocab.json.
     ("build-schema.py", "regenerate entry schema", True),

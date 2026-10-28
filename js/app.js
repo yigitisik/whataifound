@@ -106,7 +106,7 @@ const LAB_MARK = {
 };
 function labMark(lab){
   const src = LAB_LOGO[lab];
-  // 19x19: the chip is a fixed 27px box with 4px of padding on each side (styles.css).
+  // 19x19: the chip is a fixed 27px box with 4px of padding on each side (styles.src.css).
   // CSS already reserves the space, so this is for the crawlers and auditors that read
   // the attributes rather than the stylesheet. Mirrored in build-site.py's lab_mark().
   if (src) return `<span class="labchip img" aria-hidden="true"><img src="${esc(src)}" alt="" width="19" height="19" loading="lazy" decoding="async"></span>`;
@@ -1816,7 +1816,7 @@ function exportCsv(){
 // removed: every entry stays in the markup, which is what the AI crawlers this page is
 // pre-rendered for read, and a reader without JavaScript never gets the class that hides
 // them. DOM-only on purpose, because it has to work before the registry JSON has loaded.
-// The counts are repeated in the #list.capped rule in styles.css; change both together.
+// The counts are repeated in the #list.capped rule in styles.src.css; change both together.
 const LIST_CAP = { cards: 10, table: 20 };
 let listExpanded = false;
 
@@ -2214,7 +2214,7 @@ function bootStatic(){
     target.querySelector('details')?.setAttribute('open', '');
     requestAnimationFrame(() => {
       target.scrollIntoView({ behavior: REDUCE ? 'auto' : 'smooth', block: 'start' });
-      // Entries below the fold skip layout (content-visibility in styles.css) and are
+      // Entries below the fold skip layout (content-visibility in styles.src.css) and are
       // measured at an assumed height, so a long scroll aims at an estimate and stops
       // short once the real heights arrive. Aim once more after it settles.
       setTimeout(() => target.scrollIntoView({ block: 'start' }), REDUCE ? 50 : 900);
