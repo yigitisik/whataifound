@@ -2,7 +2,7 @@
   "name": "whataifound",
   "version": "1.0.0",
   "private": true,
-  "description": "Server-side only. The site itself is static and has no build step: these dependencies exist for the Vercel functions under api/, which hold the session and the database connection. Nothing here is served to a browser.",
+  "description": "Nothing here is served to a browser. dependencies are for the Vercel functions under api/, which hold the session and the database connection. devDependencies are build tools: terser minifies js/*.src.js into the served js/*.js (scripts/build-js.mjs).",
   "license": "MIT",
   "type": "module",
   "engines": {
@@ -14,5 +14,8 @@
   },
   "dependencies": {
     "postgres": "^3.4.5"
+  },
+  "devDependencies": {
+    "terser": "5.51.2"
   }
 }

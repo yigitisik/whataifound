@@ -124,7 +124,9 @@ overwritten on the next build, and CI will fail. Edit `data/entries.json` instea
 ## Code
 
 Pages are static files at the root; browser scripts live in [js/](../js/) (`chrome.js`,
-`app.js`, `entry.js`, `signals.js`, `account.js`, `contribute.js`, `admin.js`).
+`app.js`, `entry.js`, `signals.js`, `account.js`, `contribute.js`, `admin.js`). Each is
+written as `<name>.src.js`; the `<name>.js` beside it is a minified copy the build writes, so
+edit the `.src.js` and rebuild.
 Server-side code lives under [api/](../api/) and is never sent to a browser. How the pieces fit
 together is in [ARCHITECTURE.md](ARCHITECTURE.md). Constraints:
 
@@ -157,7 +159,7 @@ together is in [ARCHITECTURE.md](ARCHITECTURE.md). Constraints:
   holds six controls in 1056px with no slack, so anything added has to take room from something
   else.
 
-**`card()` exists twice**, in [app.js](../js/app.js) and ported to
+**`card()` exists twice**, in [app.src.js](../js/app.src.js) and ported to
 [build-site.py](../scripts/build-site.py). **Change one, change the other, in the same PR.**
 `verify-parity.py` fails the build on drift. The same applies to `tableView()`, the four chart
 cards, the `DOMAIN_NAME` and `FIELD_SHORT` tables, and the `receipts()` / `grouped_refs()`

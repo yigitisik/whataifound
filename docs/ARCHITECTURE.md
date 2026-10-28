@@ -18,7 +18,7 @@ for something the pre-render is not, and must render before it is seen.
 
 ## Why `card()` exists twice
 
-`card()` lives in both `js/app.js` and `scripts/build-site.py`. They must stay in step, or the
+`card()` lives in both `js/app.src.js` and `scripts/build-site.py`. They must stay in step, or the
 markup visibly changes the first time a visitor filters. `scripts/verify-parity.py` is what
 enforces that: it runs the real `app.js` functions under Node and diffs each against the
 pre-rendered markup, byte for byte.

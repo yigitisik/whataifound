@@ -18,6 +18,9 @@ scripts/*
 # from it and which changes in the same commit, so the deploy still sees every edit.
 styles.src.css
 
+# The same for the scripts: pages link js/<name>.js, which build-js.mjs writes from these.
+js/*.src.js
+
 # CI runs on GitHub, not Vercel.
 .github/
 

@@ -50,7 +50,7 @@ test("an escaped tab stays a literal path segment and is kept", () => {
 
 /** Run the real js/signin.js against a stub page and report the href it leaves. */
 function signinHref(returnTo) {
-  const src = fs.readFileSync(new URL("../../js/signin.js", import.meta.url), "utf8");
+  const src = fs.readFileSync(new URL("../../js/signin.src.js", import.meta.url), "utf8");
   const btn = { href: "/api/auth/start" };
   const search = returnTo === null ? "" : "?return_to=" + encodeURIComponent(returnTo);
   vm.runInNewContext(src, {

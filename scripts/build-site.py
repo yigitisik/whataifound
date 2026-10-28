@@ -2101,9 +2101,10 @@ def build_app_js():
 
     app.js is served to the browser unbundled, so it cannot read the vocabulary at
     load time. Generating the two tables here keeps its copy from drifting from the
-    Python one without introducing a module loader or a build step for the client.
+    Python one without introducing a module loader. This writes into js/app.src.js;
+    build-js.mjs then minifies it into the served js/app.js.
     """
-    path = os.path.join(ROOT, "js", "app.js")
+    path = os.path.join(ROOT, "js", "app.src.js")
     with open(path) as f:
         src = f.read()
 
@@ -2141,7 +2142,7 @@ def build_app_js():
                + named("REG_NAME", REGISTRY) + "\n"
                + f"const REG_ORDER = {json.dumps(list(REGISTRY))};\n")
     src = inject(src, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                 "vocabulary tables", "js/app.js")
+                 "vocabulary tables", "js/app.src.js")
 
     with open(path, "w") as f:
         f.write(src)
@@ -2192,7 +2193,7 @@ def build_contribute(entries):
 
     # The JavaScript side: labels and definitions for the two grade axes, plus the
     # current grades per entry so the challenge form can show what it is arguing against.
-    js_path = os.path.join(ROOT, "js", "contribute.js")
+    js_path = os.path.join(ROOT, "js", "contribute.src.js")
     with open(js_path) as f:
         js = f.read()
 
@@ -2219,7 +2220,7 @@ def build_contribute(entries):
                f"const ID_BY_TITLE = {{{ids}\n}};\n"
                f"const TITLE_BY_ID = {{{titles}\n}};\n")
     js = inject(js, "/*VOCAB:START*/", "/*VOCAB:END*/", payload,
-                "vocabulary tables", "js/contribute.js")
+                "vocabulary tables", "js/contribute.src.js")
     with open(js_path, "w") as f:
         f.write(js)
 

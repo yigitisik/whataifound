@@ -38,7 +38,7 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Rather than emulate a DOM, take just the pure rendering regions and evaluate those in
 # isolation. Each slice runs from a declaration to the start of the next thing that needs
 # a browser, so the cut points are function boundaries rather than line numbers.
-src = open(os.path.join(ROOT, "js", "app.js")).read()
+src = open(os.path.join(ROOT, "js", "app.src.js")).read()
 
 
 def region(start, end):
