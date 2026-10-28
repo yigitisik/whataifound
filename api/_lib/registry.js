@@ -210,12 +210,7 @@ export const ENTRY_IDS = new Set([
   "2026-10-19-erdos-408-iterated-totient",
   "2026-10-20-claude-scorpion-toxin-binders",
   "2026-10-20-trilinear-hilbert-transform-lean",
-  "2026-10-21-php2shell-rce",
-  "2026-10-26-eth-refuted-claude",
-  "2026-10-26-eth-refuted-openai",
-  "2026-10-27-bighat-antibody-fragment-optimisation",
-  "2026-10-27-car-intracellular-domain-refactor",
-  "2026-10-27-ige-dislodging-antibody-designs"
+  "2026-10-21-php2shell-rce"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -413,12 +408,7 @@ export const ENTRY_GRADES = {
   "2026-10-19-erdos-408-iterated-totient": ["formal", "ai-assisted"],
   "2026-10-20-claude-scorpion-toxin-binders": ["claimed", "search-scaffold"],
   "2026-10-20-trilinear-hilbert-transform-lean": ["formal", "ai-led"],
-  "2026-10-21-php2shell-rce": ["claimed", "ai-assisted"],
-  "2026-10-26-eth-refuted-claude": ["formal", "ai-led"],
-  "2026-10-26-eth-refuted-openai": ["claimed", "ai-led"],
-  "2026-10-27-bighat-antibody-fragment-optimisation": ["claimed", "ai-assisted"],
-  "2026-10-27-car-intracellular-domain-refactor": ["claimed", "ai-assisted"],
-  "2026-10-27-ige-dislodging-antibody-designs": ["claimed", "search-scaffold"]
+  "2026-10-21-php2shell-rce": ["claimed", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -616,12 +606,7 @@ export const ENTRY_TITLES = {
   "2026-10-19-erdos-408-iterated-totient": "Erd\u0151s Problem 408: an unconditional normal order for the number of totient iterations",
   "2026-10-20-claude-scorpion-toxin-binders": "Claude-designed protein binders against five scorpion neurotoxins",
   "2026-10-20-trilinear-hilbert-transform-lean": "Lean formalization of the L\u00b3 bound for the trilinear Hilbert transform",
-  "2026-10-21-php2shell-rce": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
-  "2026-10-26-eth-refuted-claude": "A subexponential algorithm for counting 3-SAT solutions, refuting the Exponential Time Hypothesis",
-  "2026-10-26-eth-refuted-openai": "A subexponential counting algorithm for fixed-width CNF, refuting the Exponential Time Hypothesis",
-  "2026-10-27-bighat-antibody-fragment-optimisation": "Antibody fragment leads optimised with Claude on affinity, stability and aggregation",
-  "2026-10-27-car-intracellular-domain-refactor": "A shortened CAR intracellular domain designed with Claude Code",
-  "2026-10-27-ige-dislodging-antibody-designs": "Claude-generated antibody designs that dislodge receptor-bound IgE"
+  "2026-10-21-php2shell-rce": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

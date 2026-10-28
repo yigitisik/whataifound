@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 201 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 196 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -77,9 +77,9 @@ Autonomy, most to least AI-driven:
 
 Every finding credited to one organisation, on one page.
 
-- [OpenAI](https://whataifound.org/lab/openai): 26 findings
+- [OpenAI](https://whataifound.org/lab/openai): 25 findings
 - [Google DeepMind](https://whataifound.org/lab/google-deepmind): 23 findings
-- [Anthropic](https://whataifound.org/lab/anthropic): 12 findings
+- [Anthropic](https://whataifound.org/lab/anthropic): 11 findings
 - [Axiom Math](https://whataifound.org/lab/axiom-math): 7 findings
 - [Google](https://whataifound.org/lab/google): 4 findings
 - [Epic Systems](https://whataifound.org/lab/epic-systems): 3 findings
@@ -102,11 +102,8 @@ All 1 in one page: https://whataifound.org/topic/astronomy
 
 ### Biology
 
-All 11 in one page: https://whataifound.org/topic/biology
+All 8 in one page: https://whataifound.org/topic/biology
 
-- [A shortened CAR intracellular domain designed with Claude Code](https://whataifound.org/finding/2026-10-27-car-intracellular-domain-refactor): Six scientists at Generate Biomedicines used Claude Code to propose new designs for the intracellular signalling region of a CAR T-cell receptor; one design was about 70 percent shorter than the standard version and, in cell assays, let immune cells display roughly 10 times as many receptors, kill tumour cells more efficiently and stay active longer, with no animal or patient data reported. (Generate Biomedicines / Anthropic, Not disclosed; Claude accessed through Claude Code, with no model name or version given in the announcement, 2026-10-27; verification: Claimed; autonomy: AI-assisted)
-- [Claude-generated antibody designs that dislodge receptor-bound IgE](https://whataifound.org/finding/2026-10-27-ige-dislodging-antibody-designs): Claude turned Divergence Labs' goals into a design plan and then, largely autonomously, generated roughly 35,000 antibody designs in about a month towards a two-armed treatment for food allergy; early testing found three designs that bound IgE and 20 that dislodged it from immune cells, three of the 20 appearing to dislodge more of it than the standard medication, and the two arms have not been combined into a single molecule. (Divergence Labs / Anthropic, Not disclosed; no model name or version given in the announcement, 2026-10-27; verification: Claimed; autonomy: Search scaffold)
-- [Antibody fragment leads optimised with Claude on affinity, stability and aggregation](https://whataifound.org/finding/2026-10-27-bighat-antibody-fragment-optimisation): Claude, connected to BigHat Biosciences' laboratory data system, proposed changes to two antibody-fragment drug leads and BigHat's automated laboratory made and tested about 1,010 variants in about 10 weeks; against the originals the best versions bound more than 10 times more tightly, the cancer-targeting lead stayed in solution at a temperature 18 degrees Celsius higher, and the lead meant to keep a drug in the body longer aggregated more than 100 times more slowly. (BigHat Biosciences / Anthropic, Not disclosed; no model name or version given in the announcement, 2026-10-27; verification: Claimed; autonomy: AI-assisted)
 - [Claude-designed protein binders against five scorpion neurotoxins](https://whataifound.org/finding/2026-10-20-claude-scorpion-toxin-binders): A generative design campaign run by an internal Anthropic model produced 318,484 candidate proteins against five scorpion-venom neurotoxins; of the 211 that were synthesised and tested, 17 met the binding criterion at both contract laboratories, the tightest at single-digit nanomolar affinity, and none was tested for venom neutralisation. (Anthropic, Internal Anthropic research model operating within Claude Science, not named or versioned in the post, 2026-10-20; verification: Claimed; autonomy: Search scaffold)
 - [Agent-run genome survey identifies array-associated reverse transcriptases in jumbo phages](https://whataifound.org/finding/2026-09-23-array-associated-reverse-transcriptases): Claude agents surveying reverse transcriptase genes across 1.9 billion metagenomic protein clusters flagged a family of jumbo-phage reverse transcriptases paired with an array of repeated non-coding DNA units and a dedicated partner gene, an arrangement the authors say fits no described reverse transcriptase class. (Anthropic, Claude Mythos 5, 2026-09-23; verification: Claimed; autonomy: Collaborative)
 - [AI-generated bacteriophage genomes that replicate and kill bacteria](https://whataifound.org/finding/2025-09-17-evo-phage-genomes): Genome language models wrote complete ΦX174-like bacteriophage genomes from scratch; of 285 designs that could be built, 16 produced viable infectious phages, several with faster lysis than the natural virus. (Arc Institute / Stanford University, Evo 1 and Evo 2, 2025-09-17; verification: Peer reviewed; autonomy: AI-led)
@@ -132,10 +129,8 @@ All 1 in one page: https://whataifound.org/topic/climate
 
 ### Computer science
 
-All 30 in one page: https://whataifound.org/topic/computer-science
+All 28 in one page: https://whataifound.org/topic/computer-science
 
-- [A subexponential algorithm for counting 3-SAT solutions, refuting the Exponential Time Hypothesis](https://whataifound.org/finding/2026-10-26-eth-refuted-claude): A 49-page paper authored by Claude gives a deterministic algorithm that counts the satisfying assignments of a 3-CNF formula on \(n\) variables in \(2^{o(n)}\) time, which contradicts the Exponential Time Hypothesis, and a Lean 4 development in Anthropic's public repository states and proves the refutation against Mathlib's Turing machines using only Lean's three standard axioms. (Anthropic, Unreleased internal Anthropic research model, not named or versioned; the paper's author line is Claude, 2026-10-26; verification: Formally verified; autonomy: AI-led)
-- [A subexponential counting algorithm for fixed-width CNF, refuting the Exponential Time Hypothesis](https://whataifound.org/finding/2026-10-26-eth-refuted-openai): A 67-page preprint authored by OpenAI gives a deterministic algorithm that exactly counts the satisfying assignments of a \(k\)-CNF formula in subexponential time and polynomial space, refuting the Exponential Time Hypothesis in the case of 3-SAT; OpenAI released it with a Lean formalization of a weaker bound than the manuscript claims, and announced that an independent working group of complexity theorists would examine the proof. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-26; verification: Claimed; autonomy: AI-led)
 - [PHP2Shell: two critical PHP remote code execution flaws found with AI assistance](https://whataifound.org/finding/2026-10-21-php2shell-rce): Two security teams working independently, each using frontier language models to review PHP's source, found two unauthenticated remote code execution flaws in the runtime behind a large share of the web; both were rated 9.2 critical, and PHP shipped patches on 2026-10-21 under coordinated disclosure. (Calif / Wiz Research / OpenAI, Gemini 4 Argon and GPT-5.6 Sol, with the Wiz Atlas tool; which model did what differs by source, see caveats, 2026-10-21; verification: Claimed; autonomy: AI-assisted)
 - [NIST elliptic-curve seeds traced to a 1990s C random number generator seeded with the clock](https://whataifound.org/finding/2026-10-16-nist-curve-seeds-lrand48): An Anthropic model showed that the published seeds of the NIST prime curves P-192, P-224, P-256, P-384 and P-521 and five ANSI X9.62 example curves are outputs of the C library's lrand48 generator seeded with Unix timestamps from May 1997 to April 1998, not hashes of a secret phrase, answering the origin question behind a long-standing backdoor debate. (Anthropic, Internal Anthropic research model (Claude), not named in the announcement, 2026-10-16; verification: Claimed; autonomy: AI-led)
 - [LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks](https://whataifound.org/finding/2026-10-15-llm-quantum-circuit-design): Claude, run in a loop with an automated evaluator, produced reversible circuits that cut both Toffoli and qubit counts below the best published designs in seven of eight quantum-computing primitives and found a new reversible architecture for prime-field modular inversion in the eighth, including an elliptic-curve point addition with 17 times fewer gates at 12% more qubits. (Anthropic, Claude (the announcement names Claude Mythos 5), 2026-10-15; verification: Claimed; autonomy: Search scaffold)

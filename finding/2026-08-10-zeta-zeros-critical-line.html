@@ -123,21 +123,6 @@
           "@type": "CreativeWork",
           "url": "https://arxiv.org/abs/2609.02882",
           "name": "arXiv: Lamzouri, A new proof that more than 2/3 of the zeros of the Riemann zeta function are simple and on the critical line"
-        },
-        {
-          "@type": "CreativeWork",
-          "url": "https://arxiv.org/abs/2608.13637",
-          "name": "arXiv: Alpoge and Furman, More than two thirds of the zeta zeros are simple and on the critical line"
-        },
-        {
-          "@type": "CreativeWork",
-          "url": "https://www-cdn.anthropic.com/95c246936988e43127bc6b2ceb7077c1dad2d68e.pdf",
-          "name": "Anthropic: paper, updated version of 13 August 2026 (PDF)"
-        },
-        {
-          "@type": "CreativeWork",
-          "url": "https://www.anthropic.com/research/riemann-zeta",
-          "name": "Anthropic: Claude has improved on a longstanding lower bound for the fraction of zeros of the Riemann zeta function that satisfy the Riemann hypothesis"
         }
       ]
     },
@@ -164,10 +149,6 @@
           {
             "@type": "CreativeWork",
             "url": "https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf"
-          },
-          {
-            "@type": "CreativeWork",
-            "url": "https://www.anthropic.com/research/riemann-zeta"
           }
         ]
       },
@@ -275,9 +256,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <div class="glance-src">
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
-      <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">paper (PDF)</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/anthropics/zeta-23-lean" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean 4 formalization (anthropics/zeta-23-lean)</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2608.13637" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Alpoge and Furman, More than two thirds of the zeta zeros are simple and on the critical line</span><span class="ref-a">↗</span></a><a class="ref" href="https://www-cdn.anthropic.com/95c246936988e43127bc6b2ceb7077c1dad2d68e.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">paper, updated version of 13 August 2026 (PDF)</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/564f962e60643842f5fcb4a17c9dbc8f608f1c37.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">paper (PDF)</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/anthropics/zeta-23-lean" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">Lean 4 formalization (anthropics/zeta-23-lean)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-announcement">Announcement</h3>
-      <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">Session transcript (PDF)</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.anthropic.com/research/riemann-zeta" target="_blank" rel="noopener"><span class="ref-dom">anthropic.com</span><span class="ref-t">Anthropic: Claude has improved on a longstanding lower bound for the fraction of zeros of the Riemann zeta function that satisfy the Riemann hypothesis</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://www-cdn.anthropic.com/8a0d1add3c637b858a9a181e98c40e9548c3f44f.pdf" target="_blank" rel="noopener"><span class="ref-dom">Anthropic</span><span class="ref-t">Session transcript (PDF)</span><span class="ref-a">↗</span></a></div>
       <h3 class="lbl kind k-commentary">Independent commentary</h3>
       <div class="refs"><a class="ref" href="https://arxiv.org/abs/2609.02882" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Lamzouri, A new proof that more than 2/3 of the zeros of the Riemann zeta function are simple and on the critical line</span><span class="ref-a">↗</span></a></div>
     </div>
@@ -289,7 +270,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>The proportion ladder is a documented literature running from Hardy (1914) and Selberg (1942) through Levinson's one third (1974) and Conrey's two fifths (1989), with subsequent refinements reaching about 41.6%; the paper states the prior record and cites it. The model itself searched 54 arXiv papers for prior art before write-up. No earlier unconditional bound above 42% appears in the literature. The result is a new bound, not a retrieval of a known one.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The bound itself has since been reproved by Youness Lamzouri by a different route, a single Hilbert space inequality in place of the paper's finite-dimensional matrix framework, which corroborates the result without auditing the formalization. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output. Two records that postdate this entry change who is answerable for the result. It is now on arXiv as 2608.13637, by Levent Alpoge and Ralph Furman (v1 13 August 2026, v2 19 August 2026, 21 pages, no journal reference), whose comments field reads that the proof was discovered autonomously by Claude and was verified and communicated by the listed authors; named humans have therefore taken responsibility for it on the public record, which the announcement alone did not establish. Separately, the announcement was updated on 13 August 2026 with a newer version of the paper, so the PDF first cited here is superseded and is kept only because it is what this entry was written from. Neither record is an independent audit of the formalization, and the grade does not move on either.</p>
+  <p>Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The bound itself has since been reproved by Youness Lamzouri by a different route, a single Hilbert space inequality in place of the paper's finite-dimensional matrix framework, which corroborates the result without auditing the formalization. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output.</p>
   </details>
   <h2 class="lbl">Independent checks</h2>
   <div class="checks"><p>Youness Lamzouri (independent new proof): <em>Gave a new proof that more than two thirds of the zeros are simple and on the critical line, replacing the paper's matrix framework with a single Hilbert space inequality, and proved two further estimates the paper does not state. Reports no error in the original.</em> · <a href="https://arxiv.org/abs/2609.02882" target="_blank" rel="noopener">link ↗</a></p><p>vibemathed.com source audit: <em>At tag v1.0 found no sorry outside the comparator challenge files, no native_decide and no axiom declarations, and found the headline theorems unconditional: the explicit formula and other inputs are proved in Lean rather than assumed. Statement fidelity against the paper not audited; kernel not re-run.</em> · <a href="https://vibemathed.com/problem/more-than-67-of-riemann-zeta-zeros-are-on-the-critical-line" target="_blank" rel="noopener">link ↗</a></p></div>
@@ -315,7 +296,6 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
-    <li class="hist-row"><time class="hist-date" datetime="2026-10-27">2026-10-27</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the arXiv version of the paper, by Levent Alpoge and Ralph Furman, whose comments field states that Claude discovered the proof and the listed authors verified and communicated it. Also recorded the superseding paper PDF from the announcement's 13 August 2026 update. No grade moved. <a class="hist-src" href="https://arxiv.org/abs/2608.13637" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-09-24">2026-09-24</time><span class="pill r r-check">Checked</span><span class="hist-note">Recorded Youness Lamzouri's independent new proof of the two-thirds bound and vibemathed's source audit, which finds the Lean theorems unconditional. No grade moved. <a class="hist-src" href="https://arxiv.org/abs/2609.02882" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-19">2026-08-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result as a registration. The vibemathed link it replaces pointed at that site's home page rather than at this result, and was classified as commentary, which a registry listing is not.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-08-11">2026-08-11</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
