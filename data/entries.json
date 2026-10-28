@@ -106,7 +106,7 @@
     "autonomy": "collaborative",
     "detail": "The map \\[F(x,y,z) = \\bigl(u^3z + y^2u(4+3xy),\\ y + 3xu^2z + 3xy^2(4+3xy),\\ 2x - 3x^2y - x^3z\\bigr)\\] with \\(u = 1+xy\\) has Jacobian determinant identically \\(-2\\), yet sends the three distinct points \\((0, 0, -1/4)\\), \\((1, -3/2, 13/2)\\) and \\((-1, 3/2, 13/2)\\) all to \\((-1/4, 0, 0)\\). A map with a global inverse cannot be three-to-one. Alpöge, a number theorist at Anthropic, announced it on X the day it was found.",
     "novelty_check": "The Jacobian conjecture (Keller, 1939) has been a celebrated open problem for 87 years, with many published false proofs in both directions. No prior counterexample in any dimension over characteristic 0 exists in the literature. Ott-Heinrich Keller's original formulation is the one addressed. A separate question was opened in September 2026, about provenance rather than priority of the counterexample: the supplemental statement on page 160 of arXiv:2609.05746 asserts prior systematic use of the \\(xy\\), \\(1+xy\\) and \\(\\delta+xy\\) constructions, including the map to the projective line given by \\((x : 1+xy)\\), in an in-progress monograph circulated publicly in January 2025. That bears on where the construction came from, not on whether a counterexample already existed, and the caveats record what is and is not claimed.",
-    "caveats": "Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript. A priority and disclosure question was raised on the record in September 2026 and is unresolved. Adrian Vasiu, the third author of the Borisov, Gabber and Vasiu monograph on endomorphisms of affine spaces, appended a signed supplemental statement to arXiv:2609.05746 recording that an in-progress version of that work, dated 14 January 2025, was posted publicly at IHES two days later without his knowledge, and that in his understanding it subsequently fed AI models. He makes four numbered points: that no prior work aimed to classify etale endomorphisms of affine spaces of geometric degree three; that no prior work systematically used \\(xy\\), \\(1+xy\\) and \\(\\delta+xy\\) in constructing open embeddings, morphisms and etale endomorphisms, including the map \\((x : 1+xy)\\); that between the monograph and the seven-page write-up of this counterexample there is overlap of notation and of intent; and that the prompt history, model version and workflow behind that write-up have not been disclosed publicly. What he does not claim is that the counterexample itself appears in the earlier work, and he notes that one of the overlapping constructions plays no role in the counterexamples. So this is a question about where the construction came from and what was disclosed, not a challenge to whether the map is a counterexample, and the formal grade is unaffected. It is not a generic complaint either: \\((x : 1+xy)\\) is the device the seven-page paper's own abstract is built on.",
+    "caveats": "Not yet peer-reviewed. The formula is public and checkable in seconds by computer algebra, which makes conventional peer review less load-bearing than usual, but the official record lists the conjecture as open until the literature catches up. The division of labor between Alpöge and the model has not been fully documented; autonomy graded conservatively pending a transcript. A priority and disclosure question was raised on the record in September 2026 and is unresolved. Adrian Vasiu, the third author of the Borisov, Gabber and Vasiu monograph on endomorphisms of affine spaces, appended a signed supplemental statement to arXiv:2609.05746 recording that an in-progress version of that work, dated 14 January 2025, was posted publicly at IHES two days later without his knowledge, and that in his understanding it subsequently fed AI models. He makes four numbered points: that no prior work aimed to classify etale endomorphisms of affine spaces of geometric degree three; that no prior work systematically used \\(xy\\), \\(1+xy\\) and \\(\\delta+xy\\) in constructing open embeddings, morphisms and etale endomorphisms, including the map \\((x : 1+xy)\\); that between the monograph and the seven-page write-up of this counterexample there is overlap of notation and of intent; and that the prompt history, model version and workflow behind that write-up have not been disclosed publicly. What he does not claim is that the counterexample itself appears in the earlier work, and he notes that one of the overlapping constructions plays no role in the counterexamples. So this is a question about where the construction came from and what was disclosed, not a challenge to whether the map is a counterexample, and the formal grade is unaffected. It is not a generic complaint either: \\((x : 1+xy)\\) is the device the seven-page paper's own abstract is built on. In September 2026 Arno van den Essen, a specialist in the conjecture, posted an elementary derivation of a counterexample (arXiv:2609.17795, 15 September 2026) whose abstract states that it is, apart from linear coordinate changes, the example found by Alpoge. That corroborates the counterexample independently of this lab, and it also bears on the priority question above in both directions: it shows the example is reachable by elementary mathematics, which cuts against the need for any particular source, while saying nothing about what the model was given. It does not mention Claude or Anthropic.",
     "independent_checks": [
       {
         "who": "whataifound.org (symbolic recomputation, SymPy)",
@@ -116,6 +116,11 @@
         "who": "Multiple mathematicians via public computer-algebra checks",
         "url": "https://news.ycombinator.com/item?id=48973869",
         "outcome": "confirmed"
+      },
+      {
+        "who": "Arno van den Essen",
+        "url": "https://arxiv.org/abs/2609.17795",
+        "outcome": "Derives a counterexample to the Jacobian conjecture by elementary means and states that it is, apart from linear coordinate changes, the example found by Alpoge. Independent corroboration of the counterexample by a specialist in the conjecture; it does not audit the model's role."
       }
     ],
     "registrations": [
@@ -182,6 +187,11 @@
         "label": "Borisov, Gabber and Vasiu: on endomorphisms of affine spaces and the Jacobian problem, whose supplemental statement on page 160 raises priority and disclosure questions",
         "url": "https://arxiv.org/abs/2609.05746",
         "kind": "challenge"
+      },
+      {
+        "label": "arXiv: van den Essen, An elementary way to find a counterexample to the Jacobian Conjecture",
+        "url": "https://arxiv.org/abs/2609.17795",
+        "kind": "commentary"
       }
     ],
     "tags": [
@@ -218,6 +228,12 @@
         "kind": "challenge",
         "note": "Cited the supplemental statement on page 160 of arXiv:2609.05746, in which Adrian Vasiu raises a priority and disclosure question about the construction behind this counterexample. Neither grade moved: the statement does not dispute that the map is a counterexample, and does not claim the counterexample appears in the earlier monograph.",
         "url": "https://arxiv.org/abs/2609.05746"
+      },
+      {
+        "date": "2026-10-27",
+        "kind": "check",
+        "note": "Recorded an independent elementary derivation of the same counterexample by Arno van den Essen, a specialist in the conjecture. The grade was already formal and did not move.",
+        "url": "https://arxiv.org/abs/2609.17795"
       }
     ]
   },
@@ -3133,7 +3149,7 @@
     "autonomy": "ai-led",
     "detail": "The Riemann hypothesis asserts every nontrivial zero lies on the critical line. Short of proving it, the standard measure of progress is the proportion of zeros known unconditionally to lie there: Selberg established a positive proportion, Levinson reached a third in 1974, Conrey two fifths in 1989, and the record had crept to roughly 41.6%. This work proves at least \\(\\tfrac32 - \\tfrac{1}{\\sqrt2}\\cot\\tfrac{1}{\\sqrt2} = 67.25\\ldots\\%\\) of zeros are simple and on the line, and that at least 0.83625 of zeros are distinct. The decisive step combined the unconditional pair-correlation work of Baluyot, Goldston, Suriajaya and Turnage-Butterbaugh with a 2000 paper of Bombieri, treating the whole function space at once with the quadratic form allowed to be non-diagonal rather than splitting it. The process is itself the record worth noting: the model was asked to attempt the Riemann hypothesis outright, with the mathematical choices left to it, and the bound improvement fell out of failing at that. It generated and discarded roughly 650 ideas in a first session; in a second it coordinated about 60 subagents which ran some 2,400 shell commands, wrote hundreds of scripts, checked numerically against known zeros and refereed one another. Two subagents developed the key ideas, thirteen fed them, thirty tried and failed, thirteen validated, two drafted the paper, across roughly 31 million output tokens in two Claude Code sessions. The model also proposed writing the result up, checked 54 arXiv papers for prior art, and recommended a human number theorist validate it.",
     "novelty_check": "The proportion ladder is a documented literature running from Hardy (1914) and Selberg (1942) through Levinson's one third (1974) and Conrey's two fifths (1989), with subsequent refinements reaching about 41.6%; the paper states the prior record and cites it. The model itself searched 54 arXiv papers for prior art before write-up. No earlier unconditional bound above 42% appears in the literature. The result is a new bound, not a retrieval of a known one.",
-    "caveats": "Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The bound itself has since been reproved by Youness Lamzouri by a different route, a single Hilbert space inequality in place of the paper's finite-dimensional matrix framework, which corroborates the result without auditing the formalization. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output.",
+    "caveats": "Not peer-reviewed. The Riemann hypothesis itself is untouched, and Anthropic states it does not expect these techniques to lead to a proof of it. The Lean formalization is sorry-free and anchors its statements on Mathlib's own riemannZeta and analyticOrderAt with the corresponding counting functions rather than an assumed form of the result, which is real statement anchoring; but the assembly of those primitives into the proportion claim is the paper's own, and that assembly is exactly what nobody independent has audited. The bound itself has since been reproved by Youness Lamzouri by a different route, a single Hilbert space inequality in place of the paper's finite-dimensional matrix framework, which corroborates the result without auditing the formalization. The same organisation produced both the proof and its formalization. Two Anthropic mathematicians studied and validated the work, which is author-side review, not independent replication. Autonomy graded ai-led rather than autonomous: humans posed the problem, supplied the environment and validated the output. Two records that postdate this entry change who is answerable for the result. It is now on arXiv as 2608.13637, by Levent Alpoge and Ralph Furman (v1 13 August 2026, v2 19 August 2026, 21 pages, no journal reference), whose comments field reads that the proof was discovered autonomously by Claude and was verified and communicated by the listed authors; named humans have therefore taken responsibility for it on the public record, which the announcement alone did not establish. Separately, the announcement was updated on 13 August 2026 with a newer version of the paper, so the PDF first cited here is superseded and is kept only because it is what this entry was written from. Neither record is an independent audit of the formalization, and the grade does not move on either.",
     "independent_checks": [
       {
         "who": "Youness Lamzouri (independent new proof)",
@@ -3174,6 +3190,21 @@
         "label": "arXiv: Lamzouri, A new proof that more than 2/3 of the zeros of the Riemann zeta function are simple and on the critical line",
         "url": "https://arxiv.org/abs/2609.02882",
         "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Alpoge and Furman, More than two thirds of the zeta zeros are simple and on the critical line",
+        "url": "https://arxiv.org/abs/2608.13637",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: paper, updated version of 13 August 2026 (PDF)",
+        "url": "https://www-cdn.anthropic.com/95c246936988e43127bc6b2ceb7077c1dad2d68e.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Claude has improved on a longstanding lower bound for the fraction of zeros of the Riemann zeta function that satisfy the Riemann hypothesis",
+        "url": "https://www.anthropic.com/research/riemann-zeta",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -3194,6 +3225,12 @@
         "kind": "check",
         "note": "Recorded Youness Lamzouri's independent new proof of the two-thirds bound and vibemathed's source audit, which finds the Lean theorems unconditional. No grade moved.",
         "url": "https://arxiv.org/abs/2609.02882"
+      },
+      {
+        "date": "2026-10-27",
+        "kind": "correction",
+        "note": "Recorded the arXiv version of the paper, by Levent Alpoge and Ralph Furman, whose comments field states that Claude discovered the proof and the listed authors verified and communicated it. Also recorded the superseding paper PDF from the announcement's 13 August 2026 update. No grade moved.",
+        "url": "https://arxiv.org/abs/2608.13637"
       }
     ]
   },
@@ -6478,7 +6515,7 @@
     "autonomy": "ai-led",
     "detail": "The repository states the theorem over Lean's built-in naturals as fermat_last_theorem, and its default build target FinalCheck.lean derives Mathlib's own FermatLastTheorem from it, so the statement is not a bespoke restatement. The build fails unless the proof depends on exactly propext, Classical.choice and Quot.sound: no sorry, no added axiom, no native_decide. Three checks are recorded. A from-scratch build compiled all 60,475 modules; leanprover/comparator v4.33.0 checked the result against a Mathlib-only Challenge.lean and returned 'Your solution is okay!'; and nanoda 0.4.13, an independent Lean kernel written in Rust, accepted an export of the same environment with 1,052,234 declarations and no errors. The argument formalized is the classical one of Frey, Serre, Ribet, Wiles and Taylor-Wiles, and the development builds on the Imperial College London FLT project, flt-regular and Mathlib, with 106 files containing material from the first two.",
     "novelty_check": "This is a formalization, not a new theorem, and the entry is graded as such. Wiles and Taylor-Wiles proved Fermat's Last Theorem in 1995; nothing mathematically new is claimed here, and Kevin Buzzard states directly that 'mathematically this work of anthropic tells us essentially nothing' and that 'the formalization just faithfully follows the early literature on the proof and adds nothing'. What is new is the scale of autoformalization: prior partial formalizations existed, notably the ongoing Imperial College FLT project this work builds on, and no complete machine-checked proof of the theorem existed before. It completes the last open item of Wiedijk's list of 100 theorems.",
-    "caveats": "The result is a formalization of an existing proof and should not be read as new mathematics. Verification is graded formal on the machine checks rather than on the announcement: the comparator check ties the proved statement to Mathlib's own, and a second independent kernel replayed it. What no tool establishes, and the repository says so itself, is that each intermediate theorem means what its name suggests, since names are machine-generated and 'where a name and a statement disagree the statement is what was proved'. Buzzard reports the codebase is over 13.4 million lines and that the proof as formalized only works for exponents p at least 17, with smaller cases covered by earlier work. Reproducing the checks is expensive: the build takes hours at 96 jobs with a peak of 153 GB of memory, and the comparator run about 15 hours. Autonomy is graded ai-led rather than autonomous: the announcement describes Claude working 'largely autonomously' but also records high-level human steering from Tianyi Peng, and the strictest defensible reading applies.",
+    "caveats": "The result is a formalization of an existing proof and should not be read as new mathematics. Verification is graded formal on the machine checks rather than on the announcement: the comparator check ties the proved statement to Mathlib's own, and a second independent kernel replayed it. What no tool establishes, and the repository says so itself, is that each intermediate theorem means what its name suggests, since names are machine-generated and 'where a name and a statement disagree the statement is what was proved'. Buzzard reports the codebase is over 13.4 million lines and that the proof as formalized only works for exponents p at least 17, with smaller cases covered by earlier work. Reproducing the checks is expensive: the build takes hours at 96 jobs with a peak of 153 GB of memory, and the comparator run about 15 hours. Autonomy is graded ai-led rather than autonomous: the announcement describes Claude working 'largely autonomously' but also records high-level human steering from Tianyi Peng, and the strictest defensible reading applies. On 16 October 2026 seven named formalization researchers, Jeremy Avigad, Kevin Buzzard, Johan Commelin, Remy Degenne, Kim Morrison, Oliver Nash and Adam Topaz, published a guest post on the Xena blog judging that although the accomplishment is impressive, this piece of AI-generated code probably has little ongoing value, on the grounds that the theorems were not seriously in doubt and so the value of a formal artifact lies in what it gives beyond mere correctness. That is an argument about usefulness and not about correctness: none of them disputes that the proof checks, and Buzzard is the same mathematician whose reproduction is cited above. It is recorded here because a reader who takes this entry's formal grade as a measure of mathematical value would be reading more into it than the grade carries.",
     "independent_checks": [
       {
         "who": "Kevin Buzzard, Imperial College London, who leads the FLT formalization project this work builds on",
@@ -6515,6 +6552,11 @@
         "label": "Kevin Buzzard: FLT, Anthropic has beaten me to it",
         "url": "https://xenaproject.wordpress.com/2026/09/04/flt-anthropic-has-beaten-me-to-it/",
         "kind": "commentary"
+      },
+      {
+        "label": "Xena project: How to Formalize All of Mathematics (guest post by Avigad, Buzzard, Commelin, Degenne, Morrison, Nash and Topaz)",
+        "url": "https://xenaproject.wordpress.com/2026/10/16/how-to-formalize-all-of-mathematics/",
+        "kind": "commentary"
       }
     ],
     "discussion": [
@@ -6540,6 +6582,12 @@
         "kind": "correction",
         "note": "Recorded the MathDB record for the underlying theorem as a registration. No grade moved.",
         "url": "https://mathdb.com/p/316214/fermat-s-last-theorem"
+      },
+      {
+        "date": "2026-10-27",
+        "kind": "challenge",
+        "note": "Recorded a guest post by seven named formalization researchers judging that the artifact probably has little ongoing value because the theorems were not in doubt. The objection is to the artifact's usefulness, not its correctness, so the formal grade did not move.",
+        "url": "https://xenaproject.wordpress.com/2026/10/16/how-to-formalize-all-of-mathematics/"
       }
     ]
   },
@@ -6558,7 +6606,7 @@
     "autonomy": "ai-led",
     "detail": "The development proves Kozma and Nitzan's Conjecture 3 (arXiv:2401.12397), which by their Theorem 6 gives that the percolation probability vanishes at the critical point on the d-dimensional integer lattice for every d at least 2. The route is a new conditioned slack hierarchy, a family of conditioned covariance inequalities for increasing functions of a single open cluster whose level-zero case is the Harris inequality, from which a stronger additive gluing inequality is derived. The classical inputs, including Harris, van den Berg, Haggstrom and Kahn, the four functions theorem, Gladkov's decision-tree Harris-Kleitman inequality, the Barsky, Grimmett and Newman half-space theorem and Kesten's critical value for the square lattice, are re-proved from Mathlib, so the statement carries no hypothesis beyond the dimension. The recorded audit reports a clean build, two sorry placeholders confined to the statement file by design, no added axioms, all seven compared theorems depending on exactly the three standard axioms, and a passing comparator run.",
     "novelty_check": "The result was known for dimension two by Harris and Kesten and for dimension at least eleven by the lace expansion of Hara and Slade and of Fitzner and van der Hofstad; the repository cites Grimmett's Percolation and Duminil-Copin's 2018 ICM conjecture for the standing of the open cases 3 to 10. The proved statement is Kozma and Nitzan's Conjecture 3, posed in 2024 and open at the time of writing. The repository is explicit about what is not claimed: their Conjectures 1, 2 and 4, anything about slabs, site percolation or other lattices, and continuity of the percolation probability as a formal statement. No competing claim on Conjecture 3 was found in the four registries or on arXiv.",
-    "caveats": "The artifact is not published where it says it is, and that is the first thing to check before citing it. The percolation directory does not exist on the main branch of anthropics/formal-math, whose project table lists only the zeta23 formalization; no branch carries it and the repository's own commit history for that path is empty. It survives only at the pinned commit recorded in the sources here, and the README's own repository link and AUDIT.md both point at a main-branch path that now returns 404. Verification is graded claimed rather than formal despite a passing comparator run, for two reasons: no human has read it, and the statement fidelity question is load-bearing here in a way it is not for a formalization of a known theorem. The README says so itself, that the work 'has not yet been refereed by human mathematicians or by anyone independent of the author; the only review so far was carried out by AI systems', and that readers should check that Challenge.lean states the intended theorem. There is no registration at Palomar. Autonomy is ai-led on the repository's own wording, that the Lean was written by an AI system 'working autonomously under the direction of Justin Leder; no human wrote or edited the Lean code': the direction is human, so the strictest defensible reading is not autonomous.",
+    "caveats": "The artifact is not published where it says it is, and that is the first thing to check before citing it. The percolation directory does not exist on the main branch of anthropics/formal-math, whose project table lists only the zeta23 formalization; no branch carries it and the repository's own commit history for that path is empty. It survives only at the pinned commit recorded in the sources here, and the README's own repository link and AUDIT.md both point at a main-branch path that now returns 404. Verification is graded claimed rather than formal despite a passing comparator run, for two reasons: no mathematician independent of the lab has published an assessment of the argument itself, and the statement fidelity question is load-bearing here in a way it is not for a formalization of a known theorem. The README says so itself, that the work 'has not yet been refereed by human mathematicians or by anyone independent of the author; the only review so far was carried out by AI systems', and that readers should check that Challenge.lean states the intended theorem. There is no registration at Palomar. Autonomy is ai-led on the repository's own wording, that the Lean was written by an AI system 'working autonomously under the direction of Justin Leder; no human wrote or edited the Lean code': the direction is human, so the strictest defensible reading is not autonomous. The claim that no human had read the proof is no longer accurate, and this entry said so until October 2026. Quanta Magazine reported on 1 October 2026 that Ahmed Bou-Rabee of the University of Pennsylvania had examined it, called it clever and technically brilliant but containing no substantial new ideas, noted that it depends on Kozma and Nitzan's 2024 work, and adapted it to vertex percolation in a day with the help of language models. In the same report Gady Kozma is explicitly withholding judgment, saying that a human readable version is still awaited, and Quanta reports that Anthropic made no announcement and did not respond to repeated inquiries. One informal reading by a named expert is not an audit of the Lean development, and the artifact is still absent from the main branch, so the grade stays claimed; what has changed is that the strongest available human assessment is now mildly deflationary about the mathematics rather than absent.",
     "independent_checks": [
       {
         "who": "vibemathed.com statement and structure audit",
@@ -6589,6 +6637,11 @@
         "label": "arXiv: Kozma and Nitzan, gluing inequalities for percolation",
         "url": "https://arxiv.org/abs/2401.12397",
         "kind": "research"
+      },
+      {
+        "label": "Quanta Magazine: Major lattice proof percolates through math",
+        "url": "https://www.quantamagazine.org/update/167694/",
+        "kind": "coverage"
       }
     ],
     "tags": [
@@ -6611,6 +6664,12 @@
         "kind": "check",
         "note": "Recorded vibemathed's audit of the formal statement against Grimmett's definitions, which finds it faithful. No human has read the argument and the artifact is still absent from the main branch, so no grade moved.",
         "url": "https://vibemathed.com/problem/absence-of-critical-bernoulli-bond-percolation-on-z-d-in-every-dimension-d-2"
+      },
+      {
+        "date": "2026-10-27",
+        "kind": "check",
+        "note": "Ahmed Bou-Rabee examined the proof and adapted it to vertex percolation, per Quanta Magazine, calling it technically brilliant but without substantial new ideas; Gady Kozma is withholding judgment pending a human readable version. The caveat that no human had read it was corrected. The artifact is still off the main branch, so the grade stays claimed.",
+        "url": "https://www.quantamagazine.org/update/167694/"
       }
     ]
   },
@@ -7975,7 +8034,7 @@
     "autonomy": "collaborative",
     "detail": "A harness of Claude Code agents, each task split between a worker and a reviewing supervisor, ran from a human-written brief asking for new partner-gene associations of reverse transcriptases. Over 119 tasks, 949 agent sessions and 21.5 hours without human intervention, the agents built their own profile models, recovered about 200,000 reverse transcriptase clusters and filed 19 reports. The defining observation was off-brief: a worker reading the raw DNA upstream of a phage reverse transcriptase noticed a tandem repeat array, checked it against known elements including CRISPR arrays, and reported it. The authors then characterized the family in interactive sessions, finding 95 related clusters, 28 with arrays of 3 to 21 repeats of 15 to 49 nucleotides separated by 120 to 220 nucleotide spacers, a clade beside retrons, and no nearby cas genes. Published infection RNA-seq for Staphylococcus phage SA1 shows the arrays highly expressed, and the authors' own small-RNA sequencing of the SA1 array expressed in E. coli shows it processed into discrete unit RNAs.",
     "novelty_check": "The preprint states that the family belongs to no described reverse transcriptase class, and records the nearest prior work itself: the 2021 genome report for the jumbo phage MarsHill identified this reverse transcriptase and proposed an upstream non-coding RNA but described neither the repeats nor the partner gene, and arrays beside the unrelated UG27 reverse transcriptases were reported in a September 2026 bioRxiv preprint, which the authors read as the architecture arising twice. So the enzyme itself was not new; the claim is the array and partner that define the family. The registry was searched on 2026-09-24 for reverse transcriptase, retron, CRISPR and jumbo with no hits. A web search for array-associated reverse transcriptase returned only the announcement and its press coverage, and a search for jumbo-phage reverse transcriptases with tandem repeat arrays returned the DRT and retron literature, including the 2025 finding that phage infection triggers reverse transcription of a non-coding RNA into a repetitive gene. That mechanism builds repeats by reverse transcription rather than carrying them in the genome, which looks distinct, but a specialist should confirm it.",
-    "caveats": "A lab announcement about the lab's own model, so it enters at claimed under editorial rule 1. The preprint is hosted on Anthropic's own site, not a preprint server, and is unreviewed. It carries no data or code availability statement, and the session transcripts it quotes are not published, so the account of which step the agents took rests on the lab's word. The authors state the biological limit plainly: they have not shown that the reverse transcriptase is active, that the unit RNAs are its substrates, or what the system does for the phage, so what is established is a sequence-level family with transcription data, not a characterized enzyme system. Autonomy is graded collaborative, the weaker reading under editorial rule 5. An agent made the observation that defines the family, reading DNA outside what the brief asked for, but humans wrote the brief, chose which of the 19 reports to pursue, defined the family in interactive sessions with Claude and ran the experiments, and the only record of the agents' part is transcripts the lab has not published. The announcement names no model; the model field comes from the preprint. Feng Zhang, quoted in the announcement, is thanked in the preprint for reviewing an early copy, so his remark is not independent commentary. A top Hacker News comment argues for a plainer framing, that Claude identified an undescribed genomic arrangement around a known retron-like reverse transcriptase, which matches the novelty check. The preprint also attributes the recognition to specific internal Mythos 5 signals that respond to repeated DNA; that is a claim about the model, not the biology, and is not graded here.",
+    "caveats": "A lab announcement about the lab's own model, so it enters at claimed under editorial rule 1. The preprint was first posted on Anthropic's own site, and has since been posted to bioRxiv, on 11 October 2026, as version 1 under CC-BY in the bioinformatics category, where it remains unreviewed and is not published in a journal. It carries no data or code availability statement, and the session transcripts it quotes are not published, so the account of which step the agents took rests on the lab's word. The authors state the biological limit plainly: they have not shown that the reverse transcriptase is active, that the unit RNAs are its substrates, or what the system does for the phage, so what is established is a sequence-level family with transcription data, not a characterized enzyme system. Autonomy is graded collaborative, the weaker reading under editorial rule 5. An agent made the observation that defines the family, reading DNA outside what the brief asked for, but humans wrote the brief, chose which of the 19 reports to pursue, defined the family in interactive sessions with Claude and ran the experiments, and the only record of the agents' part is transcripts the lab has not published. The announcement names no model; the model field comes from the preprint. Feng Zhang, quoted in the announcement, is thanked in the preprint for reviewing an early copy, so his remark is not independent commentary. A top Hacker News comment argues for a plainer framing, that Claude identified an undescribed genomic arrangement around a known retron-like reverse transcriptase, which matches the novelty check. The preprint also attributes the recognition to specific internal Mythos 5 signals that respond to repeated DNA; that is a claim about the model, not the biology, and is not graded here. The bioRxiv record names Nicholas T. Perry of Anthropic as corresponding author and lists the same six authors already recorded here. Its full text was not retrieved for this correction, the server returning a rate limit, so the statements above about the absence of a data or code availability statement and of published transcripts describe the version hosted by Anthropic and were not rechecked against the bioRxiv version.",
     "sources": [
       {
         "label": "Anthropic preprint: Autonomous AI agents discover reverse transcriptases with tandem repeat arrays",
@@ -7989,8 +8048,13 @@
       },
       {
         "label": "Anthropic: Claude discovers a novel enzyme system with CRISPR-like repeats",
-        "url": "https://www.anthropic.com/news/claude-discovers-novel-enzyme-system",
+        "url": "https://www.anthropic.com/research/claude-discovers-novel-enzyme-system",
         "kind": "announcement"
+      },
+      {
+        "label": "bioRxiv: Autonomous AI agents discover reverse transcriptases with tandem repeat arrays",
+        "url": "https://doi.org/10.64898/2026.10.05.755809",
+        "kind": "research"
       }
     ],
     "discussion": [
@@ -8005,7 +8069,15 @@
       "multi-agent",
       "autonomous-discovery"
     ],
-    "added": "2026-09-24"
+    "added": "2026-09-24",
+    "revisions": [
+      {
+        "date": "2026-10-27",
+        "kind": "correction",
+        "note": "The preprint is now posted on bioRxiv, dated 11 October 2026 under CC-BY, which retires the caveat that it existed only on the lab's own site. The announcement URL was updated to the path it now redirects to. Still unreviewed and not in a journal, so no grade moved.",
+        "url": "https://doi.org/10.64898/2026.10.05.755809"
+      }
+    ]
   },
   {
     "id": "2026-09-15-bit-php-resolution-over-parities",
@@ -11417,5 +11489,221 @@
       "php"
     ],
     "added": "2026-10-26"
+  },
+  {
+    "id": "2026-10-27-car-intracellular-domain-refactor",
+    "title": "A shortened CAR intracellular domain designed with Claude Code",
+    "claim": "Six scientists at Generate Biomedicines used Claude Code to propose new designs for the intracellular signalling region of a CAR T-cell receptor; one design was about 70 percent shorter than the standard version and, in cell assays, let immune cells display roughly 10 times as many receptors, kill tumour cells more efficiently and stay active longer, with no animal or patient data reported.",
+    "field": "biology",
+    "date": "2026-10-27",
+    "lab": "Generate Biomedicines / Anthropic",
+    "model": "Not disclosed; Claude accessed through Claude Code, with no model name or version given in the announcement",
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "CAR T-cell therapy has mostly treated cancers of the blood cells, and Generate Biomedicines is trying to reengineer it to treat solid tumours as well. Its approach is to shorten one part of the therapy's genetic instructions so that there is room for further instructions suited to other kinds of cancer. Six Generate scientists used Claude Code to propose new designs for that part, and one proposal was about 70 percent shorter than the standard version. In laboratory tests that design beat the standard on three measures at once: immune cells made roughly 10 times as many receptors, the proteins they use to spot cancer cells, they killed tumour cells more efficiently, and they stayed active for longer. The announcement reports no animal work and no clinical work, and gives no affinities, replicate counts or statistics.",
+    "novelty_check": "Searched Europe PMC on 2026-10-27. Compacting the intracellular signalling region of a chimeric antigen receptor is an established and crowded strategy rather than a new idea: CAR AND \"intracellular domain\" AND (truncated OR shortened OR refactored) AND \"solid tumor\" returned 490 hits, and \"chimeric antigen receptor\" AND (minimal OR compact OR truncated) AND \"signaling domain\" AND expression returned 2,320. What the announcement presents as new is one specific design and its measured effect, not the strategy of shortening the domain, and this entry is graded on that basis. No existing registry entry covers CAR T-cell engineering; the nearest Anthropic biology entries are 2026-10-20-claude-scorpion-toxin-binders, on de novo binders, and 2026-09-23-array-associated-reverse-transcriptases, on phage genomics, and neither overlaps. Generate's technical report was not read for this entry, so no search was run against Generate's own earlier publications on the same construct.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. Generate Biomedicines ran the work and Anthropic is its partner in it, so both organisations named have a stake in the result and no one outside the collaboration has assessed it. The evidence is cell-assay only: receptor count, efficiency of tumour-cell killing and duration of activity in culture, all surrogate measures rather than any patient outcome, and the announcement reports no animal study and no human study. Every figure is approximate in the source itself, about 70 percent shorter and roughly 10 times as many receptors, and the announcement gives no replicate counts, no statistics, no comparator beyond the standard version of the domain, and no identification of the target antigen or the solid tumour type. Generate's technical report is linked and was not read for this entry, so the counts and the assay design above come only from Anthropic's post. Autonomy is graded ai-assisted on the strictest defensible reading: six human scientists drove the project, set the goal of shortening the domain and ran all the testing, with Claude Code proposing designs inside that frame. A reading that treated the winning design as the key insight would reach ai-led and is defensible; the weaker grade is taken because the announcement describes the scientists as the ones using Claude Code rather than the model as running the campaign. Field is biology rather than medicine because no therapeutic or clinical endpoint was reached. Discussion of the announcement questioned how much of the work across the whole post was scientific rather than clerical, and characterised this case as improving an existing therapeutic rather than originating one.",
+    "sources": [
+      {
+        "label": "Anthropic: Early progress on accelerating drug development with Claude",
+        "url": "https://www.anthropic.com/research/early-progress-drug-development",
+        "kind": "announcement"
+      },
+      {
+        "label": "Generate Biomedicines technical report: Refactored intracellular domains enhance CAR expression and function",
+        "url": "https://generatebiomedicines.com/publications/refactored-intracellular-domains-enhance-car-expression-and-function/",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "car-t",
+      "protein-design",
+      "preclinical",
+      "construction"
+    ],
+    "added": "2026-10-27",
+    "discussion": [
+      {
+        "label": "Hacker News: Early progress on accelerating drug development with Claude",
+        "url": "https://news.ycombinator.com/item?id=50265609"
+      }
+    ]
+  },
+  {
+    "id": "2026-10-27-ige-dislodging-antibody-designs",
+    "title": "Claude-generated antibody designs that dislodge receptor-bound IgE",
+    "claim": "Claude turned Divergence Labs' goals into a design plan and then, largely autonomously, generated roughly 35,000 antibody designs in about a month towards a two-armed treatment for food allergy; early testing found three designs that bound IgE and 20 that dislodged it from immune cells, three of the 20 appearing to dislodge more of it than the standard medication, and the two arms have not been combined into a single molecule.",
+    "field": "biology",
+    "date": "2026-10-27",
+    "lab": "Divergence Labs / Anthropic",
+    "model": "Not disclosed; no model name or version given in the announcement",
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "Food allergy is set off by IgE, some of it circulating free in the blood and some attached to the surface of immune cells. Standard medication neutralises the circulating IgE only. Divergence Labs is pursuing a molecule with two arms, one that binds IgE tightly and one that prises IgE off the immune cell, so that receptor-bound IgE is removed as well. Claude converted that goal into a detailed design plan and then generated roughly 35,000 antibody designs over about a month, which Divergence narrowed down and tested. The announcement reports hits for both arms, three designs that bound IgE and 20 that dislodged it, with three of the 20 appearing to dislodge more IgE than the standard medication. It gives no affinities, no assay format and no count of how many designs were tested to reach those hits. The stated next step, building one drug that combines the two arms, has not been done.",
+    "novelty_check": "Searched Europe PMC on 2026-10-27. The mechanism is established prior art rather than new: actively stripping IgE from its high-affinity receptor is a known class of approach, reviewed as disruptive inhibition in \"Structural and Functional Insights Into IgE Receptor Interactions and Disruptive Inhibition\", Immunological Reviews, May 2025 (doi 10.1111/imr.70031). DARPin AND E2_79 AND IgE AND dissociation returned 25 hits, E2_79 being the designed ankyrin-repeat protein used in that literature to demonstrate accelerated dissociation of receptor-bound IgE, and ligelizumab AND IgE AND receptor returned 309. IgE AND \"facilitated dissociation\" AND FceRI returned 0, which reflects the phrasing rather than an absence of work. What is claimed new here is therefore a set of antibody designs produced by a model, and the report that three of them dislodge more IgE than the standard medication, not the idea of dislodging it. No existing registry entry covers IgE, food allergy or anti-allergy antibodies. Divergence's technical report PDF was not read for this entry, so no check was made against Divergence's own earlier designs.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. Divergence Labs ran the testing and Anthropic is its partner, so no one outside the collaboration has assessed the result. The evidence is early in vitro screening: counts of designs that bound or dislodged IgE, with no affinities, no assay description, no replicate counts and no statistics in the announcement. The comparator, described only as the standard medication, is not named in the post; the established drug for the circulating-IgE mechanism it describes is omalizumab, but the post does not say so and this entry does not assume it. The claim that three designs dislodge more IgE than the standard medication is hedged in the source itself as what they appeared to do. Nothing here is a drug: the two arms exist only as separate designs, and combining them is listed as future work. Only hit counts are given, so the hit rate across roughly 35,000 designs is unknown, which is the figure that would show how well the generation step worked. Divergence's technical report PDF is linked and was not read for this entry. Autonomy is graded search-scaffold on the strictest defensible reading even though the announcement says Claude worked largely autonomously: Divergence set the therapeutic goal and the two-arm architecture and did all the narrowing and all the testing, which is the human-designed loop that grade describes. A reading that weighted Claude's conversion of those goals into a design plan would reach ai-led. Field is biology rather than medicine because no therapeutic or clinical endpoint was reached. One commenter on the announcement described this programme as speeding up an existing clever play in food allergies rather than a new one, which is the reading the novelty check above reaches independently.",
+    "sources": [
+      {
+        "label": "Anthropic: Early progress on accelerating drug development with Claude",
+        "url": "https://www.anthropic.com/research/early-progress-drug-development",
+        "kind": "announcement"
+      },
+      {
+        "label": "Divergence Labs technical report (PDF)",
+        "url": "https://divergencelabs.com/publications/ige-preprint.pdf",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "antibody-design",
+      "food-allergy",
+      "preclinical",
+      "construction"
+    ],
+    "added": "2026-10-27",
+    "discussion": [
+      {
+        "label": "Hacker News: Early progress on accelerating drug development with Claude",
+        "url": "https://news.ycombinator.com/item?id=50265609"
+      }
+    ]
+  },
+  {
+    "id": "2026-10-27-bighat-antibody-fragment-optimisation",
+    "title": "Antibody fragment leads optimised with Claude on affinity, stability and aggregation",
+    "claim": "Claude, connected to BigHat Biosciences' laboratory data system, proposed changes to two antibody-fragment drug leads and BigHat's automated laboratory made and tested about 1,010 variants in about 10 weeks; against the originals the best versions bound more than 10 times more tightly, the cancer-targeting lead stayed in solution at a temperature 18 degrees Celsius higher, and the lead meant to keep a drug in the body longer aggregated more than 100 times more slowly.",
+    "field": "biology",
+    "date": "2026-10-27",
+    "lab": "BigHat Biosciences / Anthropic",
+    "model": "Not disclosed; no model name or version given in the announcement",
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "A drug lead has to bind its target tightly, survive manufacturing and storage, and not clump together. BigHat Biosciences pairs machine learning with an automated laboratory to improve such leads. Its scientists and an Anthropic researcher worked with Claude on two antibody fragments, one aimed at cancer cells and one intended to keep a drug in the body longer, and Claude, connected to BigHat's laboratory data system Reccy, proposed changes to each molecule. The laboratory made and tested about 1,010 variants in about 10 weeks. Partway through, the team came to suspect that the standard heat-stability and clumping metrics were misleading; Claude and the researcher reanalysed the raw data and proposed different metrics along with a protocol change to test them, and BigHat's scientists refined and ran that protocol, after which the announcement reports that the main predictions held. Against the original leads, the best versions bound more than 10 times more tightly, the cancer-targeting lead stayed in solution at a temperature 18 degrees Celsius higher, and the longer-lasting lead aggregated more than 100 times more slowly.",
+    "novelty_check": "Searched Europe PMC on 2026-10-27. Pairing a language model with laboratory automation for antibody lead optimisation is an active area rather than a new one: \"language model\" AND antibody AND (\"lead optimization\" OR \"affinity maturation\") AND thermostability returned 49 hits, while the narrower antibody AND aggregation AND thermostability AND \"machine learning\" AND \"automated laboratory\" returned 2, a count that reflects the phrasing more than the size of the field. The novelty claimed here is accordingly not the method but the simultaneous improvement of three properties in two specific leads and, less usually, a model proposing replacement assay metrics and a protocol change that then held up. No existing registry entry covers antibody lead optimisation. No search was run against BigHat's own publication record and BigHat's technical report was not read for this entry, so this entry does not establish how far the campaign differs from BigHat's earlier ones.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. BigHat Biosciences ran the laboratory work with an Anthropic researcher embedded in the project, so there is no assessment by anyone outside the collaboration. Every improvement is stated against the original leads rather than against any state of the art, and no absolute values are given: no dissociation constants, no melting temperatures and no aggregation rates, only the ratios and the temperature difference quoted above. The announcement does not say how many of the roughly 1,010 variants Claude proposed as against the number from BigHat's existing pipeline, so the model's contribution to the measured gains cannot be separated from the automated laboratory's throughput. The statement that the main predictions held after the protocol change carries no numbers. The endpoints are surrogate properties of a molecule, binding, thermal stability and aggregation, and the two leads are described as antibody fragments that could become parts of future drugs rather than as drugs; there is no animal and no clinical evidence. BigHat's technical report is linked and was not read for this entry. Autonomy is graded ai-assisted on the strictest defensible reading: human scientists drove the project, set the three properties to improve, and refined and ran everything that was executed. The metrics episode is the strongest argument for collaborative, since Claude and the researcher reanalysed the data together and the model proposed the replacement metrics and the protocol change, and that reading is defensible; the weaker grade is taken because BigHat's scientists revised the proposal before running it and the announcement credits them with doing so. Field is biology rather than medicine because no therapeutic or clinical endpoint was reached.",
+    "sources": [
+      {
+        "label": "Anthropic: Early progress on accelerating drug development with Claude",
+        "url": "https://www.anthropic.com/research/early-progress-drug-development",
+        "kind": "announcement"
+      },
+      {
+        "label": "BigHat Biosciences and Anthropic collaboration report",
+        "url": "https://www.bighatbio.com/bighat-anthropic-collaboration-report-10-27-2026",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "antibody-design",
+      "lead-optimisation",
+      "preclinical",
+      "construction"
+    ],
+    "added": "2026-10-27",
+    "discussion": [
+      {
+        "label": "Hacker News: Early progress on accelerating drug development with Claude",
+        "url": "https://news.ycombinator.com/item?id=50265609"
+      }
+    ]
+  },
+  {
+    "id": "2026-10-26-eth-refuted-claude",
+    "title": "A subexponential algorithm for counting 3-SAT solutions, refuting the Exponential Time Hypothesis",
+    "claim": "A 49-page paper authored by Claude gives a deterministic algorithm that counts the satisfying assignments of a 3-CNF formula on \\(n\\) variables in \\(2^{o(n)}\\) time, which contradicts the Exponential Time Hypothesis, and a Lean 4 development in Anthropic's public repository states and proves the refutation against Mathlib's Turing machines using only Lean's three standard axioms.",
+    "field": "computer-science",
+    "date": "2026-10-26",
+    "lab": "Anthropic",
+    "model": "Unreleased internal Anthropic research model, not named or versioned; the paper's author line is Claude",
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "year_posed": 1999,
+    "detail": "The Exponential Time Hypothesis of Impagliazzo and Paturi says there is a constant \\(\\delta > 0\\) for which 3-SAT on \\(n\\) variables cannot be solved in \\(O(2^{\\delta n})\\) time. The paper gives a deterministic algorithm for the harder counting problem #3-SAT running in \\(2^{o(n)}\\) time, which contradicts it, and a main theorem covering \\(k\\)-CNF formulas with \\(m\\) clauses in time \\(2^{O(\\min\\{km/\\sqrt{\\log m},\\ k^2 n \\log\\log n/\\sqrt{\\log n}\\})}\\). Every earlier improvement had reduced the exponent by a constant factor rather than removed it: the records the paper cites are \\(O(1.328^n)\\) for deterministic 3-SAT and \\(O(1.308^n)\\) for randomized. The paper states consequences for other NP-complete problems, with Independent Set, Clique, Vertex Cover and Dominating Set on \\(n\\) vertices each solvable in \\(O(2^{\\delta n})\\) time for every \\(\\delta > 0\\). It says the result was found by an internal Claude research model using 14 million output tokens with no human input, after which Anthropic researchers worked with Claude on the presentation, and it names OpenAI's concurrent result as independent. The Lean development reached the public repository as pull request 31, merged on 27 October 2026 at commit 16a5ce41304fcdaea4e0be7c132e1c361dc26da5 and adding 1,063 files; the README documents a roughly eight-minute build on 24 virtual CPUs, pins Lean and Mathlib at v4.33.1, and prints the axiom dependencies of both headline theorems as exactly propext, Classical.choice and Quot.sound.",
+    "novelty_check": "Searched arXiv on 2026-10-27. The hypothesis was standing rather than previously refuted: abs:\"exponential time hypothesis\" AND abs:\"refute\" returned 18 records, every one of which assumes ETH to derive lower bounds rather than attacking it, the most recent being \"Independent Set Hardness in Graphs of Bounded Twin-Width and Low-Radius Merge-Width\" of 30 June 2026; ti:\"exponential time hypothesis\" returned 6 and abs:\"3-SAT\" AND abs:\"subexponential\" returned 7, with no prior claim of a subexponential 3-SAT algorithm among them. The paper's own account of the prior art agrees, citing \\(O(1.328^n)\\) deterministic and \\(O(1.308^n)\\) randomized as the records. Nothing in this registry duplicates it, but it sits directly beside 2026-10-05-3sum-apsp-hypotheses, in which an internal Anthropic model refuted the 3SUM and APSP hypotheses, two other load-bearing conjectures of fine-grained complexity, three weeks earlier. The live novelty question is therefore not priority against the literature but concurrency: OpenAI released a refutation of the same hypothesis on the same day, recorded here as 2026-10-26-eth-refuted-openai, and this paper cites that work as independent and concurrent rather than as prior.",
+    "caveats": "There is no announcement post and no journal or preprint-server version: the entire publication is a directory in a GitHub repository, which is why the sources here are the repository rather than a paper. Verification is graded formal on the machine check and on nothing else. What the machine establishes is that a Lean development proves the two propositions written in MainResults.lean, sorry-free, with only Lean's three standard axioms, and that a second independently written kernel, nanoda, re-checks them through the repository's Comparator configuration. What no machine establishes, and the README says so itself, is that MainResults.lean states what the paper states; the file is kept short and free of proofs precisely so that a human can check that correspondence, and no independent human has yet published such a check. That gap is load-bearing here in a way it is not for a formalization of a known theorem, because the theorem is new, and a reader who weights it heavily would grade this claimed, as this registry does for 2026-08-28-percolation-critical-point. The build was not rerun for this entry; the axiom print and timings above are the README's. No human mathematician has refereed the argument. An independent working group led by Russell Impagliazzo, Ramamohan Paturi and Ryan Williams was announced by OpenAI on 26 October 2026 to examine and explain OpenAI's refutation; OpenAI's note states no remit over this paper, and the group has published nothing. The only third-party collection of material on either result, the ProveIt repository cited here, states plainly that nothing in it has been checked there, that it holds no Lean or Rocq development, and that its 41 derivative packets assume the unchanged arguments of the OpenAI preprint; it is not an independent proof of either claim. There is no Palomar or ProofAtlas registration, and the paper's own Hexagon link is marked as still to appear. The result is asymptotic only: the README states it says nothing about solving formulas in practice, and the paper states it does not bear on P versus NP directly and yields no practical algorithms for NP-complete problems. Autonomy is graded ai-led rather than autonomous on the strictest defensible reading: the paper's claim of 14 million output tokens with no human input would support autonomous, but Anthropic researchers then worked with Claude on the presentation, which is the cleanup that ai-led describes, and the same grade is used for 2026-10-05-3sum-apsp-hypotheses. No human is named anywhere on the paper, so there is nobody outside the lab who has taken responsibility for it, which is the difference between this entry and that one.",
+    "sources": [
+      {
+        "label": "anthropics/formal-math: eth, paper and Lean 4 formalization",
+        "url": "https://github.com/anthropics/formal-math/tree/main/eth",
+        "kind": "research"
+      },
+      {
+        "label": "A 2 to the o(n) Time Algorithm for 3-SAT, by Claude (Anthropic) (PDF)",
+        "url": "https://github.com/anthropics/formal-math/blob/main/eth/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Lean statements of the two headline results (MainResults.lean)",
+        "url": "https://github.com/anthropics/formal-math/blob/main/eth/MainResults.lean",
+        "kind": "research"
+      },
+      {
+        "label": "ProveIt: Sub-exponential 3-SAT (the Exponential Time Hypothesis), a third-party collection of both manuscripts and derivative reports",
+        "url": "https://github.com/VladimirReshetnikov/ProveIt/tree/main/Computability/SubexponentialSAT",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "fine-grained-complexity",
+      "sat",
+      "counting",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-10-27"
+  },
+  {
+    "id": "2026-10-26-eth-refuted-openai",
+    "title": "A subexponential counting algorithm for fixed-width CNF, refuting the Exponential Time Hypothesis",
+    "claim": "A 67-page preprint authored by OpenAI gives a deterministic algorithm that exactly counts the satisfying assignments of a \\(k\\)-CNF formula in subexponential time and polynomial space, refuting the Exponential Time Hypothesis in the case of 3-SAT; OpenAI released it with a Lean formalization of a weaker bound than the manuscript claims, and announced that an independent working group of complexity theorists would examine the proof.",
+    "field": "computer-science",
+    "date": "2026-10-26",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "year_posed": 1999,
+    "detail": "For every fixed \\(k \\ge 2\\) the preprint gives a deterministic algorithm that computes the exact number of satisfying assignments of a \\(k\\)-CNF on \\(n\\) variables and \\(m\\) clauses in \\(\\mathrm{poly}_k(n, m)\\) space and time \\((n+m)^{O_k(1)} 2^{n/(\\log n)^{1/2+o(1)}}\\). Since testing whether that count exceeds zero decides satisfiability, the case \\(k = 3\\) contradicts the Exponential Time Hypothesis. The manuscript is dated 17 October 2026 and revised 25 October 2026, and its stated techniques are exact counting, sparse parity tests and polynomial interpolation. It was published on 26 October 2026 into openai/math, the repository of 721 manuscripts in 373 families that this registry already records at 2026-10-06-openai-math-collection, whose README frames the manuscripts as raw research data rather than polished papers and reports roughly 42 percent of top-line results formalized. The release note says an independent working group of computer scientists led by Russell Impagliazzo, Ramamohan Paturi and Ryan Williams will examine and explain the proof, and that OpenAI made the materials public immediately at the group's request.",
+    "novelty_check": "Searched arXiv on 2026-10-27. The hypothesis was standing rather than previously refuted: abs:\"exponential time hypothesis\" AND abs:\"refute\" returned 18 records, all of which assume ETH to derive lower bounds rather than attacking it; ti:\"exponential time hypothesis\" returned 6 and abs:\"3-SAT\" AND abs:\"subexponential\" returned 7, none claiming a subexponential 3-SAT algorithm. Within this registry the preprint is one manuscript from the openai/math collection recorded at 2026-10-06-openai-math-collection, which covered the release as a whole and predates this result; this entry exists because an ETH refutation is a specific claim with its own artifacts and its own review, not because the collection entry missed it. The other ETH refutation of the same day is recorded at 2026-10-26-eth-refuted-claude, and Anthropic's paper cites this one as independent and concurrent. The two bounds are close but not identical, this one being \\((n+m)^{O_k(1)} 2^{n/(\\log n)^{1/2+o(1)}}\\) against Anthropic's \\(2^{O(\\min\\{km/\\sqrt{\\log m},\\ k^2 n \\log\\log n/\\sqrt{\\log n}\\})}\\), so reports that the two labs reached the same bound are approximate.",
+    "caveats": "Entered at claimed. A Lean formalization does exist, which distinguishes this from an unformalized manuscript, but three things keep the grade below formal. First, the formalized statement is weaker than the published one: OpenAI's own scope page records that Lean proves a time bound of \\((L+1)^{O_k(1)} 2^{O_k(n (\\log\\log n)^2/\\sqrt{\\log n})}\\) on a canonically encoded formula of bit length \\(L\\), while the manuscript claims the sharper \\((n+m)^{O_k(1)} 2^{O_k(n \\log\\log n/\\sqrt{\\log n})}\\). The weaker bound is still subexponential and so still refutes ETH, but it is not what the paper's abstract states. Second, the Comparator configuration for this result sets enable_nanoda to false, so unlike the concurrent Anthropic development it is not re-checked by a second independent kernel. Third, no external checker has examined it: the MathVet review of openai/math that this registry already cites covers four other SAT-related results from the October release and has no row for this one, and the build was not rerun for this entry. The grade is therefore a statement about what has been checked, not a judgement that this result is weaker than the concurrent one at 2026-10-26-eth-refuted-claude, which is graded formal because its axiom print and second-kernel check are documented. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts from the same repository on 7 October 2026 over a sign error and revised 14 others, and its README says some unformalized results could have issues. The announced working group led by Impagliazzo, Paturi and Williams has published nothing, and OpenAI's note describes its role as examining and explaining rather than certifying. The only third-party material, the ProveIt collection cited here, states that nothing in it has been checked there and that its derivative reports assume the preprint's arguments unchanged; one of them notes the formalized bound is weaker than the manuscript's, agreeing with OpenAI's own scope page. The paper gives no practical algorithm and does not resolve P versus NP. Autonomy is graded ai-led on the strictest defensible reading, matching every other entry from this release: the repository README says the manuscripts came from an unreleased internal model given roughly three hours of thinking compute per result across about 4,000 posed problems, and records human editing for only one unrelated write-up, but the problems, the formalization pipeline and the release were human-run. No human author is named on the preprint.",
+    "sources": [
+      {
+        "label": "OpenAI: The Exponential Time Hypothesis is False (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/The-Exponential-Time-Hypothesis-is-False-October-25-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math: scope of the Lean formalization for this paper",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/378.md",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math: Comparator challenge statement (SubexponentialSAT.lean)",
+        "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/SubexponentialSAT.lean",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math release history, 26 October 2026 entry announcing the review group",
+        "url": "https://github.com/openai/math/blob/main/history.md",
+        "kind": "announcement"
+      },
+      {
+        "label": "ProveIt: Sub-exponential 3-SAT (the Exponential Time Hypothesis), a third-party collection of both manuscripts and derivative reports",
+        "url": "https://github.com/VladimirReshetnikov/ProveIt/tree/main/Computability/SubexponentialSAT",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "fine-grained-complexity",
+      "sat",
+      "counting",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-10-27"
   }
 ]
