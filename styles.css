@@ -764,15 +764,12 @@ a.labcard{text-decoration:none}
 .labcard-go{flex:0 0 auto;color:var(--accent);font-family:var(--serif);font-size:1.05rem;text-decoration:none;display:grid;place-items:center;width:28px;height:28px;border-radius:9px}
 .labcard-go:hover{background:var(--panel);color:var(--accent)}
 .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
-.lablist{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:1px 14px}
-.labrow{display:flex;align-items:center;gap:9px;min-width:0;padding:5px 8px;border-radius:8px;color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:.86rem;line-height:1.25;transition:background-color .16s var(--ease)}
-.labrow:hover{background:var(--panel-2)}
-.labrow .labcard-logo{width:22px;height:22px;border-radius:6px;padding:3px}
-.labrow .labcard-logo.mono{font-size:.56rem;letter-spacing:0;padding:0}
-.labrow-name{flex:1;min-width:0;overflow-wrap:anywhere}
-.labrow-n{flex:0 0 auto;font-size:.74rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
-.labrow-go{flex:0 0 auto;width:12px;color:var(--accent);font-size:.78rem;opacity:.45}
-.labrow:hover .labrow-go,.labrow:focus-visible .labrow-go{opacity:1}
+.lablist{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--line);columns:4 200px;column-gap:24px;font-family:var(--serif);font-size:.84rem;line-height:1.3}
+.lablist li{break-inside:avoid;display:flex;align-items:baseline;gap:6px;padding:3px 0}
+.labrow{color:var(--ink);overflow-wrap:anywhere;text-decoration:underline;text-decoration-thickness:1px;text-underline-offset:3px;text-decoration-color:color-mix(in srgb,var(--accent) 45%,transparent);transition:color .16s var(--ease),text-decoration-color .16s var(--ease)}
+.labrow:hover{color:var(--accent);text-decoration-color:var(--accent)}
+.labrow-n{font-size:.72rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
+.labs-watch{font-family:var(--serif);font-size:.84rem;color:var(--muted);margin:12px 0 0}
 .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
 .topiclink{display:inline-flex;align-items:center;gap:7px;padding:6px 12px;border:1px solid var(--line-strong);border-radius:11px;background:var(--panel);font-family:var(--serif);font-size:.8rem;color:var(--ink);text-decoration:none;transition:border-color .16s var(--ease),transform .16s var(--ease)}
 @media(hover:hover){.topiclink:hover{border-color:var(--accent);transform:translateY(-1px)}
@@ -1114,7 +1111,9 @@ header:after{border-radius:14px 14px 0 0}
 summary,.finding details.fold>summary{padding-top:13px;padding-bottom:11px}
 .labcard{padding:8px 12px}
 .more-btn{min-height:44px}
-.labrow{min-height:44px}
+.lablist li{align-items:center;padding:0}
+.lablist .labrow{display:flex;align-items:center;min-height:44px}
+.labs-watch .labrow{display:inline-flex;align-items:center;min-height:44px}
 .totop{width:44px;height:44px}
 .vid-play{width:46px;height:44px}
 .labcard-go{width:44px;height:44px}

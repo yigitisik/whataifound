@@ -34,6 +34,7 @@ Two of the nineteen are lemmas from a campaign on the plane Jacobian conjecture,
 open, and they rank against our dimension-three counterexample entry because both are
 about Jacobians. Read a Palomar row as a repository to open, never as a match.
 """
+import http.client
 import json
 import os
 import re
@@ -103,7 +104,9 @@ def fetch(url, what):
     try:
         with urllib.request.urlopen(req, timeout=45, context=ctx) as r:
             return r.read().decode("utf-8", "replace")
-    except (urllib.error.URLError, TimeoutError, OSError) as exc:
+    # HTTPException because a connection dropped mid-body raises IncompleteRead, which is
+    # not an OSError: one truncated 4 MB MathDB sitemap took the whole watch run down.
+    except (urllib.error.URLError, TimeoutError, OSError, http.client.HTTPException) as exc:
         print(f"  could not read {what}: {exc}", file=sys.stderr)
         return None
 

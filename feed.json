@@ -9,6 +9,266 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-28-eus-guideq-endosonography-rct",
+      "url": "https://whataifound.org/finding/2026-10-28-eus-guideq-endosonography-rct",
+      "title": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",
+      "content_text": "In a single-centre randomised trial of 266 patients in China, a real-time AI system that recognises scanning stations and prompts the endoscopist by voice raised the completeness of guideline-recommended biliopancreatic endoscopic ultrasound stations from a median of 0.81 to 1.00, while lengthening procedures by about two minutes.  EUS-GUIDEQ was developed from 27,072 annotated images from 189 patients, with station classification accuracy of 94.2% on 1,500 internal images and 78.8% on 2,062 multicentre external images. Between December 2023 and May 2025 patients were randomised 1:1 to AI-assisted or standard examination, with 132 and 134 analysed. The primary endpoint, completeness of standardised scanning stations adjudicated by blinded experts from recorded video, was a median of 1.00 (interquartile range 0.94 to 1.00) against 0.81 (0.75 to 0.88), P < 0.001, with benefit across participating endoscopists. Procedure time was 12.70 against 10.55 minutes, and no serious procedure-related adverse events occurred.  Lab: Central South University (Third Xiangya Hospital). Model: EUS-GUIDEQ. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-28T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "endoscopic-ultrasound",
+        "gastroenterology",
+        "quality-control",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-27-pts-beta-eta-normalization",
+      "url": "https://whataifound.org/finding/2026-10-27-pts-beta-eta-normalization",
+      "title": "Weak normalization implies strong normalization in pure type systems with βη-conversion, proved in Lean",
+      "content_text": "A Lean proof, written by Claude Opus 5.5 under four authors' direction by adapting OpenAI's proof of the β case, that in every pure type system with βη-conversion, if every legal term is weakly normalizing then every legal term is strongly normalizing, the βη form of a conjecture Geuvers stated in 1993.  The Barendregt-Geuvers-Klop conjecture asks whether weak normalization implies strong normalization in every pure type system; Geuvers states it for all of them in his 1993 thesis as Conjecture 8.1.2. OpenAI's release of 6 October 2026 included a preprint and Lean proof of the case where the conversion rule uses β-conversion only, family 245 of the collection recorded at 2026-10-06-openai-math-collection. This development proves the βη case for every specification, with no functionality, finiteness or decidability assumed: weak βη-normalization of every legal term implies strong βη-normalization, and so does weak β-normalization. Because an η-step can delete a λ-annotation, the proof works from the weaker property that every legal term has a β-reduct with no β-redex outside its λ-domains, handles conversion through domain erasure, indexes candidates by βη-normal forms of erased types and makes observation values η-canonical. OpenAI's 33 Lean files for the β case are copied in and ported to Lean v4.35.0.  Lab: Independent. Model: Claude Opus 5.5 in Claude Code, adapting an OpenAI Lean proof of the β case. Verification: Formally verified. Autonomy: Collaborative.",
+      "date_published": "2026-10-27T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "type-theory",
+        "lambda-calculus",
+        "normalization",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-27-bernoulli-shifts-unequal-entropy",
+      "url": "https://whataifound.org/finding/2026-10-27-bernoulli-shifts-unequal-entropy",
+      "title": "Measurably isomorphic Bernoulli shifts with different base entropies, proved in Lean",
+      "content_text": "A Lean proof, registered on Palomar, that some countable group has measurably isomorphic Bernoulli shifts over alphabets of different sizes, so that base entropy is not an isomorphism invariant for that group; the group comes from OpenAI's claimed counterexample to Kaplansky's direct-finiteness conjecture, and the dynamical construction was written with GPT-6 Astra and GPT-6 Sol under Peter Burton's direction.  For a countable group G and a finite alphabet A, the Bernoulli shift is G acting by translation on A^G with the uniform product measure. Ornstein showed in 1970 that base entropy is a complete invariant of these shifts over the integers, and Bowen showed in 2010 that it is an isomorphism invariant over every sofic group, so shifts with different base entropies can be isomorphic only over a group outside that class. The registered theorem gives a countable group G and a nontrivial finite alphabet A for which the shifts on A and on A × A are equivariantly isomorphic on invariant conull sets, with a measurable inverse. The group and the algebraic input come from OpenAI's manuscript A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two, whose abstract says the group is non-sofic; its Lean development is imported at a pinned commit, and this project builds the dynamical conjugacy on top of it.  Lab: Independent. Model: GPT-6 Astra and GPT-6 Sol via Codex, building on an OpenAI construction. Verification: Formally verified. Autonomy: Collaborative.",
+      "date_published": "2026-10-27T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "ergodic-theory",
+        "bernoulli-shifts",
+        "sofic-groups",
+        "lean",
+        "formalization",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-27-heidi-ai-scribe-health-system",
+      "url": "https://whataifound.org/finding/2026-10-27-heidi-ai-scribe-health-system",
+      "title": "System-wide AI scribe deployment and clinician documentation time at a 14-hospital health system",
+      "content_text": "Across 1,637,227 outpatient encounters at a 14-hospital Boston health system, enrolment in the Heidi ambient AI scribe was associated with 1.21 fewer minutes of active note time per encounter, more among heavy users, and longer notes, with no change in same-day or after-hours note closure or in work relative value units.  After system-wide availability from January 2025, 902 outpatient clinicians enrolled, of whom 605 used the tool and 297 did not. The study used an interrupted time series indexed on each clinician's enrolment month and adjusted for patient demographics and visit complexity, over notes from 1 July 2024 to 31 January 2026, with a secondary comparison of non-users, low users and high users. Note-active time fell by 1.21 minutes (95% CI 0.68 to 1.74) on enrolment and by 2.50 minutes among high users, and high users' notes grew by about 171 characters relative to non-users.  Lab: Beth Israel Deaconess Medical Center / Beth Israel Lahey Health. Model: Heidi (Heidi Health). Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-27T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "ambient-scribe",
+        "documentation",
+        "clinician-workload",
+        "retrospective",
+        "real-world-data"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-26-cfsg-lean-axiom",
+      "url": "https://whataifound.org/finding/2026-10-26-cfsg-lean-axiom",
+      "title": "Classification of Finite Simple Groups formalized in Lean by directed AI agents",
+      "content_text": "Axiom Math released a sorry-free Lean proof of the Classification of Finite Simple Groups that follows the first-generation proof, about 43.1 million lines written over 24 days by swarms of AI agents directed by its mathematicians and engineers, whose agents also found counterexamples to a step in one published route to the Unbalanced Group Theorem.  The classification states that every finite simple group is cyclic of prime order, alternating, of Lie type, or one of 26 sporadic groups. Its first-generation proof is spread over hundreds of papers and books, and the second-generation revision is incomplete, so the project formalized the first-generation proof. The README states the theorem through the classification statement of the TauCeti project, written outside Axiom, and says the proof builds on Mathlib and TauCeti with only Lean's three standard axioms and no native_decide. The announcement says about 1.2 million lines come from the Qiuzhen-CFSG project and that the work was split into 108 milestones and about 380 tasks, with lead agents decomposing arguments and reviewing the statements being formalized while other agents searched for existing results or wrote proofs. Formalizing Walter's argument, the agents found explicit counterexamples to a closure assertion it uses, and a companion paper by Colin Defant and Ken Ono gives an alternative argument for the simple-group case of the Unbalanced Group Theorem built on Solomon's 1976 theory of maximal 2-components, whose key step the announcement credits to AxiomProver.  Lab: Axiom Math. Model: AxiomProver agent system using an unnamed, changing mix of models. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-10-26T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "group-theory",
+        "finite-simple-groups",
+        "lean",
+        "formalization"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-26-local-smoothing-all-dimensions",
+      "url": "https://whataifound.org/finding/2026-10-26-local-smoothing-all-dimensions",
+      "title": "Sogge's local smoothing conjecture claimed in every dimension, with Bochner–Riesz and Kakeya as consequences",
+      "content_text": "An OpenAI manuscript released with a Lean formalization claims Sogge's local smoothing conjecture for the wave equation in every spatial dimension, and from it the Bochner–Riesz conjecture, the Kakeya and Nikodym maximal conjectures, full Hausdorff dimension for every Euclidean Kakeya set, and Fourier restriction for the sphere, paraboloid and cone throughout the interior of the conjectured range.  Local smoothing asks how much regularity solutions of the wave equation gain on average in time beyond what fixed-time estimates allow. Sogge conjectured the sharp form in 1991, and it was known to imply the Bochner–Riesz and Kakeya conjectures; Guth, Wang and Zhang proved it in two spatial dimensions in 2020. Family 079 of openai/math, added on 26 October 2026, pairs a manuscript dated 25 October with an earlier one claiming the critical L³ estimate in three dimensions. OpenAI's scope page says the Lean formalization bounds, for every n ≥ 2 and 2 ≤ p < ∞, the Lᵖ(ℝⁿ × [1, 2]) norm of the half-wave by the W^(s, p) norm of Schwartz initial data with s = max(0, (n − 1)/2 − n/p) + ε, and also gives uniform Bochner–Riesz bounds, spherical extension estimates and Stein square-function bounds in their strict ranges, the Kakeya maximal bound with δ^(−ε) loss, and full dimension for every set containing a unit segment in each direction. The release note says the model output is published directly, as in the release of 6 October.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-26T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "harmonic-analysis",
+        "local-smoothing",
+        "kakeya",
+        "restriction",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-26-osteoaid-femoral-head-osteonecrosis",
+      "url": "https://whataifound.org/finding/2026-10-26-osteoaid-femoral-head-osteonecrosis",
+      "title": "Deep learning detection and staging of femoral head osteonecrosis on hip x-rays across six Chinese hospitals",
+      "content_text": "OsteoAID, a YOLOv8-based model trained on 20,722 hip x-rays from 16,399 patients at six Chinese hospitals, staged osteonecrosis of the femoral head with 96.6% accuracy on an external test set, against 75.0% for radiologists.  Expert orthopaedists annotated each image to separate osteonecrosis from radiographically similar conditions and graded confirmed lesions on the Ficat and Arlet scale, using images from 2015 to 2023. On the internal test set the model raised staging accuracy from 87.4% for the unmodified YOLOv8 network to 96.4%, with a detection mean average precision of 93.0% at an intersection-over-union threshold of 50%. It was compared with radiologists and orthopaedists on two external test sets, and with MRI-based staging, the reference standard, on a third. The authors propose it as a decision-support tool for triage.  Lab: Sun Yat-sen University (with the Chinese Artificial Intelligence Project Group for Hip Joint Diseases). Model: OsteoAID (YOLOv8-based). Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-26T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "orthopaedics",
+        "radiography",
+        "osteonecrosis",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-21-bt-rads-agentic-glioma-scoring",
+      "url": "https://whataifound.org/finding/2026-10-21-bt-rads-agentic-glioma-scoring",
+      "title": "Multiagent language-model and CNN system scores BT-RADS on glioma follow-up MRI",
+      "content_text": "A system pairing a locally run 20-billion-parameter gpt-oss model, which extracts clinical variables from notes, with a scoring agent applying BT-RADS logic to tumour volumetrics classified 492 post-treatment glioma MRI examinations with 76.0% accuracy against an expert reference, against 57.5% for the initial clinical assessments.  BT-RADS standardises response assessment after glioma treatment but requires combining imaging trends with medication effects and radiation timing. 509 consecutive examinations from 2017 to 2021 at one centre were evaluated retrospectively, 492 of them evaluable. Agreement with the reference had a Cohen kappa of 0.71. Sensitivity was high in categories that depend on clinical context (100% for BT-1b, 92.7% for BT-1a, 87.5% for BT-3a) and moderate in those that depend on thresholds (57.1% to 74.8%), and positive predictive value for BT-4 was 92.9%.  Lab: Duke University Medical Center. Model: gpt-oss 20B (OpenAI, open weights) extractor agent with a convolutional neural network scorer. Verification: Peer reviewed. Autonomy: AI-led.",
+      "date_published": "2026-10-21T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "neuro-oncology",
+        "glioma",
+        "radiology",
+        "large-language-model",
+        "agents",
+        "retrospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-21-dllv-chest-radiograph-lv-dysfunction",
+      "url": "https://whataifound.org/finding/2026-10-21-dllv-chest-radiograph-lv-dysfunction",
+      "title": "Chest radiograph model for prescreening reduced ejection fraction, tested in three Korean cohorts",
+      "content_text": "DLLV, a deep learning model that flags a left ventricular ejection fraction of 40% or less on chest radiographs, reached AUCs of 0.86 in a tertiary-centre cohort and 0.92 to 0.97 in two health-checkup cohorts, and as a prescreen was estimated to cut echocardiography volume by up to 85% without missing any of the 19 affected people in those cohorts.  The model was developed on 24,674 patients with 32,135 same-day radiograph and echocardiogram pairs from 2016 to 2021, using counterfactual learning to improve performance and the localisation of its heatmaps. External testing covered a tertiary referral cohort of 5,440 patients and two health-checkup cohorts of 28,034 and 6,085. In the checkup cohorts the area under the precision-recall curve was 0.04, which still corresponds to 87-fold and 37-fold enrichment over the low baseline prevalence.  Lab: Seoul National University Bundang Hospital. Model: DLLV. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-21T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "cardiology",
+        "heart-failure",
+        "chest-radiograph",
+        "screening",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-19-takotsubo-ecg-deep-learning",
+      "url": "https://whataifound.org/finding/2026-10-19-takotsubo-ecg-deep-learning",
+      "title": "ECG deep learning ensemble separates Takotsubo syndrome from anterior STEMI and improves reader accuracy",
+      "content_text": "A preprint reports an ensemble of three deep learning models that distinguished Takotsubo syndrome from acute anterior ST-elevation myocardial infarction on 12-lead ECG images with 91.4% accuracy in a 95-person external cohort, and raised 70 healthcare providers' estimated probability of a correct diagnosis from 0.632 unaided to 0.864 with AI assistance.  The models were pretrained self-supervised and fine-tuned on ECG images from two hospitals recorded within 14 days of symptom onset, with 832 participants for development and 95 for external validation, healthy controls included. External AUROC was 0.970. A four-phase reader study compared unaided reading, a reference sheet and AI assistance, then randomised readers on a new ECG set to the reference sheet alone, AI predictions, or AI predictions with Grad-CAM heatmaps, which gave a further gain. In exploratory analyses less experienced readers gained most, and cardiologists' unaided advantage reversed under AI assistance, which the authors frame as a utilisation bias hypothesis.  Lab: North Medical Center Hiroshima City Asa Citizens Hospital. Model: Ensemble of three deep learning models with self-supervised pretraining. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-19T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "cardiology",
+        "electrocardiography",
+        "takotsubo",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-18-epi-autonomous-research-records",
+      "url": "https://whataifound.org/finding/2026-10-18-epi-autonomous-research-records",
+      "title": "Épi agent reports 120 record bounds and constructions, with released certificates",
+      "content_text": "Bake AI's Épi agent, running GPT-5.6 Sol and GPT-6 Astra against fixed verifiers, reports 20 improved numerical bounds and 100 record constructions, including certificates that the Cohn–Elkies sphere-packing bound cannot be sharp in dimensions 10 and 11, an upper bound of 4.29569 on Klarner's polyomino growth constant against 4.5238, and a computer-assisted extension of Tuza's conjecture for a class of split graphs.  Épi keeps a persistent research history across model sessions, branches and reviews its own work, and has each output scored by a fixed verifier, accepting an improvement only when it is feasible and clears a set margin over the literature value. The results repository lists 12 families of numerical bounds and 8 of constructions. The headline mathematics: dual certificates giving lower bounds on the Cohn–Elkies linear programme of about 0.0564 and 0.0577 in dimensions 10 and 11, above the known upper bounds on sphere-packing density there, so the method cannot be sharp in either; the bound λ ≤ 4.29569 for Klarner's constant, whose previous record was 4.5238 and whose empirical value is about 4.06; an interval for the n-queens constant about 84 times narrower than before; and a proof that τ_(△)(G) ≤ 2ν_(△)(G) for split graphs with an eight-vertex clique part and at most three active neighbourhood types, up from two. The construction records are mostly circle and ball packings, 46 of them circles in a quarter disk.  Lab: Bake AI. Model: GPT-5.6 Sol and GPT-6 Astra in the Épi agent. Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-18T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "sphere-packing",
+        "packing",
+        "tuza-conjecture",
+        "certificates",
+        "computation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-15-ai-auscultation-lv-dysfunction",
+      "url": "https://whataifound.org/finding/2026-10-15-ai-auscultation-lv-dysfunction",
+      "title": "AI-enhanced auscultation for left ventricular dysfunction, validated in prospective Japanese cohorts",
+      "content_text": "An AI model reading digital heart sounds from four chest sites with a single-lead ECG detected an ejection fraction of 40% or less with an AUROC of 0.904 in an external prospective cohort of 964 patients, and was more accurate than a consensus of seven cardiologists in a 100-patient reader substudy (82.0% against 62.0%).  Adults referred for clinically indicated echocardiography at multiple Japanese centres underwent digital auscultation with a simultaneous single-lead ECG, with same-visit echocardiography as the reference. The ensemble was trained on 2,359 patients, 8.9% with reduced ejection fraction, and validated on 964 from a separate multicentre registry, 7.6% with it. External sensitivity, specificity and accuracy were 86.3%, 74.2% and 75.1%. The model outperformed ECG-only models and clinical regression models including B-type natriuretic peptide, and a simplified two-site version kept an AUROC of 0.903.  Lab: Juntendo University (with AMI Inc.). Model: Transformer and one-dimensional CNN ensemble over four-site digital auscultation and single-lead ECG. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-15T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "cardiology",
+        "heart-failure",
+        "digital-stethoscope",
+        "prospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-15-rfdiffusion3-enzyme-design",
+      "url": "https://whataifound.org/finding/2026-10-15-rfdiffusion3-enzyme-design",
+      "title": "RFdiffusion3 designs active phosphotriesterases and transthyretin-specific zinc proteases zero-shot",
+      "content_text": "RFdiffusion3, a generative model that diffuses free atoms to satisfy atomic constraints, produced de novo phosphotriesterases with a two-metal active site and zinc proteases specific for transthyretin, obtaining active catalysts of both kinds from zero-shot design campaigns of 96 constructs.  The method places individual atoms rather than residues, aiming to meet sets of atomic constraints such as an enzyme active site more quickly and accurately than earlier methods, across tasks from enzyme design to RNA structure design. The experimental demonstrations are two enzyme classes: phosphotriesterases whose active site includes a carbamylated lysine coordinating two metal ions, and zinc proteases that cut transthyretin, the protein involved in transthyretin amyloid disease. In both, a campaign of 96 constructs tested without iterative optimisation yielded active catalysts.  Lab: Institute for Protein Design, University of Washington. Model: RFdiffusion3. Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-15T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "protein-design",
+        "enzyme-design",
+        "rfdiffusion",
+        "catalysis"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-15-ai-infocare-previsit-summaries-rct",
+      "url": "https://whataifound.org/finding/2026-10-15-ai-infocare-previsit-summaries-rct",
+      "title": "Randomised trial of AI-generated lay summaries before neurosurgical consultations",
+      "content_text": "In a single-centre randomised trial of 300 outpatients in Dresden, giving patients a quality-checked AI-generated lay summary of their medical findings before consultation improved patient-rated quality of the physician-patient interaction (4.42 against 4.25 on the FAPI scale) and shortened median consultations from 33 to 25 minutes.  Adults attending an outpatient neurosurgical clinic were randomised 1:1 to standard care with or without a layperson summary of their findings, produced by the Simply Onno tool and quality-checked before use. The primary endpoint, patient-reported interaction quality, improved by 0.17 (95% CI 0.05 to 0.29), driven by shared decision-making, with no difference in perceived empathy. Patients rated autonomy support higher while physicians rated their own slightly lower, and the ratio of geometric mean consultation times was 0.79 (0.70 to 0.88). Evidence for an increase in encounter difficulty was weak, and secondary intervals were not adjusted for multiplicity.  Lab: TU Dresden (University Hospital Carl Gustav Carus). Model: Simply Onno (underlying model not named in the abstract). Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-15T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "patient-communication",
+        "large-language-model",
+        "neurosurgery",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-integer-multiplication-below-n-log-n",
+      "url": "https://whataifound.org/finding/2026-10-06-integer-multiplication-below-n-log-n",
+      "title": "Integer multiplication below n log n, against the Schönhage–Strassen optimality conjecture",
+      "content_text": "An OpenAI manuscript gives a deterministic algorithm that multiplies two n-bit integers in time O(n(log n)^(1 − κ)) with κ = 2⁻¹⁸² on a multitape Turing machine, which would beat the O(n log n) algorithm of Harvey and van der Hoeven and disprove Schönhage and Strassen's 1971 conjecture that n log n is optimal; David Harvey calls the claim plausible but says he has not checked it.  Schönhage and Strassen conjectured in 1971 that multiplying n-bit integers needs on the order of n log n bit operations, and Harvey and van der Hoeven reached that bound in 2021. Family 109 of OpenAI's release claims an algorithm running in O(n(log n)^(1 − κ)) with κ = 2⁻¹⁸², exact at every input length on one fixed finite-alphabet Turing machine with finitely many one-dimensional tapes. The manuscript is dated 23 September 2026 and was published with the release of 6 October. Harvey's note of 20 October describes three closely related manuscripts, says the work builds directly on the 2021 algorithm, and reports that others had already lowered the exponent of log n to about 0.9983. He argues that the size of κ is beside the point, since saving a power of log n is exponentially larger than any earlier improvement in this line.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "complexity",
+        "integer-multiplication",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-24-cytoreader-fusion-dual-stain-triage",
+      "url": "https://whataifound.org/finding/2026-09-24-cytoreader-fusion-dual-stain-triage",
+      "title": "Locked AI model for p16/Ki-67 dual-stain triage validated on 9,006 cervical screening cases",
+      "content_text": "Cytoreader-Fusion, an AI system that classifies p16/Ki-67 dual-stain cytology slides to triage HPV-positive screening results, was locked before validation and then detected biopsy-confirmed CIN 3+ with 88.3% sensitivity and 54.4% specificity in a held-out cohort of 4,996 cases.  Dual-stain cytology is the guideline-endorsed triage for HPV-positive screening results but depends on manual reading. The ensemble model was trained on 1,919 cases and evaluated under blinded honest-broker oversight on 9,006 cases in four cohorts, with all preprocessing, aggregation rules and decision parameters fixed before validation. The endpoint was histologically confirmed CIN 3+, or AIN 3+ in an anal cohort, rather than agreement with cytologists, and one classifier served both ThinPrep and SurePath slides without retraining. In the post-lock cohort sensitivity was 88.3% (90% interval 85.3 to 91.3) and specificity 54.4% (52.9 to 55.9); across cohorts the authors report both above ASC-US+ Pap cytology and comparable to or exceeding manual dual-stain reading.  Lab: University Medicine Göttingen (with H-Labs and the US National Cancer Institute). Model: Cytoreader-Fusion. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-09-24T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "cervical-cancer",
+        "screening",
+        "cytology",
+        "pathology",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-14-h1-formal-conjectures-open-problems",
+      "url": "https://whataifound.org/finding/2026-09-14-h1-formal-conjectures-open-problems",
+      "title": "Eight open problems from Formal Conjectures proved in Lean by a simple agent loop",
+      "content_text": "A team at FAIR at Meta ran GPT-5.6 Sol in h1, a minimal loop that gives a model a Lean interface and verifier feedback, on 236 problems listed as open in Google DeepMind's Formal Conjectures repository and obtained Lean proofs of eight of them, among them a variant of Erdős Problem 337, three OEIS conjectures and the existence of an AME(9, 10) quantum state; Formal Conjectures marked five as solved.  The eight are: W(k)/2ᵏ → ∞ for two-colour van der Waerden numbers, a variant of Erdős 138; the Ruzsa-Turjányi variant of Erdős 337, that |(A + A) ∩ [1, 2N]|/|A ∩ [1, N]| → ∞ for every asymptotic basis of density zero; the OEIS conjectures for A108081, A211417 (Bala's supercongruence, p³ᵏ|a(pᵏ) − a(p^(k − 1)) for primes p ≥ 5) and A022030; the existence of an AME(9, 10) state, a unit vector in (ℂ¹⁰)^(⊗9) whose reduction to any four parties is maximally mixed, which is Open Quantum Problem 35; and Written on the Wall II Conjectures 100 and 314. The proofs were made public on 2026-09-14 in a pull request to Formal Conjectures, merged on 2026-09-24, that marks the first five as solved with links to a repository of nine Lean files; the ninth, Green's Open Problem 25, is not counted in the paper. The paper, dated 28 October 2026, also reports that the loop exposed several misformalizations in Formal Conjectures by proving short disproofs of the written statements, including a smooth four-dimensional Poincaré variant missing a Hausdorff hypothesis.  Lab: FAIR at Meta. Model: GPT-5.6 Sol in the h1 harness. Verification: Formally verified. Autonomy: Search scaffold.",
+      "date_published": "2026-09-14T00:00:00+00:00",
+      "date_modified": "2026-10-29T00:00:00+00:00",
+      "tags": [
+        "lean",
+        "automated-theorem-proving",
+        "formal-conjectures",
+        "erdos-problems",
+        "oeis",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-27-car-intracellular-domain-refactor",
       "url": "https://whataifound.org/finding/2026-10-27-car-intracellular-domain-refactor",
       "title": "A shortened CAR intracellular domain designed with Claude Code",
@@ -1757,14 +2017,16 @@
       "id": "https://whataifound.org/finding/2026-08-26-nevanlinna-half-plane",
       "url": "https://whataifound.org/finding/2026-08-26-nevanlinna-half-plane",
       "title": "Counterexample to Nevanlinna's half-plane omitted-values question",
-      "content_text": "An explicit meromorphic function omits three values in a half-plane without being of bounded type there, answering in the negative a question of Nevanlinna open for more than a century.  A meromorphic function on a domain is of bounded type if it is a quotient of two bounded holomorphic functions. Nevanlinna asked whether omitting three values on a half-plane forces bounded type there. The paper constructs a function omitting 0, 1 and ∞ whose a-point divisor fails the Blaschke condition in each half-plane, which is exactly the negation, and notes that postcomposition gives the same conclusion for any prescribed triple of distinct values on the Riemann sphere. The construction runs through a modular covering, a comparison domain and a Farey-edge boundary with Schwarz reflection.  Lab: Independent. Model: GPT-5.6 Sol Ultra. Verification: Author verified. Autonomy: AI-led.",
+      "content_text": "An explicit meromorphic function omits three values in a half-plane without being of bounded type there, answering in the negative a question of Nevanlinna open for more than a century.  A meromorphic function on a domain is of bounded type if it is a quotient of two bounded holomorphic functions. Nevanlinna asked whether omitting three values on a half-plane forces bounded type there. The paper constructs a function omitting 0, 1 and ∞ whose a-point divisor fails the Blaschke condition in each half-plane, which is exactly the negation, and notes that postcomposition gives the same conclusion for any prescribed triple of distinct values on the Riemann sphere. The construction runs through a modular covering, a comparison domain and a Farey-edge boundary with Schwarz reflection.  Lab: Independent. Model: GPT-5.6 Sol Ultra. Verification: Formally verified. Autonomy: AI-led.",
       "date_published": "2026-08-26T00:00:00+00:00",
       "date_modified": "2026-08-31T00:00:00+00:00",
       "tags": [
         "complex-analysis",
         "value-distribution",
         "counterexample",
-        "construction"
+        "construction",
+        "lean",
+        "formalization"
       ]
     },
     {
