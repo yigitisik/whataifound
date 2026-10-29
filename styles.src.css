@@ -1796,20 +1796,15 @@
   .labcard-go:hover{background:var(--panel);color:var(--accent)}
   .labs-note{font-family:var(--serif);font-size:.78rem;color:var(--muted);margin:16px 0 0;max-width:64ch}
   /* The long tail of the lab hub: organisations under the hub-page bar, most with one
-     entry, as a dense list under the cards. Names wrap rather than truncate, since a row
-     has the width a card spent on its padding. Colour-only hover, so no hover guard. */
-  .lablist{list-style:none;margin:12px 0 0;padding:10px 0 0;border-top:1px solid var(--line);
-    display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,230px),1fr));gap:1px 14px}
-  .labrow{display:flex;align-items:center;gap:9px;min-width:0;padding:5px 8px;border-radius:8px;
-    color:var(--ink);text-decoration:none;font-family:var(--serif);font-size:.86rem;line-height:1.25;
-    transition:background-color .16s var(--ease)}
-  .labrow:hover{background:var(--panel-2)}
-  .labrow .labcard-logo{width:22px;height:22px;border-radius:6px;padding:3px}
-  .labrow .labcard-logo.mono{font-size:.56rem;letter-spacing:0;padding:0}
-  .labrow-name{flex:1;min-width:0;overflow-wrap:anywhere}
-  .labrow-n{flex:0 0 auto;font-size:.74rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
-  .labrow-go{flex:0 0 auto;width:12px;color:var(--accent);font-size:.78rem;opacity:.45}
-  .labrow:hover .labrow-go,.labrow:focus-visible .labrow-go{opacity:1}
+     entry, as a plain list of names in newspaper columns under the cards, so it reads down
+     like an index. Names wrap rather than truncate. Colour-only hover, so no hover guard. */
+  .lablist{list-style:none;margin:14px 0 0;padding:12px 0 0;border-top:1px solid var(--line);
+    columns:4 200px;column-gap:24px;font-family:var(--serif);font-size:.84rem;line-height:1.3}
+  .lablist li{break-inside:avoid;display:flex;align-items:baseline;gap:6px;padding:3px 0}
+  .labrow{color:var(--ink);text-decoration:none;overflow-wrap:anywhere;
+    transition:color .16s var(--ease)}
+  .labrow:hover{color:var(--accent);text-decoration:underline;text-underline-offset:3px}
+  .labrow-n{font-size:.72rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
   /* Topic row above the lab grid: chips rather than cards, because there are eleven of
      them and they are internal links to a derived page, not outbound links to a lab. */
   .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
@@ -2482,8 +2477,9 @@
     summary,.finding details.fold>summary{padding-top:13px;padding-bottom:11px}
     .labcard{padding:8px 12px}
     .more-btn{min-height:44px}
-    /* The tail rows are whole links, so the row itself takes the target. */
-    .labrow{min-height:44px}
+    /* The tail rows are plain names, so the link grows to the row and takes the target. */
+    .lablist li{align-items:center;padding:0}
+    .labrow{display:flex;align-items:center;min-height:44px}
 
     /* Room to grow: take the real 44px. */
     .totop{width:44px;height:44px}

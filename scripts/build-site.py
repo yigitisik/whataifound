@@ -2983,14 +2983,16 @@ def build_lab_hub(entries):
                 f'<span>{count}</span></span></a>'
                 f'{arrow}</div>')
         else:
-            # One destination, the lab's own site, so one link: the old card carried a
-            # second arrow pointing at the same place. The glyph marks it as off-site.
+            # The tail is a plain list of names, one link each to the lab's own site. Fifty
+            # rows that each carried an initials chip, a count and an arrow read as noise,
+            # and nearly every count was 1, so only a count above 1 is shown. The note under
+            # the hub says where these links go, once, instead of an arrow on every row.
+            more = (f' <span class="labrow-n">{n}<span class="vh"> entries</span></span>'
+                    if n > 1 else "")
             rows += (
                 f'<li><a class="labrow" href="{esc(ext)}" target="_blank" rel="noopener" '
-                f'title="{attr(org)}: {count}, opens its research site">'
-                f'{hub_mark(org)}<span class="labrow-name">{esc(org)}</span>'
-                f'<span class="labrow-n">{n}<span class="vh"> {"entry" if n == 1 else "entries"}'
-                f'</span></span><span class="labrow-go" aria-hidden="true">↗</span></a></li>')
+                f'title="{attr(org)}: {count}, opens its research site">{esc(org)}</a>'
+                f'{more}</li>')
     return (f'<div class="labgrid labgrid-hubs">{cards}</div>'
             + (f'<ul class="lablist">{rows}</ul>' if rows else ""))
 
