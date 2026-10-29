@@ -2502,6 +2502,17 @@ LAB_HUB = {
     "University of Pennsylvania": "https://www.pennmedicine.org/news",
     "Calif": "https://calif.io/research/",
     "Wiz Research": "https://www.wiz.io/blog/tag/research",
+    "University Medicine Göttingen": "https://www.umg.eu/en/",
+    "Central South University": "https://en.csu.edu.cn/",
+    "Beth Israel Deaconess Medical Center": "https://www.bidmc.org/research",
+    "Sun Yat-sen University": "https://www.sysu.edu.cn/sysuen/",
+    "Duke University Medical Center": "https://radiology.duke.edu/",
+    "Seoul National University Bundang Hospital": "https://www.snubh.org/",
+    "Juntendo University": "https://www.juntendo.ac.jp/english/",
+    "North Medical Center Hiroshima City Asa Citizens Hospital": "https://www.asa-hosp.city.hiroshima.jp/",
+    "TU Dresden": "https://tu-dresden.de/",
+    "FAIR at Meta": "https://ai.meta.com/research/",
+    "Bake AI": "https://bakeai.inc/research/",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

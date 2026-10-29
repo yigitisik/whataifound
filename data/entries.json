@@ -3232,6 +3232,12 @@
         "note": "Recorded the arXiv version of the paper, by Levent Alpoge and Ralph Furman, whose comments field states that Claude discovered the proof and the listed authors verified and communicated it. Also recorded the superseding paper PDF from the announcement's 13 August 2026 update. No grade moved.",
         "url": "https://arxiv.org/abs/2608.13637"
       }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Learning more about Claude's mathematical capabilities",
+        "url": "https://news.ycombinator.com/item?id=49247070"
+      }
     ]
   },
   {
@@ -4785,11 +4791,11 @@
       "Ke Wang",
       "Zijun Yu"
     ],
-    "verification": "author-verified",
+    "verification": "formal",
     "autonomy": "ai-led",
     "detail": "A meromorphic function on a domain is of bounded type if it is a quotient of two bounded holomorphic functions. Nevanlinna asked whether omitting three values on a half-plane forces bounded type there. The paper constructs a function omitting \\(0\\), \\(1\\) and \\(\\infty\\) whose \\(a\\)-point divisor fails the Blaschke condition in each half-plane, which is exactly the negation, and notes that postcomposition gives the same conclusion for any prescribed triple of distinct values on the Riemann sphere. The construction runs through a modular covering, a comparison domain and a Farey-edge boundary with Schwarz reflection.",
     "novelty_check": "The question is a named one in classical function theory, stated by Nevanlinna and described in the paper's own abstract as open for over a century, with the Blaschke condition and bounded type both standard notions carrying their own literature. The paper devotes a subsection to chronology and priority, which fixes what it believes was known when. No prior counterexample appears. The result is a new construction rather than a retrieval.",
-    "caveats": "A preprint days old at entry, unrefereed and not formalized, and no independent check is recorded. Autonomy graded ai-led on an unusually specific disclosure, which the paper puts in a numbered subsection headed Declaration of AI usage rather than in a footnote: the core mathematical construction and proof were generated during an autonomous run of GPT-5.6 Sol on OpenAI's ultra setting, the run lasted 7 hours 14 minutes and 14 seconds, the candidate proof was then subjected to human checking, mathematical auditing and revision, and the initial draft of the manuscript was also machine-generated and lightly revised. Graded ai-led rather than autonomous because the problem was posed and the output audited by the seven authors; the run itself is described as autonomous, and that distinction is the whole of the difference.",
+    "caveats": "Unrefereed, and no human outside the author group is on record as having checked it. Graded formal since 2026-10-29 on the authors' Lean formalization of Theorem 1.2, the headline construction, registered on Palomar after its verification run passed with Lean, NanoDa and con-ron accepting the proof; a scan of all 168 Lean files at the registered commit found no axiom declarations, no native_decide, and sorry only in Challenge.lean, where the statement is left open by construction. The statement uses Mathlib's normal form for meromorphic functions, in which a pole is a non-analytic point, and the authors prove correspondence lemmas tying it to the paper's formulation; the formalization was written with Codex and its review is recorded as self-assessed, with no independent human review. At entry the preprint was days old and not formalized. Autonomy graded ai-led on an unusually specific disclosure, which the paper puts in a numbered subsection headed Declaration of AI usage rather than in a footnote: the core mathematical construction and proof were generated during an autonomous run of GPT-5.6 Sol on OpenAI's ultra setting, the run lasted 7 hours 14 minutes and 14 seconds, the candidate proof was then subjected to human checking, mathematical auditing and revision, and the initial draft of the manuscript was also machine-generated and lightly revised. Graded ai-led rather than autonomous because the problem was posed and the output audited by the seven authors; the run itself is described as autonomous, and that distinction is the whole of the difference.",
     "registrations": [
       {
         "registry": "vibemathed",
@@ -4802,6 +4808,19 @@
         "title": "Nevanlinna's half-plane problem",
         "url": "https://mathdb.com/p/392094/nevanlinna-s-half-plane-problem",
         "note": "Tracks the identical claimed counterexample to the same century-old problem."
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-29-000014",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-29-000014&version=1",
+        "title": "Three omitted values and non-Blaschke point divisors in half-planes",
+        "repository": "QuanyuTang/three-omitted-values-palomar",
+        "commit": "c408da985b3b0498f6f2df702739673865a8b932",
+        "theorems": [
+          "PalomarTheorem12.main_result"
+        ],
+        "checked": "2026-10-29",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice. The repository reports that Lean, NanoDa and con-ron accepted the proof at the registered commit."
       }
     ],
     "sources": [
@@ -4809,13 +4828,20 @@
         "label": "arXiv: Three omitted values and non-Blaschke point divisors in half-planes",
         "url": "https://arxiv.org/abs/2608.26062",
         "kind": "research"
+      },
+      {
+        "label": "GitHub: QuanyuTang/three-omitted-values-palomar, the authors' Lean formalization of Theorem 1.2",
+        "url": "https://github.com/QuanyuTang/three-omitted-values-palomar",
+        "kind": "research"
       }
     ],
     "tags": [
       "complex-analysis",
       "value-distribution",
       "counterexample",
-      "construction"
+      "construction",
+      "lean",
+      "formalization"
     ],
     "added": "2026-08-31",
     "revisions": [
@@ -4824,6 +4850,12 @@
         "kind": "correction",
         "note": "Recorded the MathDB record for this result as a registration. No grade moved.",
         "url": "https://mathdb.com/p/392094/nevanlinna-s-half-plane-problem"
+      },
+      {
+        "date": "2026-10-29",
+        "kind": "regraded",
+        "note": "Regraded from author verified to formal: the authors' Lean formalization of Theorem 1.2, written with Codex, was registered on Palomar after Lean, NanoDa and con-ron accepted it.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-29-000014&version=1"
       }
     ]
   },
@@ -8780,7 +8812,7 @@
     "autonomy": "ai-led",
     "detail": "The four-dimensional paper proves that every \\(K \\subset \\mathbb{R}^4\\) containing a unit segment in every direction has \\(\\dim_H K = 4\\), with no measurability assumed on the set or on the choice of segments. Its introduction gives the best earlier lower bound as \\(3.059\\), from Katz and Zahl's planebrush argument, against Wolff's \\(3\\) from 1995; Rai Choudhuri's \\(13/4\\) covers only sticky sets. The three-dimensional paper proves the stronger maximal form: for every \\(\\varepsilon > 0\\) the radius-\\(\\delta\\) tube maximal operator maps \\(L^3(\\mathbb{R}^3)\\) to \\(L^3(S^2)\\) with norm \\(O_\\varepsilon(\\delta^{-\\varepsilon})\\). It builds on the streamlined Guth, Wang and Zahl proof of the set estimate and addresses the gap Wang and Zahl state after their own theorem, replacing a density loss \\(\\lambda^{K(\\varepsilon)}\\) by \\(\\lambda^3\\). Scientific American's report names only the four-dimensional result.",
     "novelty_check": "Read both manuscripts' introductions at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. Wang and Zahl's 2025 preprint resolved the Hausdorff and Minkowski dimension Kakeya set conjecture in three dimensions; the maximal conjecture in three dimensions and the set conjecture in four were open, and both papers say so with citations. No earlier claim of either result was found in a web search or in the registry; 2025-11-03-alphaevolve-at-scale mentions Kakeya only for an explicit construction that turned out to match prior work, not for a dimension bound.",
-    "caveats": "No Lean formalization accompanies either paper, unlike much of the release, so the only check available is reading them, and both are long multiscale harmonic-analysis arguments of the kind that take specialists months: the source of the four-dimensional paper runs to about 640,000 characters and the three-dimensional one to about 340,000. Nobody outside OpenAI is on record as having read either. Autonomy is graded ai-led because the README places neither among the exceptions to its single-agent procedure, but that account rests on OpenAI alone and the model is unreleased; it is not graded autonomous because humans chose the problems and filtered the output. The three-dimensional result depends directly on the Guth, Wang and Zahl set estimate, which is itself recent.",
+    "caveats": "No Lean formalization accompanies either paper, unlike much of the release, so the only check available is reading them, and both are long multiscale harmonic-analysis arguments of the kind that take specialists months: the source of the four-dimensional paper runs to about 640,000 characters and the three-dimensional one to about 340,000. Nobody outside OpenAI is on record as having read either. Autonomy is graded ai-led because the README places neither among the exceptions to its single-agent procedure, but that account rests on OpenAI alone and the model is unreleased; it is not graded autonomous because humans chose the problems and filtered the output. The three-dimensional result depends directly on the Guth, Wang and Zahl set estimate, which is itself recent. A later manuscript in the same collection, recorded at 2026-10-26-local-smoothing-all-dimensions, claims local smoothing in every dimension with a Lean formalization whose statements include the Kakeya maximal estimate and full Hausdorff dimension for Kakeya sets in every dimension, which would contain both results here; it is OpenAI's own and unaudited, and it does not check either of this entry's manuscripts.",
     "sources": [
       {
         "label": "Every four-dimensional Kakeya set has full Hausdorff dimension (PDF)",
@@ -8842,6 +8874,12 @@
         "date": "2026-10-16",
         "kind": "correction",
         "note": "Recorded the MathDB record for the maximal conjecture as a registration. No grade moved."
+      },
+      {
+        "date": "2026-10-29",
+        "kind": "correction",
+        "note": "Noted that OpenAI's local smoothing release of 26 October 2026 claims both results here within a Lean-formalized result for every dimension. No grade moved.",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/079.md"
       }
     ]
   },
@@ -11407,6 +11445,12 @@
         ],
         "checked": "2026-10-20",
         "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice. Palomar records trust level high and archives a fork of the repository."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "trilinear-hilbert-transform-l3",
+        "url": "https://vibemathed.com/problem/trilinear-hilbert-transform-l3",
+        "note": "Records the OpenAI manuscript result of 2026-10-05 for the same bound, the result this formalization checks."
       }
     ],
     "tags": [
@@ -11416,7 +11460,15 @@
       "formalization",
       "argument"
     ],
-    "added": "2026-10-26"
+    "added": "2026-10-26",
+    "revisions": [
+      {
+        "date": "2026-10-29",
+        "kind": "correction",
+        "note": "Recorded vibemathed's record of OpenAI's result for the same bound as a registration. No grade moved.",
+        "url": "https://vibemathed.com/problem/trilinear-hilbert-transform-l3"
+      }
+    ]
   },
   {
     "id": "2026-10-21-php2shell-rce",
@@ -11488,7 +11540,21 @@
       "coordinated-disclosure",
       "php"
     ],
-    "added": "2026-10-26"
+    "added": "2026-10-26",
+    "discussion": [
+      {
+        "label": "Hacker News: PHP2Shell: AI uncovers critical RCE in PHP",
+        "url": "https://news.ycombinator.com/item?id=50180836"
+      },
+      {
+        "label": "Hacker News: Patch the Planet: global response coordination as agents uncover vulnerabilities",
+        "url": "https://news.ycombinator.com/item?id=50181175"
+      },
+      {
+        "label": "Hacker News: Today's PHP security release, and how we're strengthening security",
+        "url": "https://news.ycombinator.com/item?id=50182987"
+      }
+    ]
   },
   {
     "id": "2026-10-27-car-intracellular-domain-refactor",
@@ -11652,7 +11718,24 @@
       "formalization",
       "construction"
     ],
-    "added": "2026-10-27"
+    "added": "2026-10-27",
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "353263",
+        "title": "Exponential Time Hypothesis",
+        "url": "https://mathdb.com/p/353263/exponential-time-hypothesis",
+        "note": "Lists the hypothesis as open as of October 2026; its one posted solution is OpenAI's concurrent claim, and this refutation is not recorded there."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-10-29",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for the Exponential Time Hypothesis as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/353263/exponential-time-hypothesis"
+      }
+    ]
   },
   {
     "id": "2026-10-26-eth-refuted-openai",
@@ -11704,6 +11787,730 @@
       "formalization",
       "construction"
     ],
-    "added": "2026-10-27"
+    "added": "2026-10-27",
+    "discussion": [
+      {
+        "label": "Hacker News: The Exponential Time Hypothesis Is False",
+        "url": "https://news.ycombinator.com/item?id=50251661"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "353263",
+        "title": "Exponential Time Hypothesis",
+        "url": "https://mathdb.com/p/353263/exponential-time-hypothesis",
+        "note": "Carries OpenAI's claimed refutation as its one posted solution and, as of October 2026, lists the hypothesis as open with no independently verified proof or refutation."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-10-29",
+        "kind": "correction",
+        "note": "Recorded the MathDB record for the Exponential Time Hypothesis as a registration. No grade moved.",
+        "url": "https://mathdb.com/p/353263/exponential-time-hypothesis"
+      }
+    ]
+  },
+  {
+    "id": "2026-10-27-pts-beta-eta-normalization",
+    "title": "Weak normalization implies strong normalization in pure type systems with βη-conversion, proved in Lean",
+    "claim": "A Lean proof, written by Claude Opus 5.5 under four authors' direction by adapting OpenAI's proof of the β case, that in every pure type system with βη-conversion, if every legal term is weakly normalizing then every legal term is strongly normalizing, the βη form of a conjecture Geuvers stated in 1993.",
+    "field": "computer-science",
+    "date": "2026-10-27",
+    "lab": "Independent",
+    "model": "Claude Opus 5.5 in Claude Code, adapting an OpenAI Lean proof of the β case",
+    "humans": [
+      "Ankit Pradhan",
+      "Cole Vick",
+      "Ruijie Fang",
+      "Carl Kwan"
+    ],
+    "year_posed": 1993,
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "The Barendregt-Geuvers-Klop conjecture asks whether weak normalization implies strong normalization in every pure type system; Geuvers states it for all of them in his 1993 thesis as Conjecture 8.1.2. OpenAI's release of 6 October 2026 included a preprint and Lean proof of the case where the conversion rule uses β-conversion only, family 245 of the collection recorded at 2026-10-06-openai-math-collection. This development proves the βη case for every specification, with no functionality, finiteness or decidability assumed: weak βη-normalization of every legal term implies strong βη-normalization, and so does weak β-normalization. Because an η-step can delete a λ-annotation, the proof works from the weaker property that every legal term has a β-reduct with no β-redex outside its λ-domains, handles conversion through domain erasure, indexes candidates by βη-normal forms of erased types and makes observation values η-canonical. OpenAI's 33 Lean files for the β case are copied in and ported to Lean v4.35.0.",
+    "novelty_check": "arXiv, 2026-10-29: abs:\"strong normalization\" AND abs:\"pure type systems\" returned 3 records and abs:\"Barendregt-Geuvers-Klop\" returned none; none claims either case of the conjecture. The repository cites Geuvers's 1993 thesis for the statement and names no earlier proof of the βη case. Within this registry OpenAI's β-case proof is one family of 2026-10-06-openai-math-collection with no entry of its own, and no entry covers either case. The 2026-10-29 watch run surfaced this through its Palomar registration.",
+    "caveats": "Graded formal on the Palomar registration, which certifies that the proof typechecks against the recorded statement under the three standard axioms; a scan of all 71 Lean files at the registered commit found no axiom declarations, no native_decide, and sorry only in Challenge.lean, where the statement is left open by construction. Whether Challenge.lean states the conjecture as Geuvers meant it is a separate reading: it defines annotated pseudo-terms with de Bruijn indices, the seven typing rules of the βη system and strong normalization as accessibility, and nobody independent of the authors is on record as having audited it. Two neighbouring statements are explicitly not proved: the system with a strengthening rule, and Geuvers's Conjecture 8.1.3, that strong normalization of the β system implies it for the βη system. The proof follows the architecture of OpenAI's argument, so it is evidence that the argument adapts rather than an independent route; OpenAI's base case is an unrefereed manuscript from an unreleased model, though its Lean files build here, so the formal grade covers them. The project metadata records endorsement from both OpenAI and Geuvers as not contacted. Autonomy is collaborative: the metadata says Claude Opus 5.5 adapted the proof to βη and wrote all of the Lean except OpenAI's files, under the direction of the human authors, and the construction it adapted came from a different lab's model, so neither the authors' direction nor this model's work accounts for the result alone.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-27-000027",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-27-000027&version=1",
+        "title": "Weak and strong βη-normalization in pure type systems with βη-conversion",
+        "repository": "localmotiveproofs/PTS-beta-eta",
+        "commit": "9d0b54a7d5f6747410212c40acf53d12544eb2e6",
+        "theorems": [
+          "PureTypeSystem.weak_implies_strong_betaEta",
+          "PureTypeSystem.weak_beta_implies_strong_betaEta"
+        ],
+        "checked": "2026-10-27",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice. Palomar records trust level high and archives a fork of the repository."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: localmotiveproofs/PTS-beta-eta",
+        "url": "https://github.com/localmotiveproofs/PTS-beta-eta",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Weak and strong normalization in pure type systems, the β case (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Weak-and-strong-normalization-in-pure-type-systems-September-25-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math: scope of the Lean formalization of the β case",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/245.md",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "type-theory",
+      "lambda-calculus",
+      "normalization",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-27-bernoulli-shifts-unequal-entropy",
+    "title": "Measurably isomorphic Bernoulli shifts with different base entropies, proved in Lean",
+    "claim": "A Lean proof, registered on Palomar, that some countable group has measurably isomorphic Bernoulli shifts over alphabets of different sizes, so that base entropy is not an isomorphism invariant for that group; the group comes from OpenAI's claimed counterexample to Kaplansky's direct-finiteness conjecture, and the dynamical construction was written with GPT-6 Astra and GPT-6 Sol under Peter Burton's direction.",
+    "field": "mathematics",
+    "date": "2026-10-27",
+    "lab": "Independent",
+    "model": "GPT-6 Astra and GPT-6 Sol via Codex, building on an OpenAI construction",
+    "humans": [
+      "Peter Burton"
+    ],
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "detail": "For a countable group \\(G\\) and a finite alphabet \\(A\\), the Bernoulli shift is \\(G\\) acting by translation on \\(A^G\\) with the uniform product measure. Ornstein showed in 1970 that base entropy is a complete invariant of these shifts over the integers, and Bowen showed in 2010 that it is an isomorphism invariant over every sofic group, so shifts with different base entropies can be isomorphic only over a group outside that class. The registered theorem gives a countable group \\(G\\) and a nontrivial finite alphabet \\(A\\) for which the shifts on \\(A\\) and on \\(A \\times A\\) are equivariantly isomorphic on invariant conull sets, with a measurable inverse. The group and the algebraic input come from OpenAI's manuscript A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two, whose abstract says the group is non-sofic; its Lean development is imported at a pinned commit, and this project builds the dynamical conjugacy on top of it.",
+    "novelty_check": "arXiv, 2026-10-29: abs:\"Bernoulli shifts\" AND abs:\"entropy\" AND abs:\"sofic\" returned 11 records, on sofic entropy and its refinements; none constructs isomorphic shifts with different base entropies. Such an example needs a non-sofic group, and whether any group is non-sofic was itself open until OpenAI's Kaplansky manuscript claimed one. Within this registry that manuscript is part of 2026-10-06-openai-math-collection with no entry of its own, and nothing covers this result. The 2026-10-29 watch run surfaced it through its Palomar registration.",
+    "caveats": "Graded formal on the Palomar registration: the repository reports that Palomar's mechanical verification passed at the registered commit, including Lean kernel checking and an independent NanoDa replay, and its comparator configuration enables NanoDa. A scan of all 59 Lean files at that commit found no axiom declarations, no native_decide, and sorry only in the Challenge.lean statement file. The grade covers less than the expository note: the metadata says the certificate concerns finite-uniform measurable conjugacy only, does not certify the all-base collapse, finitary continuity, the integer coding inputs or the note's later corollaries, and claims no formal entropy classification theorem. The formalization.yaml at the registered commit still says the revision had not completed Palomar's hosted preflight and claims no registration; the README, updated afterwards, explains that those notes predate the hosted checks. Because OpenAI's Lean proof of the algebraic input builds inside this development, the formal grade covers it too, but the mathematics it encodes is an unrefereed manuscript from an unreleased model, and no mathematician is on record as having read either argument. Review is recorded as agent-reviewed with no human peer review, and the expository note comes from a draft GPT-6 wrote. Autonomy is collaborative: the metadata credits GPT-6 Astra and GPT-6 Sol with mathematical writing, Lean implementation, integration and source review under human direction, and the decisive algebraic input is another lab's model's work.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-27-000030",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-27-000030&version=1",
+        "title": "Finite uniform Bernoulli shifts with unequal base entropy",
+        "repository": "peterburton1728/bernoulli-iso-1",
+        "commit": "80241ef9354deaa4e787431f5e0692d8d757308e",
+        "theorems": [
+          "BernoulliCertificate.unequal_finite_bernoulli_shifts"
+        ],
+        "checked": "2026-10-27",
+        "note": "Permitted axioms are exactly propext, Classical.choice and Quot.sound, with NanoDa enabled. The certificate is narrower than the expository note."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: peterburton1728/bernoulli-iso-1",
+        "url": "https://github.com/peterburton1728/bernoulli-iso-1",
+        "kind": "research"
+      },
+      {
+        "label": "Peter Burton: expository note (PDF)",
+        "url": "https://github.com/peterburton1728/bernoulli-iso-1/blob/main/bernoulli-iso.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/A-Counterexample-to-Kaplanskys-Direct-Finiteness-Conjecture-in-Characteristic-Two-September-23-2026/paper.pdf",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ergodic-theory",
+      "bernoulli-shifts",
+      "sofic-groups",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-26-cfsg-lean-axiom",
+    "title": "Classification of Finite Simple Groups formalized in Lean by directed AI agents",
+    "claim": "Axiom Math released a sorry-free Lean proof of the Classification of Finite Simple Groups that follows the first-generation proof, about 43.1 million lines written over 24 days by swarms of AI agents directed by its mathematicians and engineers, whose agents also found counterexamples to a step in one published route to the Unbalanced Group Theorem.",
+    "field": "mathematics",
+    "date": "2026-10-26",
+    "lab": "Axiom Math",
+    "model": "AxiomProver agent system using an unnamed, changing mix of models",
+    "humans": [
+      "Dean Cureton",
+      "Vasily Ilin",
+      "Bhavik Mehta",
+      "Niels Voss",
+      "Letong Hong",
+      "Colin Defant",
+      "Ken Ono"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The classification states that every finite simple group is cyclic of prime order, alternating, of Lie type, or one of 26 sporadic groups. Its first-generation proof is spread over hundreds of papers and books, and the second-generation revision is incomplete, so the project formalized the first-generation proof. The README states the theorem through the classification statement of the TauCeti project, written outside Axiom, and says the proof builds on Mathlib and TauCeti with only Lean's three standard axioms and no native_decide. The announcement says about 1.2 million lines come from the Qiuzhen-CFSG project and that the work was split into 108 milestones and about 380 tasks, with lead agents decomposing arguments and reviewing the statements being formalized while other agents searched for existing results or wrote proofs. Formalizing Walter's argument, the agents found explicit counterexamples to a closure assertion it uses, and a companion paper by Colin Defant and Ken Ono gives an alternative argument for the simple-group case of the Unbalanced Group Theorem built on Solomon's 1976 theory of maximal 2-components, whose key step the announcement credits to AxiomProver.",
+    "novelty_check": "This is a formalization of a known theorem and is graded as such: the classification was announced complete in the early 1980s, and Aschbacher and Smith closed the quasithin case in 2004. arXiv, 2026-10-29: abs:\"finite simple groups\" AND abs:\"Lean\" returned 2 records, neither a complete formal proof of the classification. The announcement credits earlier Lean work, including about 1.2 million lines from the Qiuzhen-CFSG project, so partial formalizations existed and this builds on them. Within this registry Axiom Math has several earlier entries and none on group classification. The 2026-10-29 watch run surfaced it through an r/math comment and the Hacker News thread linked here.",
+    "caveats": "Graded claimed, following this registry's practice for large formalizations nobody outside the authors has rebuilt: every check recorded is Axiom's own. The README says the build fits in under 24 hours only with open changes to Lake and other optimizations not yet upstreamed, so a reader cannot yet rerun it with released tools, and no independent replay, second-kernel check or Palomar registration was found. Taking the statement from TauCeti means the theorem's wording was not written by the people who proved it, the strongest part of the record, but nobody independent is on record as confirming that the release proves that statement without extra hypotheses; the announcement notes that Lean can verify results proved under assumptions not yet established and says the project counted itself complete only when none remained, which is Axiom's account. The project lists 34 noteworthy deviations from the published record, most described as minor, the largest being the Unbalanced Group Theorem gap, and the announcement's milestone count of 108 differs from the 100 on the project page. The companion paper carries the venue's labels 'Primarily human-written text' and 'Human understanding: all parts' and its abstract does not mention AI, while the announcement credits its Theorem 2.3 to AxiomProver, so the two framings differ on who did the new mathematics. The models are not named. Autonomy is collaborative rather than ai-led: agents wrote the Lean and proved at least one new lemma, but human mathematicians investigated the obstructions, consulted the group theorists Richard Lyons and Ron Solomon, and wrote the paper resolving the most substantial one.",
+    "sources": [
+      {
+        "label": "GitHub: AxiomMath/CFSG",
+        "url": "https://github.com/AxiomMath/CFSG",
+        "kind": "research"
+      },
+      {
+        "label": "Hexagon: Defant and Ono, The Unbalanced Group Theorem",
+        "url": "https://hexagonmath.org/2610.00575",
+        "kind": "research"
+      },
+      {
+        "label": "Axiom Math: Formalizing the Enormous Theorem",
+        "url": "https://axiommath.ai/research/the-enormous-theorem-formalized/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Axiom Math: CFSG project site",
+        "url": "https://cfsg.axiommath.ai/",
+        "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Classification of Finite Simple Groups Formalized in Lean",
+        "url": "https://news.ycombinator.com/item?id=50261647"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "finite-simple-groups",
+      "lean",
+      "formalization"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-06-integer-multiplication-below-n-log-n",
+    "title": "Integer multiplication below n log n, against the Schönhage–Strassen optimality conjecture",
+    "claim": "An OpenAI manuscript gives a deterministic algorithm that multiplies two \\(n\\)-bit integers in time \\(O(n (\\log n)^{1-\\kappa})\\) with \\(\\kappa = 2^{-182}\\) on a multitape Turing machine, which would beat the \\(O(n \\log n)\\) algorithm of Harvey and van der Hoeven and disprove Schönhage and Strassen's 1971 conjecture that \\(n \\log n\\) is optimal; David Harvey calls the claim plausible but says he has not checked it.",
+    "field": "computer-science",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 1971,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Schönhage and Strassen conjectured in 1971 that multiplying \\(n\\)-bit integers needs on the order of \\(n \\log n\\) bit operations, and Harvey and van der Hoeven reached that bound in 2021. Family 109 of OpenAI's release claims an algorithm running in \\(O(n (\\log n)^{1-\\kappa})\\) with \\(\\kappa = 2^{-182}\\), exact at every input length on one fixed finite-alphabet Turing machine with finitely many one-dimensional tapes. The manuscript is dated 23 September 2026 and was published with the release of 6 October. Harvey's note of 20 October describes three closely related manuscripts, says the work builds directly on the 2021 algorithm, and reports that others had already lowered the exponent of \\(\\log n\\) to about 0.9983. He argues that the size of \\(\\kappa\\) is beside the point, since saving a power of \\(\\log n\\) is exponentially larger than any earlier improvement in this line.",
+    "novelty_check": "arXiv, 2026-10-29: abs:\"integer multiplication\" AND abs:\"log n\" returned 13 records, none before the release claiming a bound below \\(n \\log n\\). Harvey, coauthor of the 2021 record, treats the claim as new. Within this registry the release is recorded at 2026-10-06-openai-math-collection, whose headline list does not name this family; the matrix multiplication entries concern a different problem.",
+    "caveats": "Entered at claimed: the catalogue links no Lean formalization for family 109, and Harvey says that as far as he can tell none exists. His is the only expert assessment found, and it is explicitly tentative: he writes that he has not actually read the paper, that he tried and gave up, and that he instead asked Claude Fable 5.1 to explain it, reaching after two weeks of questions the tentative belief that the main result is possibly correct. He stresses that he has not checked the proof in any serious level of detail and that his confidence would rise greatly with a formalization whose statement a Lean expert had checked. That is a domain expert's informed reading through an AI intermediary, not a check of the proof. The claim is for the multitape Turing model, and Harvey notes that Boolean-circuit and Turing-machine versions of the exponent may differ. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts from it on 7 October 2026 over a sign error and revised 14 others. Autonomy is ai-led on the strictest defensible reading, as for the other families split from this release: the README attributes the results to an unreleased internal model following a single procedure, while humans chose the problems and ran the release, and no human author is named.",
+    "sources": [
+      {
+        "label": "OpenAI: Integer multiplication below n log n (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Integer-multiplication-below-n-log-n-September-23-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "David Harvey: On the recently proposed o(n log n) integer multiplication algorithm (PDF)",
+        "url": "https://web.maths.unsw.edu.au/~davidharvey/research/subnlogn.pdf",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "complexity",
+      "integer-multiplication",
+      "argument"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-26-local-smoothing-all-dimensions",
+    "title": "Sogge's local smoothing conjecture claimed in every dimension, with Bochner–Riesz and Kakeya as consequences",
+    "claim": "An OpenAI manuscript released with a Lean formalization claims Sogge's local smoothing conjecture for the wave equation in every spatial dimension, and from it the Bochner–Riesz conjecture, the Kakeya and Nikodym maximal conjectures, full Hausdorff dimension for every Euclidean Kakeya set, and Fourier restriction for the sphere, paraboloid and cone throughout the interior of the conjectured range.",
+    "field": "mathematics",
+    "date": "2026-10-26",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 1991,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Local smoothing asks how much regularity solutions of the wave equation gain on average in time beyond what fixed-time estimates allow. Sogge conjectured the sharp form in 1991, and it was known to imply the Bochner–Riesz and Kakeya conjectures; Guth, Wang and Zhang proved it in two spatial dimensions in 2020. Family 079 of openai/math, added on 26 October 2026, pairs a manuscript dated 25 October with an earlier one claiming the critical \\(L^3\\) estimate in three dimensions. OpenAI's scope page says the Lean formalization bounds, for every \\(n \\ge 2\\) and \\(2 \\le p < \\infty\\), the \\(L^p(\\mathbb{R}^n \\times [1, 2])\\) norm of the half-wave by the \\(W^{s,p}\\) norm of Schwartz initial data with \\(s = \\max(0, (n-1)/2 - n/p) + \\varepsilon\\), and also gives uniform Bochner–Riesz bounds, spherical extension estimates and Stein square-function bounds in their strict ranges, the Kakeya maximal bound with \\(\\delta^{-\\varepsilon}\\) loss, and full dimension for every set containing a unit segment in each direction. The release note says the model output is published directly, as in the release of 6 October.",
+    "novelty_check": "arXiv, 2026-10-29: abs:\"local smoothing conjecture\" returned 9 records and abs:\"local smoothing\" AND abs:\"wave equation\" returned 29; none claims the conjecture in all dimensions, the standing results being partial ranges and the two-dimensional case. Within this registry 2026-10-06-kakeya-3d-maximal-4d records OpenAI's earlier claims of the three-dimensional Kakeya maximal estimate and full dimension for four-dimensional Kakeya sets, both of which this result would contain; that entry stands, since its two manuscripts are separate arguments. 2026-10-26-eth-refuted-openai records the other result added the same day.",
+    "caveats": "Entered at claimed. A Lean formalization exists and its Comparator statements cover the headline estimates, which sets this apart from the earlier Kakeya entry, but it is OpenAI's own: no rebuild outside OpenAI, audit of the statements or Palomar registration was found, and an outside rebuild is what moved the one family from this release that this registry grades formal. Two scope limits are on OpenAI's own page: the estimates are proved for Schwartz initial data, and restriction is claimed throughout the interior of the conjectured range rather than at its endpoints, with Bochner–Riesz, restriction and square-function bounds stated in their strict ranges. Nobody outside OpenAI is on record as having read the manuscript, and nothing was found from the people whose results it would subsume. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts on 7 October 2026 over a sign error. Autonomy is ai-led on the strictest defensible reading, matching every other family from this release: the model's output is released directly, while humans chose the problems and ran the formalization pipeline.",
+    "sources": [
+      {
+        "label": "OpenAI: Local smoothing for the Euclidean wave equation (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Local-smoothing-for-the-Euclidean-wave-equation-October-25-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math: scope of the Lean formalization for family 079",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/079.md",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math: Comparator challenge statement (LocalSmoothing.lean)",
+        "url": "https://github.com/openai/math/blob/main/lean/ComparatorChallenges/LocalSmoothing.lean",
+        "kind": "research"
+      },
+      {
+        "label": "openai/math release history, 26 October 2026 entry",
+        "url": "https://github.com/openai/math/blob/main/history.md",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "local-smoothing",
+      "kakeya",
+      "restriction",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-09-24-cytoreader-fusion-dual-stain-triage",
+    "title": "Locked AI model for p16/Ki-67 dual-stain triage validated on 9,006 cervical screening cases",
+    "claim": "Cytoreader-Fusion, an AI system that classifies p16/Ki-67 dual-stain cytology slides to triage HPV-positive screening results, was locked before validation and then detected biopsy-confirmed CIN 3+ with 88.3% sensitivity and 54.4% specificity in a held-out cohort of 4,996 cases.",
+    "field": "medicine",
+    "date": "2026-09-24",
+    "lab": "University Medicine Göttingen (with H-Labs and the US National Cancer Institute)",
+    "model": "Cytoreader-Fusion",
+    "humans": [
+      "Bernd Lahrmann",
+      "Nicolas Wentzensen",
+      "Niels Grabe"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Dual-stain cytology is the guideline-endorsed triage for HPV-positive screening results but depends on manual reading. The ensemble model was trained on 1,919 cases and evaluated under blinded honest-broker oversight on 9,006 cases in four cohorts, with all preprocessing, aggregation rules and decision parameters fixed before validation. The endpoint was histologically confirmed CIN 3+, or AIN 3+ in an anal cohort, rather than agreement with cytologists, and one classifier served both ThinPrep and SurePath slides without retraining. In the post-lock cohort sensitivity was 88.3% (90% interval 85.3 to 91.3) and specificity 54.4% (52.9 to 55.9); across cohorts the authors report both above ASC-US+ Pap cytology and comparable to or exceeding manual dual-stain reading.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"dual stain\" AND TITLE_ABS:\"artificial intelligence\" AND TITLE_ABS:\"cervical\" returned 3 records: this study, a 2024 review, and a 2021 JNCI paper on deep-learning automation of dual-stain cytology by Wentzensen, Lahrmann, Clarke and colleagues, several of the same investigators. Automated dual-stain reading is therefore not new; what this adds is a model locked in advance and evaluated on a held-out cohort against histological endpoints.",
+    "caveats": "External in data, not in investigators: the title calls the validation independent, and the post-lock cohort was held out under an honest broker, but the authors include the group behind the 2021 automation work and staff of H-Labs GmbH, so it is not independent in this registry's sense. Funded by the US National Cancer Institute and others, with Kaiser Permanente Northern California among the participating institutions. Retrospective, on archived slides; the endpoint is a hard histological one, but no patient was managed on the model's output. Specificity of about 54% in the post-lock cohort implies many referrals, and the abstract does not give the manual dual-stain figures for that cohort. Whether the model is available outside the developers is not stated. Autonomy is ai-assisted: the system classifies slides for a triage decision clinicians make.",
+    "sources": [
+      {
+        "label": "NEJM AI: Closing the Automation Gap in HPV-Based Cervical Cancer Screening, independent external validation of an AI model for dual-stain triage",
+        "url": "https://doi.org/10.1056/AIoa2600270",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cervical-cancer",
+      "screening",
+      "cytology",
+      "pathology",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-28-eus-guideq-endosonography-rct",
+    "title": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",
+    "claim": "In a single-centre randomised trial of 266 patients in China, a real-time AI system that recognises scanning stations and prompts the endoscopist by voice raised the completeness of guideline-recommended biliopancreatic endoscopic ultrasound stations from a median of 0.81 to 1.00, while lengthening procedures by about two minutes.",
+    "field": "medicine",
+    "date": "2026-10-28",
+    "lab": "Central South University (Third Xiangya Hospital)",
+    "model": "EUS-GUIDEQ",
+    "humans": [
+      "Rui Wang",
+      "Xiaoyan Wang"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "EUS-GUIDEQ was developed from 27,072 annotated images from 189 patients, with station classification accuracy of 94.2% on 1,500 internal images and 78.8% on 2,062 multicentre external images. Between December 2023 and May 2025 patients were randomised 1:1 to AI-assisted or standard examination, with 132 and 134 analysed. The primary endpoint, completeness of standardised scanning stations adjudicated by blinded experts from recorded video, was a median of 1.00 (interquartile range 0.94 to 1.00) against 0.81 (0.75 to 0.88), P < 0.001, with benefit across participating endoscopists. Procedure time was 12.70 against 10.55 minutes, and no serious procedure-related adverse events occurred.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"endoscopic ultrasound\" AND TITLE_ABS:\"artificial intelligence\" AND TITLE_ABS:\"randomized\" returned 4 records: this trial, a 2026 study of AI and endosonographers' detection of solid pancreatic lesions, a 2026 mediastinal EUS navigation system and a 2023 detection study. AI guidance for EUS is not new; no earlier randomised trial of real-time station guidance for biliopancreatic EUS was found.",
+    "caveats": "Developed and tested by the same investigators at the Third Xiangya Hospital of Central South University, with co-authors from other hospitals in Hunan and Wuhan; no vendor or funder is named in the abstract. Prospective and randomised but single-centre, and the endpoint is a process surrogate, scanning completeness, not diagnostic yield or patient outcome; the authors call for multicentre, multi-vendor validation. External station accuracy fell to 78.8%, and the gain came with about two more minutes per procedure. Autonomy is ai-assisted: the endoscopist performed the examination and the system prompted.",
+    "sources": [
+      {
+        "label": "Clinical Gastroenterology and Hepatology: Real-time voice-guided artificial intelligence improves biliopancreatic endosonography quality, a randomized trial",
+        "url": "https://doi.org/10.1016/j.cgh.2026.10.008",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "endoscopic-ultrasound",
+      "gastroenterology",
+      "quality-control",
+      "rct",
+      "prospective"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-27-heidi-ai-scribe-health-system",
+    "title": "System-wide AI scribe deployment and clinician documentation time at a 14-hospital health system",
+    "claim": "Across 1,637,227 outpatient encounters at a 14-hospital Boston health system, enrolment in the Heidi ambient AI scribe was associated with 1.21 fewer minutes of active note time per encounter, more among heavy users, and longer notes, with no change in same-day or after-hours note closure or in work relative value units.",
+    "field": "medicine",
+    "date": "2026-10-27",
+    "lab": "Beth Israel Deaconess Medical Center / Beth Israel Lahey Health",
+    "model": "Heidi (Heidi Health)",
+    "humans": [
+      "Sara E. Booth",
+      "Jennifer P. Stevens"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "After system-wide availability from January 2025, 902 outpatient clinicians enrolled, of whom 605 used the tool and 297 did not. The study used an interrupted time series indexed on each clinician's enrolment month and adjusted for patient demographics and visit complexity, over notes from 1 July 2024 to 31 January 2026, with a secondary comparison of non-users, low users and high users. Note-active time fell by 1.21 minutes (95% CI 0.68 to 1.74) on enrolment and by 2.50 minutes among high users, and high users' notes grew by about 171 characters relative to non-users.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"scribe\" AND TITLE_ABS:\"artificial intelligence\" AND TITLE_ABS:\"documentation\" returned 111 records, many of them 2026 evaluations of ambient scribes in single specialties, pilots or simulations. Ambient scribe studies are not new; this one stands out for unrestricted system-wide deployment, its scale and its use of measured note-active time rather than surveys. Within this registry 2025-11-26-ambient-ai-scribes-rct records a randomised trial of two other ambient scribes, DAX Copilot and Nabla; this is an observational deployment study of a different product.",
+    "caveats": "A retrospective quality-improvement study, not a trial; the authors flag possible unmeasured confounding and that AI-scribed notes could not be told apart from clinician-written ones after enrolment. One co-author is affiliated with Heidi Health, and the paper reports no primary funding source. Single health system in Massachusetts. The endpoints are surrogates, time and note length, with no measure of documentation accuracy, safety or patient outcome, and longer notes among high users cut both ways. Autonomy is ai-assisted: the scribe drafted notes for clinicians.",
+    "sources": [
+      {
+        "label": "Annals of Internal Medicine: Impact of unrestricted artificial intelligence scribe deployment in a single health system on clinician workload and productivity",
+        "url": "https://doi.org/10.7326/annals-25-05294",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ambient-scribe",
+      "documentation",
+      "clinician-workload",
+      "retrospective",
+      "real-world-data"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-26-osteoaid-femoral-head-osteonecrosis",
+    "title": "Deep learning detection and staging of femoral head osteonecrosis on hip x-rays across six Chinese hospitals",
+    "claim": "OsteoAID, a YOLOv8-based model trained on 20,722 hip x-rays from 16,399 patients at six Chinese hospitals, staged osteonecrosis of the femoral head with 96.6% accuracy on an external test set, against 75.0% for radiologists.",
+    "field": "medicine",
+    "date": "2026-10-26",
+    "lab": "Sun Yat-sen University (with the Chinese Artificial Intelligence Project Group for Hip Joint Diseases)",
+    "model": "OsteoAID (YOLOv8-based)",
+    "humans": [
+      "Zhanqi Wei",
+      "Xisheng Weng"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Expert orthopaedists annotated each image to separate osteonecrosis from radiographically similar conditions and graded confirmed lesions on the Ficat and Arlet scale, using images from 2015 to 2023. On the internal test set the model raised staging accuracy from 87.4% for the unmodified YOLOv8 network to 96.4%, with a detection mean average precision of 93.0% at an intersection-over-union threshold of 50%. It was compared with radiologists and orthopaedists on two external test sets, and with MRI-based staging, the reference standard, on a third. The authors propose it as a decision-support tool for triage.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"osteonecrosis of the femoral head\" AND TITLE_ABS:\"deep learning\" returned 28 records, most on MRI, including 2026 systematic reviews of deep learning for the condition. Deep learning for this diagnosis is established; what is distinctive here is staging on plain radiographs at this scale with clinician comparison on external sets.",
+    "caveats": "Retrospective and multicentre, run by the developers at tertiary hospitals in China, and the abstract does not say how independent the external sets are from the training institutions. Funded by the National Natural Science Foundation of China and other public Chinese sources; no vendor is named. The endpoint is diagnostic accuracy against expert annotation, with MRI as reference on one set, a surrogate rather than a treatment outcome, and the headline comparison is of the model alone against clinicians alone. Whether the model or data are available outside the group is not stated. Autonomy is ai-assisted: the model is proposed as decision support for clinicians.",
+    "sources": [
+      {
+        "label": "The Lancet Digital Health: A deep learning model for detection and staging of osteonecrosis of the femoral head on x-ray images",
+        "url": "https://doi.org/10.1016/j.landig.2026.101081",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "orthopaedics",
+      "radiography",
+      "osteonecrosis",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-21-bt-rads-agentic-glioma-scoring",
+    "title": "Multiagent language-model and CNN system scores BT-RADS on glioma follow-up MRI",
+    "claim": "A system pairing a locally run 20-billion-parameter gpt-oss model, which extracts clinical variables from notes, with a scoring agent applying BT-RADS logic to tumour volumetrics classified 492 post-treatment glioma MRI examinations with 76.0% accuracy against an expert reference, against 57.5% for the initial clinical assessments.",
+    "field": "medicine",
+    "date": "2026-10-21",
+    "lab": "Duke University Medical Center",
+    "model": "gpt-oss 20B (OpenAI, open weights) extractor agent with a convolutional neural network scorer",
+    "humans": [
+      "Mohamed Sobhi Jabal",
+      "Evan Calabrese"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-led",
+    "detail": "BT-RADS standardises response assessment after glioma treatment but requires combining imaging trends with medication effects and radiation timing. 509 consecutive examinations from 2017 to 2021 at one centre were evaluated retrospectively, 492 of them evaluable. Agreement with the reference had a Cohen kappa of 0.71. Sensitivity was high in categories that depend on clinical context (100% for BT-1b, 92.7% for BT-1a, 87.5% for BT-3a) and moderate in those that depend on thresholds (57.1% to 74.8%), and positive predictive value for BT-4 was 92.9%.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"BT-RADS\" returned 28 records, mostly validations of the scoring system itself; the earlier automation is a 2025 AJNR paper on automated AI-based response assessment by the same Duke group, including Zhang, LaBella, Houk, Rudie, Mazurowski and Calabrese. This paper extends that line with an agent that extracts clinical variables from notes.",
+    "caveats": "Retrospective and single-centre, developed and evaluated by the same group, with no vendor and no funding stated in the abstract. The comparator is the initial clinical assessment rather than a blinded prospective read, the reference standard is expert annotation, and the endpoint is classification accuracy, a surrogate. No external validation. Running the language model locally keeps notes on site. Autonomy is ai-led on the reading this registry applies to retrospective model-output studies: the score the study measured is the system's own, while in the decision-support use the authors propose a clinician would review it.",
+    "sources": [
+      {
+        "label": "Radiology: Artificial Intelligence: Agentic automation of BT-RADS scoring using an end-to-end system for standardized glioma follow-up assessment",
+        "url": "https://doi.org/10.1148/ryai.260234",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "neuro-oncology",
+      "glioma",
+      "radiology",
+      "large-language-model",
+      "agents",
+      "retrospective"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-21-dllv-chest-radiograph-lv-dysfunction",
+    "title": "Chest radiograph model for prescreening reduced ejection fraction, tested in three Korean cohorts",
+    "claim": "DLLV, a deep learning model that flags a left ventricular ejection fraction of 40% or less on chest radiographs, reached AUCs of 0.86 in a tertiary-centre cohort and 0.92 to 0.97 in two health-checkup cohorts, and as a prescreen was estimated to cut echocardiography volume by up to 85% without missing any of the 19 affected people in those cohorts.",
+    "field": "medicine",
+    "date": "2026-10-21",
+    "lab": "Seoul National University Bundang Hospital",
+    "model": "DLLV",
+    "humans": [
+      "Sowon Jang",
+      "Ju Gang Nam"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "The model was developed on 24,674 patients with 32,135 same-day radiograph and echocardiogram pairs from 2016 to 2021, using counterfactual learning to improve performance and the localisation of its heatmaps. External testing covered a tertiary referral cohort of 5,440 patients and two health-checkup cohorts of 28,034 and 6,085. In the checkup cohorts the area under the precision-recall curve was 0.04, which still corresponds to 87-fold and 37-fold enrichment over the low baseline prevalence.",
+    "novelty_check": "Europe PMC, 2026-10-29: chest radiograph or chest x-ray with ejection fraction and deep learning or artificial intelligence, in title or abstract, returned 6 records, including a 2023 Lancet Digital Health multi-institutional model classifying cardiac function from chest radiographs and a 2022 Canadian Journal of Cardiology model detecting left ventricular systolic dysfunction. Detecting reduced ejection fraction on radiographs is not new; this adds a prescreening analysis in health-checkup populations.",
+    "caveats": "Retrospective, developed at Seoul National University hospitals and tested in Korean cohorts, with one co-author from the AI department of Osstem Implant and no funding stated in the abstract; the external cohorts are separate datasets, but the testing was the developers' own. Positive predictive value is low by design: an AUPRC of 0.04 means most flagged people would not have reduced ejection fraction, and the no-missed-cases figure rests on 19 affected people. The endpoint is detection against echocardiography, a surrogate. Autonomy is ai-assisted: the model flags candidates for an echocardiogram that clinicians then order and read.",
+    "sources": [
+      {
+        "label": "Radiology: Artificial Intelligence: Interpretable deep learning for opportunistic screening of left ventricular dysfunction using chest radiographs",
+        "url": "https://doi.org/10.1148/ryai.260161",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "heart-failure",
+      "chest-radiograph",
+      "screening",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-15-ai-auscultation-lv-dysfunction",
+    "title": "AI-enhanced auscultation for left ventricular dysfunction, validated in prospective Japanese cohorts",
+    "claim": "An AI model reading digital heart sounds from four chest sites with a single-lead ECG detected an ejection fraction of 40% or less with an AUROC of 0.904 in an external prospective cohort of 964 patients, and was more accurate than a consensus of seven cardiologists in a 100-patient reader substudy (82.0% against 62.0%).",
+    "field": "medicine",
+    "date": "2026-10-15",
+    "lab": "Juntendo University (with AMI Inc.)",
+    "model": "Transformer and one-dimensional CNN ensemble over four-site digital auscultation and single-lead ECG",
+    "humans": [
+      "Eiichiro Sato",
+      "Nobuyuki Kagiyama"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Adults referred for clinically indicated echocardiography at multiple Japanese centres underwent digital auscultation with a simultaneous single-lead ECG, with same-visit echocardiography as the reference. The ensemble was trained on 2,359 patients, 8.9% with reduced ejection fraction, and validated on 964 from a separate multicentre registry, 7.6% with it. External sensitivity, specificity and accuracy were 86.3%, 74.2% and 75.1%. The model outperformed ECG-only models and clinical regression models including B-type natriuretic peptide, and a simplified two-site version kept an AUROC of 0.903.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"auscultation\" AND TITLE_ABS:\"artificial intelligence\" AND TITLE_ABS:\"ventricular\" returned 10 records, including a 2026 study of a digital stethoscope's single-lead ECG with AI for low ejection fraction and a 2026 study of AI ECG with digital auscultation for peripartum cardiomyopathy. AI analysis of stethoscope recordings for low ejection fraction is established; this adds multi-site heart-sound analysis validated prospectively and against a cardiologist panel.",
+    "caveats": "Funded by AMI Inc., whose staff are among the 17 authors, and by a Japan Society for the Promotion of Science grant; the external registry is a separate multicentre cohort, but the validation is the developer's, not independent in this registry's sense. Prospective in enrolment, but the endpoint is detection against echocardiography in patients already referred for it, so prevalence and case mix differ from a screening population, and the authors call for further validation before screening use. The reader comparison used seven cardiologists on 100 patients. Autonomy is ai-assisted: the output is proposed as risk enrichment before echocardiography, a triage step clinicians act on.",
+    "sources": [
+      {
+        "label": "NEJM AI: Artificial intelligence-enhanced auscultation to identify left ventricular dysfunction, development and external validation in prospective multicenter studies",
+        "url": "https://doi.org/10.1056/AIoa2600258",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "heart-failure",
+      "digital-stethoscope",
+      "prospective",
+      "external-validation"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-15-rfdiffusion3-enzyme-design",
+    "title": "RFdiffusion3 designs active phosphotriesterases and transthyretin-specific zinc proteases zero-shot",
+    "claim": "RFdiffusion3, a generative model that diffuses free atoms to satisfy atomic constraints, produced de novo phosphotriesterases with a two-metal active site and zinc proteases specific for transthyretin, obtaining active catalysts of both kinds from zero-shot design campaigns of 96 constructs.",
+    "field": "chemistry",
+    "date": "2026-10-15",
+    "lab": "Institute for Protein Design, University of Washington",
+    "model": "RFdiffusion3",
+    "humans": [
+      "Jasper Butcher",
+      "Rohith Krishna",
+      "David Baker"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "search-scaffold",
+    "detail": "The method places individual atoms rather than residues, aiming to meet sets of atomic constraints such as an enzyme active site more quickly and accurately than earlier methods, across tasks from enzyme design to RNA structure design. The experimental demonstrations are two enzyme classes: phosphotriesterases whose active site includes a carbamylated lysine coordinating two metal ions, and zinc proteases that cut transthyretin, the protein involved in transthyretin amyloid disease. In both, a campaign of 96 constructs tested without iterative optimisation yielded active catalysts.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"RFdiffusion\" AND TITLE_ABS:\"enzyme\" returned 17 records, including competing generative enzyme-design methods. Within this registry 2025-02-13-designed-serine-hydrolases records the same institute's earlier diffusion-designed serine hydrolases; this result is a new model and different enzyme classes, a binuclear metal phosphotriesterase and a substrate-specific protease.",
+    "caveats": "Peer-reviewed in Science, with the experiments done by the developers at the Institute for Protein Design and collaborators at institutions including Cambridge, ETH Zurich and the Technical University of Denmark; no independent replication. The abstract gives no catalytic efficiencies, hit rates or structural validation, so how active the catalysts are relative to natural enzymes is not stated there. The protease is a laboratory result with no clinical endpoint. Autonomy is search-scaffold, as for the earlier designed hydrolases: the reactions, active-site geometries and assays were human-specified and the model generated designs inside that pipeline.",
+    "sources": [
+      {
+        "label": "Science: Atomic functional site scaffolding in biopolymers with RFdiffusion3",
+        "url": "https://doi.org/10.1126/science.aeh2982",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "protein-design",
+      "enzyme-design",
+      "rfdiffusion",
+      "catalysis"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-19-takotsubo-ecg-deep-learning",
+    "title": "ECG deep learning ensemble separates Takotsubo syndrome from anterior STEMI and improves reader accuracy",
+    "claim": "A preprint reports an ensemble of three deep learning models that distinguished Takotsubo syndrome from acute anterior ST-elevation myocardial infarction on 12-lead ECG images with 91.4% accuracy in a 95-person external cohort, and raised 70 healthcare providers' estimated probability of a correct diagnosis from 0.632 unaided to 0.864 with AI assistance.",
+    "field": "medicine",
+    "date": "2026-10-19",
+    "lab": "North Medical Center Hiroshima City Asa Citizens Hospital",
+    "model": "Ensemble of three deep learning models with self-supervised pretraining",
+    "humans": [
+      "Eisuke Kagawa",
+      "Keigo Dote"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The models were pretrained self-supervised and fine-tuned on ECG images from two hospitals recorded within 14 days of symptom onset, with 832 participants for development and 95 for external validation, healthy controls included. External AUROC was 0.970. A four-phase reader study compared unaided reading, a reference sheet and AI assistance, then randomised readers on a new ECG set to the reference sheet alone, AI predictions, or AI predictions with Grad-CAM heatmaps, which gave a further gain. In exploratory analyses less experienced readers gained most, and cardiologists' unaided advantage reversed under AI assistance, which the authors frame as a utilisation bias hypothesis.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"Takotsubo\" AND (TITLE_ABS:\"deep learning\" OR TITLE_ABS:\"artificial intelligence\") returned 14 records, including a 2024 JAHA study of AI-enabled ECG for prognosis in Takotsubo and a 2026 study of AI ECG analysis in suspected STEMI; none paired a Takotsubo-versus-STEMI model with a randomised reader study.",
+    "caveats": "A medRxiv preprint, not peer-reviewed, so capped at claimed; version 2 was posted on 2026-10-29. Retrospective, from two Japanese hospitals, with a small external cohort of 95 that includes healthy controls, which makes the task easier than the clinical one of separating two causes of chest pain with ST changes. No funder or vendor is named in the abstract. Readers were scored on ECG sets, not patients, the endpoint is diagnostic accuracy, and the experience-related findings are exploratory. Autonomy is ai-assisted: the model's prediction was shown to readers who made the call.",
+    "sources": [
+      {
+        "label": "medRxiv: Deep learning-based electrocardiographic differentiation of Takotsubo syndrome from acute anterior myocardial infarction",
+        "url": "https://doi.org/10.64898/2026.10.15.26365116",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "electrocardiography",
+      "takotsubo",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-15-ai-infocare-previsit-summaries-rct",
+    "title": "Randomised trial of AI-generated lay summaries before neurosurgical consultations",
+    "claim": "In a single-centre randomised trial of 300 outpatients in Dresden, giving patients a quality-checked AI-generated lay summary of their medical findings before consultation improved patient-rated quality of the physician-patient interaction (4.42 against 4.25 on the FAPI scale) and shortened median consultations from 33 to 25 minutes.",
+    "field": "medicine",
+    "date": "2026-10-15",
+    "lab": "TU Dresden (University Hospital Carl Gustav Carus)",
+    "model": "Simply Onno (underlying model not named in the abstract)",
+    "humans": [
+      "Elida Benker-Hasani",
+      "Witold H. Polanski"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Adults attending an outpatient neurosurgical clinic were randomised 1:1 to standard care with or without a layperson summary of their findings, produced by the Simply Onno tool and quality-checked before use. The primary endpoint, patient-reported interaction quality, improved by 0.17 (95% CI 0.05 to 0.29), driven by shared decision-making, with no difference in perceived empathy. Patients rated autonomy support higher while physicians rated their own slightly lower, and the ratio of geometric mean consultation times was 0.79 (0.70 to 0.88). Evidence for an increase in encounter difficulty was weak, and secondary intervals were not adjusted for multiplicity.",
+    "novelty_check": "Europe PMC, 2026-10-29: TITLE_ABS:\"summaries\" AND TITLE_ABS:\"randomized\" AND TITLE_ABS:\"consultation\" returned 20 records; the related ones are a 2025 JMIR protocol on layperson-friendly AI translation of medical documents and a 2026 trial of computer-assisted pre-visit history taking. No earlier completed randomised trial of AI-generated lay summaries before consultations was found.",
+    "caveats": "Single centre, the neurosurgery department of University Hospital Carl Gustav Carus in Dresden; the abstract names the tool but not its underlying model or whether its maker had a role, and states no funding. Randomised, but the endpoints are patient-reported scores and consultation time rather than clinical outcomes, and the authors say effects on outcomes and workload need confirmation. The effect on the primary scale is small (Hedges' g 0.33). Autonomy is ai-assisted: the AI drafted summaries that were quality-checked before patients saw them.",
+    "sources": [
+      {
+        "label": "NEJM AI: Effect of previsit AI-generated document summaries on consultation time and patient-physician communication, the AI-INFOCARE randomized controlled trial",
+        "url": "https://doi.org/10.1056/AIoa2600136",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "patient-communication",
+      "large-language-model",
+      "neurosurgery",
+      "rct",
+      "prospective"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-09-14-h1-formal-conjectures-open-problems",
+    "title": "Eight open problems from Formal Conjectures proved in Lean by a simple agent loop",
+    "claim": "A team at FAIR at Meta ran GPT-5.6 Sol in h1, a minimal loop that gives a model a Lean interface and verifier feedback, on 236 problems listed as open in Google DeepMind's Formal Conjectures repository and obtained Lean proofs of eight of them, among them a variant of Erdős Problem 337, three OEIS conjectures and the existence of an AME(9, 10) quantum state; Formal Conjectures marked five as solved.",
+    "field": "mathematics",
+    "date": "2026-09-14",
+    "lab": "FAIR at Meta",
+    "model": "GPT-5.6 Sol in the h1 harness",
+    "humans": [
+      "Skander Moalla",
+      "Ahmad Rammal",
+      "Niket Patel",
+      "Rémi Munos",
+      "Julia Kempe"
+    ],
+    "verification": "formal",
+    "autonomy": "search-scaffold",
+    "detail": "The eight are: \\(W(k)/2^k \\to \\infty\\) for two-colour van der Waerden numbers, a variant of Erdős 138; the Ruzsa-Turjányi variant of Erdős 337, that \\(|(A + A) \\cap [1, 2N]| / |A \\cap [1, N]| \\to \\infty\\) for every asymptotic basis of density zero; the OEIS conjectures for A108081, A211417 (Bala's supercongruence, \\(p^{3k} \\mid a(p^k) - a(p^{k-1})\\) for primes \\(p \\ge 5\\)) and A022030; the existence of an AME(9, 10) state, a unit vector in \\((\\mathbb{C}^{10})^{\\otimes 9}\\) whose reduction to any four parties is maximally mixed, which is Open Quantum Problem 35; and Written on the Wall II Conjectures 100 and 314. The proofs were made public on 2026-09-14 in a pull request to Formal Conjectures, merged on 2026-09-24, that marks the first five as solved with links to a repository of nine Lean files; the ninth, Green's Open Problem 25, is not counted in the paper. The paper, dated 28 October 2026, also reports that the loop exposed several misformalizations in Formal Conjectures by proving short disproofs of the written statements, including a smooth four-dimensional Poincaré variant missing a Hausdorff hypothesis.",
+    "novelty_check": "The paper selected all eight from problems Formal Conjectures listed as open, and the merged pull request records the prior and concurrent work its maintainers accepted: for Erdős 138, Campos, Fox and Schildkraut's arXiv 2608.20824 of 2026-08-21, which proves \\(w(k) \\ge (1 - o(1)) k 2^{k-1}\\) with a colouring found by ChatGPT 5.6 Sol Pro and so already implies this variant, and for A211417 a 2020 proof sketch by Peter Bala on OEIS via Meštrović. arXiv, 2026-10-29: abs:\"absolutely maximally entangled\" AND abs:\"nine\" returned 4 records, none constructing AME(9, 10), and abs:\"Written on the Wall\" AND abs:\"conjecture\" returned 5, none on Conjectures 100 or 314. Within this registry 2026-05-21-alphaproof-nexus carries vibemathed's Erdős 138 record, which credits AlphaProof Nexus with an earlier result on another form of that problem; no entry covers any of these eight.",
+    "caveats": "Graded formal on the Lean files: a scan of the nine files at commit 15e4b3a found no axiom declarations and no sorry, the README reports a clean lake build with only propext, Classical.choice and Quot.sound, and each final theorem imports the Formal Conjectures problem file and restates its statement verbatim, filling only the answer slot. Those statements were written by Formal Conjectures' contributors, not by the provers, which is the strongest part of the record; two exceptions are Written on the Wall II Conjectures 100 and 314, whose distributed statements were wrong and were repaired by the authors before being proved. No outside rebuild or Palomar registration was found: the merged pull request is the maintainers accepting the links, not a recorded replay. Not every result is new mathematics: the Erdős 138 variant is implied by Campos, Fox and Schildkraut's earlier preprint, and A211417 had a published proof sketch, so for those the contribution is a formal proof. The paper is an unrefereed preprint whose main subject is harness design and cost, not these results. Autonomy is search-scaffold, as for AlphaProof Nexus: humans built the loop and its prompts, chose the 236 targets and repaired statements, while the model found the proofs.",
+    "sources": [
+      {
+        "label": "arXiv: h1, A Taste of the Bitter Lesson in Automated Theorem Proving",
+        "url": "https://arxiv.org/abs/2610.35962",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: niketp03/atlas-fc-verified, the nine Lean proofs",
+        "url": "https://github.com/niketp03/atlas-fc-verified",
+        "kind": "research"
+      },
+      {
+        "label": "Formal Conjectures pull request 6008: Mark five problems solved with links to Lean 4 proofs",
+        "url": "https://github.com/google-deepmind/formal-conjectures/pull/6008",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Campos, Fox and Schildkraut, A new lower bound for two-color van der Waerden numbers",
+        "url": "https://arxiv.org/abs/2608.20824",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lean",
+      "automated-theorem-proving",
+      "formal-conjectures",
+      "erdos-problems",
+      "oeis",
+      "argument"
+    ],
+    "added": "2026-10-29"
+  },
+  {
+    "id": "2026-10-18-epi-autonomous-research-records",
+    "title": "Épi agent reports 120 record bounds and constructions, with released certificates",
+    "claim": "Bake AI's Épi agent, running GPT-5.6 Sol and GPT-6 Astra against fixed verifiers, reports 20 improved numerical bounds and 100 record constructions, including certificates that the Cohn–Elkies sphere-packing bound cannot be sharp in dimensions 10 and 11, an upper bound of 4.29569 on Klarner's polyomino growth constant against 4.5238, and a computer-assisted extension of Tuza's conjecture for a class of split graphs.",
+    "field": "mathematics",
+    "date": "2026-10-18",
+    "lab": "Bake AI",
+    "model": "GPT-5.6 Sol and GPT-6 Astra in the Épi agent",
+    "humans": [
+      "Yue Huang",
+      "Zhangchen Xu",
+      "Zichen Chen"
+    ],
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "Épi keeps a persistent research history across model sessions, branches and reviews its own work, and has each output scored by a fixed verifier, accepting an improvement only when it is feasible and clears a set margin over the literature value. The results repository lists 12 families of numerical bounds and 8 of constructions. The headline mathematics: dual certificates giving lower bounds on the Cohn–Elkies linear programme of about 0.0564 and 0.0577 in dimensions 10 and 11, above the known upper bounds on sphere-packing density there, so the method cannot be sharp in either; the bound \\(\\lambda \\le 4.29569\\) for Klarner's constant, whose previous record was 4.5238 and whose empirical value is about 4.06; an interval for the n-queens constant about 84 times narrower than before; and a proof that \\(\\tau_\\triangle(G) \\le 2 \\nu_\\triangle(G)\\) for split graphs with an eight-vertex clique part and at most three active neighbourhood types, up from two. The construction records are mostly circle and ball packings, 46 of them circles in a quarter disk.",
+    "novelty_check": "Each record is stated against a cited prior value, and the ones checked hold: the Klarner comparison is arXiv 2511.00461, which gives \\(\\lambda \\le 4.5238\\), and the Tuza base case is Zeng's two-type theorem with the threshold-graph case of arXiv 2105.09871. arXiv, 2026-10-29: abs:\"Cohn-Elkies\" AND abs:\"sharp\" returned 4 records and abs:\"Tuza\" AND abs:\"split graphs\" returned 5, none settling these cases before this paper; abs:\"n-queens\" AND abs:\"constant\" returned 3, the earlier ones being the 2021 asymptotic count and a 2026 statistical-mechanics estimate. Within this registry 2025-11-03-alphaevolve-at-scale and the packing entries record comparable search-scaffold records, none for these problems; 2026-10-02-squares-in-circle-packings concerns a different packing problem.",
+    "caveats": "Entered at claimed: a technical report from the developer, not refereed, and no mathematician outside the authors is on record as having checked any result. The certificates are what lifts it above a press claim, and they vary. Only the Tuza result ships a checker; this registry wrote its own from the proof's description and confirmed the finite certificate, but that does not cover the proof's prose steps, the truncation lemma or Zeng's two-type theorem, an unrefereed preprint. The Cohn–Elkies certificates are exact discrete measures checked, the README says, by a separate implementation, and the Klarner certificate is an exact recurrence and supersolution, but neither ships a verifier and neither has been rechecked here. The Klarner bound deserves the most care: it closes about half the gap between the previous record and the empirical value in one step, after five decades of small gains. The paper says published methods and constructions supplied starting points for several campaigns, so some records refine human work rather than start fresh. Autonomy is search-scaffold, as for AlphaEvolve: humans chose the problems, wrote the verifiers and set the margins and budgets, and the agent searched inside that loop.",
+    "independent_checks": [
+      {
+        "who": "whataifound.org (independent recomputation, Python)",
+        "outcome": "Wrote a checker from the proof's description, sharing no code with the repository. It regenerates the 872 classes of three neighbourhood types, splits them into 35 nested, 277 handled by the clique-cut argument and 560 remaining, confirms the certificate's profiles are exactly those 560, and checks all 18,444 boxes: each cover meets every triangle at the upper corner, each packing is edge-disjoint at the lower corner with \\(|F| \\le 2|P|\\), and the boxes cover every multiplicity vector in \\([0, 28]^3\\). Does not check the analytic steps."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Épi, Towards a Persistent, Self-Improving Agent for Autonomous Research",
+        "url": "https://arxiv.org/abs/2610.24944",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: BakeLab/Epi-results, constructions, certificates and the Tuza checker",
+        "url": "https://github.com/BakeLab/Epi-results",
+        "kind": "research"
+      },
+      {
+        "label": "Bake AI: Introducing Épi",
+        "url": "https://bakeai.inc/research/articles/introducing-epi/",
+        "kind": "announcement"
+      },
+      {
+        "label": "arXiv: A convolutional approach to bounding the number of polyominoes, the previous Klarner bound",
+        "url": "https://arxiv.org/abs/2511.00461",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "sphere-packing",
+      "packing",
+      "tuza-conjecture",
+      "certificates",
+      "computation"
+    ],
+    "added": "2026-10-29"
   }
 ]
