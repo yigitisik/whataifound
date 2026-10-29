@@ -224,6 +224,15 @@ LAB_LOGO = {
     "OpenAI / Harmonic": "assets/external-logos/openai.svg",
     "Google DeepMind": "assets/external-logos/deepmind.svg",
     "Google": "assets/external-logos/google.svg",
+    "Axiom Math": "assets/external-logos/axiom.svg",
+    "Epic Systems": "assets/external-logos/epic.svg",
+    "Epic Systems / Microsoft Research / Yale School of Medicine": "assets/external-logos/epic.svg",
+    "Harmonic": "assets/external-logos/harmonic.svg",
+    "MIT": "assets/external-logos/mit.svg",
+    "MIT / Broad Institute": "assets/external-logos/mit.svg",
+    "MIT / Broad Institute / Harvard": "assets/external-logos/mit.svg",
+    "MIT / Columbia / University of Washington": "assets/external-logos/mit.svg",
+    "Microsoft Research": "assets/external-logos/microsoft.svg",
 }
 LAB_MARK = {
     "FutureHouse": ("F", "#7a5cd0"),

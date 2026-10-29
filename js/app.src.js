@@ -91,12 +91,21 @@ function prose(s){
   return out + esc(s.slice(pos));
 }
 
-// Official symbol marks (Wikimedia Commons, cropped; see assets/external-logos/README.md).
+// Official symbol marks, cropped (sources in assets/external-logos/README.md).
 // Trademarks of their owners, shown for identification only.
 const LAB_LOGO = {
   'Anthropic':'assets/external-logos/anthropic.svg',
   'OpenAI':'assets/external-logos/openai.svg', 'OpenAI / Harmonic':'assets/external-logos/openai.svg',
-  'Google DeepMind':'assets/external-logos/deepmind.svg', 'Google':'assets/external-logos/google.svg'
+  'Google DeepMind':'assets/external-logos/deepmind.svg', 'Google':'assets/external-logos/google.svg',
+  'Axiom Math':'assets/external-logos/axiom.svg',
+  'Epic Systems':'assets/external-logos/epic.svg',
+  'Epic Systems / Microsoft Research / Yale School of Medicine':'assets/external-logos/epic.svg',
+  'Harmonic':'assets/external-logos/harmonic.svg',
+  'MIT':'assets/external-logos/mit.svg',
+  'MIT / Broad Institute':'assets/external-logos/mit.svg',
+  'MIT / Broad Institute / Harvard':'assets/external-logos/mit.svg',
+  'MIT / Columbia / University of Washington':'assets/external-logos/mit.svg',
+  'Microsoft Research':'assets/external-logos/microsoft.svg'
 };
 // Monogram fallback for labs without a sourced logo.
 const LAB_MARK = {

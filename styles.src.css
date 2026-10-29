@@ -1809,6 +1809,9 @@
     transition:color .16s var(--ease),text-decoration-color .16s var(--ease)}
   .labrow:hover{color:var(--accent);text-decoration-color:var(--accent)}
   .labrow-n{font-size:.72rem;color:var(--muted);font-variant-numeric:lining-nums tabular-nums}
+  /* One hand-written line under the list for labs watched with nothing on record yet. It
+     was a heading, a card and a note of its own for a single lab. */
+  .labs-watch{font-family:var(--serif);font-size:.84rem;color:var(--muted);margin:12px 0 0}
   /* Topic row above the lab grid: chips rather than cards, because there are eleven of
      them and they are internal links to a derived page, not outbound links to a lab. */
   .topichub{display:flex;flex-wrap:wrap;gap:8px;margin:0}
@@ -2483,7 +2486,8 @@
     .more-btn{min-height:44px}
     /* The tail rows are plain names, so the link grows to the row and takes the target. */
     .lablist li{align-items:center;padding:0}
-    .labrow{display:flex;align-items:center;min-height:44px}
+    .lablist .labrow{display:flex;align-items:center;min-height:44px}
+    .labs-watch .labrow{display:inline-flex;align-items:center;min-height:44px}
 
     /* Room to grow: take the real 44px. */
     .totop{width:44px;height:44px}
