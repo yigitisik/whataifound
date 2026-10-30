@@ -157,7 +157,8 @@ const DOMAIN_NAME = {
   'medrxiv.org':'medRxiv','frontiersin.org':'Frontiers',
   'lunduniversity.lu.se':'Lund University','ascopost.com':'The ASCO Post',
   'healthcaredive.com':'Healthcare Dive','contagionlive.com':'Contagion Live',
-  'research.google':'Google Research'
+  'research.google':'Google Research',
+  'aclanthology.org':'ACL Anthology','xianqin.org':'Xianqin'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }

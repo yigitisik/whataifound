@@ -280,6 +280,7 @@ DOMAIN_NAME = {
     "lunduniversity.lu.se": "Lund University", "ascopost.com": "The ASCO Post",
     "healthcaredive.com": "Healthcare Dive", "contagionlive.com": "Contagion Live",
     "research.google": "Google Research",
+    "aclanthology.org": "ACL Anthology", "xianqin.org": "Xianqin",
 }
 
 
@@ -2520,6 +2521,7 @@ LAB_HUB = {
     "Juntendo University": "https://www.juntendo.ac.jp/english/",
     "North Medical Center Hiroshima City Asa Citizens Hospital": "https://www.asa-hosp.city.hiroshima.jp/",
     "TU Dresden": "https://tu-dresden.de/",
+    "Henan University": "https://www.henu.edu.cn/",
     "FAIR at Meta": "https://ai.meta.com/research/",
     "Bake AI": "https://bakeai.inc/research/",
 }
