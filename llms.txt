@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 218 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 219 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -90,9 +90,10 @@ Every finding credited to one organisation, on one page.
 
 ### Archaeology
 
-All 1 in one page: https://whataifound.org/topic/archaeology
+All 2 in one page: https://whataifound.org/topic/archaeology
 
 - [First Herculaneum scroll read end to end without unrolling it](https://whataifound.org/finding/2026-06-25-herculaneum-scroll-read): PHerc. 1667 was virtually unwrapped and read in full from X-ray scans using learned ink detection: about 1.4 metres of papyrus across roughly 22 columns of Greek, identified as Philodemus, On Gods, Book 8. (Vesuvius Challenge, Community-developed ink-detection neural networks, 2026-06-25; verification: Author verified; autonomy: AI-assisted)
+- [Sixty-three previously unrecognised Oracle Bone duplicates found with an image-matching system](https://whataifound.org/finding/2025-01-11-oracle-bone-duplicates): OBD-Finder, an image-matching system from Henan University that ranks candidate duplicates among published copies of Shang dynasty Oracle Bone inscriptions, led its developers' Oracle Bone specialists to 63 pairs of records that show the same bone but had not been recognised as duplicates, released with catalogue numbers and plates in January and February 2025 and reported in a refereed EMNLP 2026 demonstration paper. (Henan University / LMU Munich, OBD-Finder: keypoint matching with EAST character detection and a Siamese network, 2025-01-11; verification: Author verified; autonomy: AI-assisted)
 
 ### Astronomy
 

@@ -9,6 +9,20 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2025-01-11-oracle-bone-duplicates",
+      "url": "https://whataifound.org/finding/2025-01-11-oracle-bone-duplicates",
+      "title": "Sixty-three previously unrecognised Oracle Bone duplicates found with an image-matching system",
+      "content_text": "OBD-Finder, an image-matching system from Henan University that ranks candidate duplicates among published copies of Shang dynasty Oracle Bone inscriptions, led its developers' Oracle Bone specialists to 63 pairs of records that show the same bone but had not been recognised as duplicates, released with catalogue numbers and plates in January and February 2025 and reported in a refereed EMNLP 2026 demonstration paper.  Oracle Bone fragments were dispersed among collections and published repeatedly over a century, so the same bone often appears in several catalogues under different numbers, and recognising those duplicates (校重) is basic curation: it fixes counts, traces provenance and exposes forgeries. OBD-Finder compares hand copies by low-level keypoint matching, then by character-level similarity, and ranks candidates for a specialist to inspect. Run over Huang Tianshu's Oracle Bone Inscription Copy Series of about 60,000 copies, it found 101 duplicate groups, of which the team announced 45 as new on 2025-01-11, by what it called an incomplete tally, and 18 more on 2025-02-23, each listed by catalogue number with plates. The arXiv preprint followed in May 2025, and the EMNLP 2026 System Demonstrations paper entered the ACL Anthology on 2026-10-24. The work has since continued at larger scale: in July 2026 a revised OBD-Finder 2.0 compared the Heji Bubian supplement with the Heji corpus, Zhang confirmed 881 duplicate groups by hand, and after subtracting the duplicates already catalogued by Cai Zhemao, Men Yi and Ding Junwei, 115 were reported as new.  Lab: Henan University / LMU Munich. Model: OBD-Finder: keypoint matching with EAST character detection and a Siamese network. Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2025-01-11T00:00:00+00:00",
+      "date_modified": "2026-10-30T00:00:00+00:00",
+      "tags": [
+        "oracle-bones",
+        "ancient-texts",
+        "paleography",
+        "image-matching"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-28-eus-guideq-endosonography-rct",
       "url": "https://whataifound.org/finding/2026-10-28-eus-guideq-endosonography-rct",
       "title": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",

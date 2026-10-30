@@ -12512,5 +12512,66 @@
       "computation"
     ],
     "added": "2026-10-29"
+  },
+  {
+    "id": "2025-01-11-oracle-bone-duplicates",
+    "title": "Sixty-three previously unrecognised Oracle Bone duplicates found with an image-matching system",
+    "claim": "OBD-Finder, an image-matching system from Henan University that ranks candidate duplicates among published copies of Shang dynasty Oracle Bone inscriptions, led its developers' Oracle Bone specialists to 63 pairs of records that show the same bone but had not been recognised as duplicates, released with catalogue numbers and plates in January and February 2025 and reported in a refereed EMNLP 2026 demonstration paper.",
+    "field": "archaeology",
+    "date": "2025-01-11",
+    "lab": "Henan University / LMU Munich",
+    "model": "OBD-Finder: keypoint matching with EAST character detection and a Siamese network",
+    "humans": [
+      "Chongsheng Zhang",
+      "Shuwen Wu",
+      "Yingqi Chen",
+      "Yi Men",
+      "Gaojuan Fan",
+      "Yubin Jiang"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "Oracle Bone fragments were dispersed among collections and published repeatedly over a century, so the same bone often appears in several catalogues under different numbers, and recognising those duplicates (校重) is basic curation: it fixes counts, traces provenance and exposes forgeries. OBD-Finder compares hand copies by low-level keypoint matching, then by character-level similarity, and ranks candidates for a specialist to inspect. Run over Huang Tianshu's Oracle Bone Inscription Copy Series of about 60,000 copies, it found 101 duplicate groups, of which the team announced 45 as new on 2025-01-11, by what it called an incomplete tally, and 18 more on 2025-02-23, each listed by catalogue number with plates. The arXiv preprint followed in May 2025, and the EMNLP 2026 System Demonstrations paper entered the ACL Anthology on 2026-10-24. The work has since continued at larger scale: in July 2026 a revised OBD-Finder 2.0 compared the Heji Bubian supplement with the Heji corpus, Zhang confirmed 881 duplicate groups by hand, and after subtracting the duplicates already catalogued by Cai Zhemao, Men Yi and Ding Junwei, 115 were reported as new.",
+    "novelty_check": "Each released pair carries a column recording whether earlier scholars had already marked it, checked against the published collation literature by the team's Oracle Bone specialists. arXiv, 2026-10-30: abs:\"oracle bone\" AND abs:duplicates returned 1 record, this work's own preprint 2505.03836. xianqin.org, the field's main online venue for collation results, searched for 重多多 on 2026-10-30: every result is this group's own release. The group's earlier AI work on the same material concerns rejoining fragments (缀合), a different task. Within this registry no entry covers Oracle Bones; the nearest is 2026-06-25-herculaneum-scroll-read.",
+    "caveats": "Graded author-verified: the 63 pairs were confirmed by Oracle Bone specialists who are co-authors, and the paper's statement that all were verified by the OBI community names no outside reviewer or published response. Publication at EMNLP is peer review of the system, not of the pairs, which are inspectable from the released plates but have not been rechecked here. The count is soft at the edges by the team's own account: the January list says 45 new by an incomplete tally of 101, and in the February list one pair is marked as already noted by earlier scholars and another as uncertain because the source photographs are unclear. The later 2.0 and 3.0 releases are announcements on xianqin.org, not refereed; the 115 new groups of July 2026 is the figure given after subtracting the prior catalogues, while larger figures in the same series count rediscoveries too, and a September 2026 announcement of 2,648 groups linked from the project README no longer resolves. Autonomy is ai-assisted: the system ranks candidates and a specialist makes every identification.",
+    "sources": [
+      {
+        "label": "EMNLP 2026 System Demonstrations: Explainable Coarse-to-Fine Ancient Manuscript Duplicates Discovery",
+        "url": "https://aclanthology.org/2026.emnlp-demos.23/",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Explainable Coarse-to-Fine Ancient Manuscript Duplicates Discovery",
+        "url": "https://arxiv.org/abs/2505.03836",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: cszhangLMU/OBD-Finder, code and the released duplicate lists",
+        "url": "https://github.com/cszhangLMU/OBD-Finder",
+        "kind": "research"
+      },
+      {
+        "label": "Xianqin: OBD-Finder software and its first 45 new duplicate pairs (in Chinese)",
+        "url": "https://www.xianqin.org/blog/archives/21693.html",
+        "kind": "announcement"
+      },
+      {
+        "label": "Xianqin: 18 further new duplicate pairs (in Chinese)",
+        "url": "https://www.xianqin.org/blog/archives/21938.html",
+        "kind": "announcement"
+      },
+      {
+        "label": "Xianqin: OBD-Finder 2.0, 115 new duplicate groups after subtracting earlier catalogues (in Chinese)",
+        "url": "https://www.xianqin.org/blog/archives/25828.html",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "oracle-bones",
+      "ancient-texts",
+      "paleography",
+      "image-matching"
+    ],
+    "added": "2026-10-30"
   }
 ]
