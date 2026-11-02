@@ -9,6 +9,39 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
+      "url": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
+      "title": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+      "content_text": "Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of ℝᵈ, d ≥ 3, a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is C¹; the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.  The infinity-Laplace equation Δ_(∞)u = ∑uᵢuⱼuᵢⱼ = 0 arises as the limit of the p-Laplace equation and governs absolutely minimizing Lipschitz extensions. How smooth its solutions are has been open away from the plane: Savin proved planar solutions are C¹ in 2005, and Evans and Smart proved in 2011 that solutions are differentiable everywhere in every dimension, but neither a uniform gradient bound nor C¹ regularity was known for d ≥ 3. The OpenAI manuscript of 4 October 2026 claims both: for every d ≥ 3 there are α ∈ (0, 1/3] and a finite C with sup|∇u| + [∇u]_(C^(0, α)) ≤ C osc u on the half ball for every bounded viscosity solution on the unit ball, and as a consequence that every infinity-harmonic function on a connected open subset of ℝᵈ is C¹. The formalization carries all three of the manuscript's results, the estimate, the corollary and the Liouville theorem for the degenerate limiting equation on space-time that the proof rests on, as InfHarmonic.main_estimate, InfHarmonic.interior_C1 and InfHarmonic.liouville, proved from Mathlib and including the Crandall-Ishii-Lions theorem of sums and Alexandrov's theorem used along the way. It is pinned to Lean v4.35.0-rc2 and the matching Mathlib release, and the README reports no sorry outside the statement file and no axioms beyond the three standard ones.  Lab: Independent. Model: Claude, under the Trellis AI-assisted formalization pipeline; the underlying manuscript came from an unreleased internal OpenAI model. Verification: Formally verified. Autonomy: AI-led.",
+      "date_published": "2026-10-29T00:00:00+00:00",
+      "date_modified": "2026-11-02T00:00:00+00:00",
+      "tags": [
+        "partial-differential-equations",
+        "viscosity-solutions",
+        "regularity",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-01-29-erdos-654-distinct-distances",
+      "url": "https://whataifound.org/finding/2026-01-29-erdos-654-distinct-distances",
+      "title": "Erdős Problem 654 answered negatively by Google DeepMind's Aletheia agent",
+      "content_text": "An agent built on Gemini Deep Think produced an elementary counterexample showing that n points in the plane with no four on a circle need not contain any point having (1 − o(1))n distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; a third party has since proved that negative answer in Lean, from a different construction.  Write f(n) for the largest number such that every set of n points in ℝ² with no four on a circle contains a point at f(n) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether f(n) > (1 − o(1))n, the trivial bound being f(n) ≥ (n − 1)/3. Aletheia answered no: its counterexample places 2m points on each coordinate axis, at powers of 2 and 3, giving 4m points in which every point sees at most roughly 3n/4 distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points (±2i, 0) and (0, ±(2j − 1)) for 1 ≤ i, j ≤ m, and finishing the no-four-concyclic condition by parity rather than by unique factorization.  Lab: Google DeepMind. Model: Aletheia, a mathematics research agent built on Gemini Deep Think. Verification: Independently checked. Autonomy: AI-led.",
+      "date_published": "2026-01-29T00:00:00+00:00",
+      "date_modified": "2026-11-02T00:00:00+00:00",
+      "tags": [
+        "combinatorics",
+        "discrete-geometry",
+        "distinct-distances",
+        "erdos-problems",
+        "lean",
+        "formalization",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2025-01-11-oracle-bone-duplicates",
       "url": "https://whataifound.org/finding/2025-01-11-oracle-bone-duplicates",
       "title": "Sixty-three previously unrecognised Oracle Bone duplicates found with an image-matching system",
