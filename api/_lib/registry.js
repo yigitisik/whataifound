@@ -69,6 +69,7 @@ export const ENTRY_IDS = new Set([
   "2025-11-gpt5-science-acceleration",
   "2025-robin-macular",
   "2026-01-27-conversational-epilepsy-device-prototype",
+  "2026-01-29-erdos-654-distinct-distances",
   "2026-01-30-masai-ai-mammography",
   "2026-01-alphaevolve-bruhat",
   "2026-01-erdos-728",
@@ -233,7 +234,8 @@ export const ENTRY_IDS = new Set([
   "2026-10-27-heidi-ai-scribe-health-system",
   "2026-10-27-ige-dislodging-antibody-designs",
   "2026-10-27-pts-beta-eta-normalization",
-  "2026-10-28-eus-guideq-endosonography-rct"
+  "2026-10-28-eus-guideq-endosonography-rct",
+  "2026-10-29-infinity-harmonic-c1alpha-lean"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -290,6 +292,7 @@ export const ENTRY_GRADES = {
   "2025-11-gpt5-science-acceleration": ["peer-reviewed", "ai-assisted"],
   "2025-robin-macular": ["peer-reviewed", "ai-led"],
   "2026-01-27-conversational-epilepsy-device-prototype": ["claimed", "ai-assisted"],
+  "2026-01-29-erdos-654-distinct-distances": ["independent", "ai-led"],
   "2026-01-30-masai-ai-mammography": ["peer-reviewed", "ai-assisted"],
   "2026-01-alphaevolve-bruhat": ["independent", "search-scaffold"],
   "2026-01-erdos-728": ["formal", "autonomous"],
@@ -454,7 +457,8 @@ export const ENTRY_GRADES = {
   "2026-10-27-heidi-ai-scribe-health-system": ["peer-reviewed", "ai-assisted"],
   "2026-10-27-ige-dislodging-antibody-designs": ["claimed", "search-scaffold"],
   "2026-10-27-pts-beta-eta-normalization": ["formal", "collaborative"],
-  "2026-10-28-eus-guideq-endosonography-rct": ["peer-reviewed", "ai-assisted"]
+  "2026-10-28-eus-guideq-endosonography-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-10-29-infinity-harmonic-c1alpha-lean": ["formal", "ai-led"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -511,6 +515,7 @@ export const ENTRY_TITLES = {
   "2025-11-gpt5-science-acceleration": "Early science acceleration experiments with GPT-5",
   "2025-robin-macular": "Candidate treatment for dry age-related macular degeneration",
   "2026-01-27-conversational-epilepsy-device-prototype": "Inpatient prototype of a conversational EEG device that retrains its own seizure detector",
+  "2026-01-29-erdos-654-distinct-distances": "Erd\u0151s Problem 654 answered negatively by Google DeepMind's Aletheia agent",
   "2026-01-30-masai-ai-mammography": "Randomised trial of AI-supported mammography screening in 105,934 women (MASAI)",
   "2026-01-alphaevolve-bruhat": "Structure in Bruhat intervals of permutation groups",
   "2026-01-erdos-728": "Erd\u0151s problem #728 resolved and formalized in Lean",
@@ -675,7 +680,8 @@ export const ENTRY_TITLES = {
   "2026-10-27-heidi-ai-scribe-health-system": "System-wide AI scribe deployment and clinician documentation time at a 14-hospital health system",
   "2026-10-27-ige-dislodging-antibody-designs": "Claude-generated antibody designs that dislodge receptor-bound IgE",
   "2026-10-27-pts-beta-eta-normalization": "Weak normalization implies strong normalization in pure type systems with \u03b2\u03b7-conversion, proved in Lean",
-  "2026-10-28-eus-guideq-endosonography-rct": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound"
+  "2026-10-28-eus-guideq-endosonography-rct": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",
+  "2026-10-29-infinity-harmonic-c1alpha-lean": "Lean formalization of interior gradient H\u00f6lder estimates for infinity-harmonic functions"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

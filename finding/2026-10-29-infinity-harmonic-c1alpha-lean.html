@@ -1,0 +1,376 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions: graded Formally verified | whataifound.org</title>
+<meta name="description" content="Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI&#x27;s October 2026 mathematics release, a uniform inter">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions">
+<meta property="og:description" content="Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI&#x27;s October 2026 mathematics release, a uniform inter">
+<meta property="og:url" content="https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+<meta property="article:published_time" content="2026-10-29">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions">
+<meta name="twitter:description" content="Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions is graded formally verified on whataifound.org, with the AI&#x27;s role graded ai-led. Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI&#x27;s October 2026 mathematics release, a uniform inter">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2026-10-28-eus-guideq-endosonography-rct">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean#article",
+      "url": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
+      "headline": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+      "name": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+      "abstract": "Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of ℝᵈ, d ≥ 3, a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is C¹; the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.",
+      "description": "Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of ℝᵈ, d ≥ 3, a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is C¹; the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.",
+      "datePublished": "2026-10-29",
+      "dateModified": "2026-11-02",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#dataset"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Independent"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "image": "https://whataifound.org/assets/brand/og.png",
+      "about": "Mathematics",
+      "keywords": [
+        "partial-differential-equations",
+        "viscosity-solutions",
+        "regularity",
+        "lean",
+        "formalization",
+        "argument",
+        "Formally verified",
+        "AI-led"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creditText": "whataifound.org. Verification: Formally verified; autonomy: AI-led.",
+      "articleBody": "The infinity-Laplace equation Δ_(∞)u = ∑uᵢuⱼuᵢⱼ = 0 arises as the limit of the p-Laplace equation and governs absolutely minimizing Lipschitz extensions. How smooth its solutions are has been open away from the plane: Savin proved planar solutions are C¹ in 2005, and Evans and Smart proved in 2011 that solutions are differentiable everywhere in every dimension, but neither a uniform gradient bound nor C¹ regularity was known for d ≥ 3. The OpenAI manuscript of 4 October 2026 claims both: for every d ≥ 3 there are α ∈ (0, 1/3] and a finite C with sup|∇u| + [∇u]_(C^(0, α)) ≤ C osc u on the half ball for every bounded viscosity solution on the unit ball, and as a consequence that every infinity-harmonic function on a connected open subset of ℝᵈ is C¹. The formalization carries all three of the manuscript's results, the estimate, the corollary and the Liouville theorem for the degenerate limiting equation on space-time that the proof rests on, as InfHarmonic.main_estimate, InfHarmonic.interior_C1 and InfHarmonic.liouville, proved from Mathlib and including the Crandall-Ishii-Lions theorem of sums and Alexandrov's theorem used along the way. It is pinned to Lean v4.35.0-rc2 and the matching Mathlib release, and the README reports no sorry outside the statement file and no axioms beyond the three standard ones.",
+      "contributor": [
+        {
+          "@type": "Organization",
+          "name": "Independent"
+        },
+        {
+          "@type": "Person",
+          "name": "Juan J. Manfredi"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/na0b/infharmonic-lean/tree/e8710101271a529a8bd84fe0e610c3ab10de85b3",
+          "name": "na0b/infharmonic-lean at the registered commit"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/openai/math/blob/main/preprints/Uniform-Interior-C1alpha-Estimates-for-Infinity-Harmonic-Functions-October-4-2026/interior-c1-infinity-harmonic.pdf",
+          "name": "OpenAI: Uniform Interior C^1,alpha Estimates for Infinity-Harmonic Functions (PDF)"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://arxiv.org/abs/2610.13137",
+          "name": "arXiv: Qualitative-to-quantitative regularity for degenerate equations, the planar case in the human literature"
+        }
+      ]
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean#claimreview",
+      "url": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
+      "claimReviewed": "Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of ℝᵈ, d ≥ 3, a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is C¹; the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.",
+      "datePublished": "2026-11-02",
+      "author": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "itemReviewed": {
+        "@type": "Claim",
+        "name": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+        "author": {
+          "@type": "Organization",
+          "name": "Independent (Claude, under the Trellis AI-assisted formalization pipeline; the underlying manuscript came from an unreleased internal OpenAI model)"
+        },
+        "datePublished": "2026-10-29",
+        "appearance": []
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 5,
+        "bestRating": 5,
+        "worstRating": 1,
+        "alternateName": "Formally verified: machine-checked proof"
+      },
+      "reviewBody": "arXiv, 2026-11-02: abs:\"infinity-harmonic\" returns 27 records and none states a uniform interior Hölder-gradient estimate in dimension three or above. The literature the search turns up is consistent with the problem having been open: Savin's planar C¹ result and a 2019 reworking of it, Evans and Smart's everywhere differentiability and its 2014 extension to a class of Aronsson equations, and, most usefully, arXiv:2610.13137 of 2026-10-09, which converts qualitative into quantitative regularity for degenerate equations and obtains uniform interior estimates for infinity-harmonic functions in the plane only, by way of Xu's planar qualitative C^(1, 1/3) result. That paper appeared five days after the OpenAI manuscript's date and still treats the planar case as the frontier, which is evidence that the claim for d ≥ 3 was not already in the literature. OpenAI's own formalization catalogue at lean/formalization.yaml lists no source matching this family, so the release attached no Lean proof to it, though that catalogue was only partly read. Within this registry the family is one of the 372 carried by 2026-10-06-openai-math-collection with no entry of its own, and no entry covers the infinity-Laplacian or infinity-harmonic functions."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mathematics",
+          "item": "https://whataifound.org/topic/mathematics"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+          "item": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="finding-page">
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header><div class="eyebrow">
+<a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs>
+<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/>
+<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
+</svg>
+<span class="wm">what<span class="ai">ai</span>found.org</span></a>
+<nav class="pagenav" aria-label="Site">
+<a href="/">Registry</a>
+<a href="/review">Review queue</a>
+<a href="/visuals">Visuals</a>
+<a href="/methodology">Methodology</a>
+<a href="/contributors">Contributors</a>
+<span class="pn-ink" aria-hidden="true"></span>
+</nav>
+<span class="eyebrow-right">
+<span class="doors" role="group" aria-label="Ways to contribute">
+<a class="door" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source and pull requests on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+<span class="acct" data-acct><a class="door door-in" href="/signin" data-signin aria-label="Sign in" title="Sign in"><span>Sign in</span></a></span>
+</span>
+<span class="theme-seg" role="group" aria-label="Colour theme">
+<button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>
+<button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
+<button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
+</span>
+</span></div></header>
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/topic/mathematics">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
+</nav>
+
+<main id="main">
+<article class="finding">
+  <div class="finding-pills">
+    <span class="pill v v-formal">Formally verified</span>
+    <span class="pill a a-ai-led">AI-led</span>
+  </div>
+  <h1>Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions</h1>
+  <p class="claim">Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of <math><semantics><msup><mi>ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math>, <math><semantics><mrow><mi>d</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">d \ge 3</annotation></semantics></math>, a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is <math><semantics><msup><mi>C</mi><mn class="tml-med-pad">1</mn></msup><annotation encoding="application/x-tex">C^1</annotation></semantics></math>; the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.</p>
+
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts n5">
+      <div><dt>Lab</dt><dd><a href="/?lab=Independent">Independent</a></dd></div>
+      <div><dt>Model</dt><dd>Claude, under the Trellis AI-assisted formalization pipeline; the underlying manuscript came from an unreleased internal OpenAI model</dd></div>
+      <div><dt>Field</dt><dd>Mathematics</dd></div>
+      <div><dt>Date</dt><dd>2026-10-29</dd></div>
+      <div><dt>Human collaborators</dt><dd>Juan J. Manfredi</dd></div>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://github.com/na0b/infharmonic-lean/tree/e8710101271a529a8bd84fe0e610c3ab10de85b3" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">na0b/infharmonic-lean at the registered commit</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/openai/math/blob/main/preprints/Uniform-Interior-C1alpha-Estimates-for-Infinity-Harmonic-Functions-October-4-2026/interior-c1-infinity-harmonic.pdf" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">OpenAI: Uniform Interior C^1,alpha Estimates for Infinity-Harmonic Functions (PDF)</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-commentary">Independent commentary</h3>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2610.13137" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Qualitative-to-quantitative regularity for degenerate equations, the planar case in the human literature</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>The infinity-Laplace equation <math><semantics><mrow><msub><mrow><mi mathvariant="normal">Δ</mi><mspace></mspace></mrow><mi>∞</mi></msub><mi>u</mi><mo>=</mo><mo movablelimits="false">∑</mo><msub><mi>u</mi><mi>i</mi></msub><msub><mi>u</mi><mi>j</mi></msub><msub><mi>u</mi><mrow><mi>i</mi><mi>j</mi></mrow></msub><mo>=</mo><mn>0</mn></mrow><annotation encoding="application/x-tex">\Delta_\infty u = \sum u_i u_j u_{ij} = 0</annotation></semantics></math> arises as the limit of the <math><semantics><mi>p</mi><annotation encoding="application/x-tex">p</annotation></semantics></math>-Laplace equation and governs absolutely minimizing Lipschitz extensions. How smooth its solutions are has been open away from the plane: Savin proved planar solutions are <math><semantics><msup><mi>C</mi><mn class="tml-med-pad">1</mn></msup><annotation encoding="application/x-tex">C^1</annotation></semantics></math> in 2005, and Evans and Smart proved in 2011 that solutions are differentiable everywhere in every dimension, but neither a uniform gradient bound nor <math><semantics><msup><mi>C</mi><mn class="tml-med-pad">1</mn></msup><annotation encoding="application/x-tex">C^1</annotation></semantics></math> regularity was known for <math><semantics><mrow><mi>d</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">d \ge 3</annotation></semantics></math>. The OpenAI manuscript of 4 October 2026 claims both: for every <math><semantics><mrow><mi>d</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">d \ge 3</annotation></semantics></math> there are <math><semantics><mrow><mi>α</mi><mo>∈</mo><mo form="prefix" stretchy="false">(</mo><mn>0</mn><mo separator="true">,</mo><mn>1</mn><mi>/</mi><mn>3</mn><mo form="postfix" stretchy="false">]</mo></mrow><annotation encoding="application/x-tex">\alpha \in (0, 1/3]</annotation></semantics></math> and a finite <math><semantics><mi>C</mi><annotation encoding="application/x-tex">C</annotation></semantics></math> with <math><semantics><mrow><mrow><mi>sup</mi><mo>⁡</mo></mrow><mi>|</mi><mo form="prefix" stretchy="false">∇</mo><mi>u</mi><mi>|</mi><mo>+</mo><msub><mrow><mo fence="true" form="prefix" stretchy="false">[</mo><mo form="prefix" stretchy="false">∇</mo><mi>u</mi><mo fence="true" form="postfix" stretchy="false">]</mo></mrow><msup><mi>C</mi><mrow class="tml-med-pad"><mn>0</mn><mo separator="true">,</mo><mi>α</mi></mrow></msup></msub><mo>≤</mo><mi>C</mi><mspace width="0.1667em"></mspace><mpadded lspace="0"><mi>osc</mi></mpadded><mspace width="0.1667em"></mspace><mi>u</mi></mrow><annotation encoding="application/x-tex">\sup |\nabla u| + [\nabla u]_{C^{0,\alpha}} \le C\,\mathrm{osc}\,u</annotation></semantics></math> on the half ball for every bounded viscosity solution on the unit ball, and as a consequence that every infinity-harmonic function on a connected open subset of <math><semantics><msup><mi>ℝ</mi><mi>d</mi></msup><annotation encoding="application/x-tex">\mathbb{R}^d</annotation></semantics></math> is <math><semantics><msup><mi>C</mi><mn class="tml-med-pad">1</mn></msup><annotation encoding="application/x-tex">C^1</annotation></semantics></math>. The formalization carries all three of the manuscript's results, the estimate, the corollary and the Liouville theorem for the degenerate limiting equation on space-time that the proof rests on, as InfHarmonic.main_estimate, InfHarmonic.interior_C1 and InfHarmonic.liouville, proved from Mathlib and including the Crandall-Ishii-Lions theorem of sums and Alexandrov's theorem used along the way. It is pinned to Lean v4.35.0-rc2 and the matching Mathlib release, and the README reports no sorry outside the statement file and no axioms beyond the three standard ones.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>arXiv, 2026-11-02: abs:&quot;infinity-harmonic&quot; returns 27 records and none states a uniform interior Hölder-gradient estimate in dimension three or above. The literature the search turns up is consistent with the problem having been open: Savin's planar <math><semantics><msup><mi>C</mi><mn class="tml-med-pad">1</mn></msup><annotation encoding="application/x-tex">C^1</annotation></semantics></math> result and a 2019 reworking of it, Evans and Smart's everywhere differentiability and its 2014 extension to a class of Aronsson equations, and, most usefully, arXiv:2610.13137 of 2026-10-09, which converts qualitative into quantitative regularity for degenerate equations and obtains uniform interior estimates for infinity-harmonic functions in the plane only, by way of Xu's planar qualitative <math><semantics><msup><mi>C</mi><mrow class="tml-med-pad"><mn>1</mn><mo separator="true">,</mo><mn>1</mn><mi>/</mi><mn>3</mn></mrow></msup><annotation encoding="application/x-tex">C^{1, 1/3}</annotation></semantics></math> result. That paper appeared five days after the OpenAI manuscript's date and still treats the planar case as the frontier, which is evidence that the claim for <math><semantics><mrow><mi>d</mi><mo>≥</mo><mn>3</mn></mrow><annotation encoding="application/x-tex">d \ge 3</annotation></semantics></math> was not already in the literature. OpenAI's own formalization catalogue at lean/formalization.yaml lists no source matching this family, so the release attached no Lean proof to it, though that catalogue was only partly read. Within this registry the family is one of the 372 carried by 2026-10-06-openai-math-collection with no entry of its own, and no entry covers the infinity-Laplacian or infinity-harmonic functions.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Graded formal on the Palomar registration, which records that the proof typechecks against the recorded statement at the pinned commit under two kernels, nanoda and con-ron, with permitted axioms exactly propext, Quot.sound and Classical.choice and trust level high. What that does not settle is whether the Lean says what the paper says, and the README is unusually direct about it: Lean does not check that the definitions, among them IsInfHarmonicOn, HolderSeminormOn, OscOn and IsFitClass, and the three statements mean what the manuscript means, and Challenge.lean is the statement of record. The README does not claim that the match against the manuscript's Theorem 1.1 and Corollary 1.2 was checked by hand; it says each node of the blueprint was reviewed automatically for soundness, for faithfulness to the paper and for agreement between its Lean and natural-language statements, which is a machine reading throughout. Palomar's own review outcome is neutral and its reviewer is a model, not a human referee. That gap matters more here than in 2026-10-20-trilinear-hilbert-transform-lean, which carries the same grade on the same kind of registration: there a specialist in the area wrote the theorem and the definitions by hand, so a human vouched for the statement the kernel then checked, whereas here the blueprint, the statement of record and every proof were machine-generated and machine-reviewed, and nobody is on record as having audited the one thing a kernel cannot check. The grade is kept at formal because a reproducible artifact was mechanically verified and the weaker grades on the scale would each assert something untrue, that humans checked it or that no artifact exists, but it rests on a thinner human chain than any other formal entry here and should be read with that in mind. The mathematics being formalized is an unrefereed manuscript from an unreleased model with no human author, carried at claimed in 2026-10-06-openai-math-collection, and OpenAI has not been contacted about this formalization, so the formal grade covers the argument as encoded in Lean and not the provenance of the result or any human reading of the manuscript. Autonomy is ai-led, matching 2026-10-20-trilinear-hilbert-transform-lean rather than the two other families split out of the same collection, 2026-10-27-pts-beta-eta-normalization and 2026-10-27-bernoulli-shifts-unequal-entropy, which are graded collaborative because a second laboratory's model contributed new mathematics on top of OpenAI's input. Here no new mathematics is claimed: the human chose the target and directed the pipeline, and the blueprint and every Lean proof were machine-generated.</p>
+  </details>
+  <h2 class="lbl">Machine-checked elsewhere</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://palomar-registry.org/entry?id=PALOMAR-2026-10-29-000040&amp;version=1" target="_blank" rel="noopener">Palomar<span class="reg-id">Uniform interior C^{1,alpha} estimates for infinity-harmonic functions in dimensions d at least 3</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">PALOMAR-2026-10-29-000040 · <span class="reg-repo">na0b/infharmonic-lean</span> at <code>e8710101271a</code> · checked 2026-10-29</p><p class="reg-t"><span class="reg-t-k">Proved</span><code>InfHarmonic.main_estimate</code><code>InfHarmonic.interior_C1</code><code>InfHarmonic.liouville</code></p><p class="reg-w">A Lean proof that typechecks against the recorded statement at a pinned commit under a declared axiom set, checked mechanically rather than by human review. It does not certify that a result is new or of research interest: the only filter on that is a language-model screen, and Palomar states that it adds no human editorial step.</p><p class="reg-n">Permitted axioms are exactly propext, Quot.sound and Classical.choice, with two kernels, nanoda and con-ron, and trust level high. Palomar records the relationship to the OpenAI manuscript as formalizes, with author endorsement not contacted.</p></div></div>
+
+  <div class="challenge">
+    <p class="challenge-t">No independent check is recorded on this entry yet.</p>
+    <p class="challenge-d">Reading the primary source closely enough to say whether it supports the claim counts as a check, and you are credited on the entry.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="/contribute?kind=check&amp;entry=2026-10-29-infinity-harmonic-c1alpha-lean">Submit a check</a>
+      <a class="btn challenge-b" href="/contribute?kind=challenge&amp;entry=2026-10-29-infinity-harmonic-c1alpha-lean">Challenge the grade</a>
+      
+    </div>
+    <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-10-29-infinity-harmonic-c1alpha-lean&amp;entry=2026-10-29-infinity-harmonic-c1alpha-lean" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-10-29-infinity-harmonic-c1alpha-lean&amp;entry=2026-10-29-infinity-harmonic-c1alpha-lean&amp;current=verification%3A%20formal%2C%20autonomy%3A%20ai-led" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=correction.yml&amp;title=Correction%3A%202026-10-29-infinity-harmonic-c1alpha-lean&amp;entry=2026-10-29-infinity-harmonic-c1alpha-lean" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
+    </p>
+  <div class="sig" data-signals="2026-10-29-infinity-harmonic-c1alpha-lean" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
+  </div>
+
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
+  <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-11-02">2026-11-02</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Formally verified and AI-led.</span></li>
+  </ol>
+  <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
+  </details>
+
+  <p class="gradenote">Graded <strong>formally verified</strong> for verification and
+  <strong>ai-led</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
+
+
+  <h2 class="lbl">Cite this entry</h2>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2026). Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean</code></pre>
+    </div>
+    <details class="fold cite-fold">
+    <summary>BibTeX</summary>
+    <div class="cite-block">
+      <div class="cite-head"><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-independent-2026-lean,
+  title        = {Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions},
+  author       = {{whataifound.org}},
+  year         = {2026},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Independent. Verification: Formally verified. Autonomy: AI-led.},
+  url          = {https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean}
+}</code></pre>
+    </div>
+    </details>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-10-20-trilinear-hilbert-transform-lean"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Lean formalization of the L³ bound for the trilinear Hilbert transform</span><span class="rel-meta">Independent · 2026-10-20</span></a><a class="rel-card" href="/finding/2026-10-19-erdos-173-monochromatic-triangles"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős Problem 173: a two-coloring of the plane misses at most one triangle, which is equilateral</span><span class="rel-meta">Plasma AI · 2026-10-19</span></a><a class="rel-card" href="/finding/2026-10-19-erdos-408-iterated-totient"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős Problem 408: an unconditional normal order for the number of totient iterations</span><span class="rel-meta">Plasma AI · 2026-10-19</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-10-28-eus-guideq-endosonography-rct"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound</span></a><span class="pn-step pn-empty"></span></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=partial-differential-equations">partial-differential-equations</a><a class="tag-chip" href="/?tag=viscosity-solutions">viscosity-solutions</a><a class="tag-chip" href="/?tag=regularity">regularity</a><a class="tag-chip" href="/?tag=lean">lean</a><a class="tag-chip" href="/?tag=formalization">formalization</a><a class="tag-chip" href="/?tag=argument">argument</a></div>
+
+  <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
+</article>
+</main>
+
+<footer id="about">
+<div class="about-grid">
+<section class="about-col f-site">
+<h2 class="lbl">Registry</h2>
+<p class="about-links">
+<a href="/methodology">Methodology</a>
+<a href="/review">Review queue</a>
+<a href="/contributors">Contributors</a>
+<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>
+<a href="/privacy">Privacy</a>
+</p>
+</section>
+<section class="about-col f-data">
+<h2 class="lbl">Data</h2>
+<p class="about-links">
+<a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
+<a href="/developers">Developers</a>
+<a href="/feed.xml">RSS</a>
+<a href="/feed.json">JSON Feed</a>
+</p>
+</section>
+<section class="about-col f-help">
+<h2 class="lbl">Contribute</h2>
+<p class="about-links">
+<a href="/contribute">Submit a check</a>
+<a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>
+<a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a>
+</p>
+</section>
+<section class="about-col f-reg">
+<h2 class="lbl">Other registries</h2>
+<p class="about-links">
+<a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
+<a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
+<a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
+<a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+<a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices" target="_blank" rel="noopener">FDA AI-enabled devices</a>
+<a href="/registries">What each one checks</a>
+</p>
+</section>
+</div>
+<div class="about-fine">
+<p>An independent, volunteer editorial project. Grades are good-faith judgments from public information, provided "as is" without warranty, and may change as evidence emerges; nothing here is scientific, legal or investment advice. Not affiliated with or endorsed by any laboratory or company named; names and logos are their owners' trademarks, used for identification only. Data under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> (<a href="https://whataifound.org/LICENSE">license</a>).</p>
+<p class="cite">Cite as: whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p>
+<p class="colophon">© 2026 <a href="https://isik.co" target="_blank" rel="noopener">Isik &amp; Co.</a> · Technology, manufacturing, consulting and trade · <a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>
+</div>
+</footer>
+</div>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
+<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>

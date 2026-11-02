@@ -6991,7 +6991,7 @@
     "verification": "disputed",
     "autonomy": "ai-assisted",
     "detail": "The irrationality of Catalan's constant is a long-standing open problem. The preprint adapts the method Calegari, Dimitrov and Tang used for the linear independence of 1, zeta(2) and L(2, chi_-3), replacing part of the arithmetic input with a construction of suitable weights and weighted tails. The acknowledgements set out an unusually specific division of labour: repeated attempts by the model failed, the author then supplied the weighting idea that made the approach work, and the model produced the numerical data. The paper states that 'the whole proof has passed the verification of Chatgpt 5.6 Solar', which is a machine reading rather than a human check.",
-    "novelty_check": "The irrationality of Catalan's constant is a well-known open problem with no claimed resolution in the four registries before this preprint. The method is explicitly derivative of Calegari, Dimitrov and Tang's 2024 work, which the paper cites, and the claimed novelty is the weighting construction rather than the framework. No competing claim was found at entry. OpenAI's release of 2026-10-06 has since added one: a separate manuscript, 'Catalan's constant is irrational', dated 24 September 2026 and credited to an unreleased model with no human author, with a Lean formalization whose statement nobody outside OpenAI has audited. It says it uses nothing from this preprint, and it is carried in the registry within the OpenAI collection entry rather than here; vibemathed lists it, not this preprint, as its record for the problem. The question of priority is not the issue here; the correctness of the argument is, and it is disputed.",
+    "novelty_check": "The irrationality of Catalan's constant is a well-known open problem with no claimed resolution in the four registries before this preprint. The method is explicitly derivative of Calegari, Dimitrov and Tang's 2024 work, which the paper cites, and the claimed novelty is the weighting construction rather than the framework. No competing claim was found at entry. OpenAI's release of 2026-10-06 has since added one: a separate manuscript, 'Catalan's constant is irrational', dated 24 September 2026 and credited to an unreleased model with no human author, with a Lean formalization whose statement nobody outside OpenAI has audited. It says it uses nothing from this preprint, and it is carried in the registry within the OpenAI collection entry rather than here. vibemathed's page for the problem, checked again on 2026-11-02, cites both: the OpenAI manuscript as its primary source and record, and this preprint only as an earlier claimed proof. No registration is recorded here for that reason, the page being a record of the other claim rather than of this one. The page does raise the priority question in the other direction, noting that because the manuscript says it uses nothing from this preprint, the first claimed proof may not be the manuscript; it also marks its own status as a candidate pending review, with the Lean statement unaudited and no mathematician having checked it. The question of priority is not the issue here; the correctness of the argument is, and it is disputed.",
     "caveats": "Graded disputed on a specific, unresolved technical objection rather than on general scepticism. The objection, raised publicly and cited here, is that the tail recurrence of equation 1.4 is inconsistent with the factor used in equation 2.12, so the zero count the argument needs in order to force the degree bound fails. The same critique notes that the paper replaces the arithmetic content of the model it follows with a combinatorial minimization plus numerics that no human has checked, and points to internal inconsistencies in the write-up. The preprint remains at version one with no revision or withdrawal at entry. A second, independent critique by Dane Wachs, with published scripts, shows numerically that a quantity the main derivation needs to be negative of order \\(B^2\\) is positive of that order, so the proof of the main theorem is incomplete; it concludes nothing about whether the constant is irrational, which is why the grade is disputed rather than refuted. Autonomy is graded ai-assisted, and the paper's own account is the reason: the model 'made many attempts but we failed again and again' until 'the author realized that we should use suitable weights', so the decisive idea is the author's. The only stated verification of the whole proof is by a language model, which is not an independent check by any human.",
     "independent_checks": [
       {
@@ -8615,7 +8615,7 @@
     "autonomy": "ai-led",
     "detail": "The repository's README says the model was posed about 4,000 open problems during an evaluation, that each result used on average three hours of ChatGPT Pro thinking compute, and that the output was aggregated into families and filtered for significance; a family groups a principal result with companions, consequences or alternative proofs. The families claimed include the full Birch-Swinnerton-Dyer formula in Selmer corank at most one, the quasi-Riemann hypothesis, a negative answer to Hilbert's tenth problem over the rationals, the Unique Games Conjecture, \\(\\mathsf{L}=\\mathsf{RL}=\\mathsf{BPL}\\), matrix multiplication with exponent at most \\(9/4\\), Kakeya in three and four dimensions, nonamenability of Thompson's group F, isomorphism of the free group factors and Kadison's similarity conjecture, alongside dozens of counterexamples to named conjectures. Lean 4 formalizations are linked from 235 families; the formalization catalogue lists 162 papers whose main result is formalized and Comparator challenge files for checking the statements against permitted axioms. Ten families also come with abridged summaries of the model's reasoning. The README names two exceptions to the fixed procedure, the work on a zero-free region for the Riemann zeta function and the Hodge conjecture for CM abelian varieties, and says the write-up of the \\(\\Re s > 11/12\\) zero-free region was edited by humans for readability. On 2026-10-07 OpenAI withdrew three manuscripts after a sign error in 'Algebraicity of Weil classes on split abelian eightfolds' invalidated a cancellation argument used by two dependent papers, 'Algebraicity of Kuga-Satake Correspondences for K3 Surfaces' and 'The rational Hodge conjecture for products of K3 surfaces'; revised 14 others with proof repairs and corrected statements; and added formalizations, bringing the share of top-line results formalized, by its own count, to 300 of 719. At commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb the manuscript map links Lean from 242 families. External reports now include MathVet's model-assisted, pre-referee statement readings and Comparator records, and Carlos Toledo's cert-machine kernel checks and family-level statement readings. For example, for family 049, MathVet reports Comparator acceptance of AbhyankarSathaye on 2026-10-08 at OpenAI commit adc7f1241b42e322a6451854ab7e4b4c146bf78a; cert-machine reports Lean and nanoda acceptance on 2026-10-10 at fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb. These are reports about that individual challenge, not kernel verdicts on the whole paper or collection.",
     "novelty_check": "Read the README, the manuscript map CONTENTS.md and the Lean catalogue lean/formalization.yaml at commit adc7f1241b42e322a6451854ab7e4b4c146bf78a on 2026-10-07. Novelty was not checked family by family, which at this scale is beyond one entry; the families split out as their own entries carry their own checks, starting with the quasi-Riemann hypothesis and Kakeya, then Artin's primitive root conjecture, modularity over imaginary quadratic fields, the Borel conjecture in dimension four, the hyperinvariant subspace problem, the \\(O(3)\\) model, Barnette's conjecture, eventual categoricity and the \\(9/4\\) matrix multiplication bound. A Hacker News commenter cross-referenced the list against ProofAtlas's ranking of 500 open problems and counted about 90 claimed full resolutions, among them Hilbert's tenth problem over the rationals, Unique Games, Landau-Siegel zeros, Baum-Connes and Hadwiger's conjecture; that count was not reproduced here. OpenAI said on 2026-09-21, when the Advisory Group on Mathematics and AI was announced, that an internal model had resolved more than 100 open problems; the registry carries no entry for that statement, which came without manuscripts.",
-    "caveats": "Graded claimed throughout. The external sources cited here report checker outcomes and attributed statement readings, not a completed human referee review of the collection. MathVet's readings remain pre-referee, and cert-machine separates its statement readings from its kernel certificates. The cited OpenAI catalogue recorded its own review status as unchecked. The README says plainly that some of the unformalized results could have issues. Where Lean exists it covers the main result of a paper rather than every claim in it, and the Comparator statements were written by OpenAI alongside the proofs, so whether each one says what the literature means by the named conjecture is a separate question for each family. A text search of the Lean library found no sorry and no axiom declarations, which is not a build and not a statement audit. The account of provenance is not checkable: the model is unreleased, a spokesperson told Scientific American that almost every result came from a single prompt to a single agent and then that some may have taken multiple attempts, and Andrew Sutherland told the magazine that one-shot claims should be treated as unverified until the model is released and the results replicated. The Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study, recommended on 2026-09-29 that labs publish the model name, prompts, a summarized chain of thought, the time taken and the estimated compute cost, and asked labs to stop testing advanced problems on proprietary models; the release gives average compute and ten reasoning summaries, not per-result prompts or costs, and Scientific American reports OpenAI saying it is not bound by the recommendations. Terence Tao has criticized the pace of releases of this kind, while Daniel Litt argued in the same article that withholding results would harm mathematics. Autonomy is graded ai-led rather than autonomous because humans chose the 4,000 problems, aggregated the output and applied the significance filter, and because the README names exceptions to the fixed procedure without describing them. This entry is a container for the release; individual families will diverge from its grades as checks land. The first withdrawals came within a day of release, on OpenAI's own initiative after a sign error, which shows both that the unformalized results can fail and that the company is correcting them. Of the 242 families cert-machine read at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, it records 127 whose Lean statements match the headline OpenAI wrote for them, 100 narrower than that headline, 11 different from it and 4 stating only a supporting result, so a kernel acceptance and a faithful statement of the advertised claim are not the same thing, and that spread is the reason this entry stays a container. The unchecked self-assessment in the catalogue is the same one that keeps 2026-09-08-navier-stokes-forced-blowup at claimed. One family has since been machine-checked outside the company: the \\(L^3\\) bound for the trilinear Hilbert transform, family 086, now carries an independent Lean formalization registered at Palomar, recorded here as 2026-10-20-trilinear-hilbert-transform-lean.",
+    "caveats": "Graded claimed throughout. The external sources cited here report checker outcomes and attributed statement readings, not a completed human referee review of the collection. MathVet's readings remain pre-referee, and cert-machine separates its statement readings from its kernel certificates. The cited OpenAI catalogue recorded its own review status as unchecked. The README says plainly that some of the unformalized results could have issues. Where Lean exists it covers the main result of a paper rather than every claim in it, and the Comparator statements were written by OpenAI alongside the proofs, so whether each one says what the literature means by the named conjecture is a separate question for each family. A text search of the Lean library found no sorry and no axiom declarations, which is not a build and not a statement audit. The account of provenance is not checkable: the model is unreleased, a spokesperson told Scientific American that almost every result came from a single prompt to a single agent and then that some may have taken multiple attempts, and Andrew Sutherland told the magazine that one-shot claims should be treated as unverified until the model is released and the results replicated. The Advisory Group on Mathematics and AI, hosted at the Institute for Advanced Study, recommended on 2026-09-29 that labs publish the model name, prompts, a summarized chain of thought, the time taken and the estimated compute cost, and asked labs to stop testing advanced problems on proprietary models; the release gives average compute and ten reasoning summaries, not per-result prompts or costs, and Scientific American reports OpenAI saying it is not bound by the recommendations. Terence Tao has criticized the pace of releases of this kind, while Daniel Litt argued in the same article that withholding results would harm mathematics. Autonomy is graded ai-led rather than autonomous because humans chose the 4,000 problems, aggregated the output and applied the significance filter, and because the README names exceptions to the fixed procedure without describing them. This entry is a container for the release; individual families will diverge from its grades as checks land. The first withdrawals came within a day of release, on OpenAI's own initiative after a sign error, which shows both that the unformalized results can fail and that the company is correcting them. Of the 242 families cert-machine read at commit fd4aeeb2ee4fc729c18d98444fed42fd0529eeeb, it records 127 whose Lean statements match the headline OpenAI wrote for them, 100 narrower than that headline, 11 different from it and 4 stating only a supporting result, so a kernel acceptance and a faithful statement of the advertised claim are not the same thing, and that spread is the reason this entry stays a container. The unchecked self-assessment in the catalogue is the same one that keeps 2026-09-08-navier-stokes-forced-blowup at claimed. Two families have since been machine-checked outside the company, each carrying an independent Lean formalization registered at Palomar: the \\(L^3\\) bound for the trilinear Hilbert transform, family 086, recorded here as 2026-10-20-trilinear-hilbert-transform-lean, and the uniform interior gradient Hölder estimate for infinity-harmonic functions, recorded as 2026-10-29-infinity-harmonic-c1alpha-lean, to which the release itself attached no Lean proof.",
     "sources": [
       {
         "label": "GitHub: openai/math, the 722 manuscripts, Lean library and reasoning summaries",
@@ -8710,6 +8710,12 @@
         "kind": "correction",
         "note": "Added cert-machine's family-level statement-reading counts, restored the Navier-Stokes precedent for the claimed grade, and pointed at the one family now independently machine-checked. No grade moved.",
         "url": "https://github.com/carlostoledo1891/cert-machine/blob/341b738c618319bd392dd66d84812153659f8655/certs/openai-math-statements.json"
+      },
+      {
+        "date": "2026-11-02",
+        "kind": "correction",
+        "note": "Recorded a second family machine-checked outside the company, the interior gradient Hölder estimate for infinity-harmonic functions, which the release itself left unformalized. No grade moved.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-29-000040&version=1"
       }
     ],
     "contributors": [
@@ -11607,7 +11613,7 @@
     "autonomy": "search-scaffold",
     "detail": "Food allergy is set off by IgE, some of it circulating free in the blood and some attached to the surface of immune cells. Standard medication neutralises the circulating IgE only. Divergence Labs is pursuing a molecule with two arms, one that binds IgE tightly and one that prises IgE off the immune cell, so that receptor-bound IgE is removed as well. Claude converted that goal into a detailed design plan and then generated roughly 35,000 antibody designs over about a month, which Divergence narrowed down and tested. The announcement reports hits for both arms, three designs that bound IgE and 20 that dislodged it, with three of the 20 appearing to dislodge more IgE than the standard medication. It gives no affinities, no assay format and no count of how many designs were tested to reach those hits. The stated next step, building one drug that combines the two arms, has not been done.",
     "novelty_check": "Searched Europe PMC on 2026-10-27. The mechanism is established prior art rather than new: actively stripping IgE from its high-affinity receptor is a known class of approach, reviewed as disruptive inhibition in \"Structural and Functional Insights Into IgE Receptor Interactions and Disruptive Inhibition\", Immunological Reviews, May 2025 (doi 10.1111/imr.70031). DARPin AND E2_79 AND IgE AND dissociation returned 25 hits, E2_79 being the designed ankyrin-repeat protein used in that literature to demonstrate accelerated dissociation of receptor-bound IgE, and ligelizumab AND IgE AND receptor returned 309. IgE AND \"facilitated dissociation\" AND FceRI returned 0, which reflects the phrasing rather than an absence of work. What is claimed new here is therefore a set of antibody designs produced by a model, and the report that three of them dislodge more IgE than the standard medication, not the idea of dislodging it. No existing registry entry covers IgE, food allergy or anti-allergy antibodies. Divergence's technical report PDF was not read for this entry, so no check was made against Divergence's own earlier designs.",
-    "caveats": "Entered at claimed under the rule that lab announcements start there. Divergence Labs ran the testing and Anthropic is its partner, so no one outside the collaboration has assessed the result. The evidence is early in vitro screening: counts of designs that bound or dislodged IgE, with no affinities, no assay description, no replicate counts and no statistics in the announcement. The comparator, described only as the standard medication, is not named in the post; the established drug for the circulating-IgE mechanism it describes is omalizumab, but the post does not say so and this entry does not assume it. The claim that three designs dislodge more IgE than the standard medication is hedged in the source itself as what they appeared to do. Nothing here is a drug: the two arms exist only as separate designs, and combining them is listed as future work. Only hit counts are given, so the hit rate across roughly 35,000 designs is unknown, which is the figure that would show how well the generation step worked. Divergence's technical report PDF is linked and was not read for this entry. Autonomy is graded search-scaffold on the strictest defensible reading even though the announcement says Claude worked largely autonomously: Divergence set the therapeutic goal and the two-arm architecture and did all the narrowing and all the testing, which is the human-designed loop that grade describes. A reading that weighted Claude's conversion of those goals into a design plan would reach ai-led. Field is biology rather than medicine because no therapeutic or clinical endpoint was reached. One commenter on the announcement described this programme as speeding up an existing clever play in food allergies rather than a new one, which is the reading the novelty check above reaches independently.",
+    "caveats": "Entered at claimed under the rule that lab announcements start there. Divergence Labs ran the testing and Anthropic is its partner, so no one outside the collaboration has assessed the result. The evidence is early in vitro screening: counts of designs that bound or dislodged IgE, with no affinities, no assay description, no replicate counts and no statistics in the announcement. The comparator, described only as the standard medication, is not named in the post; the established drug for the circulating-IgE mechanism it describes is omalizumab, but the post does not say so and this entry does not assume it. The claim that three designs dislodge more IgE than the standard medication is hedged in the source itself as what they appeared to do. Nothing here is a drug: the two arms exist only as separate designs, and combining them is listed as future work. Only hit counts are given, so the hit rate across roughly 35,000 designs is unknown, which is the figure that would show how well the generation step worked. Divergence's technical report PDF is linked and was not read for this entry. Autonomy is graded search-scaffold on the strictest defensible reading even though the announcement says Claude worked largely autonomously: Divergence set the therapeutic goal and the two-arm architecture and did all the narrowing and all the testing, which is the human-designed loop that grade describes. A reading that weighted Claude's conversion of those goals into a design plan would reach ai-led. Field is biology rather than medicine because no therapeutic or clinical endpoint was reached. One commenter on the announcement described this programme as speeding up an existing clever play in food allergies rather than a new one, which is the reading the novelty check above reaches independently. A separate discussion of the technical report raises a sharper objection, cited here as a challenge: a commenter reading the report states that the comparator is omalizumab and that omalizumab is not itself a potent disrupter, because it blocks IgE from binding the receptor in the first place rather than removing IgE already bound, so beating it on dislodging is a weaker result than it sounds; the same comment holds that IgE disrupters are known in general, citing a review of them, and that the open difficulty is finding one human enough for chronic use. That identification of the comparator is a reader's inference from the report rather than a statement in the announcement, which still names no drug. Nobody outside the collaboration has reviewed the work, which a second commenter in the same thread also notes.",
     "sources": [
       {
         "label": "Anthropic: Early progress on accelerating drug development with Claude",
@@ -11618,6 +11624,11 @@
         "label": "Divergence Labs technical report (PDF)",
         "url": "https://divergencelabs.com/publications/ige-preprint.pdf",
         "kind": "research"
+      },
+      {
+        "label": "Hacker News comment: the comparator omalizumab blocks rather than disrupts, and IgE disrupters are known",
+        "url": "https://news.ycombinator.com/item?id=50298626",
+        "kind": "challenge"
       }
     ],
     "tags": [
@@ -11631,6 +11642,18 @@
       {
         "label": "Hacker News: Early progress on accelerating drug development with Claude",
         "url": "https://news.ycombinator.com/item?id=50265609"
+      },
+      {
+        "label": "Hacker News: IgE disruptor for food allergy with Claude-enabled antibody design",
+        "url": "https://news.ycombinator.com/item?id=50294486"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-11-02",
+        "kind": "challenge",
+        "note": "Cited a specific objection to the comparison: omalizumab blocks IgE from binding its receptor rather than disrupting IgE already bound, so it is a weak comparator for a disrupter, and disrupters are already known. The grade stays claimed, since the objection is to what the comparison shows rather than to whether the designs did anything.",
+        "url": "https://news.ycombinator.com/item?id=50298626"
       }
     ]
   },
@@ -12573,5 +12596,142 @@
       "image-matching"
     ],
     "added": "2026-10-30"
+  },
+  {
+    "id": "2026-01-29-erdos-654-distinct-distances",
+    "title": "Erdős Problem 654 answered negatively by Google DeepMind's Aletheia agent",
+    "claim": "An agent built on Gemini Deep Think produced an elementary counterexample showing that \\(n\\) points in the plane with no four on a circle need not contain any point having \\((1 - o(1))n\\) distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; a third party has since proved that negative answer in Lean, from a different construction.",
+    "field": "mathematics",
+    "date": "2026-01-29",
+    "lab": "Google DeepMind",
+    "model": "Aletheia, a mathematics research agent built on Gemini Deep Think",
+    "humans": [
+      "Tony Feng",
+      "Trieu Trinh",
+      "Garrett Bingham",
+      "Quoc V. Le",
+      "Thang Luong"
+    ],
+    "year_posed": 1997,
+    "verification": "independent",
+    "autonomy": "ai-led",
+    "detail": "Write \\(f(n)\\) for the largest number such that every set of \\(n\\) points in \\(\\mathbb{R}^2\\) with no four on a circle contains a point at \\(f(n)\\) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether \\(f(n) > (1 - o(1))n\\), the trivial bound being \\(f(n) \\ge (n - 1)/3\\). Aletheia answered no: its counterexample places \\(2m\\) points on each coordinate axis, at powers of 2 and 3, giving \\(4m\\) points in which every point sees at most roughly \\(3n/4\\) distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points \\((\\pm 2i, 0)\\) and \\((0, \\pm(2j - 1))\\) for \\(1 \\le i, j \\le m\\), and finishing the no-four-concyclic condition by parity rather than by unique factorization.",
+    "novelty_check": "The problem database at erdosproblems.com/654 records this work as disproving the strongest form of the conjecture, so an independent maintainer has accepted it against the problem as stated; the page was last edited 2026-02-01 and thanks the Superhuman Reasoning team at Google DeepMind. The paper itself reports no prior solution and the Palomar record cites only Erdős's own 1997 collection as the source of the question. Nothing in this registry covered it: no entry names Aletheia or this problem, and the nearest neighbours are 2025-10-19-gpt5-erdos-retrieval, which is retrieval rather than a new result, and the Lean-formalized Erdős entries 2026-08-19-erdos-501-independence, 2026-09-26-erdos-1220-not-provable, 2026-10-19-erdos-173-monochromatic-triangles, 2026-10-19-erdos-111-bipartization and 2026-10-19-erdos-408-iterated-totient. The paper was posted in January 2026 and reached this registry only on 2026-11-02, surfaced by the watch run through the Palomar registration of a formalization that cites the construction, because the disclosure sits in the paper's body rather than its abstract.",
+    "caveats": "Graded independent rather than formal, on the precedent of 2026-05-erdos-unit-distance: a registration does not by itself move a grade, and the registered Lean proof deliberately uses a different point set from the paper's, as Palomar's own abstract for the record states. What is machine-checked is therefore that the statement Erdős asked about is false, not that Aletheia's construction works; the construction the agent actually produced has never been formalized, and no kernel has looked at it. The grade rests instead on two parties outside Google DeepMind having engaged with the result: the maintainer of the problem database recorded it as disproving the strongest form of the conjecture, and an independent Lean development reached the same negative answer by another route. Both of those are thinner than the word independent usually implies, and the entry should move to formal only if someone formalizes the paper's own construction. The statements in that development's Challenge.lean are copied verbatim from google-deepmind/formal-conjectures, so the statement of record comes from the same laboratory that produced the result, and nobody independent of it is on record as having audited that the Lean statement is what Erdős asked. Palomar records trust level high with two kernels, nanoda and con-ron, and permitted axioms exactly propext, Quot.sound and Classical.choice, but its own review outcome is neutral and its reviewer is a model rather than a human referee, and the repository's formalization.yaml records review as self-assessed with no reviewers. The Lean proofs were written by Claude Opus 5.5 under Veljjanoski's direction, so the formalization is itself largely machine-generated. On the mathematics, the paper is explicit that this addresses only part of the question: the counterexample puts every point on the union of two lines, so it says nothing about the strengthening in which the points are in general position, a limit the database page states as well, and the authors write that they consider the solution to address only a part of the question even though it fully addresses the formulation on the database at the time of writing. Aletheia also answered the variant assuming no three points collinear, and that answer was incorrect, so the authors omitted it. The paper's own bookkeeping is inconsistent: the arXiv listing abstract counts 5 novel autonomous solutions against 8 from the literature while the version 3 full text counts 4 against 9, and section 1.2 lists this problem among the autonomous solutions while Table 1 classifies it as partial, so no headline count from this paper should be quoted without saying which version it came from. The paper is on arXiv only, with no journal reference and a CC BY-NC-ND licence, so it has had no peer review. Autonomy is ai-led rather than autonomous: the humans assembled the problem list, and the paper states that the solutions it presents are human-rewritten versions of the agent's raw outputs.",
+    "independent_checks": [
+      {
+        "who": "Thomas F. Bloom, maintainer of erdosproblems.com",
+        "url": "https://www.erdosproblems.com/654",
+        "outcome": "Records on the problem page that the strongest form of the conjecture was disproved by Aletheia, which constructed a set of \\(n\\) points in \\(\\mathbb{R}^2\\), no four on a circle, with at most \\(3n/4\\) distinct distances from any single point, while noting that the construction places all points on the union of two lines and so does not bear on the stronger version with the points in general position."
+      },
+      {
+        "who": "Daniel Veljjanoski (Lean 4 development registered at Palomar)",
+        "url": "https://github.com/veljjanoski/erdos654-palomar/tree/fd7a8dc3cf52f6dcadcf5c6bcd05a2dc387dc64f",
+        "outcome": "Proved the negative answer and the quantitative form in Lean 4 against Mathlib, confirming by an independent route that the statement is false, but using a different point set from the paper's, so the check does not reach Aletheia's construction. The Lean proofs were machine-generated under his direction and the repository records review as self-assessed with no reviewers, so this confirms the mathematics rather than the paper."
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-02-000006",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-02-000006&version=1",
+        "title": "Erdős Problem 654: distinct distances from a point when no four points are concyclic",
+        "repository": "veljjanoski/erdos654-palomar",
+        "commit": "fd7a8dc3cf52f6dcadcf5c6bcd05a2dc387dc64f",
+        "theorems": [
+          "Erdos654.erdos_654.parts.i",
+          "Erdos654.erdos_654.variants.feng"
+        ],
+        "checked": "2026-11-02",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, with two kernels, nanoda and con-ron, and trust level high. The proof uses a different point set from the one in the paper, so it certifies the negative answer rather than Aletheia's construction."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Semi-Autonomous Mathematics Discovery with Gemini, A Case Study on the Erdős Problems",
+        "url": "https://arxiv.org/abs/2601.22401",
+        "kind": "research"
+      },
+      {
+        "label": "veljjanoski/erdos654-palomar at the registered commit",
+        "url": "https://github.com/veljjanoski/erdos654-palomar/tree/fd7a8dc3cf52f6dcadcf5c6bcd05a2dc387dc64f",
+        "kind": "research"
+      },
+      {
+        "label": "erdosproblems.com: Problem 654, recording the disproof of the strongest form",
+        "url": "https://www.erdosproblems.com/654",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "discrete-geometry",
+      "distinct-distances",
+      "erdos-problems",
+      "lean",
+      "formalization",
+      "construction"
+    ],
+    "added": "2026-11-02"
+  },
+  {
+    "id": "2026-10-29-infinity-harmonic-c1alpha-lean",
+    "title": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
+    "claim": "Juan J. Manfredi machine-checked in Lean one of the result families in OpenAI's October 2026 mathematics release, a uniform interior estimate giving every bounded viscosity solution of the infinity-Laplace equation on the unit ball of \\(\\mathbb{R}^d\\), \\(d \\ge 3\\), a gradient that is Hölder continuous on the half ball, and with it the corollary that every infinity-harmonic function on a connected open set in those dimensions is \\(C^1\\); the Lean proofs and the blueprint were written by Claude under an AI-assisted formalization pipeline.",
+    "field": "mathematics",
+    "date": "2026-10-29",
+    "lab": "Independent",
+    "model": "Claude, under the Trellis AI-assisted formalization pipeline; the underlying manuscript came from an unreleased internal OpenAI model",
+    "humans": [
+      "Juan J. Manfredi"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The infinity-Laplace equation \\(\\Delta_\\infty u = \\sum u_i u_j u_{ij} = 0\\) arises as the limit of the \\(p\\)-Laplace equation and governs absolutely minimizing Lipschitz extensions. How smooth its solutions are has been open away from the plane: Savin proved planar solutions are \\(C^1\\) in 2005, and Evans and Smart proved in 2011 that solutions are differentiable everywhere in every dimension, but neither a uniform gradient bound nor \\(C^1\\) regularity was known for \\(d \\ge 3\\). The OpenAI manuscript of 4 October 2026 claims both: for every \\(d \\ge 3\\) there are \\(\\alpha \\in (0, 1/3]\\) and a finite \\(C\\) with \\(\\sup |\\nabla u| + [\\nabla u]_{C^{0,\\alpha}} \\le C\\,\\mathrm{osc}\\,u\\) on the half ball for every bounded viscosity solution on the unit ball, and as a consequence that every infinity-harmonic function on a connected open subset of \\(\\mathbb{R}^d\\) is \\(C^1\\). The formalization carries all three of the manuscript's results, the estimate, the corollary and the Liouville theorem for the degenerate limiting equation on space-time that the proof rests on, as InfHarmonic.main_estimate, InfHarmonic.interior_C1 and InfHarmonic.liouville, proved from Mathlib and including the Crandall-Ishii-Lions theorem of sums and Alexandrov's theorem used along the way. It is pinned to Lean v4.35.0-rc2 and the matching Mathlib release, and the README reports no sorry outside the statement file and no axioms beyond the three standard ones.",
+    "novelty_check": "arXiv, 2026-11-02: abs:\"infinity-harmonic\" returns 27 records and none states a uniform interior Hölder-gradient estimate in dimension three or above. The literature the search turns up is consistent with the problem having been open: Savin's planar \\(C^1\\) result and a 2019 reworking of it, Evans and Smart's everywhere differentiability and its 2014 extension to a class of Aronsson equations, and, most usefully, arXiv:2610.13137 of 2026-10-09, which converts qualitative into quantitative regularity for degenerate equations and obtains uniform interior estimates for infinity-harmonic functions in the plane only, by way of Xu's planar qualitative \\(C^{1, 1/3}\\) result. That paper appeared five days after the OpenAI manuscript's date and still treats the planar case as the frontier, which is evidence that the claim for \\(d \\ge 3\\) was not already in the literature. OpenAI's own formalization catalogue at lean/formalization.yaml lists no source matching this family, so the release attached no Lean proof to it, though that catalogue was only partly read. Within this registry the family is one of the 372 carried by 2026-10-06-openai-math-collection with no entry of its own, and no entry covers the infinity-Laplacian or infinity-harmonic functions.",
+    "caveats": "Graded formal on the Palomar registration, which records that the proof typechecks against the recorded statement at the pinned commit under two kernels, nanoda and con-ron, with permitted axioms exactly propext, Quot.sound and Classical.choice and trust level high. What that does not settle is whether the Lean says what the paper says, and the README is unusually direct about it: Lean does not check that the definitions, among them IsInfHarmonicOn, HolderSeminormOn, OscOn and IsFitClass, and the three statements mean what the manuscript means, and Challenge.lean is the statement of record. The README does not claim that the match against the manuscript's Theorem 1.1 and Corollary 1.2 was checked by hand; it says each node of the blueprint was reviewed automatically for soundness, for faithfulness to the paper and for agreement between its Lean and natural-language statements, which is a machine reading throughout. Palomar's own review outcome is neutral and its reviewer is a model, not a human referee. That gap matters more here than in 2026-10-20-trilinear-hilbert-transform-lean, which carries the same grade on the same kind of registration: there a specialist in the area wrote the theorem and the definitions by hand, so a human vouched for the statement the kernel then checked, whereas here the blueprint, the statement of record and every proof were machine-generated and machine-reviewed, and nobody is on record as having audited the one thing a kernel cannot check. The grade is kept at formal because a reproducible artifact was mechanically verified and the weaker grades on the scale would each assert something untrue, that humans checked it or that no artifact exists, but it rests on a thinner human chain than any other formal entry here and should be read with that in mind. The mathematics being formalized is an unrefereed manuscript from an unreleased model with no human author, carried at claimed in 2026-10-06-openai-math-collection, and OpenAI has not been contacted about this formalization, so the formal grade covers the argument as encoded in Lean and not the provenance of the result or any human reading of the manuscript. Autonomy is ai-led, matching 2026-10-20-trilinear-hilbert-transform-lean rather than the two other families split out of the same collection, 2026-10-27-pts-beta-eta-normalization and 2026-10-27-bernoulli-shifts-unequal-entropy, which are graded collaborative because a second laboratory's model contributed new mathematics on top of OpenAI's input. Here no new mathematics is claimed: the human chose the target and directed the pipeline, and the blueprint and every Lean proof were machine-generated.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-10-29-000040",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-10-29-000040&version=1",
+        "title": "Uniform interior C^{1,alpha} estimates for infinity-harmonic functions in dimensions d at least 3",
+        "repository": "na0b/infharmonic-lean",
+        "commit": "e8710101271a529a8bd84fe0e610c3ab10de85b3",
+        "theorems": [
+          "InfHarmonic.main_estimate",
+          "InfHarmonic.interior_C1",
+          "InfHarmonic.liouville"
+        ],
+        "checked": "2026-10-29",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, with two kernels, nanoda and con-ron, and trust level high. Palomar records the relationship to the OpenAI manuscript as formalizes, with author endorsement not contacted."
+      }
+    ],
+    "sources": [
+      {
+        "label": "na0b/infharmonic-lean at the registered commit",
+        "url": "https://github.com/na0b/infharmonic-lean/tree/e8710101271a529a8bd84fe0e610c3ab10de85b3",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Uniform Interior C^1,alpha Estimates for Infinity-Harmonic Functions (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Uniform-Interior-C1alpha-Estimates-for-Infinity-Harmonic-Functions-October-4-2026/interior-c1-infinity-harmonic.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Qualitative-to-quantitative regularity for degenerate equations, the planar case in the human literature",
+        "url": "https://arxiv.org/abs/2610.13137",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "partial-differential-equations",
+      "viscosity-solutions",
+      "regularity",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-11-02"
   }
 ]
