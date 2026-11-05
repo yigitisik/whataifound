@@ -9,6 +9,100 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-11-03-cdk46-home-therapy-ai-rct",
+      "url": "https://whataifound.org/finding/2026-11-03-cdk46-home-therapy-ai-rct",
+      "title": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy",
+      "content_text": "In a three-arm randomised trial across hospitals in Tianjin, 189 breast cancer patients taking CDK4/6 inhibitors at home were assigned to an AI management platform, a tailored active follow-up service by phone and text, or standard care; a preprint reports that both active arms kept anxiety and depression scores better than standard care, without reporting a comparison between the AI and the human follow-up.  The registration describes the platform as a 24-hour service added to routine follow-up, offering emotional companionship, medication reminders and adverse-reaction assessment against CTCAE standards. The second arm received personalised phone calls and text messages from a follow-up centre, and the third routine advice and education. Primary outcomes were the Self-Rating Anxiety and Depression Scales at 24 weeks, with EORTC QLQ-C30 quality of life and patient-reported adverse events (PRO-CTCAE) secondary. Of 189 randomised, 161 were analysed (53 AI, 54 follow-up, 54 standard care). Both intervention arms did better than standard care on anxiety and depression (both P ≤ 0.001) and on cognitive, emotional and social functioning and global health, while scores in the standard-care arm worsened, with depression peaking at week 16. The authors also report that the AI arm captured more patient-reported adverse events.  Lab: Tianjin Medical University Cancer Institute and Hospital. Model: Zhiliao Doctor AI management platform. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-03T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "oncology",
+        "breast-cancer",
+        "remote-monitoring",
+        "patient-reported-outcomes",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-02-retime-retinal-mortality",
+      "url": "https://whataifound.org/finding/2026-11-02-retime-retinal-mortality",
+      "title": "Deep learning marker of mortality risk from retinal photographs, validated in three external cohorts (RetiME)",
+      "content_text": "A deep learning marker that maps a retinal photograph directly to an individual's mortality risk, trained on a European cohort, was associated with all-cause and cause-specific mortality and with the later onset of a wide range of systemic and eye diseases in three external cohorts in Southeast Asia, Eurasia and North America, and was used to reconstruct personalised lifespan trajectories.  Retinal Mortality Equivalent (RetiME) was built on large foundation models and trained to read individual mortality risk from low-cost, non-invasive retinal photographs. Beyond a static risk estimate, the authors use it to reconstruct a personalised lifespan trajectory for each person, and report that these trajectories were associated with observed outcomes such as age at death. Clustering the trajectories separated cancer-predominant, cardiometabolic and neurodegenerative patterns. Interpretability analyses and a genome-wide analysis, which identified loci associated with RetiME, are offered as evidence that it captures biology rather than image artefacts.  Lab: National University of Singapore and Singapore Eye Research Institute. Model: RetiME, a deep learning marker built on large foundation models (not named in the abstract). Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-02T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "ophthalmology",
+        "retinal-imaging",
+        "mortality",
+        "ageing",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-29-peddx-posterior-fossa-tumours",
+      "url": "https://whataifound.org/finding/2026-10-29-peddx-posterior-fossa-tumours",
+      "title": "Pediatric posterior fossa tumour classifier from T2 MRI with abstention, evaluated at an outside site (PedDx)",
+      "content_text": "A preprint reports a classifier for five pediatric posterior fossa tumour types from a single T2-weighted MRI, which abstains when unsure, reaching 81.4% accuracy on 129 external cases (88.7% when it did not abstain) and 92.5% on 40 cases run through the full workflow by a team at another institution, while degrading on out-of-distribution scans, sometimes confidently.  The classifier separates medulloblastoma, ependymoma, atypical teratoid/rhabdoid tumour, low-grade glioma and diffuse midline glioma without needing a tumour segmentation. It was trained on 492 treatment-naive scans from the Children's Brain Tumor Network and CHOP and tested on 114 held-out replication cases (79.8%, or 90.5% among cases where it did not abstain), and on 129 cases from Children's Healthcare of Atlanta. A team at Macquarie University ran the deployed workflow, which produces a prediction and a structured quality-control report, on 40 cases from the Women's and Children's Hospital in Adelaide. The authors also tested 236 out-of-distribution cases, including post-treatment scans, artefacts and tumour types never seen in training, and found degraded performance with confidently wrong predictions, plus sensitivity to acquisition and alignment perturbations.  Lab: Children's Hospital of Philadelphia. Model: PedDx, a frozen 3DINO vision transformer with a classification head, calibrated, with confidence-based abstention. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-29T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "pediatrics",
+        "neuro-oncology",
+        "mri",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-29-photo-malocclusion-screening",
+      "url": "https://whataifound.org/finding/2026-10-29-photo-malocclusion-screening",
+      "title": "Smartphone profile photograph screening for skeletal malocclusion, externally validated in Turkey and Belgium",
+      "content_text": "A preprint reports that a classifier using 100 geometric features from a single side-profile smartphone photograph, with no radiograph, kept its sensitivity for skeletal Class III malocclusion across two external cohorts but lost specificity in a non-European cohort from a Belgian clinic, where its AUC fell from 0.902 to 0.835, and fell further in a second task separating Class I from Class II (0.875 to 0.723).  Two binary tasks were evaluated, Class III against the rest and Class I against Class II, each with its own development set and model, applied unchanged at the default threshold. The reference standard was the ANB angle on pre-treatment lateral cephalograms traced by orthodontists, never shown to the model. One external cohort came from a Turkish university orthodontic department outside the development set (256 patients in the Class III task) and the other from a private orthodontic clinic in Brussels described as non-European (282 patients). For Class III, sensitivity was similar across the evaluation sets (0.801, 0.836 and 0.848), while specificity fell from 0.766 to 0.697. Sensitivity was lower in children than in adults in both cohorts (0.71 to 0.80 against 0.89 to 0.90).  Lab: Bezmialem Vakif University, Muğla Sıtkı Koçman University and Kedi Mobil Uygulama. Model: Geometric machine learning classifiers on 100 engineered facial-profile features. Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-29T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "orthodontics",
+        "dentistry",
+        "screening",
+        "smartphone",
+        "retrospective",
+        "external-validation"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-26-yang-mills-existence-claim",
+      "url": "https://whataifound.org/finding/2026-10-26-yang-mills-existence-claim",
+      "title": "OpenAI claim of an existence proof for quantum Yang-Mills theory, held by a shepherding committee",
+      "content_text": "OpenAI announced a proof, produced by its language model, that quantum Yang-Mills theory exists, including its coupling to fermions, by following the lattice theory to its continuum limit; a five-person committee of physicists and mathematicians holds the 1147-page proof, says confinement and the mass gap remain open, and has released neither the proof nor its Lean formalization.  The only primary document available is a two-page statement by the shepherding committee, Michael R. Douglas, David J. Gross (chair), Arthur Jaffe, Igor R. Klebanov and Nikita Nekrasov, dated October 2026 and hosted by the Kavli Institute for Theoretical Physics. It says OpenAI asked Gross on 16 October to take custody of the proof and decide how to release it, that Gross chose the rest of the committee, and that the committee has no responsibility to OpenAI. On its account the argument builds on Wilson's 1974 lattice regularization and on Balaban's rigorous renormalization group of the 1980s, and follows the theory all the way to infinite distances to prove the existence of its proper continuum limit. OpenAI is providing a Lean formalization. The committee's first step is to check that the definitions and problem statement match the standard ones in physics and mathematics and that the formalization matches the informal argument; it will then release the Lean proof, and later its own assessment together with the full 1147 pages.  Lab: OpenAI. Model: OpenAI language model, not named in the committee's statement. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-26T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "mathematical-physics",
+        "quantum-field-theory",
+        "yang-mills",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-22-euler-2d-unforced-nonuniqueness",
+      "url": "https://whataifound.org/finding/2026-10-22-euler-2d-unforced-nonuniqueness",
+      "title": "Non-uniqueness of unforced two-dimensional Euler flows with unbounded integrable vorticity",
+      "content_text": "A two-part manuscript by Matei P. Coiculescu, whose detailed proofs, code and text were largely produced with Claude Opus 5.5 under his direction, claims that the incompressible Euler equations in the plane, with no external force, admit two distinct renormalized weak solutions from the same radial initial vorticity, which lies in L¹ ∩ L^q for every q < ∞ but is unbounded; Part I is on arXiv and the whole proof is formalized in Lean.  One solution is the stationary radial vorticity itself. The other is 3-fold rotationally symmetric, equimeasurable with the datum at every time, and leaves it in finite time; the two differ in Lₜ^(∞)(L¹ ∩ L^q)ₓ for every q ∈ (4/3, ∞) and every large enough time horizon. Part I proves two ingredients: a compactness criterion, under which radial data approximated by 3-fold symmetric solutions whose non-radial moment stays bounded below yield a second solution, and a linear analysis showing an unstable eigenvalue for the linearization around the basic building block plus a small point vortex. Part II, the nonlinear construction, is in the repository but not on arXiv. The repository's Lean 4 development, about 1,280 files and 170,000 lines, proves that a three-part Hypothesis (N) implies the main theorem, proves (N3) directly, and proves sound a checker for the computer-assisted parts (N1) and (N2). Those were certified twice: by a Python program in rigorous ball arithmetic (FLINT/Arb), and by a compiled run of the Lean checker on 2026-10-22 that took 8.75 hours and printed true on all 261 cells.  Lab: Independent. Model: Claude Opus 5.5 (Anthropic). Verification: Claimed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-22T00:00:00+00:00",
+      "date_modified": "2026-11-05T00:00:00+00:00",
+      "tags": [
+        "pde",
+        "fluid-dynamics",
+        "euler-equations",
+        "non-uniqueness",
+        "lean",
+        "formalization",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
       "url": "https://whataifound.org/finding/2026-10-29-infinity-harmonic-c1alpha-lean",
       "title": "Lean formalization of interior gradient Hölder estimates for infinity-harmonic functions",
@@ -28,7 +122,7 @@
       "id": "https://whataifound.org/finding/2026-01-29-erdos-654-distinct-distances",
       "url": "https://whataifound.org/finding/2026-01-29-erdos-654-distinct-distances",
       "title": "Erdős Problem 654 answered negatively by Google DeepMind's Aletheia agent",
-      "content_text": "An agent built on Gemini Deep Think produced an elementary counterexample showing that n points in the plane with no four on a circle need not contain any point having (1 − o(1))n distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; a third party has since proved that negative answer in Lean, from a different construction.  Write f(n) for the largest number such that every set of n points in ℝ² with no four on a circle contains a point at f(n) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether f(n) > (1 − o(1))n, the trivial bound being f(n) ≥ (n − 1)/3. Aletheia answered no: its counterexample places 2m points on each coordinate axis, at powers of 2 and 3, giving 4m points in which every point sees at most roughly 3n/4 distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points (±2i, 0) and (0, ±(2j − 1)) for 1 ≤ i, j ≤ m, and finishing the no-four-concyclic condition by parity rather than by unique factorization.  Lab: Google DeepMind. Model: Aletheia, a mathematics research agent built on Gemini Deep Think. Verification: Independently checked. Autonomy: AI-led.",
+      "content_text": "An agent built on Gemini Deep Think produced an elementary counterexample showing that n points in the plane with no four on a circle need not contain any point having (1 − o(1))n distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; that construction has since been proved in Lean, and so has the negative answer by a second, different construction.  Write f(n) for the largest number such that every set of n points in ℝ² with no four on a circle contains a point at f(n) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether f(n) > (1 − o(1))n, the trivial bound being f(n) ≥ (n − 1)/3. Aletheia answered no: its counterexample places 2m points on each coordinate axis, at powers of 2 and 3, giving 4m points in which every point sees at most roughly 3n/4 distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points (±2i, 0) and (0, ±(2j − 1)) for 1 ≤ i, j ≤ m, and finishing the no-four-concyclic condition by parity rather than by unique factorization. A second development by the GitHub user ukniusanqian-alt, registered at Palomar on 2026-11-03, proves the same two statements with Aletheia's own set, the points (0, ±3^(k + 1)) and (±2^(j + 1), 0) for 0 ≤ j, k < m, which are the paper's points with the exponents re-indexed from {10, …, m + 9}, and closes the no-four-concyclic step as the paper does, through the power of the origin, ending by comparing an odd product with an even one.  Lab: Google DeepMind. Model: Aletheia, a mathematics research agent built on Gemini Deep Think. Verification: Formally verified. Autonomy: AI-led.",
       "date_published": "2026-01-29T00:00:00+00:00",
       "date_modified": "2026-11-02T00:00:00+00:00",
       "tags": [

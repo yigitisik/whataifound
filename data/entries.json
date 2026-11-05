@@ -10266,7 +10266,7 @@
     "autonomy": "ai-assisted",
     "detail": "120 primary care teams (358 clinicians) were randomised. ECGs taken in routine care for adults with no prior heart failure were run through the algorithm, and clinicians in the intervention arm had access to its results; 6% of patients were flagged as likely to have low ejection fraction. The primary outcome, a new diagnosis of ejection fraction of 50% or less within 90 days, rose from 1.6% to 2.1% overall (odds ratio 1.32) and from 14.5% to 19.5% among AI-positive patients. Echocardiogram use was similar overall (18.2% against 19.2%) but higher for AI-positive patients (38.1% against 49.6%). The model is the one Mayo published retrospectively in 2019. Anumana, a company formed by Mayo Clinic and nference, holds an FDA clearance for a low ejection fraction AI-ECG algorithm developed from this work.",
     "novelty_check": "Europe PMC, titles (artificial intelligence OR deep learning OR neural network) AND (electrocardiogram OR ECG) AND (ejection fraction OR ventricular dysfunction), before 6 May 2021: seven hits, all retrospective development or external validation studies, plus this trial's own design paper (Data Brief, 2019); the model itself was published by Attia et al. (Nature Medicine, 2019). No earlier randomised trial of an AI-ECG.",
-    "caveats": "One health system that both developed the model and ran the trial. The outcome is a diagnosis, a process measure; the trial did not measure heart failure events or survival. Clinicians acted on only about half of positive results, so the effect depends on uptake as much as on the model. Autonomy is graded ai-assisted, the weaker reading: the AI detects a pattern clinicians cannot see on an ECG, but the measured outcome needed a clinician to act on the alert and an echocardiogram to confirm it. The FDA-cleared Anumana algorithm is a commercial descendant of the Mayo model, not necessarily the version tested here.",
+    "caveats": "One health system that both developed the model and ran the trial. The outcome is a diagnosis, a process measure; the trial did not measure heart failure events or survival. Clinicians acted on only about half of positive results, so the effect depends on uptake as much as on the model. Autonomy is graded ai-assisted, the weaker reading: the AI detects a pattern clinicians cannot see on an ECG, but the measured outcome needed a clinician to act on the alert and an echocardiogram to confirm it. The FDA-cleared Anumana algorithm is a commercial descendant of the Mayo model, not necessarily the version tested here. A 2026 meta-analysis by authors with no stated tie to Mayo Clinic or Anumana pooled this trial with an inpatient trial in Taiwan (Tsai and colleagues, 2025, 13,631 patients) and an obstetric trial in Nigeria (Adedinsewo and colleagues, 2024, 1,195 patients), and found more new low ejection fraction diagnoses with AI-ECG screening (risk ratio 1.36) without more echocardiogram referrals. This trial supplies about 60% of the 37,467 pooled patients and the three trials did not all test the same algorithm, so the pooled result is context for this entry rather than an independent replication of it, and the grade stays where it is.",
     "registrations": [
       {
         "registry": "clinicaltrials-gov",
@@ -10291,6 +10291,11 @@
         "label": "Nature Medicine: Screening for cardiac contractile dysfunction using an AI-enabled electrocardiogram (the model)",
         "url": "https://www.nature.com/articles/s41591-018-0240-2",
         "kind": "research"
+      },
+      {
+        "label": "Annals of Noninvasive Electrocardiology: AI-enabled ECG screening for low ejection fraction in routine care, a systematic review and meta-analysis of randomized trials (2026)",
+        "url": "https://doi.org/10.1111/anec.70248",
+        "kind": "commentary"
       }
     ],
     "tags": [
@@ -11773,7 +11778,7 @@
     "year_posed": 1999,
     "detail": "For every fixed \\(k \\ge 2\\) the preprint gives a deterministic algorithm that computes the exact number of satisfying assignments of a \\(k\\)-CNF on \\(n\\) variables and \\(m\\) clauses in \\(\\mathrm{poly}_k(n, m)\\) space and time \\((n+m)^{O_k(1)} 2^{n/(\\log n)^{1/2+o(1)}}\\). Since testing whether that count exceeds zero decides satisfiability, the case \\(k = 3\\) contradicts the Exponential Time Hypothesis. The manuscript is dated 17 October 2026 and revised 25 October 2026, and its stated techniques are exact counting, sparse parity tests and polynomial interpolation. It was published on 26 October 2026 into openai/math, the repository of 721 manuscripts in 373 families that this registry already records at 2026-10-06-openai-math-collection, whose README frames the manuscripts as raw research data rather than polished papers and reports roughly 42 percent of top-line results formalized. The release note says an independent working group of computer scientists led by Russell Impagliazzo, Ramamohan Paturi and Ryan Williams will examine and explain the proof, and that OpenAI made the materials public immediately at the group's request.",
     "novelty_check": "Searched arXiv on 2026-10-27. The hypothesis was standing rather than previously refuted: abs:\"exponential time hypothesis\" AND abs:\"refute\" returned 18 records, all of which assume ETH to derive lower bounds rather than attacking it; ti:\"exponential time hypothesis\" returned 6 and abs:\"3-SAT\" AND abs:\"subexponential\" returned 7, none claiming a subexponential 3-SAT algorithm. Within this registry the preprint is one manuscript from the openai/math collection recorded at 2026-10-06-openai-math-collection, which covered the release as a whole and predates this result; this entry exists because an ETH refutation is a specific claim with its own artifacts and its own review, not because the collection entry missed it. The other ETH refutation of the same day is recorded at 2026-10-26-eth-refuted-claude, and Anthropic's paper cites this one as independent and concurrent. The two bounds are close but not identical, this one being \\((n+m)^{O_k(1)} 2^{n/(\\log n)^{1/2+o(1)}}\\) against Anthropic's \\(2^{O(\\min\\{km/\\sqrt{\\log m},\\ k^2 n \\log\\log n/\\sqrt{\\log n}\\})}\\), so reports that the two labs reached the same bound are approximate.",
-    "caveats": "Entered at claimed. A Lean formalization does exist, which distinguishes this from an unformalized manuscript, but three things keep the grade below formal. First, the formalized statement is weaker than the published one: OpenAI's own scope page records that Lean proves a time bound of \\((L+1)^{O_k(1)} 2^{O_k(n (\\log\\log n)^2/\\sqrt{\\log n})}\\) on a canonically encoded formula of bit length \\(L\\), while the manuscript claims the sharper \\((n+m)^{O_k(1)} 2^{O_k(n \\log\\log n/\\sqrt{\\log n})}\\). The weaker bound is still subexponential and so still refutes ETH, but it is not what the paper's abstract states. Second, the Comparator configuration for this result sets enable_nanoda to false, so unlike the concurrent Anthropic development it is not re-checked by a second independent kernel. Third, no external checker has examined it: the MathVet review of openai/math that this registry already cites covers four other SAT-related results from the October release and has no row for this one, and the build was not rerun for this entry. The grade is therefore a statement about what has been checked, not a judgement that this result is weaker than the concurrent one at 2026-10-26-eth-refuted-claude, which is graded formal because its axiom print and second-kernel check are documented. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts from the same repository on 7 October 2026 over a sign error and revised 14 others, and its README says some unformalized results could have issues. The announced working group led by Impagliazzo, Paturi and Williams has published nothing, and OpenAI's note describes its role as examining and explaining rather than certifying. The only third-party material, the ProveIt collection cited here, states that nothing in it has been checked there and that its derivative reports assume the preprint's arguments unchanged; one of them notes the formalized bound is weaker than the manuscript's, agreeing with OpenAI's own scope page. The paper gives no practical algorithm and does not resolve P versus NP. Autonomy is graded ai-led on the strictest defensible reading, matching every other entry from this release: the repository README says the manuscripts came from an unreleased internal model given roughly three hours of thinking compute per result across about 4,000 posed problems, and records human editing for only one unrelated write-up, but the problems, the formalization pipeline and the release were human-run. No human author is named on the preprint.",
+    "caveats": "Entered at claimed. A Lean formalization does exist, which distinguishes this from an unformalized manuscript, but three things keep the grade below formal. First, the formalized statement is weaker than the published one: OpenAI's own scope page records that Lean proves a time bound of \\((L+1)^{O_k(1)} 2^{O_k(n (\\log\\log n)^2/\\sqrt{\\log n})}\\) on a canonically encoded formula of bit length \\(L\\), while the manuscript claims the sharper \\((n+m)^{O_k(1)} 2^{O_k(n \\log\\log n/\\sqrt{\\log n})}\\). The weaker bound is still subexponential and so still refutes ETH, but it is not what the paper's abstract states. Second, the Comparator configuration for this result sets enable_nanoda to false, so unlike the concurrent Anthropic development it is not re-checked by a second independent kernel. Third, no external checker has examined it: the MathVet review of openai/math that this registry already cites covers four other SAT-related results from the October release and has no row for this one, and the build was not rerun for this entry. The nearest thing to outside engagement is a 20-page exposition dated 30 October 2026, hosted on Ryan O'Donnell's Carnegie Mellon page and, its footnote says, produced through interaction with LLMs: it restates the argument for sparse 3-CNF through the permanent of a sparse matrix and gives its own randomized extension to arbitrary 3-CNF, but it explains the proof rather than reporting that anyone checked it, so it does not move the grade. The grade is therefore a statement about what has been checked, not a judgement that this result is weaker than the concurrent one at 2026-10-26-eth-refuted-claude, which is graded formal because its axiom print and second-kernel check are documented. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts from the same repository on 7 October 2026 over a sign error and revised 14 others, and its README says some unformalized results could have issues. The announced working group led by Impagliazzo, Paturi and Williams has published nothing, and OpenAI's note describes its role as examining and explaining rather than certifying. The only third-party material, the ProveIt collection cited here, states that nothing in it has been checked there and that its derivative reports assume the preprint's arguments unchanged; one of them notes the formalized bound is weaker than the manuscript's, agreeing with OpenAI's own scope page. The paper gives no practical algorithm and does not resolve P versus NP. Autonomy is graded ai-led on the strictest defensible reading, matching every other entry from this release: the repository README says the manuscripts came from an unreleased internal model given roughly three hours of thinking compute per result across about 4,000 posed problems, and records human editing for only one unrelated write-up, but the problems, the formalization pipeline and the release were human-run. No human author is named on the preprint.",
     "sources": [
       {
         "label": "OpenAI: The Exponential Time Hypothesis is False (PDF)",
@@ -11794,6 +11799,11 @@
         "label": "openai/math release history, 26 October 2026 entry announcing the review group",
         "url": "https://github.com/openai/math/blob/main/history.md",
         "kind": "announcement"
+      },
+      {
+        "label": "Some exposition of “The Exponential Time Hypothesis Is False” (30 October 2026), hosted on Ryan O'Donnell's Carnegie Mellon page",
+        "url": "https://www.cs.cmu.edu/~odonnell/some_eth_false_exposition.pdf",
+        "kind": "commentary"
       },
       {
         "label": "ProveIt: Sub-exponential 3-SAT (the Exponential Time Hypothesis), a third-party collection of both manuscripts and derivative reports",
@@ -11824,6 +11834,12 @@
         "title": "Exponential Time Hypothesis",
         "url": "https://mathdb.com/p/353263/exponential-time-hypothesis",
         "note": "Carries OpenAI's claimed refutation as its one posted solution and, as of October 2026, lists the hypothesis as open with no independently verified proof or refutation."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "exponential-time-hypothesis",
+        "url": "https://vibemathed.com/problem/exponential-time-hypothesis",
+        "note": "Records OpenAI's manuscript; the concurrent Anthropic paper appears there only as a linked reference."
       }
     ],
     "revisions": [
@@ -11832,6 +11848,12 @@
         "kind": "correction",
         "note": "Recorded the MathDB record for the Exponential Time Hypothesis as a registration. No grade moved.",
         "url": "https://mathdb.com/p/353263/exponential-time-hypothesis"
+      },
+      {
+        "date": "2026-11-05",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for the Exponential Time Hypothesis as a registration and cited an outside exposition of the proof; it explains rather than certifies, and no grade moved.",
+        "url": "https://www.cs.cmu.edu/~odonnell/some_eth_false_exposition.pdf"
       }
     ]
   },
@@ -12092,7 +12114,22 @@
       "lean",
       "argument"
     ],
-    "added": "2026-10-29"
+    "added": "2026-10-29",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "sogge-s-local-smoothing-conjecture",
+        "url": "https://vibemathed.com/problem/sogge-s-local-smoothing-conjecture"
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-11-05",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for Sogge's local smoothing conjecture as a registration. It cites the same manuscript. No grade moved.",
+        "url": "https://vibemathed.com/problem/sogge-s-local-smoothing-conjecture"
+      }
+    ]
   },
   {
     "id": "2026-09-24-cytoreader-fusion-dual-stain-triage",
@@ -12600,7 +12637,7 @@
   {
     "id": "2026-01-29-erdos-654-distinct-distances",
     "title": "Erdős Problem 654 answered negatively by Google DeepMind's Aletheia agent",
-    "claim": "An agent built on Gemini Deep Think produced an elementary counterexample showing that \\(n\\) points in the plane with no four on a circle need not contain any point having \\((1 - o(1))n\\) distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; a third party has since proved that negative answer in Lean, from a different construction.",
+    "claim": "An agent built on Gemini Deep Think produced an elementary counterexample showing that \\(n\\) points in the plane with no four on a circle need not contain any point having \\((1 - o(1))n\\) distinct distances to the others, a negative answer to Erdős Problem 654 as the problem database formulates it; that construction has since been proved in Lean, and so has the negative answer by a second, different construction.",
     "field": "mathematics",
     "date": "2026-01-29",
     "lab": "Google DeepMind",
@@ -12613,11 +12650,11 @@
       "Thang Luong"
     ],
     "year_posed": 1997,
-    "verification": "independent",
+    "verification": "formal",
     "autonomy": "ai-led",
-    "detail": "Write \\(f(n)\\) for the largest number such that every set of \\(n\\) points in \\(\\mathbb{R}^2\\) with no four on a circle contains a point at \\(f(n)\\) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether \\(f(n) > (1 - o(1))n\\), the trivial bound being \\(f(n) \\ge (n - 1)/3\\). Aletheia answered no: its counterexample places \\(2m\\) points on each coordinate axis, at powers of 2 and 3, giving \\(4m\\) points in which every point sees at most roughly \\(3n/4\\) distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points \\((\\pm 2i, 0)\\) and \\((0, \\pm(2j - 1))\\) for \\(1 \\le i, j \\le m\\), and finishing the no-four-concyclic condition by parity rather than by unique factorization.",
+    "detail": "Write \\(f(n)\\) for the largest number such that every set of \\(n\\) points in \\(\\mathbb{R}^2\\) with no four on a circle contains a point at \\(f(n)\\) or more distinct distances from the rest. Erdős asked in his 1997 problem collection whether \\(f(n) > (1 - o(1))n\\), the trivial bound being \\(f(n) \\ge (n - 1)/3\\). Aletheia answered no: its counterexample places \\(2m\\) points on each coordinate axis, at powers of 2 and 3, giving \\(4m\\) points in which every point sees at most roughly \\(3n/4\\) distinct distances. The paper reports 13 problems marked open in the database addressed by the agent, some by novel solutions and some by locating solutions already in the literature, and its Table 1 classifies this one as a Partial AI Solution, meaning the problem carried several questions and the agent solved the first of them. An independent Lean 4 development by Daniel Veljjanoski, registered at Palomar on 2026-11-02, proves both the negative answer and the quantitative form, using a different set on the same two axes, the points \\((\\pm 2i, 0)\\) and \\((0, \\pm(2j - 1))\\) for \\(1 \\le i, j \\le m\\), and finishing the no-four-concyclic condition by parity rather than by unique factorization. A second development by the GitHub user ukniusanqian-alt, registered at Palomar on 2026-11-03, proves the same two statements with Aletheia's own set, the points \\((0, \\pm 3^{k+1})\\) and \\((\\pm 2^{j+1}, 0)\\) for \\(0 \\le j, k < m\\), which are the paper's points with the exponents re-indexed from \\(\\{10, \\dots, m+9\\}\\), and closes the no-four-concyclic step as the paper does, through the power of the origin, ending by comparing an odd product with an even one.",
     "novelty_check": "The problem database at erdosproblems.com/654 records this work as disproving the strongest form of the conjecture, so an independent maintainer has accepted it against the problem as stated; the page was last edited 2026-02-01 and thanks the Superhuman Reasoning team at Google DeepMind. The paper itself reports no prior solution and the Palomar record cites only Erdős's own 1997 collection as the source of the question. Nothing in this registry covered it: no entry names Aletheia or this problem, and the nearest neighbours are 2025-10-19-gpt5-erdos-retrieval, which is retrieval rather than a new result, and the Lean-formalized Erdős entries 2026-08-19-erdos-501-independence, 2026-09-26-erdos-1220-not-provable, 2026-10-19-erdos-173-monochromatic-triangles, 2026-10-19-erdos-111-bipartization and 2026-10-19-erdos-408-iterated-totient. The paper was posted in January 2026 and reached this registry only on 2026-11-02, surfaced by the watch run through the Palomar registration of a formalization that cites the construction, because the disclosure sits in the paper's body rather than its abstract.",
-    "caveats": "Graded independent rather than formal, on the precedent of 2026-05-erdos-unit-distance: a registration does not by itself move a grade, and the registered Lean proof deliberately uses a different point set from the paper's, as Palomar's own abstract for the record states. What is machine-checked is therefore that the statement Erdős asked about is false, not that Aletheia's construction works; the construction the agent actually produced has never been formalized, and no kernel has looked at it. The grade rests instead on two parties outside Google DeepMind having engaged with the result: the maintainer of the problem database recorded it as disproving the strongest form of the conjecture, and an independent Lean development reached the same negative answer by another route. Both of those are thinner than the word independent usually implies, and the entry should move to formal only if someone formalizes the paper's own construction. The statements in that development's Challenge.lean are copied verbatim from google-deepmind/formal-conjectures, so the statement of record comes from the same laboratory that produced the result, and nobody independent of it is on record as having audited that the Lean statement is what Erdős asked. Palomar records trust level high with two kernels, nanoda and con-ron, and permitted axioms exactly propext, Quot.sound and Classical.choice, but its own review outcome is neutral and its reviewer is a model rather than a human referee, and the repository's formalization.yaml records review as self-assessed with no reviewers. The Lean proofs were written by Claude Opus 5.5 under Veljjanoski's direction, so the formalization is itself largely machine-generated. On the mathematics, the paper is explicit that this addresses only part of the question: the counterexample puts every point on the union of two lines, so it says nothing about the strengthening in which the points are in general position, a limit the database page states as well, and the authors write that they consider the solution to address only a part of the question even though it fully addresses the formulation on the database at the time of writing. Aletheia also answered the variant assuming no three points collinear, and that answer was incorrect, so the authors omitted it. The paper's own bookkeeping is inconsistent: the arXiv listing abstract counts 5 novel autonomous solutions against 8 from the literature while the version 3 full text counts 4 against 9, and section 1.2 lists this problem among the autonomous solutions while Table 1 classifies it as partial, so no headline count from this paper should be quoted without saying which version it came from. The paper is on arXiv only, with no journal reference and a CC BY-NC-ND licence, so it has had no peer review. Autonomy is ai-led rather than autonomous: the humans assembled the problem list, and the paper states that the solutions it presents are human-rewritten versions of the agent's raw outputs.",
+    "caveats": "Graded formal since 2026-11-05, on the condition this entry had set for it: a second Lean development, registered at Palomar on 2026-11-03, formalizes the paper's own construction rather than a substitute for it. The exponents are shifted from the paper's \\(\\{10, \\dots, m+9\\}\\) to \\(\\{1, \\dots, m\\}\\), which changes nothing in the argument, as both the repository and the paper's proof make plain. Both developments prove the same two theorem statements, and both are existential, so what a kernel certifies is the statement; that the witness in the second one is Aletheia's set was read in its proof file for this entry (the definition config, built from yPts and xPts), together with a search of that file for sorry, admit, native_decide, axiom and unsafe that found none. Neither build was rerun here; both rest on Palomar's replay. The statements in both developments' Challenge.lean are copied verbatim from google-deepmind/formal-conjectures, so the statement of record comes from the same laboratory that produced the result, and nobody independent of it is on record as having audited that the Lean statement is what Erdős asked. For both records Palomar reports trust level high with two kernels, nanoda and con-ron, and permitted axioms exactly propext, Quot.sound and Classical.choice, but its review outcome is neutral and its reviewer is a model rather than a human referee (codex:gpt-6-sol for the second), and both repositories' formalization.yaml record review as self-assessed with no reviewers. Both formalizations are machine-written: Veljjanoski's by Claude Opus 5.5 under his direction, and the second, its formalization.yaml says, by Claude Fable 5.1 in Claude Code over about an hour, directed by the repository owner. Formal here certifies the construction and the negative answer, not the paper's prose or its other problems. On the mathematics, the paper is explicit that this addresses only part of the question: the counterexample puts every point on the union of two lines, so it says nothing about the strengthening in which the points are in general position, a limit the database page states as well, and the authors write that they consider the solution to address only a part of the question even though it fully addresses the formulation on the database at the time of writing. Aletheia also answered the variant assuming no three points collinear, and that answer was incorrect, so the authors omitted it. The paper's own bookkeeping is inconsistent: the arXiv listing abstract counts 5 novel autonomous solutions against 8 from the literature while the version 3 full text counts 4 against 9, and section 1.2 lists this problem among the autonomous solutions while Table 1 classifies it as partial, so no headline count from this paper should be quoted without saying which version it came from. The paper is on arXiv only, with no journal reference and a CC BY-NC-ND licence, so it has had no peer review. Autonomy is ai-led rather than autonomous: the humans assembled the problem list, and the paper states that the solutions it presents are human-rewritten versions of the agent's raw outputs.",
     "independent_checks": [
       {
         "who": "Thomas F. Bloom, maintainer of erdosproblems.com",
@@ -12628,6 +12665,11 @@
         "who": "Daniel Veljjanoski (Lean 4 development registered at Palomar)",
         "url": "https://github.com/veljjanoski/erdos654-palomar/tree/fd7a8dc3cf52f6dcadcf5c6bcd05a2dc387dc64f",
         "outcome": "Proved the negative answer and the quantitative form in Lean 4 against Mathlib, confirming by an independent route that the statement is false, but using a different point set from the paper's, so the check does not reach Aletheia's construction. The Lean proofs were machine-generated under his direction and the repository records review as self-assessed with no reviewers, so this confirms the mathematics rather than the paper."
+      },
+      {
+        "who": "ukniusanqian-alt (Lean 4 development registered at Palomar)",
+        "url": "https://github.com/ukniusanqian-alt/erdos654-lean/tree/3146ec1b4c120e366c10bbb92dec8de596cd7aa1",
+        "outcome": "Proved in Lean 4 against Mathlib that Aletheia's own point set, with its exponents re-indexed, has \\(4m\\) points, no four on a circle, and fewer than \\(3m\\) distinct distances from every point, and derived the negative answer from it. The proof was written by an AI agent under the repository owner's direction and has had no human review."
       }
     ],
     "registrations": [
@@ -12644,6 +12686,25 @@
         ],
         "checked": "2026-11-02",
         "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, with two kernels, nanoda and con-ron, and trust level high. The proof uses a different point set from the one in the paper, so it certifies the negative answer rather than Aletheia's construction."
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-03-000009",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-03-000009&version=1",
+        "title": "Erdős Problem 654: the Aletheia counterexample",
+        "repository": "ukniusanqian-alt/erdos654-lean",
+        "commit": "3146ec1b4c120e366c10bbb92dec8de596cd7aa1",
+        "theorems": [
+          "Erdos654.erdos_654.variants.feng",
+          "Erdos654.erdos_654.parts.i"
+        ],
+        "checked": "2026-11-03",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice, with two kernels, nanoda and con-ron, and trust level high. The witness is the paper's construction with exponents shifted from 10 to m+9 down to 1 to m."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "erdos-654",
+        "url": "https://vibemathed.com/problem/erdos-654"
       }
     ],
     "sources": [
@@ -12655,6 +12716,11 @@
       {
         "label": "veljjanoski/erdos654-palomar at the registered commit",
         "url": "https://github.com/veljjanoski/erdos654-palomar/tree/fd7a8dc3cf52f6dcadcf5c6bcd05a2dc387dc64f",
+        "kind": "research"
+      },
+      {
+        "label": "ukniusanqian-alt/erdos654-lean at the registered commit",
+        "url": "https://github.com/ukniusanqian-alt/erdos654-lean/tree/3146ec1b4c120e366c10bbb92dec8de596cd7aa1",
         "kind": "research"
       },
       {
@@ -12672,7 +12738,21 @@
       "formalization",
       "construction"
     ],
-    "added": "2026-11-02"
+    "added": "2026-11-02",
+    "revisions": [
+      {
+        "date": "2026-11-05",
+        "kind": "regraded",
+        "note": "Upgraded from independent to formal: a second Palomar-registered Lean development proves the negative answer with the paper's own construction, the condition this entry's caveats had set, though no human has audited the Lean statement.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-03-000009&version=1"
+      },
+      {
+        "date": "2026-11-05",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for Erdős Problem 654 as a registration. It cites the same paper.",
+        "url": "https://vibemathed.com/problem/erdos-654"
+      }
+    ]
   },
   {
     "id": "2026-10-29-infinity-harmonic-c1alpha-lean",
@@ -12733,5 +12813,224 @@
       "argument"
     ],
     "added": "2026-11-02"
+  },
+  {
+    "id": "2026-10-26-yang-mills-existence-claim",
+    "title": "OpenAI claim of an existence proof for quantum Yang-Mills theory, held by a shepherding committee",
+    "claim": "OpenAI announced a proof, produced by its language model, that quantum Yang-Mills theory exists, including its coupling to fermions, by following the lattice theory to its continuum limit; a five-person committee of physicists and mathematicians holds the 1147-page proof, says confinement and the mass gap remain open, and has released neither the proof nor its Lean formalization.",
+    "field": "mathematics",
+    "date": "2026-10-26",
+    "lab": "OpenAI",
+    "model": "OpenAI language model, not named in the committee's statement",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The only primary document available is a two-page statement by the shepherding committee, Michael R. Douglas, David J. Gross (chair), Arthur Jaffe, Igor R. Klebanov and Nikita Nekrasov, dated October 2026 and hosted by the Kavli Institute for Theoretical Physics. It says OpenAI asked Gross on 16 October to take custody of the proof and decide how to release it, that Gross chose the rest of the committee, and that the committee has no responsibility to OpenAI. On its account the argument builds on Wilson's 1974 lattice regularization and on Balaban's rigorous renormalization group of the 1980s, and follows the theory all the way to infinite distances to prove the existence of its proper continuum limit. OpenAI is providing a Lean formalization. The committee's first step is to check that the definitions and problem statement match the standard ones in physics and mathematics and that the formalization matches the informal argument; it will then release the Lean proof, and later its own assessment together with the full 1147 pages.",
+    "novelty_check": "arXiv, 2026-11-05: ti:\"Yang-Mills\" AND (abs:\"construction\" OR abs:\"existence\") AND abs:\"four\" returned 225 records, the most recent being 2610.38134 on uniqueness of weak solutions of the Yang-Mills flow in four dimensions, a different problem; none claims a construction of the quantum theory. The openai/math release history through 29 October 2026 lists no Yang-Mills manuscript, consistent with the proof being held by the committee. Within this registry 2026-10-06-o3-model-mass-gap records OpenAI's claimed construction of the two-dimensional O(3) model, which Douglas described to Scientific American as the accepted warm-up for Yang-Mills; that entry concerns a different theory and stands.",
+    "caveats": "Entered at claimed, and nothing here is checkable: neither the 1147-page proof nor the Lean formalization is public, and the committee has not yet completed even its first step, confirming that the formal problem statement is the standard one. OpenAI's own announcement returned 403 to every attempt to read it for this entry, so it is cited but not quoted, and everything above comes from the committee's statement. The claim is existence only. The committee writes that confinement and the mass gap remain very important open challenges, and the Clay Millennium problem asks for existence and a mass gap together, so this is not a claimed solution of that problem. The statement never names the dimension; its context, quantum chromodynamics and the Standard Model, and its contact address point to the four-dimensional theory, but that is inference rather than a quoted claim. The committee is distinguished and says it works for the academic community, but it was convened at OpenAI's request and has published no assessment, so its custody is not yet an independent check. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts on 7 October 2026 over a sign error. Autonomy is ai-led on the strictest defensible reading, matching every other result from these releases: the committee calls the result discovered by OpenAI's LLM and the proofs LLM proofs, while humans chose the problem and are running the formalization.",
+    "sources": [
+      {
+        "label": "KITP: Proof by OpenAI of the Existence of Quantum Yang-Mills theory, statement by the shepherding committee",
+        "url": "https://www.kitp.ucsb.edu/sites/default/files/YM_working_group.pdf",
+        "kind": "commentary"
+      },
+      {
+        "label": "OpenAI: Building scientific understanding with academic communities",
+        "url": "https://openai.com/index/building-scientific-understanding-with-academic-communities/",
+        "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Three new discoveries in mathematics, computer science, and physics",
+        "url": "https://news.ycombinator.com/item?id=50251344"
+      }
+    ],
+    "tags": [
+      "mathematical-physics",
+      "quantum-field-theory",
+      "yang-mills",
+      "argument"
+    ],
+    "added": "2026-11-05"
+  },
+  {
+    "id": "2026-10-22-euler-2d-unforced-nonuniqueness",
+    "title": "Non-uniqueness of unforced two-dimensional Euler flows with unbounded integrable vorticity",
+    "claim": "A two-part manuscript by Matei P. Coiculescu, whose detailed proofs, code and text were largely produced with Claude Opus 5.5 under his direction, claims that the incompressible Euler equations in the plane, with no external force, admit two distinct renormalized weak solutions from the same radial initial vorticity, which lies in \\(L^1 \\cap L^q\\) for every \\(q < \\infty\\) but is unbounded; Part I is on arXiv and the whole proof is formalized in Lean.",
+    "field": "mathematics",
+    "date": "2026-10-22",
+    "lab": "Independent",
+    "model": "Claude Opus 5.5 (Anthropic)",
+    "humans": [
+      "Matei P. Coiculescu"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "One solution is the stationary radial vorticity itself. The other is 3-fold rotationally symmetric, equimeasurable with the datum at every time, and leaves it in finite time; the two differ in \\(L^\\infty_t (L^1 \\cap L^q)_x\\) for every \\(q \\in (4/3, \\infty)\\) and every large enough time horizon. Part I proves two ingredients: a compactness criterion, under which radial data approximated by 3-fold symmetric solutions whose non-radial moment stays bounded below yield a second solution, and a linear analysis showing an unstable eigenvalue for the linearization around the basic building block plus a small point vortex. Part II, the nonlinear construction, is in the repository but not on arXiv. The repository's Lean 4 development, about 1,280 files and 170,000 lines, proves that a three-part Hypothesis (N) implies the main theorem, proves (N3) directly, and proves sound a checker for the computer-assisted parts (N1) and (N2). Those were certified twice: by a Python program in rigorous ball arithmetic (FLINT/Arb), and by a compiled run of the Lean checker on 2026-10-22 that took 8.75 hours and printed true on all 261 cells.",
+    "novelty_check": "arXiv, 2026-11-05: abs:\"Euler\" AND abs:\"non-uniqueness\" AND abs:\"vorticity\" returned 10 records, among them Vishik's forced non-uniqueness (1805.09426), an exposition of it (2112.04943) and forced vanishing-viscosity non-uniqueness (2507.19257); none is unforced. The closest result is concurrent: Palomar record PALOMAR-2026-10-28-000008, registered 2026-10-28 by Tao Tao and Haiqi Zhang, six days after this paper's arXiv version 1, formalizes non-uniqueness for the unforced Euler equations on the two-dimensional torus with vorticity in \\(L^p\\) for each finite \\(p\\), which its abstract identifies as the two-dimensional finite-\\(L^p\\) question in the first part of Buckmaster and Vicol's Problem 6. The setting differs (the torus against the plane, a different construction) and the two appear independent; that development declares human authors working with ChatGPT and an Aristotle formalization, and is not in this registry. Its sources also cite Bruè, Colombo and Kumar (arXiv:2408.07934) and Mengual (2024) on non-uniqueness with integrable or \\(L^p\\) vorticity, whose exact relation to this result was not assessed here. Within this registry 2026-09-08-euler-unforced-blowup is a finite-time blowup claim, a different question, and 2026-09-15-ipm-forced-blowup is earlier work by the same author.",
+    "caveats": "Entered at claimed. The Lean development is the author's own: it is not registered on Palomar, its build was not rerun for this entry, and no mathematician outside the project is on record as having read either part. Only Part I is on arXiv, Part II being a working draft in the repository, and neither has been refereed. The formal guarantee has a stated gap: the kernel checks that the checker is sound and that the theorem follows if the checker returns true on the certificate, but true itself comes from executing compiled code, whose trusted base is the Lean compiler, its runtime and GMP, the same base native_decide would use; the Python/Arb certificate is a second implementation, not a kernel check. The Lean sources were written against an earlier single-volume manuscript, and 39 of the 213 manuscript labels they cite have no counterpart in Parts I and II, which affects cross-referencing rather than the formal statement. Some Lean files are adapted from OpenAI's NavierStokesAndEuler repository. The AI disclosure is thin on arXiv, whose comment field says only LLM-assisted, and full in the repository README, which names Claude Opus 5.5. Autonomy is ai-assisted, the weaker of the defensible readings: the README credits the main idea, the use of non-monotone unstable radial vortices and the overall strategy to the author, and the detailed proofs, estimates, code and text largely to the model under his direction, and he states that he checked all proofs by hand.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "non-uniqueness-of-weak-solutions-to-the-unforced-two-dimensional-euler-equations",
+        "url": "https://vibemathed.com/problem/non-uniqueness-of-weak-solutions-to-the-unforced-two-dimensional-euler-equations"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Non-Uniqueness of Weak Solutions to the Unforced Two-Dimensional Euler Equations with Vorticity in L¹ ∩ Lᵖ, Part I",
+        "url": "https://arxiv.org/abs/2610.30655",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: mcoiculescu/NonUniqueEuler, both parts, the Lean formalization and the Arb certificate",
+        "url": "https://github.com/mcoiculescu/NonUniqueEuler/tree/7cca5852d633068a3d5217e4f530d4d3a1199d86",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "pde",
+      "fluid-dynamics",
+      "euler-equations",
+      "non-uniqueness",
+      "lean",
+      "formalization",
+      "argument"
+    ],
+    "added": "2026-11-05"
+  },
+  {
+    "id": "2026-11-02-retime-retinal-mortality",
+    "title": "Deep learning marker of mortality risk from retinal photographs, validated in three external cohorts (RetiME)",
+    "claim": "A deep learning marker that maps a retinal photograph directly to an individual's mortality risk, trained on a European cohort, was associated with all-cause and cause-specific mortality and with the later onset of a wide range of systemic and eye diseases in three external cohorts in Southeast Asia, Eurasia and North America, and was used to reconstruct personalised lifespan trajectories.",
+    "field": "medicine",
+    "date": "2026-11-02",
+    "lab": "National University of Singapore and Singapore Eye Research Institute",
+    "model": "RetiME, a deep learning marker built on large foundation models (not named in the abstract)",
+    "humans": [
+      "Ting Xu",
+      "Ching-Yu Cheng"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Retinal Mortality Equivalent (RetiME) was built on large foundation models and trained to read individual mortality risk from low-cost, non-invasive retinal photographs. Beyond a static risk estimate, the authors use it to reconstruct a personalised lifespan trajectory for each person, and report that these trajectories were associated with observed outcomes such as age at death. Clustering the trajectories separated cancer-predominant, cardiometabolic and neurodegenerative patterns. Interpretability analyses and a genome-wide analysis, which identified loci associated with RetiME, are offered as evidence that it captures biology rather than image artefacts.",
+    "novelty_check": "Europe PMC, 2026-11-05: (TITLE:\"retinal\" OR TITLE:\"fundus\" OR TITLE:\"retina\") AND TITLE:\"mortality\" AND (\"deep learning\" OR \"foundation model\" OR \"artificial intelligence\") returned 14 records. Retinal deep learning markers of mortality are established, and two come from the same group: RetiAGE (Nusinovici and colleagues, Age and Ageing 2022) and a morbidity and mortality marker in Lancet Healthy Longevity (2024), both with Ching-Yu Cheng as senior author, alongside the retinal age gap of Zhu and colleagues (British Journal of Ophthalmology 2023). What is new here is the foundation-model base and the trajectory modelling, not the idea of reading mortality risk from the retina.",
+    "caveats": "Only the abstract and the PubMed record were read: the article redirected to a login, so the cohort names and sizes, the comparators, the effect sizes, the funding and competing-interest statements and whether code or weights are available are not recorded here. From the author list, the external cohorts were contributed by co-authors, including the US National Eye Institute and the Ufa Eye Research Institute in Russia, so this is external but not independent validation in this registry's sense, and the graded result is peer-reviewed. The design is retrospective, on cohorts collected for other purposes. Mortality is a hard outcome, but what is reported is association and prediction; no care decision used the marker and nothing shows that acting on it helps anyone. Autonomy is ai-assisted, the weaker reading: the model supplies the risk signal, but humans defined the target, the cohorts and every analysis, and no clinical use was tested.",
+    "sources": [
+      {
+        "label": "Nature Biomedical Engineering: Re-timing mortality risk through individualized modelling of lifespan trajectories",
+        "url": "https://doi.org/10.1038/s41551-026-01822-4",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ophthalmology",
+      "retinal-imaging",
+      "mortality",
+      "ageing",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-11-05"
+  },
+  {
+    "id": "2026-11-03-cdk46-home-therapy-ai-rct",
+    "title": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy",
+    "claim": "In a three-arm randomised trial across hospitals in Tianjin, 189 breast cancer patients taking CDK4/6 inhibitors at home were assigned to an AI management platform, a tailored active follow-up service by phone and text, or standard care; a preprint reports that both active arms kept anxiety and depression scores better than standard care, without reporting a comparison between the AI and the human follow-up.",
+    "field": "medicine",
+    "date": "2026-11-03",
+    "lab": "Tianjin Medical University Cancer Institute and Hospital",
+    "model": "Zhiliao Doctor AI management platform",
+    "humans": [
+      "Li Zhang"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The registration describes the platform as a 24-hour service added to routine follow-up, offering emotional companionship, medication reminders and adverse-reaction assessment against CTCAE standards. The second arm received personalised phone calls and text messages from a follow-up centre, and the third routine advice and education. Primary outcomes were the Self-Rating Anxiety and Depression Scales at 24 weeks, with EORTC QLQ-C30 quality of life and patient-reported adverse events (PRO-CTCAE) secondary. Of 189 randomised, 161 were analysed (53 AI, 54 follow-up, 54 standard care). Both intervention arms did better than standard care on anxiety and depression (both \\(P \\le 0.001\\)) and on cognitive, emotional and social functioning and global health, while scores in the standard-care arm worsened, with depression peaking at week 16. The authors also report that the AI arm captured more patient-reported adverse events.",
+    "novelty_check": "Europe PMC, 2026-11-05: (TITLE:\"CDK4/6\" OR TITLE:\"CDK4/6i\") AND (\"artificial intelligence\" OR \"AI-driven\" OR chatbot) AND (randomized OR randomised OR trial) returned 44 records; this preprint is the only randomised trial of an AI platform for patients on CDK4/6 inhibitors, the others being drug trials, reviews and prognostic models. ClinicalTrials.gov holds the registration, NCT07409298.",
+    "caveats": "A Research Square preprint, not peer-reviewed, so capped at claimed. The comparison that matters for the AI is with the human follow-up arm, and the abstract reports none on the primary outcome: both active arms beat standard care, which is what an attention control would also be expected to do. Endpoints are self-rated scales, surrogates rather than hard outcomes, in an open-label trial (the registration lists no masking) where patients knew their arm. 28 of 189 randomised patients (15%) were not analysed. The registration was first posted on 2026-02-13, after its stated start of 2025-07-05, with an estimated enrolment of 300, and the abstract dates randomisation to 2024 and 2025, which does not match the registered start. The trial is academic, led by Tianjin Medical University Cancer Institute and Hospital with seven Tianjin hospitals as collaborators; who built the platform and whether its maker had any role is not stated in the abstract or the registration. Autonomy is ai-assisted, the weaker reading: the platform ran alongside routine follow-up and the abstract does not say which decisions, if any, it made without a clinician.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT07409298",
+        "url": "https://clinicaltrials.gov/study/NCT07409298",
+        "title": "Impact of an Artificial Intelligence-Based Management Model on Psychological and Behavioral Outcomes in Breast Cancer Patients Undergoing Home CDK4/6 Inhibitor Therapy"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Research Square: Impact of an AI management model on psychological and behavioral outcomes in breast cancer patients receiving home-based CDK4/6i therapy, a multicenter randomized controlled trial",
+        "url": "https://doi.org/10.21203/rs.3.rs-11115307/v1",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "oncology",
+      "breast-cancer",
+      "remote-monitoring",
+      "patient-reported-outcomes",
+      "rct",
+      "prospective"
+    ],
+    "added": "2026-11-05"
+  },
+  {
+    "id": "2026-10-29-peddx-posterior-fossa-tumours",
+    "title": "Pediatric posterior fossa tumour classifier from T2 MRI with abstention, evaluated at an outside site (PedDx)",
+    "claim": "A preprint reports a classifier for five pediatric posterior fossa tumour types from a single T2-weighted MRI, which abstains when unsure, reaching 81.4% accuracy on 129 external cases (88.7% when it did not abstain) and 92.5% on 40 cases run through the full workflow by a team at another institution, while degrading on out-of-distribution scans, sometimes confidently.",
+    "field": "medicine",
+    "date": "2026-10-29",
+    "lab": "Children's Hospital of Philadelphia",
+    "model": "PedDx, a frozen 3DINO vision transformer with a classification head, calibrated, with confidence-based abstention",
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The classifier separates medulloblastoma, ependymoma, atypical teratoid/rhabdoid tumour, low-grade glioma and diffuse midline glioma without needing a tumour segmentation. It was trained on 492 treatment-naive scans from the Children's Brain Tumor Network and CHOP and tested on 114 held-out replication cases (79.8%, or 90.5% among cases where it did not abstain), and on 129 cases from Children's Healthcare of Atlanta. A team at Macquarie University ran the deployed workflow, which produces a prediction and a structured quality-control report, on 40 cases from the Women's and Children's Hospital in Adelaide. The authors also tested 236 out-of-distribution cases, including post-treatment scans, artefacts and tumour types never seen in training, and found degraded performance with confidently wrong predictions, plus sensitivity to acquisition and alignment perturbations.",
+    "novelty_check": "Europe PMC, 2026-11-05: TITLE:\"posterior fossa\" AND (\"deep learning\" OR \"artificial intelligence\" OR \"machine learning\") AND (pediatric OR paediatric OR children) returned 68 records, including a multi-institutional deep learning study of detection and classification (AJNR 2020), automatic machine learning on routine MRI (AJNR 2020) and a multinational machine-assist study (Neurosurgery 2021). Classifying these tumours from MRI is established; what this preprint adds is calibrated abstention, systematic failure-mode testing and an outside team running the whole workflow.",
+    "caveats": "A medRxiv preprint, not peer-reviewed, so capped at claimed. The title calls the 40-case evaluation independent, but the data came from the Women's and Children's Hospital in Adelaide, two of whose clinicians are among the paper's 30 authors, so it is a collaborating site rather than an unaffiliated replication; it is also small. The 129-case external cohort is 102 medulloblastomas, so overall accuracy leans on one class and the other diagnoses have few cases. Retrospective; ground truth is histopathology from records, except diffuse midline glioma, which was sometimes diagnosed radiologically. The endpoint is diagnostic accuracy, a surrogate, and no clinician used the system in care. Funding, competing interests and data or code availability were not found in the medRxiv text read for this entry. Autonomy is ai-assisted, the weaker reading: the system is a diagnostic aid that defers to clinicians when it abstains, and the agentic label refers to the automated workflow, not to any decision taken without a clinician.",
+    "sources": [
+      {
+        "label": "medRxiv: PedDx, an end-to-end deep learning framework for pediatric posterior fossa tumor diagnosis with agentic AI-enabled independent external evaluation",
+        "url": "https://doi.org/10.64898/2026.10.27.26366616",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "pediatrics",
+      "neuro-oncology",
+      "mri",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-11-05"
+  },
+  {
+    "id": "2026-10-29-photo-malocclusion-screening",
+    "title": "Smartphone profile photograph screening for skeletal malocclusion, externally validated in Turkey and Belgium",
+    "claim": "A preprint reports that a classifier using 100 geometric features from a single side-profile smartphone photograph, with no radiograph, kept its sensitivity for skeletal Class III malocclusion across two external cohorts but lost specificity in a non-European cohort from a Belgian clinic, where its AUC fell from 0.902 to 0.835, and fell further in a second task separating Class I from Class II (0.875 to 0.723).",
+    "field": "medicine",
+    "date": "2026-10-29",
+    "lab": "Bezmialem Vakif University, Muğla Sıtkı Koçman University and Kedi Mobil Uygulama",
+    "model": "Geometric machine learning classifiers on 100 engineered facial-profile features",
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Two binary tasks were evaluated, Class III against the rest and Class I against Class II, each with its own development set and model, applied unchanged at the default threshold. The reference standard was the ANB angle on pre-treatment lateral cephalograms traced by orthodontists, never shown to the model. One external cohort came from a Turkish university orthodontic department outside the development set (256 patients in the Class III task) and the other from a private orthodontic clinic in Brussels described as non-European (282 patients). For Class III, sensitivity was similar across the evaluation sets (0.801, 0.836 and 0.848), while specificity fell from 0.766 to 0.697. Sensitivity was lower in children than in adults in both cohorts (0.71 to 0.80 against 0.89 to 0.90).",
+    "novelty_check": "Europe PMC, 2026-11-05: TITLE:\"malocclusion\" AND photograph* AND (\"machine learning\" OR \"deep learning\" OR \"artificial intelligence\") returned 28 records, including cephalogram-based deep learning for orthognathic surgery need (2021), intraoral-image classification of Angle's classes (2026) and a 2024 concept paper on AI-assisted self-monitoring for skeletal malocclusion; none reported external validation of a profile-photograph classifier across populations.",
+    "caveats": "A medRxiv preprint, not peer-reviewed, so capped at claimed. The developer is among the authors: both corresponding authors list Kedi Mobil Uygulama A.Ş., an Istanbul company, as an affiliation, and Europe PMC lists funding from the TÜBİTAK 1507 SME R&D programme and the EU's Horizon Europe Women TechEU scheme; a competing-interest statement was not found in the text read for this entry. The authors attribute the specificity drop to the reference standard rather than the model, since the ANB threshold comes from Caucasian normative data, which is a fair point but also means the tool's accuracy depends on which population it is used in. The reported ancestry of the Belgian cohort is the paper's own label. Retrospective, with development-set sizes not recorded here; the endpoint is classification accuracy against a cephalometric criterion, a surrogate, and no screening decision was studied. Autonomy is ai-assisted: the tool is proposed for triage ahead of an orthodontist, who makes the diagnosis.",
+    "sources": [
+      {
+        "label": "medRxiv: Photograph-based skeletal malocclusion screening with geometric machine learning, external validation across Turkish and non-European cohorts",
+        "url": "https://doi.org/10.64898/2026.10.28.26366413",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "orthodontics",
+      "dentistry",
+      "screening",
+      "smartphone",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-11-05"
   }
 ]

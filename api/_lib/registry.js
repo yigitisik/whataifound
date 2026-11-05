@@ -223,11 +223,13 @@ export const ENTRY_IDS = new Set([
   "2026-10-21-bt-rads-agentic-glioma-scoring",
   "2026-10-21-dllv-chest-radiograph-lv-dysfunction",
   "2026-10-21-php2shell-rce",
+  "2026-10-22-euler-2d-unforced-nonuniqueness",
   "2026-10-26-cfsg-lean-axiom",
   "2026-10-26-eth-refuted-claude",
   "2026-10-26-eth-refuted-openai",
   "2026-10-26-local-smoothing-all-dimensions",
   "2026-10-26-osteoaid-femoral-head-osteonecrosis",
+  "2026-10-26-yang-mills-existence-claim",
   "2026-10-27-bernoulli-shifts-unequal-entropy",
   "2026-10-27-bighat-antibody-fragment-optimisation",
   "2026-10-27-car-intracellular-domain-refactor",
@@ -235,7 +237,11 @@ export const ENTRY_IDS = new Set([
   "2026-10-27-ige-dislodging-antibody-designs",
   "2026-10-27-pts-beta-eta-normalization",
   "2026-10-28-eus-guideq-endosonography-rct",
-  "2026-10-29-infinity-harmonic-c1alpha-lean"
+  "2026-10-29-infinity-harmonic-c1alpha-lean",
+  "2026-10-29-peddx-posterior-fossa-tumours",
+  "2026-10-29-photo-malocclusion-screening",
+  "2026-11-02-retime-retinal-mortality",
+  "2026-11-03-cdk46-home-therapy-ai-rct"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -292,7 +298,7 @@ export const ENTRY_GRADES = {
   "2025-11-gpt5-science-acceleration": ["peer-reviewed", "ai-assisted"],
   "2025-robin-macular": ["peer-reviewed", "ai-led"],
   "2026-01-27-conversational-epilepsy-device-prototype": ["claimed", "ai-assisted"],
-  "2026-01-29-erdos-654-distinct-distances": ["independent", "ai-led"],
+  "2026-01-29-erdos-654-distinct-distances": ["formal", "ai-led"],
   "2026-01-30-masai-ai-mammography": ["peer-reviewed", "ai-assisted"],
   "2026-01-alphaevolve-bruhat": ["independent", "search-scaffold"],
   "2026-01-erdos-728": ["formal", "autonomous"],
@@ -446,11 +452,13 @@ export const ENTRY_GRADES = {
   "2026-10-21-bt-rads-agentic-glioma-scoring": ["peer-reviewed", "ai-led"],
   "2026-10-21-dllv-chest-radiograph-lv-dysfunction": ["peer-reviewed", "ai-assisted"],
   "2026-10-21-php2shell-rce": ["claimed", "ai-assisted"],
+  "2026-10-22-euler-2d-unforced-nonuniqueness": ["claimed", "ai-assisted"],
   "2026-10-26-cfsg-lean-axiom": ["claimed", "collaborative"],
   "2026-10-26-eth-refuted-claude": ["formal", "ai-led"],
   "2026-10-26-eth-refuted-openai": ["claimed", "ai-led"],
   "2026-10-26-local-smoothing-all-dimensions": ["claimed", "ai-led"],
   "2026-10-26-osteoaid-femoral-head-osteonecrosis": ["peer-reviewed", "ai-assisted"],
+  "2026-10-26-yang-mills-existence-claim": ["claimed", "ai-led"],
   "2026-10-27-bernoulli-shifts-unequal-entropy": ["formal", "collaborative"],
   "2026-10-27-bighat-antibody-fragment-optimisation": ["claimed", "ai-assisted"],
   "2026-10-27-car-intracellular-domain-refactor": ["claimed", "ai-assisted"],
@@ -458,7 +466,11 @@ export const ENTRY_GRADES = {
   "2026-10-27-ige-dislodging-antibody-designs": ["claimed", "search-scaffold"],
   "2026-10-27-pts-beta-eta-normalization": ["formal", "collaborative"],
   "2026-10-28-eus-guideq-endosonography-rct": ["peer-reviewed", "ai-assisted"],
-  "2026-10-29-infinity-harmonic-c1alpha-lean": ["formal", "ai-led"]
+  "2026-10-29-infinity-harmonic-c1alpha-lean": ["formal", "ai-led"],
+  "2026-10-29-peddx-posterior-fossa-tumours": ["claimed", "ai-assisted"],
+  "2026-10-29-photo-malocclusion-screening": ["claimed", "ai-assisted"],
+  "2026-11-02-retime-retinal-mortality": ["peer-reviewed", "ai-assisted"],
+  "2026-11-03-cdk46-home-therapy-ai-rct": ["claimed", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -669,11 +681,13 @@ export const ENTRY_TITLES = {
   "2026-10-21-bt-rads-agentic-glioma-scoring": "Multiagent language-model and CNN system scores BT-RADS on glioma follow-up MRI",
   "2026-10-21-dllv-chest-radiograph-lv-dysfunction": "Chest radiograph model for prescreening reduced ejection fraction, tested in three Korean cohorts",
   "2026-10-21-php2shell-rce": "PHP2Shell: two critical PHP remote code execution flaws found with AI assistance",
+  "2026-10-22-euler-2d-unforced-nonuniqueness": "Non-uniqueness of unforced two-dimensional Euler flows with unbounded integrable vorticity",
   "2026-10-26-cfsg-lean-axiom": "Classification of Finite Simple Groups formalized in Lean by directed AI agents",
   "2026-10-26-eth-refuted-claude": "A subexponential algorithm for counting 3-SAT solutions, refuting the Exponential Time Hypothesis",
   "2026-10-26-eth-refuted-openai": "A subexponential counting algorithm for fixed-width CNF, refuting the Exponential Time Hypothesis",
   "2026-10-26-local-smoothing-all-dimensions": "Sogge's local smoothing conjecture claimed in every dimension, with Bochner\u2013Riesz and Kakeya as consequences",
   "2026-10-26-osteoaid-femoral-head-osteonecrosis": "Deep learning detection and staging of femoral head osteonecrosis on hip x-rays across six Chinese hospitals",
+  "2026-10-26-yang-mills-existence-claim": "OpenAI claim of an existence proof for quantum Yang-Mills theory, held by a shepherding committee",
   "2026-10-27-bernoulli-shifts-unequal-entropy": "Measurably isomorphic Bernoulli shifts with different base entropies, proved in Lean",
   "2026-10-27-bighat-antibody-fragment-optimisation": "Antibody fragment leads optimised with Claude on affinity, stability and aggregation",
   "2026-10-27-car-intracellular-domain-refactor": "A shortened CAR intracellular domain designed with Claude Code",
@@ -681,7 +695,11 @@ export const ENTRY_TITLES = {
   "2026-10-27-ige-dislodging-antibody-designs": "Claude-generated antibody designs that dislodge receptor-bound IgE",
   "2026-10-27-pts-beta-eta-normalization": "Weak normalization implies strong normalization in pure type systems with \u03b2\u03b7-conversion, proved in Lean",
   "2026-10-28-eus-guideq-endosonography-rct": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",
-  "2026-10-29-infinity-harmonic-c1alpha-lean": "Lean formalization of interior gradient H\u00f6lder estimates for infinity-harmonic functions"
+  "2026-10-29-infinity-harmonic-c1alpha-lean": "Lean formalization of interior gradient H\u00f6lder estimates for infinity-harmonic functions",
+  "2026-10-29-peddx-posterior-fossa-tumours": "Pediatric posterior fossa tumour classifier from T2 MRI with abstention, evaluated at an outside site (PedDx)",
+  "2026-10-29-photo-malocclusion-screening": "Smartphone profile photograph screening for skeletal malocclusion, externally validated in Turkey and Belgium",
+  "2026-11-02-retime-retinal-mortality": "Deep learning marker of mortality risk from retinal photographs, validated in three external cohorts (RetiME)",
+  "2026-11-03-cdk46-home-therapy-ai-rct": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];

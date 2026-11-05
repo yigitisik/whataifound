@@ -4,8 +4,12 @@
 Four projects now record neighbouring facts about the results in this registry, and an
 entry that cites the right one is worth more than an entry that does not. Finding the
 match by hand means searching four sites per entry, which is why most entries do not
-carry one. All four are read here: vibemathed and MathDB by problem name, Palomar by
-repository and Lean theorem name, ProofAtlas by formalization slug.
+carry one. Three are read here: vibemathed by problem name, Palomar by repository and
+Lean theorem name, ProofAtlas by formalization slug.
+
+MathDB is not. Since November 2026 it answers 403 to scripted requests and puts machine
+access behind a paid API plan. Its problem pages stay free to browse, so a MathDB
+registration is still valid; it is found by searching mathdb.com by hand.
 
 This prints candidates. It does not add them, and that is deliberate: a naive title match
 against vibemathed's dataset paired "Counterexamples to the Gaussian moments conjecture"
@@ -47,7 +51,6 @@ ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 DATA = os.path.join(ROOT, "data", "entries.json")
 
 VIBEMATHED = "https://vibemathed.com/api/dataset"
-MATHDB_SITEMAPS = [f"https://mathdb.com/sitemap-problems-{i}.xml" for i in (1, 2, 3, 4)]
 # Not linked from Palomar's own pages; it is what the homepage reads to render its list.
 PALOMAR = "https://data.palomar-registry.org/recent.json"
 # ProofAtlas has no API. Its sitemap carries five kinds of page and only one of them is a
@@ -69,8 +72,8 @@ MIN_SCORE = 0.60
 # pair below a floor tuned for problem names without changing the ranking, which stays
 # decisive. Over the four pairs confirmed by hand, against all 19 registrations and every
 # mathematics entry: 0.30 loses the unit-distance pair, 0.20 keeps all four but prints nine
-# strays, and 0.25 keeps all four with three. ProofAtlas is slug-named like MathDB and
-# needs no adjustment.
+# strays, and 0.25 keeps all four with three. ProofAtlas is matched on a slug that reads
+# as a name and needs no adjustment.
 FLOOR = {"palomar": 0.25}
 
 # A cheap pre-filter, not the real defence: idf() already drives common words toward
@@ -172,11 +175,11 @@ def main():
     if "--min" in sys.argv:
         MIN_SCORE = override = float(sys.argv[sys.argv.index("--min") + 1])
     floors = {r: (override if override is not None else FLOOR.get(r, MIN_SCORE))
-              for r in ("vibemathed", "mathdb", "palomar", "proofatlas")}
+              for r in ("vibemathed", "palomar", "proofatlas")}
 
     entries = json.load(open(DATA, encoding="utf-8"))
 
-    print("Reading vibemathed, MathDB, Palomar and ProofAtlas...")
+    print("Reading vibemathed, Palomar and ProofAtlas...")
     vm_raw = fetch(VIBEMATHED, "vibemathed dataset")
     vm = []
     if vm_raw:
@@ -185,14 +188,6 @@ def main():
                        f"https://vibemathed.com/problem/{p['slug']}",
                        p.get("name") or p["slug"]))
 
-    md = []
-    for sm in MATHDB_SITEMAPS:
-        body = fetch(sm, sm.rsplit("/", 1)[-1])
-        if not body:
-            continue
-        for url in re.findall(r"<loc>([^<]+)</loc>", body):
-            slug = url.rsplit("/", 1)[-1]
-            md.append((slug.replace("-", " "), url, slug))
     # Palomar records a repository, not a problem name, so the text to match on is the
     # repository basename plus its theorem names rather than the abstract. The abstracts
     # run to paragraphs, and candidates() scores against the candidate's own name, so an
@@ -218,23 +213,21 @@ def main():
             if "/formalizations/" in url and slug != "formalizations":
                 pa.append((slug.replace("-", " "), url, slug.replace("-", " ")))
 
-    print(f"  vibemathed: {len(vm)} records · MathDB: {len(md)} problems · "
+    print(f"  vibemathed: {len(vm)} records · "
           f"Palomar: {len(pal)} registrations · ProofAtlas: {len(pa)} formalizations\n")
-    if not (vm or md or pal or pa):
+    if not (vm or pal or pa):
         return 0
-    weights = {"vibemathed": idf(vm), "mathdb": idf(md),
-               "palomar": idf(pal), "proofatlas": idf(pa)}
+    weights = {"vibemathed": idf(vm), "palomar": idf(pal), "proofatlas": idf(pa)}
 
     # Only mathematics: every one of these projects is mathematics only, so proposing a
-    # MathDB page for a protein-design entry would be noise by construction.
+    # Lean formalization for a protein-design entry would be noise by construction.
     pool = [e for e in entries if e.get("field") == "mathematics"]
     shown = skipped = 0
     for e in sorted(pool, key=lambda x: x["id"]):
         have = {r.get("registry") for r in (e.get("registrations") or [])}
         needle = toks(e["title"])
         rows = []
-        for name, pool_ in (("vibemathed", vm), ("mathdb", md),
-                            ("palomar", pal), ("proofatlas", pa)):
+        for name, pool_ in (("vibemathed", vm), ("palomar", pal), ("proofatlas", pa)):
             if name in have and not show_all:
                 continue
             for score, hits, label, url in candidates(
