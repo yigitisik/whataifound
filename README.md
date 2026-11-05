@@ -57,8 +57,9 @@ required field, an unknown grade or source `kind`, a malformed date, a duplicate
 
 Three scripts run outside every build, because they hit the network or need a renderer:
 `check-links.py` (CI runs it on PRs touching the data, and weekly), `check-registries.py`
-(suggests cross-links to Palomar, MathDB, vibemathed and ProofAtlas; it prints candidates and
-never writes one) and `build-icons.py` (run deliberately; outputs are committed).
+(suggests cross-links to Palomar, vibemathed and ProofAtlas; it prints candidates and
+never writes one. MathDB records are found by hand, since it no longer serves scripted
+requests) and `build-icons.py` (run deliberately; outputs are committed).
 
 Entries can cite the record another project keeps for the same result, through `registrations`.
 Each cited project states what its record establishes, which is not the same thing in each case:
