@@ -58,6 +58,34 @@
       ]
     },
     {
+      "id": "https://whataifound.org/finding/2026-11-06-k-clique-hypothesis-refuted",
+      "url": "https://whataifound.org/finding/2026-11-06-k-clique-hypothesis-refuted",
+      "title": "Refutation of the k-Clique hypothesis, independent of the matrix multiplication exponent",
+      "content_text": "Two complexity theorists working back and forth with ChatGPT-6 published an algorithm that counts weighted k-cliques faster than the long-conjectured barrier for every large enough k, and faster even if matrix multiplication were optimal, with the paper crediting the decisive algebraic decomposition almost purely to the model.  The k-Clique hypothesis holds that the 1985 Nesetril-Poljak reduction is optimal, so that finding a k-clique needs about n^(ωk/3) time, where ω is the matrix multiplication exponent. It is load-bearing in fine-grained complexity: hardness results for parsing, compressed-data problems and many other tasks are proved by reduction from it. The paper gives an algorithm running in n^((ω/3 − c)k) time for a constant c > 0 that does not depend on ω or k, so the refutation survives even in the ω = 2 limit, and it counts weighted k-cliques rather than only detecting one. The engine is a rank-or-swap decomposition that the authors then rewrote in purely combinatorial form, used as a black box inside a human-built algorithmic framework that only needs square matrix multiplication.  Lab: Independent (MIT and Tel Aviv University). Model: ChatGPT-6 (OpenAI), public web interface, no harness. Verification: Author verified. Autonomy: Collaborative.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "algorithms",
+        "fine-grained-complexity",
+        "matrix-multiplication",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-06-lean-verified-quantum-programs",
+      "url": "https://whataifound.org/finding/2026-11-06-lean-verified-quantum-programs",
+      "title": "LLM agents write quantum programs checked against Lean specifications",
+      "content_text": "Google DeepMind and Google Quantum AI report that teams of language model agents, searching against frozen Lean specifications that an external verifier re-checks, found quantum programs that cut published resource costs by up to 290 times for fixed-point arcsine and by factors of 11, 8 and 2.5 on simulations relevant to fusion, photochemistry and drug metabolism.  Quantum algorithms cannot be tested empirically at the scales that matter, because a classical computer can only simulate small instances, so the paper replaces testing with proof. Researchers write a problem as a Lean file stating the target correctness and cost theorems with the program, its cost bound and their proofs left as sorry placeholders, then launch independent agent teams with generic optimization prompts rather than problem-specific ideas. Teams share a wiki of best verified solutions and reusable lemmas and meet in scheduled forum conferences where unverified conjectures count for nothing. Because an agent can edit files in its own workspace, every submission is replayed in a clean sandbox by an external verifier using the Lean Comparator, which confirms that the theorem statements and every definition they depend on are unchanged and that the proof terms use only propext, Quot.sound and Classical.choice with no sorry and no added axiom. Reported reductions are 1.41 times for expected oracle rounds in parallel Grover search, more than 290 times in spacetime cost for fixed-point arcsine, and 10.9, 8.08 and 2.49 times on the three scientific simulations.  Lab: Google DeepMind / Google Quantum AI. Model: Not named: the paper says only that large language model agents synthesize the programs. Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "quantum-algorithms",
+        "formal-verification",
+        "lean",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-11-05-smartwatch-hypertension-detection",
       "url": "https://whataifound.org/finding/2026-11-05-smartwatch-hypertension-detection",
       "title": "Hypertension detected from consumer smartwatch sensors without a cuff",
@@ -85,6 +113,19 @@
         "mortality",
         "retrospective",
         "real-world-data"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-05-grassl-qubit-code-tables",
+      "url": "https://whataifound.org/finding/2026-11-05-grassl-qubit-code-tables",
+      "title": "AI agent search raises 1,873 entries of the Grassl qubit code tables",
+      "content_text": "A search written and run by AI agents under one physicist's direction produced 192 explicit quantum stabilizer codes whose minimum distance beats the best bound previously recorded for their parameters, raising 1,873 entries of the standard reference table, with every distance certified exactly and a checker published alongside.  Grassl's tables at codetables.de record, for every length up to 256 and every dimension, the best known bounds on the minimum distance of a qubit stabilizer code, and more than half the entries above length 100 give a lower bound with no explicit code behind it. The construction here takes a random Clifford encoder and expurgates it: every logical operator of weight below the target distance is enumerated, and a few are promoted to stabilizers so each low-weight one anticommutes with at least one promoted operator. That yields 192 codes between lengths 53 and 254 at distances 5 to 13, 161 beating the listed lower bound by one and 31 by two, which propagate to 1,873 raised table entries. A first-moment count explains why it works, since expurgated random codes carry about eight more logical qubits than a typical random code of the same length and distance, and predicts gains at 619 further parameter pairs. The work was done during a three-day hackathon at Argonne National Laboratory, with the heavy computation on the Aurora supercomputer.  Lab: Virginia Tech. Model: Not named: the paper and repository say only that AI agents wrote and ran the search. Verification: Author verified. Autonomy: Collaborative.",
+      "date_published": "2026-11-05T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "quantum-error-correction",
+        "coding-theory",
+        "computation"
       ]
     },
     {
@@ -132,6 +173,35 @@
       ]
     },
     {
+      "id": "https://whataifound.org/finding/2026-11-02-pherc-306b-first-letters",
+      "url": "https://whataifound.org/finding/2026-11-02-pherc-306b-first-letters",
+      "title": "First text read in the Herculaneum scroll PHerc. 306B",
+      "content_text": "Two Vesuvius Challenge contestants combined a public ink-detection model with one they fine-tuned themselves to recover readable Greek from PHerc. 306B, a carbonised Herculaneum scroll nobody had read, where the papyrology team agreed on the phrase \"that which is in itself desirable\".  PHerc. 306 was buried by the eruption of Vesuvius in AD 79, excavated in the 1750s and micro-CT scanned in 2025, and is broken into two parts. Identifying ink in the larger part, PHerc. 306B, also settled which part is which: the script orientation shows 306B is the upper section of the original roll. A surface inside the scan was grown with VC3D's GrowPatch tool from a seed on a line found by screening windings, then ink was called only where two models agreed, by multiplying the output of the public TRACE v3B model with a model the pair fine-tuned from Youssef Nader's v8-in, trained half on labels from a different scroll and half on machine labels averaged from four public models, with an added penalty for marking blank papyrus as ink. The sequence τoδιαυτo had been visible in several submissions for about a month, but the following letters were read as either mu, nu or alpha-iota until this image made a diagonal middle stroke visible and the papyrology team agreed on alpha-iota, giving a reading with parallels in Aristotle, Sextus Empiricus and Philodemus' On Anger. Twenty-five submissions were reviewed on this scroll and several others reached 7 to 9 characters against a 10-character target.  Lab: Vesuvius Challenge. Model: TRACE v3B with a fine-tuned derivative of the v8-in ink model, plus VC3D GrowPatch segmentation. Verification: Author verified. Autonomy: AI-assisted.",
+      "date_published": "2026-11-02T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "papyrology",
+        "virtual-unwrapping",
+        "ink-detection",
+        "ancient-texts",
+        "herculaneum"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-30-designed-activation-domains",
+      "url": "https://whataifound.org/finding/2026-10-30-designed-activation-domains",
+      "title": "Designed transcriptional activation domains, over 90 percent functional in yeast",
+      "content_text": "A Berkeley-led team generated 500,000 candidate activation domains, scored them with existing machine learning models including three neural networks, and synthesized 18,750 of the top ones, of which more than 90 percent worked as activation domains in yeast, with some retaining function in fungi, plants and human cells.  Protein design has worked best on structured proteins, where a fold constrains the sequence. Activation domains are the opposite case: they are intrinsically disordered regions of transcription factors that recruit coactivators, with weak structural constraints and poorly defined sequence-to-function rules, which makes them a test of whether a prediction-and-screen loop can design disordered sequence at all. Candidates resembling known activation domains were generated computationally, scored by several extant predictors, and 18,750 high scorers were measured in yeast, of which 16,770 gave clean measurements and over 90 percent functioned. Sequences that several models agreed on were stronger, which is what motivated MADRIGAL, the fast consensus predictor the paper then builds. Designed domains that keep working across fungi, plants and human cells matter for synthetic biology, agriculture and biotechnology, where an activation domain is a reusable part.  Lab: University of California, Berkeley. Model: Existing activation-domain function predictors including three neural networks, plus MADRIGAL, a consensus predictor built from the results. Verification: Author verified. Autonomy: Search scaffold.",
+      "date_published": "2026-10-30T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "protein-design",
+        "synthetic-biology",
+        "intrinsically-disordered-proteins",
+        "construction"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-29-molrsi-molecular-discovery",
       "url": "https://whataifound.org/finding/2026-10-29-molrsi-molecular-discovery",
       "title": "A self-improving agent selected antibiotic candidates at nearly twice a prior expert workflow's hit rate",
@@ -144,6 +214,21 @@
         "agents",
         "preclinical",
         "preprint"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-26-pythia-full-length-antibodies",
+      "url": "https://whataifound.org/finding/2026-10-26-pythia-full-length-antibodies",
+      "title": "Designed full-length IgG antibodies against 22 targets, including GPCR agonists",
+      "content_text": "Pythia Labs reports that its all-atom generative model designed full-length human IgG antibodies for 22 therapeutic targets, and that screening at most 48 candidates per target after a single design round found single-digit nanomolar binders, including both agonists and antagonists of G protein-coupled receptors.  Therapeutic antibody discovery is slow, gives little control over how an antibody engages its target, and has struggled with whole target classes, G protein-coupled receptors above all, where the binding site is in the membrane and the conformational state matters. The pipeline generates candidates directly in full-length human IgG format rather than as fragments, conditioning on human germline frameworks and applying sequence constraints meant to avoid known developability liabilities, and reasons over sequence and atomic structure together under explicit design constraints, which is what the paper credits for being able to aim at a specified epitope and conformational state. Reported results are single-digit nanomolar affinities for soluble proteins and single-digit nanomolar cell-binding EC50 values for GPCRs, with single-digit nanomolar inhibitory potency in functional assays for several targets, and biophysical profiles the paper calls comparable to or better than clinical-stage controls. The lead sequences are published so others can test them.  Lab: Pythia Labs. Model: Pythia-1, an all-atom generative model over sequence and structure jointly. Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-26T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "antibody-design",
+        "protein-design",
+        "gpcr",
+        "preclinical",
+        "construction"
       ]
     },
     {
