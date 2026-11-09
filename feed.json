@@ -9,6 +9,144 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
+      "url": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
+      "title": "Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation",
+      "content_text": "In a single-centre trial in Taiwan, 14,665 adults without known atrial fibrillation were randomised to have their past year of sinus-rhythm ECGs analysed by an AI model, with the 1.1% it called high risk offered up to seven days of Holter monitoring, and the composite of newly detected atrial fibrillation, flutter or pre-atrial-fibrillation findings at 90 days was 0.74% against 0.48%, a result the authors describe as statistically fragile.  Atrial fibrillation often goes undetected until a stroke, and the attraction of an AI-ECG model is that it claims to see a signature of atrial vulnerability on an ordinary ECG recorded in sinus rhythm, when nothing is visible to a reader. Adults aged 40 to 85 with no previous atrial fibrillation or flutter were randomised to an AI-ECG-guided strategy or usual care, 7,337 against 7,328. Within the intervention arm, participants whose ECGs from the preceding year were scored high risk were offered Holter monitoring; 84 participants (1.1%) were flagged and 48 of them (57.1%) were monitored. The design deals with the obvious bias that monitoring finds what monitoring looks for: each monitored participant was paired with an age- and sex-matched control chosen before the control arm's ECGs were analysed, and those controls received identical monitoring, with reporting cardiologists blinded to the AI results and to allocation. The primary composite occurred in 54 intervention participants against 35 controls, an odds ratio of 1.54 (95% CI 1.01 to 2.37, P = 0.046), and the effect was concentrated as designed, at 32.1% against 2.6% among high-risk participants and 0.4% against 0.5% among the rest.  Lab: National Defense Medical Center, Taiwan. Model: An institutional AI-ECG model scoring atrial electrical vulnerability from sinus-rhythm ECGs. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-07T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "cardiology",
+        "ecg",
+        "atrial-fibrillation",
+        "screening",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-06-aura-ana-autoimmune-rct",
+      "url": "https://whataifound.org/finding/2026-11-06-aura-ana-autoimmune-rct",
+      "title": "Randomised trial of a risk model triaging patients with a positive antinuclear antibody test",
+      "content_text": "At one US academic health system, 2,385 people with a new positive antinuclear antibody test were randomised to a pathway in which an electronic health record risk model invited those it scored high risk to expedited rheumatology evaluation, and those in the intervention arm reached an autoimmune disease diagnosis faster, with a median of 43 days against 138.  A positive antinuclear antibody test is common and mostly uninformative, and no evidence-based rule existed for deciding which of these patients should see a rheumatologist. The model was built in 2024 from a chart review of 2,000 positive-antinuclear-antibody patients using demographics, billing codes for autoimmune symptoms and laboratory values, reaching an area under the curve of 0.83 in training and 0.75 in validation, and was then embedded in the health record. In this two-year pragmatic study every patient with an incident positive test was randomised 1:1 independently of their risk score; in the intervention arm high scores triggered an invitation to expedited rheumatology evaluation, while in the control arm scores were computed and not acted on. Both arms received standard care and could be referred as usual, and chart review every six months recorded evaluations and diagnoses. Of 2,385 randomised, 954 intervention and 1,006 control patients were analysed after postrandomisation exclusions, and time from positive test to diagnosis favoured the intervention arm with a hazard ratio of 1.9 (95% CI 1.3 to 2.7, P < 0.001).  Lab: Vanderbilt University Medical Center. Model: An interpretable electronic health record risk model for systemic autoimmune disease, developed by the same group in 2024. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "rheumatology",
+        "autoimmune-disease",
+        "ehr",
+        "triage",
+        "rct",
+        "prospective",
+        "real-world-data"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-06-doppler-ai-feedback-rct",
+      "url": "https://whataifound.org/finding/2026-11-06-doppler-ai-feedback-rct",
+      "title": "Randomised trial of AI feedback on clinicians reading fetal Doppler ultrasound images",
+      "content_text": "96 clinicians at five Danish hospitals were randomised to receive AI feedback or none while judging 40 standardised umbilical and middle cerebral artery Doppler vignettes each, and those given feedback were accurate on 75.0% of vignettes against 62.3% without it, a difference of 12.7 percentage points measured against expert consensus rather than patient outcomes.  Umbilical and middle cerebral artery Doppler measurements guide management of fetal growth restriction, and their reliability depends heavily on who is holding the probe. Residents, gynaecologists and obstetricians were randomised 1:1 and matched into 48 pairs by obstetric ultrasound experience, each evaluating 40 vignettes built from pre-existing static Doppler images, 1,920 unique vignettes in all. For colour Doppler images clinicians indicated where they would place the measurement gate, and for spectral images they judged whether the waveform was technically adequate, both components of a valid measurement. Intervention clinicians saw the unannotated image alongside the AI's feedback, then entered their own answer on the unannotated image. Accuracy was scored against consensus between two fetal medicine sonographers with more than ten years of experience, with a consultant resolving disagreements, using criteria based on International Society of Ultrasound in Obstetrics and Gynecology guidance. The authors report that clinical experience still mattered when the AI feedback was itself wrong, and frame the result as support for studying human and AI collaboration during real-time acquisition.  Lab: University of Copenhagen, Technical University of Denmark and Copenhagen Academy for Medical Education and Simulation. Model: An explainable AI system giving visual and textual feedback on Doppler gate placement, anatomical suitability, insonation angle and waveform quality (not named). Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "obstetrics",
+        "ultrasound",
+        "doppler",
+        "clinician-performance",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-05-smartwatch-hypertension-detection",
+      "url": "https://whataifound.org/finding/2026-11-05-smartwatch-hypertension-detection",
+      "title": "Hypertension detected from consumer smartwatch sensors without a cuff",
+      "content_text": "A Google model reading photoplethysmography and accelerometer signals from a consumer smartwatch, with no cuff calibration, flagged hypertension in 196 prospectively enrolled participants with 65.8% sensitivity and 90.0% specificity against 24-hour ambulatory blood pressure monitoring, slightly ahead of initial office blood pressure screening at the same specificity.  More than half of adults with hypertension do not know they have it, and the condition produces no symptoms to prompt a measurement. The model takes the optical pulse and motion waveforms a smartwatch already records during ordinary wear, with no blood pressure cuff used to calibrate it to the individual, and was evaluated in a prospective multicentre study of 196 participants free of known cardiovascular disease and not taking antihypertensive medication, against 24-hour ambulatory monitoring as the reference standard, over seven days of real-world wear. It reached sensitivity 65.8% (95% CI 54.0 to 76.3), specificity 90.0% (95% CI 83.2 to 94.7) and positive predictive value 80.6% (95% CI 68.6 to 89.6), where initial office blood pressure screening in the same study reached sensitivity 55.3% at the same specificity. The authors frame the use as opportunistic screening that prompts people toward a clinical assessment and cuff-based confirmation, not as a measurement of blood pressure.  Lab: Google Research. Model: AI-PPG-ACC-HTN. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-05T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "cardiology",
+        "hypertension",
+        "wearables",
+        "screening",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-05-xgb-ews-denmark",
+      "url": "https://whataifound.org/finding/2026-11-05-xgb-ews-denmark",
+      "title": "Gradient-boosted early warning score tested for clinical net benefit across 2.08 million Danish hospital encounters",
+      "content_text": "Across 2,080,765 encounters at 15 Danish hospitals, a gradient-boosted model using vital signs, laboratory values and text embeddings of medical history beat the National Early Warning Score for predicting death within 24 hours by 1.9 additional correct identifications per 10,000 patients overall, a gain that rose to 78.1 per 10,000 among patients the existing score already called high risk and fell to 0.9 per 10,000 among those it called low risk.  Early warning scores are recalculated at the bedside across most hospital systems, so the question of whether a machine learning model is worth substituting is a practical one, and the paper's contribution is to ask it in terms of clinical net benefit rather than discrimination alone. The cohort covers every adult encounter with at least one score recorded at 15 hospitals in ten networks between 2018-10-16 and 2023-10-16, 825,200 unique patients in all, followed until death or 24 hours after the first score. The comparison runs in both directions, against a simplified score dropping blood pressure and temperature and a demographic variant as well as against the full machine learning model, with propensity score weighting used to blunt the bias introduced when staff intervene on a high score and prevent the death the score predicted. The headline finding is that model complexity bought very little on average and that the average hides the useful result: among patients whose first score was 7 or above the model added 78.1 correct identifications per 10,000, while the simplified score lost 60.2, and among those scoring 0 to 4 all three approaches were within one per 10,000 of each other. The authors read this as an argument for risk-stratified monitoring rather than for replacing the score outright.  Lab: University of Copenhagen and Capital and Zealand region hospitals. Model: XGB-EWS, an XGBoost model over vital signs, demographics, laboratory markers and sentence-transformer embeddings of medical history. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-05T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "early-warning",
+        "deterioration",
+        "mortality",
+        "retrospective",
+        "real-world-data"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-04-diophantine-z-in-q",
+      "url": "https://whataifound.org/finding/2026-11-04-diophantine-z-in-q",
+      "title": "Claimed Diophantine definition of ℤ in ℚ",
+      "content_text": "Elliot Glazer, working with four frontier models, published an explicit integer-coefficient polynomial whose rational zeros project exactly onto the integers, which if correct would refute Mazur's conjecture on the topology of rational points and give a second route to the undecidability of Hilbert's tenth problem over the rationals.  A set is Diophantine in ℚ when membership can be written as the existence of rational witnesses satisfying a polynomial equation. Julia Robinson defined ℤ in ℚ in 1949 using both quantifiers, and Koenigsmann later gave a universal definition, but a purely existential one stayed open and Mazur's conjecture on the real closure of rational points would have ruled it out. The repository gives a construction in 292,890,231,905 variables and two smaller quartics, one in 411 variables with every coefficient written out in decimal and one in 394 variables written against the fixed integer C = 3^2²⁵, and argues that degree four is the minimum possible. The work builds on OpenAI's October 6 preprint, which claims the undecidability of Hilbert's tenth problem over ℚ by a different route that does not produce a Diophantine definition of the integers, and credits a rank-one elliptic curve strategy going back to Thanases Pheidas and a prime-pattern strategy to Zhi-Wei Sun.  Lab: Independent. Model: Astra 6, Sol 6.1 and Opus 5.5, with auditing from Fable 5.1. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-11-04T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "number-theory",
+        "diophantine-equations",
+        "hilberts-tenth-problem",
+        "construction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-04-stacks-project-lean-axiom",
+      "url": "https://whataifound.org/finding/2026-11-04-stacks-project-lean-axiom",
+      "title": "The Stacks Project formalized in Lean by directed AI agents",
+      "content_text": "Axiom Math released a Lean formalization of the whole Stacks Project, the roughly 7,500-page reference work on algebraic geometry, at about 16 million lines with no sorry, and says its agents found dozens of statements in the original text needing repair, including a lemma on algebraization of coherent formal modules that the library marks as false as published.  The Stacks Project, started by Johan de Jong in 2005, is an open-source reference whose every item carries a permanent four-character tag. The release formalizes every tag with formalizable content on top of Mathlib, preserving the tag structure so each Lean declaration links back to the canonical text, and tagging declarations with the EGA and SGA items they prove. The library is split into two tiers: StacksCore, which a person has checked against the source and brought to Mathlib standards, and StacksFrontier, written by AI agents and not yet reviewed, with Lean's kernel checking every proof in both and only the three standard axioms permitted. Axiom says agents diagnosed the obstructions behind failed proof attempts and built explicit counterexamples, and the repository carries them as named files: StacksFrontier records that tag 0EJA is false as published because its proof identifies a dimension function with the dimension of a closure using a result that needs A/I catenary, and gives a pinched Noetherian local domain as a counterexample, alongside principal-ideal and two-generator counterexamples to a canonical map on sections away from a closed subset.  Lab: Axiom Math. Model: AxiomProver agent swarms using an unnamed mix of models. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-11-04T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "algebraic-geometry",
+        "lean",
+        "formalization",
+        "multi-agent"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-02-rosie-maternal-chatbot-rct",
+      "url": "https://whataifound.org/finding/2026-11-02-rosie-maternal-chatbot-rct",
+      "title": "Randomised trial of a maternal health chatbot finds no improvement in anxiety or depression at 12 months",
+      "content_text": "400 pregnant and postpartum people from racially and ethnically minoritised groups across 49 US states were randomised to Rosie, a generative AI maternal health chatbot, or to monthly children's books, and after 12 months the chatbot arm showed no improvement in anxiety or depression scores, nor in emergency department visits, postpartum care, contraception use or sleep.  Chatbots are widely proposed to fill the gap in support after delivery, when contact with the health system drops away while medical and psychological needs continue, and this trial is one of the few to measure whether one changes anything a year out. Participants were recruited online, enrolled between October 2023 and December 2024 with follow-up completed in December 2025, and randomised 1:1 against an active control receiving monthly children's books. The chatbot was built with community-engaged methods and answered questions from a shared knowledge base rather than tailoring responses by race or ethnicity, and it carried an automated safety alert for messages suggesting distress or urgent symptoms, reviewed by a clinical social worker who contacted the participant. Primary outcomes were the Generalized Anxiety Disorder-7 and Patient Health Questionnaire-9 at 12 months, and both were null: an adjusted mean difference of 0.10 (95% CI -0.77 to 0.96) for anxiety and -0.23 (95% CI -1.05 to 0.59) for depression. The authors conclude that such chatbots may be better positioned as adjunctive tools than as stand-alone interventions.  Lab: University of Maryland. Model: Rosie, a generative AI maternal health chatbot answering from an evidence-based knowledge base (underlying model not named). Verification: Peer reviewed. Autonomy: AI-led.",
+      "date_published": "2026-11-02T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "maternal-health",
+        "conversational-ai",
+        "mental-health",
+        "negative-result",
+        "rct",
+        "prospective"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-29-molrsi-molecular-discovery",
+      "url": "https://whataifound.org/finding/2026-10-29-molrsi-molecular-discovery",
+      "title": "A self-improving agent selected antibiotic candidates at nearly twice a prior expert workflow's hit rate",
+      "content_text": "MoLRSI, an agent that rewrites its own molecular-discovery workflows using memory of earlier tasks, built a screening workflow whose 107 selected compounds hit at 15.9% against Staphylococcus aureus, against 8.7% for the same group's earlier expert-designed workflow on the same training data and the same 12-million-compound library, and separately produced eight experimentally validated peptide-MHC binders.  The paper's own framing is an agent architecture that optimizes workflows and model architectures and carries memory across tasks, which on its own would be out of scope here; what brings it in is the wet-lab validation. For antibiotics the agent assembled its own activity and cytotoxicity predictors, screened a library of 12,076,365 compounds drawn from the Mcule purchasable database and the Broad Institute collection, and selected 107 compounds for testing, two of which, C3 from ChemBridge and C32 from Vitas-M, were characterized for minimum inhibitory concentration against methicillin-sensitive and methicillin-resistant S. aureus and for cytotoxicity against HepG2, HSkMC and IMR-90 cells. The comparator is the same laboratory's earlier expert-led workflow, which tested 241 compounds from the same library using the same training data. In the second setting the agent designed de novo binders to HLA-A*02:01 presenting the MART-1 and SARS-CoV-1 peptides, with designs synthesized and displayed on phage, yielding eight hits that preferred their intended target over the off-targets tested, while a comparator protocol run with Claude Science yielded none.  Lab: Northeastern University / Broad Institute of MIT and Harvard. Model: Claude Sonnet 5 as the MoLRSI backbone; Claude Opus 5 for the Claude Science comparator. Verification: Claimed. Autonomy: Search scaffold.",
+      "date_published": "2026-10-29T00:00:00+00:00",
+      "date_modified": "2026-11-09T00:00:00+00:00",
+      "tags": [
+        "antibiotics",
+        "protein-design",
+        "agents",
+        "preclinical",
+        "preprint"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-11-03-cdk46-home-therapy-ai-rct",
       "url": "https://whataifound.org/finding/2026-11-03-cdk46-home-therapy-ai-rct",
       "title": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy",
