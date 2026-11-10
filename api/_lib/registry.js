@@ -238,10 +238,19 @@ export const ENTRY_IDS = new Set([
   "2026-10-27-pts-beta-eta-normalization",
   "2026-10-28-eus-guideq-endosonography-rct",
   "2026-10-29-infinity-harmonic-c1alpha-lean",
+  "2026-10-29-molrsi-molecular-discovery",
   "2026-10-29-peddx-posterior-fossa-tumours",
   "2026-10-29-photo-malocclusion-screening",
   "2026-11-02-retime-retinal-mortality",
-  "2026-11-03-cdk46-home-therapy-ai-rct"
+  "2026-11-02-rosie-maternal-chatbot-rct",
+  "2026-11-03-cdk46-home-therapy-ai-rct",
+  "2026-11-04-diophantine-z-in-q",
+  "2026-11-04-stacks-project-lean-axiom",
+  "2026-11-05-smartwatch-hypertension-detection",
+  "2026-11-05-xgb-ews-denmark",
+  "2026-11-06-aura-ana-autoimmune-rct",
+  "2026-11-06-doppler-ai-feedback-rct",
+  "2026-11-07-latent-ai-ecg-af-rct"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -467,10 +476,19 @@ export const ENTRY_GRADES = {
   "2026-10-27-pts-beta-eta-normalization": ["formal", "collaborative"],
   "2026-10-28-eus-guideq-endosonography-rct": ["peer-reviewed", "ai-assisted"],
   "2026-10-29-infinity-harmonic-c1alpha-lean": ["formal", "ai-led"],
+  "2026-10-29-molrsi-molecular-discovery": ["claimed", "search-scaffold"],
   "2026-10-29-peddx-posterior-fossa-tumours": ["claimed", "ai-assisted"],
   "2026-10-29-photo-malocclusion-screening": ["claimed", "ai-assisted"],
   "2026-11-02-retime-retinal-mortality": ["peer-reviewed", "ai-assisted"],
-  "2026-11-03-cdk46-home-therapy-ai-rct": ["claimed", "ai-assisted"]
+  "2026-11-02-rosie-maternal-chatbot-rct": ["peer-reviewed", "ai-led"],
+  "2026-11-03-cdk46-home-therapy-ai-rct": ["claimed", "ai-assisted"],
+  "2026-11-04-diophantine-z-in-q": ["claimed", "collaborative"],
+  "2026-11-04-stacks-project-lean-axiom": ["claimed", "collaborative"],
+  "2026-11-05-smartwatch-hypertension-detection": ["peer-reviewed", "ai-assisted"],
+  "2026-11-05-xgb-ews-denmark": ["peer-reviewed", "ai-assisted"],
+  "2026-11-06-aura-ana-autoimmune-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-11-06-doppler-ai-feedback-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-11-07-latent-ai-ecg-af-rct": ["peer-reviewed", "ai-assisted"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -696,10 +714,19 @@ export const ENTRY_TITLES = {
   "2026-10-27-pts-beta-eta-normalization": "Weak normalization implies strong normalization in pure type systems with \u03b2\u03b7-conversion, proved in Lean",
   "2026-10-28-eus-guideq-endosonography-rct": "Randomised trial of voice-guided AI navigation for biliopancreatic endoscopic ultrasound",
   "2026-10-29-infinity-harmonic-c1alpha-lean": "Lean formalization of interior gradient H\u00f6lder estimates for infinity-harmonic functions",
+  "2026-10-29-molrsi-molecular-discovery": "A self-improving agent selected antibiotic candidates at nearly twice a prior expert workflow's hit rate",
   "2026-10-29-peddx-posterior-fossa-tumours": "Pediatric posterior fossa tumour classifier from T2 MRI with abstention, evaluated at an outside site (PedDx)",
   "2026-10-29-photo-malocclusion-screening": "Smartphone profile photograph screening for skeletal malocclusion, externally validated in Turkey and Belgium",
   "2026-11-02-retime-retinal-mortality": "Deep learning marker of mortality risk from retinal photographs, validated in three external cohorts (RetiME)",
-  "2026-11-03-cdk46-home-therapy-ai-rct": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy"
+  "2026-11-02-rosie-maternal-chatbot-rct": "Randomised trial of a maternal health chatbot finds no improvement in anxiety or depression at 12 months",
+  "2026-11-03-cdk46-home-therapy-ai-rct": "Randomised trial of an AI management platform for breast cancer patients on home CDK4/6 inhibitor therapy",
+  "2026-11-04-diophantine-z-in-q": "Claimed Diophantine definition of \u2124 in \u211a",
+  "2026-11-04-stacks-project-lean-axiom": "The Stacks Project formalized in Lean by directed AI agents",
+  "2026-11-05-smartwatch-hypertension-detection": "Hypertension detected from consumer smartwatch sensors without a cuff",
+  "2026-11-05-xgb-ews-denmark": "Gradient-boosted early warning score tested for clinical net benefit across 2.08 million Danish hospital encounters",
+  "2026-11-06-aura-ana-autoimmune-rct": "Randomised trial of a risk model triaging patients with a positive antinuclear antibody test",
+  "2026-11-06-doppler-ai-feedback-rct": "Randomised trial of AI feedback on clinicians reading fetal Doppler ultrasound images",
+  "2026-11-07-latent-ai-ecg-af-rct": "Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
