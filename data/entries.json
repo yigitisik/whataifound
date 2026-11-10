@@ -250,7 +250,7 @@
     "autonomy": "ai-led",
     "detail": "The model produced a construction beating the conjectured bound, with an inexplicit exponent greater than 1. Nine mathematicians - Alon, Bloom, Gowers, Litt, Sawin, Shankar, Tsimerman, Wang and Wood - published a human-verified version of the argument; Sawin separately made the exponent explicit at \\(n^{1.014}\\). Gowers called it 'the first example of a result produced autonomously by an AI that I find exciting in itself.'",
     "novelty_check": "The unit-distance problem dates to Erdős (1946). Prior bounds were well documented; the construction is new.",
-    "caveats": "Human mathematicians shaped the problem framing and verified the construction. The explicit \\(n^{1.014}\\) exponent is Sawin's refinement, not the model's output: the model's own bound was inexplicit. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check.",
+    "caveats": "Human mathematicians shaped the problem framing and verified the construction. The explicit \\(n^{1.014}\\) exponent is Sawin's refinement, not the model's output: the model's own bound was inexplicit. The strength of the endorsement from Gowers is notable but is a judgment, not a formal check. A PNAS paper of 2026-10-26 reproduces the disproof autonomously eight times out of eight on a public model, which strengthens the result while making a reproducibility criticism of this entry's own source: OpenAI's run used an internal model with undisclosed test-time compute, so the original could not be independently reproduced or analysed. The reproduction used an average of 106.7 thousand reasoning tokens per trial, and the model it used was released nearly a month before OpenAI published, which is the paper's argument against data contamination.",
     "independent_checks": [
       {
         "who": "Alon, Bloom, Gowers, Litt, Sawin, Shankar, Tsimerman, Wang and Wood",
@@ -266,6 +266,11 @@
         "who": "Kim Morrison (Palomar comparator registration)",
         "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-08-08-000001&version=3",
         "outcome": "Machine-checked the negation of the uniform-constant form of the conjecture, narrower than the entry's claim."
+      },
+      {
+        "who": "Huang (PNAS)",
+        "url": "https://doi.org/10.1073/pnas.2621541123",
+        "outcome": "Built a problem-agnostic three-stage agent on the publicly available GPT-5.5 Pro, ran eight independent trials with web search disabled, and reports a correct or essentially correct disproof in every trial, with proofs the paper describes as diverse rather than reproductions of the earlier AI-generated argument. Published in PNAS on 2026-10-26, with code and outputs released."
       }
     ],
     "registrations": [
@@ -313,6 +318,11 @@
         "label": "Tech Jacks: AI math reasoning milestones",
         "url": "https://techjacksolutions.com/ai-brief/ai-math-reasoning-milestones-30-days-research-automation/",
         "kind": "coverage"
+      },
+      {
+        "label": "PNAS: Autonomous disproofs of the Erdos unit distance conjecture with GPT-5.5 Pro",
+        "url": "https://doi.org/10.1073/pnas.2621541123",
+        "kind": "research"
       }
     ],
     "discussion": [
@@ -344,6 +354,12 @@
         "kind": "check",
         "note": "Recorded the checks the independently checked grade already rested on: the nine-author human-verified write-up, Sawin's explicit refinement and Kim Morrison's Palomar formalization. No grade moved.",
         "url": "https://arxiv.org/abs/2605.20695"
+      },
+      {
+        "date": "2026-11-09",
+        "kind": "check",
+        "note": "Recorded a PNAS paper that reproduces the disproof autonomously in eight of eight trials with a public model, and the reproducibility criticism it makes of the original run's undisclosed test-time compute. No grade moved: the entry was already independently checked.",
+        "url": "https://doi.org/10.1073/pnas.2621541123"
       }
     ]
   },
@@ -13399,6 +13415,233 @@
       "screening",
       "rct",
       "prospective"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-11-06-k-clique-hypothesis-refuted",
+    "title": "Refutation of the k-Clique hypothesis, independent of the matrix multiplication exponent",
+    "claim": "Two complexity theorists working back and forth with ChatGPT-6 published an algorithm that counts weighted k-cliques faster than the long-conjectured barrier for every large enough k, and faster even if matrix multiplication were optimal, with the paper crediting the decisive algebraic decomposition almost purely to the model.",
+    "field": "computer-science",
+    "date": "2026-11-06",
+    "lab": "Independent (MIT and Tel Aviv University)",
+    "model": "ChatGPT-6 (OpenAI), public web interface, no harness",
+    "humans": [
+      "Virginia Vassilevska Williams",
+      "Or Zamir"
+    ],
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "The k-Clique hypothesis holds that the 1985 Nesetril-Poljak reduction is optimal, so that finding a k-clique needs about \\(n^{\\omega k/3}\\) time, where \\(\\omega\\) is the matrix multiplication exponent. It is load-bearing in fine-grained complexity: hardness results for parsing, compressed-data problems and many other tasks are proved by reduction from it. The paper gives an algorithm running in \\(n^{(\\omega/3 - c)k}\\) time for a constant \\(c > 0\\) that does not depend on \\(\\omega\\) or \\(k\\), so the refutation survives even in the \\(\\omega = 2\\) limit, and it counts weighted k-cliques rather than only detecting one. The engine is a rank-or-swap decomposition that the authors then rewrote in purely combinatorial form, used as a black box inside a human-built algorithmic framework that only needs square matrix multiplication.",
+    "novelty_check": "Nothing in this registry covered the k-Clique hypothesis before: arXiv, 2026-11-09, abs:\"k-Clique\" AND (abs:conjecture OR abs:hypothesis) AND abs:\"matrix multiplication\" returned 11 records, of which this paper is the only refutation and the next nearest is this registry's existing 3SUM and APSP entry (2610.06783). The same search names three concurrent AI-assisted refutations of the related k-HyperClique hypothesis (2611.05082, 2611.03880, 2611.06813), none of which this registry carries yet and none of which is this result. The paper traces its decomposition to OpenAI's October 2026 ETH refutation, which this registry carries as 2026-10-26-eth-refuted-openai.",
+    "caveats": "Days old at the time of writing, with no peer review and no independent confirmation of a claim that invalidates a conditional-hardness premise used widely in the field. Autonomy is collaborative on the authors' own account in Section 6: they supplied the starting ideas for the 5-clique case and the context of recent fine-grained complexity breakthroughs, the model produced the first improvement and the algebraic decomposition, and the authors say the algorithmic framework that uses it is mainly theirs. They also note both of them had the model's memory feature on, so earlier projects could have influenced what it produced, and that the model could not build further on its own obfuscated proofs until a human had simplified them. There is no formalization and no reproducible artifact beyond the paper, so the grade is capped at author verified.",
+    "sources": [
+      {
+        "label": "arXiv: The k-Clique hypothesis is dead, for good",
+        "url": "https://arxiv.org/abs/2611.09764",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: The Exponential Time Hypothesis is False",
+        "url": "https://github.com/openai/math/tree/main/preprints/The-Exponential-Time-Hypothesis-is-False-October-25-2026",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "algorithms",
+      "fine-grained-complexity",
+      "matrix-multiplication",
+      "argument"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-11-05-grassl-qubit-code-tables",
+    "title": "AI agent search raises 1,873 entries of the Grassl qubit code tables",
+    "claim": "A search written and run by AI agents under one physicist's direction produced 192 explicit quantum stabilizer codes whose minimum distance beats the best bound previously recorded for their parameters, raising 1,873 entries of the standard reference table, with every distance certified exactly and a checker published alongside.",
+    "field": "physics",
+    "date": "2026-11-05",
+    "lab": "Virginia Tech",
+    "model": "Not named: the paper and repository say only that AI agents wrote and ran the search",
+    "humans": [
+      "Marin Girard"
+    ],
+    "verification": "author-verified",
+    "autonomy": "collaborative",
+    "detail": "Grassl's tables at codetables.de record, for every length up to 256 and every dimension, the best known bounds on the minimum distance of a qubit stabilizer code, and more than half the entries above length 100 give a lower bound with no explicit code behind it. The construction here takes a random Clifford encoder and expurgates it: every logical operator of weight below the target distance is enumerated, and a few are promoted to stabilizers so each low-weight one anticommutes with at least one promoted operator. That yields 192 codes between lengths 53 and 254 at distances 5 to 13, 161 beating the listed lower bound by one and 31 by two, which propagate to 1,873 raised table entries. A first-moment count explains why it works, since expurgated random codes carry about eight more logical qubits than a typical random code of the same length and distance, and predicts gains at 619 further parameter pairs. The work was done during a three-day hackathon at Argonne National Laboratory, with the heavy computation on the Aurora supercomputer.",
+    "novelty_check": "No entry in this registry concerned stabilizer code construction: a search for Grassl, stabilizer, qubit code and quantum error correction over data/entries.json turned up only 2026-10-15-llm-quantum-circuit-design, which is circuit synthesis, and an AlphaQubit decoder entry, which is decoding rather than code construction. arXiv, 2026-11-09, abs:\"stabilizer codes\" AND (abs:\"code tables\" OR abs:Grassl) returned 7 records; the nearest other recent one, 2610.36700 on ancestor lifting of quasi-cyclic additive codes, is a different and structured construction. The paper's own comparison file pins the table it beat to the version read on 2026-11-04, which is what makes the claim checkable later.",
+    "caveats": "Single author, no peer review, and no third party has yet rerun the published certifier, which is why this is author verified rather than formal even though the certificates are exact: distance lower bounds come from exhaustive meet-in-the-middle enumeration of up to about 4 times 10^13 Pauli operators, and upper bounds from an explicit logical operator of weight d. The model behind the agents is not named anywhere in the paper or the repository. Autonomy is collaborative on the author's own account in Section 7: the agents retrieved the tables and literature, wrote the search programs and the original certifiers, managed the runs and produced the figures, while he chose which constructions to pursue, allocated the compute and decided what to verify and how, and he edited and checked the write-up the agents drafted. The repository was created on 2026-11-05 and last pushed the same day.",
+    "sources": [
+      {
+        "label": "arXiv: Random encoders and expurgation improve 1,873 entries of the Grassl qubit code tables",
+        "url": "https://arxiv.org/abs/2611.08744",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: MarinAndreGirard/qubit-stabilizer-codes-2026, codes, certificates and independent checker",
+        "url": "https://github.com/MarinAndreGirard/qubit-stabilizer-codes-2026",
+        "kind": "research"
+      },
+      {
+        "label": "Grassl, Bounds on the minimum distance of linear codes and quantum codes",
+        "url": "http://www.codetables.de",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "quantum-error-correction",
+      "coding-theory",
+      "computation"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-11-06-lean-verified-quantum-programs",
+    "title": "LLM agents write quantum programs checked against Lean specifications",
+    "claim": "Google DeepMind and Google Quantum AI report that teams of language model agents, searching against frozen Lean specifications that an external verifier re-checks, found quantum programs that cut published resource costs by up to 290 times for fixed-point arcsine and by factors of 11, 8 and 2.5 on simulations relevant to fusion, photochemistry and drug metabolism.",
+    "field": "computer-science",
+    "date": "2026-11-06",
+    "lab": "Google DeepMind / Google Quantum AI",
+    "model": "Not named: the paper says only that large language model agents synthesize the programs",
+    "humans": [
+      "Sergey Shirobokov",
+      "Ben Jaderberg",
+      "Katerina Hristova",
+      "George Tsoukalas",
+      "Nicholas C. Rubin",
+      "Guang Hao Low",
+      "Sergio Boixo",
+      "Swarat Chaudhuri",
+      "Ryan Babbush",
+      "Pushmeet Kohli"
+    ],
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "Quantum algorithms cannot be tested empirically at the scales that matter, because a classical computer can only simulate small instances, so the paper replaces testing with proof. Researchers write a problem as a Lean file stating the target correctness and cost theorems with the program, its cost bound and their proofs left as sorry placeholders, then launch independent agent teams with generic optimization prompts rather than problem-specific ideas. Teams share a wiki of best verified solutions and reusable lemmas and meet in scheduled forum conferences where unverified conjectures count for nothing. Because an agent can edit files in its own workspace, every submission is replayed in a clean sandbox by an external verifier using the Lean Comparator, which confirms that the theorem statements and every definition they depend on are unchanged and that the proof terms use only propext, Quot.sound and Classical.choice with no sorry and no added axiom. Reported reductions are 1.41 times for expected oracle rounds in parallel Grover search, more than 290 times in spacetime cost for fixed-point arcsine, and 10.9, 8.08 and 2.49 times on the three scientific simulations.",
+    "novelty_check": "arXiv, 2026-11-09, abs:\"quantum\" AND abs:Lean AND abs:\"formally verified\" AND (abs:agents OR abs:\"language model\") returned 0 records besides this one, so the combination of a Lean quantum program library with agent search appears to be first here. This registry's nearest entries are 2026-10-15-llm-quantum-circuit-design, where a model searched for quantum circuits without formal verification, and the Lean formalization entries, which are all pure mathematics in Mathlib rather than quantum programs. The paper's own comparison is against named published baselines, Hanner, Roetteler and Svore 2018 for arithmetic and the Grover variants for parallel search, rather than against an internal baseline.",
+    "caveats": "Capped at claimed because there is no artifact a reader can open: the paper says the Lean library, the problem specifications and the verified solutions will be open sourced shortly, and until they are, the verification pipeline that the whole claim rests on cannot be rerun outside Google. The model or models behind the agents are not named. The speedups are resource-count reductions proved against formal cost models under stated fault-tolerant architectural assumptions, not measurements on hardware, and nothing here was run on a quantum computer. The paper also reports that agents found specification loopholes, which researchers closed by revising the specification, so the frozen-specification guarantee holds only against the specification a human wrote. Autonomy is search-scaffold: humans chose the problems, wrote the formal specifications and designed the verifier and workflow, and the paper itself says the work shifts rather than replaces human effort.",
+    "sources": [
+      {
+        "label": "arXiv: Discovering formally verified quantum programs with AI",
+        "url": "https://arxiv.org/abs/2611.09822",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "quantum-algorithms",
+      "formal-verification",
+      "lean",
+      "construction"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-11-02-pherc-306b-first-letters",
+    "title": "First text read in the Herculaneum scroll PHerc. 306B",
+    "claim": "Two Vesuvius Challenge contestants combined a public ink-detection model with one they fine-tuned themselves to recover readable Greek from PHerc. 306B, a carbonised Herculaneum scroll nobody had read, where the papyrology team agreed on the phrase \"that which is in itself desirable\".",
+    "field": "archaeology",
+    "date": "2026-11-02",
+    "lab": "Vesuvius Challenge",
+    "model": "TRACE v3B with a fine-tuned derivative of the v8-in ink model, plus VC3D GrowPatch segmentation",
+    "humans": [
+      "Liam Warner",
+      "Nicola Bodill",
+      "Paul Henderson",
+      "Federica Nicolardi"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "PHerc. 306 was buried by the eruption of Vesuvius in AD 79, excavated in the 1750s and micro-CT scanned in 2025, and is broken into two parts. Identifying ink in the larger part, PHerc. 306B, also settled which part is which: the script orientation shows 306B is the upper section of the original roll. A surface inside the scan was grown with VC3D's GrowPatch tool from a seed on a line found by screening windings, then ink was called only where two models agreed, by multiplying the output of the public TRACE v3B model with a model the pair fine-tuned from Youssef Nader's v8-in, trained half on labels from a different scroll and half on machine labels averaged from four public models, with an added penalty for marking blank papyrus as ink. The sequence \\(\\tau o \\delta \\iota \\alpha \\upsilon \\tau o\\) had been visible in several submissions for about a month, but the following letters were read as either mu, nu or alpha-iota until this image made a diagonal middle stroke visible and the papyrology team agreed on alpha-iota, giving a reading with parallels in Aristotle, Sextus Empiricus and Philodemus' On Anger. Twenty-five submissions were reviewed on this scroll and several others reached 7 to 9 characters against a 10-character target.",
+    "novelty_check": "This registry already carries 2026-06-25-herculaneum-scroll-read, which is a different scroll, PHerc. 1667, read end to end. PHerc. 306B had no entry, and the announcement states no one had read what was written in it since its excavation. The prize criterion itself is the novelty claim being made, 10 readable characters in 4 square centimetres of a scroll with no prior reading, and the post records the competing submissions that fell short on the same segment. No author or work has been attributed to the scroll yet, only textual parallels.",
+    "caveats": "Author verified rather than independent: the reading was agreed by the Vesuvius Challenge's own papyrology team, which is part of the challenge, and no outside papyrologist has published on it. The result is a few words, not a text, and the readings are probabilistic reconstructions from a learned ink signal where ink is called only where two models agree, which raises precision at the cost of recall. The $50,000 First Letters Prize marks the milestone and is not an independent check. Autonomy is ai-assisted on the same reading as the earlier scroll entry: the models produce ink probabilities and a human papyrologist resolved the letters, and it was a human eye on a newly visible stroke that settled the ambiguous reading. Code, model weights and data are public, so the detection step is reproducible.",
+    "sources": [
+      {
+        "label": "Vesuvius Challenge: Writing seen in PHerc. 306B, for the first time in 2000 years",
+        "url": "https://scrollprize.substack.com/p/writing-seen-in-pherc-306b-for-the",
+        "kind": "announcement"
+      },
+      {
+        "label": "GitHub: SirProdigle/pherc0306b-first-letters",
+        "url": "https://github.com/SirProdigle/pherc0306b-first-letters",
+        "kind": "research"
+      },
+      {
+        "label": "Hugging Face: the fine-tuned A-hn ink detection model",
+        "url": "https://huggingface.co/Prodigle/pherc0306b-ink-ahn",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "papyrology",
+      "virtual-unwrapping",
+      "ink-detection",
+      "ancient-texts",
+      "herculaneum"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-10-30-designed-activation-domains",
+    "title": "Designed transcriptional activation domains, over 90 percent functional in yeast",
+    "claim": "A Berkeley-led team generated 500,000 candidate activation domains, scored them with existing machine learning models including three neural networks, and synthesized 18,750 of the top ones, of which more than 90 percent worked as activation domains in yeast, with some retaining function in fungi, plants and human cells.",
+    "field": "biology",
+    "date": "2026-10-30",
+    "lab": "University of California, Berkeley",
+    "model": "Existing activation-domain function predictors including three neural networks, plus MADRIGAL, a consensus predictor built from the results",
+    "humans": [
+      "Marissa A. Zintel",
+      "Max V. Staller"
+    ],
+    "verification": "author-verified",
+    "autonomy": "search-scaffold",
+    "detail": "Protein design has worked best on structured proteins, where a fold constrains the sequence. Activation domains are the opposite case: they are intrinsically disordered regions of transcription factors that recruit coactivators, with weak structural constraints and poorly defined sequence-to-function rules, which makes them a test of whether a prediction-and-screen loop can design disordered sequence at all. Candidates resembling known activation domains were generated computationally, scored by several extant predictors, and 18,750 high scorers were measured in yeast, of which 16,770 gave clean measurements and over 90 percent functioned. Sequences that several models agreed on were stronger, which is what motivated MADRIGAL, the fast consensus predictor the paper then builds. Designed domains that keep working across fungi, plants and human cells matter for synthetic biology, agriculture and biotechnology, where an activation domain is a reusable part.",
+    "novelty_check": "Nothing in this registry covered activation domains or designed intrinsically disordered protein: a search of data/entries.json for activation domain, intrinsically disordered, transcription factor and MADRIGAL returned no match, and the protein-design entries are all structured designs, binders, enzymes or antibodies. Europe PMC, 2026-11-09, the bioRxiv query behind this lead returned 3 preprints in the window, of which this is the only designed disordered-sequence result. The paper's own novelty framing is that structured protein design has advanced while disordered design has not, with activation domains as one of the oldest known classes of functional disordered sequence.",
+    "caveats": "A bioRxiv preprint, not peer reviewed, and the validation is the authors' own yeast assay with no independent replication, hence author verified. The cross-species results are described as a number of designs retaining function rather than a measured rate, so the headline over 90 percent figure is the yeast assay only. The high hit rate is a property of sequences selected by predictors that were already trained on known activation domains, so it measures the design loop, not an unconstrained generative model. The preprint names no AI disclosure statement; the machine learning role is read off the abstract's own description of generating candidates and predicting function with extant models, and the paper reports a patent application filed alongside the work. Autonomy is search-scaffold rather than ai-led: humans framed the generate-and-screen loop and the models scored candidates inside it.",
+    "sources": [
+      {
+        "label": "bioRxiv: Machine learning guided design of strong transcriptional activation domains",
+        "url": "https://doi.org/10.64898/2026.10.30.763198",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "protein-design",
+      "synthetic-biology",
+      "intrinsically-disordered-proteins",
+      "construction"
+    ],
+    "added": "2026-11-09"
+  },
+  {
+    "id": "2026-10-26-pythia-full-length-antibodies",
+    "title": "Designed full-length IgG antibodies against 22 targets, including GPCR agonists",
+    "claim": "Pythia Labs reports that its all-atom generative model designed full-length human IgG antibodies for 22 therapeutic targets, and that screening at most 48 candidates per target after a single design round found single-digit nanomolar binders, including both agonists and antagonists of G protein-coupled receptors.",
+    "field": "biology",
+    "date": "2026-10-26",
+    "lab": "Pythia Labs",
+    "model": "Pythia-1, an all-atom generative model over sequence and structure jointly",
+    "humans": [
+      "Robin A. Aglietti",
+      "Todd O. Yeates"
+    ],
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "Therapeutic antibody discovery is slow, gives little control over how an antibody engages its target, and has struggled with whole target classes, G protein-coupled receptors above all, where the binding site is in the membrane and the conformational state matters. The pipeline generates candidates directly in full-length human IgG format rather than as fragments, conditioning on human germline frameworks and applying sequence constraints meant to avoid known developability liabilities, and reasons over sequence and atomic structure together under explicit design constraints, which is what the paper credits for being able to aim at a specified epitope and conformational state. Reported results are single-digit nanomolar affinities for soluble proteins and single-digit nanomolar cell-binding EC50 values for GPCRs, with single-digit nanomolar inhibitory potency in functional assays for several targets, and biophysical profiles the paper calls comparable to or better than clinical-stage controls. The lead sequences are published so others can test them.",
+    "novelty_check": "The claim the paper makes for itself is the first demonstration of both GPCR agonism and antagonism by de novo designed full-length IgG antibodies, which is narrower than de novo antibody design in general. This registry carries two neighbouring antibody entries, 2026-10-27-ige-dislodging-antibody-designs and 2026-10-27-bighat-antibody-fragment-optimisation, neither of which is full-length IgG design and neither of which involves GPCRs; a search of data/entries.json for Pythia, IgG and GPCR returned nothing. The first-of-its-kind claim has not been checked against the antibody-design literature here and should be before the entry is cited for it.",
+    "caveats": "Enters at claimed under the lab-announcement rule: this is a preprint from the company that makes the model, the assays are its own, and no independent party has reproduced any of it. Peer review has not happened. The screening funnel is reported as at most 48 candidates per target, but the paper does not make clear whether single-digit nanomolar hits were found for all 22 targets or a subset, so the headline reads stronger than what is demonstrated target by target. All results are in vitro, with no animal or clinical data. Every author is a Pythia Labs employee. No AI disclosure statement appears as such; the model's role is read off the method description naming Pythia-1 as the generator. Autonomy is search-scaffold rather than ai-led, the weaker reading: the generative model produced candidates inside a human-designed pipeline with human-chosen targets, constraints and assays.",
+    "sources": [
+      {
+        "label": "bioRxiv: Design of full-length agonist and antagonist antibodies for hard targets",
+        "url": "https://doi.org/10.64898/2026.10.21.760573",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "antibody-design",
+      "protein-design",
+      "gpcr",
+      "preclinical",
+      "construction"
     ],
     "added": "2026-11-09"
   }

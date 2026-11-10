@@ -92,7 +92,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/lab/google-deepmind</loc>
-    <lastmod>2026-11-02</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -116,7 +116,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/archaeology</loc>
-    <lastmod>2026-10-30</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -146,7 +146,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/computer-science</loc>
-    <lastmod>2026-10-29</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -176,7 +176,7 @@
   </url>
   <url>
     <loc>https://whataifound.org/topic/physics</loc>
-    <lastmod>2026-10-16</lastmod>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
   </url>
@@ -199,6 +199,18 @@
     <priority>0.8</priority>
   </url>
   <url>
+    <loc>https://whataifound.org/finding/2026-11-06-k-clique-hypothesis-refuted</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-11-06-lean-verified-quantum-programs</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
     <loc>https://whataifound.org/finding/2026-11-05-smartwatch-hypertension-detection</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
@@ -206,6 +218,12 @@
   </url>
   <url>
     <loc>https://whataifound.org/finding/2026-11-05-xgb-ews-denmark</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-11-05-grassl-qubit-code-tables</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -236,6 +254,18 @@
   </url>
   <url>
     <loc>https://whataifound.org/finding/2026-11-02-rosie-maternal-chatbot-rct</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-11-02-pherc-306b-first-letters</loc>
+    <lastmod>2026-11-09</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-30-designed-activation-domains</loc>
     <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
@@ -339,6 +369,12 @@
   <url>
     <loc>https://whataifound.org/finding/2026-10-26-yang-mills-existence-claim</loc>
     <lastmod>2026-11-05</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://whataifound.org/finding/2026-10-26-pythia-full-length-antibodies</loc>
+    <lastmod>2026-11-09</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
