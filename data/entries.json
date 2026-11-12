@@ -13644,5 +13644,217 @@
       "construction"
     ],
     "added": "2026-11-09"
+  },
+  {
+    "id": "2026-10-06-periodic-spin-one-haldane-gap",
+    "title": "Computer-assisted proof of a uniform spectral gap for the spin-1 Heisenberg chain on even periodic rings",
+    "claim": "A manuscript in OpenAI's October 2026 mathematics release proves that the spin-1 antiferromagnetic Heisenberg chain on even periodic rings has a unique ground state and a spectral gap above \\((\\log 20)/784 \\approx 0.0038\\) for every even length \\(L \\ge 2304\\), the periodic formulation of Haldane's 1983 conjecture, by combining an analytic thermal-purity argument with certified finite computations.",
+    "field": "physics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 1983,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Haldane predicted in 1983 that integer-spin antiferromagnetic chains have a gap above the ground state while half-integer chains do not; numerics put the spin-1 gap near 0.41, but no proof existed for the Heisenberg chain itself, which is not frustration free, so the finite-size criteria used for models such as AKLT do not apply. The manuscript, dated 24 September 2026 and published on 6 October 2026 as result 268 of the openai/math release that this registry records at 2026-10-06-openai-math-collection, bounds the gap through the purity of the Gibbs state, propagating finite-ring partition-function bounds to all longer even rings; it also gives \\(\\Delta_L \\gtrsim 4.79 \\times 10^{-4}\\) for \\(L \\ge 60\\). A companion manuscript treats open chains with boundary fields. The release ships a Python finite verifier for the numerical inputs and no Lean formalization of this result. Three outside papers have since built on the proof: Sirui Lu's tensor-network reformulation sharpens the bound to \\(\\Delta_L > 0.0729\\) for every even \\(L \\ge 36\\) from the same inputs and certifies gaps for seven further chains and ladders, Hal Tasaki uses its machinery to prove uniqueness of the translation-invariant ground state of the infinite chain, and Tarun Grover extends the purity bootstrap to higher dimensions and fermions.",
+    "novelty_check": "arXiv API, 2026-11-12: abs:\"Haldane gap\" AND abs:proof returned three records, two unrelated papers from 2000 and 2003 and Tasaki's October 2026 extension of this proof; abs:\"Haldane conjecture\", the 30 most recent records, held no rigorous proof for the spin-1 Heisenberg chain before October 2026. The manuscript's own introduction cites only partial rigorous results (Lieb-Schultz-Mattis for half-integer chains, and a 2025 theorem of Tasaki that assumes a gap for odd open chains), and Tasaki, who has worked on the problem, describes this paper as proving the Haldane conjecture in the standard periodic-chain formulation. No earlier entry in this registry covers it; it appeared only inside the collection entry.",
+    "caveats": "Entered at claimed as a lab release, and kept there because the outside checks so far are partial. Tasaki studied the analytic argument and wrote expository notes on it, but states that he has not independently checked the computer-assisted estimates. Lu verified the finite inputs in exact arithmetic and formalized the general gap theorem in Lean 4, but for the spin-1 chain his Lean theorem still takes the short-ring integer trace totals for \\(5 \\le n \\le 12\\) as hypotheses, and his paper declares that GPT-6-Astra and OpenAI Codex were used for calculations, formalization and writing, with every argument verified by the author. So the computer-assisted half has one outside checker. A second independent check of the finite inputs, or a Lean discharge of the remaining hypotheses, would support independent or formal. The theorem covers even periodic rings only, and its constant is about a hundred times smaller than the numerical gap. Autonomy is ai-led as for the rest of the release: OpenAI says its results were produced by an internal model under one fixed procedure, the manuscript names no human author, and the release does not say how much human review preceded publication.",
+    "independent_checks": [
+      {
+        "who": "Hal Tasaki",
+        "url": "https://haltasaki.github.io/writings/AI/OpenAI_Haldane.html",
+        "outcome": "Studied the analytic argument carefully and published expository notes in continuous-time and discrete-time versions; states that the complete proof also uses computer-assisted estimates, which he has not independently checked."
+      },
+      {
+        "who": "Sirui Lu (Max Planck Institute of Quantum Optics)",
+        "url": "https://arxiv.org/abs/2611.11049",
+        "outcome": "Verified the finite inputs in exact arithmetic, recast the proof in tensor-network diagrams, sharpened the bound to \\(\\Delta_L > 0.0729\\) for every even \\(L \\ge 36\\), and formalized the general theorem in Lean 4; for the spin-1 chain the Lean statement assumes the short-ring trace totals for \\(5 \\le n \\le 12\\). Declares AI assistance (GPT-6-Astra, OpenAI Codex), with all arguments verified by the author."
+      }
+    ],
+    "sources": [
+      {
+        "label": "OpenAI: The periodic spin-one Haldane gap (PDF)",
+        "url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: finite verifier and computations for the periodic Haldane gap",
+        "url": "https://github.com/openai/math/tree/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/The-periodic-spin-one-Haldane-gap-September-24-2026/verification",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: A boundary-field gap for the spin-one Heisenberg chain (PDF)",
+        "url": "https://github.com/openai/math/blob/adc7f1241b42e322a6451854ab7e4b4c146bf78a/preprints/A-boundary-field-gap-for-the-spin-one-Heisenberg-chain-September-24-2026/paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Tasaki: OpenAI's proof of the Haldane gap in the S = 1 antiferromagnetic Heisenberg chain",
+        "url": "https://haltasaki.github.io/writings/AI/OpenAI_Haldane.html",
+        "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Lu, Bridging gaps with tensor networks, from the Haldane gap and beyond",
+        "url": "https://arxiv.org/abs/2611.11049",
+        "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Tasaki, uniqueness of translation-invariant ground states of the S=1 Heisenberg and J-D chains",
+        "url": "https://arxiv.org/abs/2610.34330",
+        "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Grover, Extensions of the Haldane gap proof",
+        "url": "https://arxiv.org/abs/2611.07400",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "argument",
+      "spin-chains",
+      "haldane-gap",
+      "computer-assisted-proof",
+      "openai-math"
+    ],
+    "added": "2026-11-12"
+  },
+  {
+    "id": "2026-11-10-alphaproof-code-libsignal",
+    "title": "Lean proofs of security properties for the compiled machine code of libsignal",
+    "claim": "Google DeepMind's AlphaProof Code, a framework in which humans vet Lean specifications and Gemini-powered agents write the proofs, produced about 6.5 million lines of Lean establishing forward secrecy, authentication, post-compromise security and handshake secrecy for Signal's PQXDH handshake and Triple Ratchet as compiled to AArch64 machine code from unmodified libsignal, along with machine-checked disproofs for two previously fixed bugs reintroduced into the code.",
+    "field": "computer-science",
+    "date": "2026-11-10",
+    "lab": "Google DeepMind",
+    "model": "AlphaProof Code agents powered by Gemini Carbon",
+    "humans": [
+      "Swarat Chaudhuri",
+      "Andrew Ferraiuolo",
+      "Anton Kovsharov",
+      "Tej Chajed",
+      "Sam Schlesinger",
+      "Karn Seth",
+      "Jonathan Katz",
+      "Charles Sutton",
+      "Pushmeet Kohli"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The verified program is libsignal-cli, a small harness around the unmodified libsignal v0.105.4 and SPQR crates built by stock rustc, and the theorems are stated over whole runs of its AArch64 executable, so neither the Rust source nor the compiler is trusted. Humans and models wrote the specifications together, with a human reviewing each one; prover agents then wrote proofs that a gatekeeper accepted only when Lean's kernel checked them against the approved statement using standard axioms, with sorry and native_decide rejected. Reviewer agents flagged about one percent of the proof code for human review, and the work took four weeks. The two reintroduced bugs, a small-subgroup key encoding and a weak-state splicing attack, were found earlier by Cheval, Jacomme and Richards; for each the system proved the buggy binary insecure. The Lean development is public.",
+    "novelty_check": "arXiv API, 2026-11-12: abs:libsignal OR ti:\"Signal protocol\" returned 11 records; the nearest is a September 2026 runtime-monitoring paper (SpecMon) that checks observed runs of Signal Desktop and WhatsApp Web against Tamarin models, which does not prove properties of the code. The paper's related work names the prior closest efforts: LibSignal* in F*, a separate implementation written for verification; Arquint et al., an end-to-end verified WireGuard key exchange derived from modified official code; hax panic-freedom proofs for the SPQR crate; and design-level ProVerif, CryptoVerif and Tamarin analyses of Signal and PQXDH. No earlier entry in this registry covers protocol verification of deployed code.",
+    "caveats": "Entered at claimed as a lab announcement, although the Lean development is public; nobody outside Google has yet rebuilt it or audited what it states. The guarantee is only as good as its trusted base, about 26,000 lines of specifications and AArch64 semantics, plus the contracts assumed for the cryptographic primitives and a few library routines, the Lean model of how Linux runs a process, and the tooling that extracts symbol names from object files. Key generation is not verified, side channels and secrets outside the modelled leaks are out of scope, and the forward-secrecy and post-compromise theorems do not rule out a known replay-based loss of forward secrecy. No new vulnerability was found: the two bugs were known, fixed and deliberately reintroduced. Signal's chief technology officer is quoted in support and Signal staff commented on the method, which is endorsement rather than an outside check. Autonomy is ai-led rather than autonomous because humans decided what to prove and reviewed every specification; the proofs themselves were written by the agents.",
+    "sources": [
+      {
+        "label": "AlphaProof Code: Verifying Signal's security at the machine-code level (technical paper)",
+        "url": "https://google-deepmind.github.io/code-verification",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: google-deepmind/code-verification (Lean development)",
+        "url": "https://github.com/google-deepmind/code-verification",
+        "kind": "research"
+      },
+      {
+        "label": "Google DeepMind: Introducing AlphaProof Code",
+        "url": "https://deepmind.google/blog/introducing-alphaproof-code/",
+        "kind": "announcement"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: AlphaProof Code",
+        "url": "https://news.ycombinator.com/item?id=50439193"
+      }
+    ],
+    "tags": [
+      "argument",
+      "formal-verification",
+      "cryptography",
+      "lean",
+      "software-security"
+    ],
+    "added": "2026-11-12"
+  },
+  {
+    "id": "2026-09-08-metasurface-color-router-unet-ga",
+    "title": "Metasurface colour router inverse-designed with a neural-network-accelerated genetic algorithm, fabricated and measured",
+    "claim": "A U-Net trained on 140,000 finite-difference time-domain simulations stood in for the solver inside a genetic algorithm, which evaluated \\(4 \\times 10^7\\) candidate layouts for a single-layer silicon nitride colour router over a 2 µm Bayer cell; the fabricated device measured 88.8% total transmission against 95.4% predicted, though with per-colour routing efficiencies and crosstalk worse than simulated.",
+    "field": "physics",
+    "date": "2026-09-08",
+    "lab": "Chungnam National University",
+    "model": "U-Net surrogate (about 4.9 million parameters) inside a genetic algorithm",
+    "humans": [
+      "Hyoseok Park",
+      "Samuel Kim",
+      "Duk-Yong Choi",
+      "Yeonsang Park",
+      "Myungjae Lee"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "search-scaffold",
+    "detail": "Camera sensors filter colour by absorption, discarding most incoming light; a colour router instead steers red, green and blue light onto their sub-pixels. The design here is a 16 by 16 grid of 600 nm silicon nitride pillars at 125 nm pitch. The surrogate predicts full transmitted field maps about \\(2.3 \\times 10^5\\) times faster than the solver, which let the search run 4,000 generations against the roughly ten thousand structures a solver-driven genetic algorithm can afford. Because it predicts fields rather than a single score, the same trained network can be reused for other photodiode aperture layouts without new training data. In a colour-chart reconstruction using the measured spectra, the router gave brighter images than a literature colour-filter-array response at some cost in spatial resolution.",
+    "novelty_check": "OpenAlex, 2026-11-12: search \"metasurface color router deep learning genetic algorithm\", 15 records. Earlier colour routers were already designed by genetic algorithm (Zou et al. 2022, cited by the paper, 84% measured energy-utilisation efficiency), by freeform optimisation (Science Advances 2024) and with deep learning (Nanoscale 2024; a deep-learning metalens RGB-NIR router, Nanomaterials 2024). What is new is the field-map surrogate inside the genetic search and its reuse across aperture layouts, not deep-learning design of colour routers as such.",
+    "caveats": "Peer-reviewed in Reports on Progress in Physics, open access, by the developers at Chungnam National University with Seoul National University and the Australian National University; no independent replication. The paper's claim to the best performance among compared routers rests on simulated values. Measured peak routing efficiencies were 56.2, 61.2 and 36.5% for red, green and blue, and measured crosstalk was about 48 to 51%, higher than simulated, so the experimental advance over the 2022 genetic-algorithm design is not clear-cut. The 3.6-fold transmission figure in press coverage compares the measured router with a literature colour-filter-array response in a reconstruction, not with a fabricated sensor. The surrogate code is public; trained weights, training data and measured spectra are available on request. Autonomy is search-scaffold: the objective, design grid and genetic algorithm were human-built, and the network is a fast simulator inside that loop.",
+    "sources": [
+      {
+        "label": "Reports on Progress in Physics: Metasurface color routers inverse-designed with a deep-learning-accelerated genetic algorithm",
+        "url": "https://doi.org/10.1088/1361-6633/ae9e8c",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: MCR-UNet-surrogate (U-Net forward-model code)",
+        "url": "https://github.com/hyoseokp/MCR-UNet-surrogate",
+        "kind": "research"
+      },
+      {
+        "label": "Physics World: AI-designed metasurface could make cameras far more light-efficient",
+        "url": "https://physicsworld.com/a/ai-designed-metasurface-could-make-cameras-far-more-light-efficient/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "construction",
+      "nanophotonics",
+      "metasurface",
+      "inverse-design"
+    ],
+    "added": "2026-11-12"
+  },
+  {
+    "id": "2026-10-14-microexon-code-autism-variants",
+    "title": "A machine-learning microexon splicing code links rare variants to autism in 7,391 families",
+    "claim": "A gradient-boosted classifier trained to recognise neuronally spliced microexons from their surrounding sequence was used to score variants in whole genomes from three autism cohorts, prioritising 72 variants associated with autism within families that occur in 2.5% of autistic individuals and in none of their unaffected siblings; minigene assays in human induced neurons confirmed that representative variants alter microexon splicing.",
+    "field": "biology",
+    "date": "2026-10-14",
+    "lab": "University of Toronto",
+    "model": "Gradient-boosted decision trees (XGBoost) microexon code-model",
+    "humans": [
+      "Guillermo E. Parada",
+      "Hannes Bretschneider",
+      "Quaid D. Morris",
+      "Benjamin J. Blencowe"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Microexons are 3 to 27 nucleotide exons, mostly in neuronal genes, whose splicing is often disrupted in autistic brains. The study first profiled bulk and single-cell RNA-sequencing data to find 1,514 previously unknown human microexons and 1,115 mouse ones, then trained the classifier to separate sequences around true neural microexons from microexon-like background, so that a variant's effect on splicing can be scored as a change in the model's output. Applied to the SSC, SPARK and MSSNG cohorts (25,132 individuals in 7,391 families), rare and ultrarare variants had the largest predicted impact, the most affected microexons recurred across all three cohorts, and the 72-variant set comprises 28 ultrarare variants prioritised by this model and 44 also prioritised by DeltaSplice, an independent splicing predictor. About 82% of carriers had no previously detected candidate variant, and the variants concentrate in synaptic genes.",
+    "novelty_check": "Europe PMC, 2026-11-12: microexon AND autism AND (\"machine learning\" OR \"deep learning\" OR model) returned 25 records; this paper is the only one linking variant-level microexon splicing predictions to autism status within families, the others being microexon function studies, reviews and an oligonucleotide therapy proposal. The paper's own discussion cites earlier machine-learning work on splicing variants in neurological disorders and studies of exons differentially spliced in autism, so the advance is the microexon-specific code and its cumulative-impact analysis. No earlier entry in this registry covers splicing or microexons.",
+    "caveats": "Peer-reviewed in Nature, open access, by the developers; the authors declare no competing interests, and there is no independent replication. The genetic result is an association: variants are predicted to disrupt splicing and their burden is tested within families, while the functional evidence is minigene reporter assays on a few representative variants, not editing of the endogenous genes or any phenotype. DeltaSplice alone did not reach significance, and 44 of the 72 variants required both models to agree. The manuscript was received in May 2024 and published in October 2026. Field is biology, not medicine: there is no clinical endpoint and the model is not a diagnostic. Autonomy is ai-assisted: the model is a conventional gradient-boosted classifier, and the study design, cohorts, statistics and experiments were human-driven, with the model scoring variants inside that analysis.",
+    "sources": [
+      {
+        "label": "Nature: A microexon regulatory code reveals autism-linked genetic variation",
+        "url": "https://doi.org/10.1038/s41586-026-11119-w",
+        "kind": "research"
+      },
+      {
+        "label": "The Transmitter: Machine-learning model spots autism-linked variants that scramble splicing",
+        "url": "https://www.thetransmitter.org/spectrum/machine-learning-model-spots-autism-linked-variants-that-scramble-splicing/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "genomics",
+      "splicing",
+      "autism",
+      "variant-effect-prediction"
+    ],
+    "added": "2026-11-12"
   }
 ]

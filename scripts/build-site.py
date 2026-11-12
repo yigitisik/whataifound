@@ -2528,6 +2528,8 @@ LAB_HUB = {
     "Henan University": "https://www.henu.edu.cn/",
     "FAIR at Meta": "https://ai.meta.com/research/",
     "Bake AI": "https://bakeai.inc/research/",
+    "Chungnam National University": "https://plus.cnu.ac.kr/html/en/",
+    "University of Toronto": "https://www.utoronto.ca/",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

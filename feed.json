@@ -9,6 +9,64 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-11-10-alphaproof-code-libsignal",
+      "url": "https://whataifound.org/finding/2026-11-10-alphaproof-code-libsignal",
+      "title": "Lean proofs of security properties for the compiled machine code of libsignal",
+      "content_text": "Google DeepMind's AlphaProof Code, a framework in which humans vet Lean specifications and Gemini-powered agents write the proofs, produced about 6.5 million lines of Lean establishing forward secrecy, authentication, post-compromise security and handshake secrecy for Signal's PQXDH handshake and Triple Ratchet as compiled to AArch64 machine code from unmodified libsignal, along with machine-checked disproofs for two previously fixed bugs reintroduced into the code.  The verified program is libsignal-cli, a small harness around the unmodified libsignal v0.105.4 and SPQR crates built by stock rustc, and the theorems are stated over whole runs of its AArch64 executable, so neither the Rust source nor the compiler is trusted. Humans and models wrote the specifications together, with a human reviewing each one; prover agents then wrote proofs that a gatekeeper accepted only when Lean's kernel checked them against the approved statement using standard axioms, with sorry and native_decide rejected. Reviewer agents flagged about one percent of the proof code for human review, and the work took four weeks. The two reintroduced bugs, a small-subgroup key encoding and a weak-state splicing attack, were found earlier by Cheval, Jacomme and Richards; for each the system proved the buggy binary insecure. The Lean development is public.  Lab: Google DeepMind. Model: AlphaProof Code agents powered by Gemini Carbon. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-11-10T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "argument",
+        "formal-verification",
+        "cryptography",
+        "lean",
+        "software-security"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
+      "url": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
+      "title": "A machine-learning microexon splicing code links rare variants to autism in 7,391 families",
+      "content_text": "A gradient-boosted classifier trained to recognise neuronally spliced microexons from their surrounding sequence was used to score variants in whole genomes from three autism cohorts, prioritising 72 variants associated with autism within families that occur in 2.5% of autistic individuals and in none of their unaffected siblings; minigene assays in human induced neurons confirmed that representative variants alter microexon splicing.  Microexons are 3 to 27 nucleotide exons, mostly in neuronal genes, whose splicing is often disrupted in autistic brains. The study first profiled bulk and single-cell RNA-sequencing data to find 1,514 previously unknown human microexons and 1,115 mouse ones, then trained the classifier to separate sequences around true neural microexons from microexon-like background, so that a variant's effect on splicing can be scored as a change in the model's output. Applied to the SSC, SPARK and MSSNG cohorts (25,132 individuals in 7,391 families), rare and ultrarare variants had the largest predicted impact, the most affected microexons recurred across all three cohorts, and the 72-variant set comprises 28 ultrarare variants prioritised by this model and 44 also prioritised by DeltaSplice, an independent splicing predictor. About 82% of carriers had no previously detected candidate variant, and the variants concentrate in synaptic genes.  Lab: University of Toronto. Model: Gradient-boosted decision trees (XGBoost) microexon code-model. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-14T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "genomics",
+        "splicing",
+        "autism",
+        "variant-effect-prediction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-periodic-spin-one-haldane-gap",
+      "url": "https://whataifound.org/finding/2026-10-06-periodic-spin-one-haldane-gap",
+      "title": "Computer-assisted proof of a uniform spectral gap for the spin-1 Heisenberg chain on even periodic rings",
+      "content_text": "A manuscript in OpenAI's October 2026 mathematics release proves that the spin-1 antiferromagnetic Heisenberg chain on even periodic rings has a unique ground state and a spectral gap above (log 20)/784 ≈ 0.0038 for every even length L ≥ 2304, the periodic formulation of Haldane's 1983 conjecture, by combining an analytic thermal-purity argument with certified finite computations.  Haldane predicted in 1983 that integer-spin antiferromagnetic chains have a gap above the ground state while half-integer chains do not; numerics put the spin-1 gap near 0.41, but no proof existed for the Heisenberg chain itself, which is not frustration free, so the finite-size criteria used for models such as AKLT do not apply. The manuscript, dated 24 September 2026 and published on 6 October 2026 as result 268 of the openai/math release that this registry records at 2026-10-06-openai-math-collection, bounds the gap through the purity of the Gibbs state, propagating finite-ring partition-function bounds to all longer even rings; it also gives Δ_L≳4.79 × 10⁻⁴ for L ≥ 60. A companion manuscript treats open chains with boundary fields. The release ships a Python finite verifier for the numerical inputs and no Lean formalization of this result. Three outside papers have since built on the proof: Sirui Lu's tensor-network reformulation sharpens the bound to Δ_L > 0.0729 for every even L ≥ 36 from the same inputs and certifies gaps for seven further chains and ladders, Hal Tasaki uses its machinery to prove uniqueness of the translation-invariant ground state of the infinite chain, and Tarun Grover extends the purity bootstrap to higher dimensions and fermions.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "argument",
+        "spin-chains",
+        "haldane-gap",
+        "computer-assisted-proof",
+        "openai-math"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-08-metasurface-color-router-unet-ga",
+      "url": "https://whataifound.org/finding/2026-09-08-metasurface-color-router-unet-ga",
+      "title": "Metasurface colour router inverse-designed with a neural-network-accelerated genetic algorithm, fabricated and measured",
+      "content_text": "A U-Net trained on 140,000 finite-difference time-domain simulations stood in for the solver inside a genetic algorithm, which evaluated 4 × 10⁷ candidate layouts for a single-layer silicon nitride colour router over a 2 µm Bayer cell; the fabricated device measured 88.8% total transmission against 95.4% predicted, though with per-colour routing efficiencies and crosstalk worse than simulated.  Camera sensors filter colour by absorption, discarding most incoming light; a colour router instead steers red, green and blue light onto their sub-pixels. The design here is a 16 by 16 grid of 600 nm silicon nitride pillars at 125 nm pitch. The surrogate predicts full transmitted field maps about 2.3 × 10⁵ times faster than the solver, which let the search run 4,000 generations against the roughly ten thousand structures a solver-driven genetic algorithm can afford. Because it predicts fields rather than a single score, the same trained network can be reused for other photodiode aperture layouts without new training data. In a colour-chart reconstruction using the measured spectra, the router gave brighter images than a literature colour-filter-array response at some cost in spatial resolution.  Lab: Chungnam National University. Model: U-Net surrogate (about 4.9 million parameters) inside a genetic algorithm. Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2026-09-08T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "construction",
+        "nanophotonics",
+        "metasurface",
+        "inverse-design"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
       "url": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
       "title": "Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation",

@@ -162,6 +162,7 @@ const GRADES = {
   "2026-09-06-bollobas-nikiforov":["claimed","collaborative"],
   "2026-09-07-complex-grothendieck-constant":["author-verified","ai-led"],
   "2026-09-08-euler-unforced-blowup":["claimed","ai-led"],
+  "2026-09-08-metasurface-color-router-unet-ga":["peer-reviewed","search-scaffold"],
   "2026-09-08-navier-stokes-forced-blowup":["claimed","ai-led"],
   "2026-09-09-small-undecidable-groups":["author-verified","ai-led"],
   "2026-09-10-approval-committee-core":["claimed","collaborative"],
@@ -194,6 +195,7 @@ const GRADES = {
   "2026-10-06-modularity-imaginary-quadratic":["claimed","ai-led"],
   "2026-10-06-o3-model-mass-gap":["claimed","ai-led"],
   "2026-10-06-openai-math-collection":["claimed","ai-led"],
+  "2026-10-06-periodic-spin-one-haldane-gap":["claimed","ai-led"],
   "2026-10-06-quasi-riemann-hypothesis":["claimed","collaborative"],
   "2026-10-06-shelah-eventual-categoricity":["claimed","ai-led"],
   "2026-10-07-conversational-ai-subverts-clinical-judgment":["claimed","ai-assisted"],
@@ -208,6 +210,7 @@ const GRADES = {
   "2026-10-12-dedekind-zeta-quasi-riemann":["formal","collaborative"],
   "2026-10-12-matmul-3x3-rank-21":["claimed","collaborative"],
   "2026-10-13-neonatal-radiograph-continual-learning":["peer-reviewed","ai-assisted"],
+  "2026-10-14-microexon-code-autism-variants":["peer-reviewed","ai-assisted"],
   "2026-10-15-ai-auscultation-lv-dysfunction":["peer-reviewed","ai-assisted"],
   "2026-10-15-ai-infocare-previsit-summaries-rct":["peer-reviewed","ai-assisted"],
   "2026-10-15-llm-quantum-circuit-design":["claimed","search-scaffold"],
@@ -257,7 +260,8 @@ const GRADES = {
   "2026-11-06-doppler-ai-feedback-rct":["peer-reviewed","ai-assisted"],
   "2026-11-06-k-clique-hypothesis-refuted":["author-verified","collaborative"],
   "2026-11-06-lean-verified-quantum-programs":["claimed","search-scaffold"],
-  "2026-11-07-latent-ai-ecg-af-rct":["peer-reviewed","ai-assisted"]
+  "2026-11-07-latent-ai-ecg-af-rct":["peer-reviewed","ai-assisted"],
+  "2026-11-10-alphaproof-code-libsignal":["claimed","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -406,6 +410,7 @@ const ID_BY_TITLE = {
   "bollobas-nikiforov conjecture claimed in full, in a weighted form":"2026-09-06-bollobas-nikiforov",
   "improved lower bound for the complex grothendieck constant":"2026-09-07-complex-grothendieck-constant",
   "finite-time blowup for the unforced euler equations from smooth compactly supported data":"2026-09-08-euler-unforced-blowup",
+  "metasurface colour router inverse-designed with a neural-network-accelerated genetic algorithm, fabricated and measured":"2026-09-08-metasurface-color-router-unet-ga",
   "finite-time blowup for navier-stokes with smooth forcing, clay alternatives c and d":"2026-09-08-navier-stokes-forced-blowup",
   "a 3-generator 9-relator group with unsolvable word problem, and smaller adian-rabin families":"2026-09-09-small-undecidable-groups",
   "existence of the core in approval-based committee elections":"2026-09-10-approval-committee-core",
@@ -438,6 +443,7 @@ const ID_BY_TITLE = {
   "modularity of every elliptic curve over every imaginary quadratic field":"2026-10-06-modularity-imaginary-quadratic",
   "massive continuum limit of the two-dimensional o(3) model":"2026-10-06-o3-model-mass-gap",
   "719 manuscripts in 372 result families from an unreleased openai model":"2026-10-06-openai-math-collection",
+  "computer-assisted proof of a uniform spectral gap for the spin-1 heisenberg chain on even periodic rings":"2026-10-06-periodic-spin-one-haldane-gap",
   "quasi-riemann hypothesis: no zeros of zeta or any dirichlet l-function with real part above 7/8":"2026-10-06-quasi-riemann-hypothesis",
   "shelah's eventual categoricity conjecture for abstract elementary classes":"2026-10-06-shelah-eventual-categoricity",
   "physicians steered by a covertly adversarial chatbot made harmful decisions at 49% of targeted points, against 2% with an aligned one":"2026-10-07-conversational-ai-subverts-clinical-judgment",
@@ -452,6 +458,7 @@ const ID_BY_TITLE = {
   "no zeros of any dedekind zeta function with real part above 31/32, machine-checked in lean":"2026-10-12-dedekind-zeta-quasi-riemann",
   "lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a lean proof":"2026-10-12-matmul-3x3-rank-21",
   "adapting an adult chest-radiograph model to neonatal intensive care across 30 units":"2026-10-13-neonatal-radiograph-continual-learning",
+  "a machine-learning microexon splicing code links rare variants to autism in 7,391 families":"2026-10-14-microexon-code-autism-variants",
   "ai-enhanced auscultation for left ventricular dysfunction, validated in prospective japanese cohorts":"2026-10-15-ai-auscultation-lv-dysfunction",
   "randomised trial of ai-generated lay summaries before neurosurgical consultations":"2026-10-15-ai-infocare-previsit-summaries-rct",
   "llm-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks":"2026-10-15-llm-quantum-circuit-design",
@@ -501,7 +508,8 @@ const ID_BY_TITLE = {
   "randomised trial of ai feedback on clinicians reading fetal doppler ultrasound images":"2026-11-06-doppler-ai-feedback-rct",
   "refutation of the k-clique hypothesis, independent of the matrix multiplication exponent":"2026-11-06-k-clique-hypothesis-refuted",
   "llm agents write quantum programs checked against lean specifications":"2026-11-06-lean-verified-quantum-programs",
-  "randomised trial of ai-ecg guided monitoring for undetected atrial fibrillation":"2026-11-07-latent-ai-ecg-af-rct"
+  "randomised trial of ai-ecg guided monitoring for undetected atrial fibrillation":"2026-11-07-latent-ai-ecg-af-rct",
+  "lean proofs of security properties for the compiled machine code of libsignal":"2026-11-10-alphaproof-code-libsignal"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -650,6 +658,7 @@ const TITLE_BY_ID = {
   "2026-09-06-bollobas-nikiforov":"Bollobas-Nikiforov conjecture claimed in full, in a weighted form",
   "2026-09-07-complex-grothendieck-constant":"Improved lower bound for the complex Grothendieck constant",
   "2026-09-08-euler-unforced-blowup":"Finite-time blowup for the unforced Euler equations from smooth compactly supported data",
+  "2026-09-08-metasurface-color-router-unet-ga":"Metasurface colour router inverse-designed with a neural-network-accelerated genetic algorithm, fabricated and measured",
   "2026-09-08-navier-stokes-forced-blowup":"Finite-time blowup for Navier-Stokes with smooth forcing, Clay alternatives C and D",
   "2026-09-09-small-undecidable-groups":"A 3-generator 9-relator group with unsolvable word problem, and smaller Adian-Rabin families",
   "2026-09-10-approval-committee-core":"Existence of the core in approval-based committee elections",
@@ -682,6 +691,7 @@ const TITLE_BY_ID = {
   "2026-10-06-modularity-imaginary-quadratic":"Modularity of every elliptic curve over every imaginary quadratic field",
   "2026-10-06-o3-model-mass-gap":"Massive continuum limit of the two-dimensional O(3) model",
   "2026-10-06-openai-math-collection":"719 manuscripts in 372 result families from an unreleased OpenAI model",
+  "2026-10-06-periodic-spin-one-haldane-gap":"Computer-assisted proof of a uniform spectral gap for the spin-1 Heisenberg chain on even periodic rings",
   "2026-10-06-quasi-riemann-hypothesis":"Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8",
   "2026-10-06-shelah-eventual-categoricity":"Shelah's eventual categoricity conjecture for abstract elementary classes",
   "2026-10-07-conversational-ai-subverts-clinical-judgment":"Physicians steered by a covertly adversarial chatbot made harmful decisions at 49% of targeted points, against 2% with an aligned one",
@@ -696,6 +706,7 @@ const TITLE_BY_ID = {
   "2026-10-12-dedekind-zeta-quasi-riemann":"No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean",
   "2026-10-12-matmul-3x3-rank-21":"Lower bound of 21 multiplications for 3\u00d73 matrix multiplication over every field, with a Lean proof",
   "2026-10-13-neonatal-radiograph-continual-learning":"Adapting an adult chest-radiograph model to neonatal intensive care across 30 units",
+  "2026-10-14-microexon-code-autism-variants":"A machine-learning microexon splicing code links rare variants to autism in 7,391 families",
   "2026-10-15-ai-auscultation-lv-dysfunction":"AI-enhanced auscultation for left ventricular dysfunction, validated in prospective Japanese cohorts",
   "2026-10-15-ai-infocare-previsit-summaries-rct":"Randomised trial of AI-generated lay summaries before neurosurgical consultations",
   "2026-10-15-llm-quantum-circuit-design":"LLM-designed quantum circuits with fewer gates and qubits than published designs in seven of eight tasks",
@@ -745,7 +756,8 @@ const TITLE_BY_ID = {
   "2026-11-06-doppler-ai-feedback-rct":"Randomised trial of AI feedback on clinicians reading fetal Doppler ultrasound images",
   "2026-11-06-k-clique-hypothesis-refuted":"Refutation of the k-Clique hypothesis, independent of the matrix multiplication exponent",
   "2026-11-06-lean-verified-quantum-programs":"LLM agents write quantum programs checked against Lean specifications",
-  "2026-11-07-latent-ai-ecg-af-rct":"Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation"
+  "2026-11-07-latent-ai-ecg-af-rct":"Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation",
+  "2026-11-10-alphaproof-code-libsignal":"Lean proofs of security properties for the compiled machine code of libsignal"
 };
 /*VOCAB:END*/
 
