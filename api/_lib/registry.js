@@ -246,6 +246,7 @@ export const ENTRY_IDS = new Set([
   "2026-10-29-peddx-posterior-fossa-tumours",
   "2026-10-29-photo-malocclusion-screening",
   "2026-10-30-designed-activation-domains",
+  "2026-10-31-dfu-explainable-decision-support",
   "2026-11-02-pherc-306b-first-letters",
   "2026-11-02-retime-retinal-mortality",
   "2026-11-02-rosie-maternal-chatbot-rct",
@@ -257,9 +258,11 @@ export const ENTRY_IDS = new Set([
   "2026-11-05-xgb-ews-denmark",
   "2026-11-06-aura-ana-autoimmune-rct",
   "2026-11-06-doppler-ai-feedback-rct",
+  "2026-11-06-gait-foundation-model-phenotypes",
   "2026-11-06-k-clique-hypothesis-refuted",
   "2026-11-06-lean-verified-quantum-programs",
   "2026-11-07-latent-ai-ecg-af-rct",
+  "2026-11-09-claude-designed-electronics",
   "2026-11-10-alphaproof-code-libsignal"
 ]);
 export const ENTRY_GRADES = {
@@ -494,6 +497,7 @@ export const ENTRY_GRADES = {
   "2026-10-29-peddx-posterior-fossa-tumours": ["claimed", "ai-assisted"],
   "2026-10-29-photo-malocclusion-screening": ["claimed", "ai-assisted"],
   "2026-10-30-designed-activation-domains": ["author-verified", "search-scaffold"],
+  "2026-10-31-dfu-explainable-decision-support": ["peer-reviewed", "ai-assisted"],
   "2026-11-02-pherc-306b-first-letters": ["author-verified", "ai-assisted"],
   "2026-11-02-retime-retinal-mortality": ["peer-reviewed", "ai-assisted"],
   "2026-11-02-rosie-maternal-chatbot-rct": ["peer-reviewed", "ai-led"],
@@ -505,9 +509,11 @@ export const ENTRY_GRADES = {
   "2026-11-05-xgb-ews-denmark": ["peer-reviewed", "ai-assisted"],
   "2026-11-06-aura-ana-autoimmune-rct": ["peer-reviewed", "ai-assisted"],
   "2026-11-06-doppler-ai-feedback-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-11-06-gait-foundation-model-phenotypes": ["peer-reviewed", "ai-assisted"],
   "2026-11-06-k-clique-hypothesis-refuted": ["author-verified", "collaborative"],
   "2026-11-06-lean-verified-quantum-programs": ["claimed", "search-scaffold"],
   "2026-11-07-latent-ai-ecg-af-rct": ["peer-reviewed", "ai-assisted"],
+  "2026-11-09-claude-designed-electronics": ["claimed", "ai-led"],
   "2026-11-10-alphaproof-code-libsignal": ["claimed", "ai-led"]
 };
 export const ENTRY_TITLES = {
@@ -742,6 +748,7 @@ export const ENTRY_TITLES = {
   "2026-10-29-peddx-posterior-fossa-tumours": "Pediatric posterior fossa tumour classifier from T2 MRI with abstention, evaluated at an outside site (PedDx)",
   "2026-10-29-photo-malocclusion-screening": "Smartphone profile photograph screening for skeletal malocclusion, externally validated in Turkey and Belgium",
   "2026-10-30-designed-activation-domains": "Designed transcriptional activation domains, over 90 percent functional in yeast",
+  "2026-10-31-dfu-explainable-decision-support": "Explainable machine-learning decision support for diabetic foot ulcers, externally validated and tested in a randomised comparison",
   "2026-11-02-pherc-306b-first-letters": "First text read in the Herculaneum scroll PHerc. 306B",
   "2026-11-02-retime-retinal-mortality": "Deep learning marker of mortality risk from retinal photographs, validated in three external cohorts (RetiME)",
   "2026-11-02-rosie-maternal-chatbot-rct": "Randomised trial of a maternal health chatbot finds no improvement in anxiety or depression at 12 months",
@@ -753,9 +760,11 @@ export const ENTRY_TITLES = {
   "2026-11-05-xgb-ews-denmark": "Gradient-boosted early warning score tested for clinical net benefit across 2.08 million Danish hospital encounters",
   "2026-11-06-aura-ana-autoimmune-rct": "Randomised trial of a risk model triaging patients with a positive antinuclear antibody test",
   "2026-11-06-doppler-ai-feedback-rct": "Randomised trial of AI feedback on clinicians reading fetal Doppler ultrasound images",
+  "2026-11-06-gait-foundation-model-phenotypes": "Gait embeddings from a single depth camera predict health phenotypes across 18 body systems",
   "2026-11-06-k-clique-hypothesis-refuted": "Refutation of the k-Clique hypothesis, independent of the matrix multiplication exponent",
   "2026-11-06-lean-verified-quantum-programs": "LLM agents write quantum programs checked against Lean specifications",
   "2026-11-07-latent-ai-ecg-af-rct": "Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation",
+  "2026-11-09-claude-designed-electronics": "Three prototype electronic devices designed by Claude Fable 5.2 and built by Diode Computers",
   "2026-11-10-alphaproof-code-libsignal": "Lean proofs of security properties for the compiled machine code of libsignal"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];

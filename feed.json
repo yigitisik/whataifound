@@ -24,6 +24,51 @@
       ]
     },
     {
+      "id": "https://whataifound.org/finding/2026-11-09-claude-designed-electronics",
+      "url": "https://whataifound.org/finding/2026-11-09-claude-designed-electronics",
+      "title": "Three prototype electronic devices designed by Claude Fable 5.2 and built by Diode Computers",
+      "content_text": "From short prompts, Claude Fable 5.2 wrote the specifications, schematics, four-layer circuit board layouts, enclosures, firmware and parts lists for a USB speakerphone, a voice-assistant hub and a handheld virtual pet; Diode Computers, which has a disclosed commercial relationship with Anthropic, built all three from Claude's design files without changes to the circuitry, and all three still worked after weeks of use.  Each device began from a one-sentence prompt naming the device and its main hardware requirements. Claude placed components, routed copper with high-speed and noise-sensitive connections first, revised layouts on its own when routing stalled, and for the hub wrote its own grid-search router when KiCad's one-track-at-a-time router proved too slow. It ran design-for-manufacturing and parts-availability checks itself, modelled the enclosures in CAD, checked board-to-enclosure fit in code (finding that the speakerphone board must be tilted about 25 degrees to install), and shortened the hub's microphone ports to move their resonance out of the voice band. Diode reports that it manufactured the boards with no rounds of manufacturing changes. The post also reports internal benchmark gains over earlier Claude models, which are not the result recorded here.  Lab: Anthropic / Diode Computers. Model: Claude Fable 5.2. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-11-09T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "construction",
+        "pcb-design",
+        "hardware",
+        "capability-demonstration"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-06-gait-foundation-model-phenotypes",
+      "url": "https://whataifound.org/finding/2026-11-06-gait-foundation-model-phenotypes",
+      "title": "Gait embeddings from a single depth camera predict health phenotypes across 18 body systems",
+      "content_text": "A gait foundation model that turns three-dimensional skeletal motion, recorded by a single depth camera during five motor tasks, into learned embeddings predicted age (r = 0.69), body mass index (r = 0.91) and visceral fat area (r = 0.83) better than engineered gait features in 3,328 deeply phenotyped adults, significantly predicted 1,887 of 3,210 tested phenotypes, and improved on a baseline of age, body mass index, visceral fat and height in all 18 body systems in men and 17 of 18 in women, including clinical diagnoses and medication use.  Gait is usually summarised by engineered measurements such as cadence and stride length and read as a sign of particular diseases. Here the model encodes how all body joints move together over time, and those embeddings were tested against thousands of phenotypes measured in the Human Phenotype Project cohort, from grip strength to sleep quality. Ablations that removed body regions found leg dynamics carried most of the metabolic and frailty signal and torso dynamics most of the sleep and lifestyle signal. The authors argue for gait as a passive, multisystem vital sign in routine clinical assessment.  Lab: Weizmann Institute of Science. Model: Gait foundation model producing learned embeddings of 3D skeletal motion; architecture not named in the abstract. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "gait",
+        "digital-biomarker",
+        "foundation-model",
+        "phenome-wide"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-31-dfu-explainable-decision-support",
+      "url": "https://whataifound.org/finding/2026-10-31-dfu-explainable-decision-support",
+      "title": "Explainable machine-learning decision support for diabetic foot ulcers, externally validated and tested in a randomised comparison",
+      "content_text": "An ensemble of gradient-boosted trees and neural networks trained on records of 763 diabetic foot ulcer patients at two Chinese hospitals predicted cure, recurrence, amputation and death at a third hospital with a macro-averaged AUC of 0.901; in a 202-patient randomised comparison of AI-assisted against usual care, the AI-assisted arm had better short-term follow-up engagement and glucose-management adherence, and blinded experts scored AI-assisted versions of usual-care recommendations higher than the clinicians' originals (7.77 against 6.47 out of 9).  Development used electronic records and follow-up from 2018 to 2025 at two hospitals in Jiangsu and Anhui, with a locked model then tested on 100 patients from a hospital in Shandong; discrimination was highest for amputation (AUC 0.953) and death (0.951) and lowest for recurrence (0.820). From January to March 2026, 202 patients were randomised 1:1. In the AI-assisted arm physicians drafted a plan without the tool, then reviewed the four predicted risks, SHAP explanations and AI-generated recommendations through a web platform before revising, and kept final authority; the tool added about four minutes of data entry and two minutes of review per encounter. In the usual-care arm physicians worked without it.  Lab: Affiliated Hospital of Xuzhou Medical University / Westlake University. Model: Ensemble of single-task XGBoost and multilayer perceptron models with SHAP explanations. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-31T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "diabetic-foot",
+        "clinical-decision-support",
+        "explainable-ai",
+        "retrospective",
+        "external-validation",
+        "prospective",
+        "rct"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
       "url": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
       "title": "A machine-learning microexon splicing code links rare variants to autism in 7,391 families",

@@ -2530,6 +2530,7 @@ LAB_HUB = {
     "Bake AI": "https://bakeai.inc/research/",
     "Chungnam National University": "https://plus.cnu.ac.kr/html/en/",
     "University of Toronto": "https://www.utoronto.ca/",
+    "Weizmann Institute of Science": "https://www.weizmann.ac.il/",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on

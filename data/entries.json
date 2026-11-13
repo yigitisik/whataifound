@@ -13856,5 +13856,117 @@
       "variant-effect-prediction"
     ],
     "added": "2026-11-12"
+  },
+  {
+    "id": "2026-11-09-claude-designed-electronics",
+    "title": "Three prototype electronic devices designed by Claude Fable 5.2 and built by Diode Computers",
+    "claim": "From short prompts, Claude Fable 5.2 wrote the specifications, schematics, four-layer circuit board layouts, enclosures, firmware and parts lists for a USB speakerphone, a voice-assistant hub and a handheld virtual pet; Diode Computers, which has a disclosed commercial relationship with Anthropic, built all three from Claude's design files without changes to the circuitry, and all three still worked after weeks of use.",
+    "field": "engineering",
+    "date": "2026-11-09",
+    "lab": "Anthropic / Diode Computers",
+    "model": "Claude Fable 5.2",
+    "humans": [
+      "Mike Cretella",
+      "Connor Jennings",
+      "Brent Yi",
+      "Craig Chen"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Each device began from a one-sentence prompt naming the device and its main hardware requirements. Claude placed components, routed copper with high-speed and noise-sensitive connections first, revised layouts on its own when routing stalled, and for the hub wrote its own grid-search router when KiCad's one-track-at-a-time router proved too slow. It ran design-for-manufacturing and parts-availability checks itself, modelled the enclosures in CAD, checked board-to-enclosure fit in code (finding that the speakerphone board must be tilted about 25 degrees to install), and shortened the hub's microphone ports to move their resonance out of the voice band. Diode reports that it manufactured the boards with no rounds of manufacturing changes. The post also reports internal benchmark gains over earlier Claude models, which are not the result recorded here.",
+    "novelty_check": "arXiv API, 2026-11-12: abs:\"printed circuit board\" AND (abs:\"language model\" OR abs:LLM) returned 15 records: benchmarks for circuit-board layout and routing (OmniLayout, OmniRouting, PCB-QA), schematic generation (SchGen), and an August 2026 frontier-LLM radio-frequency engineering workflow taken from prompt to prototype. The post itself notes that OpenAI has written about using its models to design a handheld device. This is the first engineering entry in the registry, and no earlier entry covers hardware designed by a language model.",
+    "caveats": "A vendor case study, so claimed: the design files are not published and no one outside Anthropic and Diode has examined or tested the devices. Disclosure, as stated in the post: Anthropic has a commercial relationship with Diode, has worked with Diode electrical engineers on circuit-board design since 2025, and earlier collaborated with Diode to train Claude on simple circuit tasks; the only people who built and tested the devices are that commercial partner. The devices are prototypes with no electrical validation, antenna tuning, thermal testing or certification, they were not designed for mass production, and 'still works' means informal use over weeks, with no measurements reported. This is a demonstration of design capability rather than a scientific finding: the devices are ordinary consumer products, and the novelty is that a model produced working designs. Autonomy is ai-led rather than autonomous: Claude was not connected to test equipment or factory machines, Diode engineers assembled the boards and ran the firmware under its direction, and the Diode team gave occasional short directives and one question.",
+    "sources": [
+      {
+        "label": "Anthropic: Claude can design electronic prototypes from start to finish",
+        "url": "https://www.anthropic.com/research/claude-electronics-design",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "construction",
+      "pcb-design",
+      "hardware",
+      "capability-demonstration"
+    ],
+    "added": "2026-11-12"
+  },
+  {
+    "id": "2026-11-06-gait-foundation-model-phenotypes",
+    "title": "Gait embeddings from a single depth camera predict health phenotypes across 18 body systems",
+    "claim": "A gait foundation model that turns three-dimensional skeletal motion, recorded by a single depth camera during five motor tasks, into learned embeddings predicted age (\\(r = 0.69\\)), body mass index (\\(r = 0.91\\)) and visceral fat area (\\(r = 0.83\\)) better than engineered gait features in 3,328 deeply phenotyped adults, significantly predicted 1,887 of 3,210 tested phenotypes, and improved on a baseline of age, body mass index, visceral fat and height in all 18 body systems in men and 17 of 18 in women, including clinical diagnoses and medication use.",
+    "field": "medicine",
+    "date": "2026-11-06",
+    "lab": "Weizmann Institute of Science",
+    "model": "Gait foundation model producing learned embeddings of 3D skeletal motion; architecture not named in the abstract",
+    "humans": [
+      "Adam Gabet",
+      "Sarah Kohn",
+      "Guy Lutsker",
+      "Adina Weinberger",
+      "Eran Segal"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Gait is usually summarised by engineered measurements such as cadence and stride length and read as a sign of particular diseases. Here the model encodes how all body joints move together over time, and those embeddings were tested against thousands of phenotypes measured in the Human Phenotype Project cohort, from grip strength to sleep quality. Ablations that removed body regions found leg dynamics carried most of the metabolic and frailty signal and torso dynamics most of the sleep and lifestyle signal. The authors argue for gait as a passive, multisystem vital sign in routine clinical assessment.",
+    "novelty_check": "Europe PMC, 2026-11-12: gait in the title with foundation model, deep learning, embedding or machine learning, and health, phenotype, disease or biomarker, 78 records. Nearly all prior work predicts one condition, most often Parkinson's disease, falls or multiple sclerosis, from gait; the only multisystem phenome-wide records are this paper and its own research briefing. No earlier entry in this registry covers gait.",
+    "caveats": "Peer-reviewed in Nature Medicine, by the developers, with no independent replication; the paper itself was not read in full here. The machine-learning element is the learned embedding; most of the finding is an association analysis showing that gait carries information about many body systems, so the AI contribution is a representation that humans then tested. The abstract describes one Israeli cohort of 3,328 adults and reports no external cohort, and its outcomes are phenotypes measured within that cohort, many of them surrogates, rather than future clinical events. Competing interests per the paper: three authors are employees of Newton VR Ltd., which developed the Movement Lab system used to record gait, and two senior authors are paid consultants of Pheno.AI, Ltd. Autonomy is ai-assisted: humans designed the study and the analyses, and the model supplied the features.",
+    "sources": [
+      {
+        "label": "Nature Medicine: A gait foundation model for prediction of multisystem health phenotypes from 3D skeletal motion",
+        "url": "https://doi.org/10.1038/s41591-026-04724-9",
+        "kind": "research"
+      },
+      {
+        "label": "Nature Medicine research briefing: Deep learning-based gait analysis predicts multisystem health phenotypes",
+        "url": "https://doi.org/10.1038/s41591-026-04725-8",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "gait",
+      "digital-biomarker",
+      "foundation-model",
+      "phenome-wide"
+    ],
+    "added": "2026-11-12"
+  },
+  {
+    "id": "2026-10-31-dfu-explainable-decision-support",
+    "title": "Explainable machine-learning decision support for diabetic foot ulcers, externally validated and tested in a randomised comparison",
+    "claim": "An ensemble of gradient-boosted trees and neural networks trained on records of 763 diabetic foot ulcer patients at two Chinese hospitals predicted cure, recurrence, amputation and death at a third hospital with a macro-averaged AUC of 0.901; in a 202-patient randomised comparison of AI-assisted against usual care, the AI-assisted arm had better short-term follow-up engagement and glucose-management adherence, and blinded experts scored AI-assisted versions of usual-care recommendations higher than the clinicians' originals (7.77 against 6.47 out of 9).",
+    "field": "medicine",
+    "date": "2026-10-31",
+    "lab": "Affiliated Hospital of Xuzhou Medical University / Westlake University",
+    "model": "Ensemble of single-task XGBoost and multilayer perceptron models with SHAP explanations",
+    "humans": [
+      "Jia-Yu Zhang",
+      "Yangyang Zhuang",
+      "Qingping Cao",
+      "Aijun Zhang",
+      "Chi Zhang"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Development used electronic records and follow-up from 2018 to 2025 at two hospitals in Jiangsu and Anhui, with a locked model then tested on 100 patients from a hospital in Shandong; discrimination was highest for amputation (AUC 0.953) and death (0.951) and lowest for recurrence (0.820). From January to March 2026, 202 patients were randomised 1:1. In the AI-assisted arm physicians drafted a plan without the tool, then reviewed the four predicted risks, SHAP explanations and AI-generated recommendations through a web platform before revising, and kept final authority; the tool added about four minutes of data entry and two minutes of review per encounter. In the usual-care arm physicians worked without it.",
+    "novelty_check": "Europe PMC, 2026-11-12: \"diabetic foot\" AND (\"artificial intelligence\" OR \"machine learning\") AND (randomised OR randomized), 1,141 records, top 25 by relevance read: this paper, reviews and editorials, a 2025 protocol for a randomised trial of AI remote wound monitoring, and externally validated models predicting ulcer onset. No earlier completed randomised evaluation of AI decision support for diabetic foot ulcer prognosis was found among them, and no earlier entry in this registry covers diabetic foot care.",
+    "caveats": "The headline quality score is not a comparison between randomised arms. It comes from a nested paired evaluation: for the 100 usual-care cases, an AI-assisted version of each finalised clinician recommendation was generated offline, and the same expert scored both versions blind to source, one expert per document with no adjudication. The between-arm outcomes are follow-up engagement and adherence at 4 and 12 weeks, which are surrogates; 61 of 200 analysed patients were lost to follow-up and 86 responded at 12 weeks, and no difference in healing, amputation or death is reported, which the authors acknowledge. No trial registration number appears in the paper. Three hospitals in one country, 863 retrospective patients and an external validation set of 100. Funded by the Xuzhou Municipal Health Commission; the developers ran the trial, no commercial vendor is involved, the authors declare no competing interests, and the code is promised for public release. Autonomy is ai-assisted: physicians drafted plans first and made the final decision.",
+    "sources": [
+      {
+        "label": "EClinicalMedicine: An explainable artificial intelligence system for prognostic assessment and decision support in diabetic foot ulcer care",
+        "url": "https://doi.org/10.1016/j.eclinm.2026.104284",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "diabetic-foot",
+      "clinical-decision-support",
+      "explainable-ai",
+      "retrospective",
+      "external-validation",
+      "prospective",
+      "rct"
+    ],
+    "added": "2026-11-12"
   }
 ]
