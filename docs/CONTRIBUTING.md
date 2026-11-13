@@ -1,6 +1,6 @@
 # Contributing
 
-There are two ways in, and they are equal:
+There are two main ways:
 
 - **No GitHub needed:** use [whataifound.org/contribute](https://whataifound.org/contribute) to
   propose an entry, submit a check, challenge a grade or fix a link.
