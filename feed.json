@@ -9,6 +9,109 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-11-10-alphaproof-code-libsignal",
+      "url": "https://whataifound.org/finding/2026-11-10-alphaproof-code-libsignal",
+      "title": "Lean proofs of security properties for the compiled machine code of libsignal",
+      "content_text": "Google DeepMind's AlphaProof Code, a framework in which humans vet Lean specifications and Gemini-powered agents write the proofs, produced about 6.5 million lines of Lean establishing forward secrecy, authentication, post-compromise security and handshake secrecy for Signal's PQXDH handshake and Triple Ratchet as compiled to AArch64 machine code from unmodified libsignal, along with machine-checked disproofs for two previously fixed bugs reintroduced into the code.  The verified program is libsignal-cli, a small harness around the unmodified libsignal v0.105.4 and SPQR crates built by stock rustc, and the theorems are stated over whole runs of its AArch64 executable, so neither the Rust source nor the compiler is trusted. Humans and models wrote the specifications together, with a human reviewing each one; prover agents then wrote proofs that a gatekeeper accepted only when Lean's kernel checked them against the approved statement using standard axioms, with sorry and native_decide rejected. Reviewer agents flagged about one percent of the proof code for human review, and the work took four weeks. The two reintroduced bugs, a small-subgroup key encoding and a weak-state splicing attack, were found earlier by Cheval, Jacomme and Richards; for each the system proved the buggy binary insecure. The Lean development is public.  Lab: Google DeepMind. Model: AlphaProof Code agents powered by Gemini Carbon. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-11-10T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "argument",
+        "formal-verification",
+        "cryptography",
+        "lean",
+        "software-security"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-09-claude-designed-electronics",
+      "url": "https://whataifound.org/finding/2026-11-09-claude-designed-electronics",
+      "title": "Three prototype electronic devices designed by Claude Fable 5.2 and built by Diode Computers",
+      "content_text": "From short prompts, Claude Fable 5.2 wrote the specifications, schematics, four-layer circuit board layouts, enclosures, firmware and parts lists for a USB speakerphone, a voice-assistant hub and a handheld virtual pet; Diode Computers, which has a disclosed commercial relationship with Anthropic, built all three from Claude's design files without changes to the circuitry, and all three still worked after weeks of use.  Each device began from a one-sentence prompt naming the device and its main hardware requirements. Claude placed components, routed copper with high-speed and noise-sensitive connections first, revised layouts on its own when routing stalled, and for the hub wrote its own grid-search router when KiCad's one-track-at-a-time router proved too slow. It ran design-for-manufacturing and parts-availability checks itself, modelled the enclosures in CAD, checked board-to-enclosure fit in code (finding that the speakerphone board must be tilted about 25 degrees to install), and shortened the hub's microphone ports to move their resonance out of the voice band. Diode reports that it manufactured the boards with no rounds of manufacturing changes. The post also reports internal benchmark gains over earlier Claude models, which are not the result recorded here.  Lab: Anthropic / Diode Computers. Model: Claude Fable 5.2. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-11-09T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "construction",
+        "pcb-design",
+        "hardware",
+        "capability-demonstration"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-11-06-gait-foundation-model-phenotypes",
+      "url": "https://whataifound.org/finding/2026-11-06-gait-foundation-model-phenotypes",
+      "title": "Gait embeddings from a single depth camera predict health phenotypes across 18 body systems",
+      "content_text": "A gait foundation model that turns three-dimensional skeletal motion, recorded by a single depth camera during five motor tasks, into learned embeddings predicted age (r = 0.69), body mass index (r = 0.91) and visceral fat area (r = 0.83) better than engineered gait features in 3,328 deeply phenotyped adults, significantly predicted 1,887 of 3,210 tested phenotypes, and improved on a baseline of age, body mass index, visceral fat and height in all 18 body systems in men and 17 of 18 in women, including clinical diagnoses and medication use.  Gait is usually summarised by engineered measurements such as cadence and stride length and read as a sign of particular diseases. Here the model encodes how all body joints move together over time, and those embeddings were tested against thousands of phenotypes measured in the Human Phenotype Project cohort, from grip strength to sleep quality. Ablations that removed body regions found leg dynamics carried most of the metabolic and frailty signal and torso dynamics most of the sleep and lifestyle signal. The authors argue for gait as a passive, multisystem vital sign in routine clinical assessment.  Lab: Weizmann Institute of Science. Model: Gait foundation model producing learned embeddings of 3D skeletal motion; architecture not named in the abstract. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-11-06T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "gait",
+        "digital-biomarker",
+        "foundation-model",
+        "phenome-wide"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-31-dfu-explainable-decision-support",
+      "url": "https://whataifound.org/finding/2026-10-31-dfu-explainable-decision-support",
+      "title": "Explainable machine-learning decision support for diabetic foot ulcers, externally validated and tested in a randomised comparison",
+      "content_text": "An ensemble of gradient-boosted trees and neural networks trained on records of 763 diabetic foot ulcer patients at two Chinese hospitals predicted cure, recurrence, amputation and death at a third hospital with a macro-averaged AUC of 0.901; in a 202-patient randomised comparison of AI-assisted against usual care, the AI-assisted arm had better short-term follow-up engagement and glucose-management adherence, and blinded experts scored AI-assisted versions of usual-care recommendations higher than the clinicians' originals (7.77 against 6.47 out of 9).  Development used electronic records and follow-up from 2018 to 2025 at two hospitals in Jiangsu and Anhui, with a locked model then tested on 100 patients from a hospital in Shandong; discrimination was highest for amputation (AUC 0.953) and death (0.951) and lowest for recurrence (0.820). From January to March 2026, 202 patients were randomised 1:1. In the AI-assisted arm physicians drafted a plan without the tool, then reviewed the four predicted risks, SHAP explanations and AI-generated recommendations through a web platform before revising, and kept final authority; the tool added about four minutes of data entry and two minutes of review per encounter. In the usual-care arm physicians worked without it.  Lab: Affiliated Hospital of Xuzhou Medical University / Westlake University. Model: Ensemble of single-task XGBoost and multilayer perceptron models with SHAP explanations. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-31T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "diabetic-foot",
+        "clinical-decision-support",
+        "explainable-ai",
+        "retrospective",
+        "external-validation",
+        "prospective",
+        "rct"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
+      "url": "https://whataifound.org/finding/2026-10-14-microexon-code-autism-variants",
+      "title": "A machine-learning microexon splicing code links rare variants to autism in 7,391 families",
+      "content_text": "A gradient-boosted classifier trained to recognise neuronally spliced microexons from their surrounding sequence was used to score variants in whole genomes from three autism cohorts, prioritising 72 variants associated with autism within families that occur in 2.5% of autistic individuals and in none of their unaffected siblings; minigene assays in human induced neurons confirmed that representative variants alter microexon splicing.  Microexons are 3 to 27 nucleotide exons, mostly in neuronal genes, whose splicing is often disrupted in autistic brains. The study first profiled bulk and single-cell RNA-sequencing data to find 1,514 previously unknown human microexons and 1,115 mouse ones, then trained the classifier to separate sequences around true neural microexons from microexon-like background, so that a variant's effect on splicing can be scored as a change in the model's output. Applied to the SSC, SPARK and MSSNG cohorts (25,132 individuals in 7,391 families), rare and ultrarare variants had the largest predicted impact, the most affected microexons recurred across all three cohorts, and the 72-variant set comprises 28 ultrarare variants prioritised by this model and 44 also prioritised by DeltaSplice, an independent splicing predictor. About 82% of carriers had no previously detected candidate variant, and the variants concentrate in synaptic genes.  Lab: University of Toronto. Model: Gradient-boosted decision trees (XGBoost) microexon code-model. Verification: Peer reviewed. Autonomy: AI-assisted.",
+      "date_published": "2026-10-14T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "genomics",
+        "splicing",
+        "autism",
+        "variant-effect-prediction"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-periodic-spin-one-haldane-gap",
+      "url": "https://whataifound.org/finding/2026-10-06-periodic-spin-one-haldane-gap",
+      "title": "Computer-assisted proof of a uniform spectral gap for the spin-1 Heisenberg chain on even periodic rings",
+      "content_text": "A manuscript in OpenAI's October 2026 mathematics release proves that the spin-1 antiferromagnetic Heisenberg chain on even periodic rings has a unique ground state and a spectral gap above (log 20)/784 ≈ 0.0038 for every even length L ≥ 2304, the periodic formulation of Haldane's 1983 conjecture, by combining an analytic thermal-purity argument with certified finite computations.  Haldane predicted in 1983 that integer-spin antiferromagnetic chains have a gap above the ground state while half-integer chains do not; numerics put the spin-1 gap near 0.41, but no proof existed for the Heisenberg chain itself, which is not frustration free, so the finite-size criteria used for models such as AKLT do not apply. The manuscript, dated 24 September 2026 and published on 6 October 2026 as result 268 of the openai/math release that this registry records at 2026-10-06-openai-math-collection, bounds the gap through the purity of the Gibbs state, propagating finite-ring partition-function bounds to all longer even rings; it also gives Δ_L≳4.79 × 10⁻⁴ for L ≥ 60. A companion manuscript treats open chains with boundary fields. The release ships a Python finite verifier for the numerical inputs and no Lean formalization of this result. Three outside papers have since built on the proof: Sirui Lu's tensor-network reformulation sharpens the bound to Δ_L > 0.0729 for every even L ≥ 36 from the same inputs and certifies gaps for seven further chains and ladders, Hal Tasaki uses its machinery to prove uniqueness of the translation-invariant ground state of the infinite chain, and Tarun Grover extends the purity bootstrap to higher dimensions and fermions.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "argument",
+        "spin-chains",
+        "haldane-gap",
+        "computer-assisted-proof",
+        "openai-math"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-09-08-metasurface-color-router-unet-ga",
+      "url": "https://whataifound.org/finding/2026-09-08-metasurface-color-router-unet-ga",
+      "title": "Metasurface colour router inverse-designed with a neural-network-accelerated genetic algorithm, fabricated and measured",
+      "content_text": "A U-Net trained on 140,000 finite-difference time-domain simulations stood in for the solver inside a genetic algorithm, which evaluated 4 × 10⁷ candidate layouts for a single-layer silicon nitride colour router over a 2 µm Bayer cell; the fabricated device measured 88.8% total transmission against 95.4% predicted, though with per-colour routing efficiencies and crosstalk worse than simulated.  Camera sensors filter colour by absorption, discarding most incoming light; a colour router instead steers red, green and blue light onto their sub-pixels. The design here is a 16 by 16 grid of 600 nm silicon nitride pillars at 125 nm pitch. The surrogate predicts full transmitted field maps about 2.3 × 10⁵ times faster than the solver, which let the search run 4,000 generations against the roughly ten thousand structures a solver-driven genetic algorithm can afford. Because it predicts fields rather than a single score, the same trained network can be reused for other photodiode aperture layouts without new training data. In a colour-chart reconstruction using the measured spectra, the router gave brighter images than a literature colour-filter-array response at some cost in spatial resolution.  Lab: Chungnam National University. Model: U-Net surrogate (about 4.9 million parameters) inside a genetic algorithm. Verification: Peer reviewed. Autonomy: Search scaffold.",
+      "date_published": "2026-09-08T00:00:00+00:00",
+      "date_modified": "2026-11-12T00:00:00+00:00",
+      "tags": [
+        "construction",
+        "nanophotonics",
+        "metasurface",
+        "inverse-design"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
       "url": "https://whataifound.org/finding/2026-11-07-latent-ai-ecg-af-rct",
       "title": "Randomised trial of AI-ECG guided monitoring for undetected atrial fibrillation",
