@@ -12832,22 +12832,42 @@
   },
   {
     "id": "2026-10-26-yang-mills-existence-claim",
-    "title": "OpenAI claim of an existence proof for quantum Yang-Mills theory, held by a shepherding committee",
-    "claim": "OpenAI announced a proof, produced by its language model, that quantum Yang-Mills theory exists, including its coupling to fermions, by following the lattice theory to its continuum limit; a five-person committee of physicists and mathematicians holds the 1147-page proof, says confinement and the mass gap remain open, and has released neither the proof nor its Lean formalization.",
+    "title": "Lean-checked construction of four-dimensional quantum Yang-Mills theory by OpenAI, without uniqueness or a mass gap",
+    "claim": "OpenAI's language model produced a Lean proof, since released and rebuilt by an independent committee of physicists and mathematicians, that a relativistic quantum field theory satisfying the Wightman axioms arises as a scaling limit of four-dimensional Wilson lattice gauge theory for every simple compact gauge group; the committee judges this an existence proof for pure Yang-Mills theory, while uniqueness of the infinite-volume limit and the mass gap remain unproved.",
     "field": "mathematics",
     "date": "2026-10-26",
     "lab": "OpenAI",
     "model": "OpenAI language model, not named in the committee's statement",
-    "verification": "claimed",
+    "verification": "formal",
     "autonomy": "ai-led",
-    "detail": "The only primary document available is a two-page statement by the shepherding committee, Michael R. Douglas, David J. Gross (chair), Arthur Jaffe, Igor R. Klebanov and Nikita Nekrasov, dated October 2026 and hosted by the Kavli Institute for Theoretical Physics. It says OpenAI asked Gross on 16 October to take custody of the proof and decide how to release it, that Gross chose the rest of the committee, and that the committee has no responsibility to OpenAI. On its account the argument builds on Wilson's 1974 lattice regularization and on Balaban's rigorous renormalization group of the 1980s, and follows the theory all the way to infinite distances to prove the existence of its proper continuum limit. OpenAI is providing a Lean formalization. The committee's first step is to check that the definitions and problem statement match the standard ones in physics and mathematics and that the formalization matches the informal argument; it will then release the Lean proof, and later its own assessment together with the full 1147 pages.",
-    "novelty_check": "arXiv, 2026-11-05: ti:\"Yang-Mills\" AND (abs:\"construction\" OR abs:\"existence\") AND abs:\"four\" returned 225 records, the most recent being 2610.38134 on uniqueness of weak solutions of the Yang-Mills flow in four dimensions, a different problem; none claims a construction of the quantum theory. The openai/math release history through 29 October 2026 lists no Yang-Mills manuscript, consistent with the proof being held by the committee. Within this registry 2026-10-06-o3-model-mass-gap records OpenAI's claimed construction of the two-dimensional O(3) model, which Douglas described to Scientific American as the accepted warm-up for Yang-Mills; that entry concerns a different theory and stands.",
-    "caveats": "Entered at claimed, and nothing here is checkable: neither the 1147-page proof nor the Lean formalization is public, and the committee has not yet completed even its first step, confirming that the formal problem statement is the standard one. OpenAI's own announcement returned 403 to every attempt to read it for this entry, so it is cited but not quoted, and everything above comes from the committee's statement. The claim is existence only. The committee writes that confinement and the mass gap remain very important open challenges, and the Clay Millennium problem asks for existence and a mass gap together, so this is not a claimed solution of that problem. The statement never names the dimension; its context, quantum chromodynamics and the Standard Model, and its contact address point to the four-dimensional theory, but that is inference rather than a quoted claim. The committee is distinguished and says it works for the academic community, but it was convened at OpenAI's request and has published no assessment, so its custody is not yet an independent check. The reliability of the surrounding collection is part of the context: OpenAI withdrew three manuscripts on 7 October 2026 over a sign error. Autonomy is ai-led on the strictest defensible reading, matching every other result from these releases: the committee calls the result discovered by OpenAI's LLM and the proofs LLM proofs, while humans chose the problem and are running the formalization.",
+    "detail": "OpenAI asked David Gross on 16 October 2026 to take custody of the proof, and Gross formed a shepherding committee with Michael R. Douglas, Arthur Jaffe, Igor R. Klebanov and Nikita Nekrasov, whose two-page statement hosted by the Kavli Institute described a 1147-page argument building on Wilson's 1974 lattice regularization and Balaban's rigorous renormalization group. The committee published the Lean sources of OpenAI's 28 October submission on 5 November and, on 10 November, a 35-page initial assessment with its own checks in yang-mills-group/YM. On its reading the proof builds continuum correlation functions of gauge-invariant polynomials in the curvature as scaling limits of Wilson lattice correlations at fixed physical volume, extracts an infinite-volume limit along a subsequence by compactness, splits the limit into pure phases that each satisfy the Osterwalder-Schrader axioms, and reconstructs a Wightman theory, with a conserved stress tensor obeying its Ward identity, a nonzero trace with the expected leading short-distance law, an operator product expansion with error bounds and a proof that the theory is not free. The committee rebuilt the 9,470 project modules cleanly under Lean 4.32.0, found no project axioms, no use of sorryAx and no unsafe declarations among 250,319 imported declarations, and replayed the 100,168 declarations behind the 17 principal results in a fresh kernel using only propext, Classical.choice and Quot.sound. Comparator passed against OpenAI's public theorem on 30 October, against the committee's own stronger combined target on 3 November and against a separate operator-product statement on 5 November, and further Lean adapters show that the construction satisfies Osterwalder-Schrader axioms formulated before the committee knew of it (xiyin137/OSreconstruction) and that its finite Wilson measure equals the one in an independent lattice gauge theory formalization (mrdouglasny/lgt).",
+    "novelty_check": "arXiv, 2026-11-05: ti:\"Yang-Mills\" AND (abs:\"construction\" OR abs:\"existence\") AND abs:\"four\" returned 225 records, the most recent being 2610.38134 on uniqueness of weak solutions of the Yang-Mills flow in four dimensions, a different problem; none claims a construction of the quantum theory. The openai/math release history through 29 October 2026 lists no Yang-Mills manuscript, consistent with the proof being held by the committee. Within this registry 2026-10-06-o3-model-mass-gap records OpenAI's claimed construction of the two-dimensional O(3) model, which Douglas described to Scientific American as the accepted warm-up for Yang-Mills; that entry concerns a different theory and stands. Rechecked 2026-11-16 against the committee's repository, which lists two later submissions still under review, a second OpenAI submission of 4 November and one by Alpöge and Sussman of 15 November; neither has an assessment, and this entry covers only the 28 October submission.",
+    "caveats": "Graded formal on the committee's rebuild and statement checks, and the grade covers exactly what the Lean states. The committee calls the theory constructed by OpenAI an existence result under a criterion it adopts that does not require a precise characterization of the vacuum: the infinite-volume limit is reached along subsequences and is not shown to be unique, the component theories are not shown to agree, and the assessment says the construction gives no evidence for or against a mass gap. The Clay Millennium problem asks for existence and a mass gap together, so this is not a solution of that problem, and the assessment lists a uniform mass gap, a continuum probability measure, Wilson loops with an area law and the single-particle spectrum as open. The assessment covers pure Yang-Mills only. OpenAI's announcement included the coupling to fermions, and the committee directs QCD and chiral SU(5) submissions to a separate results repository, with nothing assessed there, so the earlier claim's fermion part is not covered by this grade. The assessment draws on the Lean sources and not on the informal manuscript, and nobody outside OpenAI is on record as having refereed that argument. Its authors say they do not claim to fully understand the proof yet, used OpenAI's Astra to translate the Lean into informal mathematics and to develop their additional checks, and call the document an initial assessment. Several limits on the mechanical check are the committee's own: OpenAI told it after submission that its public Comparator target omitted some connections to the lattice construction, which the committee's combined target restores; the Comparator runs used the macOS launcher without Linux process isolation; no second independent kernel was used; the independent Osterwalder-Schrader comparison covers the centered stress-trace hierarchy rather than every tensor field and cannot see contact terms on coincidence diagonals; and only 100,168 of the 250,319 declarations are used by the main theorems, in a code base the committee criticises for its quality and naming. The committee was convened at OpenAI's request, though it states that its only connection to OpenAI beyond accepting submissions is the use of Astra, and that it has no connection to the Clay Mathematics Institute. Science's coverage returned 403 to every attempt to read it for this revision, so it is cited but not quoted, as is OpenAI's announcement. Autonomy is ai-led on the strictest defensible reading, matching every other result from these releases: the committee's first statement calls the result discovered by OpenAI's LLM, while humans chose the problem and ran the formalization.",
     "sources": [
+      {
+        "label": "yang-mills-group/OpenAI-YM-20261028: OpenAI's Lean submission of 28 October 2026, preserved unchanged",
+        "url": "https://github.com/yang-mills-group/OpenAI-YM-20261028",
+        "kind": "research"
+      },
+      {
+        "label": "yang-mills-group/YM: the committee's checks, verification records and rerun instructions",
+        "url": "https://github.com/yang-mills-group/YM",
+        "kind": "research"
+      },
+      {
+        "label": "Yang-Mills group: Validation of the OpenAI Yang-Mills construction, initial assessment of 10 November 2026 (PDF)",
+        "url": "https://github.com/yang-mills-group/YM/blob/main/docs/assessment-1.pdf",
+        "kind": "commentary"
+      },
       {
         "label": "KITP: Proof by OpenAI of the Existence of Quantum Yang-Mills theory, statement by the shepherding committee",
         "url": "https://www.kitp.ucsb.edu/sites/default/files/YM_working_group.pdf",
         "kind": "commentary"
+      },
+      {
+        "label": "Science: AI rivals tackle one of physics' deepest mathematical challenges",
+        "url": "https://www.science.org/content/article/ai-rivals-tackle-one-physics-deepest-mathematical-challenges",
+        "kind": "coverage"
       },
       {
         "label": "OpenAI: Building scientific understanding with academic communities",
@@ -12865,9 +12885,25 @@
       "mathematical-physics",
       "quantum-field-theory",
       "yang-mills",
-      "argument"
+      "argument",
+      "lean"
     ],
-    "added": "2026-11-05"
+    "added": "2026-11-05",
+    "independent_checks": [
+      {
+        "who": "Yang-Mills group (Michael R. Douglas, David J. Gross, Arthur Jaffe, Igor R. Klebanov, Nikita Nekrasov); assessment prepared by Douglas, Jaffe, Ron Nissim and Fred Rajasekaran",
+        "url": "https://github.com/yang-mills-group/YM/blob/main/docs/assessment-1.pdf",
+        "outcome": "Clean rebuild with zero errors, an axiom and declaration audit finding only the three standard axioms, and Comparator passes against OpenAI's public theorem and against the group's own combined acceptance target and operator-product statement, plus Lean adapters to independently formulated Osterwalder-Schrader axioms and lattice gauge theory. Judged an existence proof for four-dimensional pure Yang-Mills theory as a scaling limit of Wilson lattice gauge theory, without uniqueness of the infinite-volume limit or a mass gap."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-11-16",
+        "kind": "regraded",
+        "note": "Regraded from claimed to formal: the committee released OpenAI's Lean proof, and its 10 November assessment reports a clean rebuild, an axiom audit and Comparator passes against its own target. The claim is narrowed to pure Yang-Mills existence, without uniqueness or a mass gap.",
+        "url": "https://github.com/yang-mills-group/YM/blob/main/docs/assessment-1.pdf"
+      }
+    ]
   },
   {
     "id": "2026-10-22-euler-2d-unforced-nonuniqueness",
@@ -13066,7 +13102,7 @@
     "autonomy": "collaborative",
     "detail": "A set is Diophantine in \\(\\mathbb{Q}\\) when membership can be written as the existence of rational witnesses satisfying a polynomial equation. Julia Robinson defined \\(\\mathbb{Z}\\) in \\(\\mathbb{Q}\\) in 1949 using both quantifiers, and Koenigsmann later gave a universal definition, but a purely existential one stayed open and Mazur's conjecture on the real closure of rational points would have ruled it out. The repository gives a construction in \\(292{,}890{,}231{,}905\\) variables and two smaller quartics, one in 411 variables with every coefficient written out in decimal and one in 394 variables written against the fixed integer \\(C = 3^{2^{25}}\\), and argues that degree four is the minimum possible. The work builds on OpenAI's October 6 preprint, which claims the undecidability of Hilbert's tenth problem over \\(\\mathbb{Q}\\) by a different route that does not produce a Diophantine definition of the integers, and credits a rank-one elliptic curve strategy going back to Thanases Pheidas and a prime-pattern strategy to Zhi-Wei Sun.",
     "novelty_check": "The claim is new in this registry and distinct from 2026-10-06-openai-math-collection, which carries OpenAI's claimed negative answer to Hilbert's tenth problem over the rationals: that release proves undecidability through a compactness and height argument without exhibiting a Diophantine definition of \\(\\mathbb{Z}\\), and this manuscript's own introduction treats it as an input rather than a duplicate. arXiv, 2026-11-09: abs:\"Diophantine\" AND abs:\"rational\" AND abs:\"integers\" AND abs:\"Hilbert\" returned 4 records and abs:\"Mazur\" AND abs:\"Diophantine\" AND abs:\"rational\" returned 3, none of them a Diophantine definition of the integers in the rationals; the closest are Shlapentokh's 2004 work on large subrings and Poonen's subring results, both weaker than the field. Recent unconditional work by Koymans and Pagano and by Alpöge, Bhargava, Ho and Shnidman settles the analogous question for rings of integers of number fields, which are not \\(\\mathbb{Q}\\). The manuscript is not on arXiv and has no DOI; the repository is the only artifact.",
-    "caveats": "Capped at claimed, and the strongest caveat is the author's own: the README states that AI review and successful finite checks do not constitute independent human peer review or a completed formal proof. The Lean formalization is incomplete, with 48 accepted helper modules but a main bounded-polynomial declaration that still contains sorry. The finite checks verify the source program, the coordinate changes, the eliminations and the coefficient tables, and the README says plainly that they do not prove the source system's arithmetic characterization of the integers, which is the mathematical content; that argument rests in the manuscript and has no outside confirmation. The repository was created on 2026-11-04 and had reached Version 13 by 2026-11-07, with the variable count falling from roughly 293 billion to 411 across thirteen versions and nine earlier review corrections recorded, so the construction is still moving. The manuscript's author field and the BibTeX author field are deliberately blank. No independent mathematician is on record confirming the proof; the one public exchange on r/math concerns the writing quality and the norms for AI-generated papers rather than the mathematics, and Glazer's reply that the proof is correct is an unverified self-report. The inventory also records that applications of Dodos-Kanellopoulos and Kollar were checked against author versions rather than final published text. Autonomy is collaborative: a named human directed the project and human collaborators contributed the Version 9 reductions and the collective agentic notes the construction relies on, while the models drafted and audited.",
+    "caveats": "Capped at claimed, and the strongest caveat is the author's own: the README states that AI review and successful finite checks do not constitute independent human peer review or a completed formal proof. The Lean formalization is incomplete, with 48 accepted helper modules but a main bounded-polynomial declaration that still contains sorry. The finite checks verify the source program, the coordinate changes, the eliminations and the coefficient tables, and the README says plainly that they do not prove the source system's arithmetic characterization of the integers, which is the mathematical content; that argument rests in the manuscript and has no outside confirmation. The repository was created on 2026-11-04 and had reached Version 13 by 2026-11-07, with the variable count falling from roughly 293 billion to 411 across thirteen versions and nine earlier review corrections recorded, so the construction is still moving. The manuscript's author field and the BibTeX author field are deliberately blank. No independent mathematician is on record confirming the proof; the one public exchange on r/math concerns the writing quality and the norms for AI-generated papers rather than the mathematics, and Glazer's reply that the proof is correct is an unverified self-report. The inventory also records that applications of Dodos-Kanellopoulos and Kollar were checked against author versions rather than final published text. Autonomy is collaborative: a named human directed the project and human collaborators contributed the Version 9 reductions and the collective agentic notes the construction relies on, while the models drafted and audited. The repository has since reached Version 18, which presents Jose Brox's 196-variable quartic built on Gabriel Conant's 198-variable construction, with coefficients fixed through a Busy Beaver value rather than written out, and says a Tao-Ziegler step asserted without proof in Versions 16 and 17 is now proved; Version 17's 214-variable family had a defining threshold the README calls ineffective.",
     "sources": [
       {
         "label": "GitHub: elliotglazer/diophantine-z-q",
@@ -13095,7 +13131,23 @@
       "hilberts-tenth-problem",
       "construction"
     ],
-    "added": "2026-11-09"
+    "added": "2026-11-09",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "mathbb-z-is-diophantine-in-mathbb-q",
+        "url": "https://vibemathed.com/problem/mathbb-z-is-diophantine-in-mathbb-q",
+        "note": "Records Version 17 of 13 November 2026, labels its own verification unreviewed, and notes that the main Lean target still contains sorry."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-11-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record as a registration and noted that the construction has reached Version 18 with a 196-variable quartic. No grade moved.",
+        "url": "https://github.com/elliotglazer/diophantine-z-q"
+      }
+    ]
   },
   {
     "id": "2026-11-04-stacks-project-lean-axiom",
@@ -13453,7 +13505,23 @@
       "matrix-multiplication",
       "argument"
     ],
-    "added": "2026-11-09"
+    "added": "2026-11-09",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-k-clique-hypothesis",
+        "url": "https://vibemathed.com/problem/the-k-clique-hypothesis",
+        "note": "Records this paper as the refutation, labels its own verification unreviewed, and says its check on 15 November 2026 read the statement and Theorem 1.1 but not the proofs."
+      }
+    ],
+    "revisions": [
+      {
+        "date": "2026-11-16",
+        "kind": "correction",
+        "note": "Recorded the vibemathed record for the k-Clique hypothesis as a registration. No grade moved.",
+        "url": "https://vibemathed.com/problem/the-k-clique-hypothesis"
+      }
+    ]
   },
   {
     "id": "2026-11-05-grassl-qubit-code-tables",
@@ -13968,5 +14036,722 @@
       "rct"
     ],
     "added": "2026-11-12"
+  },
+  {
+    "id": "2026-11-06-aaronson-ambainis-conjecture",
+    "title": "Lean-checked proof of the Aaronson-Ambainis conjecture on influential variables of bounded polynomials",
+    "claim": "A research system at Physical Superintelligence running a non-public Anthropic model produced a proof, checked in Lean by two independent kernels, that every low-degree polynomial bounded on the Boolean cube with non-trivial variance has a variable of polynomially large influence, the conjecture Aaronson and Ambainis showed implies that quantum query algorithms can be simulated classically on most inputs with polynomially more queries.",
+    "field": "computer-science",
+    "date": "2026-11-06",
+    "lab": "Physical Superintelligence (PSI)",
+    "model": "Non-public Anthropic model, run in a research harness built at PSI",
+    "humans": [
+      "David Turturean"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "year_posed": 2009,
+    "detail": "The main theorem says that every \\(f : \\{-1, 1\\}^n \\to [-1, 1]\\) of degree at most \\(d\\) has a coordinate \\(j\\) with \\(\\mathrm{Inf}_j(f) \\ge \\frac{\\sqrt{15}}{500\\pi^4}\\mathrm{Var}(f)^{5/2}/d^6\\), which in the conjecture's own normalisation gives an influence of at least \\((\\varepsilon/d)^7\\), where Aaronson and Ambainis asked only for \\((\\varepsilon/d)^{O(1)}\\). The proof follows a plan of Lovett and Zhang through level sets and fractional certificates and replaces the inequality their plan left as a conjecture with a new all-pairs inequality, obtained from a bijection produced by the lowest-degree terms of a determinant and related to Reimer's butterfly lemma; a row bound by the method of Agarwal and Ben-David supplies the degree dependence. The Lean statement of record, PrintedConjecture, sits in a file that imports only Mathlib and uses no definition of the project. For each of the four final theorems the repository records an axiom print of exactly propext, Classical.choice and Quot.sound, a kernel replay with leanchecker from an empty environment, the same replays with the independent lean4lean checker, and a sandboxed Comparator run that also rechecks the proofs with nanoda.",
+    "novelty_check": "arXiv, 2026-11-16, abs:\"Aaronson-Ambainis\" AND abs:conjecture returned 15 records. Everything before November 2026 is partial: the conjecture for random restrictions (2402.13952), for completely bounded polynomials (2609.05201), distributional variants (2609.35327), and the August 2026 Stanford result for algorithms with a fixed number of parallel query rounds that PSI cites. The two November records are an exposition of this proof and a shorter proof that uses part of it, both recorded under independent checks. No entry in this registry covered the conjecture, and the proof is not among the entries in Palomar's recent feed read on 2026-11-16.",
+    "caveats": "Graded formal on the machine check, on the same footing as 2026-10-26-eth-refuted-claude: a sorry-free Lean development with only the standard axioms, re-checked by a second independent kernel, whose statement file is short enough for a person to compare with the conjecture. That comparison is the load-bearing step a kernel cannot make, and the only published one is vibemathed's, which records reading PrintedConjecture line by line against Conjecture 6 of arXiv:0911.0996v3 and finding that it matches. The checks are PSI's own records, run in its GitHub workflows; the proof is not registered on Palomar and the build was not rerun for this entry. The fourth Lean theorem assumes Theorem 1.7 of Agarwal and Ben-David, which is not formalized, but it only improves the constant by a factor of four; the theorem that proves the printed conjecture has no hypothesis. The paper itself is not machine-checked, and the repository lists the passages with no Lean counterpart. There is no peer review. The Stanford group's praise quoted in PSI's post is first-party framing, though its own exposition on arXiv stands as an outside reading. Jim Halverson, who audited the proof, is an adviser to PSI and so not independent. Autonomy is ai-led on the strictest defensible reading: PSI says the mathematical statements, the first draft and the Lean formalization were produced by AI models in a harness David Turturean built, that he scoped the problem and ran the system, and that he reviewed the paper and takes responsibility for it. The model is non-public, so the run cannot be reproduced, and PSI is a company announcing its own system.",
+    "independent_checks": [
+      {
+        "who": "Guy Blanc, Jordan Docter, Carmen Strassle and Li-Yang Tan (Stanford University)",
+        "url": "https://arxiv.org/abs/2611.11626",
+        "outcome": "Wrote a 30-page exposition of the proof after working to understand it, organised around four steps with weaker exponents than the original; the authors note they received no compensation from Anthropic or PSI and used Anthropic's public models in preparing it."
+      },
+      {
+        "who": "Thomas Huffstutler, David Miloschewsky and Supartha Podder",
+        "url": "https://arxiv.org/abs/2611.12795",
+        "outcome": "Gave a seven-page proof of the conjecture through the completion framework that uses only a special case of Turturean's certificate inequality, for which they supply their own self-contained proof."
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-aaronson-ambainis-conjecture",
+        "url": "https://vibemathed.com/problem/the-aaronson-ambainis-conjecture",
+        "note": "Labels it Lean-checked with the statement unaudited, while recording that its own check on 15 November 2026 read PrintedConjecture line by line against Conjecture 6 of arXiv:0911.0996v3 and found that it matches."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: physical-superintelligence/aaronson-ambainis, the paper and Lean formalization",
+        "url": "https://github.com/physical-superintelligence/aaronson-ambainis",
+        "kind": "research"
+      },
+      {
+        "label": "Turturean: A proof of the Aaronson-Ambainis conjecture (PDF)",
+        "url": "https://github.com/physical-superintelligence/aaronson-ambainis/blob/main/paper/aaronson_ambainis_paper.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "PSI: A proof of the Aaronson-Ambainis conjecture",
+        "url": "https://psi.inc/research/aaronson-ambainis/",
+        "kind": "announcement"
+      },
+      {
+        "label": "arXiv: Blanc, Docter, Strassle and Tan, Proof of the Aaronson-Ambainis Conjecture: An Exposition",
+        "url": "https://arxiv.org/abs/2611.11626",
+        "kind": "commentary"
+      },
+      {
+        "label": "arXiv: Huffstutler, Miloschewsky and Podder, A short proof of the Aaronson-Ambainis Conjecture via the completion framework",
+        "url": "https://arxiv.org/abs/2611.12795",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "quantum-query-complexity",
+      "boolean-functions",
+      "influence",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-10-smale-mean-value-constant-four",
+    "title": "Smale's mean value constant shown to equal 4, with a Lean proof",
+    "claim": "Dave Goel, steering Claude and ChatGPT in alternation, proved that the supremum over all degrees of Smale's mean value constant is exactly 4, Smale's own 1981 bound, approached as the degree grows but never attained, so no smaller constant works for every degree; the main theorem is registered on Palomar as a Lean proof.",
+    "field": "mathematics",
+    "date": "2026-11-10",
+    "lab": "Independent",
+    "model": "Claude (Anthropic) and ChatGPT (OpenAI), alternated; versions not stated",
+    "humans": [
+      "Dave Goel"
+    ],
+    "verification": "formal",
+    "autonomy": "collaborative",
+    "year_posed": 1981,
+    "detail": "For a complex polynomial \\(p\\) of degree \\(d \\ge 2\\) with \\(p(0) = 0\\) and \\(p'(0) \\ne 0\\), let \\(S(p)\\) be the least value of \\(|p(c)/(c\\,p'(0))|\\) over the critical points \\(c\\), and let \\(K(d)\\) be the supremum of \\(S(p)\\) in degree \\(d\\). Smale proved \\(K(d) \\le 4\\) in 1981 and asked whether 4 could be replaced by 1. That conjecture was refuted earlier in 2026, which this registry records at 2026-09-03-smale-mean-value-k1, and lower bounds then rose to 1.1018 (Jatar and Ng) and 1.1559 (Goel), with Jatar and Ng listing whether the supremum \\(K^*\\) equals 4 as open. The paper proves \\(K^* = \\lim_{d \\to \\infty} K(d) = 4\\) by combining Jatar and Ng's reduction to admissible univalent Blaschke pairs with an explicit construction. Since each \\(K(d)\\) is known to be below 4, the supremum is not attained. The Lean development proves the main theorem in the paper's normalization together with Smale's bound \\(K(d) \\le 4\\), that \\(K(d)\\) does not decrease with \\(d\\), and that \\(K(d) < 4\\) in every degree.",
+    "novelty_check": "arXiv, 2026-11-16, abs:\"mean value\" AND abs:Smale AND abs:constant returned 3 records: this paper (2611.17373), Jatar and Ng's 2610.21472, which states the exact value as open, and a 2004 paper on mean value conjectures for rational maps. Within this registry 2026-09-03-smale-mean-value-k1 is a different and weaker result: it shows the constant exceeds 1, while this one determines its value. vibemathed records the result as solved on 6 November 2026, earlier than the arXiv posting used as the date here, probably from a Zenodo version; that date was not confirmed for this entry.",
+    "caveats": "Graded formal on the Palomar registration, which records trust level high for three theorems at a pinned commit. vibemathed's check read the Lean definitions of K(d) and its supremum line by line and found that they match the problem as Smale and Jatar and Ng pose it; Google DeepMind's Formal Conjectures states only the K = 1 form, so nothing written independently anchors this statement. The paper is unrefereed, and Hexagon labels it a mix of human-written and AI-generated text with human understanding of some parts. The proof gives no bound on the degree needed for \\(K(d)\\) to exceed a given value below 4. Autonomy is collaborative: the author writes that the work was done overwhelmingly by AI models but steered by him in a continuous critical dialogue, which could support ai-led, and the weaker grade wins when the reading is arguable. Model versions are not stated.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-12-000015",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-12-000015&version=1",
+        "title": "Smale's mean value constant equals 4",
+        "repository": "david44hello/paper_smale-mean-value-constant-equals-4",
+        "commit": "72511404d60696455d07604a6f6cb2e97aad44b4",
+        "theorems": [
+          "Smale.P030.Rows.thm_1_1",
+          "Smale.P030.kstar_eq_four",
+          "Smale.P030.tendsto_Kd_four"
+        ],
+        "checked": "2026-11-16",
+        "note": "Trust level high. The record states the result as answering Smale's question in the negative rather than proving his conjecture."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "smale-s-mean-value-constant",
+        "url": "https://vibemathed.com/problem/smale-s-mean-value-constant",
+        "note": "Labels it Lean-checked with the statement unaudited, and records reading the headline definitions line by line without rebuilding the proof."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Goel, Smale's mean value constant (1981) equals 4",
+        "url": "https://arxiv.org/abs/2611.17373",
+        "kind": "research"
+      },
+      {
+        "label": "Hexagon 2611.00282: Smale's mean value constant (1981) equals 4",
+        "url": "https://hexagonmath.org/2611.00282",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: david44hello/paper_smale-mean-value-constant-equals-4, the Lean proof",
+        "url": "https://github.com/david44hello/paper_smale-mean-value-constant-equals-4",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Jatar and Ng, Smale's mean value constant and admissible univalent Blaschke pairs",
+        "url": "https://arxiv.org/abs/2610.21472",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "complex-analysis",
+      "polynomials",
+      "smale-problems",
+      "lean",
+      "construction"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-10-castro-silva-triangles-plane",
+    "title": "Large triangles in planar sets of positive upper density, resolving Castro-Silva's conjecture, with a Lean proof",
+    "claim": "Polona Durcik directed GPT-6 Astra Pro to a proof, formalized in Lean by Claude Opus 5.5 and registered on Palomar, that every measurable planar set of positive upper Banach density contains a rotated and translated copy of every sufficiently large dilate of any fixed non-degenerate triangle, which gives the planar conjecture of Davi Castro-Silva.",
+    "field": "mathematics",
+    "date": "2026-11-10",
+    "lab": "Independent",
+    "model": "GPT-6 Astra Pro via Codex (proof and manuscript); Claude Opus 5.5 at medium effort (Lean formalization)",
+    "humans": [
+      "Polona Durcik"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "year_posed": 2021,
+    "detail": "Furstenberg, Katznelson and Weiss showed that every positive-radius neighbourhood of a set of positive upper density contains congruent copies of all large dilates of a triangle, Bourgain obtained exact copies of non-degenerate simplices in dimension three and higher, and Falconer, Kovac and Yavicoli reached the planar statement for density above one half. Castro-Silva conjectured it for every positive upper density, measured in squares centred at the origin. The note proves it under upper Banach density, which dominates that centred density, and with orientation-preserving copies, so it implies the conjecture. The argument combines the density Hales-Jewett theorem with an operator-norm continuity estimate for the triangle-counting form, derived from a trilinear smoothing theorem. Its provenance statement says the manuscript came from three conversations with GPT-6 Astra Pro on 4 and 5 November 2026, in which Durcik directed the model toward trilinear oscillatory integral methods from papers by Christ and by Christ, Durcik and Roos that she supplied, with otherwise generic prompts.",
+    "novelty_check": "arXiv, 2026-11-16, abs:triangle AND abs:\"upper density\" AND abs:plane returned no records. The note's own literature review stops at Falconer, Kovac and Yavicoli's 2022 result for density above one half. Castro-Silva's broader conjecture for \\(d+1\\) points in \\(\\mathbb{R}^d\\) in other dimensions is not addressed. Nothing in this registry covered it; the nearest entry, 2026-10-19-erdos-173-monochromatic-triangles, concerns colourings of the plane.",
+    "caveats": "Graded formal on the Palomar registration, trust level high, which vibemathed reports as checked with the nanoda and con-ron kernels against a Challenge.lean whose headline statement, including the definition of upper Banach density, it read and found to match Theorem 1.1. That match was made by the author and by an aggregator, not by an independent specialist, and both the Lean statement and its proof were machine-generated. The note is nine pages, unrefereed, and labelled on Hexagon as primarily AI-generated with human understanding of some parts. No outside mathematician is on record as having read it. Autonomy is ai-led rather than autonomous on the strictest defensible reading: the human posed the problem, chose the family of methods and supplied the papers that carry them, and the model produced the argument.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-10-000004",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-10-000004&version=1",
+        "title": "Triangles in sets of positive upper density in the plane",
+        "repository": "durcikp/lean-trianglesinplane",
+        "commit": "3fb29cdc7ad97a2ef235503309b6ba994518ad64",
+        "theorems": [
+          "Auto.triangles_in_the_plane"
+        ],
+        "checked": "2026-11-16",
+        "note": "Trust level high."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "the-positive-density-configuration-problem",
+        "url": "https://vibemathed.com/problem/the-positive-density-configuration-problem",
+        "note": "Labels it Lean-checked with the statement unaudited, and records reading Castro-Silva's Conjecture 1 in arXiv 2102.10018 against the Lean headline statement."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00302: Triangles in sets of positive upper density in the plane",
+        "url": "https://hexagonmath.org/2611.00302v1",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: durcikp/lean-trianglesinplane, the Lean formalization",
+        "url": "https://github.com/durcikp/lean-trianglesinplane",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Castro-Silva, Geometrical sets with forbidden configurations, stating the conjecture",
+        "url": "https://arxiv.org/abs/2102.10018",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "euclidean-ramsey-theory",
+      "geometric-measure-theory",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-11-talagrand-ultimate-matching",
+    "title": "Talagrand's Ultimate Matching Conjecture proved for finite critical exponents and refuted at the endpoints",
+    "claim": "Three probabilists posted a 70-page proof, largely generated and proof-checked by language models, that random points in the unit square can be matched with simultaneous exponential tail bounds in both coordinates for every pair of finite critical exponents, settling Talagrand's Ultimate Matching Conjecture in that range, and showing that it fails at the two endpoint cases.",
+    "field": "mathematics",
+    "date": "2026-11-11",
+    "lab": "Independent (CNRS and Université Gustave Eiffel; University of Pisa)",
+    "model": "GPT-6 (OpenAI) and Claude Fable (Anthropic); versions not stated",
+    "humans": [
+      "Michael Goldman",
+      "Francesco Grotto",
+      "Dario Trevisan"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "year_posed": 2021,
+    "detail": "Talagrand posed the conjecture as Research Problem 17.1.2 of his 2021 monograph: match \\(N\\) independent uniform points in the unit square to evenly spread points by a single permutation whose coordinate displacements obey exponential tail bounds of exponents \\(\\alpha_1\\) and \\(\\alpha_2\\) at once, at the scale \\(\\sqrt{\\log N/N}\\), whenever \\(1/\\alpha_1 + 1/\\alpha_2 = 1/2\\). The paper proves this for all finite \\(\\alpha_1, \\alpha_2 > 2\\), for an evenly spread deterministic target and for a second independent sample, by building on the flat torus a current whose divergence is Gaussian white noise projected on a dyadic grid and whose coordinates satisfy the critical anisotropic Orlicz bounds, then transferring it to a matching through an optimal-transport reduction. At the endpoints \\((2,\\infty)\\) and \\((\\infty,2)\\) a Brownian local-time construction shows that the normalised optimal cost diverges, so the conjecture is false there. Exact endpoint asymptotics are claimed only in a separate file in the authors' repository.",
+    "novelty_check": "arXiv, 2026-11-16, abs:Talagrand AND abs:matching AND abs:\"exponential\" returned one record, on vector balancing, which is unrelated. The paper builds on the authors' own 2026 work on exact asymptotics for the two-dimensional matching problem (2609.08717). This registry carries other Talagrand problems, the convolution conjecture and the operator cotype problem, but nothing on matching.",
+    "caveats": "Entered at claimed rather than author verified, on the authors' own account: their use-of-AI section says the manuscript was mostly generated and proof-checked by LLMs while they worked to understand earlier monolithic versions, that they have an overall understanding of the proofs, and that they plan to provide a fully digested version shortly. Hexagon labels the text primarily AI-generated with human understanding of some parts. Seventy unrefereed pages with no formalization and no outside reader. vibemathed's metadata for the result is internally inconsistent, labelling its verification unreviewed while showing curator approval, so it adds nothing as a check. Autonomy is collaborative: the authors describe weeks of interaction starting from their own earlier project, after which a solution of the critical case appeared, somewhat unexpectedly to them, in a later round, and GPT-6 then obtained the endpoint asymptotics. That could support ai-led, and the weaker grade wins when the reading is arguable.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "talagrand-s-ultimate-matching-conjecture",
+        "url": "https://vibemathed.com/problem/talagrand-s-ultimate-matching-conjecture",
+        "note": "Labels its own verification unreviewed."
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00294: The Ultimate Matching Theorem",
+        "url": "https://hexagonmath.org/2611.00294v1",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: grottofrancesco/UltimateMatchingTheorem, including the earlier monolithic versions",
+        "url": "https://github.com/grottofrancesco/UltimateMatchingTheorem",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "probability",
+      "random-matching",
+      "optimal-transport",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-02-hopfield-free-energy",
+    "title": "Limit free energy of the Hopfield model identified at every temperature and loading ratio",
+    "claim": "Six mathematicians identified, by a Parisi-type variational formula, the limit of the free energy of the Hopfield associative-memory model with random Bernoulli patterns at every temperature and every ratio of patterns to neurons, after one of them obtained the existence of the limit with assistance from GPT 6 Astra.",
+    "field": "mathematics",
+    "date": "2026-11-02",
+    "lab": "Independent (Hebrew University, MIT, NYU Shanghai, Weizmann Institute, Sorbonne University, ENS Lyon)",
+    "model": "GPT 6 Astra (existence proof and writing) and Fable 5.1 (writing)",
+    "humans": [
+      "Ayman Ali",
+      "Jeanne Boursier",
+      "Hong-Bin Chen",
+      "Fu-Hsuan Ho",
+      "Victor Issa",
+      "Jean-Christophe Mourrat"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "In the Hopfield model, spins interact through independent random patterns, and in the regime where the number of patterns grows in proportion to the number of spins, Amit, Gutfreund and Sompolinsky derived a non-rigorous phase diagram in the 1980s; rigorous results covered high temperature, small loading with low temperature, or assumed concentration of the order parameters. The paper proves that the expected free energy converges for every loading ratio and inverse temperature and identifies the limit as a sup-inf variational formula of Parisi type, with almost sure and \\(L^1\\) convergence as well. A Hubbard-Stratonovich transformation turns the model into a bipartite spin glass with \\(\\pm 1\\) and spherical spins, which the authors show is equivalent to one with Gaussian patterns plus finitely many Bernoulli random fields, and they solve that model by adapting recent techniques for spin glasses. The statement of AI use says Ayman Ali obtained the existence proof with assistance from GPT 6 Astra and shared it, that Chen and Mourrat already had a detailed draft identifying the limit for Gaussian patterns, and that all six wrote the final manuscript with GPT 6 Astra and Fable 5.1.",
+    "novelty_check": "arXiv, 2026-11-16, ti:Hopfield AND abs:\"free energy\" returned 21 records. The nearest are concurrent and cited by the paper: Camilli, Contucci and Mingione (2610.32618, 23 October 2026) solve the model with Gaussian patterns, and Barra and Durante (2610.41938, 30 October 2026) prove existence of the limit for Bernoulli patterns without identifying it. Earlier records cover the replica-symmetric regime only. Nothing in this registry covered the model.",
+    "caveats": "Author verified: the authors state that they manually verified all statements and proofs and take full responsibility, and no outside check exists yet for a 37-page preprint. Two concurrent papers within a fortnight cover parts of the result, so credit for its pieces is shared. Autonomy is ai-assisted: the model helped one author with the existence proof, while the identification of the limit, the main result, built on two of the authors' own draft for Gaussian patterns, and the rest of the model use was in writing.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "free-energy-of-the-hopfield-model",
+        "url": "https://vibemathed.com/problem/free-energy-of-the-hopfield-model",
+        "note": "Labels its own verification unreviewed."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Free energy of the Hopfield model",
+        "url": "https://arxiv.org/abs/2611.03306",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "statistical-mechanics",
+      "spin-glasses",
+      "hopfield-model",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-16-naslund-crossing-lower-bounds",
+    "title": "First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team",
+    "claim": "A multi-agent harness of Claude models run by Arth Singh proved in Lean, over every field, that the quantity P(n) in Naslund's crossing problem is at least 4n/3, then 15n/11 and 67n/49 for larger n, and that P(4) = 7, the first lower bounds above the trivial n, though all are linear and leave Naslund's superlinear question open.",
+    "field": "mathematics",
+    "date": "2026-11-16",
+    "lab": "AIM Intelligence",
+    "model": "Claude Fable 5.2 lead with Claude Opus 5.5 workers, in an in-house multi-agent harness",
+    "humans": [
+      "Arth Singh"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "year_posed": 2017,
+    "detail": "\\(P(n)\\) is the least \\(r + s\\) such that the tensor \\([x_1 = x_4][x_2 = x_3]\\) on \\([n]^4\\) is a sum of \\(r\\) tensors of rank one along one pairing of the coordinates and \\(s\\) along another; equivalently, the least \\(\\operatorname{rank} B + \\operatorname{rank} R(C)\\) over splittings of the swap matrix as \\(B + C\\), with \\(R\\) the realignment. Naslund asked, as Problem 12 of his paper (arXiv 2017, JCTA 2020), whether \\(P(n) \\ge n^{1+\\varepsilon}\\). The repository proves \\(P(n) \\ge 4n/3\\) for \\(n \\ge 3\\), \\(15n/11\\) for \\(n \\ge 5\\), \\(67n/49\\) for \\(n \\ge 7\\), \\(n + 3\\) for \\(n \\ge 4\\), \\(P(5) \\ge 8\\), \\(P(6) \\ge 9\\) and \\(P(4) = 7\\), with an exact-arithmetic script showing the border value at \\(n = 4\\) is lower. The paper also shows that no argument of the slice kind used here can reach \\(2n\\). The README's account of the run says one agent posed the lower-bound question and proved the trivial bound unprompted, a second improved it, the operator then set the goal of going further, and the bounds above followed within about 74 minutes.",
+    "novelty_check": "arXiv, 2026-11-16, abs:Naslund returned 17 records, none with a lower bound on this quantity; the nearest are on partition rank and slice rank. The repository reports searching Naslund's paper, Karam (2310.11356), Hrubes, Wigderson and Yehudayoff (2011), Hrubes (2024), Brand, Kaski and Wang (2607.02241) and an appendix of Hexagon 2610.00577 without finding a bound above \\(n\\), and says this is a search result rather than a proof of novelty. Nothing in this registry covered the problem.",
+    "caveats": "Graded formal on the Palomar registration, trust level high, for the seven statements exactly as written in an 88-line Challenge.lean that imports one Mathlib module. Not formalized: the translation between Naslund's tensor form and the matrix form the Lean states, the upper bounds, and the remarks. Only the 4n/3 bound has been checked by hand, by the author's side and in one review of a draft; the others are Lean-only and, the README says, no person has read them in full. The Lean files are concatenated agent output running to thousands of lines, still carrying the agents' own names for the definitions with a bridge to the stated ones. The paper is unrefereed and the result is a day old. Autonomy is ai-led: the agents posed the question and found the first bounds before any person asked, but the operator then set the goals and directed the harness, which humans built.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-16-000011",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-16-000011&version=1",
+        "title": "Lower bounds for Naslund's crossing problem",
+        "repository": "Arth-Singh/crossing-lower-bounds",
+        "commit": "3d302668a9f3928021ea33a8ef53ca2ad63d37c7",
+        "theorems": [
+          "Crossing.four_thirds",
+          "Crossing.fifteen_elevenths",
+          "Crossing.sixtyseven_fortyninths",
+          "Crossing.add_three",
+          "Crossing.four_eq_seven",
+          "Crossing.five_ge_eight",
+          "Crossing.six_ge_nine"
+        ],
+        "checked": "2026-11-16",
+        "note": "Trust level high. The repository reports that Palomar built the commit, ran Comparator and replayed the proofs, and that its automated review found no blocking problem."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: Arth-Singh/crossing-lower-bounds",
+        "url": "https://github.com/Arth-Singh/crossing-lower-bounds",
+        "kind": "research"
+      },
+      {
+        "label": "Singh: Lower bounds for Naslund's crossing problem (PDF)",
+        "url": "https://github.com/Arth-Singh/crossing-lower-bounds/blob/main/paper/crossing-lower-bounds.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Naslund, stating the problem",
+        "url": "https://arxiv.org/abs/1701.04475",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "tensor-rank",
+      "combinatorics",
+      "lower-bounds",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-14-cage-8-7-768-vertices",
+    "title": "An 8-regular graph of girth 7 on 768 vertices, below the previous record of 774",
+    "claim": "Claude agents working for Quantavane under Arhan Canli constructed an 8-regular graph of girth 7 on 768 vertices, verified in Lean by kernel computation and registered on Palomar, improving the best known upper bound on the order of an (8,7)-cage from the 774 listed in the House of Graphs table.",
+    "field": "mathematics",
+    "date": "2026-11-14",
+    "lab": "Quantavane",
+    "model": "Claude (Anthropic) agents; version not stated",
+    "humans": [
+      "Arhan Canli"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "A (k, g)-cage is a k-regular graph of girth g with as few vertices as possible. For (8, 7) the Moore bound gives at least 457 vertices, and published constructions gave 777 (Abreu, Araujo-Pardo, Balbuena, Labbate and Salas, 2015), 784 (Kiss, 2025) and 774 (Exoo, Goedgebeur, Jooken, Stubbe and Van den Eede, 2026). The new graph is the case q = 7 of a construction that starts from the incidence graph of the generalized quadrangle W(7), with 800 vertices, modifies Kiss's construction by deleting the lines of two rows, and repairs the vertices left one neighbour short with a matching, giving 800 - 16 - 16 = 768. Lean's kernel checks, by decide +kernel and without native_decide, that the adjacency lists define a simple 8-regular graph and that for every vertex the non-backtracking walks of length at most 3 through any two neighbours end in disjoint sets, which rules out cycles of length up to 6, and an explicit 7-cycle fixes the girth at exactly 7.",
+    "novelty_check": "The repository reports a search of the literature and of the House of Graphs cage table on 12 November 2026 that found no 8-regular graph of girth 7 with fewer than 774 vertices, and calls novelty its reading of a limited search. arXiv, 2026-11-16, abs:cage AND abs:girth AND abs:\"regular graph\" AND abs:7 returned 6 records, none improving the (8, 7) cell. The House of Graphs table was not re-read for this entry. Nothing in this registry covered cages.",
+    "caveats": "Graded formal because the object itself is checked: degree and girth are verified by the kernel from the adjacency lists, independent of the programs that generated them, and Palomar records trust level high. What is not established is that 768 is the best known bound, which rests on the repository's own search of the cage table; that is a fact about the literature, not about the graph. The general construction for every odd prime power q at least 7 is neither formalized nor reviewed, and the README states that no mathematician outside Quantavane has reviewed the proof. Autonomy is ai-led: the README says the construction, the checks, every program and every line of Lean were produced by Claude agents under Canli's direction.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-14-000013",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-14-000013&version=1",
+        "title": "An 8-regular graph of girth 7 on 768 vertices",
+        "repository": "arhancanli/quantavane-cage-8-7",
+        "commit": "593719d9713eaf81f23e2364e973824ac208bbc4",
+        "theorems": [
+          "Cage87.exists_regular_girth_seven"
+        ],
+        "checked": "2026-11-16",
+        "note": "Trust level high. The statement uses only Mathlib's SimpleGraph, IsRegularOfDegree and girth, so there are no project definitions to audit."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: arhancanli/quantavane-cage-8-7",
+        "url": "https://github.com/arhancanli/quantavane-cage-8-7",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Exoo, Goedgebeur, Jooken, Stubbe and Van den Eede, New small regular graphs of given girth, the previous record of 774",
+        "url": "https://arxiv.org/abs/2511.07247",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "graph-theory",
+      "cages",
+      "extremal-combinatorics",
+      "lean",
+      "construction"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-13-green-problem-64",
+    "title": "Green's Problem 64 proved in Lean: infinitely many primes p for which p-2 has an odd number of prime factors",
+    "claim": "GPT-6 Astra, in a repository run by Igor Inozemtsev, produced an 83-page proof and a Lean formalization, registered on Palomar, that infinitely many primes p have p-2 with an odd number of prime factors counted with multiplicity, Problem 64 on Ben Green's list of open problems, drawing on an October 2026 manuscript by Jizhou Guo that the agent consulted.",
+    "field": "mathematics",
+    "date": "2026-11-13",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (OpenAI)",
+    "humans": [
+      "Igor Inozemtsev"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "Green's list notes that with \\(p - 2\\) the question is a weak form of the twin prime conjecture: the integers with an odd number of prime factors have density one half, so it asks for infinitely many primes in a set of density one half, but the parity problem of sieve theory blocks the usual methods. Chen proved in 1966 that \\(p + 2\\) has at most two prime factors infinitely often without deciding parity, and Pintz showed in 2010 that \\(p + d\\) has an odd number of prime factors infinitely often for at least one \\(d\\) among \\(2, 4, \\ldots, 16\\). The proof assigns weights to integers \\(u\\) in \\([x, 2x]\\) with \\(\\Omega(u)\\) odd, sieves the values \\(u + 2\\) using a shifted correlation estimate, and bounds the contribution of products of two large primes from above, leaving positive weight on primes for every large \\(x\\). The Lean statement, written with Mathlib's \\(\\Omega\\), is identical to Green64.green_64 in Google DeepMind's Formal Conjectures, where it is categorised as an open research problem. The project's timeline records the proof accepted by the Lean kernel, by nanoda and by con-ron on 142,651 declarations, and the full Palomar workflow passing in CI on 13 November.",
+    "novelty_check": "Green's list in its current form gives no update recording a solution of Problem 64, and Formal Conjectures marks it open. arXiv, 2026-11-16: abs:\"prime factors\" AND abs:\"p-2\" AND abs:odd returned 6 records, the only relevant one being Pintz's 2010 result for some shift up to 16 (1004.1065); abs:Liouville AND abs:\"shifted primes\" returned 2, neither on this question. The repository itself credits a manuscript by Jizhou Guo, Shifted primes with a prescribed parity of the number of prime factors, posted on GitHub in October 2026 and returning 404 by 12 November, which its agent consulted from 4 November to guide the final formalization, and two OpenAI manuscripts of September 2026 on prime predecessors with an even number of prime factors and on smooth shifted primes. It claims no priority. This entry therefore records the first machine-checked proof; the first claimed proof may be Guo's, which this registry does not carry and which was not read for this entry.",
+    "caveats": "Graded formal on the Palomar registration, trust level high, and the statement has an anchor written independently of the proof: it matches Formal Conjectures exactly. The two OpenAI manuscripts and Guo's are not independently verified, but the repository says every supporting input the formal statement needs is proved inside the Lean development, so the formal result does not rest on them. The 83-page article was reviewed only by AI models, and the README says no human mathematical review is claimed. Priority is not established, as set out under the novelty check. Autonomy is ai-led on the strictest defensible reading: proof development and formalization are credited to the model alone, and the human role beyond choosing the problem and running the project is not described.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-13-000010",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-13-000010&version=3",
+        "title": "Primes p for which Omega(p - 2) is odd (Green's Problem 64)",
+        "repository": "inozemtsev/formal-math",
+        "commit": "43f0988e15c2e1b9fb28b931e6fbb0cf9f7a70cc",
+        "theorems": [
+          "Green64.green_64"
+        ],
+        "checked": "2026-11-16",
+        "note": "Trust level high. Version 3 of the record, with Green64.green_64 as the sole principal result; the project sits under proofs/green64."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: inozemtsev/formal-math, proofs/green64",
+        "url": "https://github.com/inozemtsev/formal-math/tree/main/proofs/green64",
+        "kind": "research"
+      },
+      {
+        "label": "Green's Problem 64: full proof (PDF)",
+        "url": "https://github.com/inozemtsev/formal-math/blob/main/proofs/green64/paper/green64.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Formal Conjectures: Green64.green_64, the statement as an open problem",
+        "url": "https://github.com/google-deepmind/formal-conjectures/blob/a425ca3eb797fe927cb88c950565fdcbbbbada70/FormalConjectures/GreensOpenProblems/64.lean",
+        "kind": "research"
+      },
+      {
+        "label": "Ben Green: 100 open problems, Problem 64",
+        "url": "https://people.maths.ox.ac.uk/greenbj/papers/open-problems.pdf",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "sieve-theory",
+      "primes",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-05-openai-gpt6-cyber-vulnerabilities",
+    "title": "OpenAI reports 81 high-severity Firefox vulnerabilities and 948 Linux kernel privilege-escalation exploits found by its models",
+    "claim": "OpenAI announced that its restricted GPT-6 Cyber model found 81 previously unknown high-severity Firefox vulnerabilities, and that an automated pipeline found 2,308 candidate Linux kernel flaws, reproduced 1,724 and produced local privilege-escalation exploits for 948; Mozilla's advisories credit dozens of high-impact Firefox CVEs to OpenAI reporters, while no CVEs are public for the Linux results.",
+    "field": "computer-science",
+    "date": "2026-11-05",
+    "lab": "OpenAI",
+    "model": "GPT-6 Cyber, available only to approved customers, per coverage; OpenAI's own posts could not be read",
+    "verification": "claimed",
+    "autonomy": "search-scaffold",
+    "detail": "According to BleepingComputer's report of the announcement, GPT-6 Cyber found 81 previously unknown high-severity vulnerabilities in Firefox and helped develop patches, many already released by Mozilla, and in separate Linux kernel research identified 2,308 potential flaws, reproduced 1,724 and developed local privilege-escalation exploits for 948 distinct vulnerabilities that could let an unprivileged user gain root. OpenAI also reported 48.5% exploit success on its ExploitGym benchmark against 32.1% for GPT-5.6 Cyber, rated the model Critical for cybersecurity under its Preparedness Framework, and restricted access to customers of its Daybreak Red programme. Mozilla's advisory for Firefox 160, published on 10 November 2026, lists 99 CVEs, of which 26, all rated high impact, credit OpenAI or Amy Burnett of OpenAI as reporter; its Firefox ESR 153.6 advisory of 27 October credits 33.",
+    "novelty_check": "This registry carries one earlier AI-assisted vulnerability finding, 2026-10-21-php2shell-rce, two PHP flaws found by human teams using frontier models; nothing at this scale or with this claimed degree of automation. No independent search for prior automated kernel-exploit results at this scale was run for this entry.",
+    "caveats": "Entered at claimed, and most of it rests on secondary coverage: OpenAI's post on the Linux research returned 403 to every attempt to read it for this entry, so the figures above are BleepingComputer's account of OpenAI's claims and are cited, not checked. Mozilla's advisories are real evidence that OpenAI reported many high-impact Firefox bugs that Mozilla fixed, but they do not say how any bug was found, cannot be matched to the 81 without OpenAI's own list, and credit Amy Burnett by name, who is also one of the four human reporters on the PHP2Shell advisories; some of these finds may be human work. No CVE numbers are public for the 948 Linux exploits, and whether kernel maintainers have accepted the fixes is not known. The model is not publicly available, so nothing about the AI's role can be reproduced. Autonomy is search-scaffold on the strictest defensible reading: the Linux results came from what OpenAI describes as an automated pipeline for discovery, reproduction and exploitation, built and run by people, with the model inside it. Dual use is explicit: OpenAI itself classifies the model's cybersecurity capability as Critical.",
+    "sources": [
+      {
+        "label": "Mozilla Foundation Security Advisory 2026-125: security vulnerabilities fixed in Firefox 160",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-125/",
+        "kind": "research"
+      },
+      {
+        "label": "Mozilla Foundation Security Advisory 2026-120: security vulnerabilities fixed in Firefox ESR 153.6",
+        "url": "https://www.mozilla.org/en-US/security/advisories/mfsa2026-120/",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: A thousand fewer paths to root",
+        "url": "https://openai.com/index/a-thousand-fewer-paths-to-root/",
+        "kind": "announcement"
+      },
+      {
+        "label": "BleepingComputer: OpenAI's new GPT-6 Cyber AI finds 81 Firefox flaws, 948 Linux bugs",
+        "url": "https://www.bleepingcomputer.com/news/security/openais-new-gpt-6-cyber-ai-finds-81-firefox-flaws-948-linux-bugs/",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "security",
+      "vulnerability-discovery",
+      "linux-kernel",
+      "firefox",
+      "exploits"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-12-spot-tb-ai-case-finding-rct",
+    "title": "Stepped-wedge randomised trial of AI-guided site selection for tuberculosis case-finding in Pakistan (SPOT-TB)",
+    "claim": "Across 3,936 screening camps and 269,254 people in all four provinces of Pakistan, mobile x-ray teams switched in random order from conventional site selection to locations recommended by the MATCH-AI software; tuberculosis yield per camp was 7% higher but not significantly so in the intention-to-treat analysis (adjusted risk ratio 1.07, 95% CI 0.94-1.22), and 32% higher in a per-protocol analysis of camps held within 5 km of a recommended site.",
+    "field": "medicine",
+    "date": "2026-11-12",
+    "lab": "Centre for Global Public Health, Pakistan",
+    "model": "MATCH-AI (Mapping and Analysis for Tailored disease Control and Health system strengthening) geographic targeting software",
+    "humans": [
+      "Amna Mahfooz",
+      "Faran Emmanuel"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "The trial was embedded in community active case-finding run by Pakistan's National TB Control Program and private partners with Global Fund support. Thirty mobile x-ray van teams working in 68 districts were randomised to the time at which they moved from choosing camp sites by field knowledge, experience and historical data to sites recommended by MATCH-AI. Between 1 August 2023 and 28 September 2024 there were 2,046 control and 1,890 intervention camps. The primary outcome was the number of people diagnosed with bacteriologically confirmed tuberculosis per camp, analysed by intention to treat, with a validated per-protocol analysis restricted to camps within 5 km of an AI-recommended location. The trial is registered as NCT06017843 and was funded by the Gates Foundation and the Global Fund through Mercy Corps.",
+    "novelty_check": "Europe PMC, 2026-11-16, tuberculosis in the title with artificial intelligence or machine learning, case-finding and a randomised design: 67 records. The top results were this trial, an earlier version of it from May 2026, and reviews and implementation reports on AI reading of chest x-rays, which is a different use of AI from choosing where to screen. Nothing in this registry covered tuberculosis case-finding.",
+    "caveats": "The prespecified primary analysis is null: the 7% difference by intention to treat has a confidence interval running from a 6% decrease to a 22% increase. The positive finding is per-protocol, and restricting to camps that teams actually held near recommended sites conditions on behaviour after randomisation and may select favourable settings. The authors note that routine programme data did not capture implementation fidelity or process quality. The outcome is yield per camp rather than per person screened or a population effect on transmission. The abstract does not say who built MATCH-AI or whether the investigators have a stake in it. Autonomy is ai-assisted: the software recommends where to screen, and teams decided where camps were actually held.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT06017843",
+        "url": "https://clinicaltrials.gov/study/NCT06017843"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Lancet Global Health: Geographical targeting of active case-finding for tuberculosis in Pakistan using AI software (SPOT-TB)",
+        "url": "https://doi.org/10.1016/j.langlo.2026.104090",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "tuberculosis",
+      "case-finding",
+      "global-health",
+      "geospatial",
+      "rct",
+      "prospective",
+      "real-world-data"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-03-kite-crm-cystic-renal-masses",
+    "title": "Randomised implementation study of CT-based AI risk support for cystic renal masses (KITE-CRM)",
+    "claim": "Among 5,869 adults randomised at one Shanghai hospital to AI-assisted or standard CT reporting, benign pathology was found in 16.4% of treated lesions with AI support against 40.3% with standard care, after the model reached external AUROCs of 0.913 to 0.999 at five hospitals and raised six radiologists' AUROC from 0.825 to 0.973 in a reader study; in the subgroup of cystic masses the tool is built for, the difference was not significant.",
+    "field": "medicine",
+    "date": "2026-11-03",
+    "lab": "Changhai Hospital, Naval Medical University",
+    "model": "KITE-CRM (Kidney Imaging-based Triage Engine for Cystic Renal Masses), a deep-learning model on corticomedullary-phase CT",
+    "humans": [
+      "Chengwei Chen",
+      "Yun Bian"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Cystic renal masses are often overtreated. The model was developed on 570 training cases from one referral centre (2020-2021), validated internally on 235 and externally on 528 cases from five hospitals (2022-2025), with one index lesion per patient and a fixed decision threshold. In a randomised crossover reader study six radiologists read 117 external cases with and without AI, and assistance cut mean reading time from 9.7 to 5.5 minutes. From November 2025 to February 2026, 5,869 consecutive adults having contrast-enhanced abdominal CT at Changhai Hospital were randomised 1:1 to AI-assisted (2,934) or standard reporting (2,935), with the proportion of pathologically benign lesions among treated lesions as the primary clinical endpoint. In a post hoc intention-to-treat analysis benign intervention occurred in 0.95% against 3.54% of randomised participants. The trial is registered with the Chinese Clinical Trial Registry as ChiCTR2500112290 and the model code is public.",
+    "novelty_check": "Europe PMC, 2026-11-16, cystic renal mass, renal cyst or Bosniak with artificial intelligence or deep learning and a randomised design: 178 records. The top results were this paper, a systematic review of AI against human interpretation in radiology, and unrelated surgical and imaging papers; no earlier randomised implementation study of AI for cystic renal masses appeared among them. Nothing in this registry covered renal imaging.",
+    "caveats": "The randomised step is single-centre and run by the developers, so nothing here is independent in the medical sense. The primary endpoint is computed among treated lesions, which conditions on a treatment decision made after randomisation; the post hoc intention-to-treat figures point the same way but were not prespecified. In the subgroup the tool is designed for, treated AI-evaluable cystic masses, the difference was 17.2% against 33.9% and not significant (p = 0.105), so much of the headline effect may come from lesions outside its intended use. One external test set had only three malignant cases. The endpoint is overtreatment over a short window, not cancer outcomes. The Chinese Clinical Trial Registry is not one of the registries this site records. Autonomy is ai-assisted: the model supplies a malignancy risk to the reporting radiologist, and clinicians made the treatment decisions.",
+    "sources": [
+      {
+        "label": "EClinicalMedicine: CT-based AI risk support for cystic renal masses, multicenter validation, reader study, and a randomized implementation study",
+        "url": "https://doi.org/10.1016/j.eclinm.2026.104279",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "urology",
+      "renal-cell-carcinoma",
+      "radiology",
+      "overtreatment",
+      "rct",
+      "prospective",
+      "external-validation",
+      "retrospective"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-10-01-ai-cmr-ejection-fraction-mortality",
+    "title": "AI against clinician left-ventricular segmentation of cardiac MRI for predicting mortality in 27,382 patients",
+    "claim": "In 27,382 patients scanned at Barts Heart Centre in London and the University of Pittsburgh Medical Center and followed for a median 5.6 years, ejection fraction measured by deep-learning segmentation of cardiac MRI predicted death slightly better than the clinicians' own measurements (C index 0.669 against 0.637), a gap that shrank to 0.781 against 0.777 after adjustment for age and sex.",
+    "field": "medicine",
+    "date": "2026-10-01",
+    "lab": "University College London",
+    "model": "Deep-learning left-ventricular segmentation of cardiac MRI, not named in the abstract",
+    "humans": [
+      "James C. Moon",
+      "Rhodri H. Davies"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "The cohort combined 26,106 consecutive patients scanned at Barts Heart Centre between October 2014 and December 2019, referred from nine hospitals, with 1,276 scanned at UPMC between June 2010 and March 2016; 3,458 (13%) died during follow-up. AI segmentation was run on every scan and Cox models compared the prognostic value of AI-measured and clinician-measured left-ventricular volumes. AI ejection fraction gave better model fit (a difference in AIC of 161) and slightly better discrimination (a difference in C index of 0.033, 95% CI 0.026-0.041), and adding it to the clinician measurement improved fit. The authors conclude that AI could be used for first-line measurement of ejection fraction with clinician oversight, and that this should be tested prospectively.",
+    "novelty_check": "Europe PMC, 2026-11-16, cardiac magnetic resonance or cardiac MRI with artificial intelligence or deep learning, ejection fraction, mortality and segmentation: 817 records, mostly segmentation-accuracy and imaging-review papers; among the top results this was the only head-to-head comparison against clinicians on mortality. Nothing in this registry covered cardiac MRI.",
+    "caveats": "Retrospective, with both measurements taken from the same archived scans, so it shows which number predicts death better, not what happens when clinicians use the AI. The advantage is marginal and almost disappears after adjustment for age and sex. The abstract does not name the segmentation model or say who developed it, so whether this is an external validation by unaffiliated investigators cannot be told from it. The UPMC cohort is small relative to the Barts one. Autonomy is ai-assisted, as for other measurement studies in this registry: the model measures and no care decision was studied, and the authors recommend clinician oversight.",
+    "sources": [
+      {
+        "label": "Lancet Digital Health: Performance of AI versus clinician left-ventricular segmentation of cardiac MRI for mortality prediction",
+        "url": "https://doi.org/10.1016/j.landig.2026.101042",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "cardiac-mri",
+      "ejection-fraction",
+      "prognosis",
+      "retrospective",
+      "real-world-data"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2024-11-22-dax-copilot-atrium-efficiency",
+    "title": "Longitudinal study finds DAX Copilot did not make primary care clinicians more efficient at Atrium Health",
+    "claim": "Comparing 112 primary care clinicians given Nuance's DAX Copilot ambient documentation with 103 similar clinicians without it over 180 days, Atrium Health found no significant difference in electronic health record time or financial measures, with small reductions in documentation time only in exploratory subgroups of heavy users, low-volume clinicians and family medicine.",
+    "field": "medicine",
+    "date": "2024-11-22",
+    "lab": "Atrium Health",
+    "model": "DAX Copilot (Nuance, Microsoft), since renamed Dragon Copilot",
+    "humans": [
+      "Tsai-Ling Liu",
+      "Jeffrey A. Cleveland"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Atrium Health was the first health system to use DAX Copilot. Clinicians using it were recruited between June and August 2023 and compared with clinicians from similar practices who did not, and electronic health record use and financial outcomes were modelled with linear mixed models over 180 days, controlling for length of use, age, gender, provider type, years in practice and baseline. The primary analyses were not significant. Exploratory analyses found small decreases in documentation hours for high users, who transferred at least 60% of DAX notes (means ratio 0.93, 95% CI 0.88-0.98), for low-volume clinicians (0.91, 0.83-0.99) and for family medicine (0.91, 0.85-0.98). The study was funded by Wake Forest University Health Sciences and registered as NCT06329427.",
+    "novelty_check": "This registry already carries two later ambient-scribe studies, 2025-11-26-ambient-ai-scribes-rct, a randomised trial of DAX and Nabla against usual care, and 2026-10-27-heidi-ai-scribe-health-system; neither cites this one, which is a separate, non-randomised design. Europe PMC, 2026-11-16, ambient with DAX or Dragon and documentation or scribe returned 253 records, mostly later surveys and reviews. It reached this registry through Becker's Hospital Review coverage in November 2026, two years after publication, and is entered under its 2024 publication date.",
+    "caveats": "Not randomised: the comparison group came from similar practices, and clinicians who adopt a new tool may differ from those who do not in ways the covariates miss. The positive signals are exploratory subgroup results, and the high-user subgroup is defined by how much clinicians used the tool, so it partly selects for those it suited. The outcomes are time and money, not documentation quality, patient experience or burnout. The product has been updated and renamed since the 2023 study period. Autonomy is ai-assisted: the software drafts notes that clinicians review and transfer.",
+    "registrations": [
+      {
+        "registry": "clinicaltrials-gov",
+        "id": "NCT06329427",
+        "url": "https://clinicaltrials.gov/study/NCT06329427"
+      }
+    ],
+    "sources": [
+      {
+        "label": "NEJM AI: Does AI-Powered Clinical Documentation Enhance Clinician Efficiency? A Longitudinal Study",
+        "url": "https://ai.nejm.org/doi/abs/10.1056/AIoa2400659",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ambient-scribe",
+      "clinical-documentation",
+      "primary-care",
+      "prospective",
+      "real-world-data"
+    ],
+    "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-15-pherc-211-first-letters",
+    "title": "First letters read in the Herculaneum scroll PHerc. 211",
+    "claim": "A Vesuvius Challenge contestant's 3D ink-detection model, trained only on other scrolls, revealed 11 readable Greek letters in a 4 cm strip of PHerc. 211, a carbonised bookroll in the National Library of Naples, which the challenge's papyrology team read as including \"and to the\" followed by the start of a word that may mean \"difference\".",
+    "field": "archaeology",
+    "date": "2026-11-15",
+    "lab": "Vesuvius Challenge",
+    "model": "Residual 3D U-Net ink model trained by the contestant, with a self-supervised 3D DINO model used to choose training scrolls",
+    "humans": [
+      "Priyank Aranke",
+      "Federica Nicolardi",
+      "Paul Henderson"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "PHerc. 211 is a bookroll about 17 cm tall. The challenge received 37 submissions on it from 15 contestants and teams, several on the same area, where crushed and broken layers make it hard to follow a single sheet. Aranke embedded scans of public scrolls with a self-supervised 3D DINO model to find the ink-bearing scrolls most like the unread ones, segmented three of them, and transferred predictions from the team's published 2 micrometre ink model and its released labels onto roughly 9 micrometre segments, checking and correcting the labels by hand. He trained a residual 3D U-Net reading 16 planes of native CT from scratch on those labels, continued on labelled surfaces from 12 other scrolls and fragments, and finished with a soft loss to preserve faint traces; no data from the competition scrolls was used. The papyrology team's reading, with some letters uncertain, begins with kai and tei, followed by diaph-, which may be diaphorai or a form of diapherein.",
+    "novelty_check": "This is the third scroll in this registry, after PHerc. 1667 read end to end (2026-06-25-herculaneum-scroll-read) and PHerc. 306B (2026-11-02-pherc-306b-first-letters). The announcement states that this is the first submission on PHerc. 211 to meet the First Letters Prize criteria, 10 readable characters in 4 square centimetres, and records the competing submissions on the same area that fell short.",
+    "caveats": "Author verified rather than independent, on the same reading as the PHerc. 306B entry: the letters were agreed by the Vesuvius Challenge's own papyrology team and no outside papyrologist has published on them. The result is eleven letters, some marked uncertain, not a text, and the readings are reconstructions from a learned ink signal. The $50,000 prize marks the milestone and is not an independent check. Autonomy is ai-assisted: the model produces ink probabilities, and humans segmented the scroll, corrected the training labels and read the letters. The contestant's code and model releases are public, so the detection step is reproducible.",
+    "sources": [
+      {
+        "label": "Vesuvius Challenge: First letters emerge from PHerc. 211",
+        "url": "https://scrollprize.substack.com/p/first-letters-emerge-from-pherc-211",
+        "kind": "announcement"
+      },
+      {
+        "label": "GitHub: priyankaranke/vesuvius-studio-multiscroll-cpt, the ink model",
+        "url": "https://github.com/priyankaranke/vesuvius-studio-multiscroll-cpt",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: priyankaranke/vc3d-manual, the segmentation tooling",
+        "url": "https://github.com/priyankaranke/vc3d-manual",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "papyrology",
+      "virtual-unwrapping",
+      "ink-detection",
+      "ancient-texts",
+      "herculaneum"
+    ],
+    "added": "2026-11-16"
   }
 ]
