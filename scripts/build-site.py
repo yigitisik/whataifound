@@ -2957,6 +2957,9 @@ def lab_hub_url(groups, org):
     return f"/lab/{slugify(org)}" if len(groups.get(org, ())) >= HUB_MIN_ENTRIES else None
 
 
+LAB_CARDS_MAX = 8
+
+
 def build_lab_hub(entries):
     """Regenerate the lab row of the #sources hub from the registry itself.
 
@@ -2979,7 +2982,7 @@ def build_lab_hub(entries):
     # it one entry each, gets a row in a dense list. Thirty-eight equal cards made the tail
     # look as weighty as the labs the registry actually has something to say about, and
     # truncated the longest names ("German Cancer Research Center") to fit a card.
-    cards, rows = "", ""
+    cards, rows, ncards = "", "", 0
     for org in sorted(groups, key=lambda o: (-len(groups[o]), o)):
         hub, ext = lab_hub_url(groups, org), LAB_HUB.get(org)
         # An organisation with neither has nowhere to send anyone. It keeps its entries in
@@ -2988,7 +2991,15 @@ def build_lab_hub(entries):
             continue
         n = len(groups[org])
         count = f'{n} {"entry" if n == 1 else "entries"}'
+        # Cards stop at LAB_CARDS_MAX, two full rows of the grid at desktop width. A hub page
+        # past the cap drops into the list like the tail; its own page is still built and
+        # still linked from its findings. It keeps the research-site link the note under the
+        # hub promises for plain names, unless it has no research site to link.
+        if hub and ncards >= LAB_CARDS_MAX:
+            ext = ext or hub
+            hub = None
         if hub:
+            ncards += 1
             # The arrow is a second destination, not decoration, so it carries its own label.
             arrow = (f'<a class="labcard-go" href="{esc(ext)}" target="_blank" rel="noopener" '
                      f'aria-label="{attr(org)} research site" title="{attr(org)} research site">'
