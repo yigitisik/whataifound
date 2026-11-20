@@ -117,6 +117,16 @@
           "@type": "CreativeWork",
           "url": "https://arxiv.org/abs/2610.01447",
           "name": "arXiv: Song and Zhang, An O(1) Bound for the KLS Constant"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/",
+          "name": "Microsoft Research: Solving a 31-year-old grand challenge in mathematics, the KLS conjecture"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/HongruZhao/KLS500",
+          "name": "GitHub: HongruZhao/KLS500, a Lean 4 formalization of a dimension-free KLS bound"
         }
       ]
     },
@@ -139,7 +149,12 @@
           "name": "Independent (ChatGPT, version not stated (Bizeul, Klartag and Lehec); GPT-6 Astra, GPT-5.6 Sol, Claude Fable 5 and Fable 5.1 (Song and Zhang))"
         },
         "datePublished": "2026-10-04",
-        "appearance": []
+        "appearance": [
+          {
+            "@type": "CreativeWork",
+            "url": "https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/"
+          }
+        ]
       },
       "reviewRating": {
         "@type": "Rating",
@@ -246,7 +261,9 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
     <div class="glance-src">
       <h2 class="lbl">Sources</h2>
       <h3 class="lbl kind k-research">Original work</h3>
-      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2610.05474" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Bizeul, Klartag and Lehec, Presenting a proof of the Kannan-Lovász-Simonovits conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2610.01447" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Song and Zhang, An O(1) Bound for the KLS Constant</span><span class="ref-a">↗</span></a></div>
+      <div class="refs"><a class="ref" href="https://arxiv.org/abs/2610.05474" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Bizeul, Klartag and Lehec, Presenting a proof of the Kannan-Lovász-Simonovits conjecture</span><span class="ref-a">↗</span></a><a class="ref" href="https://arxiv.org/abs/2610.01447" target="_blank" rel="noopener"><span class="ref-dom">arXiv</span><span class="ref-t">Song and Zhang, An O(1) Bound for the KLS Constant</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/HongruZhao/KLS500" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">HongruZhao/KLS500, a Lean 4 formalization of a dimension-free KLS bound</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/" target="_blank" rel="noopener"><span class="ref-dom">Microsoft</span><span class="ref-t">Microsoft Research: Solving a 31-year-old grand challenge in mathematics, the KLS conjecture</span><span class="ref-a">↗</span></a></div>
     </div>
   </section>
 
@@ -256,7 +273,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   <p>Read both papers' sources on arXiv: arXiv:2610.05474 v1 and arXiv:2610.01447 v2, with the latter's submission history. Each introduction gives the same ladder of prior bounds, ending at Letwin's, and neither cites an earlier resolution. The two are not independent of each other: the Bizeul, Klartag and Lehec proof takes Song and Zhang's first-version criterion as its crucial step, and Song and Zhang's second version finishes the same programme by a different route.</p>
   <details class="fold">
   <summary>Caveats and known objections</summary>
-  <p>Neither preprint is refereed, and the two together are under ten days old at entry. Verification is author-verified: Klartag and Lehec are among the people who built this area, which carries weight, but their own account is that ChatGPT found most of the proof and they checked and rewrote it, while Song and Zhang write that the proofs were verified by the authors and several AI tools. No outside reader is on record for either. Autonomy is graded collaborative on the weaker of the two disclosures: the Bizeul, Klartag and Lehec wording on its own reads as ai-led, but the decisive criterion is Song and Zhang's, whose disclosure describes a human-steered search and credits the log-star and height-reduction ideas to the authors' earlier work. The Bizeul, Klartag and Lehec introduction opens by saying the conjecture 'poses little challenge for contemporary AI tools', given recent progress, which is a striking thing for two of the field's leading figures to put in print. The ChatGPT version used is not stated.</p>
+  <p>Neither preprint is refereed, and the two together are under ten days old at entry. Verification is author-verified: Klartag and Lehec are among the people who built this area, which carries weight, but their own account is that ChatGPT found most of the proof and they checked and rewrote it, while Song and Zhang write that the proofs were verified by the authors and several AI tools. No outside reader is on record for either. Autonomy is graded collaborative on the weaker of the two disclosures: the Bizeul, Klartag and Lehec wording on its own reads as ai-led, but the decisive criterion is Song and Zhang's, whose disclosure describes a human-steered search and credits the log-star and height-reduction ideas to the authors' earlier work. The Bizeul, Klartag and Lehec introduction opens by saying the conjecture 'poses little challenge for contemporary AI tools', given recent progress, which is a striking thing for two of the field's leading figures to put in print. The ChatGPT version used is not stated. Microsoft Research's post of 21 October 2026 points to a Lean 4 formalization, the repository HongruZhao/KLS500 created on 8 October, which states a Poincaré constant of at most 500 for every isotropic log-concave law and combines the criterion from Song and Zhang's first version with further work; it was not rebuilt or audited for this entry and carries no Palomar registration, and the relationship of its author to either group is not stated. The post also says Song and Zhang have verified a shortened proof in Lean and plan to release it after final review.</p>
   </details>
   <h2 class="lbl">The open problem</h2>
   <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/363363/kannan-lovasz-simonovits-conjecture" target="_blank" rel="noopener">MathDB<span class="reg-id">Kannan–Lovász–Simonovits conjecture</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">363363</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p></div></div>
@@ -282,6 +299,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
 
   <h2 class="lbl">History of this entry</h2>
   <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-11-19">2026-11-19</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded Microsoft Research's account of the Song and Zhang proof and a public Lean 4 formalization of a dimension-free KLS bound, not yet rebuilt or audited here. No grade moved. <a class="hist-src" href="https://github.com/HongruZhao/KLS500" target="_blank" rel="noopener">source ↗</a></span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-10-16">2026-10-16</time><span class="pill r r-correction">Corrected</span><span class="hist-note">Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. No grade moved.</span></li>
     <li class="hist-row"><time class="hist-date" datetime="2026-10-12">2026-10-12</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Author verified and Collaborative.</span></li>
   </ol>
@@ -315,7 +333,7 @@ if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#f
   </div>
 
   <h2 class="lbl">Related findings</h2>
-  <div class="relgrid"><a class="rel-card" href="/finding/2026-11-16-naslund-crossing-lower-bounds"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team</span><span class="rel-meta">AIM Intelligence · 2026-11-16</span></a><a class="rel-card" href="/finding/2026-11-13-green-problem-64"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Green's Problem 64 proved in Lean: infinitely many primes p for which p-2 has an odd number of prime factors</span><span class="rel-meta">Independent · 2026-11-13</span></a><a class="rel-card" href="/finding/2026-11-11-talagrand-ultimate-matching"><span class="rel-grade pill v v-claimed">Claimed</span><span class="rel-title">Talagrand's Ultimate Matching Conjecture proved for finite critical exponents and refuted at the endpoints</span><span class="rel-meta">Independent (CNRS and Université Gustave Eiffel; University of Pisa) · 2026-11-11</span></a></div>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-11-16-naslund-crossing-lower-bounds"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team</span><span class="rel-meta">AIM Intelligence · 2026-11-16</span></a><a class="rel-card" href="/finding/2026-11-15-sharp-logarithmic-kakeya"><span class="rel-grade pill v v-claimed">Claimed</span><span class="rel-title">Sharp logarithmic Kakeya maximal and tube bounds in every dimension, registered as a Lean proof</span><span class="rel-meta">Independent · 2026-11-15</span></a><a class="rel-card" href="/finding/2026-11-13-green-problem-64"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Green's Problem 64 proved in Lean: infinitely many primes p for which p-2 has an odd number of prime factors</span><span class="rel-meta">Independent · 2026-11-13</span></a></div>
   <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-10-02-squares-in-circle-packings"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">Optimal packings of one to seven unit squares in a circle, proved in Lean</span></a><a class="pn-step" href="/finding/2026-10-05-3sum-apsp-hypotheses"><span class="pn-dir">Newer<span class="pn-arrow" aria-hidden="true">→</span></span><span class="pn-title">Truly subquadratic 3SUM and truly subcubic APSP, refuting two central fine-grained complexity hypotheses</span></a></nav>
 
   <div class="findtags"><a class="tag-chip" href="/?tag=convex-geometry">convex-geometry</a><a class="tag-chip" href="/?tag=high-dimensional-probability">high-dimensional-probability</a><a class="tag-chip" href="/?tag=functional-inequalities">functional-inequalities</a><a class="tag-chip" href="/?tag=argument">argument</a></div>

@@ -6563,7 +6563,7 @@
     "autonomy": "ai-led",
     "detail": "The repository states the theorem over Lean's built-in naturals as fermat_last_theorem, and its default build target FinalCheck.lean derives Mathlib's own FermatLastTheorem from it, so the statement is not a bespoke restatement. The build fails unless the proof depends on exactly propext, Classical.choice and Quot.sound: no sorry, no added axiom, no native_decide. Three checks are recorded. A from-scratch build compiled all 60,475 modules; leanprover/comparator v4.33.0 checked the result against a Mathlib-only Challenge.lean and returned 'Your solution is okay!'; and nanoda 0.4.13, an independent Lean kernel written in Rust, accepted an export of the same environment with 1,052,234 declarations and no errors. The argument formalized is the classical one of Frey, Serre, Ribet, Wiles and Taylor-Wiles, and the development builds on the Imperial College London FLT project, flt-regular and Mathlib, with 106 files containing material from the first two.",
     "novelty_check": "This is a formalization, not a new theorem, and the entry is graded as such. Wiles and Taylor-Wiles proved Fermat's Last Theorem in 1995; nothing mathematically new is claimed here, and Kevin Buzzard states directly that 'mathematically this work of anthropic tells us essentially nothing' and that 'the formalization just faithfully follows the early literature on the proof and adds nothing'. What is new is the scale of autoformalization: prior partial formalizations existed, notably the ongoing Imperial College FLT project this work builds on, and no complete machine-checked proof of the theorem existed before. It completes the last open item of Wiedijk's list of 100 theorems.",
-    "caveats": "The result is a formalization of an existing proof and should not be read as new mathematics. Verification is graded formal on the machine checks rather than on the announcement: the comparator check ties the proved statement to Mathlib's own, and a second independent kernel replayed it. What no tool establishes, and the repository says so itself, is that each intermediate theorem means what its name suggests, since names are machine-generated and 'where a name and a statement disagree the statement is what was proved'. Buzzard reports the codebase is over 13.4 million lines and that the proof as formalized only works for exponents p at least 17, with smaller cases covered by earlier work. Reproducing the checks is expensive: the build takes hours at 96 jobs with a peak of 153 GB of memory, and the comparator run about 15 hours. Autonomy is graded ai-led rather than autonomous: the announcement describes Claude working 'largely autonomously' but also records high-level human steering from Tianyi Peng, and the strictest defensible reading applies. On 16 October 2026 seven named formalization researchers, Jeremy Avigad, Kevin Buzzard, Johan Commelin, Remy Degenne, Kim Morrison, Oliver Nash and Adam Topaz, published a guest post on the Xena blog judging that although the accomplishment is impressive, this piece of AI-generated code probably has little ongoing value, on the grounds that the theorems were not seriously in doubt and so the value of a formal artifact lies in what it gives beyond mere correctness. That is an argument about usefulness and not about correctness: none of them disputes that the proof checks, and Buzzard is the same mathematician whose reproduction is cited above. It is recorded here because a reader who takes this entry's formal grade as a measure of mathematical value would be reading more into it than the grade carries.",
+    "caveats": "The result is a formalization of an existing proof and should not be read as new mathematics. Verification is graded formal on the machine checks rather than on the announcement: the comparator check ties the proved statement to Mathlib's own, and a second independent kernel replayed it. What no tool establishes, and the repository says so itself, is that each intermediate theorem means what its name suggests, since names are machine-generated and 'where a name and a statement disagree the statement is what was proved'. Buzzard reports the codebase is over 13.4 million lines and that the proof as formalized only works for exponents p at least 17, with smaller cases covered by earlier work. Reproducing the checks is expensive: the build takes hours at 96 jobs with a peak of 153 GB of memory, and the comparator run about 15 hours. Autonomy is graded ai-led rather than autonomous: the announcement describes Claude working 'largely autonomously' but also records high-level human steering from Tianyi Peng, and the strictest defensible reading applies. On 16 October 2026 seven named formalization researchers, Jeremy Avigad, Kevin Buzzard, Johan Commelin, Remy Degenne, Kim Morrison, Oliver Nash and Adam Topaz, published a guest post on the Xena blog judging that although the accomplishment is impressive, this piece of AI-generated code probably has little ongoing value, on the grounds that the theorems were not seriously in doubt and so the value of a formal artifact lies in what it gives beyond mere correctness. That is an argument about usefulness and not about correctness: none of them disputes that the proof checks, and Buzzard is the same mathematician whose reproduction is cited above. It is recorded here because a reader who takes this entry's formal grade as a measure of mathematical value would be reading more into it than the grade carries. Anthropic's Claude Fable 5.2 launch post of 9 November 2026 reports a second formalization by the same lab: about 1,000 Fable 5.2 agents fully formalized the theorem in 30 hours with minimal human intervention, using a third of the action tokens and producing a proof seven times shorter, while Opus 5.5 under the same setup did not finish. That run's repository is not cited here and it is not an independent check of this one.",
     "independent_checks": [
       {
         "who": "Kevin Buzzard, Imperial College London, who leads the FLT formalization project this work builds on",
@@ -6605,6 +6605,11 @@
         "label": "Xena project: How to Formalize All of Mathematics (guest post by Avigad, Buzzard, Commelin, Degenne, Morrison, Nash and Topaz)",
         "url": "https://xenaproject.wordpress.com/2026/10/16/how-to-formalize-all-of-mathematics/",
         "kind": "commentary"
+      },
+      {
+        "label": "Anthropic: Introducing Claude Fable 5.2 and Claude Mythos 5.2",
+        "url": "https://www.anthropic.com/claude-fable-and-mythos-5-2",
+        "kind": "announcement"
       }
     ],
     "discussion": [
@@ -8617,7 +8622,13 @@
       "algebraic-geometry",
       "argument"
     ],
-    "added": "2026-10-06"
+    "added": "2026-10-06",
+    "discussion": [
+      {
+        "label": "Hacker News: Claude-Shaped Science",
+        "url": "https://news.ycombinator.com/item?id=49933386"
+      }
+    ]
   },
   {
     "id": "2026-10-06-openai-math-collection",
@@ -9306,7 +9317,7 @@
     "autonomy": "collaborative",
     "detail": "The conjecture, formulated in 1995, says that isoperimetry in a convex body is saturated by half-spaces up to a universal constant; equivalently \\(C_P(\\mu) \\le C\\) for every isotropic log-concave \\(\\mu\\) on \\(\\mathbb{R}^n\\), so that the Poincaré constant is determined by testing linear functions. It sits above Bourgain's slicing problem and the thin-shell conjecture, both resolved by Klartag and Lehec in the past two years. The bound on the KLS constant \\(\\psi_n\\), the reciprocal Cheeger constant, had fallen from Kannan, Lovász and Simonovits's \\(\\sqrt n\\) through Lee and Vempala's \\(n^{1/4}\\), Chen's subpolynomial bound, Klartag and Lehec's polylogarithm and Klartag's \\(\\sqrt{\\log n}\\) to Letwin's \\((\\log n)^{1/4}\\) of July 2026. Song and Zhang's first version, posted on 1 October, gave an iterated-logarithm bound. Bizeul, Klartag and Lehec (posted 19:30 UTC on 4 October) complete the proof using Song and Zhang's criterion on high-order derivatives of tilt averages and a suspension idea they credit to themselves; their acknowledgements say most proofs and mathematical ideas were found by ChatGPT and that the authors' role was mostly to understand the proofs and improve the exposition. Song and Zhang's second version (21:21 UTC the same day, 140 pages) reaches a universal constant by applying their log-star refinement repeatedly; their disclosure describes exploring more than 100 approaches with AI tools since 28 July, with candidates generated collaboratively and the authors choosing which to pursue.",
     "novelty_check": "Read both papers' sources on arXiv: arXiv:2610.05474 v1 and arXiv:2610.01447 v2, with the latter's submission history. Each introduction gives the same ladder of prior bounds, ending at Letwin's, and neither cites an earlier resolution. The two are not independent of each other: the Bizeul, Klartag and Lehec proof takes Song and Zhang's first-version criterion as its crucial step, and Song and Zhang's second version finishes the same programme by a different route.",
-    "caveats": "Neither preprint is refereed, and the two together are under ten days old at entry. Verification is author-verified: Klartag and Lehec are among the people who built this area, which carries weight, but their own account is that ChatGPT found most of the proof and they checked and rewrote it, while Song and Zhang write that the proofs were verified by the authors and several AI tools. No outside reader is on record for either. Autonomy is graded collaborative on the weaker of the two disclosures: the Bizeul, Klartag and Lehec wording on its own reads as ai-led, but the decisive criterion is Song and Zhang's, whose disclosure describes a human-steered search and credits the log-star and height-reduction ideas to the authors' earlier work. The Bizeul, Klartag and Lehec introduction opens by saying the conjecture 'poses little challenge for contemporary AI tools', given recent progress, which is a striking thing for two of the field's leading figures to put in print. The ChatGPT version used is not stated.",
+    "caveats": "Neither preprint is refereed, and the two together are under ten days old at entry. Verification is author-verified: Klartag and Lehec are among the people who built this area, which carries weight, but their own account is that ChatGPT found most of the proof and they checked and rewrote it, while Song and Zhang write that the proofs were verified by the authors and several AI tools. No outside reader is on record for either. Autonomy is graded collaborative on the weaker of the two disclosures: the Bizeul, Klartag and Lehec wording on its own reads as ai-led, but the decisive criterion is Song and Zhang's, whose disclosure describes a human-steered search and credits the log-star and height-reduction ideas to the authors' earlier work. The Bizeul, Klartag and Lehec introduction opens by saying the conjecture 'poses little challenge for contemporary AI tools', given recent progress, which is a striking thing for two of the field's leading figures to put in print. The ChatGPT version used is not stated. Microsoft Research's post of 21 October 2026 points to a Lean 4 formalization, the repository HongruZhao/KLS500 created on 8 October, which states a Poincaré constant of at most 500 for every isotropic log-concave law and combines the criterion from Song and Zhang's first version with further work; it was not rebuilt or audited for this entry and carries no Palomar registration, and the relationship of its author to either group is not stated. The post also says Song and Zhang have verified a shortened proof in Lean and plan to release it after final review.",
     "registrations": [
       {
         "registry": "mathdb",
@@ -9330,6 +9341,16 @@
         "label": "arXiv: Song and Zhang, An O(1) Bound for the KLS Constant",
         "url": "https://arxiv.org/abs/2610.01447",
         "kind": "research"
+      },
+      {
+        "label": "Microsoft Research: Solving a 31-year-old grand challenge in mathematics, the KLS conjecture",
+        "url": "https://www.microsoft.com/en-us/research/blog/solving-a-31-year-old-grand-challenge-in-mathematics-the-kls-conjecture/",
+        "kind": "announcement"
+      },
+      {
+        "label": "GitHub: HongruZhao/KLS500, a Lean 4 formalization of a dimension-free KLS bound",
+        "url": "https://github.com/HongruZhao/KLS500",
+        "kind": "research"
       }
     ],
     "tags": [
@@ -9344,6 +9365,12 @@
         "date": "2026-10-16",
         "kind": "correction",
         "note": "Recorded the vibemathed record for this result and the MathDB record for the conjecture as registrations. No grade moved."
+      },
+      {
+        "date": "2026-11-19",
+        "kind": "correction",
+        "note": "Recorded Microsoft Research's account of the Song and Zhang proof and a public Lean 4 formalization of a dimension-free KLS bound, not yet rebuilt or audited here. No grade moved.",
+        "url": "https://github.com/HongruZhao/KLS500"
       }
     ]
   },
@@ -9990,7 +10017,13 @@
       "agents",
       "computation"
     ],
-    "added": "2026-10-16"
+    "added": "2026-10-16",
+    "discussion": [
+      {
+        "label": "Hacker News: Claude-Shaped Science",
+        "url": "https://news.ycombinator.com/item?id=49933386"
+      }
+    ]
   },
   {
     "id": "2026-08-06-hjo-a3-rogers-ramanujan",
@@ -11951,7 +11984,7 @@
     "autonomy": "collaborative",
     "detail": "For a countable group \\(G\\) and a finite alphabet \\(A\\), the Bernoulli shift is \\(G\\) acting by translation on \\(A^G\\) with the uniform product measure. Ornstein showed in 1970 that base entropy is a complete invariant of these shifts over the integers, and Bowen showed in 2010 that it is an isomorphism invariant over every sofic group, so shifts with different base entropies can be isomorphic only over a group outside that class. The registered theorem gives a countable group \\(G\\) and a nontrivial finite alphabet \\(A\\) for which the shifts on \\(A\\) and on \\(A \\times A\\) are equivariantly isomorphic on invariant conull sets, with a measurable inverse. The group and the algebraic input come from OpenAI's manuscript A Counterexample to Kaplansky's Direct-Finiteness Conjecture in Characteristic Two, whose abstract says the group is non-sofic; its Lean development is imported at a pinned commit, and this project builds the dynamical conjugacy on top of it.",
     "novelty_check": "arXiv, 2026-10-29: abs:\"Bernoulli shifts\" AND abs:\"entropy\" AND abs:\"sofic\" returned 11 records, on sofic entropy and its refinements; none constructs isomorphic shifts with different base entropies. Such an example needs a non-sofic group, and whether any group is non-sofic was itself open until OpenAI's Kaplansky manuscript claimed one. Within this registry that manuscript is part of 2026-10-06-openai-math-collection with no entry of its own, and nothing covers this result. The 2026-10-29 watch run surfaced it through its Palomar registration.",
-    "caveats": "Graded formal on the Palomar registration: the repository reports that Palomar's mechanical verification passed at the registered commit, including Lean kernel checking and an independent NanoDa replay, and its comparator configuration enables NanoDa. A scan of all 59 Lean files at that commit found no axiom declarations, no native_decide, and sorry only in the Challenge.lean statement file. The grade covers less than the expository note: the metadata says the certificate concerns finite-uniform measurable conjugacy only, does not certify the all-base collapse, finitary continuity, the integer coding inputs or the note's later corollaries, and claims no formal entropy classification theorem. The formalization.yaml at the registered commit still says the revision had not completed Palomar's hosted preflight and claims no registration; the README, updated afterwards, explains that those notes predate the hosted checks. Because OpenAI's Lean proof of the algebraic input builds inside this development, the formal grade covers it too, but the mathematics it encodes is an unrefereed manuscript from an unreleased model, and no mathematician is on record as having read either argument. Review is recorded as agent-reviewed with no human peer review, and the expository note comes from a draft GPT-6 wrote. Autonomy is collaborative: the metadata credits GPT-6 Astra and GPT-6 Sol with mathematical writing, Lean implementation, integration and source review under human direction, and the decisive algebraic input is another lab's model's work.",
+    "caveats": "Graded formal on the Palomar registration: the repository reports that Palomar's mechanical verification passed at the registered commit, including Lean kernel checking and an independent NanoDa replay, and its comparator configuration enables NanoDa. A scan of all 59 Lean files at that commit found no axiom declarations, no native_decide, and sorry only in the Challenge.lean statement file. The grade covers less than the expository note: the metadata says the certificate concerns finite-uniform measurable conjugacy only, does not certify the all-base collapse, finitary continuity, the integer coding inputs or the note's later corollaries, and claims no formal entropy classification theorem. The formalization.yaml at the registered commit still says the revision had not completed Palomar's hosted preflight and claims no registration; the README, updated afterwards, explains that those notes predate the hosted checks. Because OpenAI's Lean proof of the algebraic input builds inside this development, the formal grade covers it too, but the mathematics it encodes is an unrefereed manuscript from an unreleased model, and no mathematician is on record as having read either argument. Review is recorded as agent-reviewed with no human peer review, and the expository note comes from a draft GPT-6 wrote. Autonomy is collaborative: the metadata credits GPT-6 Astra and GPT-6 Sol with mathematical writing, Lean implementation, integration and source review under human direction, and the decisive algebraic input is another lab's model's work. A second Palomar registration from the same repository, PALOMAR-2026-11-12-000001, proves a stronger statement: for the group \\(N \\times (\\mathbb{Z}/2 \\wr \\mathbb{Z})\\), with \\(N\\) the group of OpenAI's construction, the Bernoulli shifts over any two standard probability bases that are not point masses are isomorphic, whatever their entropies, including infinite ones. It is by the same author and builds on the same pinned algebraic input, so it is not an independent check, and its record names no AI tooling; it covers measurable conjugacy only, not finitary or continuous conjugacy.",
     "registrations": [
       {
         "registry": "palomar",
@@ -11965,6 +11998,19 @@
         ],
         "checked": "2026-10-27",
         "note": "Permitted axioms are exactly propext, Classical.choice and Quot.sound, with NanoDa enabled. The certificate is narrower than the expository note."
+      },
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-12-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-12-000001&version=1",
+        "title": "A countable group all of whose nontrivial Bernoulli shifts are isomorphic",
+        "repository": "peterburton1728/bernoulli-iso-1",
+        "commit": "a8df55ed454edfc197296f98155d67a49f3e5eed",
+        "theorems": [
+          "AllCollapse.all_bernoulli_shifts_isomorphic"
+        ],
+        "checked": "2026-11-19",
+        "note": "Trust level high; checked by the nanoda and con-ron kernels. A stronger statement from the same repository: for the group N × (Z/2 wr Z) every two non-point-mass standard bases give isomorphic Bernoulli shifts, with no condition on entropy. The record notes that it implies the earlier registered statement mathematically but that this implication is not formalized."
       }
     ],
     "sources": [
@@ -11992,7 +12038,15 @@
       "formalization",
       "construction"
     ],
-    "added": "2026-10-29"
+    "added": "2026-10-29",
+    "revisions": [
+      {
+        "date": "2026-11-19",
+        "kind": "check",
+        "note": "Recorded a second Palomar registration from the same repository proving that all non-point-mass Bernoulli shifts of a related group are isomorphic, which contains this entry's result. Same author, so no grade moved.",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-12-000001&version=1"
+      }
+    ]
   },
   {
     "id": "2026-10-26-cfsg-lean-axiom",
@@ -13646,7 +13700,13 @@
       "ancient-texts",
       "herculaneum"
     ],
-    "added": "2026-11-09"
+    "added": "2026-11-09",
+    "discussion": [
+      {
+        "label": "Hacker News: Writing seen in PHerc. 306B, for the first time in 2000 years",
+        "url": "https://news.ycombinator.com/item?id=50342119"
+      }
+    ]
   },
   {
     "id": "2026-10-30-designed-activation-domains",
@@ -13957,7 +14017,13 @@
       "hardware",
       "capability-demonstration"
     ],
-    "added": "2026-11-12"
+    "added": "2026-11-12",
+    "discussion": [
+      {
+        "label": "Hacker News: Testing Claude on real-world electronics design",
+        "url": "https://news.ycombinator.com/item?id=50429952"
+      }
+    ]
   },
   {
     "id": "2026-11-06-gait-foundation-model-phenotypes",
@@ -14556,7 +14622,13 @@
       "firefox",
       "exploits"
     ],
-    "added": "2026-11-16"
+    "added": "2026-11-16",
+    "discussion": [
+      {
+        "label": "Hacker News: A thousand fewer paths to root",
+        "url": "https://news.ycombinator.com/item?id=50372929"
+      }
+    ]
   },
   {
     "id": "2026-11-12-spot-tb-ai-case-finding-rct",
@@ -14753,5 +14825,714 @@
       "herculaneum"
     ],
     "added": "2026-11-16"
+  },
+  {
+    "id": "2026-11-12-langlands-split-groups-function-fields",
+    "title": "Automorphic realization of Langlands parameters for split groups over function fields, Part I",
+    "claim": "A single-author Hexagon preprint, whose mathematical arguments its provenance statement says were developed with GPT-6 Astra Pro, claims the converse to V. Lafforgue's decomposition: every semisimple elliptic Langlands parameter of a split reductive group over a global function field is the parameter of a cusp form, with this part's theorems resting on existence results deposited separately as Parts II and III.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "Independent",
+    "model": "GPT-6 Astra Pro (mathematical arguments) and Claude Fable 5.2 (organizing and rewriting), per the provenance statement; the record's tools field lists GPT-6 Pro",
+    "humans": [
+      "Boyang Hu"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "V. Lafforgue decomposed the space of cusp forms on a split connected reductive group \\(G\\) over a global function field \\(F\\) according to semisimple Langlands parameters. This is the first of three papers claiming the converse: every semisimple elliptic parameter is the parameter of a cusp form on \\(G\\) over \\(F\\) itself, in every positive characteristic for classical groups and above stated characteristic bounds for the exceptional groups (greater than 3 for \\(G_2\\) and \\(F_4\\), 5 for \\(E_6\\), 7 for \\(E_7\\) and \\(E_8\\)). Part I contains the arithmetic half: it defines excursion operators on functions not assumed cuspidal, proves compatibility with constant terms, and reduces the theorems to the existence of a cusp form with a given elliptic parameter on a simply connected simple group. That existence is proved in Part II by a geometric method and in Part III for classical groups by descent from general linear groups.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"Langlands parameters\" AND abs:\"function field\" AND abs:cusp returned no records; the paper is on Hexagon only. Its reference list includes Böckle, Harris, Khare and Thorne (Acta Math. 2019) on potential automorphy of local systems over function fields, the nearest published result. Nothing in this registry covers the Langlands programme over function fields.",
+    "caveats": "Entered at claimed and with high novelty risk. By the author's own comment, the theorems of this part depend on the two existence theorems proved in Parts II and III, which were not read for this entry. Hexagon labels the text primarily AI-generated with human understanding of some parts, and the provenance statement records review only by GPT and Claude sessions that had not taken part in writing, with no human mathematical check beyond the author, who 'organized the work and is responsible for the manuscript'. No specialist is on record as having read it, and the author is identified only by an ORCID. The provenance statement names GPT-6 Astra Pro while the record's tools field says GPT-6 Pro. Autonomy is ai-led: the statement credits the model with the arguments and the human with organization, and nothing supports a fully autonomous reading.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "automorphic-realization-for-global-langlands-parameters",
+        "url": "https://vibemathed.com/problem/automorphic-realization-for-global-langlands-parameters"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00398: Automorphic realization of Langlands parameters for split groups over global function fields, I",
+        "url": "https://hexagonmath.org/2611.00398v1",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "langlands-program",
+      "function-fields",
+      "automorphic-forms",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-09-supercritical-ten-martini",
+    "title": "The supercritical Ten Martini Problem, with an LLM used for the renormalization and KAM steps",
+    "claim": "Ge, Jitomirskaya and You prove Cantor spectrum on the positive-Lyapunov part of the spectrum of every nonconstant real analytic one-frequency Schrödinger operator, settling a 2024 conjecture of You; their appendix says they conceived the whole strategy without AI and then used an LLM to help carry out the renormalization and local KAM steps.",
+    "field": "mathematics",
+    "date": "2026-11-09",
+    "lab": "Independent",
+    "model": "An unnamed LLM",
+    "humans": [
+      "Lingrui Ge",
+      "Svetlana Jitomirskaya",
+      "Jiangong You"
+    ],
+    "year_posed": 2024,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The Ten Martini Problem asks whether the spectrum of a quasi-periodic Schrödinger operator is a Cantor set; for the almost Mathieu operator it was settled by Avila and Jitomirskaya. In the supercritical regime Cantor spectrum is expected for every nonconstant analytic potential and every irrational frequency, which You formulated as a conjecture in 2024. The paper proves it on the closure of the positive-Lyapunov part of the spectrum by using the intrinsic symplectic center of Ge and Jitomirskaya to extend the Kotani and almost reducibility arguments of Ge, Jitomirskaya and You from a two-dimensional center to one of arbitrary finite dimension. Appendix B states that the model helped derive the renormalization estimate of Lemma 5.1 and discover the monotonicity property of Lemma 3.2, and was 'particularly valuable' in using that property to simplify the authors' original local KAM argument with parameters.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"ten martini\" returned 27 records. The nearest are the dry and non-critical versions for other operator families and a Jitomirskaya and Stoiber paper of 16 November 2026 on monotone potentials, a different class. None proves the supercritical statement for analytic one-frequency operators. Nothing in this registry covers spectral theory of quasi-periodic operators.",
+    "caveats": "A 60-page preprint at version one, unrefereed, with no outside reader on record; Jitomirskaya is among the people who built this area, which is why the authors' own account carries weight, and the paper's authors state they 'take full responsibility for the mathematical arguments and the final text', which could support author verified; it is held at claimed on a conservative reading. The theorem covers the positive-Lyapunov part of the spectrum, not the whole spectrum. The LLM is not named. Autonomy is ai-assisted on the authors' own account: they conceived the entire proof strategy in 2025 without AI, built the symplectic center and extended Kotani theory before any AI use, and credit the model with two lemmas and a simplification inside a plan that was already theirs.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-supercritical-ten-martini-problem",
+        "url": "https://vibemathed.com/problem/the-supercritical-ten-martini-problem"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Ge, Jitomirskaya and You, The Supercritical Ten Martini Problem",
+        "url": "https://arxiv.org/abs/2611.13068",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "spectral-theory",
+      "schrodinger-operators",
+      "quasi-periodic",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-10-explicit-rip-two-thirds",
+    "title": "Explicit restricted isometries with k = m^(2/3 − o(1)), first proved in one shot by GPT-6 Astra",
+    "claim": "Kümmerle and Mixon construct explicit real restricted isometry matrices whose sparsity level reaches \\(k = m^{2/3 - o(1)}\\), past the square-root barrier that conventional wisdom attached to proofs of this kind, on a problem Tao posed in 2007; their declaration says the main theorem was proved in one shot using GPT-6 Astra.",
+    "field": "mathematics",
+    "date": "2026-11-10",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (main theorem); ChatGPT and Claude Opus 5.5 (exploration, drafting and feedback); an Opus 5.5 orchestrator with GPT-6.1 Sol and GPT-6 Astra subagents (Lean)",
+    "humans": [
+      "Christian Kümmerle",
+      "Dustin G. Mixon"
+    ],
+    "year_posed": 2007,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "A matrix has the restricted isometry property of order \\(k\\) when it nearly preserves the length of every \\(k\\)-sparse vector, which is what compressed sensing needs. Random matrices achieve \\(k\\) nearly proportional to \\(m\\); Tao asked in 2007 for comparable explicit constructions, and the abstract notes the conventional wisdom that proofs using only the entrywise absolute value of the Gram matrix stall at \\(m^{1/2}\\). The paper combines Gershgorin's circle theorem with a flat RIP estimate to reduce the problem to choosing a large vertex set in a strongly regular graph in which every small subset spans few edges, and selects that set using an incidence result of Zahl. It also proves that methods using only the entrywise absolute value of the Gram matrix face a barrier at \\(m^{2/3}\\), not \\(m^{1/2}\\) as had been believed, and that this construction meets it. The authors write that while digesting the AI proof they distilled the Gershgorin and flat RIP hybrid, identified the 2/3 barrier and explored the general approach over several long conversations with ChatGPT.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"restricted isometry\" AND abs:explicit AND abs:deterministic returned 5 records, including explicit RIP matrices from algebraic geometry (2015) and Gershgorin-type RIP constants (2019); none passes exponent 1/2. Nothing in this registry covers compressed sensing.",
+    "caveats": "Entered at claimed. The paper states that all theorems, lemmas and propositions, including the case of Zahl's theorem used, are formalized in Lean 4 with Mathlib in github.com/ckuemmerle/ExplicitRIPTwoThirds, with the running time of the construction outside the formalization; that repository was not rebuilt for this entry and carries no Palomar registration, so the formalization is not credited here. The authors state that all mathematical claims, citations and computations were checked by them, which could support author verified. It is a partial answer: exponents above 2/3 stay open, and the paper shows this method cannot reach them. Autonomy is ai-led: the central theorem came from the model in one shot, and the humans understood, generalized and rewrote it.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "optimal-explicit-restricted-isometry",
+        "url": "https://vibemathed.com/problem/optimal-explicit-restricted-isometry"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Kümmerle and Mixon, Explicit restricted isometries with k = m^(2/3 − o(1))",
+        "url": "https://arxiv.org/abs/2611.14475",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: ckuemmerle/ExplicitRIPTwoThirds, the Lean formalization",
+        "url": "https://github.com/ckuemmerle/ExplicitRIPTwoThirds",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "compressed-sensing",
+      "restricted-isometry",
+      "strongly-regular-graphs",
+      "construction"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-10-ideal-generation-reduced-points",
+    "title": "The Ideal Generation Conjecture for general reduced points in projective space, characteristic zero",
+    "claim": "A Hexagon preprint described as 'a guided exploration by Open AI Astra agents' proves that for general reduced points in projective space over an algebraically closed field of characteristic zero, multiplication by linear forms from the initial degree \\(D\\) of their ideal to degree \\(D+1\\) has maximal rank, and its main theorem is registered on Palomar as a Lean proof.",
+    "field": "mathematics",
+    "date": "2026-11-10",
+    "lab": "Independent",
+    "model": "OpenAI Astra agents; version not stated",
+    "humans": [
+      "Vlado Vojdanovski"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "For a general set of points in projective space, the Ideal Generation Conjecture predicts the minimal number of generators of their homogeneous ideal, equivalently that the multiplication map from the degree \\(D\\) part of the ideal tensored with linear forms to its degree \\(D+1\\) part has maximal rank. The paper's references include Geramita and Orecchia (1982), Geramita and Maroscia (1984), Hirschowitz and Simpson (1996), who settled the case of a large number of points, and Lauze (1995). The proof combines hyperplane specialization with a construction using two transverse hyperplanes, whose common trace moves to give the required rank, and a uniform induction for \\(D \\ge 4\\) reduces everything to explicit quadratic and cubic constructions. The Palomar record formalizes Theorem 1.1 for every dimension \\(n \\ge 1\\), degree \\(D \\ge 2\\) and point count in the relevant range, and states that the ideal has exactly the predicted numbers of minimal generators in degrees \\(D\\) and \\(D+1\\) and is generated in those degrees.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"ideal generation conjecture\" returned 2 records, a 2004 paper on points in multi-projective space and a 2012 paper on K3 surfaces; neither proves the conjecture for general points in all dimensions. Nothing in this registry covers it.",
+    "caveats": "Held at claimed on a conservative reading. Palomar records trust level high and a nanoda kernel check of IdealGenerationPaper.main_result at a pinned commit, which for other entries in this registry has supported formal; no human outside the author has audited the 169-line Challenge statement against the classical conjecture, and the registry's own review is by a model. Hexagon labels the text primarily AI-generated with human understanding of some parts, and the preprint is unrefereed. Autonomy is collaborative: 'guided exploration' implies human steering beyond posing the problem, the extent of which is not stated, and the weaker grade wins.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-10-000007",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-10-000007&version=1",
+        "title": "Ideal generation for general reduced projective points",
+        "repository": "Vlado-V/ideal-generation-projective-points",
+        "commit": "9782452b468ef34b82717cbb3fb729a19b29646d",
+        "theorems": [
+          "IdealGenerationPaper.main_result"
+        ],
+        "checked": "2026-11-19",
+        "note": "Trust level high; checked by the nanoda kernel. Generality is expressed in the standard affine chart of projective space."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "the-ideal-generation-conjecture-for-general-reduced-projective-points",
+        "url": "https://vibemathed.com/problem/the-ideal-generation-conjecture-for-general-reduced-projective-points"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00274: Ideal generation for general reduced projective points",
+        "url": "https://hexagonmath.org/2611.00274v1",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: Vlado-V/ideal-generation-projective-points, the Lean proof",
+        "url": "https://github.com/Vlado-V/ideal-generation-projective-points",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "algebraic-geometry",
+      "commutative-algebra",
+      "points-in-projective-space",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-08-lvov-kaplansky-large-matrices",
+    "title": "The L'vov–Kaplansky conjecture for matrices of sufficiently large order",
+    "claim": "A Hexagon preprint whose main results were developed over ten GPT-6-Pro research runs claims that for each degree, the image of a nonzero multilinear polynomial on \\(n \\times n\\) matrices over any field is the traceless matrices or the whole matrix algebra, as the L'vov–Kaplansky conjecture predicts, once \\(n\\) exceeds a threshold depending only on the degree.",
+    "field": "mathematics",
+    "date": "2026-11-08",
+    "lab": "Independent",
+    "model": "GPT-6-Pro (ten research runs, 62.5 scheduled hours) and Codex (proof audit and manuscript polish)",
+    "humans": [
+      "Qiyue Tang"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The L'vov–Kaplansky conjecture, recorded in the Dniester Notebook, says the image of a multilinear polynomial evaluated on \\(n \\times n\\) matrices is always \\(\\{0\\}\\), the scalars, the traceless matrices or the whole algebra. Prior work studied small cases, such as images on \\(2 \\times 2\\) and \\(3 \\times 3\\) matrices (Kanel-Belov, Malev and Rowen) and instances in degree three (Dykema and Klep, and later authors). The preprint claims the full dichotomy for every degree in all sizes beyond a degree-dependent threshold: the image is the traceless subspace if every cyclic coefficient sum vanishes, and the full matrix algebra otherwise.",
+    "novelty_check": "arXiv, 2026-11-19, abs:Kaplansky AND abs:multilinear AND abs:matrix returned 6 records: degree-three cases (2015, 2023), a grading approach (2022), upper triangular algebras and a July 2026 generalization over division algebras. None claims the conjecture for large matrix size in every degree. Nothing in this registry covers it.",
+    "caveats": "Entered at claimed, with caution. It is a partial result: sizes below the threshold remain open, and the abstract gives no explicit threshold. Hexagon labels the text a mix of human-written and AI-generated with human understanding of some parts, and the provenance promises a Rethlas-OSV review in a later version, which has not appeared. The current version, v2 of 16 November, adds an author's note disclaiming ownership and priority and inviting others to check the arguments and prepare a finished account, so the submitter does not vouch for the mathematics as an author normally would. The same submitter filed other solo AI-generated claims on named conjectures in the same window. Autonomy is ai-led: the provenance credits the model runs with the main results and describes no human mathematical contribution.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-l-vov-kaplansky-conjecture",
+        "url": "https://vibemathed.com/problem/the-l-vov-kaplansky-conjecture"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00206: The L'vov–Kaplansky Conjecture for Matrices of Sufficiently Large Order",
+        "url": "https://hexagonmath.org/2611.00206v2",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "ring-theory",
+      "polynomial-identities",
+      "matrix-algebras",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-10-lrx-diameter-symmetric-group",
+    "title": "Exact diameter of the symmetric group with LRX generators, n(n−1)/2 for every n ≥ 4",
+    "claim": "Seven authors report that their agentic system, mainly GPT-6 Astra, proved the undirected Cayley graph of \\(S_n\\) generated by the cyclic shift, its inverse and the transposition of the first two positions has diameter \\(n(n-1)/2\\) for every \\(n \\ge 4\\), with a finite set of special cases checked by C++ code and the result registered on Palomar as a Lean proof.",
+    "field": "mathematics",
+    "date": "2026-11-10",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (agentic system and Codex); Claude Opus 5.5 (minor checks and editing)",
+    "humans": [
+      "Sergei Uskov",
+      "Alexander Chervov",
+      "Fedor Levkovich-Maslyuk",
+      "Ivan Litvak",
+      "Andrei Smolensky",
+      "Alexander Soibelman",
+      "Dia Taha"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "With \\(L\\) the cyclic shift, \\(R = L^{-1}\\) and \\(X\\) the transposition of the first two positions, the question is the largest distance between two permutations in the Cayley graph, OEIS A186783; the paper says the conjectured value was open since at least 2011, and the CayleyPy growth computations listed it among their conjectures. The paper establishes sharp upper and lower bounds by combinatorial and group-theoretic arguments, leaving a finite set of special cases verified by accompanying C++ code. The Palomar record proves the upper and lower bounds and constructs an explicit L, R, X word of at most that length between every ordered pair of permutations, against a Mathlib-only Challenge.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"symmetric group\" AND abs:\"Cayley graph\" AND abs:diameter AND abs:transposition returned 5 records, including a 2020 upper bound for a related generator set and the CayleyPy papers that list this diameter as a conjecture; none proves it. Nothing in this registry covers Cayley graph diameters.",
+    "caveats": "Held at claimed on a conservative reading. Palomar records trust level high and a nanoda kernel check of PalomarLRX.exactDiameter and PalomarLRX.boundedRouting at a pinned commit, which for other entries in this registry has supported formal; the registration is by a third-party repository, snow-ghost/lrx-lean, whose relationship to the authors is not stated, and no human outside the group has audited its Challenge statement. The finite cases in the paper rest on C++ code, not on the Lean development, as far as the paper says. Hexagon labels the text a mix of human-written and AI-generated with human understanding of some parts: Section 1 is mostly human-written and the rest, including the proof, AI-generated with minor human edits. Autonomy is ai-led rather than autonomous: the authors describe human intervention as relatively minor and mostly workflow orchestration, and the problem was posed by humans.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-10-000010",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-10-000010&version=1",
+        "title": "Exact LRX diameter of the symmetric group",
+        "repository": "snow-ghost/lrx-lean",
+        "commit": "9cffbfbab7e1d6f5be1012c3caf608478f5af5b6",
+        "theorems": [
+          "PalomarLRX.exactDiameter",
+          "PalomarLRX.boundedRouting"
+        ],
+        "checked": "2026-11-19",
+        "note": "Trust level high; checked by the nanoda kernel."
+      },
+      {
+        "registry": "vibemathed",
+        "id": "diameter-of-the-symmetric-group-s-n-with-lrx-generators",
+        "url": "https://vibemathed.com/problem/diameter-of-the-symmetric-group-s-n-with-lrx-generators"
+      }
+    ],
+    "sources": [
+      {
+        "label": "Hexagon 2611.00333: The exact diameter of the symmetric group with LRX generators",
+        "url": "https://hexagonmath.org/2611.00333v1",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: snow-ghost/lrx-lean, the Lean proof",
+        "url": "https://github.com/snow-ghost/lrx-lean",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "combinatorics",
+      "cayley-graphs",
+      "symmetric-group",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-13-chabauty-kim-dimension-inequality",
+    "title": "Kim's dimension inequality for curves over Q with a rational point, via noncommutative Iwasawa theory",
+    "claim": "Sa'ar Zehavi proves Kim's conjectured dimension inequality for every smooth projective curve of genus at least two over \\(\\mathbb{Q}\\) with a rational basepoint, at every odd prime of good reduction and all sufficiently large levels, so the Chabauty–Kim method works unconditionally for such curves; the key nontrivial bound was developed in a lengthy back-and-forth with GPT-6 Astra.",
+    "field": "mathematics",
+    "date": "2026-11-13",
+    "lab": "Independent (Max Planck Institute for Mathematics)",
+    "model": "GPT-6 Astra (OpenAI), Ultra mode",
+    "humans": [
+      "Sa'ar Zehavi"
+    ],
+    "year_posed": 2009,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "Kim's method bounds rational points on a curve by comparing the étale and de Rham unipotent fundamental groups at level \\(n\\); it yields finiteness whenever the Selmer dimension \\(\\dim H^1_f(G_{\\mathbb{Q},\\Sigma}, U_n^{\\mathrm{et}})\\) falls below \\(\\dim(U_n^{\\text{dR}}/F^0)\\), which Kim conjectured in 2009 always happens for large \\(n\\). The paper proves this for every odd prime \\(p\\) of good reduction, with no restriction on the Jacobian's endomorphism ring or Galois image, by bounding second Galois cohomology through kernels of Iwasawa operators acting on representations of the generalized symplectic group, an approach the author traces to Coates and Kim's work on curves with CM Jacobians. As a consequence the Chabauty–Kim loci are finite at large levels, recovering the Mordell conjecture over \\(\\mathbb{Q}\\), Faltings's theorem, through Kim's method.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"Chabauty-Kim\" AND abs:dimension returned 5 records: this paper, effective Chabauty–Kim methods (2021), refined Selmer bounds for hyperelliptic curves (2025) and two papers on relative completions and higher dimensions; none proves the inequality in general. The AI Declaration notes that some ideas behind the key bound already appear in a paper of Weibo Fu. Nothing in this registry covers Chabauty–Kim theory.",
+    "caveats": "A 61-page single-author preprint, unrefereed. Peter Scholze is thanked for discussing a preliminary draft and suggesting the Weyl character formula, which is not an endorsement of the result. The disclosure is unusually specific and sets a clear limit on the AI's role: the general strategy is the author's, the reduction to kernels of Iwasawa operators was done by the author a year earlier, the nontrivial bound of Theorem 3.1 and its application to Theorem 1.4 were developed with GPT-6 Astra, and the current draft was then written by the author without LLM use, with a different and less technical proof of Theorem 3.1. That rewrite could support author verified; the entry is held at claimed. The result holds for sufficiently large \\(n\\) and does not by itself give an effective level. Autonomy is collaborative: the model contributed the decisive bound inside a strategy and reduction that were the author's.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "chabauty-kim-dimension-inequality-for-projective-curves-over-mathbb-q",
+        "url": "https://vibemathed.com/problem/chabauty-kim-dimension-inequality-for-projective-curves-over-mathbb-q"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Zehavi, The Chabauty–Kim dimension inequality via noncommutative Iwasawa theory",
+        "url": "https://arxiv.org/abs/2611.18218",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "number-theory",
+      "rational-points",
+      "chabauty-kim",
+      "iwasawa-theory",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-06-cable-knot-volume-conjecture",
+    "title": "Cable knot counterexamples to the full-sequence volume conjecture for all knots",
+    "claim": "Haibin Hang, with OpenAI Codex assisting, shows that for the (1,2)-cable of the connected sum of two figure-eight knots the growth rate of the colored Jones polynomial does not converge along all colors, so the volume conjecture's full-sequence limit fails for knots in general, extending parity effects Lê and Tran found for cables in 2009.",
+    "field": "mathematics",
+    "date": "2026-11-06",
+    "lab": "Independent",
+    "model": "OpenAI Codex; version not stated",
+    "humans": [
+      "Haibin Hang"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The volume conjecture says the normalized logarithmic growth of a knot's colored Jones polynomial at \\(q = e^{2\\pi i/N}\\) tends to its simplicial volume times the volume of the regular ideal tetrahedron. For the \\((p, w)\\)-cable of the connected sum of \\(d \\ge 2\\) copies of the figure-eight knot \\(E\\), with \\(w \\ge 2\\) and \\(p, w\\) coprime, the paper shows the growth rate converges to the JSJ volume \\(dV\\) along colors coprime to \\(2w\\), while its upper limit along colors sharing a divisor with \\(w\\) is at most \\(V\\). So the (1,2)-cable of \\(E \\# E\\) violates the full-sequence limit, and the (1,3)-cable shows convergence can fail even along all odd colors. The all-color upper limit still agrees with the JSJ volume. The separation comes from the multiples of \\(N\\) in the exact cabling sum and a uniform first-derivative estimate for the other companion colors.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"volume conjecture\" AND abs:cable returned 5 records. The closest is Lê and Tran, On the volume conjecture for cables of knots (arXiv:0907.0172, J. Knot Theory Ramifications 2010), whose abstract already states that for many cables of the figure-eight knot the volume conjecture is false over all colors but holds on a subset of colors. The paper cites Lê and Tran for parity effects in cable links and for the odd-cable case; its family, cables of connected sums of figure-eight knots, is different. Nothing in this registry covers the volume conjecture beyond a mention inside 2026-08-01-astra-ten-advances, which concerns Ehrhart's volume conjecture, an unrelated problem.",
+    "caveats": "Held at claimed, with a novelty caveat that matters: that the full-sequence limit can fail for cable knots was already shown by Lê and Tran in 2009, so what is new is the specific composite-companion family and its clean separation of color classes, not the existence of counterexamples. A five-page single-author preprint, unrefereed, with no outside reader on record. vibemathed's listing title reads as if the conjecture were resolved for all knots, which inverts the paper. The acknowledgement says only that Codex 'assisted with developing and checking the argument and preparing the manuscript', which does not say which steps it produced. Autonomy is ai-assisted on the strictest reading of that wording.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-all-knot-volume-conjecture",
+        "url": "https://vibemathed.com/problem/the-all-knot-volume-conjecture",
+        "note": "The listing's title frames the result as the volume conjecture for all knots; the paper is a disproof of its full-sequence form for one family."
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Hang, Cable Knot Counterexamples to the All-Knot Volume Conjecture",
+        "url": "https://arxiv.org/abs/2611.09063",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Lê and Tran, On the volume conjecture for cables of knots (2009)",
+        "url": "https://arxiv.org/abs/0907.0172",
+        "kind": "challenge"
+      }
+    ],
+    "tags": [
+      "knot-theory",
+      "volume-conjecture",
+      "colored-jones-polynomial",
+      "construction"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-12-nonlocal-coercivity-conjecture",
+    "title": "The coercivity conjecture for nonlocal energies fails whenever n > 2s, and holds in restricted classes",
+    "claim": "Six authors including Xavier Ros-Oton show that uniform ellipticity does not imply \\(H^s\\)-coercivity for symmetric nonlocal kernels of order \\(2s\\) whenever \\(n > 2s\\), while it does hold for \\(n = 1\\) and \\(s > 1/2\\) and for kernels with annular cancellation, after sustained interactions with ChatGPT versions 5.5, 5.6 and 6.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "Independent",
+    "model": "ChatGPT versions 5.5, 5.6 and 6",
+    "humans": [
+      "Linus Behn",
+      "Roberto Colombo",
+      "Xavier Fernández-Real",
+      "Florian Grube",
+      "Harsh Prasad",
+      "Xavier Ros-Oton"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "The conjecture asks whether directional moment bounds on a symmetric kernel of order \\(2s\\), \\(0 < s < 1\\), imply coercivity in \\(H^s\\); Imbert and Silvestre proposed it in a kinetic setting, where it bears on the divergence-form approach to the non-cutoff Boltzmann equation. The paper shows it fails whenever \\(n > 2s\\), for every \\(s\\) and \\(n \\ge 1\\), even for smooth compactly supported test functions, and holds for \\(n = 1\\) and \\(s > 1/2\\). The construction also gives bounded discontinuous weak solutions in \\(H^s_{\\text{loc}}\\) to nonlocal equations in divergence form. On the positive side, a local coercivity criterion based on annular cancellation covers kernels with both divergence- and nondivergence-form symmetry, kernels comparable to stable kernels with bounded measurable coefficients, and non-cutoff Boltzmann kernels under a geometric nonconcentration assumption, and gives a short proof of the Gressman–Strain anisotropic coercivity estimate.",
+    "novelty_check": "arXiv, 2026-11-19, abs:coercivity AND abs:nonlocal AND abs:kernels returned 15 records. The closest is Biswas (arXiv:2610.06408, 5 October 2026), whose abstract answers Open Question 2.1 of Fernández-Real and Ros-Oton negatively with a kernel admitting a bounded discontinuous weak solution, and proves the coercivity conjecture under an added \\(L^p\\) bound over annuli. The present paper cites Biswas for coercivity under annular bounds; it does not cite him for the regularity counterexample. Nothing in this registry covers nonlocal coercivity.",
+    "caveats": "A 44-page preprint, unrefereed. Part of the regularity story overlaps Biswas's earlier preprint, as recorded in the novelty check; the disproof of coercivity itself does not appear there. The use-of-AI section says the project began with a counterexample the authors constructed for small \\(s\\) in dimension one, together with its higher-dimensional extension and a heuristic for coercivity under double symmetry, and that the models then 'served as sounding boards and contributed mathematical ideas, technical extensions, refinements of proofs, and assistance with exposition'. All retained arguments were 'independently checked and rewritten by the authors', which could support author verified; it is held at claimed. Autonomy is ai-assisted: the starting counterexample and the guiding mechanism are the authors', and the models' contributions are described as extensions and refinements; collaborative is arguable, and the weaker grade wins.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "the-coercivity-conjecture-for-nonlocal-energies",
+        "url": "https://vibemathed.com/problem/the-coercivity-conjecture-for-nonlocal-energies"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Behn, Colombo, Fernández-Real, Grube, Prasad and Ros-Oton, The coercivity conjecture for nonlocal energies",
+        "url": "https://arxiv.org/abs/2611.16682",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Biswas, Coercivity and regularity for nonlocal divergence-form operators with measurable kernels",
+        "url": "https://arxiv.org/abs/2610.06408",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "nonlocal-pde",
+      "boltzmann-equation",
+      "coercivity",
+      "construction"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-09-polyanalytic-zeros-linear-bound",
+    "title": "A linear bound on zeros of polyanalytic polynomials, via a topological approach suggested by GPT-6.1",
+    "claim": "Lundberg, Rosen and Zhang prove that a complex polynomial of degree \\(n\\) in \\(z\\) and \\(m < n\\) in \\(\\bar z\\) with finitely many zeros has at most \\((4m+1)n - 5m\\) of them, answering Eremenko's question of whether the count is linear in \\(n\\) for fixed \\(m\\), using an approach through the Kronheimer–Mrowka theorem that GPT-6.1 suggested.",
+    "field": "mathematics",
+    "date": "2026-11-09",
+    "lab": "Independent",
+    "model": "GPT-6.1",
+    "humans": [
+      "Erik Lundberg",
+      "Zvi Rosen",
+      "Teng Zhang"
+    ],
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The problem of bounding the zeros goes back to Sheil-Small, and known bounds for polynomials of this kind were quadratic in \\(n\\); Eremenko asked whether, for each fixed \\(m\\), the dependence can be made linear, generalizing open questions for particular subclasses. The paper bihomogenizes the polynomial, considers its zero curve, and applies the genus bound of Kronheimer and Mrowka from their proof of Thom's conjecture. It gives examples showing the bound is asymptotically sharp as \\(n \\to \\infty\\) for each fixed \\(m\\); these examples are not harmonic, so they do not bear on the separate conjecture for harmonic polynomials.",
+    "novelty_check": "arXiv, 2026-11-19, abs:polyanalytic AND abs:zeros returned 6 records. The closest is Sète and Zur (arXiv:2403.04591, 2024), which proves an \\(n^2\\) bound for polyanalytic polynomials of degree \\(n\\) with finitely many zeros; the new bound is linear in \\(n\\) for fixed \\(m\\). Nothing in this registry covers zeros of polyanalytic or harmonic polynomials.",
+    "caveats": "A 13-page preprint, unrefereed, with no outside reader on record. The bound is asymptotically, not exactly, sharp. The paper gives no year for Eremenko's problem. The disclosure is specific: the idea of a topological approach based on Kronheimer and Mrowka 'was suggested in an interaction with GPT-6.1', the model then helped explore and refine the argument and make Figure 1, and the final proofs were written and checked by the authors, which could support author verified; it is held at claimed. Autonomy is collaborative: the model supplied the key idea, which reads as ai-led, but the authors developed and wrote the proof with it over subsequent discussions, and the weaker grade wins when arguable.",
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "number-of-zeros-of-polyanalytic-polynomials",
+        "url": "https://vibemathed.com/problem/number-of-zeros-of-polyanalytic-polynomials"
+      }
+    ],
+    "sources": [
+      {
+        "label": "arXiv: Lundberg, Rosen and Zhang, On the number of zeros of polyanalytic polynomials",
+        "url": "https://arxiv.org/abs/2611.13278",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "complex-analysis",
+      "polynomials",
+      "zero-counting",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-07-hawking-page-weak-coupling",
+    "title": "Hawking–Page transition at weak coupling in N=4 super Yang–Mills is first order, computed by Claude",
+    "claim": "An Anthropic preprint reports that a Claude research model computed the three-loop quartic coefficient \\(b = -1.48 \\times 10^{-3} \\lambda^2\\) in the Polyakov-loop effective action of \\(\\mathcal{N} = 4\\) super Yang–Mills on \\(S^3\\), settling a question set up in 2003: the weak-coupling deconfinement transition is first order, like the Hawking–Page transition it is dual to.",
+    "field": "physics",
+    "date": "2026-11-07",
+    "lab": "Anthropic",
+    "model": "An internal Claude research model; Anthropic's post presents the results under Claude Fable 5.2",
+    "humans": [
+      "Hongbin Chen"
+    ],
+    "year_posed": 2003,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "In anti-de Sitter space a black hole forms through a first-order phase transition found by Hawking and Page in 1983, which in \\(\\mathcal{N} = 4\\) super Yang–Mills on \\(S^3\\) is deconfinement at strong coupling. The free theory has a transition at its Hagedorn temperature, and Aharony, Marsano, Minwalla, Papadodimas and Van Raamsdonk (hep-th/0310285) suggested in 2003 that the two could be connected either by a single first-order line or through a pair of continuous transitions at weak coupling, with the answer decided by the sign of a quartic coefficient \\(b\\) that first appears at three loops. The preprint reports \\(b = -1.48 \\times 10^{-3} \\lambda^2\\), with \\(\\lambda\\) the 't Hooft coupling, so the transition is first order and lies slightly below the Hagedorn temperature, with its three saddle points appearing, exchanging dominance and disappearing in the same order as thermal AdS and the small and large black holes. The computation is Hamiltonian, almost every number in it was obtained in two independent ways, and it reproduces the two-loop Hagedorn temperature known from integrability and exact results in closed subsectors.",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"Hawking-Page\" AND abs:\"weak coupling\" returned 7 records and abs:Hagedorn AND abs:\"Polyakov loop\" AND abs:\"three loop\" returned 2, all from 2004 to 2019; none reports the three-loop coefficient for \\(\\mathcal{N} = 4\\). The preprint says it had not been computed in the two decades since 2003, and Anthropic's post says the same group completed the analogous calculation for a simpler theory in 2005. This registry's nearest entry, 2026-09-25-nine-loop-hexagon-amplitude, is a different \\(\\mathcal{N} = 4\\) calculation.",
+    "caveats": "Capped at claimed as a lab announcement. The preprint is on Hexagon, deposited by Anthropic, and labelled primarily AI-generated with human understanding of some parts. Its provenance says the model was prompted by a physicist, who checked it against several known special cases, and that a separate Claude computation by a different method gives the same result. Anthropic's post adds that a physicist outside the project had independently used Claude on the same problem and reached the same answer by a different method; that physicist is not named, and both checks used Claude. The post says the results were formally verified in Lean in September, but no Lean development is linked, so no formal verification is credited here. Autonomy is ai-led: per the post, Hongbin Chen asked Claude to list open problems and set agents running, and the agents worked out the calculation, but the problem itself was framed by physicists in 2003 and a human checked the result.",
+    "sources": [
+      {
+        "label": "Hexagon 2611.00175: The Hawking-Page transition at weak coupling",
+        "url": "https://hexagonmath.org/2611.00175v1",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Claude solves two open problems in the physics of black holes",
+        "url": "https://www.anthropic.com/research/claude-black-hole-physics",
+        "kind": "announcement"
+      },
+      {
+        "label": "arXiv: Aharony et al., The Hagedorn/deconfinement phase transition in weakly coupled large N gauge theories (2003)",
+        "url": "https://arxiv.org/abs/hep-th/0310285",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "holography",
+      "black-holes",
+      "gauge-theory",
+      "computation"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-07-spinless-modular-bootstrap-slope",
+    "title": "Exact large-c slope of the spinless modular bootstrap bound, found by Claude",
+    "claim": "An Anthropic preprint reports that a Claude research model found the exact optimal slope of the spinless modular bootstrap bound on the lightest primary in two-dimensional CFTs at large central charge, \\(\\Lambda_V = 12\\pi^2/(\\pi^2 + 4\\,\\mathrm{arcsinh}^2 1) \\approx 9.1266\\), where it had been known only to lie between 8.503 and 12.",
+    "field": "physics",
+    "date": "2026-11-07",
+    "lab": "Anthropic",
+    "model": "An internal Claude research model, later reproduced by Claude Opus 5.5; Anthropic's post presents the results under Claude Fable 5.2",
+    "humans": [
+      "Hongbin Chen"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The spinless modular bootstrap bounds the dimension \\(\\Delta_1\\) of the lightest non-vacuum primary in a unitary compact 2D CFT with \\(c > 1\\) and no extra conserved currents using only modular \\(S\\) invariance at zero angular potential, giving \\(\\Delta_1 \\le c/\\Lambda + o(c)\\). Hellerman's 2009 bound started this line, and the best slope was known to lie between 8.503 and 12, the latter being where the bound would reach the BTZ black hole threshold. The preprint shows the optimum is exactly \\(\\Lambda_V\\), that no functional in a class containing all finite combinations of derivatives improves on \\(c/\\Lambda_V\\) by more than \\(O(c^{1/3}\\log^{2/3} c)\\), and gives an explicit functional with \\(\\Delta_1 < c/\\Lambda_V + 0.483\\,c^{1/3} + O(1)\\). The value has an electrostatic origin: \\(c^{-1}\\log|g|\\) of a functional \\(g\\) is a two-dimensional potential with charges at its zeros, and the maximum principle bounds it by an explicit harmonic function. It also conjectures the coefficient of the \\(c^{1/3}\\) correction, supported by numerics up to \\(c = 2048\\).",
+    "novelty_check": "arXiv, 2026-11-19, abs:\"modular bootstrap\" AND abs:spinless returned 6 records, including the fast-bootstrap numerics (1903.06272), the sphere-packing connection (2006.02560), sign uncertainty principles (2210.01684) and a September 2026 cusp-bootstrap paper; none determines the exact slope. Within this registry, 2026-08-01-astra-ten-advances includes OpenAI's sphere-packing results, whose proof strategy half of this proof follows, per Anthropic's post.",
+    "caveats": "Capped at claimed as a lab announcement. The 131-page preprint is on Hexagon, deposited by Anthropic, and labelled primarily AI-generated with human understanding of some parts. Its provenance says the main result was first obtained autonomously by an internal model, later independently by Claude Opus 5.5, and that Claude wrote the paper following brief guidance from a physicist who checked every main result; the physicist is not named. Anthropic's post says one half of the final proof, that the ceiling cannot be lowered, follows the strategy of an OpenAI model's sphere-packing proof, and that the results were formally verified in Lean in September, but no Lean development is linked, so no formal verification is credited here. Autonomy is ai-led rather than autonomous on the strictest reading: the agents chose and solved the problem, but a human set them up, guided the write-up and checked the result, and part of the method came from another lab's proof.",
+    "sources": [
+      {
+        "label": "Hexagon 2611.00174: The spinless modular bootstrap at large central charge",
+        "url": "https://hexagonmath.org/2611.00174v1",
+        "kind": "research"
+      },
+      {
+        "label": "Anthropic: Claude solves two open problems in the physics of black holes",
+        "url": "https://www.anthropic.com/research/claude-black-hole-physics",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "conformal-bootstrap",
+      "3d-gravity",
+      "black-holes",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-15-sharp-logarithmic-kakeya",
+    "title": "Sharp logarithmic Kakeya maximal and tube bounds in every dimension, registered as a Lean proof",
+    "claim": "Mark Lewko, with ChatGPT and Codex doing the mathematical development and Lean implementation, registered on Palomar a Lean proof that the Kakeya maximal operator is bounded from \\(L^n(\\mathbb{R}^n)\\) to \\(L^n(S^{n-1})\\) with norm at most \\(C_n[\\log(2/\\delta)]^{(n-1)/n}\\) in every dimension \\(n \\ge 2\\), a logarithmic power the accompanying notes argue is optimal.",
+    "field": "mathematics",
+    "date": "2026-11-15",
+    "lab": "Independent",
+    "model": "OpenAI ChatGPT and Codex; versions not stated",
+    "humans": [
+      "Mark Lewko"
+    ],
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "For \\(0 < \\delta \\le 1\\) the Kakeya maximal function takes the largest average of \\(|f|\\) over radius-\\(\\delta\\) neighbourhoods of unit segments in each direction. The two Lean theorems are the maximal bound \\(\\|K_\\delta f\\|_{L^n(S^{n-1})} \\le C_n[\\log(2/\\delta)]^{(n-1)/n}\\|f\\|_{L^n(\\mathbb{R}^n)}\\) and a weighted tube bound: for \\(\\delta\\)-separated directions, arbitrary centres and nonnegative weights, \\(\\int (\\sum_j a_j 1_{T_j})^{n/(n-1)} \\le C_n \\log(2/\\delta)\\,\\delta^{n-1}\\sum_j a_j^{n/(n-1)}\\). By Hölder's inequality the \\(\\delta\\)-neighbourhood of every Kakeya set then has volume at least \\(c_n/[\\log(2/\\delta)]^{n-1}\\), which matches the construction of Fernández-Delgado and de la Salle, and the estimates imply the Kakeya maximal function conjecture and full Minkowski dimension for every bounded Kakeya set. Those consequences and the matching lower bound are written arguments, not Lean theorems. The development reuses 1,682 files of OpenAI's Lean library at a pinned commit, which the record calls substantial reuse rather than an independent implementation of the analytic infrastructure.",
+    "novelty_check": "arXiv, 2026-11-19, abs:Kakeya AND abs:logarithmic AND abs:maximal and abs:Kakeya AND abs:\"maximal function\" AND abs:\"every dimension\" both returned no records. Within this registry, 2026-10-26-local-smoothing-all-dimensions records OpenAI's claim, with its own unaudited Lean formalization, of the Kakeya maximal conjecture in every dimension as a consequence of local smoothing, and 2026-10-06-kakeya-3d-maximal-4d records the three-dimensional maximal and four-dimensional set claims; this registration is a different, sharper logarithmic statement by a different author, and it does not check either of those manuscripts. The 2026-11-20 watch run surfaced it through its Palomar registration.",
+    "caveats": "Held at claimed on a conservative reading. Palomar records trust level high and checks by the nanoda and con-ron kernels of KakeyaPalomar.sharpMaximalBound and KakeyaPalomar.sharpTubeBound against a 58-line Mathlib-only Challenge, which for other entries in this registry has supported formal. Against that: no human outside the author has audited the Challenge statements; the registry's review and the repository's own review were done by models; the repository README still says the candidate has not been registered and describes a failed preflight; and the geometric consequences that make the result notable are not formalized. There is no paper; the mathematics is in the repository's notes and a working manuscript. The Kakeya maximal conjecture in every dimension is a major claim, and nobody in harmonic analysis is on record as having read this. Autonomy is ai-assisted on the record's own wording, which credits Lewko with research direction and formulation and the models with 'AI-assisted mathematical development and Lean implementation'; collaborative or ai-led are arguable, and the weaker grade wins.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-15-000001",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-15-000001&version=1",
+        "title": "Sharp logarithmic Kakeya estimates in every dimension",
+        "repository": "mrklwk/kakeya-sharp",
+        "commit": "0ffa953d9275d86b1caef5763464b067f994064f",
+        "theorems": [
+          "KakeyaPalomar.sharpMaximalBound",
+          "KakeyaPalomar.sharpTubeBound"
+        ],
+        "checked": "2026-11-19",
+        "note": "Trust level high; checked by the nanoda and con-ron kernels. Only the two upper estimates are Lean theorems; the geometric consequences and sharpness arguments are not formalized."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: mrklwk/kakeya-sharp, the Lean proof and notes",
+        "url": "https://github.com/mrklwk/kakeya-sharp",
+        "kind": "research"
+      },
+      {
+        "label": "arXiv: Fernández-Delgado and de la Salle, A construction of Kakeya sets in arbitrary dimension",
+        "url": "https://arxiv.org/abs/2607.14824",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "kakeya",
+      "maximal-functions",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-16-aristotle-manifest-rounding-bug",
+    "title": "Harmonic's Aristotle finds a rounding bug while formally verifying Manifest's Solana order book",
+    "claim": "Harmonic reports that its Aristotle system proved 28 properties of Manifest's open-source Rust order book on Solana and found two defects, including a rounding case in which a complete fill overshooting its target returned an arithmetic error; Manifest's fix, merged on 8 October 2026, cites the finding.",
+    "field": "computer-science",
+    "date": "2026-11-16",
+    "lab": "Harmonic",
+    "model": "Aristotle",
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Manifest's quote function computes how much base token a trader gets for a given amount of quote token. Rounding can make a fill overshoot the remaining target: at a price of 1.5, one base atom costs two quote atoms even when one is still needed. The original code stopped early only on a partial fill, so a complete fill went on to subtract two from one and returned arithmetic error 14 after the target had been met. Manifest's pull request 751, merged on 8 October 2026, makes the walk stop once a complete fill meets or exceeds the target 'as recommended by Manifest FV Report V2 finding 2.1', and notes that only the exact-out-quote swap path could hit it. Harmonic's case study says the second finding was an unused quote conversion on the global-order cancel path that could fail before the order was removed, also fixed, and that Aristotle reasoned over the unchanged Rust with no simplified model, proving trading progress, error classification, order-book integrity, custody and matching properties.",
+    "novelty_check": "Not a literature question: the result is a specific defect in a specific codebase. GitHub, 2026-11-19: the commit history of Bonasa-Tech/manifest (formerly CKS-Systems/manifest) from September to November 2026 shows pull request 751 with the rounding fix; its description cites a formal verification report but does not name Aristotle or Harmonic, so the attribution rests on Harmonic's case study. Within this registry the nearest entries are 2026-11-10-alphaproof-code-libsignal, Lean proofs about compiled code with no bug found, and 2026-10-21-php2shell-rce, an AI-assisted vulnerability find.",
+    "caveats": "Capped at claimed: it is a vendor case study, and neither the Lean statements nor the proofs are published, so nothing about the 28 results can be checked; only the fix itself is public. The bug made a valid swap fail rather than lose funds, and no CVE or advisory is cited. Who wrote the specifications Aristotle proved, Manifest's team or the system, is not stated. The case study quotes a Manifest lead developer without giving a name. Autonomy is ai-assisted: the system found the defect while proving properties of a codebase humans chose and partly specified.",
+    "sources": [
+      {
+        "label": "GitHub: Bonasa-Tech/manifest pull request 751, the rounding fix",
+        "url": "https://github.com/Bonasa-Tech/manifest/pull/751",
+        "kind": "research"
+      },
+      {
+        "label": "Harmonic: How Manifest went beyond no loss of funds with Aristotle",
+        "url": "https://www.harmonic.fun/aristotle/case-studies/manifest/",
+        "kind": "announcement"
+      },
+      {
+        "label": "Harmonic: Aristotle Expands Into Rust",
+        "url": "https://www.harmonic.fun/news/aristotle-rust-verification/",
+        "kind": "announcement"
+      }
+    ],
+    "tags": [
+      "formal-verification",
+      "smart-contracts",
+      "rust",
+      "software-bugs"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-06-24-ecg-biomarker-sudden-cardiac-death",
+    "title": "An ECG biomarker for sudden cardiac death, discovered with deep learning",
+    "claim": "Trained on every ECG in a Swedish region linked to death certificates, a deep learning model isolated 2.2% of patients with a 7.0% annual rate of sudden cardiac death, above the 4.6% of those flagged by reduced ejection fraction, and 86.1% of them were missed by that standard screen; a generative model then exposed the waveform feature it used, which the authors say had not been described.",
+    "field": "medicine",
+    "date": "2026-06-24",
+    "lab": "UC Berkeley, with the University of Chicago, MIT and Halmstad University and Region Halland",
+    "model": "A deep learning model on 12-lead ECG waveforms, paired with a generative model of the waveform; not named",
+    "humans": [
+      "Ziad Obermeyer",
+      "Alexander Schubert",
+      "James Ross",
+      "Sendhil Mullainathan",
+      "Markus Lingman"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "search-scaffold",
+    "detail": "Defibrillators can prevent sudden cardiac death, but the only predictive marker in wide use, left ventricular ejection fraction, misses most such deaths and flags many low-risk patients for devices that never fire. The model's high-risk group (2.2% of the sample) had a 7.0% annual rate of sudden cardiac death against 4.6% for patients with reduced ejection fraction (1.9% of the sample), and high-risk ECG patients who had defibrillators implanted were 54.4% less likely to die than expected. The model was externally validated in a US health system, where it predicts the ventricular arrhythmias that cause sudden death, and in a Taiwanese hospital registry, where it predicts arrhythmic cardiac arrest. Pairing it with a generative model of the ECG waveform revealed the morphology it had learned, which the authors describe as easily visible, and they tie its shape to electrophysiological first principles to propose and preliminarily test a mechanism.",
+    "novelty_check": "Europe PMC, 2026-11-19: the paper's DOI returns the Nature record, first published 24 June 2026, and a title search for sudden cardiac death and electrocardiogram from October to November 2026 returned only a European Heart Journal commentary on it. This registry carries several AI-ECG studies, such as 2021-05-06-eagle-ai-ecg-low-ejection-fraction and 2026-11-07-latent-ai-ecg-af-rct, but none for sudden cardiac death or a new waveform biomarker. It reached this registry through November 2026 ScienceDaily coverage, five months after publication, and is entered under its publication date.",
+    "caveats": "Retrospective: the model was trained and tested on records linked to death certificates, and the defibrillator benefit is an observational comparison against expected mortality, not a trial, so it may reflect who received devices. The external validations used other outcomes (ventricular arrhythmia in the US, arrhythmic arrest in Taiwan), not sudden cardiac death itself, and as far as the abstract shows they were run by the same author group on other institutions' data, so they are not counted as independent replications in this registry's sense. The European Heart Journal commentary asks whether the marker is ready for clinical use. The mechanism is described as preliminarily tested. Funding and data access were not read for this entry beyond the abstract. Autonomy is search-scaffold: the discovery came from a supervised model and a generative visualization inside a design the researchers built, matching how this registry grades neural-network screening finds such as 2020-02-20-halicin.",
+    "sources": [
+      {
+        "label": "Nature: An ECG biomarker for sudden cardiac death discovered with deep learning",
+        "url": "https://doi.org/10.1038/s41586-026-10674-6",
+        "kind": "research"
+      },
+      {
+        "label": "European Heart Journal: A novel electrocardiogram biomarker predicting sudden cardiac death, ready for prime time?",
+        "url": "https://doi.org/10.1093/eurheartj/ehag682",
+        "kind": "commentary"
+      },
+      {
+        "label": "ScienceDaily: AI discovers a hidden heart signal that could predict sudden death",
+        "url": "https://www.sciencedaily.com/releases/2026/11/261112230456.htm",
+        "kind": "coverage"
+      }
+    ],
+    "tags": [
+      "cardiology",
+      "ecg",
+      "sudden-cardiac-death",
+      "biomarker",
+      "retrospective",
+      "external-validation",
+      "real-world-data"
+    ],
+    "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-16-chest-radiograph-fracture-risk",
+    "title": "Deep learning on routine chest radiographs predicts major osteoporotic fractures better than FRAX",
+    "claim": "A convolutional survival model trained on 53,109 adults at a Korean tertiary hospital and validated on 85,284 patients from two other institutions predicted incident major osteoporotic fracture from routine chest radiographs with a C-index of 0.843, against 0.779 for FRAX with bone density.",
+    "field": "medicine",
+    "date": "2026-11-16",
+    "lab": "Seoul National University Hospital",
+    "model": "A convolutional neural network survival model; not named",
+    "humans": [
+      "Yisak Kim",
+      "Chang Min Park",
+      "Hanbin Ko",
+      "Dongheon Lee",
+      "Jin Hwan Kim",
+      "Sung Hye Kong"
+    ],
+    "verification": "peer-reviewed",
+    "autonomy": "ai-assisted",
+    "detail": "Bone density and FRAX miss much of the fracture risk in the osteopenic range, where most fractures occur. Participants needed a chest radiograph within a year of a DXA scan. In the external cohorts (mean age 58.6, 68.9% female, 77 months of follow-up) the model reached a C-index of 0.843 (95% CI 0.837 to 0.850) and a censoring-adjusted 10-year AUROC of 0.855, against 0.779 and 0.785 for FRAX with BMD (both \\(P < 0.01\\)); adding FRAX to the model barely changed it (C-index 0.847). In the osteopenia subgroup of 35,358 patients the 10-year AUROC was 0.779 against 0.659, and the advantage held across fracture types and BMD categories. The study was funded by the National Research Foundation of Korea and others.",
+    "novelty_check": "Europe PMC, 2026-11-19: the DOI returns the NEJM AI record, published 16 November 2026. Opportunistic osteoporosis screening from chest radiographs and CT with deep learning is an established line, so the new element is a survival model for incident fracture compared head to head with FRAX on external cohorts, not the idea of reading bone health from chest films. Nothing in this registry covers osteoporosis or fracture prediction.",
+    "caveats": "Retrospective. Every participant had been referred for densitometry, so the cohort is not the unselected routine-radiography population the method is meant for, and the authors themselves say absolute-risk and case-finding performance needs prospective evaluation there. The abstract calls the two validation institutions independent but does not name them; the author list spans Seoul National University Hospital, Seoul National University Bundang Hospital and Chungnam National University, so the validation is not treated as one by unaffiliated investigators in this registry's sense. The outcome, incident fracture, is a hard endpoint, but discrimination is not the same as showing that acting on the score prevents fractures. Model weights and data access were not checked. Autonomy is ai-assisted: the model produces a risk score that clinicians would act on.",
+    "sources": [
+      {
+        "label": "NEJM AI: Opportunistic Risk Assessment of Major Osteoporotic Fractures from Routine Chest Radiographs Using Deep Learning",
+        "url": "https://doi.org/10.1056/aioa2600590",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "osteoporosis",
+      "radiology",
+      "fracture-risk",
+      "retrospective",
+      "external-validation"
+    ],
+    "added": "2026-11-19"
   }
 ]
