@@ -15534,5 +15534,112 @@
       "external-validation"
     ],
     "added": "2026-11-19"
+  },
+  {
+    "id": "2026-11-20-riemann-hypothesis-lean",
+    "title": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+    "claim": "Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.",
+    "field": "mathematics",
+    "date": "2026-11-20",
+    "lab": "Anthropic",
+    "model": "Claude (Anthropic); version not stated, described by Terence Tao as an internal model",
+    "humans": [
+      "Levent Alpöge"
+    ],
+    "year_posed": 1859,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "Riemann conjectured in 1859 that every nontrivial zero of \\(\\zeta(s)\\) has real part \\(1/2\\), and the generalized Riemann hypothesis makes the same assertion for Dirichlet L-functions. The release is a Lean 4 project and a four-page note, with no paper. Its Main.lean proves riemannHypothesis, whose type is Mathlib's own RiemannHypothesis (which excludes the trivial zeros and the point \\(s = 1\\)), together with four companion theorems: no Dirichlet L-function vanishes in \\(\\Re s > 1/2\\), for every modulus and every character, imprimitive ones included, with the pole of the principal character at \\(s = 1\\) excepted; and every zero of one with \\(0 < \\Re s < 1\\) lies on \\(\\Re s = 1/2\\), stated again separately for primitive characters. The project pins Lean 4.33.1 and Mathlib's v4.33.1 tag and runs to 175,187 files and about 17.4 million lines, with no comments and 818,755 theorem or lemma declarations, every file in the import closure of Main. RH itself is derived from the nonvanishing of all Dirichlet L-functions to the right of \\(1/2\\) by the standard functional-equation argument, using Mathlib's lemmas. The note gives the strategy only in outline. The argument descends from Stepanov's method for the Riemann hypothesis over function fields, where a divisor with multiplicity does the work; over the integers multiplicity would be something like differentiating whole numbers, and it is imitated instead by a chain of theta lifts between totally definite unitary groups, a chain of \\(m\\) lifts winning multiplicity \\(m\\). For a von Mangoldt sum of length \\(X\\) the chain is taken about \\(\\sqrt{X}\\) long, a choice the note attributes to Claude. Other ingredients it names include Gan-Gross-Prasad periods, a relative trace formula, an Iwasawa tower, the Bost slope inequality and a weakening of Vandiver's conjecture. A timeline the note says Claude reconstructed puts the first step, a Stepanov-type determinant, on 6 October 2026 and GRH on 16 November 2026.",
+    "novelty_check": "arXiv, 2026-11-20: ti:\"Riemann hypothesis\" AND (abs:proof OR ti:proof) returned 95 records, the most recent being a proof of the quasi-Riemann hypothesis using \\(\\mathbb{Q}[i]\\) (2611.16665) and a two-interval criterion for RH (2611.10726); the claimed proofs of RH itself among them (for example 2607.04338 and 2408.13292) have no standing in the literature, and none comes with a formalization. MathDB records the problem as 315854, marked claimed solved and unverified on 20 November. Palomar's 200 most recent records (through PALOMAR-2026-11-21-000005), ProofAtlas's formalizations and vibemathed's dataset held no registration on the same day. Within this registry, the Dirichlet half of 2026-10-06-quasi-riemann-hypothesis would follow from this claim, but the Hecke L-functions over \\(\\mathbb{Q}(\\sqrt{-3})\\) in that entry and the Dedekind zeta functions in 2026-10-12-dedekind-zeta-quasi-riemann are outside what this Lean states, and the simplicity of zeros in 2026-08-10-zeta-zeros-critical-line, on which Alpöge is an author, does not follow from RH at all. A second, unrelated claim of GRH appeared the same day: Ravi Vakil posted a draft by Alessandro Maria Masullo, which he describes as all human with no AI and which Brian Conrad had been checking for months, and added about eight hours later that several people had reported problems in it found with the help of AI models. That claim is outside this registry's scope and has no formalization.",
+    "caveats": "Graded claimed for now, although the outside mechanical checking is well advanced. The bar 2026-10-06-quasi-riemann-hypothesis set for a statement anchored on Mathlib's own definitions is a completed independent Comparator run, and none had completed at entry: Andrew Sutherland's lake comparator run had passed its statement comparison and axiom check with its kernels still running, the leanprover-community Comparator setup had posted no results, and Kevin Buzzard wrote on the Lean Zulip, as Scientific American reports, that 'we still await a successful comparator run'. What has passed, all of it run by Sutherland: a full build with zero errors, the three standard axioms only, Mathlib's compiled files byte-identical to the official cache, a Lean-kernel replay of every module, acceptance of the full export by two independently written kernels, nanoda and con-leche, a match of all five statements against the challenge by con-leche's compare mode, and lean4lean on every compiled module. He told Scientific American that 'the chance that anything is fishy here is approximately zero'. When a Comparator run completes this should move to formal for exactly the five statements, since the headline theorem is Mathlib's RiemannHypothesis verbatim and the challenge file imports only Mathlib. Several details make the independent kernels load-bearing rather than a formality. The pinned Lean 4.33.1 predates the 4.34.1 runtime fixes that Lean's release notes say could be turned into a proof of False in the official kernel with deliberately constructed input, so a build alone is weak evidence; nanoda and con-leche are not built on that runtime. The source defines tactics, kexactB and kcopy among them, that assign a term to a goal without the elaborator checking its type, kexactB in 67 files, so for those proofs the kernel is the only check. Sutherland's build ran without a sandbox, calling lean directly rather than through lake build, with a 77-module sample matched byte for byte against a real lake build. The con-leche and con-ron builds bundled with Lean 4.36.0 decline the export because one mutual inductive has a reflexive member, a limitation of those checkers rather than a rejection. On scope, GRH here means Dirichlet L-functions only. Dedekind zeta functions and Hecke or automorphic L-functions are not stated, the Extended Riemann Hypothesis is something the note only expects with more time, and its remark that the vanishing of some K-groups of the integers follows from an intermediate step is the author's belief, not a theorem in the Lean. A machine check, however complete, settles the statements and not the understanding. There is no paper: the author writes that he is presenting the argument before having mastered a massive neighbourhood around its mathematics, that he has little mastery of automorphic forms on higher rank groups, that parts of his own timeline paraphrase a summary by Claude that 'might make zero sense', and that a written version ran past 250,000 pages and was withheld as unreadable. No human, the author included, is on record as having read the argument, and Brian Conrey told AFP he had seen only the note. Clay's rules require journal publication and two years of scrutiny. The artifact is a 239 MB archive split into fourteen parts on the author's personal site and published without a licence; that server answers 200 for any path, so the joined archive's sha256, beginning 9631b4f0, is the only reliable check, and the mirror cited here reproduces it unmodified at its first commit. Anthropic itself has made no announcement. The note says the author consulted Anthropic's chief executive before announcing and calls a cynical reading of the timing false; AFP reports that the announcement came the day after Anthropic's stock market debut. Autonomy is graded collaborative on the strictest defensible reading. The note credits Claude with the decisive technical work, including the length of the lift chain and the parts the author says he does not yet understand, which would support ai-led; but it also says he set the strategy of combining two ideas from a toy setting and steered the work to the analogous situation, which is human research input beyond posing the problem, so the weaker grade wins. The note names only Claude; Tao describes the model as internal, and no version is stated.",
+    "independent_checks": [
+      {
+        "who": "Andrew Sutherland (MIT), checks run with Claude Code",
+        "url": "https://math.mit.edu/~drew/grh/",
+        "outcome": "As of 22:05 UTC on 20 November 2026: all 175,187 modules compile under Lean 4.33.1 with zero errors; the five theorems depend only on propext, Classical.choice and Quot.sound; Mathlib's compiled files match the official cache byte for byte; leanchecker replays every module; nanoda and con-leche accept the full 61.6 GB export; con-leche's compare mode finds all five theorems justified against the Mathlib-only challenge; lean4lean accepts every compiled module. The Lean and paranoid kernels on the export, and the end-to-end lake comparator run, had not finished."
+      },
+      {
+        "who": "Maintainers of leanprover-community/riemann-hypothesis",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md",
+        "outcome": "Mirrored the archive unmodified, wrote a Comparator challenge stating the five theorems against Mathlib alone, read the statements by hand, checked every dependency pin, and ran a static scan that found no axiom, sorry, admit, native_decide, implemented_by, extern, unsafe or opaque, while listing the metaprogramming that bypasses the elaborator. Their own Comparator build was in progress with no results posted."
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "mathdb",
+        "id": "315854",
+        "title": "Riemann hypothesis",
+        "url": "https://mathdb.com/p/315854/riemann-hypothesis",
+        "note": "Marked claimed solved, unverified, on 20 November 2026."
+      }
+    ],
+    "sources": [
+      {
+        "label": "leanprover-community/riemann-hypothesis: the Lean submission mirrored unmodified, with a Comparator setup",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis",
+        "kind": "research"
+      },
+      {
+        "label": "Levent Alpöge: note announcing the proof, with links to the Lean archive (PDF)",
+        "url": "https://alpo.ge/remark.pdf",
+        "kind": "announcement"
+      },
+      {
+        "label": "Andrew Sutherland (MIT): verification files and kernel results for the Lean proof",
+        "url": "https://math.mit.edu/~drew/grh/",
+        "kind": "commentary"
+      },
+      {
+        "label": "leanprover-community: verification notes on the submission's size, statements, metaprogramming and checkers",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md",
+        "kind": "commentary"
+      },
+      {
+        "label": "Terence Tao: Unforced Euler singularity, unforced Navier-Stokes singularity, and the Generalized Riemann Hypothesis",
+        "url": "https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/",
+        "kind": "commentary"
+      },
+      {
+        "label": "Scientific American: The AI Riemann hypothesis proof is almost certainly true, independent mathematicians attest",
+        "url": "https://www.scientificamerican.com/article/the-ai-riemann-hypothesis-proof-is-almost-certainly-true-independent-mathematicians-attest/",
+        "kind": "coverage"
+      },
+      {
+        "label": "Scientific American: Anthropic mathematician claims to prove Riemann hypothesis, most famous problem in all of math",
+        "url": "https://www.scientificamerican.com/article/anthropic-mathematician-claims-to-prove-riemann-hypothesis-most-famous-problem-in-all-of-math/",
+        "kind": "coverage"
+      },
+      {
+        "label": "Phys.org: Anthropic researcher says he and Claude proved the Riemann hypothesis, first posed in 1859 (AFP)",
+        "url": "https://phys.org/news/2026-11-anthropic-claude-math-greatest-riddle.html",
+        "kind": "coverage"
+      },
+      {
+        "label": "SiliconANGLE: Anthropic researcher claims to have proven Riemann hypothesis using Claude",
+        "url": "https://siliconangle.com/2026/11/20/anthropic-researcher-claims-to-have-proven-riemann-hypothesis-using-claude/",
+        "kind": "coverage"
+      }
+    ],
+    "discussion": [
+      {
+        "label": "Hacker News: Levent Alpöge claims proof of the Generalized Riemann Hypothesis [pdf]",
+        "url": "https://news.ycombinator.com/item?id=50574968"
+      },
+      {
+        "label": "Lean Zulip: Discussion: Alpöge Proves the Riemann Hypothesis",
+        "url": "https://leanprover.zulipchat.com/#narrow/channel/113488-general/topic/Discussion.3A.20Alp.C3.B6ge.20Proves.20the.20Riemann.20Hypothesis"
+      }
+    ],
+    "tags": [
+      "riemann-hypothesis",
+      "riemann-zeta",
+      "l-functions",
+      "analytic-number-theory",
+      "number-theory",
+      "automorphic-forms",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-20"
   }
 ]

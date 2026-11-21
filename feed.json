@@ -9,6 +9,24 @@
   "favicon": "https://whataifound.org/assets/brand/favicon.svg",
   "items": [
     {
+      "id": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean",
+      "url": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean",
+      "title": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+      "content_text": "Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.  Riemann conjectured in 1859 that every nontrivial zero of ζ(s) has real part 1/2, and the generalized Riemann hypothesis makes the same assertion for Dirichlet L-functions. The release is a Lean 4 project and a four-page note, with no paper. Its Main.lean proves riemannHypothesis, whose type is Mathlib's own RiemannHypothesis (which excludes the trivial zeros and the point s = 1), together with four companion theorems: no Dirichlet L-function vanishes in ℜs > 1/2, for every modulus and every character, imprimitive ones included, with the pole of the principal character at s = 1 excepted; and every zero of one with 0 < ℜs < 1 lies on ℜs = 1/2, stated again separately for primitive characters. The project pins Lean 4.33.1 and Mathlib's v4.33.1 tag and runs to 175,187 files and about 17.4 million lines, with no comments and 818,755 theorem or lemma declarations, every file in the import closure of Main. RH itself is derived from the nonvanishing of all Dirichlet L-functions to the right of 1/2 by the standard functional-equation argument, using Mathlib's lemmas. The note gives the strategy only in outline. The argument descends from Stepanov's method for the Riemann hypothesis over function fields, where a divisor with multiplicity does the work; over the integers multiplicity would be something like differentiating whole numbers, and it is imitated instead by a chain of theta lifts between totally definite unitary groups, a chain of m lifts winning multiplicity m. For a von Mangoldt sum of length X the chain is taken about √X long, a choice the note attributes to Claude. Other ingredients it names include Gan-Gross-Prasad periods, a relative trace formula, an Iwasawa tower, the Bost slope inequality and a weakening of Vandiver's conjecture. A timeline the note says Claude reconstructed puts the first step, a Stepanov-type determinant, on 6 October 2026 and GRH on 16 November 2026.  Lab: Anthropic. Model: Claude (Anthropic); version not stated, described by Terence Tao as an internal model. Verification: Claimed. Autonomy: Collaborative.",
+      "date_published": "2026-11-20T00:00:00+00:00",
+      "date_modified": "2026-11-20T00:00:00+00:00",
+      "tags": [
+        "riemann-hypothesis",
+        "riemann-zeta",
+        "l-functions",
+        "analytic-number-theory",
+        "number-theory",
+        "automorphic-forms",
+        "lean",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-11-16-aristotle-manifest-rounding-bug",
       "url": "https://whataifound.org/finding/2026-11-16-aristotle-manifest-rounding-bug",
       "title": "Harmonic's Aristotle finds a rounding bug while formally verifying Manifest's Solana order book",

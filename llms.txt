@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 279 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 280 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -79,7 +79,7 @@ Every finding credited to one organisation, on one page.
 
 - [OpenAI](https://whataifound.org/lab/openai): 31 findings
 - [Google DeepMind](https://whataifound.org/lab/google-deepmind): 26 findings
-- [Anthropic](https://whataifound.org/lab/anthropic): 15 findings
+- [Anthropic](https://whataifound.org/lab/anthropic): 16 findings
 - [Axiom Math](https://whataifound.org/lab/axiom-math): 9 findings
 - [Google](https://whataifound.org/lab/google): 4 findings
 - [Epic Systems](https://whataifound.org/lab/epic-systems): 3 findings
@@ -200,8 +200,9 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 145 in one page: https://whataifound.org/topic/mathematics
+All 146 in one page: https://whataifound.org/topic/mathematics
 
+- [Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper](https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean): Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand. (Anthropic, Claude (Anthropic); version not stated, described by Terence Tao as an internal model, 2026-11-20; verification: Claimed; autonomy: Collaborative; open-problem record: MathDB 315854)
 - [First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team](https://whataifound.org/finding/2026-11-16-naslund-crossing-lower-bounds): A multi-agent harness of Claude models run by Arth Singh proved in Lean, over every field, that the quantity P(n) in Naslund's crossing problem is at least 4n/3, then 15n/11 and 67n/49 for larger n, and that P(4) = 7, the first lower bounds above the trivial n, though all are linear and leave Naslund's superlinear question open. (AIM Intelligence, Claude Fable 5.2 lead with Claude Opus 5.5 workers, in an in-house multi-agent harness, 2026-11-16; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-11-16-000011)
 - [Sharp logarithmic Kakeya maximal and tube bounds in every dimension, registered as a Lean proof](https://whataifound.org/finding/2026-11-15-sharp-logarithmic-kakeya): Mark Lewko, with ChatGPT and Codex doing the mathematical development and Lean implementation, registered on Palomar a Lean proof that the Kakeya maximal operator is bounded from \(L^n(\mathbb{R}^n)\) to \(L^n(S^{n-1})\) with norm at most \(C_n[\log(2/\delta)]^{(n-1)/n}\) in every dimension \(n \ge 2\), a logarithmic power the accompanying notes argue is optimal. (Independent, OpenAI ChatGPT and Codex; versions not stated, 2026-11-15; verification: Claimed; autonomy: AI-assisted; machine-checked record: Palomar PALOMAR-2026-11-15-000001)
 - [An 8-regular graph of girth 7 on 768 vertices, below the previous record of 774](https://whataifound.org/finding/2026-11-14-cage-8-7-768-vertices): Claude agents working for Quantavane under Arhan Canli constructed an 8-regular graph of girth 7 on 768 vertices, verified in Lean by kernel computation and registered on Palomar, improving the best known upper bound on the order of an (8,7)-cage from the 774 listed in the House of Graphs table. (Quantavane, Claude (Anthropic) agents; version not stated, 2026-11-14; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-11-14-000013)

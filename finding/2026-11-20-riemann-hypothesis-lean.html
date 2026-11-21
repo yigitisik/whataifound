@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="theme-color" content="#111310">
+<meta name="color-scheme" content="dark light">
+
+<title>Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper: graded Claimed | whataifound.org</title>
+<meta name="description" content="Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zet">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<link rel="canonical" href="https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean">
+
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="whataifound.org">
+<meta property="og:title" content="Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper">
+<meta property="og:description" content="Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zet">
+<meta property="og:url" content="https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean">
+<meta property="og:image" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:secure_url" content="https://whataifound.org/assets/brand/og.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+<meta property="article:published_time" content="2026-11-20">
+<meta property="og:locale" content="en_US">
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper">
+<meta name="twitter:description" content="Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper is graded claimed on whataifound.org, with the AI&#x27;s role graded collaborative. Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zet">
+<meta name="twitter:image" content="https://whataifound.org/assets/brand/og.png">
+<meta name="twitter:image:alt" content="whataifound.org: a curated registry of what AI has actually contributed.">
+
+<link rel="icon" href="/assets/brand/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/assets/brand/icon-48.png" sizes="48x48" type="image/png">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png" sizes="180x180">
+<link rel="mask-icon" href="/assets/brand/favicon.svg" color="#0b0d10">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="alternate" type="application/feed+json" href="/feed.json" title="whataifound.org (JSON Feed)">
+<link rel="alternate" type="application/rss+xml" href="/feed.xml" title="whataifound.org (RSS)">
+<link rel="prev" href="https://whataifound.org/finding/2026-11-16-naslund-crossing-lower-bounds">
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@graph": [
+    {
+      "@type": "ScholarlyArticle",
+      "@id": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean#article",
+      "url": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean",
+      "headline": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+      "name": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+      "abstract": "Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.",
+      "description": "Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.",
+      "datePublished": "2026-11-20",
+      "dateModified": "2026-11-20",
+      "inLanguage": "en",
+      "isPartOf": {
+        "@id": "https://whataifound.org/#dataset"
+      },
+      "author": {
+        "@type": "Organization",
+        "name": "Anthropic"
+      },
+      "publisher": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "image": "https://whataifound.org/assets/brand/og.png",
+      "about": "Mathematics",
+      "keywords": [
+        "riemann-hypothesis",
+        "riemann-zeta",
+        "l-functions",
+        "analytic-number-theory",
+        "number-theory",
+        "automorphic-forms",
+        "lean",
+        "argument",
+        "Claimed",
+        "Collaborative"
+      ],
+      "license": "https://creativecommons.org/licenses/by/4.0/",
+      "creditText": "whataifound.org. Verification: Claimed; autonomy: Collaborative.",
+      "articleBody": "Riemann conjectured in 1859 that every nontrivial zero of ζ(s) has real part 1/2, and the generalized Riemann hypothesis makes the same assertion for Dirichlet L-functions. The release is a Lean 4 project and a four-page note, with no paper. Its Main.lean proves riemannHypothesis, whose type is Mathlib's own RiemannHypothesis (which excludes the trivial zeros and the point s = 1), together with four companion theorems: no Dirichlet L-function vanishes in ℜs \u003e 1/2, for every modulus and every character, imprimitive ones included, with the pole of the principal character at s = 1 excepted; and every zero of one with 0 \u003c ℜs \u003c 1 lies on ℜs = 1/2, stated again separately for primitive characters. The project pins Lean 4.33.1 and Mathlib's v4.33.1 tag and runs to 175,187 files and about 17.4 million lines, with no comments and 818,755 theorem or lemma declarations, every file in the import closure of Main. RH itself is derived from the nonvanishing of all Dirichlet L-functions to the right of 1/2 by the standard functional-equation argument, using Mathlib's lemmas. The note gives the strategy only in outline. The argument descends from Stepanov's method for the Riemann hypothesis over function fields, where a divisor with multiplicity does the work; over the integers multiplicity would be something like differentiating whole numbers, and it is imitated instead by a chain of theta lifts between totally definite unitary groups, a chain of m lifts winning multiplicity m. For a von Mangoldt sum of length X the chain is taken about √X long, a choice the note attributes to Claude. Other ingredients it names include Gan-Gross-Prasad periods, a relative trace formula, an Iwasawa tower, the Bost slope inequality and a weakening of Vandiver's conjecture. A timeline the note says Claude reconstructed puts the first step, a Stepanov-type determinant, on 6 October 2026 and GRH on 16 November 2026.",
+      "contributor": [
+        {
+          "@type": "Organization",
+          "name": "Anthropic"
+        },
+        {
+          "@type": "Person",
+          "name": "Levent Alpöge"
+        }
+      ],
+      "citation": [
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/leanprover-community/riemann-hypothesis",
+          "name": "leanprover-community/riemann-hypothesis: the Lean submission mirrored unmodified, with a Comparator setup"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://alpo.ge/remark.pdf",
+          "name": "Levent Alpöge: note announcing the proof, with links to the Lean archive (PDF)"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://math.mit.edu/~drew/grh/",
+          "name": "Andrew Sutherland (MIT): verification files and kernel results for the Lean proof"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md",
+          "name": "leanprover-community: verification notes on the submission's size, statements, metaprogramming and checkers"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/",
+          "name": "Terence Tao: Unforced Euler singularity, unforced Navier-Stokes singularity, and the Generalized Riemann Hypothesis"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://www.scientificamerican.com/article/the-ai-riemann-hypothesis-proof-is-almost-certainly-true-independent-mathematicians-attest/",
+          "name": "Scientific American: The AI Riemann hypothesis proof is almost certainly true, independent mathematicians attest"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://www.scientificamerican.com/article/anthropic-mathematician-claims-to-prove-riemann-hypothesis-most-famous-problem-in-all-of-math/",
+          "name": "Scientific American: Anthropic mathematician claims to prove Riemann hypothesis, most famous problem in all of math"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://phys.org/news/2026-11-anthropic-claude-math-greatest-riddle.html",
+          "name": "Phys.org: Anthropic researcher says he and Claude proved the Riemann hypothesis, first posed in 1859 (AFP)"
+        },
+        {
+          "@type": "CreativeWork",
+          "url": "https://siliconangle.com/2026/11/20/anthropic-researcher-claims-to-have-proven-riemann-hypothesis-using-claude/",
+          "name": "SiliconANGLE: Anthropic researcher claims to have proven Riemann hypothesis using Claude"
+        }
+      ]
+    },
+    {
+      "@type": "ClaimReview",
+      "@id": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean#claimreview",
+      "url": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean",
+      "claimReviewed": "Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.",
+      "datePublished": "2026-11-20",
+      "author": {
+        "@type": "Organization",
+        "name": "whataifound.org",
+        "url": "https://whataifound.org/"
+      },
+      "itemReviewed": {
+        "@type": "Claim",
+        "name": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+        "author": {
+          "@type": "Organization",
+          "name": "Anthropic (Claude (Anthropic); version not stated, described by Terence Tao as an internal model)"
+        },
+        "datePublished": "2026-11-20",
+        "appearance": [
+          {
+            "@type": "CreativeWork",
+            "url": "https://alpo.ge/remark.pdf"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://www.scientificamerican.com/article/the-ai-riemann-hypothesis-proof-is-almost-certainly-true-independent-mathematicians-attest/"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://www.scientificamerican.com/article/anthropic-mathematician-claims-to-prove-riemann-hypothesis-most-famous-problem-in-all-of-math/"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://phys.org/news/2026-11-anthropic-claude-math-greatest-riddle.html"
+          },
+          {
+            "@type": "CreativeWork",
+            "url": "https://siliconangle.com/2026/11/20/anthropic-researcher-claims-to-have-proven-riemann-hypothesis-using-claude/"
+          }
+        ]
+      },
+      "reviewRating": {
+        "@type": "Rating",
+        "ratingValue": 2,
+        "bestRating": 5,
+        "worstRating": 1,
+        "alternateName": "Claimed, not independently verified"
+      },
+      "reviewBody": "arXiv, 2026-11-20: ti:\"Riemann hypothesis\" AND (abs:proof OR ti:proof) returned 95 records, the most recent being a proof of the quasi-Riemann hypothesis using ℚ[i] (2611.16665) and a two-interval criterion for RH (2611.10726); the claimed proofs of RH itself among them (for example 2607.04338 and 2408.13292) have no standing in the literature, and none comes with a formalization. MathDB records the problem as 315854, marked claimed solved and unverified on 20 November. Palomar's 200 most recent records (through PALOMAR-2026-11-21-000005), ProofAtlas's formalizations and vibemathed's dataset held no registration on the same day. Within this registry, the Dirichlet half of 2026-10-06-quasi-riemann-hypothesis would follow from this claim, but the Hecke L-functions over ℚ(√(−3)) in that entry and the Dedekind zeta functions in 2026-10-12-dedekind-zeta-quasi-riemann are outside what this Lean states, and the simplicity of zeros in 2026-08-10-zeta-zeros-critical-line, on which Alpöge is an author, does not follow from RH at all. A second, unrelated claim of GRH appeared the same day: Ravi Vakil posted a draft by Alessandro Maria Masullo, which he describes as all human with no AI and which Brian Conrad had been checking for months, and added about eight hours later that several people had reported problems in it found with the help of AI models. That claim is outside this registry's scope and has no formalization."
+    },
+    {
+      "@type": "BreadcrumbList",
+      "itemListElement": [
+        {
+          "@type": "ListItem",
+          "position": 1,
+          "name": "Registry",
+          "item": "https://whataifound.org/"
+        },
+        {
+          "@type": "ListItem",
+          "position": 2,
+          "name": "Mathematics",
+          "item": "https://whataifound.org/topic/mathematics"
+        },
+        {
+          "@type": "ListItem",
+          "position": 3,
+          "name": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
+          "item": "https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean"
+        }
+      ]
+    }
+  ]
+}
+</script>
+
+<script>try{var tm=localStorage.getItem('theme'),el=document.documentElement;if(tm==='light'||tm==='dark')el.setAttribute('data-theme',tm);else if(tm!=='system')el.setAttribute('data-theme','dark');
+/* Match the chrome tint to the theme that rendered; the static tag is the dark default. */
+var lt=tm==='light'||(tm==='system'&&window.matchMedia('(prefers-color-scheme: light)').matches);
+if(lt){var m=document.querySelector('meta[name=theme-color]');if(m)m.content='#faf9f6';}}catch(e){}</script>
+
+<link rel="stylesheet" href="/styles.css">
+</head>
+<body class="finding-page">
+<a class="skip" href="#main">Skip to content</a>
+<div class="spectrum" aria-hidden="true"></div>
+<div class="wrap">
+
+<header><div class="eyebrow">
+<a class="brand" href="/" aria-label="whataifound.org home"><svg class="mark" viewBox="0 0 24 24" width="21" height="21" aria-hidden="true">
+<defs><linearGradient id="mk-i" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#5aa9e6"/><stop offset="0.5" stop-color="#7c6cf0"/><stop offset="1" stop-color="#d98a4a"/></linearGradient></defs>
+<path class="m1a" d="M2.6 12 L12 2.6 L21.4 12" fill="none" stroke="url(#mk-i)" stroke-opacity="0.75" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m1b" d="M2.6 12 L12 21.4 L21.4 12" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" stroke-linecap="round"/>
+<path class="m2" d="M6.9 8.75 L17.1 8.75 L18.35 10.05 L5.65 10.05 Z" fill="url(#mk-i)" fill-opacity="0.75"/>
+<path class="m3" d="M9.9 11.4 h4.2 v1.1 h-1.35 v4.4 h1.35 v1.1 h-4.2 v-1.1 h1.35 v-4.4 h-1.35 z" fill="url(#mk-i)"/>
+</svg>
+<span class="wm">what<span class="ai">ai</span>found.org</span></a>
+<nav class="pagenav" aria-label="Site">
+<a href="/">Registry</a>
+<a href="/review">Review queue</a>
+<a href="/visuals">Visuals</a>
+<a href="/methodology">Methodology</a>
+<a href="/contributors">Contributors</a>
+<span class="pn-ink" aria-hidden="true"></span>
+</nav>
+<span class="eyebrow-right">
+<span class="doors" role="group" aria-label="Ways to contribute">
+<a class="door" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener" aria-label="Source and pull requests on GitHub" title="Source on GitHub"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg></a>
+<span class="acct" data-acct><a class="door door-in" href="/signin" data-signin aria-label="Sign in" title="Sign in"><span>Sign in</span></a></span>
+</span>
+<span class="theme-seg" role="group" aria-label="Colour theme">
+<button type="button" class="th" data-mode="light" aria-label="Light theme" aria-pressed="false" title="Light"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><circle cx="12" cy="12" r="4.2"/><path d="M12 2.5v2.3M12 19.2v2.3M4.4 4.4l1.6 1.6M18 18l1.6 1.6M2.5 12h2.3M19.2 12h2.3M4.4 19.6l1.6-1.6M18 6l1.6-1.6"/></svg></button>
+<button type="button" class="th" data-mode="system" aria-label="System theme" aria-pressed="false" title="System"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="12.5" rx="2"/><path d="M8.5 20.5h7M12 16.5v4"/></svg></button>
+<button type="button" class="th" data-mode="dark" aria-label="Dark theme" aria-pressed="false" title="Dark"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 13.3A8 8 0 1 1 10.7 3.5 6.3 6.3 0 0 0 20.5 13.3z"/></svg></button>
+</span>
+</span></div></header>
+<nav class="crumb" aria-label="Breadcrumb">
+  <a href="/">whataifound.org</a> <span aria-hidden="true">/</span>
+  <a href="/topic/mathematics">Mathematics</a>
+  <span aria-hidden="true">/</span> <span>Finding</span>
+</nav>
+
+<main id="main">
+<article class="finding">
+  <div class="finding-pills">
+    <span class="pill v v-claimed">Claimed</span>
+    <span class="pill a a-collaborative">Collaborative</span>
+  </div>
+  <h1>Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper</h1>
+  <p class="claim">Levent Alpöge, a mathematician at Anthropic, says he found with Claude a proof that every nontrivial zero of the Riemann zeta function, and of every Dirichlet L-function, has real part one half, and has released it only as a Lean formalization of about 17 million lines that he says he does not yet fully understand.</p>
+
+  <section class="glance">
+    <div class="glance-facts">
+      <dl class="finding-facts n6">
+      <div><dt>Lab</dt><dd><a href="/lab/anthropic">Anthropic</a></dd></div>
+      <div><dt>Model</dt><dd>Claude (Anthropic); version not stated, described by Terence Tao as an internal model</dd></div>
+      <div><dt>Field</dt><dd>Mathematics</dd></div>
+      <div><dt>Date</dt><dd>2026-11-20</dd></div>
+      <div><dt>Human collaborators</dt><dd>Levent Alpöge</dd></div>
+      <div><dt>Problem posed</dt><dd>1859 · open 167 yrs</dd></div>
+      </dl>
+    </div>
+    <div class="glance-src">
+      <h2 class="lbl">Sources</h2>
+      <h3 class="lbl kind k-research">Original work</h3>
+      <div class="refs"><a class="ref" href="https://github.com/leanprover-community/riemann-hypothesis" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">leanprover-community/riemann-hypothesis: the Lean submission mirrored unmodified, with a Comparator setup</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-announcement">Announcement</h3>
+      <div class="refs"><a class="ref" href="https://alpo.ge/remark.pdf" target="_blank" rel="noopener"><span class="ref-dom">Levent Alpöge</span><span class="ref-t">note announcing the proof, with links to the Lean archive (PDF)</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-coverage">Media coverage</h3>
+      <div class="refs"><a class="ref" href="https://www.scientificamerican.com/article/the-ai-riemann-hypothesis-proof-is-almost-certainly-true-independent-mathematicians-attest/" target="_blank" rel="noopener"><span class="ref-dom">Scientific American</span><span class="ref-t">The AI Riemann hypothesis proof is almost certainly true, independent mathematicians attest</span><span class="ref-a">↗</span></a><a class="ref" href="https://www.scientificamerican.com/article/anthropic-mathematician-claims-to-prove-riemann-hypothesis-most-famous-problem-in-all-of-math/" target="_blank" rel="noopener"><span class="ref-dom">Scientific American</span><span class="ref-t">Anthropic mathematician claims to prove Riemann hypothesis, most famous problem in all of math</span><span class="ref-a">↗</span></a><a class="ref" href="https://phys.org/news/2026-11-anthropic-claude-math-greatest-riddle.html" target="_blank" rel="noopener"><span class="ref-dom">Phys.org</span><span class="ref-t">Anthropic researcher says he and Claude proved the Riemann hypothesis, first posed in 1859 (AFP)</span><span class="ref-a">↗</span></a><a class="ref" href="https://siliconangle.com/2026/11/20/anthropic-researcher-claims-to-have-proven-riemann-hypothesis-using-claude/" target="_blank" rel="noopener"><span class="ref-dom">SiliconANGLE</span><span class="ref-t">Anthropic researcher claims to have proven Riemann hypothesis using Claude</span><span class="ref-a">↗</span></a></div>
+      <h3 class="lbl kind k-commentary">Independent commentary</h3>
+      <div class="refs"><a class="ref" href="https://math.mit.edu/~drew/grh/" target="_blank" rel="noopener"><span class="ref-dom">math.mit.edu</span><span class="ref-t">Andrew Sutherland (MIT): verification files and kernel results for the Lean proof</span><span class="ref-a">↗</span></a><a class="ref" href="https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md" target="_blank" rel="noopener"><span class="ref-dom">GitHub</span><span class="ref-t">leanprover-community: verification notes on the submission's size, statements, metaprogramming and checkers</span><span class="ref-a">↗</span></a><a class="ref" href="https://terrytao.wordpress.com/2026/11/20/unforced-euler-singularity-unforced-navier-stokes-singularity-and-the-generalized-riemann-hypothesis/" target="_blank" rel="noopener"><span class="ref-dom">Terence Tao</span><span class="ref-t">Unforced Euler singularity, unforced Navier-Stokes singularity, and the Generalized Riemann Hypothesis</span><span class="ref-a">↗</span></a></div>
+    </div>
+  </section>
+
+  <h2 class="lbl">What was found</h2>
+  <p>Riemann conjectured in 1859 that every nontrivial zero of <math><semantics><mrow><mi>ζ</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><mi>s</mi><mo fence="true" form="postfix" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\zeta(s)</annotation></semantics></math> has real part <math><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math>, and the generalized Riemann hypothesis makes the same assertion for Dirichlet L-functions. The release is a Lean 4 project and a four-page note, with no paper. Its Main.lean proves riemannHypothesis, whose type is Mathlib's own RiemannHypothesis (which excludes the trivial zeros and the point <math><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s = 1</annotation></semantics></math>), together with four companion theorems: no Dirichlet L-function vanishes in <math><semantics><mrow><mi>ℜ</mi><mi>s</mi><mo>&gt;</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\Re s &gt; 1/2</annotation></semantics></math>, for every modulus and every character, imprimitive ones included, with the pole of the principal character at <math><semantics><mrow><mi>s</mi><mo>=</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">s = 1</annotation></semantics></math> excepted; and every zero of one with <math><semantics><mrow><mn>0</mn><mo>&lt;</mo><mi>ℜ</mi><mi>s</mi><mo>&lt;</mo><mn>1</mn></mrow><annotation encoding="application/x-tex">0 &lt; \Re s &lt; 1</annotation></semantics></math> lies on <math><semantics><mrow><mi>ℜ</mi><mi>s</mi><mo>=</mo><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">\Re s = 1/2</annotation></semantics></math>, stated again separately for primitive characters. The project pins Lean 4.33.1 and Mathlib's v4.33.1 tag and runs to 175,187 files and about 17.4 million lines, with no comments and 818,755 theorem or lemma declarations, every file in the import closure of Main. RH itself is derived from the nonvanishing of all Dirichlet L-functions to the right of <math><semantics><mrow><mn>1</mn><mi>/</mi><mn>2</mn></mrow><annotation encoding="application/x-tex">1/2</annotation></semantics></math> by the standard functional-equation argument, using Mathlib's lemmas. The note gives the strategy only in outline. The argument descends from Stepanov's method for the Riemann hypothesis over function fields, where a divisor with multiplicity does the work; over the integers multiplicity would be something like differentiating whole numbers, and it is imitated instead by a chain of theta lifts between totally definite unitary groups, a chain of <math><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math> lifts winning multiplicity <math><semantics><mi>m</mi><annotation encoding="application/x-tex">m</annotation></semantics></math>. For a von Mangoldt sum of length <math><semantics><mi>X</mi><annotation encoding="application/x-tex">X</annotation></semantics></math> the chain is taken about <math><semantics><msqrt><mi>X</mi></msqrt><annotation encoding="application/x-tex">\sqrt{X}</annotation></semantics></math> long, a choice the note attributes to Claude. Other ingredients it names include Gan-Gross-Prasad periods, a relative trace formula, an Iwasawa tower, the Bost slope inequality and a weakening of Vandiver's conjecture. A timeline the note says Claude reconstructed puts the first step, a Stepanov-type determinant, on 6 October 2026 and GRH on 16 November 2026.</p>
+  <h2 class="lbl">Novelty check</h2>
+  <p>arXiv, 2026-11-20: ti:&quot;Riemann hypothesis&quot; AND (abs:proof OR ti:proof) returned 95 records, the most recent being a proof of the quasi-Riemann hypothesis using <math><semantics><mrow><mi>ℚ</mi><mrow><mo fence="true" form="prefix" stretchy="false">[</mo><mi>i</mi><mo fence="true" form="postfix" stretchy="false">]</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbb{Q}[i]</annotation></semantics></math> (2611.16665) and a two-interval criterion for RH (2611.10726); the claimed proofs of RH itself among them (for example 2607.04338 and 2408.13292) have no standing in the literature, and none comes with a formalization. MathDB records the problem as 315854, marked claimed solved and unverified on 20 November. Palomar's 200 most recent records (through PALOMAR-2026-11-21-000005), ProofAtlas's formalizations and vibemathed's dataset held no registration on the same day. Within this registry, the Dirichlet half of 2026-10-06-quasi-riemann-hypothesis would follow from this claim, but the Hecke L-functions over <math><semantics><mrow><mi>ℚ</mi><mrow><mo fence="true" form="prefix" stretchy="false">(</mo><msqrt><mrow><mo form="prefix" stretchy="false" lspace="0em" rspace="0em">−</mo><mn>3</mn></mrow></msqrt><mo fence="true" form="postfix" stretchy="false">)</mo></mrow></mrow><annotation encoding="application/x-tex">\mathbb{Q}(\sqrt{-3})</annotation></semantics></math> in that entry and the Dedekind zeta functions in 2026-10-12-dedekind-zeta-quasi-riemann are outside what this Lean states, and the simplicity of zeros in 2026-08-10-zeta-zeros-critical-line, on which Alpöge is an author, does not follow from RH at all. A second, unrelated claim of GRH appeared the same day: Ravi Vakil posted a draft by Alessandro Maria Masullo, which he describes as all human with no AI and which Brian Conrad had been checking for months, and added about eight hours later that several people had reported problems in it found with the help of AI models. That claim is outside this registry's scope and has no formalization.</p>
+  <details class="fold">
+  <summary>Caveats and known objections</summary>
+  <p>Graded claimed for now, although the outside mechanical checking is well advanced. The bar 2026-10-06-quasi-riemann-hypothesis set for a statement anchored on Mathlib's own definitions is a completed independent Comparator run, and none had completed at entry: Andrew Sutherland's lake comparator run had passed its statement comparison and axiom check with its kernels still running, the leanprover-community Comparator setup had posted no results, and Kevin Buzzard wrote on the Lean Zulip, as Scientific American reports, that 'we still await a successful comparator run'. What has passed, all of it run by Sutherland: a full build with zero errors, the three standard axioms only, Mathlib's compiled files byte-identical to the official cache, a Lean-kernel replay of every module, acceptance of the full export by two independently written kernels, nanoda and con-leche, a match of all five statements against the challenge by con-leche's compare mode, and lean4lean on every compiled module. He told Scientific American that 'the chance that anything is fishy here is approximately zero'. When a Comparator run completes this should move to formal for exactly the five statements, since the headline theorem is Mathlib's RiemannHypothesis verbatim and the challenge file imports only Mathlib. Several details make the independent kernels load-bearing rather than a formality. The pinned Lean 4.33.1 predates the 4.34.1 runtime fixes that Lean's release notes say could be turned into a proof of False in the official kernel with deliberately constructed input, so a build alone is weak evidence; nanoda and con-leche are not built on that runtime. The source defines tactics, kexactB and kcopy among them, that assign a term to a goal without the elaborator checking its type, kexactB in 67 files, so for those proofs the kernel is the only check. Sutherland's build ran without a sandbox, calling lean directly rather than through lake build, with a 77-module sample matched byte for byte against a real lake build. The con-leche and con-ron builds bundled with Lean 4.36.0 decline the export because one mutual inductive has a reflexive member, a limitation of those checkers rather than a rejection. On scope, GRH here means Dirichlet L-functions only. Dedekind zeta functions and Hecke or automorphic L-functions are not stated, the Extended Riemann Hypothesis is something the note only expects with more time, and its remark that the vanishing of some K-groups of the integers follows from an intermediate step is the author's belief, not a theorem in the Lean. A machine check, however complete, settles the statements and not the understanding. There is no paper: the author writes that he is presenting the argument before having mastered a massive neighbourhood around its mathematics, that he has little mastery of automorphic forms on higher rank groups, that parts of his own timeline paraphrase a summary by Claude that 'might make zero sense', and that a written version ran past 250,000 pages and was withheld as unreadable. No human, the author included, is on record as having read the argument, and Brian Conrey told AFP he had seen only the note. Clay's rules require journal publication and two years of scrutiny. The artifact is a 239 MB archive split into fourteen parts on the author's personal site and published without a licence; that server answers 200 for any path, so the joined archive's sha256, beginning 9631b4f0, is the only reliable check, and the mirror cited here reproduces it unmodified at its first commit. Anthropic itself has made no announcement. The note says the author consulted Anthropic's chief executive before announcing and calls a cynical reading of the timing false; AFP reports that the announcement came the day after Anthropic's stock market debut. Autonomy is graded collaborative on the strictest defensible reading. The note credits Claude with the decisive technical work, including the length of the lift chain and the parts the author says he does not yet understand, which would support ai-led; but it also says he set the strategy of combining two ideas from a toy setting and steered the work to the analogous situation, which is human research input beyond posing the problem, so the weaker grade wins. The note names only Claude; Tao describes the model as internal, and no version is stated.</p>
+  </details>
+  <h2 class="lbl">Independent checks</h2>
+  <div class="checks"><p>Andrew Sutherland (MIT), checks run with Claude Code: <em>As of 22:05 UTC on 20 November 2026: all 175,187 modules compile under Lean 4.33.1 with zero errors; the five theorems depend only on propext, Classical.choice and Quot.sound; Mathlib's compiled files match the official cache byte for byte; leanchecker replays every module; nanoda and con-leche accept the full 61.6 GB export; con-leche's compare mode finds all five theorems justified against the Mathlib-only challenge; lean4lean accepts every compiled module. The Lean and paranoid kernels on the export, and the end-to-end lake comparator run, had not finished.</em> · <a href="https://math.mit.edu/~drew/grh/" target="_blank" rel="noopener">link ↗</a></p><p>Maintainers of leanprover-community/riemann-hypothesis: <em>Mirrored the archive unmodified, wrote a Comparator challenge stating the five theorems against Mathlib alone, read the statements by hand, checked every dependency pin, and ran a static scan that found no axiom, sorry, admit, native_decide, implemented_by, extern, unsafe or opaque, while listing the metaprogramming that bypasses the elaborator. Their own Comparator build was in progress with no results posted.</em> · <a href="https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md" target="_blank" rel="noopener">link ↗</a></p></div>
+  <h2 class="lbl">The open problem</h2>
+  <div class="regs"><div class="reg"><p class="reg-h"><a href="https://mathdb.com/p/315854/riemann-hypothesis" target="_blank" rel="noopener">MathDB<span class="reg-id">Riemann hypothesis</span><span class="reg-a" aria-hidden="true">↗</span></a></p><p class="reg-m">315854</p><p class="reg-w">Nothing mechanically. It records what a problem says, what is known about it, and the standing of any claimed solution.</p><p class="reg-n">Marked claimed solved, unverified, on 20 November 2026.</p></div></div>
+
+  <div class="challenge">
+    <p class="challenge-t">Disagree with these grades?</p>
+    <p class="challenge-d">Bring a citation: a grade moves on evidence, not on argument.</p>
+    <div class="challenge-acts">
+      <a class="btn primary challenge-b" href="/contribute?kind=challenge&amp;entry=2026-11-20-riemann-hypothesis-lean">Challenge this grade</a>
+      <a class="btn challenge-b" href="/contribute?kind=check&amp;entry=2026-11-20-riemann-hypothesis-lean">Submit a check</a>
+      
+    </div>
+    <p class="challenge-gh"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg><span class="challenge-gh-t">Or on GitHub:</span>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=independent-check.yml&amp;title=Independent%20check%3A%202026-11-20-riemann-hypothesis-lean&amp;entry=2026-11-20-riemann-hypothesis-lean" target="_blank" rel="noopener">submit a check<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=grade-challenge.yml&amp;title=Grade%20challenge%3A%202026-11-20-riemann-hypothesis-lean&amp;entry=2026-11-20-riemann-hypothesis-lean&amp;current=verification%3A%20claimed%2C%20autonomy%3A%20collaborative" target="_blank" rel="noopener">challenge the grade<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/issues/new?template=correction.yml&amp;title=Correction%3A%202026-11-20-riemann-hypothesis-lean&amp;entry=2026-11-20-riemann-hypothesis-lean" target="_blank" rel="noopener">send a correction<span aria-hidden="true"> ↗</span></a>
+      <a href="https://github.com/yigitisik/whataifound/blob/main/data/entries.json" target="_blank" rel="noopener">or send a pull request<span aria-hidden="true"> ↗</span></a>
+    </p>
+  <div class="sig" data-signals="2026-11-20-riemann-hypothesis-lean" hidden><p class="sig-t">Flag this for triage</p><div class="sig-row"><button type="button" class="sig-b" data-kind="needs-check" aria-pressed="false" title="nobody outside the lab has confirmed this"><span class="sig-l">Needs a check</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="looks-wrong" aria-pressed="false" title="the claim or a grade looks mistaken"><span class="sig-l">Looks wrong</span><span class="sig-n" data-n aria-hidden="true"></span></button><button type="button" class="sig-b" data-kind="dead-link" aria-pressed="false" title="a source no longer resolves"><span class="sig-l">Dead link</span><span class="sig-n" data-n aria-hidden="true"></span></button></div><p class="sig-note">Signals order the <a href="/review">review queue</a> and nothing else. They are never published, and they never move a grade: that takes a citation.</p></div>
+  </div>
+
+  <details class="fold">
+  <summary>Entry history (1 event)</summary>
+  <ol class="hist">
+    <li class="hist-row"><time class="hist-date" datetime="2026-11-20">2026-11-20</time><span class="pill r r-added">Added</span><span class="hist-note">Entered the registry graded Claimed and Collaborative.</span></li>
+  </ol>
+  <p class="hist-foot">Entries are never deleted. A grade that does not hold up is downgraded on the record, with the reason beside it.</p>
+  </details>
+  <h2 class="lbl">Community discussion</h2>
+  <div class="refs"><a class="ref" href="https://news.ycombinator.com/item?id=50574968" target="_blank" rel="noopener"><span class="ref-dom">Hacker News</span><span class="ref-t">Levent Alpöge claims proof of the Generalized Riemann Hypothesis [pdf]</span><span class="ref-a">↗</span></a><a class="ref" href="https://leanprover.zulipchat.com/#narrow/channel/113488-general/topic/Discussion.3A.20Alp.C3.B6ge.20Proves.20the.20Riemann.20Hypothesis" target="_blank" rel="noopener"><span class="ref-dom">leanprover.zulipchat.com</span><span class="ref-t">Lean Zulip: Discussion: Alpöge Proves the Riemann Hypothesis</span><span class="ref-a">↗</span></a></div>
+
+  <p class="gradenote">Graded <strong>claimed</strong> for verification and
+  <strong>collaborative</strong> for autonomy.
+  <a href="/methodology">What these mean</a>.</p>
+
+
+  <h2 class="lbl">Cite this entry</h2>
+  <div class="cites">
+    <div class="cite-block">
+      <div class="cite-head"><span class="cite-label">Plain text</span><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>whataifound.org. (2026). Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper. whataifound.org: A Registry of AI Scientific and Mathematical Discoveries. https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean</code></pre>
+    </div>
+    <details class="fold cite-fold">
+    <summary>BibTeX</summary>
+    <div class="cite-block">
+      <div class="cite-head"><button type="button" class="cite-copy" data-copy>Copy</button></div>
+      <pre class="cite-pre"><code>@misc{whataifound-anthropic-2026-lean,
+  title        = {Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper},
+  author       = {{whataifound.org}},
+  year         = {2026},
+  howpublished = {whataifound.org: A Registry of AI Scientific and Mathematical Discoveries},
+  note         = {Result by Anthropic. Verification: Claimed. Autonomy: Collaborative.},
+  url          = {https://whataifound.org/finding/2026-11-20-riemann-hypothesis-lean}
+}</code></pre>
+    </div>
+    </details>
+  </div>
+
+  <h2 class="lbl">Related findings</h2>
+  <div class="relgrid"><a class="rel-card" href="/finding/2026-10-06-quasi-riemann-hypothesis"><span class="rel-grade pill v v-claimed">Claimed</span><span class="rel-title">Quasi-Riemann hypothesis: no zeros of zeta or any Dirichlet L-function with real part above 7/8</span><span class="rel-meta">OpenAI · 2026-10-06</span></a><a class="rel-card" href="/finding/2026-10-19-erdos-408-iterated-totient"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">Erdős Problem 408: an unconditional normal order for the number of totient iterations</span><span class="rel-meta">Plasma AI · 2026-10-19</span></a><a class="rel-card" href="/finding/2026-10-12-dedekind-zeta-quasi-riemann"><span class="rel-grade pill v v-formal">Formally verified</span><span class="rel-title">No zeros of any Dedekind zeta function with real part above 31/32, machine-checked in Lean</span><span class="rel-meta">Axiom Math · 2026-10-12</span></a></div>
+  <nav class="pagenav-steps" aria-label="Nearby findings"><a class="pn-step" href="/finding/2026-11-16-naslund-crossing-lower-bounds"><span class="pn-dir"><span class="pn-arrow" aria-hidden="true">←</span>Older</span><span class="pn-title">First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team</span></a><span class="pn-step pn-empty"></span></nav>
+
+  <div class="findtags"><a class="tag-chip" href="/?tag=riemann-hypothesis">riemann-hypothesis</a><a class="tag-chip" href="/?tag=riemann-zeta">riemann-zeta</a><a class="tag-chip" href="/?tag=l-functions">l-functions</a><a class="tag-chip" href="/?tag=analytic-number-theory">analytic-number-theory</a><a class="tag-chip" href="/?tag=number-theory">number-theory</a><a class="tag-chip" href="/?tag=automorphic-forms">automorphic-forms</a><a class="tag-chip" href="/?tag=lean">lean</a><a class="tag-chip" href="/?tag=argument">argument</a></div>
+
+  <p class="finding-back"><a href="/topic/mathematics">← All mathematics findings in the registry</a></p>
+</article>
+</main>
+
+<footer id="about">
+<div class="about-grid">
+<section class="about-col f-site">
+<h2 class="lbl">Registry</h2>
+<p class="about-links">
+<a href="/methodology">Methodology</a>
+<a href="/review">Review queue</a>
+<a href="/contributors">Contributors</a>
+<a href="/contact" title="Corrections, submissions, security and who maintains this">Contact</a>
+<a href="/privacy">Privacy</a>
+</p>
+</section>
+<section class="about-col f-data">
+<h2 class="lbl">Data</h2>
+<p class="about-links">
+<a href="/data/entries.json" download>Download JSON</a>
+<a href="/api/dataset">API</a>
+<a href="/developers">Developers</a>
+<a href="/feed.xml">RSS</a>
+<a href="/feed.json">JSON Feed</a>
+</p>
+</section>
+<section class="about-col f-help">
+<h2 class="lbl">Contribute</h2>
+<p class="about-links">
+<a href="/contribute">Submit a check</a>
+<a href="https://github.com/yigitisik/whataifound/blob/main/GOVERNANCE.md" target="_blank" rel="noopener">Roles</a>
+<a class="gh-link" href="https://github.com/yigitisik/whataifound" target="_blank" rel="noopener"><svg viewBox="0 0 16 16" width="18" height="18" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8z"/></svg>Repository</a>
+</p>
+</section>
+<section class="about-col f-reg">
+<h2 class="lbl">Other registries</h2>
+<p class="about-links">
+<a href="https://palomar-registry.org/" target="_blank" rel="noopener">Palomar</a>
+<a href="https://www.proofatlas.ai/" target="_blank" rel="noopener">ProofAtlas</a>
+<a href="https://mathdb.com/" target="_blank" rel="noopener">MathDB</a>
+<a href="https://vibemathed.com/" target="_blank" rel="noopener">vibemathed</a>
+<a href="https://clinicaltrials.gov/" target="_blank" rel="noopener">ClinicalTrials.gov</a>
+<a href="https://www.fda.gov/medical-devices/software-medical-device-samd/artificial-intelligence-enabled-medical-devices" target="_blank" rel="noopener">FDA AI-enabled devices</a>
+<a href="/registries">What each one checks</a>
+</p>
+</section>
+</div>
+<div class="about-fine">
+<p>An independent, volunteer editorial project. Grades are good-faith judgments from public information, provided "as is" without warranty, and may change as evidence emerges; nothing here is scientific, legal or investment advice. Not affiliated with or endorsed by any laboratory or company named; names and logos are their owners' trademarks, used for identification only. Data under <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener license">CC&nbsp;BY&nbsp;4.0</a> (<a href="https://whataifound.org/LICENSE">license</a>).</p>
+<p class="cite">Cite as: whataifound.org (2026). <em>whataifound.org: A Registry of AI Scientific and Mathematical Discoveries.</em> Retrieved <span id="cite-date">2026</span> from https://whataifound.org/</p>
+<p class="colophon">© 2026 <a href="https://isik.co" target="_blank" rel="noopener">Isik &amp; Co.</a> · Technology, manufacturing, consulting and trade · <a href="https://confusionmatrixpro.com" target="_blank" rel="noopener">confusionmatrixpro.com<span aria-hidden="true"> ↗</span></a></p>
+</div>
+</footer>
+</div>
+<script src="/js/chrome.js" defer></script>
+<script src="/js/entry.js" defer></script>
+<script src="/js/signals.js" defer></script>
+<!-- Vercel Web Analytics + Speed Insights (see index.html for notes). -->
+<script>window.va=window.va||function(){(window.vaq=window.vaq||[]).push(arguments);};</script>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>window.si=window.si||function(){(window.siq=window.siq||[]).push(arguments);};</script>
+<script defer src="/_vercel/speed-insights/script.js"></script>
+</body>
+</html>
