@@ -158,7 +158,8 @@ const DOMAIN_NAME = {
   'lunduniversity.lu.se':'Lund University','ascopost.com':'The ASCO Post',
   'healthcaredive.com':'Healthcare Dive','contagionlive.com':'Contagion Live',
   'research.google':'Google Research',
-  'aclanthology.org':'ACL Anthology','xianqin.org':'Xianqin'
+  'aclanthology.org':'ACL Anthology','xianqin.org':'Xianqin',
+  'phys.org':'Phys.org','siliconangle.com':'SiliconANGLE'
 };
 function domainOf(url){
   try{ const h = new URL(url).hostname.replace(/^www\./,''); return DOMAIN_NAME[h] || h; }

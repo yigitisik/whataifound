@@ -281,6 +281,7 @@ DOMAIN_NAME = {
     "healthcaredive.com": "Healthcare Dive", "contagionlive.com": "Contagion Live",
     "research.google": "Google Research",
     "aclanthology.org": "ACL Anthology", "xianqin.org": "Xianqin",
+    "phys.org": "Phys.org", "siliconangle.com": "SiliconANGLE",
 }
 
 

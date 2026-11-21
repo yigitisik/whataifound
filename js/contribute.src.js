@@ -294,7 +294,8 @@ const GRADES = {
   "2026-11-15-sharp-logarithmic-kakeya":["claimed","ai-assisted"],
   "2026-11-16-aristotle-manifest-rounding-bug":["claimed","ai-assisted"],
   "2026-11-16-chest-radiograph-fracture-risk":["peer-reviewed","ai-assisted"],
-  "2026-11-16-naslund-crossing-lower-bounds":["formal","ai-led"]
+  "2026-11-16-naslund-crossing-lower-bounds":["formal","ai-led"],
+  "2026-11-20-riemann-hypothesis-lean":["claimed","collaborative"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -575,7 +576,8 @@ const ID_BY_TITLE = {
   "sharp logarithmic kakeya maximal and tube bounds in every dimension, registered as a lean proof":"2026-11-15-sharp-logarithmic-kakeya",
   "harmonic's aristotle finds a rounding bug while formally verifying manifest's solana order book":"2026-11-16-aristotle-manifest-rounding-bug",
   "deep learning on routine chest radiographs predicts major osteoporotic fractures better than frax":"2026-11-16-chest-radiograph-fracture-risk",
-  "first lower bounds above n for naslund's crossing problem, found and proved in lean by an agent team":"2026-11-16-naslund-crossing-lower-bounds"
+  "first lower bounds above n for naslund's crossing problem, found and proved in lean by an agent team":"2026-11-16-naslund-crossing-lower-bounds",
+  "lean proof of the riemann hypothesis and grh for dirichlet l-functions, released without a paper":"2026-11-20-riemann-hypothesis-lean"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -856,7 +858,8 @@ const TITLE_BY_ID = {
   "2026-11-15-sharp-logarithmic-kakeya":"Sharp logarithmic Kakeya maximal and tube bounds in every dimension, registered as a Lean proof",
   "2026-11-16-aristotle-manifest-rounding-bug":"Harmonic's Aristotle finds a rounding bug while formally verifying Manifest's Solana order book",
   "2026-11-16-chest-radiograph-fracture-risk":"Deep learning on routine chest radiographs predicts major osteoporotic fractures better than FRAX",
-  "2026-11-16-naslund-crossing-lower-bounds":"First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team"
+  "2026-11-16-naslund-crossing-lower-bounds":"First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team",
+  "2026-11-20-riemann-hypothesis-lean":"Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper"
 };
 /*VOCAB:END*/
 

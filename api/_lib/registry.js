@@ -293,7 +293,8 @@ export const ENTRY_IDS = new Set([
   "2026-11-15-sharp-logarithmic-kakeya",
   "2026-11-16-aristotle-manifest-rounding-bug",
   "2026-11-16-chest-radiograph-fracture-risk",
-  "2026-11-16-naslund-crossing-lower-bounds"
+  "2026-11-16-naslund-crossing-lower-bounds",
+  "2026-11-20-riemann-hypothesis-lean"
 ]);
 export const ENTRY_GRADES = {
   "2017-12-14-kepler-90i": ["peer-reviewed", "search-scaffold"],
@@ -574,7 +575,8 @@ export const ENTRY_GRADES = {
   "2026-11-15-sharp-logarithmic-kakeya": ["claimed", "ai-assisted"],
   "2026-11-16-aristotle-manifest-rounding-bug": ["claimed", "ai-assisted"],
   "2026-11-16-chest-radiograph-fracture-risk": ["peer-reviewed", "ai-assisted"],
-  "2026-11-16-naslund-crossing-lower-bounds": ["formal", "ai-led"]
+  "2026-11-16-naslund-crossing-lower-bounds": ["formal", "ai-led"],
+  "2026-11-20-riemann-hypothesis-lean": ["claimed", "collaborative"]
 };
 export const ENTRY_TITLES = {
   "2017-12-14-kepler-90i": "An eighth planet around Kepler-90 found by a neural network",
@@ -855,7 +857,8 @@ export const ENTRY_TITLES = {
   "2026-11-15-sharp-logarithmic-kakeya": "Sharp logarithmic Kakeya maximal and tube bounds in every dimension, registered as a Lean proof",
   "2026-11-16-aristotle-manifest-rounding-bug": "Harmonic's Aristotle finds a rounding bug while formally verifying Manifest's Solana order book",
   "2026-11-16-chest-radiograph-fracture-risk": "Deep learning on routine chest radiographs predicts major osteoporotic fractures better than FRAX",
-  "2026-11-16-naslund-crossing-lower-bounds": "First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team"
+  "2026-11-16-naslund-crossing-lower-bounds": "First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team",
+  "2026-11-20-riemann-hypothesis-lean": "Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper"
 };
 export const VERIFICATION = ["formal", "independent", "peer-reviewed", "author-verified", "claimed", "disputed", "known", "refuted"];
 export const AUTONOMY = ["autonomous", "ai-led", "collaborative", "ai-assisted", "search-scaffold", "retrieval"];
