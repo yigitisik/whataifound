@@ -2532,6 +2532,28 @@ LAB_HUB = {
     "Chungnam National University": "https://plus.cnu.ac.kr/html/en/",
     "University of Toronto": "https://www.utoronto.ca/",
     "Weizmann Institute of Science": "https://www.weizmann.ac.il/",
+    "AIM Intelligence": "https://www.aim-intelligence.com/",
+    "Quantavane": "https://quantavane.com/",
+    "Physical Superintelligence": "https://psi.inc/research/",
+    "Atrium Health": "https://atriumhealth.org/",
+    "Children's Hospital of Philadelphia": "https://www.chop.edu/",
+    "Nankai University": "https://en.nankai.edu.cn/",
+    "Northeastern University": "https://news.northeastern.edu/",
+    "Purdue University": "https://www.purdue.edu/",
+    "Seoul National University Hospital": "https://www.snuh.org/global/en/main.do",
+    "Stanford University": "https://news.stanford.edu/",
+    "Texas State University": "https://www.txst.edu/",
+    "University College London": "https://www.ucl.ac.uk/",
+    "University of Konstanz": "https://www.uni-konstanz.de/en/",
+    "University of Maryland": "https://umd.edu/",
+    "Vanderbilt University Medical Center": "https://www.vumc.org/",
+    "Wuhan University": "https://en.whu.edu.cn/",
+    "UC Santa Barbara": "https://www.ucsb.edu/",
+    "National University of Singapore": "https://nus.edu.sg/",
+    "University of Copenhagen": "https://www.ku.dk/en",
+    "Bezmialem Vakif University": "https://bezmialem.edu.tr/",
+    "Affiliated Hospital of Xuzhou Medical University": "https://www.xzhmu.edu.cn/",
+    "Tianjin Medical University Cancer Institute and Hospital": "https://www.tjmuch.com/",
 }
 # `lab` is deliberately precise about who did the work, so one organisation appears under several
 # strings ("Google DeepMind", "... / Isomorphic Labs", "... (with Oxford and Sydney)"). Group on
@@ -2539,6 +2561,17 @@ LAB_HUB = {
 LAB_ALIAS = {
     "Google Brain": "Google",
     "Institute for Protein Design, University of Washington": "Institute for Protein Design",
+    "Google DeepMind, with the University of Tübingen": "Google DeepMind",
+    "Google, with the Chinese University of Hong Kong": "Google",
+    "MIT and Kaiser Permanente Northern California": "MIT",
+    "UC Berkeley, with the University of Chicago, MIT and Halmstad University and Region Halland":
+        "University of California, Berkeley",
+    "UC Santa Barbara, with OpenAI": "UC Santa Barbara",
+    "National University of Singapore and Singapore Eye Research Institute": "National University of Singapore",
+    "University of Copenhagen and Capital and Zealand region hospitals": "University of Copenhagen",
+    "University of Copenhagen, Technical University of Denmark and Copenhagen Academy for Medical Education and Simulation":
+        "University of Copenhagen",
+    "Bezmialem Vakif University, Muğla Sıtkı Koçman University and Kedi Mobil Uygulama": "Bezmialem Vakif University",
 }
 # Not an organisation with a research hub: an entry credited to nobody in particular, or to a
 # one-off collaboration of sites with no shared home page to send a reader to.

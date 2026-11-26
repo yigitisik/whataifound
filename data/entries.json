@@ -7541,7 +7541,7 @@
     "verification": "claimed",
     "autonomy": "collaborative",
     "detail": "Bollobas and Nikiforov conjectured in 2007 that every noncomplete graph on at least two vertices satisfies a bound on the sum of the squares of its two largest adjacency eigenvalues, in terms of its edge count and clique number. The repository formalizes the conjecture together with a weighted spectral inequality and a completely positive matrix theorem that prove it, and carries a Palomar registration. The AI roles are split and disclosed individually: ideation and the manuscript from GPT-6 Astra, the Lean development completed by Grok 4.6 with minimal direction, and submission packaging by a Claude agent.",
-    "novelty_check": "The conjecture dates to 2007. The strongest previously published result found is Giacomelli (arXiv:2603.26379), a single-author paper with no AI disclosure, which proves the conjecture only for complete multipartite graphs and for dense K4-free graphs. This claim is materially larger: the general conjecture for every noncomplete graph, in a stronger weighted form, submitted some months later. The gap between the two is the reason to record this early and to state plainly that it has not been checked.",
+    "novelty_check": "The conjecture dates to 2007. The strongest previously published result found is Giacomelli (arXiv:2603.26379), a single-author paper with no AI disclosure, which proves the conjecture only for complete multipartite graphs; its claim for dense K4-free graphs was withdrawn in version 4 of 18 November 2026, which corrects errors in versions 1 to 3 and shows three natural lines of attack on the K4-free case fail. This claim is materially larger: the general conjecture for every noncomplete graph, in a stronger weighted form, submitted some months later. The gap between the two is the reason to record this early and to state plainly that it has not been checked.",
     "caveats": "The jump from the published partial results to a claimed full resolution is the thing to verify first, and nobody outside the five authors has done it. The grade is claimed rather than formal because the Palomar record establishes that the Lean typechecks against the recorded statement, not that the recorded statement is the conjecture in its general form. Autonomy is collaborative rather than ai-led: the disclosure describes ideation as human and model back and forth among five named mathematicians rather than a model producing the argument, and the formalization step was a separate model working from an already written proof.",
     "independent_checks": [
       {
@@ -7570,7 +7570,7 @@
         "kind": "research"
       },
       {
-        "label": "Giacomelli: the prior partial result, complete multipartite and dense K4-free graphs",
+        "label": "Giacomelli: the prior partial result, complete multipartite graphs (K4-free claim withdrawn in v4)",
         "url": "https://arxiv.org/abs/2603.26379",
         "kind": "research"
       },
@@ -7595,6 +7595,12 @@
         "kind": "check",
         "note": "Recorded vibemathed's audit of the formal statement, which finds it expresses the conjecture in plain Mathlib terms. The audit is one curator's reading rather than a named expert's, so no grade moved.",
         "url": "https://vibemathed.com/problem/bollobas-nikiforov-conjecture"
+      },
+      {
+        "date": "2026-11-26",
+        "kind": "correction",
+        "note": "Corrected the novelty check: Giacomelli's prior paper, cited as the previous best result, withdrew its dense K4-free claim in version 4, leaving complete multipartite graphs. This entry's own claim and grades are unaffected.",
+        "url": "https://arxiv.org/abs/2603.26379v4"
       }
     ]
   },
@@ -13647,6 +13653,16 @@
         "label": "arXiv: Discovering formally verified quantum programs with AI",
         "url": "https://arxiv.org/abs/2611.09822",
         "kind": "research"
+      },
+      {
+        "label": "GitHub: google-deepmind/formal-quantum-computation, the Lean library, specifications and verified solutions",
+        "url": "https://github.com/google-deepmind/formal-quantum-computation",
+        "kind": "research"
+      },
+      {
+        "label": "Google DeepMind: Finding faster quantum algorithms with agents and formal verification",
+        "url": "https://deepmind.google/blog/finding-faster-quantum-algorithms-with-agents-and-formal-verification/",
+        "kind": "announcement"
       }
     ],
     "tags": [
@@ -15547,21 +15563,31 @@
       "Levent Alpöge"
     ],
     "year_posed": 1859,
-    "verification": "claimed",
+    "verification": "formal",
     "autonomy": "collaborative",
     "detail": "Riemann conjectured in 1859 that every nontrivial zero of \\(\\zeta(s)\\) has real part \\(1/2\\), and the generalized Riemann hypothesis makes the same assertion for Dirichlet L-functions. The release is a Lean 4 project and a four-page note, with no paper. Its Main.lean proves riemannHypothesis, whose type is Mathlib's own RiemannHypothesis (which excludes the trivial zeros and the point \\(s = 1\\)), together with four companion theorems: no Dirichlet L-function vanishes in \\(\\Re s > 1/2\\), for every modulus and every character, imprimitive ones included, with the pole of the principal character at \\(s = 1\\) excepted; and every zero of one with \\(0 < \\Re s < 1\\) lies on \\(\\Re s = 1/2\\), stated again separately for primitive characters. The project pins Lean 4.33.1 and Mathlib's v4.33.1 tag and runs to 175,187 files and about 17.4 million lines, with no comments and 818,755 theorem or lemma declarations, every file in the import closure of Main. RH itself is derived from the nonvanishing of all Dirichlet L-functions to the right of \\(1/2\\) by the standard functional-equation argument, using Mathlib's lemmas. The note gives the strategy only in outline. The argument descends from Stepanov's method for the Riemann hypothesis over function fields, where a divisor with multiplicity does the work; over the integers multiplicity would be something like differentiating whole numbers, and it is imitated instead by a chain of theta lifts between totally definite unitary groups, a chain of \\(m\\) lifts winning multiplicity \\(m\\). For a von Mangoldt sum of length \\(X\\) the chain is taken about \\(\\sqrt{X}\\) long, a choice the note attributes to Claude. Other ingredients it names include Gan-Gross-Prasad periods, a relative trace formula, an Iwasawa tower, the Bost slope inequality and a weakening of Vandiver's conjecture. A timeline the note says Claude reconstructed puts the first step, a Stepanov-type determinant, on 6 October 2026 and GRH on 16 November 2026.",
     "novelty_check": "arXiv, 2026-11-20: ti:\"Riemann hypothesis\" AND (abs:proof OR ti:proof) returned 95 records, the most recent being a proof of the quasi-Riemann hypothesis using \\(\\mathbb{Q}[i]\\) (2611.16665) and a two-interval criterion for RH (2611.10726); the claimed proofs of RH itself among them (for example 2607.04338 and 2408.13292) have no standing in the literature, and none comes with a formalization. MathDB records the problem as 315854, marked claimed solved and unverified on 20 November. Palomar's 200 most recent records (through PALOMAR-2026-11-21-000005), ProofAtlas's formalizations and vibemathed's dataset held no registration on the same day. Within this registry, the Dirichlet half of 2026-10-06-quasi-riemann-hypothesis would follow from this claim, but the Hecke L-functions over \\(\\mathbb{Q}(\\sqrt{-3})\\) in that entry and the Dedekind zeta functions in 2026-10-12-dedekind-zeta-quasi-riemann are outside what this Lean states, and the simplicity of zeros in 2026-08-10-zeta-zeros-critical-line, on which Alpöge is an author, does not follow from RH at all. A second, unrelated claim of GRH appeared the same day: Ravi Vakil posted a draft by Alessandro Maria Masullo, which he describes as all human with no AI and which Brian Conrad had been checking for months, and added about eight hours later that several people had reported problems in it found with the help of AI models. That claim is outside this registry's scope and has no formalization.",
-    "caveats": "Graded claimed for now, although the outside mechanical checking is well advanced. The bar 2026-10-06-quasi-riemann-hypothesis set for a statement anchored on Mathlib's own definitions is a completed independent Comparator run, and none had completed at entry: Andrew Sutherland's lake comparator run had passed its statement comparison and axiom check with its kernels still running, the leanprover-community Comparator setup had posted no results, and Kevin Buzzard wrote on the Lean Zulip, as Scientific American reports, that 'we still await a successful comparator run'. What has passed, all of it run by Sutherland: a full build with zero errors, the three standard axioms only, Mathlib's compiled files byte-identical to the official cache, a Lean-kernel replay of every module, acceptance of the full export by two independently written kernels, nanoda and con-leche, a match of all five statements against the challenge by con-leche's compare mode, and lean4lean on every compiled module. He told Scientific American that 'the chance that anything is fishy here is approximately zero'. When a Comparator run completes this should move to formal for exactly the five statements, since the headline theorem is Mathlib's RiemannHypothesis verbatim and the challenge file imports only Mathlib. Several details make the independent kernels load-bearing rather than a formality. The pinned Lean 4.33.1 predates the 4.34.1 runtime fixes that Lean's release notes say could be turned into a proof of False in the official kernel with deliberately constructed input, so a build alone is weak evidence; nanoda and con-leche are not built on that runtime. The source defines tactics, kexactB and kcopy among them, that assign a term to a goal without the elaborator checking its type, kexactB in 67 files, so for those proofs the kernel is the only check. Sutherland's build ran without a sandbox, calling lean directly rather than through lake build, with a 77-module sample matched byte for byte against a real lake build. The con-leche and con-ron builds bundled with Lean 4.36.0 decline the export because one mutual inductive has a reflexive member, a limitation of those checkers rather than a rejection. On scope, GRH here means Dirichlet L-functions only. Dedekind zeta functions and Hecke or automorphic L-functions are not stated, the Extended Riemann Hypothesis is something the note only expects with more time, and its remark that the vanishing of some K-groups of the integers follows from an intermediate step is the author's belief, not a theorem in the Lean. A machine check, however complete, settles the statements and not the understanding. There is no paper: the author writes that he is presenting the argument before having mastered a massive neighbourhood around its mathematics, that he has little mastery of automorphic forms on higher rank groups, that parts of his own timeline paraphrase a summary by Claude that 'might make zero sense', and that a written version ran past 250,000 pages and was withheld as unreadable. No human, the author included, is on record as having read the argument, and Brian Conrey told AFP he had seen only the note. Clay's rules require journal publication and two years of scrutiny. The artifact is a 239 MB archive split into fourteen parts on the author's personal site and published without a licence; that server answers 200 for any path, so the joined archive's sha256, beginning 9631b4f0, is the only reliable check, and the mirror cited here reproduces it unmodified at its first commit. Anthropic itself has made no announcement. The note says the author consulted Anthropic's chief executive before announcing and calls a cynical reading of the timing false; AFP reports that the announcement came the day after Anthropic's stock market debut. Autonomy is graded collaborative on the strictest defensible reading. The note credits Claude with the decisive technical work, including the length of the lift chain and the parts the author says he does not yet understand, which would support ai-led; but it also says he set the strategy of combining two ideas from a toy setting and steered the work to the analogous situation, which is human research input beyond posing the problem, so the weaker grade wins. The note names only Claude; Tao describes the model as internal, and no version is stated.",
+    "caveats": "Graded formal for exactly the five statements in Main.lean, which is the move this entry said a completed independent Comparator run would justify: the headline theorem is Mathlib's RiemannHypothesis verbatim and the challenge file imports only Mathlib. Two such runs have now completed, both by Andrew Sutherland. The unmodified Comparator v4.33.0 binary, with the repository's own comparator.json, passed its statement comparison and axiom check, had nanoda and Lean's default kernel accept, and reported 'Your solution is okay!' on 23 November after 64 hours; that run reused the original build, with its lake build step satisfied by a stub. lake comparator under Lean 4.36.0, run on the canonical challenge export, passed the same stages with Lean's paranoid kernel, nanoda and the default kernel all accepting, and finished on 25 November after 122 hours. Because the 4.36 kernels postdate the 4.34.1 runtime fixes, that run answers the earlier worry that the pinned Lean 4.33.1 could be fooled by deliberately constructed input. A separate sandboxed lake build on another machine, with no network and a read-only source tree, reproduced the 61.6 GB export byte for byte. Michael Rubinstein (Waterloo) independently compiled every module, replayed each through the kernel and ran nanoda, with no errors. On 25 November Luke Sernau and colleagues at Anthropic posted a rewrite of the same five theorems in about 300,000 lines (readable edition) and 76,000 lines (compact edition) under Lean 4.35.0, which lake comparator --paranoid, running every external checker shipped with Lean, accepted on Sutherland's machines and on Rubinstein's; one of Sutherland's two runs on the readable edition was stopped for lack of memory, not rejected. The leanprover-community repository now maintains that readable edition. What the grade does not cover is understanding. There is still no paper and no human is on record as having read the argument: the shorter edition's own README says no mathematician has read it through, and Rubinstein's 265-page working guide to the zeta case, written with Claude, Codex and Gemini, reduces the main inequality to thirteen numbered hypotheses it does not prove and calls itself a work in progress. The author's note says he does not yet master the surrounding mathematics, that parts of his own timeline paraphrase a summary by Claude, and that a written version ran past 250,000 pages. Clay's rules require journal publication and two years of scrutiny, so this settles the statements in Lean and not the prize. On scope, GRH here means Dirichlet L-functions only: Dedekind zeta functions and Hecke or automorphic L-functions are not stated, and the Extended Riemann Hypothesis is something the note only expects. The original source defines tactics, kexactB among them, that assign a term without the elaborator checking its type, which is why the independent kernels rather than the build carry the weight. The original archive was published without a licence; the shorter edition is Apache 2.0, copyright Anthropic. Anthropic itself has made no announcement, and AFP reports that the announcement came the day after Anthropic's stock market debut. Autonomy is graded collaborative on the strictest defensible reading. The note credits Claude with the decisive technical work, including the length of the lift chain and the parts the author says he does not yet understand, which would support ai-led; but it also says he set the strategy of combining two ideas from a toy setting and steered the work to the analogous situation, which is human research input beyond posing the problem, so the weaker grade wins. The note names only Claude; Tao describes the model as internal, and no version is stated.",
     "independent_checks": [
       {
         "who": "Andrew Sutherland (MIT), checks run with Claude Code",
         "url": "https://math.mit.edu/~drew/grh/",
-        "outcome": "As of 22:05 UTC on 20 November 2026: all 175,187 modules compile under Lean 4.33.1 with zero errors; the five theorems depend only on propext, Classical.choice and Quot.sound; Mathlib's compiled files match the official cache byte for byte; leanchecker replays every module; nanoda and con-leche accept the full 61.6 GB export; con-leche's compare mode finds all five theorems justified against the Mathlib-only challenge; lean4lean accepts every compiled module. The Lean and paranoid kernels on the export, and the end-to-end lake comparator run, had not finished."
+        "outcome": "All checks finished by 25 November 2026. All 175,187 modules compile under Lean 4.33.1 with zero errors; the five theorems depend only on propext, Classical.choice and Quot.sound; a sandboxed lake build on a separate machine reproduced the export byte for byte; leanchecker replays every module; Lean's default and paranoid kernels, nanoda, con-leche and lean4lean accept; the compare modes of con-leche and con-ron confirm all five theorems against the Mathlib-only challenge; Comparator v4.33.0 and lake comparator under Lean 4.36.0 both report 'Your solution is okay!'. Combined with the independent Robin1984 formalization, the proof also yields Robin's inequality for every n above 5040 and Lagarias's criterion as hypothesis-free theorems, checked the same way."
+      },
+      {
+        "who": "Andrew Sutherland (MIT), on the shorter edition of 25 November",
+        "url": "https://math.mit.edu/~drew/shortgrh/",
+        "outcome": "Both editions of lsernau/grh-lean at commit 72fead10 compile in a sandbox under Lean 4.35.0 with the three standard axioms only, every module replays through the kernel, and lake comparator --paranoid, which runs nanoda, Lean's paranoid kernel, lean4lean, con-leche, con-ron and the default kernel, reported 'Your solution is okay!' for both, the compact edition on two machines."
+      },
+      {
+        "who": "Michael Rubinstein (University of Waterloo), checks run with Claude Code",
+        "url": "https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/",
+        "outcome": "On the original archive, 21 November: all 175,187 modules compile, the five theorems use the three standard axioms only, the kernel replay accepts every module and nanoda accepts the 1,484,729 declarations the theorems depend on. On the compact edition, 26 November: lake comparator --paranoid accepted with all six kernels, run without Comparator's sandbox, which the cluster does not allow."
       },
       {
         "who": "Maintainers of leanprover-community/riemann-hypothesis",
-        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md",
-        "outcome": "Mirrored the archive unmodified, wrote a Comparator challenge stating the five theorems against Mathlib alone, read the statements by hand, checked every dependency pin, and ran a static scan that found no axiom, sorry, admit, native_decide, implemented_by, extern, unsafe or opaque, while listing the metaprogramming that bypasses the elaborator. Their own Comparator build was in progress with no results posted."
+        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/alpoge/verification/NOTES.md",
+        "outcome": "Mirrored the archive unmodified, wrote a Comparator challenge stating the five theorems against Mathlib alone, read the statements by hand, checked every dependency pin, and ran a static scan that found no axiom, sorry, admit, native_decide, implemented_by, extern, unsafe or opaque, while listing the metaprogramming that bypasses the elaborator. The repository moved to the shorter readable edition on 25 November; these notes are kept on its alpoge branch."
       }
     ],
     "registrations": [
@@ -15575,8 +15601,8 @@
     ],
     "sources": [
       {
-        "label": "leanprover-community/riemann-hypothesis: the Lean submission mirrored unmodified, with a Comparator setup",
-        "url": "https://github.com/leanprover-community/riemann-hypothesis",
+        "label": "leanprover-community/riemann-hypothesis, original branch: the Lean submission mirrored unmodified",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis/tree/original",
         "kind": "research"
       },
       {
@@ -15585,13 +15611,28 @@
         "kind": "announcement"
       },
       {
+        "label": "GitHub: lsernau/grh-lean, the shorter readable and compact editions of the proof",
+        "url": "https://github.com/lsernau/grh-lean",
+        "kind": "research"
+      },
+      {
         "label": "Andrew Sutherland (MIT): verification files and kernel results for the Lean proof",
         "url": "https://math.mit.edu/~drew/grh/",
         "kind": "commentary"
       },
       {
+        "label": "Andrew Sutherland (MIT): verification files for the shorter Lean proof",
+        "url": "https://math.mit.edu/~drew/shortgrh/",
+        "kind": "commentary"
+      },
+      {
+        "label": "Michael Rubinstein (Waterloo): Lean checks and a working guide to the proof for the zeta function",
+        "url": "https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/",
+        "kind": "commentary"
+      },
+      {
         "label": "leanprover-community: verification notes on the submission's size, statements, metaprogramming and checkers",
-        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/main/verification/NOTES.md",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis/blob/alpoge/verification/NOTES.md",
         "kind": "commentary"
       },
       {
@@ -15640,7 +15681,27 @@
       "lean",
       "argument"
     ],
-    "added": "2026-11-20"
+    "added": "2026-11-20",
+    "revisions": [
+      {
+        "date": "2026-11-26",
+        "kind": "regraded",
+        "note": "Upgraded from claimed to formal for the five Lean statements: two independent Comparator runs, Comparator v4.33.0 and lake comparator under Lean 4.36.0, accepted the proof against the Mathlib-only challenge, which is the bar this entry set. No human has yet read the argument.",
+        "url": "https://math.mit.edu/~drew/grh/"
+      },
+      {
+        "date": "2026-11-26",
+        "kind": "check",
+        "note": "Recorded Michael Rubinstein's independent build and kernel checks and the checks of the shorter 76,000-line edition posted by Anthropic colleagues on 25 November, which passed lake comparator --paranoid on two independent setups.",
+        "url": "https://www.math.uwaterloo.ca/~mrubinst/alpoge_claude_grh/"
+      },
+      {
+        "date": "2026-11-26",
+        "kind": "correction",
+        "note": "Repointed the mirror and verification-notes links, which broke when leanprover-community/riemann-hypothesis moved to the shorter edition; the unmodified archive is on its original branch and the notes on its alpoge branch.",
+        "url": "https://github.com/leanprover-community/riemann-hypothesis"
+      }
+    ]
   },
   {
     "id": "2026-11-22-tuza-81-29-bound",
@@ -16155,5 +16216,433 @@
       "phase-1"
     ],
     "added": "2026-11-23"
+  },
+  {
+    "id": "2026-04-28-ghz-monochromatic-quantum-graph-no-go",
+    "title": "No-go theorem for high-dimensional photonic GHZ states from pair sources, proof found by AlphaProof Nexus",
+    "claim": "A Lean proof found by Google DeepMind's AlphaProof Nexus agent shows that no complex-weighted monochromatic quantum graph exists on an even number \\(N \\ge 4\\) of vertices with \\(N\\) colours, so photonic Greenberger-Horne-Zeilinger states of \\(N\\) photons in \\(N\\) or more dimensions cannot be made this way from probabilistic pair sources; six researchers have now explained the proof in a preprint.",
+    "field": "physics",
+    "date": "2026-04-28",
+    "lab": "Google DeepMind, with the University of Tübingen",
+    "model": "AlphaProof Nexus (Google DeepMind)",
+    "humans": [
+      "Mario Krenn",
+      "Moritz Firsching",
+      "George Tsoukalas",
+      "Rishikesh Gajjala",
+      "Xuemei Gu",
+      "Swarat Chaudhuri"
+    ],
+    "year_posed": 2017,
+    "verification": "formal",
+    "autonomy": "search-scaffold",
+    "detail": "In the graph picture of photonic experiments, vertices are photon paths, coloured and weighted edges are photon pairs, and conditioning on one photon per detector turns each output amplitude into a coherent sum over perfect matchings. A GHZ state of \\(N\\) photons in \\(D\\) dimensions then corresponds to a monochromatic quantum graph, one whose matchings cancel on every non-monochromatic colouring and give equal weight to the \\(D\\) monochromatic ones. The 2017 conjecture of Krenn and Gu bounds the achievable \\(D\\); earlier results covered nonnegative weights (Bogdanov), graphs without bichromatic edges or multi-edges, and sparse or cubic graphs. The proof builds a weighted sum of amplitudes whose coefficients factor vertex by vertex, so summing over the colours at one vertex reduces the system to an \\((N-1) \\times N\\) matrix of effective edge weights, whose row and column imbalance makes the sum vanish on any graph but not on the GHZ target. Since a graph for more than \\(N\\) colours restricts to one for \\(N\\), the preprint states the result for every \\(D \\ge N\\).",
+    "novelty_check": "Formal Conjectures, 2026-11-26: FormalConjectures/Paper/MonochromaticQuantumGraph.lean marks eqSystem_no_solution_even_ge4_d_eq_n_explicit solved by 'the DeepMind prover agent' at commit af88acbf of 28 April 2026, and google-deepmind/alphaproof-nexus-results carries the file under APNOutputs/AICollaborator/QuantumOptics from its 19 May release. The preprint's table of results lists nothing unconditional for even \\(N\\) before April 2026, and two later AI-assisted formal proofs of overlapping statements, by Kenta Kitamura in July 2026 with ChatGPT and Codex and by Rishi Rajasekaran in September 2026 with Codex and Claude, both described as not human-digested. This registry's 2026-05-21-alphaproof-nexus entry covers the system's Erdős and OEIS results and does not mention this one; no other entry covers the conjecture.",
+    "caveats": "Graded formal for the Lean statement, which belongs to the Formal Conjectures project and was written before the proof: it defines the perfect-matching sum recursively over \\(\\mathbb{C}\\)-valued edge weights, and the preprint walks through that encoding, which is what a reader has to trust. The registry has not rebuilt the proof. The theorem covers \\(D \\ge N\\) only; the intermediate range below \\(N\\) for even \\(N \\ge 6\\) remains open, and the conjecture over the reals and integers is stated separately in the same file. The preprint, posted on 19 November 2026 by authors including the conjecture's originator and DeepMind staff, is the first human account of the argument and is not refereed. Autonomy is search-scaffold, as for the other AlphaProof Nexus results in this registry: the agent found the proof without human guidance, but humans built the system and supplied the formal target.",
+    "sources": [
+      {
+        "label": "Krenn, Firsching, Tsoukalas, Gajjala, Gu and Chaudhuri: A tensor-algebraic no-go theorem for high-dimensional photonic GHZ states discovered with AlphaProof Nexus",
+        "url": "https://arxiv.org/abs/2611.26300",
+        "kind": "research"
+      },
+      {
+        "label": "Formal Conjectures: MonochromaticQuantumGraph.lean at the commit marking it solved",
+        "url": "https://github.com/google-deepmind/formal-conjectures/blob/af88acbf9da0f26e3e934743a819e986e02f6875/FormalConjectures/Paper/MonochromaticQuantumGraph.lean",
+        "kind": "research"
+      },
+      {
+        "label": "google-deepmind/alphaproof-nexus-results: the QuantumOptics outputs",
+        "url": "https://github.com/google-deepmind/alphaproof-nexus-results/tree/main/APNOutputs/AICollaborator/QuantumOptics",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "quantum-optics",
+      "entanglement",
+      "graph-theory",
+      "lean",
+      "argument",
+      "formalization"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-12-rohrbach-conjecture-finite-groups",
+    "title": "Rohrbach's 1937 conjecture on thin bases of finite groups, proved in a weighted form",
+    "claim": "Yong Yang proves that for each \\(h\\) every finite group \\(G\\) has a subset \\(A\\) with \\(A^h = G\\) and \\(|A|\\) at most a constant times \\(|G|^{1/h}\\), as Rohrbach asked in 1937, and acknowledges that ChatGPT was used for mathematical exploration and editorial assistance.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "Texas State University",
+    "model": "OpenAI ChatGPT; version not stated",
+    "humans": [
+      "Yong Yang"
+    ],
+    "year_posed": 1937,
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "An \\(h\\)-basis of a finite group is a subset whose \\(h\\)-fold product set is the whole group, so it has at least \\(|G|^{1/h}\\) elements, and Rohrbach asked whether one within a constant factor of that always exists. The case \\(h = 2\\) was known for all finite groups, Jia proved the conjecture for nilpotent groups and Kozma and Lev proved a stronger weighted form for solvable and alternating groups, with an extension lemma that reduces the problem to finite simple groups. The paper proves the weighted form with one absolute constant for every finite simple group of Lie type, by Singer-cycle transversals for the linear groups, a Bruhat transversal for the other classical families treated case by case, and separate arguments for the exceptional groups, which completes the program and answers the Modified Rohrbach Problem of Babai, Gál, Kimmel and Lokam.",
+    "novelty_check": "arXiv, 2026-11-26: the paper is 2611.16938v1, dated 12 November 2026 (math.GR), and cites Jia for nilpotent groups, Kozma and Lev for solvable and alternating groups, and Babai, Gál, Kimmel and Lokam for a reported extension to linear and symplectic composition factors cited as a private communication. The vibemathed dataset lists the paper. Nothing in this registry covered the conjecture.",
+    "caveats": "Graded author-verified: the author states that he checked the final arguments and is responsible for the contents, and nobody else is on record as having checked a 13-page proof that runs through every family of finite simple groups of Lie type, with constants that must be uniform across them. The paper is unrefereed and there is no formalization. Autonomy is ai-assisted, on the paper's own wording: ChatGPT was used for exploration and editorial assistance, the author has worked on the problem for about fifteen years, and nothing says the model produced the decisive idea. It is in this registry because the AI role is disclosed, not because it is large.",
+    "sources": [
+      {
+        "label": "Yong Yang: Rohrbach's conjecture for finite groups (arXiv)",
+        "url": "https://arxiv.org/abs/2611.16938",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "group-theory",
+      "finite-simple-groups",
+      "additive-combinatorics",
+      "argument"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-12-petty-polar-projection-conjecture",
+    "title": "Petty's polar projection conjecture claimed settled in dimension three and above, with the final step credited to GPT-6 Astra",
+    "claim": "A five-page preprint claims that in every dimension \\(n \\ge 3\\) the polar projection body of a convex body is a dilate of it only when the body is an origin-centred ellipsoid, settling a 1971 question of Petty, and its provenance statement says the final key derivation and ideas were completed by AI.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "Independent",
+    "model": "GPT-6 Astra (OpenAI ChatGPT)",
+    "humans": [
+      "Sihan Chen"
+    ],
+    "year_posed": 1971,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "The projection body \\(\\Pi K\\) of a convex body \\(K\\) has support function given by the volumes of the hyperplane projections of \\(K\\), and Petty asked whether \\(T K = (\\Pi K)^\\circ\\) being a positive dilate of \\(K\\) characterises ellipsoids. The preprint also covers the weaker condition that \\(T^2 K\\) is a dilate of \\(K\\). Its argument is a distributional Laplacian identity that compares two integrals of central section volumes; equality forces contractive hyperplane projections in every kernel direction, and James's theorem on inner products in normed spaces then gives an ellipsoid. It states that the same argument proves the translative constant volume conjecture of Horváth and Lángi.",
+    "novelty_check": "Hexagon, 2026-11-26: the record is 2611.00401v1, dated 12 November 2026, citing Petty (1971 conference, published 1972) and the open-problem list of Horváth and Lángi. The vibemathed dataset lists it. Nothing in this registry covered either conjecture.",
+    "caveats": "Graded claimed. Settling a fifty-year-old problem in five pages is the claim to check first, and nobody outside the author has checked it. The provenance statements disagree with each other: Hexagon's label records human understanding of some parts, while the author's statement says the entire derivation was verified and re-derived without issues. The same contributor posted nine single-author Hexagon preprints between 11 and 26 November 2026, among them counterexamples to the Barker-Larman problem and to hyperplane equipartition and solutions to Bianchi's covariogram problem and Kobayashi's Fourier zero-set problem; a run of that size is a reason for caution about any one of them, not evidence against this one. Autonomy is collaborative on the weaker reading: the statement credits the final key derivation and ideas to the model, which would support ai-led, but also says the author reached the problem by adapting ideas from his own earlier manuscript on the centroid body operator.",
+    "sources": [
+      {
+        "label": "Hexagon: Sihan Chen, Fixed points of the polar projection body operator and its square",
+        "url": "https://hexagonmath.org/2611.00401v1",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "convex-geometry",
+      "geometric-tomography",
+      "argument"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-12-lusztig-fourier-matrix-noncrystallographic",
+    "title": "Lusztig's Fourier matrix conjecture for noncrystallographic Coxeter groups, claimed by a computer-assisted proof",
+    "claim": "A 37-page preprint posted with no claim of ownership gives a computer-assisted proof that for every finite noncrystallographic Coxeter group the normalized S-matrix of the Drinfeld center of each asymptotic Hecke category equals Lusztig's Fourier matrix, including the exact 74 by 74 identity for the middle cell of type \\(H_4\\), with GPT-6 Pro used to develop and check it.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "Independent",
+    "model": "GPT-6 Pro (OpenAI)",
+    "humans": [
+      "Qiyue Tang"
+    ],
+    "year_posed": 2015,
+    "verification": "claimed",
+    "autonomy": "collaborative",
+    "detail": "For crystallographic Weyl groups the center of the asymptotic Hecke category is related to unipotent character sheaves, and Lusztig proposed in 2015 that the same construction should supply the missing categories for noncrystallographic groups, with modular matrices equal to the Fourier matrices constructed earlier by Lusztig, Malle and Broué. Elias and Williamson established the Soergel construction with its pivotal structure, and Rogel and Thiel proved the assertion for the dihedral groups and several cells of \\(H_3\\) and \\(H_4\\), leaving the 74-element family of the middle cell of \\(H_4\\). The preprint fixes the pivotal signs by a relative Hodge-Riemann argument, builds a Morita equivalence for that cell with a crossed product of the Fibonacci Hecke category of type \\(A_3\\), computes its whole Drinfeld center, and converts a certified numerical comparison into an exact equality of all 5,476 entries with a cyclotomic separation bound; the computations are in exact arithmetic over \\(\\mathbb{Q}(\\sqrt{5})\\) and certified complex balls.",
+    "novelty_check": "Hexagon, 2026-11-26: the record is 2611.00362v1, dated 12 November 2026, citing Rogel and Thiel (Representation Theory, 2026) as the previous partial result and Lusztig's 2015 Truncated convolution of character sheaves for the proposal. The vibemathed dataset lists it. The registry's only other Lusztig item, 2021-12-01-knot-theory-intuition, concerns Kazhdan-Lusztig polynomials and is unrelated.",
+    "caveats": "Graded claimed. Hexagon labels the text primarily AI-generated and records human understanding of no parts, and the poster writes that they seek neither ownership nor priority and that credit should go to whoever checks the arguments. The certificates and data are public in a GitHub repository, so the finite computation can be rerun, but the argument that reduces the conjecture to that computation has not been read by anyone, and a planned automated review had not reported. Autonomy is collaborative, the weaker of two readings: the provenance says only that GPT-6 Pro assisted in developing and checking the results over a recorded 147-minute session, which reads as ai-assisted, but a human who understands none of the text cannot have driven the mathematics, which points the other way. The vibemathed listing tags it ai-discovered, which goes beyond what the source says.",
+    "sources": [
+      {
+        "label": "Hexagon: Qiyue Tang, Lusztig's Fourier matrix conjecture for finite noncrystallographic Coxeter groups",
+        "url": "https://hexagonmath.org/2611.00362v1",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: tqyqiqi1509/lusztig-fourier-conjecture, the computational data and certificates",
+        "url": "https://github.com/tqyqiqi1509/lusztig-fourier-conjecture",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "representation-theory",
+      "hecke-algebras",
+      "fusion-categories",
+      "computation"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-12-symmetric-function-nonnegativity-undecidable",
+    "title": "Any-dimensional nonnegativity of symmetric functions is undecidable, and Hilbert's 17th problem has no uniform analogue",
+    "claim": "Two Konstanz mathematicians prove that it is undecidable whether a symmetric function with rational coefficients is nonnegative in every number of variables, and give an octic symmetric function that is positive definite in every dimension but has no sum-of-squares multiplier uniform in the dimension, writing that GPT 6.0 Astra found the initial proofs of both results.",
+    "field": "mathematics",
+    "date": "2026-11-12",
+    "lab": "University of Konstanz",
+    "model": "GPT 6.0 Astra (OpenAI) for the initial proofs; Claude Fable 5.1 (Anthropic) in checking; coding agents for the Lean formalization",
+    "humans": [
+      "Sebastian Debus",
+      "Robin Schabert"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-led",
+    "detail": "A symmetric function in the power sums \\(p_1, p_2, \\ldots\\) restricts to a polynomial in every number of variables, and Acevedo, Blekherman, Debus and Riener asked whether nonnegativity in all dimensions is decidable. The paper maps each integer polynomial \\(P\\) to an even homogeneous symmetric function that is nonnegative in all dimensions exactly when \\(P\\) has no zero in the natural numbers, so undecidability follows from Hilbert's tenth problem, and by the authors' account it makes the validity of dimension-free moment criteria for entanglement undecidable too. The second result is the explicit octic \\(F = 4p_1^2(p_3 - 4p_1^3)^2 + 9p_2(p_6 - 8p_1^2p_4 + 16p_1^4p_2) - 16p_1^8\\), positive definite in every dimension, for which any sum-of-squares multiplier must grow in degree with the dimension, so Artin's solution of Hilbert's 17th problem and the Krivine-Stengle Positivstellensatz have no dimension-free version.",
+    "novelty_check": "arXiv, 2026-11-26: the paper is 2611.16690v1, dated 12 November 2026. Its Remark 2.7 cites a four-page manuscript by K. Jin, prepared with OpenAI Codex and posted on 12 October 2026 in the AIM Open Applied Problems repository as problem 559, which already contains a proof that any-dimensional nonnegativity of symmetric functions is undecidable and asks for human review; the paper says its construction differs, being homogeneous and even. No earlier result for the second theorem is cited or was found. Nothing in this registry covered either.",
+    "caveats": "Graded author-verified: the authors write that they verified, simplified and strengthened the AI's proofs, and the result has not been refereed or checked by anyone else. The Lean development, almost entirely generated by coding agents, states both main theorems in the authors' own definitions of symmetric functions, truncation and sums of squares, has no Palomar or other registration, and carries exactly one sorry, Blekherman's theorem on symmetric sums of squares on the hypercube, on which Theorem 3.1 does not depend; Hilbert's tenth problem itself is not formalized, so the Lean proves the reduction, not the undecidability. The undecidability half is not the first such proof public, since Jin's AI-prepared manuscript came a month earlier, and the September discovery date the authors give is their own account. Autonomy is ai-led: the declaration credits GPT 6.0 Astra with the initial proofs of both main results, and the humans posed the question, checked, simplified and wrote up.",
+    "sources": [
+      {
+        "label": "Debus and Schabert: Hilbert's 17th problem for symmetric functions, undecidability and a counterexample (arXiv)",
+        "url": "https://arxiv.org/abs/2611.16690",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: RobinSchabert/positive-sym-func-h17-undecidability-lean, the Lean formalization",
+        "url": "https://github.com/RobinSchabert/positive-sym-func-h17-undecidability-lean",
+        "kind": "research"
+      },
+      {
+        "label": "Jin: Undecidability of unnormalized univariate trace inequalities, the earlier AI-prepared proof (AIM problem 559)",
+        "url": "https://github.com/MColbrook/AIM/tree/main/research/solutions/559-univariate-trace-decidability",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "real-algebraic-geometry",
+      "symmetric-functions",
+      "decidability",
+      "sums-of-squares",
+      "argument",
+      "lean"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-17-tao-lie-subalgebra-relations",
+    "title": "Tao's 2024 MathOverflow question on relations in a Lie subalgebra, answered affirmatively",
+    "claim": "A 17-page preprint proves that the three obvious families of relations generate all relations of the Lie subalgebra Terence Tao asked about on MathOverflow in 2024, and finds that part of it is a free Lie algebra, with Codex and Claude used for literature search, computational experiments, verification code and drafting.",
+    "field": "mathematics",
+    "date": "2026-11-17",
+    "lab": "Independent",
+    "model": "OpenAI Codex and Anthropic Claude; versions not recorded",
+    "humans": [
+      "Qiyuan Ma"
+    ],
+    "year_posed": 2024,
+    "verification": "claimed",
+    "autonomy": "ai-assisted",
+    "detail": "Let \\(\\mathfrak{g}\\) be the Lie algebra over a field of characteristic 0 generated by \\(D_i, E_i\\) subject to \\([D_i,D_j] = [E_i,E_j] = 0\\) and \\([D_i,E_j] = [D_j,E_i]\\), and \\(\\mathfrak{h}\\) the subalgebra generated by the \\([D_i,E_j]\\) and the \\(E_i\\). Tao asked whether the relations \\([D_i,E_j] = [D_j,E_i]\\), \\([E_i,E_j] = 0\\) and \\([E_i,[D_j,E_k]] = [E_k,[D_j,E_i]]\\) generate all relations of \\(\\mathfrak{h}\\). The proof reduces to multilinear components by polarisation, presents the ideal generated by the \\(E_i\\), and uses a filtration whose associated graded algebra it computes to reduce injectivity to an equality of dimensions, which follows from a Hilbert series of \\(\\mathfrak{g}\\) given by Eulerian numbers. By-products: \\(\\mathfrak{h}\\) is a semidirect product of a free Lie algebra and an abelian one, and the \\([D_i,E_j]\\) with \\(i \\le j\\) freely generate a free Lie subalgebra.",
+    "novelty_check": "Hexagon, 2026-11-26: the record is 2611.00542v1, dated 17 November 2026, answering MathOverflow question 464808 (24 February 2024). The paper says the Hilbert series step is equivalent to known results, the Betti numbers of Losev-Manin spaces and the presentation of Dotsenko, Shadrin and Tamaroff, and that it could not find the affirmative answer or the freeness statement in the literature. The vibemathed dataset lists it. Nothing in this registry covered it.",
+    "caveats": "Graded claimed: the preprint is unrefereed, its computer checks cover small multilinear degrees only, and the submitting author reports that some parts of the work have been checked and understood, but not all, without saying which. Autonomy is ai-assisted on the provenance statement's own list of roles, which leaves the mathematics to the author; Hexagon's label of primarily AI-generated text and partial human understanding suggests the models did more, and is the reason to treat the grade as provisional rather than the reason to raise it. Tao posed the question; nothing indicates he has seen the answer.",
+    "sources": [
+      {
+        "label": "Hexagon: Qiyuan Ma, The relations of a Lie subalgebra considered by Tao, a complete presentation",
+        "url": "https://hexagonmath.org/2611.00542v1",
+        "kind": "research"
+      },
+      {
+        "label": "MathOverflow 464808: Tao, Relations in a certain Lie algebra",
+        "url": "https://mathoverflow.net/questions/464808",
+        "kind": "commentary"
+      }
+    ],
+    "tags": [
+      "lie-algebras",
+      "algebra",
+      "combinatorics",
+      "argument"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-24-pherc-846-first-letters",
+    "title": "First letters read in both halves of the Herculaneum scroll PHerc. 846",
+    "claim": "Vesuvius Challenge contestants using machine-learning ink detection revealed readable Greek letters in both surviving halves of PHerc. 846, a carbonised scroll in the National Library of Naples, including the sequence the challenge's papyrologists read as \"of this man\" and the word \"citizen\", earning two First Letters Prizes.",
+    "field": "archaeology",
+    "date": "2026-11-24",
+    "lab": "Vesuvius Challenge",
+    "model": "Domenico Russo's released reader-v3 ink model (846B); a z-score ensemble of a reader-v3 finetune, a v8-in finetune and the contestants' own HercUeNet model (846A)",
+    "humans": [
+      "Brian Koenders",
+      "Jeff Chen",
+      "David Chen",
+      "Federica Nicolardi",
+      "Paul Henderson"
+    ],
+    "verification": "author-verified",
+    "autonomy": "ai-assisted",
+    "detail": "PHerc. 846 is a whole scroll about 6 cm across and 22 cm tall that survives in two pieces, scanned separately as 846A and 846B. In 846B Brian Koenders found 15 certainly readable characters across several lines using a good segment and the public reader-v3 model; the papyrology team reads a sequence as a form of hapanta, all things, and later submissions on the same area added polites, citizen, and probably prosdokian, expectation. In the more compressed 846A, Jeff and David Chen unwrapped segments by hand, built labels iteratively and ran an ensemble of three models, and the team reads toutou anthropou, of this man, with diathesis, disposition, possible in the next line. The letter forms let the team place 846A as the lower and 846B as the upper part of the scroll and confirm the two belong together; the hand is dated provisionally to the 1st century BCE or CE.",
+    "novelty_check": "This is the fourth scroll in this registry, after PHerc. 1667 read end to end (2026-06-25-herculaneum-scroll-read), PHerc. 306B (2026-11-02-pherc-306b-first-letters) and PHerc. 211 (2026-11-15-pherc-211-first-letters). The announcement of 24 November 2026 states that these are the first submissions on either half to meet the First Letters Prize criteria.",
+    "caveats": "Author verified rather than independent, on the same reading as the earlier scroll entries: the letters were read by the Vesuvius Challenge's own papyrology team and no outside papyrologist has published on them. The result is a few dozen letters and some uncertain words, not a text, and the readings are reconstructions from a learned ink signal. The prizes mark the milestone and are not an independent check. Autonomy is ai-assisted: the models produce ink probabilities, and humans segmented and unwrapped the scroll, built training labels and read the letters. Code to reproduce both submissions is public.",
+    "sources": [
+      {
+        "label": "Vesuvius Challenge: Both halves of PHerc. 846 give up their first letters",
+        "url": "https://scrollprize.substack.com/p/both-halves-of-pherc-846-give-up",
+        "kind": "announcement"
+      },
+      {
+        "label": "GitHub: brkzak/Pherc0846B_submission, the 846B submission",
+        "url": "https://github.com/brkzak/Pherc0846B_submission",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: jeff-j-chen/HercUeNet, the 846A ink model",
+        "url": "https://github.com/jeff-j-chen/HercUeNet/",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: DomRusso2/reader-v3, the released ink model",
+        "url": "https://github.com/DomRusso2/reader-v3",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "papyrology",
+      "herculaneum",
+      "ink-detection",
+      "computer-vision"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-11-26-twisted-paraproducts-banach-range",
+    "title": "Bounds for higher-dimensional twisted paraproducts in the full open Banach range, machine-checked in Lean",
+    "claim": "Polona Durcik and Joris Roos register a Lean proof, generated with GPT-6.2 Astra Ultra and formalized with GPT-6.2 Sol Light, that the \\(d\\)-linear twisted paraproduct with a Mihlin-Hörmander multiplier is bounded from \\(L^{p_1} \\times \\cdots \\times L^{p_d}\\) to \\(L^p\\) for every \\(d \\ge 2\\) and every exponent in the open Banach range, where no bounds at all were known for \\(d \\ge 4\\).",
+    "field": "mathematics",
+    "date": "2026-11-26",
+    "lab": "Independent",
+    "model": "GPT-6.2 Astra Ultra (proof and formalization blueprint); GPT-6.2 Sol Light (Lean formalization)",
+    "humans": [
+      "Polona Durcik",
+      "Joris Roos"
+    ],
+    "verification": "formal",
+    "autonomy": "ai-led",
+    "detail": "The operator integrates the product of the Fourier transforms of \\(d\\) functions on \\(\\mathbb{R}^d\\) against a multiplier that sees only the \\(j\\)-th coordinate of the \\(j\\)-th frequency, a twisted structure that defeats the standard time-frequency methods. Kovač proved the two-dimensional case for target exponents \\(p < 2\\) in 2012, and Durcik and Roos proved a partial range in dimension three in 2021, writing then that nothing was known for \\(d \\ge 4\\). The theorem gives, for \\(1 < p, p_i < \\infty\\) with \\(1/p = \\sum 1/p_i\\), a constant \\(C\\) and an order \\(s\\) with \\(\\|T_m(f_1, \\ldots, f_d)\\|_p \\le C [m]_s \\prod \\|f_i\\|_{p_i}\\) for Schwartz inputs, so it also completes the Banach range in dimensions two and three. The development builds on Roos's lean-spherical library of harmonic analysis prerequisites.",
+    "novelty_check": "Palomar, 2026-11-26: record PALOMAR-2026-11-26-000019, registered that day from roos-j/lean-twisted at commit 0da9103e, citing Kovač (Rev. Mat. Iberoam. 2012) and Durcik and Roos (Proc. AMS 2021) as the prior results and Demeter and Thiele on the two-dimensional bilinear Hilbert transform as background; it records no prior formalization. Nothing in this registry covered twisted paraproducts.",
+    "caveats": "Graded formal on the Palomar registration, which records trust level high and kernel checks by nanoda and con-ron against a 75-line Challenge that imports only Mathlib and defines the operator, the Mihlin-Hörmander seminorm and the Lebesgue norm from Mathlib's Fourier transform, Schwartz space and eLpNorm. Read here, the statement matches the theorem in the README: \\(d \\ge 2\\), every \\(p_i > 1\\), \\(1/p = \\sum 1/p_i < 1\\), and a multiplier smooth off the origin with finite seminorm, the condition that also keeps the integral well defined. That reading is this registry's, not an outside expert's, and Palomar's own review was by a model. There is no paper; the mathematics is in a blueprint in the repository, and the authors are the specialists whose 2021 paper set out the open range, which makes the problem statement credible but does not check the proof. Autonomy is ai-led: the record says the proof and the blueprint were generated by GPT-6.2 Astra Ultra and the formalization by GPT-6.2 Sol Light, while the humans chose the problem and maintain the repository.",
+    "registrations": [
+      {
+        "registry": "palomar",
+        "id": "PALOMAR-2026-11-26-000019",
+        "url": "https://palomar-registry.org/entry?id=PALOMAR-2026-11-26-000019&version=1",
+        "repository": "roos-j/lean-twisted",
+        "commit": "0da9103e9defe53a9f9c01f9147f492f02df5b0a",
+        "theorems": [
+          "Auto.main_result"
+        ],
+        "checked": "2026-11-26",
+        "note": "Permitted axioms are exactly propext, Quot.sound and Classical.choice; kernels nanoda and con-ron."
+      }
+    ],
+    "sources": [
+      {
+        "label": "GitHub: roos-j/lean-twisted, the Lean formalization and blueprint",
+        "url": "https://github.com/roos-j/lean-twisted",
+        "kind": "research"
+      },
+      {
+        "label": "Durcik and Roos: Averages of simplex Hilbert transforms (arXiv), the prior three-dimensional result",
+        "url": "https://arxiv.org/abs/1812.11701",
+        "kind": "research"
+      }
+    ],
+    "tags": [
+      "harmonic-analysis",
+      "multilinear-operators",
+      "lean",
+      "argument",
+      "formalization"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-10-06-courtade-kumar-openai",
+    "title": "A second AI-generated proof of the Courtade-Kumar conjecture, in OpenAI's math release, with a Lean statement",
+    "claim": "OpenAI's October 2026 math release includes a manuscript, credited to an unreleased internal model with no human author, proving that no Boolean function of uniform bits passed through binary symmetric noise carries more than \\(1 - h_2(\\varepsilon)\\) bits about the noisy output, as Courtade and Kumar conjectured, together with a sharper bound for biased functions and a Lean statement checked by Comparator.",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 2013,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The manuscript, dated 24 September 2026, proves a sharp contraction for arbitrary soft binary channels \\(u\\) on the uniform cube: at a fixed initial information \\(I(u)\\), noise with correlation \\(\\rho\\) reduces it at least as fast as it reduces a single noisy coordinate, and coordinates attain equality. The Boolean case gives the Courtade-Kumar inequality, and keeping the output entropy gives a curve strictly below \\(1 - h_2(\\varepsilon)\\) for nonconstant biased functions; a third theorem is a mean-dependent entropy-production bound. It follows the local-to-global differential program of Chen, Gohari and Nair, solving an arbitrary-mean joining problem with an explicit three-point optimizer, two entropy capacities and a common-output thinning inequality, then lifting by induction on dimension and integrating along the noise semigroup. The Lean scope note for family 119 links Comparator statements for the inequality with attainment and for the soft-channel contraction.",
+    "novelty_check": "Read the manuscript's Section 1.1 and the Lean scope note lean/docs/119.md on 2026-11-26. The manuscript cites the three September 2026 proofs, Chen, Gohari, Javanmard, Lin, Mirrokni, Nair and Woodruff (arXiv 2609.24931, 21 September), Ky and Tran (2609.24184, 21 September) and Mahdavifar and Beirami (2609.26444, 22 September), plus a September preprint by Kramer and Saglam, and says Lemma 9.2 of the first already yields its Theorem 1.1 and Corollary 1.2 when the initial information is retained. This registry records the first as 2026-09-21-courtade-kumar-conjecture. vibemathed lists this manuscript as courtade-kumar-conjecture.",
+    "caveats": "Graded claimed, like the other families split from this release: OpenAI's formalization catalogue records review as unchecked and nobody outside OpenAI is on record as having read the proof or run the Comparator challenges. It is not the first proof of the conjecture; at least three were posted in September 2026 before the release, one of them formally verified in this registry, and by the manuscript's own account its main contraction theorem also follows from a lemma of that earlier paper, so what is new is the route and the mean-dependent entropy-production bound. Autonomy is ai-led for the same reasons as the other families from this release: the README says the manuscripts were produced by the model under a fixed procedure, with humans choosing the problems and building the pipeline.",
+    "sources": [
+      {
+        "label": "Sharp binary-information contraction on the discrete cube (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Sharp-binary-information-contraction-on-the-discrete-cube-September-24-2026/main.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: openai/math Lean scope and Comparator links for family 119",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/119.md",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: openai/math formalization catalogue, review status unchecked",
+        "url": "https://github.com/openai/math/blob/main/lean/formalization.yaml",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "courtade-kumar-conjecture",
+        "url": "https://vibemathed.com/problem/courtade-kumar-conjecture"
+      }
+    ],
+    "tags": [
+      "information-theory",
+      "boolean-functions",
+      "analysis-of-boolean-functions",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-10-06-pointwise-multiple-ergodic-averages-mixing",
+    "title": "Pointwise convergence of multiple ergodic averages of every length for mixing transformations, in OpenAI's math release",
+    "claim": "A manuscript in OpenAI's October 2026 math release, credited to an unreleased internal model with no human author, proves that for every invertible mixing measure-preserving transformation \\(T\\) and bounded functions \\(f_1, \\ldots, f_n\\), the averages \\(N^{-1}\\sum_{k \\le N} \\prod_j f_j(T^{jk}x)\\) converge almost everywhere to the product of the integrals, for every length \\(n\\).",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Since Furstenberg's ergodic proof of Szemerédi's theorem these averages have been central to ergodic Ramsey theory. Host and Kra, and Ziegler, proved convergence in \\(L^2\\) for every length, but almost-everywhere convergence was known only for two functions (Bourgain) and for longer averages under extra structure: K-systems, weakly mixing systems with restrictions on spectrum or joinings, and Huang, Shao and Ye's distal systems. The manuscript, dated 4 October 2026, needs neither a standard probability space nor a mixing rate. It passes to a suspension flow, builds probability laws from measurably chosen bad averaging lengths, and keeps a three-group independence structure as the number of factors grows, by minimising the number of slots carrying a nonzero centred correlation and using an energy-increment extension adapted from a companion fourfold result. It takes two other release results as inputs: that ordinary mixing implies mixing of all orders, Rokhlin's problem, and an oscillation estimate for triple averages at distinct slopes.",
+    "novelty_check": "Read the manuscript's Section 1.1 on 2026-11-26. It cites Bourgain for two factors, Host and Kra and Ziegler for norm convergence, and the K-system, weakly mixing and distal results, and presents nothing earlier for mixing systems of arbitrary length; its companions in the same release treat lengths three and four. vibemathed records it as pointwise-multiple-ergodic-averages-mixing. This registry's closest entries, 2026-10-18-two-commuting-ergodic-averages and 2026-08-27-norm-variation-ergodic-averages-lean, concern commuting transformations and norm variation, different questions.",
+    "caveats": "Graded claimed: OpenAI's catalogue lists no Lean formalization for this family, nobody outside OpenAI is on record as having read it, and the proof rests on two other unrefereed manuscripts from the same release, including the claimed solution of Rokhlin's multiple-mixing problem, which is not reproduced here and has no entry of its own in this registry. The result is for mixing transformations along consecutive progressions \\(k, 2k, \\ldots, nk\\); it does not settle pointwise convergence on general systems for four or more functions, nor polynomial iterates. Autonomy is ai-led for the same reasons as the other families from this release.",
+    "sources": [
+      {
+        "label": "Pointwise multiple ergodic averages for mixing transformations (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Pointwise-Multiple-Ergodic-Averages-for-Mixing-Transformations-October-4-2026/multiple-ergodic-averages.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Rokhlin's multiple-mixing problem for one transformation, the companion input (folder)",
+        "url": "https://github.com/openai/math/tree/main/preprints/Rokhlins-multiple-mixing-problem-for-one-transformation-September-23-2026",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "pointwise-multiple-ergodic-averages-mixing",
+        "url": "https://vibemathed.com/problem/pointwise-multiple-ergodic-averages-mixing"
+      }
+    ],
+    "tags": [
+      "ergodic-theory",
+      "dynamical-systems",
+      "argument"
+    ],
+    "added": "2026-11-26"
   }
 ]
