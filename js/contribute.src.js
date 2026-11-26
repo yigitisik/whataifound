@@ -77,6 +77,7 @@ const GRADES = {
   "2026-01-erdos-728":["formal","autonomous"],
   "2026-02-02-epic-sepsis-model-v2":["independent","ai-assisted"],
   "2026-04-23-synthecin":["peer-reviewed","search-scaffold"],
+  "2026-04-28-ghz-monochromatic-quantum-graph-no-go":["formal","search-scaffold"],
   "2026-05-18-pevac-ps-sarbecovirus":["peer-reviewed","ai-assisted"],
   "2026-05-21-alphaproof-nexus":["formal","search-scaffold"],
   "2026-05-erdos-unit-distance":["independent","ai-led"],
@@ -292,9 +293,13 @@ const GRADES = {
   "2026-11-12-euler-1747-sums":["claimed","ai-led"],
   "2026-11-12-helium-lithium-ionization":["claimed","collaborative"],
   "2026-11-12-langlands-split-groups-function-fields":["claimed","ai-led"],
+  "2026-11-12-lusztig-fourier-matrix-noncrystallographic":["claimed","collaborative"],
   "2026-11-12-nonlocal-coercivity-conjecture":["claimed","ai-assisted"],
+  "2026-11-12-petty-polar-projection-conjecture":["claimed","collaborative"],
+  "2026-11-12-rohrbach-conjecture-finite-groups":["author-verified","ai-assisted"],
   "2026-11-12-spot-tb-ai-case-finding-rct":["peer-reviewed","ai-assisted"],
   "2026-11-12-strongly-reflective-finiteness":["claimed","ai-assisted"],
+  "2026-11-12-symmetric-function-nonnegativity-undecidable":["author-verified","ai-led"],
   "2026-11-13-chabauty-kim-dimension-inequality":["claimed","collaborative"],
   "2026-11-13-green-problem-64":["formal","ai-led"],
   "2026-11-14-cage-8-7-768-vertices":["formal","ai-led"],
@@ -303,9 +308,12 @@ const GRADES = {
   "2026-11-16-aristotle-manifest-rounding-bug":["claimed","ai-assisted"],
   "2026-11-16-chest-radiograph-fracture-risk":["peer-reviewed","ai-assisted"],
   "2026-11-16-naslund-crossing-lower-bounds":["formal","ai-led"],
+  "2026-11-17-tao-lie-subalgebra-relations":["claimed","ai-assisted"],
   "2026-11-20-grunbaum-zone-k10":["formal","ai-assisted"],
-  "2026-11-20-riemann-hypothesis-lean":["claimed","collaborative"],
-  "2026-11-22-tuza-81-29-bound":["formal","ai-led"]
+  "2026-11-20-riemann-hypothesis-lean":["formal","collaborative"],
+  "2026-11-22-tuza-81-29-bound":["formal","ai-led"],
+  "2026-11-24-pherc-846-first-letters":["author-verified","ai-assisted"],
+  "2026-11-26-twisted-paraproducts-banach-range":["formal","ai-led"]
 };
 const ID_BY_TITLE = {
   "an eighth planet around kepler-90 found by a neural network":"2017-12-14-kepler-90i",
@@ -369,6 +377,7 @@ const ID_BY_TITLE = {
   "erd\u0151s problem #728 resolved and formalized in lean":"2026-01-erdos-728",
   "multicenter prospective validation of epic's retrained sepsis model (version 2)":"2026-02-02-epic-sepsis-model-v2",
   "an antibiotic designed by reinforcement learning clears an mrsa infection in mice":"2026-04-23-synthecin",
+  "no-go theorem for high-dimensional photonic ghz states from pair sources, proof found by alphaproof nexus":"2026-04-28-ghz-monochromatic-quantum-graph-no-go",
   "phase 1 trial of a computationally designed pan-sarbecovirus vaccine":"2026-05-18-pevac-ps-sarbecovirus",
   "nine erd\u0151s problems and 44 oeis conjectures proved with machine-checked proofs":"2026-05-21-alphaproof-nexus",
   "disproof of the erd\u0151s unit-distance conjecture":"2026-05-erdos-unit-distance",
@@ -584,9 +593,13 @@ const ID_BY_TITLE = {
   "proof of euler's 1747 conjecture on sums of two integers with prime factors 1 mod 4, drafted by openai codex":"2026-11-12-euler-1747-sums",
   "sharp ionization bounds for helium and lithium, with mostly ai-generated proofs":"2026-11-12-helium-lithium-ionization",
   "automorphic realization of langlands parameters for split groups over function fields, part i":"2026-11-12-langlands-split-groups-function-fields",
+  "lusztig's fourier matrix conjecture for noncrystallographic coxeter groups, claimed by a computer-assisted proof":"2026-11-12-lusztig-fourier-matrix-noncrystallographic",
   "the coercivity conjecture for nonlocal energies fails whenever n > 2s, and holds in restricted classes":"2026-11-12-nonlocal-coercivity-conjecture",
+  "petty's polar projection conjecture claimed settled in dimension three and above, with the final step credited to gpt-6 astra":"2026-11-12-petty-polar-projection-conjecture",
+  "rohrbach's 1937 conjecture on thin bases of finite groups, proved in a weighted form":"2026-11-12-rohrbach-conjecture-finite-groups",
   "stepped-wedge randomised trial of ai-guided site selection for tuberculosis case-finding in pakistan (spot-tb)":"2026-11-12-spot-tb-ai-case-finding-rct",
   "finiteness of strongly reflective modular forms, answering borcherds and gritsenko\u2013nikulin, with ai used in parts of the proof":"2026-11-12-strongly-reflective-finiteness",
+  "any-dimensional nonnegativity of symmetric functions is undecidable, and hilbert's 17th problem has no uniform analogue":"2026-11-12-symmetric-function-nonnegativity-undecidable",
   "kim's dimension inequality for curves over q with a rational point, via noncommutative iwasawa theory":"2026-11-13-chabauty-kim-dimension-inequality",
   "green's problem 64 proved in lean: infinitely many primes p for which p-2 has an odd number of prime factors":"2026-11-13-green-problem-64",
   "an 8-regular graph of girth 7 on 768 vertices, below the previous record of 774":"2026-11-14-cage-8-7-768-vertices",
@@ -595,9 +608,12 @@ const ID_BY_TITLE = {
   "harmonic's aristotle finds a rounding bug while formally verifying manifest's solana order book":"2026-11-16-aristotle-manifest-rounding-bug",
   "deep learning on routine chest radiographs predicts major osteoporotic fractures better than frax":"2026-11-16-chest-radiograph-fracture-risk",
   "first lower bounds above n for naslund's crossing problem, found and proved in lean by an agent team":"2026-11-16-naslund-crossing-lower-bounds",
+  "tao's 2024 mathoverflow question on relations in a lie subalgebra, answered affirmatively":"2026-11-17-tao-lie-subalgebra-relations",
   "lean-checked rhombic parallelohedron with ten faces in every zone, answering gr\u00fcnbaum's question at k = 10":"2026-11-20-grunbaum-zone-k10",
   "lean proof of the riemann hypothesis and grh for dirichlet l-functions, released without a paper":"2026-11-20-riemann-hypothesis-lean",
-  "lean-checked 81/29 bound for tuza's triangle-cover conjecture":"2026-11-22-tuza-81-29-bound"
+  "lean-checked 81/29 bound for tuza's triangle-cover conjecture":"2026-11-22-tuza-81-29-bound",
+  "first letters read in both halves of the herculaneum scroll pherc. 846":"2026-11-24-pherc-846-first-letters",
+  "bounds for higher-dimensional twisted paraproducts in the full open banach range, machine-checked in lean":"2026-11-26-twisted-paraproducts-banach-range"
 };
 const TITLE_BY_ID = {
   "2017-12-14-kepler-90i":"An eighth planet around Kepler-90 found by a neural network",
@@ -661,6 +677,7 @@ const TITLE_BY_ID = {
   "2026-01-erdos-728":"Erd\u0151s problem #728 resolved and formalized in Lean",
   "2026-02-02-epic-sepsis-model-v2":"Multicenter prospective validation of Epic's retrained sepsis model (version 2)",
   "2026-04-23-synthecin":"An antibiotic designed by reinforcement learning clears an MRSA infection in mice",
+  "2026-04-28-ghz-monochromatic-quantum-graph-no-go":"No-go theorem for high-dimensional photonic GHZ states from pair sources, proof found by AlphaProof Nexus",
   "2026-05-18-pevac-ps-sarbecovirus":"Phase 1 trial of a computationally designed pan-sarbecovirus vaccine",
   "2026-05-21-alphaproof-nexus":"Nine Erd\u0151s problems and 44 OEIS conjectures proved with machine-checked proofs",
   "2026-05-erdos-unit-distance":"Disproof of the Erd\u0151s unit-distance conjecture",
@@ -876,9 +893,13 @@ const TITLE_BY_ID = {
   "2026-11-12-euler-1747-sums":"Proof of Euler's 1747 conjecture on sums of two integers with prime factors 1 mod 4, drafted by OpenAI Codex",
   "2026-11-12-helium-lithium-ionization":"Sharp ionization bounds for helium and lithium, with mostly AI-generated proofs",
   "2026-11-12-langlands-split-groups-function-fields":"Automorphic realization of Langlands parameters for split groups over function fields, Part I",
+  "2026-11-12-lusztig-fourier-matrix-noncrystallographic":"Lusztig's Fourier matrix conjecture for noncrystallographic Coxeter groups, claimed by a computer-assisted proof",
   "2026-11-12-nonlocal-coercivity-conjecture":"The coercivity conjecture for nonlocal energies fails whenever n > 2s, and holds in restricted classes",
+  "2026-11-12-petty-polar-projection-conjecture":"Petty's polar projection conjecture claimed settled in dimension three and above, with the final step credited to GPT-6 Astra",
+  "2026-11-12-rohrbach-conjecture-finite-groups":"Rohrbach's 1937 conjecture on thin bases of finite groups, proved in a weighted form",
   "2026-11-12-spot-tb-ai-case-finding-rct":"Stepped-wedge randomised trial of AI-guided site selection for tuberculosis case-finding in Pakistan (SPOT-TB)",
   "2026-11-12-strongly-reflective-finiteness":"Finiteness of strongly reflective modular forms, answering Borcherds and Gritsenko\u2013Nikulin, with AI used in parts of the proof",
+  "2026-11-12-symmetric-function-nonnegativity-undecidable":"Any-dimensional nonnegativity of symmetric functions is undecidable, and Hilbert's 17th problem has no uniform analogue",
   "2026-11-13-chabauty-kim-dimension-inequality":"Kim's dimension inequality for curves over Q with a rational point, via noncommutative Iwasawa theory",
   "2026-11-13-green-problem-64":"Green's Problem 64 proved in Lean: infinitely many primes p for which p-2 has an odd number of prime factors",
   "2026-11-14-cage-8-7-768-vertices":"An 8-regular graph of girth 7 on 768 vertices, below the previous record of 774",
@@ -887,9 +908,12 @@ const TITLE_BY_ID = {
   "2026-11-16-aristotle-manifest-rounding-bug":"Harmonic's Aristotle finds a rounding bug while formally verifying Manifest's Solana order book",
   "2026-11-16-chest-radiograph-fracture-risk":"Deep learning on routine chest radiographs predicts major osteoporotic fractures better than FRAX",
   "2026-11-16-naslund-crossing-lower-bounds":"First lower bounds above n for Naslund's crossing problem, found and proved in Lean by an agent team",
+  "2026-11-17-tao-lie-subalgebra-relations":"Tao's 2024 MathOverflow question on relations in a Lie subalgebra, answered affirmatively",
   "2026-11-20-grunbaum-zone-k10":"Lean-checked rhombic parallelohedron with ten faces in every zone, answering Gr\u00fcnbaum's question at k = 10",
   "2026-11-20-riemann-hypothesis-lean":"Lean proof of the Riemann hypothesis and GRH for Dirichlet L-functions, released without a paper",
-  "2026-11-22-tuza-81-29-bound":"Lean-checked 81/29 bound for Tuza's triangle-cover conjecture"
+  "2026-11-22-tuza-81-29-bound":"Lean-checked 81/29 bound for Tuza's triangle-cover conjecture",
+  "2026-11-24-pherc-846-first-letters":"First letters read in both halves of the Herculaneum scroll PHerc. 846",
+  "2026-11-26-twisted-paraproducts-banach-range":"Bounds for higher-dimensional twisted paraproducts in the full open Banach range, machine-checked in Lean"
 };
 /*VOCAB:END*/
 
