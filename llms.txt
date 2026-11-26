@@ -6,7 +6,7 @@
 > press release. Negative results (already known, disputed, refuted) stay on the
 > record rather than being deleted.
 
-Maintained as an independent editorial project. 298 entries on record. Data is CC BY 4.0; cite as whataifound.org.
+Maintained as an independent editorial project. 300 entries on record. Data is CC BY 4.0; cite as whataifound.org.
 
 ## When to use this registry
 
@@ -77,15 +77,15 @@ Autonomy, most to least AI-driven:
 
 Every finding credited to one organisation, on one page.
 
-- [OpenAI](https://whataifound.org/lab/openai): 31 findings
-- [Google DeepMind](https://whataifound.org/lab/google-deepmind): 26 findings
+- [OpenAI](https://whataifound.org/lab/openai): 33 findings
+- [Google DeepMind](https://whataifound.org/lab/google-deepmind): 27 findings
 - [Anthropic](https://whataifound.org/lab/anthropic): 16 findings
 - [Axiom Math](https://whataifound.org/lab/axiom-math): 9 findings
-- [Google](https://whataifound.org/lab/google): 4 findings
+- [Google](https://whataifound.org/lab/google): 5 findings
+- [MIT](https://whataifound.org/lab/mit): 4 findings
 - [Vesuvius Challenge](https://whataifound.org/lab/vesuvius-challenge): 4 findings
 - [Epic Systems](https://whataifound.org/lab/epic-systems): 3 findings
 - [Harmonic](https://whataifound.org/lab/harmonic): 3 findings
-- [MIT](https://whataifound.org/lab/mit): 3 findings
 - [Plasma AI](https://whataifound.org/lab/plasma-ai): 3 findings
 
 ## Findings
@@ -201,7 +201,7 @@ All 4 in one page: https://whataifound.org/topic/materials
 
 ### Mathematics
 
-All 159 in one page: https://whataifound.org/topic/mathematics
+All 161 in one page: https://whataifound.org/topic/mathematics
 
 - [Bounds for higher-dimensional twisted paraproducts in the full open Banach range, machine-checked in Lean](https://whataifound.org/finding/2026-11-26-twisted-paraproducts-banach-range): Polona Durcik and Joris Roos register a Lean proof, generated with GPT-6.2 Astra Ultra and formalized with GPT-6.2 Sol Light, that the \(d\)-linear twisted paraproduct with a Mihlin-Hörmander multiplier is bounded from \(L^{p_1} \times \cdots \times L^{p_d}\) to \(L^p\) for every \(d \ge 2\) and every exponent in the open Banach range, where no bounds at all were known for \(d \ge 4\). (Independent, GPT-6.2 Astra Ultra (proof and formalization blueprint); GPT-6.2 Sol Light (Lean formalization), 2026-11-26; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-11-26-000019)
 - [Lean-checked 81/29 bound for Tuza's triangle-cover conjecture](https://whataifound.org/finding/2026-11-22-tuza-81-29-bound): AI research agents built and directed by Tyler B. Hughes proved, and formalized in Lean against a statement that uses only Mathlib, that every finite simple graph \(G\) satisfies \(\tau(G) \le (81/29)\,\nu(G)\), where \(\nu\) is the largest number of edge-disjoint triangles and \(\tau\) the fewest edges meeting every triangle, improving the bound of \(165/59\) posted by Sichen Wang in September 2026. (Independent (mathdiscoveries.org), AI research agents built by Tyler B. Hughes; the underlying models are not named, 2026-11-22; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-11-22-000018)
@@ -261,6 +261,8 @@ All 159 in one page: https://whataifound.org/topic/mathematics
 - [Massive continuum limit of the two-dimensional O(3) model](https://whataifound.org/finding/2026-10-06-o3-model-mass-gap): OpenAI manuscripts claim to construct the continuum limit of the two-dimensional O(3) sigma model as an interacting relativistic quantum field theory with a unique vacuum and a positive mass gap, the long-standing simpler analogue of the Yang-Mills mass gap problem, and to prove exponential decay of correlations in the classical O(n) models for n at least 3 at every temperature. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led; also listed at: vibemathed o3-sigma-model-continuum-limit-mass-gap)
 - [Proof of Barnette's conjecture on Hamiltonian cycles in cubic bipartite planar graphs](https://whataifound.org/finding/2026-10-06-barnette-conjecture): An OpenAI manuscript claims that every cubic, bipartite, planar, 3-connected graph has a Hamiltonian cycle, proving a conjecture recorded in 1969, with a Lean formalization of the full statement attached. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led; open-problem record: MathDB 316016; also listed at: vibemathed barnette-conjecture)
 - [Shelah's eventual categoricity conjecture for abstract elementary classes](https://whataifound.org/finding/2026-10-06-shelah-eventual-categoricity): An OpenAI manuscript claims a ZFC proof of Shelah's eventual categoricity conjecture, that an abstract elementary class categorical in one sufficiently large cardinal is categorical in every larger one, a statement for which Christian Espíndola has had a claimed ZFC proof posted since 2019. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led; open-problem record: MathDB 389081; also listed at: vibemathed shelah-eventual-categoricity-conjecture)
+- [A second AI-generated proof of the Courtade-Kumar conjecture, in OpenAI's math release, with a Lean statement](https://whataifound.org/finding/2026-10-06-courtade-kumar-openai): OpenAI's October 2026 math release includes a manuscript, credited to an unreleased internal model with no human author, proving that no Boolean function of uniform bits passed through binary symmetric noise carries more than \(1 - h_2(\varepsilon)\) bits about the noisy output, as Courtade and Kumar conjectured, together with a sharper bound for biased functions and a Lean statement checked by Comparator. (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led; also listed at: vibemathed courtade-kumar-conjecture)
+- [Pointwise convergence of multiple ergodic averages of every length for mixing transformations, in OpenAI's math release](https://whataifound.org/finding/2026-10-06-pointwise-multiple-ergodic-averages-mixing): A manuscript in OpenAI's October 2026 math release, credited to an unreleased internal model with no human author, proves that for every invertible mixing measure-preserving transformation \(T\) and bounded functions \(f_1, \ldots, f_n\), the averages \(N^{-1}\sum_{k \le N} \prod_j f_j(T^{jk}x)\) converge almost everywhere to the product of the integrals, for every length \(n\). (OpenAI, Unreleased internal OpenAI model, not named in the release, 2026-10-06; verification: Claimed; autonomy: AI-led; also listed at: vibemathed pointwise-multiple-ergodic-averages-mixing)
 - [Kannan–Lovász–Simonovits conjecture proved in two preprints posted the same day](https://whataifound.org/finding/2026-10-04-kls-conjecture): Two preprints posted on 4 October 2026, one by Bizeul, Klartag and Lehec and one by Song and Zhang, prove the Kannan–Lovász–Simonovits conjecture that every isotropic log-concave measure satisfies a Poincaré inequality with a dimension-free constant, and both say AI systems produced much of the mathematics. (Independent, ChatGPT, version not stated (Bizeul, Klartag and Lehec); GPT-6 Astra, GPT-5.6 Sol, Claude Fable 5 and Fable 5.1 (Song and Zhang), 2026-10-04; verification: Author verified; autonomy: Collaborative; open-problem record: MathDB 363363; also listed at: vibemathed kannan-lovasz-simonovits-conjecture)
 - [Optimal packings of one to seven unit squares in a circle, proved in Lean](https://whataifound.org/finding/2026-10-02-squares-in-circle-packings): Machine-checked proofs of the smallest circle that holds \(n\) unit squares, and of every packing that attains it, for \(n = 1\) to \(7\); for five, six and seven squares no earlier proof of optimality was known. (Independent, ChatGPT (GPT-6 Pro) and Claude Opus 5 and 5.5, 2026-10-02; verification: Formally verified; autonomy: AI-led; machine-checked record: Palomar PALOMAR-2026-10-02-000002)
 - [Closed form for the anisotropic Watson integral of the cubic lattice](https://whataifound.org/finding/2026-10-01-anisotropic-watson-integral): The return probability of a random walk on the cubic lattice with three unequal hopping rates, open since Watson's 1939 solution of the symmetric case, is given in closed form through periods of a genus-two curve, with a proof that no formula in elliptic integrals exists for generic rates. (Independent, Claude (the announcement names Claude Fable 5), 2026-10-01; verification: Claimed; autonomy: AI-assisted)

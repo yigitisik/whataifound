@@ -16548,5 +16548,101 @@
       "formalization"
     ],
     "added": "2026-11-26"
+  },
+  {
+    "id": "2026-10-06-courtade-kumar-openai",
+    "title": "A second AI-generated proof of the Courtade-Kumar conjecture, in OpenAI's math release, with a Lean statement",
+    "claim": "OpenAI's October 2026 math release includes a manuscript, credited to an unreleased internal model with no human author, proving that no Boolean function of uniform bits passed through binary symmetric noise carries more than \\(1 - h_2(\\varepsilon)\\) bits about the noisy output, as Courtade and Kumar conjectured, together with a sharper bound for biased functions and a Lean statement checked by Comparator.",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "year_posed": 2013,
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "The manuscript, dated 24 September 2026, proves a sharp contraction for arbitrary soft binary channels \\(u\\) on the uniform cube: at a fixed initial information \\(I(u)\\), noise with correlation \\(\\rho\\) reduces it at least as fast as it reduces a single noisy coordinate, and coordinates attain equality. The Boolean case gives the Courtade-Kumar inequality, and keeping the output entropy gives a curve strictly below \\(1 - h_2(\\varepsilon)\\) for nonconstant biased functions; a third theorem is a mean-dependent entropy-production bound. It follows the local-to-global differential program of Chen, Gohari and Nair, solving an arbitrary-mean joining problem with an explicit three-point optimizer, two entropy capacities and a common-output thinning inequality, then lifting by induction on dimension and integrating along the noise semigroup. The Lean scope note for family 119 links Comparator statements for the inequality with attainment and for the soft-channel contraction.",
+    "novelty_check": "Read the manuscript's Section 1.1 and the Lean scope note lean/docs/119.md on 2026-11-26. The manuscript cites the three September 2026 proofs, Chen, Gohari, Javanmard, Lin, Mirrokni, Nair and Woodruff (arXiv 2609.24931, 21 September), Ky and Tran (2609.24184, 21 September) and Mahdavifar and Beirami (2609.26444, 22 September), plus a September preprint by Kramer and Saglam, and says Lemma 9.2 of the first already yields its Theorem 1.1 and Corollary 1.2 when the initial information is retained. This registry records the first as 2026-09-21-courtade-kumar-conjecture. vibemathed lists this manuscript as courtade-kumar-conjecture.",
+    "caveats": "Graded claimed, like the other families split from this release: OpenAI's formalization catalogue records review as unchecked and nobody outside OpenAI is on record as having read the proof or run the Comparator challenges. It is not the first proof of the conjecture; at least three were posted in September 2026 before the release, one of them formally verified in this registry, and by the manuscript's own account its main contraction theorem also follows from a lemma of that earlier paper, so what is new is the route and the mean-dependent entropy-production bound. Autonomy is ai-led for the same reasons as the other families from this release: the README says the manuscripts were produced by the model under a fixed procedure, with humans choosing the problems and building the pipeline.",
+    "sources": [
+      {
+        "label": "Sharp binary-information contraction on the discrete cube (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Sharp-binary-information-contraction-on-the-discrete-cube-September-24-2026/main.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: openai/math Lean scope and Comparator links for family 119",
+        "url": "https://github.com/openai/math/blob/main/lean/docs/119.md",
+        "kind": "research"
+      },
+      {
+        "label": "GitHub: openai/math formalization catalogue, review status unchecked",
+        "url": "https://github.com/openai/math/blob/main/lean/formalization.yaml",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "courtade-kumar-conjecture",
+        "url": "https://vibemathed.com/problem/courtade-kumar-conjecture"
+      }
+    ],
+    "tags": [
+      "information-theory",
+      "boolean-functions",
+      "analysis-of-boolean-functions",
+      "lean",
+      "argument"
+    ],
+    "added": "2026-11-26"
+  },
+  {
+    "id": "2026-10-06-pointwise-multiple-ergodic-averages-mixing",
+    "title": "Pointwise convergence of multiple ergodic averages of every length for mixing transformations, in OpenAI's math release",
+    "claim": "A manuscript in OpenAI's October 2026 math release, credited to an unreleased internal model with no human author, proves that for every invertible mixing measure-preserving transformation \\(T\\) and bounded functions \\(f_1, \\ldots, f_n\\), the averages \\(N^{-1}\\sum_{k \\le N} \\prod_j f_j(T^{jk}x)\\) converge almost everywhere to the product of the integrals, for every length \\(n\\).",
+    "field": "mathematics",
+    "date": "2026-10-06",
+    "lab": "OpenAI",
+    "model": "Unreleased internal OpenAI model, not named in the release",
+    "verification": "claimed",
+    "autonomy": "ai-led",
+    "detail": "Since Furstenberg's ergodic proof of Szemerédi's theorem these averages have been central to ergodic Ramsey theory. Host and Kra, and Ziegler, proved convergence in \\(L^2\\) for every length, but almost-everywhere convergence was known only for two functions (Bourgain) and for longer averages under extra structure: K-systems, weakly mixing systems with restrictions on spectrum or joinings, and Huang, Shao and Ye's distal systems. The manuscript, dated 4 October 2026, needs neither a standard probability space nor a mixing rate. It passes to a suspension flow, builds probability laws from measurably chosen bad averaging lengths, and keeps a three-group independence structure as the number of factors grows, by minimising the number of slots carrying a nonzero centred correlation and using an energy-increment extension adapted from a companion fourfold result. It takes two other release results as inputs: that ordinary mixing implies mixing of all orders, Rokhlin's problem, and an oscillation estimate for triple averages at distinct slopes.",
+    "novelty_check": "Read the manuscript's Section 1.1 on 2026-11-26. It cites Bourgain for two factors, Host and Kra and Ziegler for norm convergence, and the K-system, weakly mixing and distal results, and presents nothing earlier for mixing systems of arbitrary length; its companions in the same release treat lengths three and four. vibemathed records it as pointwise-multiple-ergodic-averages-mixing. This registry's closest entries, 2026-10-18-two-commuting-ergodic-averages and 2026-08-27-norm-variation-ergodic-averages-lean, concern commuting transformations and norm variation, different questions.",
+    "caveats": "Graded claimed: OpenAI's catalogue lists no Lean formalization for this family, nobody outside OpenAI is on record as having read it, and the proof rests on two other unrefereed manuscripts from the same release, including the claimed solution of Rokhlin's multiple-mixing problem, which is not reproduced here and has no entry of its own in this registry. The result is for mixing transformations along consecutive progressions \\(k, 2k, \\ldots, nk\\); it does not settle pointwise convergence on general systems for four or more functions, nor polynomial iterates. Autonomy is ai-led for the same reasons as the other families from this release.",
+    "sources": [
+      {
+        "label": "Pointwise multiple ergodic averages for mixing transformations (PDF)",
+        "url": "https://github.com/openai/math/blob/main/preprints/Pointwise-Multiple-Ergodic-Averages-for-Mixing-Transformations-October-4-2026/multiple-ergodic-averages.pdf",
+        "kind": "research"
+      },
+      {
+        "label": "Rokhlin's multiple-mixing problem for one transformation, the companion input (folder)",
+        "url": "https://github.com/openai/math/tree/main/preprints/Rokhlins-multiple-mixing-problem-for-one-transformation-September-23-2026",
+        "kind": "research"
+      },
+      {
+        "label": "OpenAI: Sharing AI progress in mathematics",
+        "url": "https://openai.com/index/sharing-ai-progress-in-mathematics/",
+        "kind": "announcement"
+      }
+    ],
+    "registrations": [
+      {
+        "registry": "vibemathed",
+        "id": "pointwise-multiple-ergodic-averages-mixing",
+        "url": "https://vibemathed.com/problem/pointwise-multiple-ergodic-averages-mixing"
+      }
+    ],
+    "tags": [
+      "ergodic-theory",
+      "dynamical-systems",
+      "argument"
+    ],
+    "added": "2026-11-26"
   }
 ]

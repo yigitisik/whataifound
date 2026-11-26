@@ -109,6 +109,34 @@
       ]
     },
     {
+      "id": "https://whataifound.org/finding/2026-10-06-courtade-kumar-openai",
+      "url": "https://whataifound.org/finding/2026-10-06-courtade-kumar-openai",
+      "title": "A second AI-generated proof of the Courtade-Kumar conjecture, in OpenAI's math release, with a Lean statement",
+      "content_text": "OpenAI's October 2026 math release includes a manuscript, credited to an unreleased internal model with no human author, proving that no Boolean function of uniform bits passed through binary symmetric noise carries more than 1 − h₂(ε) bits about the noisy output, as Courtade and Kumar conjectured, together with a sharper bound for biased functions and a Lean statement checked by Comparator.  The manuscript, dated 24 September 2026, proves a sharp contraction for arbitrary soft binary channels u on the uniform cube: at a fixed initial information I(u), noise with correlation ρ reduces it at least as fast as it reduces a single noisy coordinate, and coordinates attain equality. The Boolean case gives the Courtade-Kumar inequality, and keeping the output entropy gives a curve strictly below 1 − h₂(ε) for nonconstant biased functions; a third theorem is a mean-dependent entropy-production bound. It follows the local-to-global differential program of Chen, Gohari and Nair, solving an arbitrary-mean joining problem with an explicit three-point optimizer, two entropy capacities and a common-output thinning inequality, then lifting by induction on dimension and integrating along the noise semigroup. The Lean scope note for family 119 links Comparator statements for the inequality with attainment and for the soft-channel contraction.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-11-26T00:00:00+00:00",
+      "tags": [
+        "information-theory",
+        "boolean-functions",
+        "analysis-of-boolean-functions",
+        "lean",
+        "argument"
+      ]
+    },
+    {
+      "id": "https://whataifound.org/finding/2026-10-06-pointwise-multiple-ergodic-averages-mixing",
+      "url": "https://whataifound.org/finding/2026-10-06-pointwise-multiple-ergodic-averages-mixing",
+      "title": "Pointwise convergence of multiple ergodic averages of every length for mixing transformations, in OpenAI's math release",
+      "content_text": "A manuscript in OpenAI's October 2026 math release, credited to an unreleased internal model with no human author, proves that for every invertible mixing measure-preserving transformation T and bounded functions f₁, …, fₙ, the averages N⁻¹∑_(k ≤ N)∏ⱼfⱼ(Tʲᵏx) converge almost everywhere to the product of the integrals, for every length n.  Since Furstenberg's ergodic proof of Szemerédi's theorem these averages have been central to ergodic Ramsey theory. Host and Kra, and Ziegler, proved convergence in L² for every length, but almost-everywhere convergence was known only for two functions (Bourgain) and for longer averages under extra structure: K-systems, weakly mixing systems with restrictions on spectrum or joinings, and Huang, Shao and Ye's distal systems. The manuscript, dated 4 October 2026, needs neither a standard probability space nor a mixing rate. It passes to a suspension flow, builds probability laws from measurably chosen bad averaging lengths, and keeps a three-group independence structure as the number of factors grows, by minimising the number of slots carrying a nonzero centred correlation and using an energy-increment extension adapted from a companion fourfold result. It takes two other release results as inputs: that ordinary mixing implies mixing of all orders, Rokhlin's problem, and an oscillation estimate for triple averages at distinct slopes.  Lab: OpenAI. Model: Unreleased internal OpenAI model, not named in the release. Verification: Claimed. Autonomy: AI-led.",
+      "date_published": "2026-10-06T00:00:00+00:00",
+      "date_modified": "2026-11-26T00:00:00+00:00",
+      "tags": [
+        "ergodic-theory",
+        "dynamical-systems",
+        "argument"
+      ]
+    },
+    {
       "id": "https://whataifound.org/finding/2026-04-28-ghz-monochromatic-quantum-graph-no-go",
       "url": "https://whataifound.org/finding/2026-04-28-ghz-monochromatic-quantum-graph-no-go",
       "title": "No-go theorem for high-dimensional photonic GHZ states from pair sources, proof found by AlphaProof Nexus",
